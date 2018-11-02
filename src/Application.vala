@@ -20,9 +20,11 @@
  
 namespace Pebbles {
     public class PebblesApp : Gtk.Application {
+        
+        Pebbles.Settings settings;
         public PebblesApp () {
             Object (
-                application_id: "com.github.SubhadeepJasu.Pebbles",
+                application_id: "com.github.SubhadeepJasu.pebbles",
                 flags: ApplicationFlags.FLAGS_NONE
             );
         }
