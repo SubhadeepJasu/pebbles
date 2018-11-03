@@ -26,6 +26,9 @@ namespace Pebbles {
         Granite.ModeSwitch dark_mode_switch;
         Pebbles.Settings settings;
         Gtk.Button angle_unit_button;
+        Gtk.Grid shift_grid;
+        Gtk.Label shift_label;
+        Gtk.Switch shift_switch;
         
         public MainWindow () {
             load_settings ();
@@ -57,12 +60,19 @@ namespace Pebbles {
             // Create angle unit button
             angle_unit_button = new Gtk.Button.with_label ("DEG");
             angle_unit_button.margin = 12;
-            angle_unit_button_label ();
+            angle_unit_button_label_update ();
             angle_unit_button.clicked.connect (() => {
                 settings.switch_angle_unit ();
-                angle_unit_button_label ();
+                angle_unit_button_label_update ();
             });
             
+            // Create shift switcher
+            shift_grid = new Gtk.Grid ();
+            shift_label = new Gtk.Label ("\tShift ");
+            shift_switch = new Gtk.Switch ();
+            shift_grid.attach (shift_label, 0, 0, 1, 1);
+            shift_grid.attach (shift_switch, 1, 0, 1, 1);
+            shift_grid.valign = Gtk.Align.CENTER;
             
             // Create headerbar
             headerbar = new Gtk.HeaderBar ();
@@ -70,6 +80,7 @@ namespace Pebbles {
             headerbar.get_style_context ().add_class ("default-decoration");
             headerbar.show_close_button = true;
             headerbar.pack_start (angle_unit_button);
+            headerbar.pack_start (shift_grid);
             headerbar.pack_end (dark_mode_switch);
             this.set_titlebar (headerbar);
             
@@ -80,7 +91,7 @@ namespace Pebbles {
             // Show all the stuff
             this.show_all ();
         }
-        private void angle_unit_button_label () {
+        private void angle_unit_button_label_update () {
             if (settings.global_angle_unit == Pebbles.GlobalAngleUnit.DEG) {
                 angle_unit_button.label = "DEG";
             }
