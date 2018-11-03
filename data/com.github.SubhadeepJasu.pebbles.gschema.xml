@@ -1,0 +1,55 @@
+<schemalist>
+    <enum id="com.github.SubhadeepJasu.pebbles.global-angle-unit">
+		<value nick="deg"  value="0" />
+		<value nick="rad"  value="1" />
+		<value nick="grad" value="2" />
+    </enum>
+    <enum id="com.github.SubhadeepJasu.pebbles.constant-key-index">
+		<value nick="euler"  		value="0" />
+		<value nick="archimedes"  	value="1" />
+		<value nick="imaginary" 	value="2" />
+		<value nick="golden_ratio"  value="3" />
+		<value nick="euler_masch"	value="4" />
+		<value nick="conway"		value="5" />
+		<value nick="khinchin"		value="6" />
+		<value nick="feigen_alpha"	value="7" />
+		<value nick="feigen_delta"	value="8" />
+		<value nick="apery"			value="9" />
+    </enum>
+    <schema path="/com/github/SubhadeepJasu/pebbles/" id="com.github.SubhadeepJasu.pebbles" gettext-domain="com.github.SubhadeepJasu.pebbles">
+		<key name="window-x" type="i">
+			<default>-1</default>
+			<summary>The saved x-position of the window.</summary>
+			<description>The saved x-position of the window.</description>
+		</key>
+		<key name="window-y" type="i">
+			<default>-1</default>
+			<summary>The saved y-position of the window.</summary>
+			<description>The saved y-position of the window.</description>
+		</key>
+		<key name="shift-alternative-function" type="b">
+			<default>false</default>
+			<summary>Use Alternative Functions</summary>
+			<description>Use alternative functions and values for buttons.</description>
+		</key>
+		<key name="global-angle-unit" enum="com.github.SubhadeepJasu.pebbles.global-angle-unit">
+			<default>false</default>
+			<summary>Choose the Global Angle Unit</summary>
+			<description>Select the angle unit to use in all modes of this app.</description>
+		</key>
+		<key name="use-dark-theme" type="b">
+			<default>false</default>
+			<summary>Use Dark Theme</summary>
+			<description>Use dark theme.</description>
+		</key>
+		<key name="constant-key-value1" enum="com.github.SubhadeepJasu.pebbles.constant-key-index">
+			<default>0</default>
+			<summary>Choose Constant 1</summary>
+			<description>Choose constant value for the button.</description>
+		</key>
+		<key name="constant-key-value2" enum="com.github.SubhadeepJasu.pebbles.constant-key-index">
+			<default>1</default>
+			<summary>Choose Constant 2</summary>
+			<description>Choose constant value for the button when shift is ON.</description>
+		</key>
+</schemalist>

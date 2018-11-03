@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2018 Subhadeep Jasu <subhajasu@gmail.com> -->
+<component type="desktop">
+  <id>com.github.SubhadeepJasu.Pebbles</id>
+  <metadata_license>CC0</metadata_license>
+  <name>Pebbles</name>
+  <summary>Perform advanced calculations with ease</summary>
+  <description>
+    <p>An advanced calculator that helps you with complicated calculations in your homework</p>
+    <p>Features</p>
+    <ul>
+        <li>Scientific mode</li>
+        <li>Programmer mode</li>
+        <li>Calculus mode</li>
+        <li>Statistics with standard deviation and probability</li>
+        <li>Some common unit converters</li>
+    </ul>
+  </description>
+  <custom>
+    <value key="x-appcenter-color-primary">#d1ff82</value>
+    <value key="x-appcenter-color-primary-text">rgb(0,0,0)</value>
+    <value key="x-appcenter-suggested-price">0</value>
+  </custom>
+  <developer_name>Subhadeep Jasu</developer_name>
+  <url type="homepage">https://github.com/SubhadeepJasu/pebbles</url>
+  <url type="bugtracker">https://github.com/SubhadeepJasu/pebbles/issues</url>
+  <url type="help">https://github.com/SubhadeepJasu/pebbles/issues</url>
+  <update_contact>subhajasu@gmail.com</update_contact>
+</component>

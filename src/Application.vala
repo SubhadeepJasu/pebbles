@@ -27,8 +27,12 @@ namespace Pebbles {
                 application_id: "com.github.SubhadeepJasu.pebbles",
                 flags: ApplicationFlags.FLAGS_NONE
             );
+            settings = Settings.get_default ();
         }
-        
+
+        [CCode (array_length = false, array_null_terminated = true)]
+        string[] ? arg_files = null;
+
         protected override void activate () {
             Gtk.ApplicationWindow main_window = new Gtk.ApplicationWindow (this);
             main_window.default_height = 480;
@@ -45,7 +49,7 @@ namespace Pebbles {
             main_window.add (button_hello);
             main_window.show_all();
         }
-        
+
         public static int main (string[] args) {
             var app = new PebblesApp ();
             return app.run (args);

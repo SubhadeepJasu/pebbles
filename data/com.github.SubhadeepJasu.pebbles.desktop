@@ -1,0 +1,18 @@
+[Desktop Entry]
+Name=Pebbles
+GenericName=Pebbles Calculator App
+Comment=Perform advanced calculations with ease
+Categories=Utility;Calculator;GTK;Accessories;
+Exec=com.github.SubhadeepJasu.pebbles
+Icon=accessories-calculator
+Terminal=false
+Type=Application
+Keywords=calculator;scientific;programmer;statistics;converter;convert;calculate;boolean
+X-GNOME-Gettext-Domain=com.github.SubhadeepJasu.pebbles
+X-GNOME-UsesNotifications=true
+Actions=GetLastResult;
+
+[Desktop Action GetLastResult]
+Name=Get last answer
+Exec=com.github.SubhadeepJasu.pebbles --last_result
+Icon=document-open-recent-symbolic
