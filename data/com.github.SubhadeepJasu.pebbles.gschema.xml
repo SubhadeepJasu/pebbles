@@ -33,7 +33,7 @@
 			<description>Use alternative functions and values for buttons.</description>
 		</key>
 		<key name="global-angle-unit" enum="com.github.SubhadeepJasu.pebbles.global-angle-unit">
-			<default>false</default>
+			<default>"deg"</default>
 			<summary>Choose the Global Angle Unit</summary>
 			<description>Select the angle unit to use in all modes of this app.</description>
 		</key>
@@ -43,13 +43,14 @@
 			<description>Use dark theme.</description>
 		</key>
 		<key name="constant-key-value1" enum="com.github.SubhadeepJasu.pebbles.constant-key-index">
-			<default>0</default>
+			<default>"euler"</default>
 			<summary>Choose Constant 1</summary>
 			<description>Choose constant value for the button.</description>
 		</key>
 		<key name="constant-key-value2" enum="com.github.SubhadeepJasu.pebbles.constant-key-index">
-			<default>1</default>
+			<default>"archimedes"</default>
 			<summary>Choose Constant 2</summary>
 			<description>Choose constant value for the button when shift is ON.</description>
 		</key>
+		</schema>
 </schemalist>
