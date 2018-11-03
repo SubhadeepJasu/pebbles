@@ -70,9 +70,11 @@ namespace Pebbles {
             shift_grid = new Gtk.Grid ();
             shift_label = new Gtk.Label ("\tShift ");
             shift_switch = new Gtk.Switch ();
+            shift_switch.get_style_context ().add_class (Granite.STYLE_CLASS_MODE_SWITCH);
             shift_grid.attach (shift_label, 0, 0, 1, 1);
             shift_grid.attach (shift_switch, 1, 0, 1, 1);
             shift_grid.valign = Gtk.Align.CENTER;
+            shift_grid.column_spacing = 6;
             
             // Create headerbar
             headerbar = new Gtk.HeaderBar ();
