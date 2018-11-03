@@ -33,22 +33,16 @@ namespace Pebbles {
         [CCode (array_length = false, array_null_terminated = true)]
         string[] ? arg_files = null;
 
+        public MainWindow mainwindow { get; private set; default = null; }
         protected override void activate () {
-            Gtk.ApplicationWindow main_window = new Gtk.ApplicationWindow (this);
-            main_window.default_height = 480;
-            main_window.default_width  = 640;
-            main_window.title = "Pebbles";
-            
-            var button_hello = new Gtk.Button.with_label ("Hello World!");
-            button_hello.margin = 12;
-            button_hello.clicked.connect (() => {
-                button_hello.label = "Hi!";
-                button_hello.sensitive = false;
-            });
-            
-            main_window.add (button_hello);
-            main_window.show_all();
+            if (mainwindow == null) {
+                mainwindow = new MainWindow ();
+                mainwindow.application = this;
+            }
+            mainwindow.present ();
         }
+        
+        
 
         public static int main (string[] args) {
             var app = new PebblesApp ();
