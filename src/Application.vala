@@ -20,18 +20,27 @@
  
 namespace Pebbles {
     public class PebblesApp : Gtk.Application {
-        
         Pebbles.Settings settings;
+
+        static PebblesApp _instance = null;
+        public static PebblesApp instance {
+            get {
+                if (_instance == null) {
+                    _instance = new PebblesApp ();
+                }
+                return _instance;
+            }
+        }
+
         public PebblesApp () {
             Object (
                 application_id: "com.github.SubhadeepJasu.pebbles",
-                flags: ApplicationFlags.FLAGS_NONE
+                flags: ApplicationFlags.HANDLES_COMMAND_LINE
+                //flags: ApplicationFlags.FLAGS_NONE
             );
+            //this.flags |= ApplicationFlags.HANDLES_COMMAND_LINE;
             settings = Settings.get_default ();
         }
-
-        [CCode (array_length = false, array_null_terminated = true)]
-        string[] ? arg_files = null;
 
         public MainWindow mainwindow { get; private set; default = null; }
         protected override void activate () {
@@ -41,8 +50,46 @@ namespace Pebbles {
             }
             mainwindow.present ();
         }
-        
-        
+
+        public override int command_line (ApplicationCommandLine cmd) {
+            command_line_interpreter (cmd);
+            return 0;
+        }
+
+        private void command_line_interpreter (ApplicationCommandLine cmd) {
+            string[] cmd_args = cmd.get_arguments ();
+            unowned string[] args = cmd_args;
+            
+            bool mem_to_clip = false;
+            
+            GLib.OptionEntry [] option = new OptionEntry [2];
+            option [0] = { "last_result", 0, 0, OptionArg.NONE, ref mem_to_clip, "Get last answer", null };
+            option [1] = { null };
+            
+            var option_context = new OptionContext ("actions");
+            option_context.add_main_entries (option, null);
+            try {
+                option_context.parse (ref args);
+            } catch (Error err) {
+                warning (err.message);
+                return;
+            }
+            
+            if (mem_to_clip) {
+                if (mainwindow != null) {
+                    mainwindow.answer_notify ();
+                    stdout.printf ("[STATUS]  Pebbles: Last answer copied to clipboard.\n");
+                    activate ();
+                }
+                else if (mainwindow == null) {
+                    stdout.printf ("[ERROR]   Pebbles: Action ignored. App UI not running\n");
+                    return;
+                }
+            }
+            else {
+                activate ();
+            }
+        }
 
         public static int main (string[] args) {
             var app = new PebblesApp ();

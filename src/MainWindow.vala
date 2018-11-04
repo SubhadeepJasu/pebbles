@@ -20,7 +20,6 @@
  
 namespace Pebbles {
     public class MainWindow : Gtk.Window {
-        
         // CONTROLS
         Gtk.HeaderBar headerbar;
         Granite.ModeSwitch dark_mode_switch;
@@ -30,17 +29,24 @@ namespace Pebbles {
         Gtk.Label shift_label;
         Gtk.Switch shift_switch;
         Gtk.MenuButton app_menu;
-        
+        Gtk.Button history_button;
+
         // VIEWS
         Pebbles.ScientificView scientific_view;
         Pebbles.ProgrammerView programmer_view;
-        Pebbles.CalculusView calculus_view;
+        Pebbles.CalculusView   calculus_view;
         
+        // NOTIFICATION
+        Notification desktop_notification;
+        
+        // History
+        List<string> history_stack;
+
         public MainWindow () {
             load_settings ();
             make_ui ();
         }
-        
+
         construct {
             settings = Pebbles.Settings.get_default ();
             settings.notify["use-dark-theme"].connect (() => {
@@ -49,6 +55,8 @@ namespace Pebbles {
             this.delete_event.connect (() => {
                 save_settings ();
             });
+            history_stack = new List<string> ();
+            history_stack.append ("3.14159265");
         }
         
         public void make_ui () {
@@ -95,6 +103,11 @@ namespace Pebbles {
             
             app_menu.popup = settings_menu;
             
+            // Create History Button
+            history_button = new Gtk.Button ();
+            history_button.valign = Gtk.Align.CENTER;
+            history_button.set_image (new Gtk.Image.from_icon_name ("document-open-recent-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
+            
             // Create headerbar
             headerbar = new Gtk.HeaderBar ();
             headerbar.title = ("Pebbles");
@@ -102,6 +115,7 @@ namespace Pebbles {
             headerbar.show_close_button = true;
             headerbar.pack_start (angle_unit_button);
             headerbar.pack_start (shift_grid);
+            headerbar.pack_end (history_button);
             headerbar.pack_end (app_menu);
             headerbar.pack_end (dark_mode_switch);
             this.set_titlebar (headerbar);
@@ -171,6 +185,32 @@ namespace Pebbles {
                 scientific_view.handle_inputs (event.str);
                 return true;
             });
+        }
+        
+        public void answer_notify () {
+            if (desktop_notification == null) {
+                desktop_notification = new Notification ("");
+            }
+            if (history_stack.length () > 0) {
+                unowned List<string>? last_answer = history_stack.last ();
+                desktop_notification.set_title ("Copied to Clipboard");
+                desktop_notification.set_body (last_answer.data);
+                this.application.send_notification (PebblesApp.instance.application_id, desktop_notification);
+
+                stdout.printf ("[STATUS]  Pebbles: Notification sent\n");
+                
+                // Manage clipboard
+                Gdk.Display display = this.get_display ();
+                Gtk.Clipboard clipboard = Gtk.Clipboard.get_for_display (display, Gdk.SELECTION_CLIPBOARD);
+                clipboard.set_text (last_answer.data, -1);
+            }
+            else {
+                desktop_notification.set_title ("History Empty!");
+                desktop_notification.set_body ("Nothing has been calculated yet");
+                this.application.send_notification (PebblesApp.instance.application_id, desktop_notification);
+
+                stdout.printf ("[WARNING] Pebbles: History is empty\n");
+            }
         }
         private void angle_unit_button_label_update () {
             if (settings.global_angle_unit == Pebbles.GlobalAngleUnit.DEG) {
