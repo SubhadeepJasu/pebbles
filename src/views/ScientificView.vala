@@ -20,12 +20,19 @@
  
 namespace Pebbles {
     public class ScientificView : Gtk.Grid {
+        List<string> input_expression;
         Gtk.Label sci_placeholder;
         construct {
             sci_placeholder = new Gtk.Label ("-- Scientific View --");
             halign = Gtk.Align.CENTER;
             valign = Gtk.Align.CENTER;
             attach (sci_placeholder, 0, 0, 1, 1);
+            
+            // Handle inputs
+            input_expression = new List <string> ();
+        }
+        public void handle_inputs (string in_exp) {
+            sci_placeholder.label = in_exp;
         }
     }
 }

@@ -30,6 +30,14 @@ namespace Pebbles {
         Gtk.Label shift_label;
         Gtk.Switch shift_switch;
         
+        // VIEWS
+        Pebbles.ScientificView scientific_view;
+        Pebbles.ProgrammerView programmer_view;
+        Pebbles.CalculusView calculus_view;
+        
+        // VIEW CONTAINERS
+        Gtk.Box common_view;
+        
         public MainWindow () {
             load_settings ();
             make_ui ();
@@ -86,12 +94,71 @@ namespace Pebbles {
             headerbar.pack_end (dark_mode_switch);
             this.set_titlebar (headerbar);
             
+            // Create Item Pane
+            var scientific_item = new Granite.Widgets.SourceList.Item ("Scientific");
+            var programmer_item = new Granite.Widgets.SourceList.Item ("Programmer");
+            var calculus_item   = new Granite.Widgets.SourceList.Item ("Calculus");
+            
+            var calc_category = new Granite.Widgets.SourceList.ExpandableItem ("Calculator");
+            calc_category.expand_all ();
+            calc_category.add (scientific_item);
+            calc_category.add (programmer_item);
+            calc_category.add (calculus_item);
+            
+            var item_list = new Granite.Widgets.SourceList ();
+            item_list.root.add (calc_category);
+            
+            // Create Views
+            scientific_view = new Pebbles.ScientificView ();
+            programmer_view = new Pebbles.ProgrammerView ();
+            calculus_view   = new Pebbles.CalculusView ();
+            
+            // Create Views Pane
+            common_view = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+            common_view.valign = Gtk.Align.CENTER;
+            common_view.halign = Gtk.Align.CENTER;
+            common_view.add (scientific_view);
+
+            //Create Panes
+            var paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
+            paned.position = 120;
+            paned.position_set = true;
+            paned.pack1 (item_list, false, false);
+            paned.pack2 (common_view, false, false);
+
+            // Create View Events
+            item_list.item_selected.connect ((item) => {
+                if (item == scientific_item) {
+                    common_view.foreach ((element) => common_view.remove (element));
+                    common_view.add (scientific_view);
+                }
+                else if (item == programmer_item) {
+                    common_view.foreach ((element) => common_view.remove (element));
+                    common_view.add (programmer_view);
+                }
+                else if (item == calculus_item) {
+                    common_view.foreach ((element) => common_view.remove (element));
+                    common_view.add (calculus_view);
+                }
+                this.show_all ();
+            });
+            scientific_item.activated ();
+
             // Set up window attributes
             this.set_default_size (900, 600);
-            this.set_size_request (750, 500);
-            
+            this.set_size_request (900, 600);
+            input_handler ();
+
             // Show all the stuff
+            this.add (paned);
+            this.set_resizable (false);
             this.show_all ();
+        }
+        private void input_handler () {
+            this.key_press_event.connect ((event) => {
+                scientific_view.handle_inputs (event.str);
+                return true;
+            });
         }
         private void angle_unit_button_label_update () {
             if (settings.global_angle_unit == Pebbles.GlobalAngleUnit.DEG) {
@@ -101,7 +168,7 @@ namespace Pebbles {
                 angle_unit_button.label = "RAD";
             }
             else if (settings.global_angle_unit == Pebbles.GlobalAngleUnit.GRAD) {
-                angle_unit_button.label = "GRAD";
+                angle_unit_button.label = "GRA";
             }
         }
         private void load_settings () {
