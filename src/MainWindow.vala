@@ -29,6 +29,7 @@ namespace Pebbles {
         Gtk.Grid shift_grid;
         Gtk.Label shift_label;
         Gtk.Switch shift_switch;
+        Gtk.MenuButton app_menu;
         
         // VIEWS
         Pebbles.ScientificView scientific_view;
@@ -81,6 +82,19 @@ namespace Pebbles {
             shift_grid.valign = Gtk.Align.CENTER;
             shift_grid.column_spacing = 6;
             
+            // Create App Menu
+            app_menu = new Gtk.MenuButton ();
+            app_menu.valign = Gtk.Align.CENTER;
+            app_menu.set_image (new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
+            
+            var settings_menu = new Gtk.Menu ();
+            var menu_item_constants = new Gtk.MenuItem.with_label ("Configure Constant Button");
+
+            settings_menu.append (menu_item_constants);
+            settings_menu.show_all();
+            
+            app_menu.popup = settings_menu;
+            
             // Create headerbar
             headerbar = new Gtk.HeaderBar ();
             headerbar.title = ("Pebbles");
@@ -88,6 +102,7 @@ namespace Pebbles {
             headerbar.show_close_button = true;
             headerbar.pack_start (angle_unit_button);
             headerbar.pack_start (shift_grid);
+            headerbar.pack_end (app_menu);
             headerbar.pack_end (dark_mode_switch);
             this.set_titlebar (headerbar);
             
