@@ -79,7 +79,6 @@ namespace Pebbles {
                 if (mainwindow != null) {
                     mainwindow.answer_notify ();
                     stdout.printf ("[STATUS]  Pebbles: Last answer copied to clipboard.\n");
-                    activate ();
                 }
                 else if (mainwindow == null) {
                     stdout.printf ("[ERROR]   Pebbles: Action ignored. App UI not running\n");
