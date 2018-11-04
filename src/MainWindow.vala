@@ -35,9 +35,6 @@ namespace Pebbles {
         Pebbles.ProgrammerView programmer_view;
         Pebbles.CalculusView calculus_view;
         
-        // VIEW CONTAINERS
-        Gtk.Box common_view;
-        
         public MainWindow () {
             load_settings ();
             make_ui ();
@@ -114,7 +111,7 @@ namespace Pebbles {
             calculus_view   = new Pebbles.CalculusView ();
             
             // Create Views Pane
-            common_view = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+            var common_view = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
             common_view.valign = Gtk.Align.CENTER;
             common_view.halign = Gtk.Align.CENTER;
             common_view.add (scientific_view);
