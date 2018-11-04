@@ -147,7 +147,7 @@ namespace Pebbles {
 
             //Create Panes
             var paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
-            paned.position = 120;
+            paned.position = 170;
             paned.position_set = true;
             paned.pack1 (item_list, false, false);
             paned.pack2 (common_view, false, false);

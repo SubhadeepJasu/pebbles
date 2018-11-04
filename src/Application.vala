@@ -36,9 +36,7 @@ namespace Pebbles {
             Object (
                 application_id: "com.github.SubhadeepJasu.pebbles",
                 flags: ApplicationFlags.HANDLES_COMMAND_LINE
-                //flags: ApplicationFlags.FLAGS_NONE
             );
-            //this.flags |= ApplicationFlags.HANDLES_COMMAND_LINE;
             settings = Settings.get_default ();
         }
 
