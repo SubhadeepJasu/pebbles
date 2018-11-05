@@ -3,6 +3,7 @@ executable(
     'Application.vala',
     'Settings.vala',
     'MainWindow.vala',
+    'StyledButton.vala',
     'views/CalculusView.vala',
     'views/ProgrammerView.vala',
     'views/ScientificView.vala',

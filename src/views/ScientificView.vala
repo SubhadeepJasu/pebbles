@@ -33,26 +33,48 @@ namespace Pebbles {
         Gtk.Grid button_container_right;
 
         // Input section left buttons
-        Gtk.Button all_clear_button;
-        Gtk.Button del_button;
-        Gtk.Button percent_button;
-        Gtk.Button divide_button;
-        Gtk.Button seven_button;
-        Gtk.Button eight_button;
-        Gtk.Button nine_button;
-        Gtk.Button multiply_button;
-        Gtk.Button four_button;
-        Gtk.Button five_button;
-        Gtk.Button six_button;
-        Gtk.Button subtract_button;
-        Gtk.Button one_button;
-        Gtk.Button two_button;
-        Gtk.Button three_button;
-        Gtk.Button plus_button;
-        Gtk.Button zero_button;
-        Gtk.Button decimal_button;
-        Gtk.Button left_parenthesis_button;
-        Gtk.Button right_parenthesis_button;
+        StyledButton all_clear_button;
+        StyledButton del_button;
+        StyledButton percent_button;
+        StyledButton divide_button;
+        StyledButton seven_button;
+        StyledButton eight_button;
+        StyledButton nine_button;
+        StyledButton multiply_button;
+        StyledButton four_button;
+        StyledButton five_button;
+        StyledButton six_button;
+        StyledButton subtract_button;
+        StyledButton one_button;
+        StyledButton two_button;
+        StyledButton three_button;
+        StyledButton plus_button;
+        StyledButton zero_button;
+        StyledButton decimal_button;
+        StyledButton left_parenthesis_button;
+        StyledButton right_parenthesis_button;
+
+        // Input section right buttons
+        StyledButton sqr_button;
+        StyledButton log_ten_button;
+        StyledButton log_e_button;
+        StyledButton memory_plus_button;
+        StyledButton sin_button;
+        StyledButton sinh_button;
+        StyledButton mod_button;
+        StyledButton memory_minus_button;
+        StyledButton cos_button;
+        StyledButton cosh_button;
+        StyledButton log_power_button;
+        StyledButton memory_recall_button;
+        StyledButton tan_button;
+        StyledButton tanh_button;
+        StyledButton perm_comb_button;
+        StyledButton memory_clear_button;
+        StyledButton fact_button;
+        StyledButton constant_button;
+        StyledButton last_answer_button;
+        StyledButton result_button;
 
         public ScientificView () {
             // Make UI
@@ -91,29 +113,41 @@ namespace Pebbles {
             
             // Make Input section on the right
             button_container_right = new Gtk.Grid ();
-            button_container_right.attach (new Gtk.Button.with_label ("3"), 0, 0, 1, 1);
+            button_container_right.height_request = 250;
+            button_container_right.margin_start = 8;
+            button_container_right.margin_end = 8;
+            button_container_right.margin_bottom = 8;
+            button_container_right.column_spacing = 8;
+            button_container_right.row_spacing = 8;
             
             // Make buttons on the left
-            all_clear_button = new Gtk.Button.with_label ("C");
-            del_button = new Gtk.Button.with_label ("Del");
-            percent_button = new Gtk.Button.with_label ("%");
-            divide_button = new Gtk.Button.with_label ("\xC3\xB7");
-            seven_button = new Gtk.Button.with_label ("7");
-            eight_button = new Gtk.Button.with_label ("8");
-            nine_button = new Gtk.Button.with_label ("9");
-            multiply_button = new Gtk.Button.with_label ("\xC3\x97");
-            four_button = new Gtk.Button.with_label ("4");
-            five_button = new Gtk.Button.with_label ("5");
-            six_button = new Gtk.Button.with_label ("6");
-            subtract_button = new Gtk.Button.with_label ("\xE2\x88\x92");
-            one_button = new Gtk.Button.with_label ("1");
-            two_button = new Gtk.Button.with_label ("2");
-            three_button = new Gtk.Button.with_label ("3");
-            plus_button = new Gtk.Button.with_label ("+");
-            zero_button = new Gtk.Button.with_label ("0");
-            decimal_button = new Gtk.Button.with_label (".");
-            left_parenthesis_button = new Gtk.Button.with_label ("(");
-            right_parenthesis_button = new Gtk.Button.with_label (")");
+            all_clear_button = new StyledButton ("C");
+            all_clear_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
+            del_button = new StyledButton ("Del");
+            del_button.sensitive = false;
+            percent_button = new StyledButton ("%");
+            percent_button.get_style_context ().add_class ("h3");
+            divide_button = new StyledButton ("\xC3\xB7");
+            divide_button.get_style_context ().add_class ("h3");
+            seven_button = new StyledButton ("7");
+            eight_button = new StyledButton ("8");
+            nine_button = new StyledButton ("9");
+            multiply_button = new StyledButton ("\xC3\x97");
+            multiply_button.get_style_context ().add_class ("h3");
+            four_button = new StyledButton ("4");
+            five_button = new StyledButton ("5");
+            six_button = new StyledButton ("6");
+            subtract_button = new StyledButton ("\xE2\x88\x92");
+            subtract_button.get_style_context ().add_class ("h3");
+            one_button = new StyledButton ("1");
+            two_button = new StyledButton ("2");
+            three_button = new StyledButton ("3");
+            plus_button = new StyledButton ("+");
+            plus_button.get_style_context ().add_class ("h3");
+            zero_button = new StyledButton ("0");
+            decimal_button = new StyledButton (".");
+            left_parenthesis_button = new StyledButton ("(");
+            right_parenthesis_button = new StyledButton (")");
             
             button_container_left.attach (all_clear_button, 0, 0, 1, 1);
             button_container_left.attach (del_button, 1, 0, 1, 1);
@@ -138,6 +172,59 @@ namespace Pebbles {
             
             button_container_left.set_column_homogeneous (true);
             button_container_left.set_row_homogeneous (true);
+            
+            // Make buttons on the right
+            sqr_button = new StyledButton ("x<sup>2</sup>");
+            log_ten_button = new StyledButton ("10<sup>x</sup>");
+            log_e_button = new StyledButton ("e<sup>x</sup>");
+            memory_plus_button = new StyledButton ("<b>M+</b>");
+            memory_plus_button.get_style_context ().add_class (Granite.STYLE_CLASS_CARD);
+            sin_button = new StyledButton ("sin");
+            sinh_button = new StyledButton ("sinh");
+            mod_button = new StyledButton ("Mod");
+            memory_minus_button = new StyledButton ("<b>M\xE2\x88\x92</b>");
+            memory_minus_button.get_style_context ().add_class (Granite.STYLE_CLASS_CARD);
+            cos_button = new StyledButton ("cos");
+            cosh_button = new StyledButton ("cosh");
+            log_power_button = new StyledButton ("x<sup>y</sup>");
+            memory_recall_button = new StyledButton ("<b>MR</b>");
+            memory_recall_button.get_style_context ().add_class (Granite.STYLE_CLASS_CARD);
+            tan_button = new StyledButton ("tan");
+            tanh_button = new StyledButton ("tanh");
+            perm_comb_button = new StyledButton ("\xE2\x81\xBFP\xE1\xB5\xA3");
+            memory_clear_button = new StyledButton ("<b>MC</b>");
+            memory_clear_button.get_style_context ().add_class (Granite.STYLE_CLASS_CARD);
+            fact_button = new StyledButton ("!");
+            constant_button = new StyledButton ("\xCF\x80");
+            last_answer_button = new StyledButton ("Ans");
+            last_answer_button.sensitive = false;
+            result_button = new StyledButton ("=");
+            result_button.get_style_context ().add_class ("h2");
+            result_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
+            
+            button_container_right.attach (sqr_button, 0, 0, 1, 1);
+            button_container_right.attach (log_ten_button, 1, 0, 1, 1);
+            button_container_right.attach (log_e_button, 2, 0, 1, 1);
+            button_container_right.attach (memory_plus_button, 3, 0, 1, 1); 
+            button_container_right.attach (sin_button, 0, 1, 1, 1);
+            button_container_right.attach (sinh_button, 1, 1, 1, 1);
+            button_container_right.attach (mod_button, 2, 1, 1, 1);
+            button_container_right.attach (memory_minus_button, 3, 1, 1, 1);
+            button_container_right.attach (cos_button, 0, 2, 1, 1);
+            button_container_right.attach (cosh_button, 1, 2, 1, 1);
+            button_container_right.attach (log_power_button, 2, 2, 1, 1);
+            button_container_right.attach (memory_recall_button, 3, 2, 1, 1);
+            button_container_right.attach (tan_button, 0, 3, 1, 1);
+            button_container_right.attach (tanh_button, 1, 3, 1, 1);
+            button_container_right.attach (perm_comb_button, 2, 3, 1, 1);
+            button_container_right.attach (memory_clear_button, 3, 3, 1, 1);
+            button_container_right.attach (fact_button, 0, 4, 1, 1);
+            button_container_right.attach (constant_button, 1, 4, 1, 1);
+            button_container_right.attach (last_answer_button, 2, 4, 1, 1);
+            button_container_right.attach (result_button, 3, 4, 1, 1);
+            button_container_right.set_column_homogeneous (true);
+            button_container_right.set_row_homogeneous (true);
+            
             // Put it together
             attach (display_container, 0, 0, 2, 1);
             attach (button_container_left, 0, 1, 1, 1);
