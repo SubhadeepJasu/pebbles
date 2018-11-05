@@ -27,7 +27,7 @@ namespace Pebbles {
         Gtk.Button angle_unit_button;
         Gtk.Grid shift_grid;
         Gtk.Label shift_label;
-        Gtk.Switch shift_switch;
+        public Gtk.Switch shift_switch;
         Gtk.MenuButton app_menu;
         Gtk.Button history_button;
 
@@ -85,6 +85,9 @@ namespace Pebbles {
             shift_label = new Gtk.Label ("\tShift ");
             shift_switch = new Gtk.Switch ();
             shift_switch.get_style_context ().add_class (Granite.STYLE_CLASS_MODE_SWITCH);
+            shift_switch.notify["active"].connect (() => {
+                scientific_view.hold_shift (shift_switch.active);
+            });
             shift_grid.attach (shift_label, 0, 0, 1, 1);
             shift_grid.attach (shift_switch, 1, 0, 1, 1);
             shift_grid.valign = Gtk.Align.CENTER;
@@ -135,7 +138,7 @@ namespace Pebbles {
             item_list.root.add (calc_category);
             
             // Create Views
-            scientific_view = new Pebbles.ScientificView ();
+            scientific_view = new Pebbles.ScientificView (this);
             programmer_view = new Pebbles.ProgrammerView ();
             calculus_view   = new Pebbles.CalculusView ();
             
