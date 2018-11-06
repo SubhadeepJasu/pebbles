@@ -21,12 +21,12 @@
 namespace Pebbles {
     public class ScientificView : Gtk.Grid {
         List<string> input_expression;
-        Gtk.Label sci_placeholder;
         // Reference of main window
         MainWindow window;
 
         // Fake LCD display
         Gtk.Box display_container;
+        ScientificDisplay display_unit;
 
         // Input section left side
         Gtk.Grid button_container_left;
@@ -113,9 +113,8 @@ namespace Pebbles {
             display_container.margin_end = 8;
             display_container.margin_top = 8;
             display_container.margin_bottom = 8;
-            display_container.get_style_context ().add_class (Gtk.STYLE_CLASS_ENTRY);
-            sci_placeholder = new Gtk.Label ("false");
-            display_container.pack_start (sci_placeholder);
+            display_unit = new ScientificDisplay ();
+            display_container.pack_start (display_unit);
 
             // Make Input section on the left
             button_container_left = new Gtk.Grid ();
@@ -192,23 +191,24 @@ namespace Pebbles {
             sqr_button = new StyledButton ("x<sup>2</sup>", "Square a number");
             log_ten_button = new StyledButton ("10<sup>x</sup>", "10 raised to the power x");
             log_e_button = new StyledButton ("e<sup>x</sup>", "e raised to the power x");
-            memory_plus_button = new StyledButton ("<b>M+</b>", "Add it to the value in Memory");
-            memory_plus_button.get_style_context ().add_class (Granite.STYLE_CLASS_CARD);
+            memory_plus_button = new StyledButton ("M+", "Add it to the value in Memory");
+            memory_plus_button.get_style_context ().add_class ("Pebbles_Buttons_Memory");
             sin_button = new StyledButton ("sin", "Sine");
             sinh_button = new StyledButton ("sinh", "Hyperbolic Sine");
             mod_button = new StyledButton ("Mod", "Modulus");
-            memory_minus_button = new StyledButton ("<b>M\xE2\x88\x92</b>", "Subtract it from the value in Memory");
-            memory_minus_button.get_style_context ().add_class (Granite.STYLE_CLASS_CARD);
+            memory_minus_button = new StyledButton ("M\xE2\x88\x92", "Subtract it from the value in Memory");
+            memory_minus_button.get_style_context ().add_class ("Pebbles_Buttons_Memory");
             cos_button = new StyledButton ("cos", "Cosine");
             cosh_button = new StyledButton ("cosh", "Hyperbolic Cosine");
             log_power_button = new StyledButton ("x<sup>y</sup>", "x raised to the power y");
-            memory_recall_button = new StyledButton ("<b>MR</b>", "Retreive value from Memory");
-            memory_recall_button.get_style_context ().add_class (Granite.STYLE_CLASS_CARD);
+            memory_recall_button = new StyledButton ("MR", "Recall value from Memory");
+            memory_recall_button.get_style_context ().add_class ("Pebbles_Buttons_Memory");
             tan_button = new StyledButton ("tan", "Tangent");
             tanh_button = new StyledButton ("tanh", "Hyperbolic Tangent");
             perm_comb_button = new StyledButton ("<sup>n</sup>P\xE1\xB5\xA3", "Permutations");
-            memory_clear_button = new StyledButton ("<b>MC</b>", "Reset value in Memory to 0");
-            memory_clear_button.get_style_context ().add_class (Granite.STYLE_CLASS_CARD);
+            memory_clear_button = new StyledButton ("MC", "Memory Clear");
+            memory_clear_button.sensitive = false;
+            memory_clear_button.get_style_context ().add_class ("Pebbles_Buttons_Memory");
             fact_button = new StyledButton ("!", "Factorial");
             constant_button = new StyledButton (constant_label_1, constant_desc_1);
             last_answer_button = new StyledButton ("Ans", "Last answer");
@@ -248,7 +248,6 @@ namespace Pebbles {
             set_column_homogeneous (true);
         }
         public void hold_shift (bool hold) {
-            sci_placeholder.set_text (hold.to_string());
             shift_held = hold;
             set_alternative_button ();
         }

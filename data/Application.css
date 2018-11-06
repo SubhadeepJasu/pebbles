@@ -1,0 +1,77 @@
+/*-
+ * Copyright (c) 2017-2018 Subhadeep Jasu <subhajasu@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License 
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ *
+ * Authored by: Subhadeep Jasu <subhajasu@gmail.com>
+ *              Saunak Biswas  <saunakbis97@gmail.com>
+ *
+ *                                                    
+ *   _____     _   _   _            _____ _____ _____ 
+ *  |  _  |___| |_| |_| |___ ___   |     |   __|   __|
+ *  |   __| -_| . | . | | -_|_ -|  |   --|__   |__   |
+ *  |__|  |___|___|___|_|___|___|  |_____|_____|_____|
+ *                                                    
+ */
+
+/*
+You can type here any CSS rule recognized by GTK+.
+You can temporarily disable this custom CSS by clicking on the “Pause” button above.
+
+Changes are applied instantly and globally, for the whole application.
+*/
+
+
+.Pebbles_Display_Unit_Bg {
+	background-image: linear-gradient(#b6bfb6, #dae6da);
+	border-radius: 2.5px;
+	border: 1px solid alpha (black, 0.6);
+	box-shadow:
+	inset 0 1px 8 0 alpha (black, 0.15),
+	inset 0 0 2 1px alpha (black, 0.20),
+	0 1px 0 0 alpha (white, 0.3),
+	0 -1px 0 0 alpha (black, 0.15);
+}
+
+.Pebbles_Display_Unit_Bg:backdrop {
+	background-image: linear-gradient(#bdc7bd, #c9d3c9);
+	border-radius: 2.5px;
+	border: 1px solid alpha (black, 0.5);
+	box-shadow:
+	inset 0 1px 0 0 alpha (black, 0.10),
+	inset 0 0 0 1px alpha (black, 0.05),
+	0 1px 0 0 alpha (white, 0.3);
+}
+
+.Pebbles_Buttons_Memory {
+	color: @selected_fg_color;
+	text-shadow: 0 1px alpha (#000, 0.3);
+	-gtk-icon-shadow: 0 1px alpha (#000, 0.3);
+	border-color: shade (@bg_color, 0.45);
+	background-image: linear-gradient(#8a8781, #615d59);
+	box-shadow:
+	inset 0 0 0 1px alpha (#fff, 0.05),
+	inset 0 1px 0 0 alpha (#fff, 0.25),
+	0 1px 0 0 alpha (#fff, 0.3),
+	inset 0 -1px 0 0 alpha (#fff, 0.1);
+}
+
+.Pebbles_Buttons_Memory:backdrop {
+	background-image: linear-gradient(#8a8781, #706b67);
+}
+
+.Pebbles_Buttons_Memory:disabled {
+ 	background-image: linear-gradient(#706b67, #706b67);
+ 	border-color: alpha (shade (@bg_color, 0.45), 0.5);
+ }

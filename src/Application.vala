@@ -46,6 +46,19 @@ namespace Pebbles {
                 mainwindow = new MainWindow ();
                 mainwindow.application = this;
             }
+            var css_provider = new Gtk.CssProvider();
+            try {
+                css_provider.load_from_resource ("/com/github/SubhadeepJasu/pebbles/Application.css");
+            }
+            catch (Error e) {
+                warning("%s", e.message);
+            }
+            // CSS Provider
+            Gtk.StyleContext.add_provider_for_screen (
+                Gdk.Screen.get_default(),
+                css_provider,
+                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+            );
             mainwindow.present ();
         }
 
@@ -76,11 +89,10 @@ namespace Pebbles {
             if (mem_to_clip) {
                 if (mainwindow != null) {
                     mainwindow.answer_notify ();
-                    stdout.printf ("[STATUS]  Pebbles: Last answer copied to clipboard.\n");
+                    message ("Last answer copied to clipboard.");
                 }
                 else if (mainwindow == null) {
-                    stdout.printf ("[ERROR]   Pebbles: Action ignored. App UI not running\n");
-                    return;
+                    error ("Action ignored. App UI not running");
                 }
             }
             else {

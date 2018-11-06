@@ -4,10 +4,16 @@ project(
     version: '0.0.1',
     license : 'GPLv3'
 )
-
+gnome = import('gnome')
 i18n = import('i18n')
 
 add_global_arguments('-DGETTEXT_PACKAGE="com.github.SubhadeepJasu.pebbles"', language:'c')
+
+asresources = gnome.compile_resources(
+    'as-resources', 'data/gresource.xml',
+    source_dir: 'data',
+    c_name: 'as'
+)
 
 core_deps = [
     dependency('glib-2.0'),

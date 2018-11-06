@@ -60,7 +60,6 @@ namespace Pebbles {
         }
         
         public void make_ui () {
-        
             // Create dark mode switcher
             dark_mode_switch = new Granite.ModeSwitch.from_icon_name ("display-brightness-symbolic", "weather-clear-night-symbolic");
             dark_mode_switch.primary_icon_tooltip_text = ("Light background");
