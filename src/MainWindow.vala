@@ -73,7 +73,6 @@ namespace Pebbles {
             // Create angle unit button
             angle_unit_button = new Gtk.Button.with_label ("DEG");
             angle_unit_button.margin = 12;
-            angle_unit_button_label_update ();
             angle_unit_button.clicked.connect (() => {
                 settings.switch_angle_unit ();
                 angle_unit_button_label_update ();
@@ -170,6 +169,7 @@ namespace Pebbles {
                 }
                 this.show_all ();
             });
+            angle_unit_button_label_update ();
             scientific_item.activated ();
 
             // Set up window attributes
@@ -217,12 +217,15 @@ namespace Pebbles {
         private void angle_unit_button_label_update () {
             if (settings.global_angle_unit == Pebbles.GlobalAngleUnit.DEG) {
                 angle_unit_button.label = "DEG";
+                scientific_view.set_angle_mode_display (0);
             }
             else if (settings.global_angle_unit == Pebbles.GlobalAngleUnit.RAD) {
                 angle_unit_button.label = "RAD";
+                scientific_view.set_angle_mode_display (1);
             }
             else if (settings.global_angle_unit == Pebbles.GlobalAngleUnit.GRAD) {
                 angle_unit_button.label = "GRA";
+                scientific_view.set_angle_mode_display (2);
             }
         }
         private void load_settings () {

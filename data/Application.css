@@ -27,6 +27,8 @@
 
 .Pebbles_Display_Unit_Bg {
 	background-image: linear-gradient(#b6bfb6, #dae6da);
+	padding-left: 15px;
+	padding-top: 3px;
 	border-radius: 2.5px;
 	border: 1px solid alpha (black, 0.6);
 	box-shadow:
@@ -38,6 +40,8 @@
 
 .Pebbles_Display_Unit_Bg:backdrop {
 	background-image: linear-gradient(#bdc7bd, #c9d3c9);
+	padding-left: 15px;
+	padding-top: 3px;
 	border-radius: 2.5px;
 	border: 1px solid alpha (black, 0.5);
 	box-shadow:
@@ -79,4 +83,30 @@
 .Pebbles_Buttons_Memory:disabled {
  	background-image: linear-gradient(#706b67, #706b67);
  	border-color: alpha (shade (@bg_color, 0.45), 0.7);
- }
+}
+.pebbles_h1 {
+	font-size: 40px;
+	font-family: Open Sans;
+	text-shadow: 0 0px alpha (#000, 0);
+	opacity: 0.8;
+	color:#272863;
+	margin-top: 6px;
+}
+
+.pebbles_h2 {
+	font-size: 20px;
+	font-family: Open Sans;
+	text-shadow: 0 0px alpha (#000, 0);
+	opacity: 0.8;
+	color:#272863;
+	margin-top: 3px;
+}
+
+.pebbles_h4 {
+	font-size: 10px;
+	font-family: Roboto;
+	text-shadow: 0 0px alpha (#000, 0);
+	opacity: 0.8;
+	color:#272863;
+	font-weight: bold;
+}

@@ -106,7 +106,7 @@ namespace Pebbles {
 
         public void sci_make_ui () {
             //Make fake LCD display
-            display_container = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+            display_container = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
             display_container.height_request = 120;
             display_container.width_request = 560;
             display_container.margin_start = 8;
@@ -249,6 +249,7 @@ namespace Pebbles {
         }
         public void hold_shift (bool hold) {
             shift_held = hold;
+            display_unit.set_shift_enable (hold);
             set_alternative_button ();
         }
         
@@ -440,8 +441,13 @@ namespace Pebbles {
                     break;
             }
         }
+
         public void handle_inputs (string in_exp) {
             //sci_placeholder.label = in_exp;
+        }
+
+        public void set_angle_mode_display (int state) {
+            display_unit.set_angle_status (state);
         }
     }
 }
