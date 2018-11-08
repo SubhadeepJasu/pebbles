@@ -100,6 +100,9 @@
 	opacity: 0.8;
 	color:#272863;
 	margin-top: 3px;
+	border: none;
+	background: none;
+	caret-color: alpha (#272863, 0.8);
 }
 
 .pebbles_h4 {
