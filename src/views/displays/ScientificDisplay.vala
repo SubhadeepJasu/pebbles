@@ -29,10 +29,10 @@ namespace Pebbles {
         Gtk.Label shift_label;
 
         // Answer label
-        Gtk.Label answer_label;
+        public Gtk.Label answer_label;
 
-        // Input label
-        Gtk.Label input_label;
+        // Input entry
+        public Gtk.Entry input_entry;
 
         construct {
             sci_display_make_ui ();
@@ -74,10 +74,30 @@ namespace Pebbles {
             answer_label.set_halign (Gtk.Align.END);
             answer_label.get_style_context ().add_class ("pebbles_h1");
 
-            // Make Input label
-            input_label = new Gtk.Label ("sin 60 * (ln 2)");
-            input_label.get_style_context ().add_class ("pebbles_h2");
-            input_label.set_halign (Gtk.Align.START);
+            // Make Input entry
+            input_entry = new Gtk.Entry ();
+            
+            input_entry.set_has_frame (false);
+            input_entry.set_text ("0");
+            input_entry.get_style_context ().add_class ("pebbles_h2");
+            input_entry.set_halign (Gtk.Align.START);
+            input_entry.width_request = 530;
+            input_entry.max_width_chars = 39;
+            input_entry.activate.connect (() => {
+                get_answer_evaluate ();
+                if (input_entry.get_text ().length == 0 && input_entry.get_text () != "0") {
+                    input_entry.set_text ("0");
+                }
+                input_entry.set_text (Utils.preformat (input_entry.get_text ()));
+            });
+            input_entry.changed.connect (() => {
+                input_entry.set_text (Utils.preformat (input_entry.get_text ()));
+            });
+            input_entry.button_press_event.connect (() => {
+                if (input_entry.get_text () == "0")
+                    input_entry.set_text ("");
+                    return false;
+            });
             
             // Make seperator
             Gtk.Separator lcd_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
@@ -87,7 +107,7 @@ namespace Pebbles {
             attach (lcd_status_bar, 0, 0, 1, 1);
             attach (answer_label, 0, 1, 1, 1);
             attach (lcd_separator, 0, 2, 1, 1);
-            attach (input_label, 0, 3, 1, 1);
+            attach (input_entry, 0, 3, 1, 1);
 
             width_request = 530;
 
@@ -129,6 +149,10 @@ namespace Pebbles {
             else {
                 memory_label.set_opacity (0.2);
             }
+        }
+        public void get_answer_evaluate () {
+            var sci_calc = new ScientificCalculator ();
+            answer_label.set_text (sci_calc.get_result (input_entry.get_text ()));
         }
     }
 }

@@ -89,9 +89,10 @@ namespace Pebbles {
 
         public ScientificView (MainWindow window) {
             this.window = window;
-            load_constant_button_settings();
+            load_constant_button_settings ();
             // Make UI
-            sci_make_ui();
+            sci_make_ui ();
+            sci_make_events ();
         }
 
         construct { 
@@ -139,6 +140,12 @@ namespace Pebbles {
             all_clear_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
             del_button = new StyledButton ("Del", "Backspace");
             del_button.sensitive = false;
+            display_unit.input_entry.changed.connect (() => {
+                if (display_unit.input_entry.get_text () == "0" || display_unit.input_entry.get_text () == "")
+                    del_button.sensitive = false;
+                else
+                    del_button.sensitive = true;
+            });
             percent_button = new StyledButton ("%", "Percentage");
             percent_button.get_style_context ().add_class ("h3");
             divide_button = new StyledButton ("\xC3\xB7", "Divide");
@@ -441,7 +448,14 @@ namespace Pebbles {
                     break;
             }
         }
-
+        private void sci_make_events () {
+            all_clear_button.clicked.connect (() => {
+                display_unit.input_entry.set_text ("0");
+            });
+            del_button.clicked.connect (() => {
+                display_unit.input_entry.backspace ();
+            });
+        }
         public void handle_inputs (string in_exp) {
             //sci_placeholder.label = in_exp;
         }

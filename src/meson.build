@@ -9,6 +9,9 @@ executable(
     'views/ProgrammerView.vala',
     'views/ScientificView.vala',
     'views/displays/ScientificDisplay.vala',
+    'test/TestUtil.vala',
+    'core/ScientificCalculator.vala',
+    'core/Utils.vala',
     dependencies: [
         core_deps,
         dependency('gtk+-3.0'),

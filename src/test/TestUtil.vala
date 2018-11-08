@@ -19,20 +19,23 @@
  */
 
 namespace Pebbles {
-    public class StyledButton : Gtk.Button {
-        Gtk.Label label_text;
-        public StyledButton (string label_text, string? tooltip_desc = null) {
-            this.label_text = new Gtk.Label (label_text);
-            this.label_text.use_markup = true;
-            image = this.label_text;
-            tooltip_text = tooltip_desc;
+    public class TestUtil {
+        public static void show_greeter () {
+            stdout.printf ("                             
+ _____     _   _   _         
+|  _  |___| |_| |_| |___ ___ 
+|   __| -_| . | . | | -_|_ -|
+|__|  |___|___|___|_|___|___|
+                             \n");
+            stdout.printf ("=============================================================\n\n");
+            stdout.printf ("Copyright (c) 2017-2018 Subhadeep Jasu <subhajasu@gmail.com>\n");
+            stdout.printf ("\n=============================================================\n\n");
+            stdout.printf ("Running Automatic Tests...\n");
         }
-        public void update_label (string label_text, string? tooltip_desc = null) {
-            this.label_text.set_text (label_text);
-            this.label_text.use_markup = true;
-            image = this.label_text;
-            tooltip_text = tooltip_desc;
+
+        public static void run_test () {
+            show_greeter ();
+            
         }
     }
 }
-

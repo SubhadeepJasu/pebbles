@@ -21,6 +21,7 @@
 namespace Pebbles {
     public class PebblesApp : Gtk.Application {
         Pebbles.Settings settings;
+        private bool test_mode = false;
 
         static PebblesApp _instance = null;
         public static PebblesApp instance {
@@ -73,9 +74,10 @@ namespace Pebbles {
             
             bool mem_to_clip = false;
             
-            GLib.OptionEntry [] option = new OptionEntry [2];
+            GLib.OptionEntry [] option = new OptionEntry [3];
             option [0] = { "last_result", 0, 0, OptionArg.NONE, ref mem_to_clip, "Get last answer", null };
-            option [1] = { null };
+            option [1] = { "test", 0, 0, OptionArg.NONE, ref test_mode, "Enable test mode", null };
+            option [2] = { null };
             
             var option_context = new OptionContext ("actions");
             option_context.add_main_entries (option, null);
@@ -86,7 +88,7 @@ namespace Pebbles {
                 return;
             }
             
-            if (mem_to_clip) {
+            if (mem_to_clip && !test_mode) {
                 if (mainwindow != null) {
                     mainwindow.answer_notify ();
                     message ("Last answer copied to clipboard.");
@@ -94,6 +96,10 @@ namespace Pebbles {
                 else if (mainwindow == null) {
                     error ("Action ignored. App UI not running");
                 }
+            }
+            else if (test_mode) {
+                TestUtil.run_test ();
+                return;
             }
             else {
                 activate ();

@@ -183,10 +183,12 @@ namespace Pebbles {
             this.show_all ();
         }
         private void input_handler () {
+            /*
             this.key_press_event.connect ((event) => {
                 scientific_view.handle_inputs (event.str);
                 return true;
             });
+            */
         }
         
         public void answer_notify () {

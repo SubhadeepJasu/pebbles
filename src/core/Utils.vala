@@ -19,20 +19,22 @@
  */
 
 namespace Pebbles {
-    public class StyledButton : Gtk.Button {
-        Gtk.Label label_text;
-        public StyledButton (string label_text, string? tooltip_desc = null) {
-            this.label_text = new Gtk.Label (label_text);
-            this.label_text.use_markup = true;
-            image = this.label_text;
-            tooltip_text = tooltip_desc;
+    public class Utils {
+        public static bool check_parenthesis (string exp) {
+            int bracket_balance = 0;
+            for (int i = 0; i < exp.length; i++) {
+                if (exp.get_char (i) == '(') {
+                    bracket_balance++;
+                }
+                else if (exp.get_char (i) == ')'){
+                    bracket_balance--;
+                }
+            }
+            return (bracket_balance >= 0);
         }
-        public void update_label (string label_text, string? tooltip_desc = null) {
-            this.label_text.set_text (label_text);
-            this.label_text.use_markup = true;
-            image = this.label_text;
-            tooltip_text = tooltip_desc;
+        
+        public static string preformat (string exp) {
+            return exp.replace ("*", "\xC3\x97");
         }
     }
 }
-

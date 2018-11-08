@@ -19,20 +19,15 @@
  */
 
 namespace Pebbles {
-    public class StyledButton : Gtk.Button {
-        Gtk.Label label_text;
-        public StyledButton (string label_text, string? tooltip_desc = null) {
-            this.label_text = new Gtk.Label (label_text);
-            this.label_text.use_markup = true;
-            image = this.label_text;
-            tooltip_text = tooltip_desc;
-        }
-        public void update_label (string label_text, string? tooltip_desc = null) {
-            this.label_text.set_text (label_text);
-            this.label_text.use_markup = true;
-            image = this.label_text;
-            tooltip_text = tooltip_desc;
+    
+    public class ScientificCalculator {
+        public string get_result (string exp) {
+            if (Utils.check_parenthesis (exp)) {
+                return exp;
+            }
+            else {
+                return "E";
+            }
         }
     }
 }
-
