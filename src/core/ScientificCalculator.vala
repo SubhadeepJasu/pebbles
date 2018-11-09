@@ -293,7 +293,32 @@ namespace Pebbles {
                 }
             }
 
-            return ("%.9f".printf (values.pop()));
+            string output = ("%.9f".printf (values.pop()));
+
+            // Remove trailing 0s and decimals
+            while (output.has_suffix ("0")) {
+                output = output.slice (0, -1);
+            }
+            if (output.has_suffix (".")) {
+                output = output.slice (0, -1);
+            }
+
+            // Insert separator symbol in large numbers
+            StringBuilder output_builder = new StringBuilder (output);
+            var decimalPos = output.last_index_of (".");
+            if (decimalPos == -1) {
+                decimalPos = output.length;
+            }
+            int end_position = 0;
+
+            // Take care of minus sign at the beginning of string, if any
+            if (output.has_prefix ("-")) {
+                end_position = 1;
+            }
+            for (int i = decimalPos - 3; i > end_position; i -= 3) {
+                output_builder.insert (i, ",");
+            }
+            return output_builder.str;
         }
     }
     public class CharStack {
