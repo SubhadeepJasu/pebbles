@@ -293,7 +293,7 @@ namespace Pebbles {
                 }
             }
 
-            return (values.pop()).to_string();
+            return ("%.9f".printf (values.pop()));
         }
     }
     public class CharStack {

@@ -61,6 +61,8 @@ namespace Pebbles {
                 exp = exp.replace ("\xCE\xB1", " ( 2.5029 ) ");
                 exp = exp.replace ("\xCE\xB4", " ( 4.6692 ) ");
                 exp = exp.replace ("\xF0\x9D\x9B\x87(3)", " ( 1.2020569 ) ");
+                exp = exp.replace ("E", " * 10 ^ ");
+                exp = exp.replace ("pi", " ( 3.141592654 ) ");
                 
                 exp = exp.down ();
                 
@@ -104,18 +106,41 @@ namespace Pebbles {
                 exp = exp.replace (")", " ) ");
                 exp = exp.replace ("\xC3\x97", " * ");
                 exp = exp.replace ("\xC3\xB7", " / ");
+                exp = exp.replace ("%", " / 100 ");
                 exp = exp.replace ("+", " + ");
                 exp = exp.replace ("-", " - ");
+                exp = exp.replace ("*", " * ");
+                exp = exp.replace ("/", " / ");
                 exp = exp.replace ("^", " ^ ");
                 exp = exp.replace ("!", " ! ");
 
                 exp = exp.strip ();
-                stdout.printf ("'%s'\n", exp);
+                exp = space_removal (exp);
+                //stdout.printf ("'%s'\n", exp);
                 return exp;
             }
             else {
                 return "E";
             }
+        }
+        private static string space_removal(string original) {
+            int i = 0,j = 0;
+            string result = "";
+            while(i < original.length) {
+                j = i + 1;
+                if(original.get_char(i).to_string() == " ") {
+                    while(original.get_char(j).to_string() == " ") {
+                        j++;
+                    }
+                    result = result + " ";
+                    i = j;
+                }
+                else {
+                    result = result + original.get_char(i).to_string();
+                    i++;
+                }
+            }
+            return result;
         }
     }
 }
