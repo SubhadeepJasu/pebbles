@@ -34,6 +34,8 @@ namespace Pebbles {
         // Input entry
         public Gtk.Entry input_entry;
 
+        // Angle mode
+        GlobalAngleUnit angle_mode;
         construct {
             sci_display_make_ui ();
         }
@@ -113,8 +115,8 @@ namespace Pebbles {
 
         }
 
-        public void set_shift_enable (bool s_opacity) {
-            if (s_opacity) {
+        public void set_shift_enable (bool s_on) {
+            if (s_on) {
                 shift_label.set_opacity (1);
             }
             else {
@@ -128,16 +130,19 @@ namespace Pebbles {
                     deg_label.set_opacity  (0.2);
                     rad_label.set_opacity  (1);
                     grad_label.set_opacity (0.2);
+                    angle_mode = GlobalAngleUnit.RAD;
                     break;
                 case 2 :
                     deg_label.set_opacity  (0.2);
                     rad_label.set_opacity  (0.2);
                     grad_label.set_opacity (1);
+                    angle_mode = GlobalAngleUnit.GRAD;
                     break;
                 default :
                     deg_label.set_opacity  (1);
                     rad_label.set_opacity  (0.2);
                     grad_label.set_opacity (0.2);
+                    angle_mode = GlobalAngleUnit.DEG;
                     break;
             }
         }
@@ -152,7 +157,7 @@ namespace Pebbles {
         }
         public void get_answer_evaluate () {
             var sci_calc = new ScientificCalculator ();
-            answer_label.set_text (sci_calc.get_result (input_entry.get_text ()));
+            answer_label.set_text (sci_calc.get_result (input_entry.get_text (), angle_mode));
         }
     }
 }

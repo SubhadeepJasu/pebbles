@@ -79,7 +79,7 @@ namespace Pebbles {
                 exp = exp.replace ("tan", " [11] ");
                 exp = exp.replace ("log", " log ");
                 exp = exp.replace ("ln", " ln ");
-                exp = exp.replace ("m", " m ");
+                exp = exp.replace ("mod", " m ");
                 exp = exp.replace ("p", " p ");
                 exp = exp.replace ("c", " c ");
 
@@ -109,6 +109,8 @@ namespace Pebbles {
                 exp = exp.replace ("^", " ^ ");
                 exp = exp.replace ("!", " ! ");
 
+                exp = exp.strip ();
+                stdout.printf ("'%s'\n", exp);
                 return exp;
             }
             else {

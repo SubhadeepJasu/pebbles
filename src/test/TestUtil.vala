@@ -38,6 +38,12 @@ namespace Pebbles {
             var result = Utils.st_tokenize (exp);
             stdout.printf ("'%s'\n", result);
         }
+        private static void test_scientific (string exp, GlobalAngleUnit angle_type) {
+            stdout.printf ("\n'%s'", exp);
+            stdout.printf ("\n -> ");
+            ScientificCalculator sci_calc = new ScientificCalculator ();
+            stdout.printf ("'%s'\n", sci_calc.get_result (exp, angle_type));
+        }
         public static void run_test () {
             show_greeter ();
             stdout.printf ("\nTesting Tokenization...\n");
@@ -59,6 +65,11 @@ namespace Pebbles {
             stdout.printf ("\nTesting Bracket Balance Check...\n");
             stdout.printf ("-------------------------------------------------------------");
             test_tokenize ("2 + (9 - 5)\xC3\x97 5  - (8-7))");
+            
+            stdout.printf ("\nTesting Scientific Calculator\n");
+            stdout.printf ("-------------------------------------------------------------\n");
+            
+            test_scientific ("4\xC3\xB7 2", GlobalAngleUnit.DEG);
         }
     }
 }
