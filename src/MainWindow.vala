@@ -170,27 +170,18 @@ namespace Pebbles {
                 this.show_all ();
             });
             angle_unit_button_label_update ();
-            scientific_item.activated ();
+            //scientific_item.activated ();
 
             // Set up window attributes
             this.set_default_size (900, 600);
             this.set_size_request (900, 600);
-            input_handler ();
 
             // Show all the stuff
             this.add (paned);
             this.set_resizable (false);
             this.show_all ();
         }
-        private void input_handler () {
-            /*
-            this.key_press_event.connect ((event) => {
-                scientific_view.handle_inputs (event.str);
-                return true;
-            });
-            */
-        }
-        
+
         public void answer_notify () {
             if (desktop_notification == null) {
                 desktop_notification = new Notification ("");

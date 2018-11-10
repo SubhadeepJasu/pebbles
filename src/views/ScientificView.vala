@@ -96,7 +96,6 @@ namespace Pebbles {
         }
 
         construct { 
-
             halign = Gtk.Align.CENTER;
             valign = Gtk.Align.CENTER;
             column_spacing = 1;
@@ -449,15 +448,85 @@ namespace Pebbles {
             }
         }
         private void sci_make_events () {
+            result_button.clicked.connect (() => {
+                display_unit.get_answer_evaluate ();
+                if (display_unit.input_entry.get_text ().length == 0 && display_unit.input_entry.get_text () != "0") {
+                    display_unit.input_entry.set_text ("0");
+                }
+                display_unit.input_entry.set_text (Utils.preformat (display_unit.input_entry.get_text ()));
+                display_unit.input_entry.grab_focus_without_selecting ();
+                display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 1, false);
+            });
             all_clear_button.clicked.connect (() => {
-                display_unit.input_entry.set_text ("0");
+                display_unit.input_entry.grab_focus_without_selecting ();
+                display_unit.input_entry.set_text ("");
+                display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 1, false);
             });
             del_button.clicked.connect (() => {
+                display_unit.input_entry.grab_focus_without_selecting ();
                 display_unit.input_entry.backspace ();
             });
+            percent_button.clicked.connect (() => {
+                char_button_click ("%");
+            });
+            divide_button.clicked.connect (() => {
+                char_button_click ("÷");
+            });
+            seven_button.clicked.connect (() => {
+                char_button_click ("7");
+            });
+            eight_button.clicked.connect (() => {;
+                char_button_click ("8");
+            });
+            nine_button.clicked.connect (() => {;
+                char_button_click ("9");
+            });
+            multiply_button.clicked.connect (() => {;
+                char_button_click ("×");
+            });
+            four_button.clicked.connect (() => {;
+                char_button_click ("4");
+            });
+            five_button.clicked.connect (() => {;
+                char_button_click ("5");
+            });
+            six_button.clicked.connect (() => {;
+                char_button_click ("6");
+            });
+            subtract_button.clicked.connect (() => {;
+                char_button_click ("-");
+            });
+            one_button.clicked.connect (() => {;
+                char_button_click ("1");
+            });
+            two_button.clicked.connect (() => {;
+                char_button_click ("2");
+            });
+            three_button.clicked.connect (() => {;
+                char_button_click ("3");
+            });
+            plus_button.clicked.connect (() => {;
+                char_button_click ("+");
+            });
+            zero_button.clicked.connect (() => {;
+                char_button_click ("0");
+            });
+            decimal_button.clicked.connect (() => {;
+                char_button_click (".");
+            });
+            left_parenthesis_button.clicked.connect (() => {;
+                char_button_click ("(");
+            });
+            right_parenthesis_button.clicked.connect (() => {;
+                char_button_click (")");
+            });
         }
-        public void handle_inputs (string in_exp) {
-            //sci_placeholder.label = in_exp;
+
+        private void char_button_click (string input) {
+            string sample = display_unit.input_entry.get_text ();
+            display_unit.input_entry.grab_focus_without_selecting ();
+            display_unit.input_entry.set_text (sample.concat (input));
+            display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, sample.length, false);
         }
 
         public void set_angle_mode_display (int state) {
