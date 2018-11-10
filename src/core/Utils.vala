@@ -112,6 +112,11 @@ namespace Pebbles {
                 exp = exp.replace ("*", " * ");
                 exp = exp.replace ("/", " / ");
                 exp = exp.replace ("^", " ^ ");
+                exp = exp.replace ("\xE2\x81\xBF√", " q ");
+                exp = exp.replace ("sqrt", " 2 q ");
+                exp = exp.replace ("√", " 2 q ");
+                exp = exp.replace ("sqr", " ^ 2 ");
+                exp = exp.replace ("rt", " q ");
                 exp = exp.replace ("!", " ! ");
 
                 exp = exp.strip ();

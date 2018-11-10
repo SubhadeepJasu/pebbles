@@ -42,19 +42,19 @@ namespace Pebbles {
                 return false;
             }
             // Following the PEMDAS rule: <http://mathworld.wolfram.com/PEMDAS.html>
-            if (angle_op (op1) && (op2 == '!' || op2 == 'p' || op2 == 'b' || op2 == 'l' || op2 == '^' || op2 == '*' || op2 == '/' || op2 == '-' || op2 == '+' || op2 == 'm')) {
+            if (angle_op (op1) && (op2 == '!' || op2 == 'p' || op2 == 'b' || op2 == 'l' || op2 == 'q' || op2 == '^' || op2 == '*' || op2 == '/' || op2 == '-' || op2 == '+' || op2 == 'm')) {
                 return false;
             }
-            else if ((op1 == '!') && (op2 == 'p' || op2 == 'b' || op2 == 'l' || op2 == '^' || op2 == '*' || op2 == '/' || op2 == '-' || op2 == '+' || op2 == 'm')) {
+            else if ((op1 == '!') && (op2 == 'p' || op2 == 'b' || op2 == 'l' || op2 == 'q' || op2 == '^' || op2 == '*' || op2 == '/' || op2 == '-' || op2 == '+' || op2 == 'm')) {
                 return false;
             }
-            else if ((op1 == 'p' || op1 == 'b') && (op2 == 'l' || op2 == '^' || op2 == '*' || op2 == '/' || op2 == '-' || op2 == '+' || op2 == 'm')) {
+            else if ((op1 == 'p' || op1 == 'b') && (op2 == 'l' || op2 == 'q' || op2 == '^' || op2 == '*' || op2 == '/' || op2 == '-' || op2 == '+' || op2 == 'm')) {
                 return false;
             }
-            else if ((op1 == 'l') && (op2 == '^' || op2 == '*' || op2 == '/' || op2 == '-' || op2 == '+' || op2 == 'm')) {
+            else if ((op1 == 'l') && (op2 == 'q' || op2 == '^' || op2 == '*' || op2 == '/' || op2 == '-' || op2 == '+' || op2 == 'm')) {
                 return false;
             }
-            else if ((op1 == '^') && (op2 == '*' || op2 == '/' || op2 == '-' || op2 == '+' || op2 == 'm')) {
+            else if ((op1 == '^' || op1 == 'q') && (op2 == '*' || op2 == '/' || op2 == '-' || op2 == '+' || op2 == 'm')) {
                 return false;
             }
             else if ((op1 == '*' || op1 == 'm') && (op2 == '/' || op2 == '+' || op2 == '-')) {
@@ -92,8 +92,10 @@ namespace Pebbles {
                     return (a * b).to_string();
                 case '/':
                     return (b == 0) ? "E" : (a/b).to_string ();
+                case 'q':
+                    return (Math.pow (b, ((1/a) + 0.0))).to_string ();
                 case '^':
-                    return (Math.pow(a, b)).to_string();
+                    return (Math.pow(a + 0.0, b + 0.0)).to_string();
                 case 'm':                                                           // Modulus
                     return (a % b).to_string();
                 case 'l':                                                           // Logarithm
@@ -231,7 +233,7 @@ namespace Pebbles {
         }
         private bool is_operator (string str) {
             unichar chr = str.get_char(0);
-            if (chr == '+' || chr == '-' || chr == '/' || chr == '*' || chr == '^' || chr == 'm' || chr == 'l' || chr == '!' || chr == 'p' || chr == 'b' || angle_op (chr)) {
+            if (chr == '+' || chr == '-' || chr == '/' || chr == '*' || chr == '^' || chr == 'm' || chr == 'l' || chr == '!' || chr == 'p' || chr == 'b' || angle_op (chr) || chr == 'q') {
                 return true;
             }
             else {
