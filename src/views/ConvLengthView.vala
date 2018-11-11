@@ -21,8 +21,13 @@
 namespace Pebbles {
     public class ConvLengthView : Gtk.Grid {
         private CommonKeyPadConverter keypad;
+        public Gtk.Entry from_entry;
+        public Gtk.Entry to_entry;
+        private int from_to = 0;
+
         construct {
             keypad = new CommonKeyPadConverter ();
+
             // Make Header Label
             var header_title = new Gtk.Label ("Length");
             header_title.get_style_context ().add_class ("h1");
@@ -31,7 +36,7 @@ namespace Pebbles {
             header_title.margin_start = 6;
 
             // Make Upper Unit Box
-            Gtk.Entry from_entry = new Gtk.Entry ();
+            from_entry = new Gtk.Entry ();
             from_entry.set_text ("1");
             from_entry.get_style_context ().add_class ("Pebbles_Conversion_Text_Box");
             from_entry.max_width_chars = 35;
@@ -51,7 +56,7 @@ namespace Pebbles {
             from_unit.active = 4;
 
             // Make Lower Unit Box
-            Gtk.Entry to_entry = new Gtk.Entry ();
+            to_entry = new Gtk.Entry ();
             to_entry.set_text ("100");
             to_entry.get_style_context ().add_class ("Pebbles_Conversion_Text_Box");
             to_entry.max_width_chars = 35;
@@ -112,6 +117,30 @@ namespace Pebbles {
             attach (separator, 1, 1, 1, 1);
             attach (conversion_grid, 2, 1, 1, 1);
             row_spacing = 8;
+
+            handle_focus ();
+        }
+
+        private void handle_focus () {
+            from_entry.button_press_event.connect (() => {
+                from_to = 0;
+                return false;
+            });
+            to_entry.button_press_event.connect (() => {
+                from_to = 1;
+                return false;
+            });
+            this.key_press_event.connect ((event) => {
+                switch (from_to) {
+                    case 0: 
+                        this.from_entry.grab_focus_without_selecting ();
+                        break;
+                    case 1:
+                        this.to_entry.grab_focus_without_selecting ();
+                        break;
+                }
+                return false;
+            });
         }
     }
 }

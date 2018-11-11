@@ -48,6 +48,8 @@ namespace Pebbles {
         //Pebbles.ConvSpeedView  conv_speed_view;
         //Pebbles.ConvAngleView  conv_angle_view;
         //Pebbles.ConvDataView   conv_data_view;
+        // Active View Index
+        private int view_index = 0;
         
         // NOTIFICATION
         Notification desktop_notification;
@@ -58,6 +60,7 @@ namespace Pebbles {
         public MainWindow () {
             load_settings ();
             make_ui ();
+            handle_focus ();
         }
 
         construct {
@@ -188,18 +191,22 @@ namespace Pebbles {
                 if (item == scientific_item) {
                     common_view.foreach ((element) => common_view.remove (element));
                     common_view.add (scientific_view);
+                    view_index = 0;
                 }
                 else if (item == programmer_item) {
                     common_view.foreach ((element) => common_view.remove (element));
                     common_view.add (programmer_view);
+                    view_index = 1;
                 }
                 else if (item == calculus_item) {
                     common_view.foreach ((element) => common_view.remove (element));
                     common_view.add (calculus_view);
+                    view_index = 2;
                 }
                 else if (item == conv_length_item) {
                     common_view.foreach ((element) => common_view.remove (element));
                     common_view.add (conv_length_view);
+                    view_index = 4;
                 }
                 this.show_all ();
             });
@@ -263,12 +270,28 @@ namespace Pebbles {
                 this.move (settings.window_x, settings.window_y);
             }
         }
-        
+
         private void save_settings () {
             int x, y;
             this.get_position (out x, out y);
             settings.window_x = x;
             settings.window_y = y;
+        }
+
+        private void handle_focus () {
+            key_press_event.connect ((event) => {
+                switch (view_index) {
+                    case 0: 
+                        scientific_view.display_unit.input_entry.grab_focus_without_selecting ();
+                        if (scientific_view.display_unit.input_entry.get_text () == "0" && scientific_view.display_unit.input_entry.cursor_position == 0)
+                            scientific_view.display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                        break;
+                    case 4:
+                        conv_length_view.key_press_event (event);
+                        break;
+                }
+                return false;
+            });
         }
 
     }

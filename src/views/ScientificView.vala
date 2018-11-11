@@ -26,7 +26,7 @@ namespace Pebbles {
 
         // Fake LCD display
         Gtk.Box display_container;
-        ScientificDisplay display_unit;
+        public ScientificDisplay display_unit;
 
         // Input section left side
         Gtk.Grid button_container_left;
@@ -455,12 +455,12 @@ namespace Pebbles {
                 }
                 display_unit.input_entry.set_text (Utils.preformat (display_unit.input_entry.get_text ()));
                 display_unit.input_entry.grab_focus_without_selecting ();
-                display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 1, false);
+                display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
             });
             all_clear_button.clicked.connect (() => {
                 display_unit.input_entry.grab_focus_without_selecting ();
                 display_unit.input_entry.set_text ("");
-                display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 1, false);
+                display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
             });
             del_button.clicked.connect (() => {
                 display_unit.input_entry.grab_focus_without_selecting ();
@@ -526,7 +526,7 @@ namespace Pebbles {
             string sample = display_unit.input_entry.get_text ();
             display_unit.input_entry.grab_focus_without_selecting ();
             display_unit.input_entry.set_text (sample.concat (input));
-            display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, sample.length, false);
+            display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
         }
 
         public void set_angle_mode_display (int state) {
