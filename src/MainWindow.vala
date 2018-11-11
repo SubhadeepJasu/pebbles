@@ -35,6 +35,19 @@ namespace Pebbles {
         Pebbles.ScientificView scientific_view;
         Pebbles.ProgrammerView programmer_view;
         Pebbles.CalculusView   calculus_view;
+        Pebbles.DateView       date_view;
+
+        Pebbles.ConvLengthView conv_length_view;
+        Pebbles.ConvAreaView   conv_area_view;
+        Pebbles.ConvVolumeView conv_volume_view;
+        //Pebbles.ConvPressView  conv_press_view;
+        //Pebbles.ConvWeightView conv_weight_view;
+        //Pebbles.ConvEnergyView conv_energy_view;
+        //Pebbles.ConvTempView   conv_temp_view;
+        //Pebbles.ConvPowerView  conv_power_view;
+        //Pebbles.ConvSpeedView  conv_speed_view;
+        //Pebbles.ConvAngleView  conv_angle_view;
+        //Pebbles.ConvDataView   conv_data_view;
         
         // NOTIFICATION
         Notification desktop_notification;
@@ -122,23 +135,40 @@ namespace Pebbles {
             this.set_titlebar (headerbar);
             
             // Create Item Pane
-            var scientific_item = new Granite.Widgets.SourceList.Item ("Scientific");
-            var programmer_item = new Granite.Widgets.SourceList.Item ("Programmer");
-            var calculus_item   = new Granite.Widgets.SourceList.Item ("Calculus");
+            var scientific_item  = new Granite.Widgets.SourceList.Item ("Scientific");
+            var programmer_item  = new Granite.Widgets.SourceList.Item ("Programmer");
+            var calculus_item    = new Granite.Widgets.SourceList.Item ("Calculus");
+            var date_item        = new Granite.Widgets.SourceList.Item ("Date");
+            var conv_length_item = new Granite.Widgets.SourceList.Item ("Length");
+            var conv_area_item   = new Granite.Widgets.SourceList.Item ("Area");
+            var conv_volume_item = new Granite.Widgets.SourceList.Item ("Volume");
             
+            // Calculators
             var calc_category = new Granite.Widgets.SourceList.ExpandableItem ("Calculator");
             calc_category.expand_all ();
             calc_category.add (scientific_item);
             calc_category.add (programmer_item);
             calc_category.add (calculus_item);
-            
+            calc_category.add (date_item);
+            // Converters
+            var conv_category = new Granite.Widgets.SourceList.ExpandableItem ("Converter");
+            conv_category.expand_all ();
+            conv_category.add (conv_length_item);
+            conv_category.add (conv_area_item);
+            conv_category.add (conv_volume_item);
+
             var item_list = new Granite.Widgets.SourceList ();
             item_list.root.add (calc_category);
+            item_list.root.add (conv_category);
             
             // Create Views
-            scientific_view = new Pebbles.ScientificView (this);
-            programmer_view = new Pebbles.ProgrammerView ();
-            calculus_view   = new Pebbles.CalculusView ();
+            scientific_view  = new Pebbles.ScientificView (this);
+            programmer_view  = new Pebbles.ProgrammerView ();
+            calculus_view    = new Pebbles.CalculusView ();
+            date_view        = new Pebbles.DateView ();
+            conv_length_view = new Pebbles.ConvLengthView ();
+            conv_area_view   = new Pebbles.ConvAreaView ();
+            conv_volume_view = new Pebbles.ConvVolumeView ();
             
             // Create Views Pane
             var common_view = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
@@ -166,6 +196,10 @@ namespace Pebbles {
                 else if (item == calculus_item) {
                     common_view.foreach ((element) => common_view.remove (element));
                     common_view.add (calculus_view);
+                }
+                else if (item == conv_length_item) {
+                    common_view.foreach ((element) => common_view.remove (element));
+                    common_view.add (conv_length_view);
                 }
                 this.show_all ();
             });
