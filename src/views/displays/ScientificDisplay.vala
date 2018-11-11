@@ -86,6 +86,7 @@ namespace Pebbles {
             input_entry.width_request = 530;
             input_entry.max_width_chars = 39;
             input_entry.activate.connect (() => {
+                display_off ();
                 get_answer_evaluate ();
                 if (input_entry.get_text ().length == 0 && input_entry.get_text () != "0") {
                     input_entry.set_text ("0");
@@ -104,6 +105,10 @@ namespace Pebbles {
                     }
                     input_entry.set_text (Utils.preformat (input_entry.get_text ()));
             });
+            input_entry.key_release_event.connect (() => {
+                display_on ();
+                return false;
+            }); 
             
             // Make seperator
             Gtk.Separator lcd_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
@@ -162,6 +167,19 @@ namespace Pebbles {
         public void get_answer_evaluate () {
             var sci_calc = new ScientificCalculator ();
             answer_label.set_text (sci_calc.get_result (input_entry.get_text (), angle_mode));
+        }
+
+        // Just eye-candy
+        public void display_off () {
+            answer_label.set_opacity (0.1);
+            input_entry.set_opacity (0.1);
+            lcd_status_bar.set_opacity (0.1);
+        }
+
+        public void display_on () {
+            answer_label.set_opacity (1);
+            input_entry.set_opacity (1);
+            lcd_status_bar.set_opacity (1);
         }
     }
 }

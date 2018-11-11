@@ -68,8 +68,8 @@ namespace Pebbles {
             set_column_homogeneous (true);
             set_row_homogeneous (true);
             
-            width_request = 240;
-            height_request = 200;
+            width_request = 248;
+            height_request = 210;
             margin_start = 8;
             margin_end = 8;
             column_spacing = 8;

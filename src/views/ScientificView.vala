@@ -448,14 +448,23 @@ namespace Pebbles {
             }
         }
         private void sci_make_events () {
-            result_button.clicked.connect (() => {
-                display_unit.get_answer_evaluate ();
-                if (display_unit.input_entry.get_text ().length == 0 && display_unit.input_entry.get_text () != "0") {
-                    display_unit.input_entry.set_text ("0");
+            result_button.button_press_event.connect ((event) => {
+                if (event.button == 1) {
+                    display_unit.display_off ();
+                    display_unit.get_answer_evaluate ();
+                    if (display_unit.input_entry.get_text ().length == 0 && display_unit.input_entry.get_text () != "0") {
+                        display_unit.input_entry.set_text ("0");
+                    }
+                    display_unit.input_entry.set_text (Utils.preformat (display_unit.input_entry.get_text ()));
+                    display_unit.input_entry.grab_focus_without_selecting ();
+                    if (display_unit.input_entry.cursor_position != display_unit.input_entry.get_text ().length)
+                        display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
                 }
-                display_unit.input_entry.set_text (Utils.preformat (display_unit.input_entry.get_text ()));
-                display_unit.input_entry.grab_focus_without_selecting ();
-                display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                return false;
+            });
+            result_button.button_release_event.connect (() => {
+                display_unit.display_on ();
+                return false;
             });
             all_clear_button.clicked.connect (() => {
                 display_unit.input_entry.grab_focus_without_selecting ();

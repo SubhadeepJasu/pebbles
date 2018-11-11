@@ -89,6 +89,8 @@ namespace Pebbles {
             up_down_grid.attach (up_button, 0, 0, 1, 1);
             up_down_grid.attach (down_button, 1, 0, 1, 1);
             interchange_button.add (up_down_grid);
+            interchange_button.margin_top = 8;
+            interchange_button.margin_bottom = 8;
             interchange_button.margin_start = 100;
             interchange_button.margin_end   = 100;
 
@@ -99,10 +101,11 @@ namespace Pebbles {
             conversion_grid.attach (to_unit, 0, 3, 1, 1);
             conversion_grid.attach (to_entry, 0, 4, 1, 1);
             conversion_grid.width_request = 240;
-            conversion_grid.height_request = 200;
+            conversion_grid.height_request = 210;
             conversion_grid.set_row_homogeneous (true);
             conversion_grid.margin_start = 8;
             conversion_grid.margin_end = 8;
+            conversion_grid.valign = Gtk.Align.CENTER;
             conversion_grid.halign = Gtk.Align.CENTER;
             conversion_grid.row_spacing = 8;
             
