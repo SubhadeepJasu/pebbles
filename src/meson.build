@@ -17,6 +17,7 @@ executable(
     'test/TestUtil.vala',
     'core/ScientificCalculator.vala',
     'core/Utils.vala',
+    'core/LengthConverter.vala',
     dependencies: [
         core_deps,
         dependency('gtk+-3.0'),

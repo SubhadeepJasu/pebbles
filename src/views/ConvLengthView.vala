@@ -24,8 +24,14 @@ namespace Pebbles {
         public Gtk.Entry from_entry;
         public Gtk.Entry to_entry;
         private int from_to = 0;
+        private bool allow_change = true;
+        private LengthConverter lc;
+        private Gtk.ComboBoxText from_unit;
+        private Gtk.ComboBoxText to_unit;
+        private Gtk.Button interchange_button;
 
         construct {
+            lc = new LengthConverter ();
             keypad = new CommonKeyPadConverter ();
 
             // Make Header Label
@@ -40,7 +46,7 @@ namespace Pebbles {
             from_entry.set_text ("1");
             from_entry.get_style_context ().add_class ("Pebbles_Conversion_Text_Box");
             from_entry.max_width_chars = 35;
-            Gtk.ComboBoxText from_unit = new Gtk.ComboBoxText ();
+            from_unit = new Gtk.ComboBoxText ();
             from_unit.append_text ("Nanometre");
             from_unit.append_text ("Micron");
             from_unit.append_text ("Millimetre");
@@ -52,7 +58,6 @@ namespace Pebbles {
             from_unit.append_text ("Yard");
             from_unit.append_text ("Mile");
             from_unit.append_text ("Nautical Mile");
-            from_unit.append_text ("Light Year");
             from_unit.active = 4;
 
             // Make Lower Unit Box
@@ -60,7 +65,7 @@ namespace Pebbles {
             to_entry.set_text ("100");
             to_entry.get_style_context ().add_class ("Pebbles_Conversion_Text_Box");
             to_entry.max_width_chars = 35;
-            Gtk.ComboBoxText to_unit = new Gtk.ComboBoxText ();
+            to_unit = new Gtk.ComboBoxText ();
             to_unit.append_text ("Nanometre");
             to_unit.append_text ("Micron");
             to_unit.append_text ("Millimetre");
@@ -72,15 +77,10 @@ namespace Pebbles {
             to_unit.append_text ("Yard");
             to_unit.append_text ("Mile");
             to_unit.append_text ("Nautical Mile");
-            to_unit.append_text ("Light Year");
             to_unit.active = 3;
 
             // Create Conversion active section
-            var conversion_direction = new Granite.Widgets.ModeButton ();
-            conversion_direction.halign = Gtk.Align.CENTER;
-            conversion_direction.valign = Gtk.Align.CENTER;
-            
-            var interchange_button = new Gtk.Button ();
+            interchange_button = new Gtk.Button ();
             var up_button = new Gtk.Image.from_icon_name ("go-up-symbolic", Gtk.IconSize.BUTTON);
             var down_button = new Gtk.Image.from_icon_name ("go-down-symbolic", Gtk.IconSize.BUTTON);
             var up_down_grid = new Gtk.Grid ();
@@ -121,18 +121,20 @@ namespace Pebbles {
             attach (conversion_grid, 2, 1, 1, 1);
             row_spacing = 8;
 
-            handle_focus ();
+            handle_events ();
         }
 
-        private void handle_focus () {
+        private void handle_events () {
             from_entry.button_press_event.connect (() => {
                 from_to = 0;
                 return false;
             });
+
             to_entry.button_press_event.connect (() => {
                 from_to = 1;
                 return false;
             });
+
             this.key_press_event.connect ((event) => {
                 switch (from_to) {
                     case 0: 
@@ -143,6 +145,44 @@ namespace Pebbles {
                         break;
                 }
                 return false;
+            });
+
+            from_entry.changed.connect (() => {
+                if (from_to == 0 && allow_change) {
+                    string result = lc.convert (double.parse (from_entry.get_text ()), from_unit.active, to_unit.active);
+                    to_entry.set_text (result);
+                }
+            });
+
+            to_entry.changed.connect (() => {
+                if (from_to == 1 && allow_change) {
+                    string result = lc.convert (double.parse (to_entry.get_text ()), to_unit.active, from_unit.active);
+                    from_entry.set_text (result);
+                }
+            });
+
+            from_unit.changed.connect (() => {
+                if (allow_change) {
+                    string result = lc.convert (double.parse (to_entry.get_text ()), to_unit.active, from_unit.active);
+                    from_entry.set_text (result);
+                }
+            });
+
+            to_unit.changed.connect (() => {
+                if (allow_change) {
+                    string result = lc.convert (double.parse (from_entry.get_text ()), from_unit.active, to_unit.active);
+                    to_entry.set_text (result);
+                }
+            });
+
+            interchange_button.clicked.connect (() => {
+                allow_change = false;
+                int temp = to_unit.active;
+                to_unit.active = from_unit.active;
+                from_unit.active = temp;
+                string result = lc.convert (double.parse (from_entry.get_text ()), from_unit.active, to_unit.active);
+                to_entry.set_text (result);
+                allow_change = true;
             });
         }
     }
