@@ -98,7 +98,7 @@ namespace Pebbles {
             shift_grid = new Gtk.Grid ();
             shift_label = new Gtk.Label ("\tShift ");
             shift_switch = new Gtk.Switch ();
-            shift_switch.get_style_context ().add_class (Granite.STYLE_CLASS_MODE_SWITCH);
+            shift_switch.get_style_context ().add_class ("Pebbles_Header_Switch");
             shift_switch.notify["active"].connect (() => {
                 scientific_view.hold_shift (shift_switch.active);
             });
