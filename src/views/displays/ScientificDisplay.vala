@@ -166,9 +166,20 @@ namespace Pebbles {
         }
         public void get_answer_evaluate () {
             var sci_calc = new ScientificCalculator ();
-            answer_label.set_text (sci_calc.get_result (input_entry.get_text (), angle_mode));
+            string result = sci_calc.get_result (input_entry.get_text (), angle_mode);
+            answer_label.set_text (result);
+            if (result == "E") {
+                shake ();
+            }
         }
 
+        private void shake () {
+            get_style_context ().add_class ("pebbles_shake");
+            Timeout.add (450, () => {
+                get_style_context ().remove_class ("pebbles_shake");
+                return false;
+            });
+        }
         // Just eye-candy
         public void display_off () {
             answer_label.set_opacity (0.1);
