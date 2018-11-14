@@ -88,7 +88,8 @@ namespace Pebbles {
             
             // Create angle unit button
             angle_unit_button = new Gtk.Button.with_label ("DEG");
-            angle_unit_button.margin = 12;
+            angle_unit_button.margin = 7;
+            angle_unit_button.width_request = 50;
             angle_unit_button.clicked.connect (() => {
                 settings.switch_angle_unit ();
                 angle_unit_button_label_update ();
@@ -96,7 +97,9 @@ namespace Pebbles {
             
             // Create shift switcher
             shift_grid = new Gtk.Grid ();
-            shift_label = new Gtk.Label ("\tShift ");
+            shift_label = new Gtk.Label ("Shift ");
+            shift_label.set_margin_start (2);
+            shift_label.set_opacity (0.7);
             shift_switch = new Gtk.Switch ();
             shift_switch.get_style_context ().add_class ("Pebbles_Header_Switch");
             shift_switch.notify["active"].connect (() => {
@@ -110,7 +113,7 @@ namespace Pebbles {
             // Create App Menu
             app_menu = new Gtk.MenuButton ();
             app_menu.valign = Gtk.Align.CENTER;
-            app_menu.set_image (new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
+            app_menu.set_image (new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
             
             var settings_menu = new Gtk.Menu ();
             var menu_item_constants = new Gtk.MenuItem.with_label ("Configure Constant Button");
@@ -123,7 +126,8 @@ namespace Pebbles {
             // Create History Button
             history_button = new Gtk.Button ();
             history_button.valign = Gtk.Align.CENTER;
-            history_button.set_image (new Gtk.Image.from_icon_name ("document-open-recent-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
+            history_button.set_image (new Gtk.Image.from_icon_name ("document-open-recent-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
+            history_button.set_margin_end (4);
             
             // Create headerbar
             headerbar = new Gtk.HeaderBar ();
@@ -134,7 +138,7 @@ namespace Pebbles {
             headerbar.pack_start (shift_grid);
             headerbar.pack_end (history_button);
             headerbar.pack_end (app_menu);
-            headerbar.pack_end (dark_mode_switch);
+            headerbar.pack_end (dark_mode_switch);// Uncomment to use dark mode switch
             this.set_titlebar (headerbar);
             
             // Create Item Pane
@@ -211,7 +215,7 @@ namespace Pebbles {
                 this.show_all ();
             });
             angle_unit_button_label_update ();
-            //scientific_item.activated ();
+            item_list.selected = scientific_item;
 
             // Set up window attributes
             this.set_default_size (900, 600);

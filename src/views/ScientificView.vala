@@ -195,30 +195,45 @@ namespace Pebbles {
 
             // Make buttons on the right
             sqr_button = new StyledButton ("x<sup>2</sup>", "Square a number");
+            sqr_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             log_ten_button = new StyledButton ("10<sup>x</sup>", "10 raised to the power x");
+            log_ten_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             log_e_button = new StyledButton ("e<sup>x</sup>", "e raised to the power x");
+            log_e_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             memory_plus_button = new StyledButton ("M+", "Add it to the value in Memory");
             memory_plus_button.get_style_context ().add_class ("Pebbles_Buttons_Memory");
             sin_button = new StyledButton ("sin", "Sine");
+            sin_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             sinh_button = new StyledButton ("sinh", "Hyperbolic Sine");
+            sinh_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             mod_button = new StyledButton ("Mod", "Modulus");
+            mod_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             memory_minus_button = new StyledButton ("M\xE2\x88\x92", "Subtract it from the value in Memory");
             memory_minus_button.get_style_context ().add_class ("Pebbles_Buttons_Memory");
             cos_button = new StyledButton ("cos", "Cosine");
+            cos_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             cosh_button = new StyledButton ("cosh", "Hyperbolic Cosine");
+            cosh_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             log_power_button = new StyledButton ("x<sup>y</sup>", "x raised to the power y");
+            log_power_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             memory_recall_button = new StyledButton ("MR", "Recall value from Memory");
             memory_recall_button.get_style_context ().add_class ("Pebbles_Buttons_Memory");
             tan_button = new StyledButton ("tan", "Tangent");
+            tan_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             tanh_button = new StyledButton ("tanh", "Hyperbolic Tangent");
+            tanh_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             perm_comb_button = new StyledButton ("<sup>n</sup>P\xE1\xB5\xA3", "Permutations");
+            perm_comb_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             memory_clear_button = new StyledButton ("MC", "Memory Clear");
             memory_clear_button.sensitive = false;
             memory_clear_button.get_style_context ().add_class ("Pebbles_Buttons_Memory");
             fact_button = new StyledButton ("!", "Factorial");
+            fact_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             constant_button = new StyledButton (constant_label_1, constant_desc_1);
+            constant_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             last_answer_button = new StyledButton ("Ans", "Last answer");
             last_answer_button.sensitive = false;
+            last_answer_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             result_button = new StyledButton ("=", "Result");
             result_button.get_style_context ().add_class ("h2");
             result_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
@@ -457,7 +472,7 @@ namespace Pebbles {
                     }
                     display_unit.input_entry.set_text (Utils.preformat (display_unit.input_entry.get_text ()));
                     display_unit.input_entry.grab_focus_without_selecting ();
-                    if (display_unit.input_entry.cursor_position != display_unit.input_entry.get_text ().length)
+                    if (display_unit.input_entry.cursor_position < display_unit.input_entry.get_text ().length)
                         display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
                 }
                 return false;

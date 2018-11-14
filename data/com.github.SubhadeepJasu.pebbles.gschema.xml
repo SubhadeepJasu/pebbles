@@ -38,7 +38,7 @@
 			<description>Select the angle unit to use in all modes of this app.</description>
 		</key>
 		<key name="use-dark-theme" type="b">
-			<default>false</default>
+			<default>true</default>
 			<summary>Use Dark Theme</summary>
 			<description>Use dark theme.</description>
 		</key>
