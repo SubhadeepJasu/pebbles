@@ -271,7 +271,7 @@ namespace Pebbles {
 
                 // If token is an operator
                 else if (is_operator(tokens[i])) {
-                    while (!ops.empty() && has_precedence(tokens[i].get(0), ops.peek())) {
+                    while (!r_l_associative (tokens[i]) && !ops.empty() && has_precedence(tokens[i].get(0), ops.peek())) {
                         string tmp = apply_op(ops.pop(), values.pop(), values.pop());
                         if (tmp != "E") {
                             values.push(double.parse(tmp));
@@ -321,6 +321,12 @@ namespace Pebbles {
                 output_builder.insert (i, ",");
             }
             return output_builder.str;
+        }
+        private static bool r_l_associative (string operator) {
+            if (operator == "^" || operator == "") {
+                return true;
+            }
+            return false;
         }
     }
     public class CharStack {
