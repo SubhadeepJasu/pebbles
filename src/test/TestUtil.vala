@@ -38,16 +38,16 @@ namespace Pebbles {
             var result = Utils.st_tokenize (exp);
             stdout.printf ("'%s'\n", result);
         }
-        private static void test_scientific (string exp, string what_i_should_get, GlobalAngleUnit? angle_type = GlobalAngleUnit.DEG, int? number = 0) {
+        private static void test_scientific (string exp, string what_i_should_get, GlobalAngleUnit? angle_type = GlobalAngleUnit.DEG) {
             ScientificCalculator sci_calc = new ScientificCalculator ();
             var what_i_got = sci_calc.get_result (exp, angle_type);
             try {
                 if (what_i_got != what_i_should_get) {
-                    stdout.printf ("[ERROR] Given '%s' in test case number %d:,\n", exp, number);
+                    stdout.printf ("[ERROR] Given '%s':,\n", exp);
                     stdout.printf ("        I should get '%s', but I got '%s'!\n", what_i_should_get, what_i_got);
                 }
             } catch (Error e) {
-                stdout.printf ("[WARNING] Input error: Test Cade number: %d\n", number);
+                stdout.printf ("[WARNING] Input error\n");
             }
         }
         public static void run_test () {
