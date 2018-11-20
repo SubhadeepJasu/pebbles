@@ -18,6 +18,7 @@ executable(
     'core/ScientificCalculator.vala',
     'core/Utils.vala',
     'core/LengthConverter.vala',
+    'core/DateCalculator.vala',
     dependencies: [
         core_deps,
         dependency('gtk+-3.0'),

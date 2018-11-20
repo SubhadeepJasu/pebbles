@@ -123,6 +123,7 @@ namespace Pebbles
             return month;
         }
     }
+    /*
     void main() {
         stdout.printf("End date in calculation is not included which is 1 day.\n");
         stdout.printf("This code assumes that given start date is always less then end date.\n");
@@ -146,6 +147,6 @@ namespace Pebbles
         //SUBTRACTION PART
         calculated_date = date_calculator_object.subtract_from_date(start_date_time,days_to_add_or_subtract,months_to_add_or_subtract,years_to_add_or_subtract);
         stdout.printf("After subtracting days,months,years the obtained Date is %s / %s / %s \n",calculated_date.get_day().to_string(),date_calculator_object.format_month_value(calculated_date),calculated_date.get_year().to_string());
-    }
+    }*/
 }
 

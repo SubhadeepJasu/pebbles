@@ -50,6 +50,24 @@ namespace Pebbles {
                 stdout.printf ("[WARNING] Input error\n");
             }
         }
+        private static void test_date_difference (int d1, int m1, int y1, int d2, int m2, int y2, string days, string year, string month, string week, string day) {
+            DateTime start_date_time = new DateTime( new TimeZone.local() , y1 , m1 , d1 , 0 , 0 , 0 );
+            DateTime end_date_time = new DateTime( new TimeZone.local() , y2 , m2 , d2 , 0 , 0 , 0 );
+            DateCalculator date_calculator_object = new DateCalculator();
+            string result = date_calculator_object.date_difference( start_date_time , end_date_time );
+            if (result != days) {
+                stdout.printf ("[ERROR] Given %d/%d/%d to %d/%d/%d, we are getting %s, we should get %s\n", d1, m1, y1, d2, m2, y2, result, days);
+            }
+            DateFormatted formatted_date_difference = date_calculator_object.difference_formatter(start_date_time , end_date_time);
+            string res_day = (formatted_date_difference.day).to_string ();
+            string res_wek = (formatted_date_difference.week).to_string ();
+            string res_mon = (formatted_date_difference.month).to_string ();
+            string res_yar = (formatted_date_difference.year).to_string ();
+            if (res_day != day || res_wek != week || res_mon != month || res_yar != year) {
+                stdout.printf ("[ERROR] Given %d/%d/%d to %d/%d/%d, we are getting %s years %s months %s weeks %s days,\n", d1, m1, y1, d2, m2, y2, res_yar, res_mon, res_wek, res_day);
+                stdout.printf ("        we should get %s years %s months %s weeks %s days.\n", year, month, week, day);
+            }
+        }
         public static void run_test () {
             show_greeter ();
             stdout.printf ("\nTesting Tokenization...\n");
@@ -123,6 +141,13 @@ namespace Pebbles {
             test_scientific ("e^5.25 / exp(5.25)", "1");
             test_scientific ("pi * pi", "9.869604404");
             test_scientific ("10 + 5 - 10%", "14.9");
+            
+            stdout.printf ("\nTesting Date Difference Calculator\n");
+            stdout.printf ("-------------------------------------------------------------\n");
+            
+            test_date_difference (20, 11, 2018, 30, 11, 2018, "10", "0", "0", "1", "3");
+            test_date_difference (17, 1, 2019, 7, 2, 2042, "8422", "23", "0", "3", "0");
+            test_date_difference (20, 11, 2018, 20, 11, 2018, "0", "0", "0", "0", "0"); 
         }
     }
 }
