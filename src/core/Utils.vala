@@ -109,6 +109,7 @@ namespace Pebbles {
                 exp = exp.replace ("%", " / 100 ");
                 exp = exp.replace ("+", " + ");
                 exp = exp.replace ("-", " - ");
+                exp = exp.replace ("−", " - ");
                 exp = exp.replace ("*", " * ");
                 exp = exp.replace ("/", " / ");
                 exp = exp.replace ("^", " ^ ");
@@ -121,6 +122,9 @@ namespace Pebbles {
 
                 exp = exp.strip ();
                 exp = space_removal (exp);
+                
+                // Take care of unary subtraction
+                exp = uniminus_convert (exp);
                 //stdout.printf ("'%s'\n", exp);
                 return exp;
             }
@@ -147,5 +151,40 @@ namespace Pebbles {
             }
             return result;
         }
+        private static string uniminus_convert (string exp) {
+            string uniminus_converted = "";
+            string[] tokens = exp.split (" ");
+            for (int i = 1; i < tokens.length; i++) {
+                if (tokens[i] == "-") {
+                    if (tokens [i - 1] == ")" || tokens [i - 1] == "x" || is_number (tokens [i - 1]) ) {
+                        tokens [i] = "-";
+                    }
+                    else {
+                        tokens [i] = "u";
+                    }
+                }
+            }
+            uniminus_converted = string.joinv (" ", tokens);
+            uniminus_converted = uniminus_converted.replace ("u", "0 u");
+            return uniminus_converted;
+        }
+        
+        private static bool is_number (string exp) {
+            if (exp.has_suffix ("0") ||
+                exp.has_suffix ("1") ||
+                exp.has_suffix ("2") ||
+                exp.has_suffix ("3") ||
+                exp.has_suffix ("4") ||
+                exp.has_suffix ("5") ||
+                exp.has_suffix ("6") ||
+                exp.has_suffix ("7") ||
+                exp.has_suffix ("8") ||
+                exp.has_suffix ("9") ||
+                exp.has_suffix (".")
+                ) {
+                    return true;
+                }
+                return false;
+        } 
     }
 }

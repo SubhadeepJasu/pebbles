@@ -42,7 +42,10 @@ namespace Pebbles {
                 return false;
             }
             // Following the PEMDAS rule: <http://mathworld.wolfram.com/PEMDAS.html>
-            if (angle_op (op1) && (op2 == '!' || op2 == 'p' || op2 == 'b' || op2 == 'l' || op2 == 'q' || op2 == '^' || op2 == '*' || op2 == '/' || op2 == '-' || op2 == '+' || op2 == 'm')) {
+            if (op1 == 'u' && (angle_op (op2) || op2 == '!' || op2 == 'p' || op2 == 'b' || op2 == 'l' || op2 == 'q' || op2 == '^' || op2 == '*' || op2 == '/' || op2 == '-' || op2 == '+' || op2 == 'm')) {
+                return false;
+            }
+            else if (angle_op (op1) && (op2 == '!' || op2 == 'p' || op2 == 'b' || op2 == 'l' || op2 == 'q' || op2 == '^' || op2 == '*' || op2 == '/' || op2 == '-' || op2 == '+' || op2 == 'm')) {
                 return false;
             }
             else if ((op1 == '!') && (op2 == 'p' || op2 == 'b' || op2 == 'l' || op2 == 'q' || op2 == '^' || op2 == '*' || op2 == '/' || op2 == '-' || op2 == '+' || op2 == 'm')) {
@@ -88,6 +91,8 @@ namespace Pebbles {
                     return (a + b).to_string();
                 case '-':
                     return (a - b).to_string();
+                case 'u':
+                    return ((-1) * b).to_string();
                 case '*':
                     return (a * b).to_string();
                 case '/':
@@ -101,7 +106,7 @@ namespace Pebbles {
                 case 'l':                                                           // Logarithm
                     return (Math.log(b) / Math.log(a)).to_string();
                 case '!':                                                           // Factorial
-                    return fact (a).to_string();
+                    return fact (b).to_string();
                 case 'p':
                     return (fact (a) / (fact (a - b))).to_string();
                 case 'b':
@@ -233,7 +238,7 @@ namespace Pebbles {
         }
         private bool is_operator (string str) {
             unichar chr = str.get_char(0);
-            if (chr == '+' || chr == '-' || chr == '/' || chr == '*' || chr == '^' || chr == 'm' || chr == 'l' || chr == '!' || chr == 'p' || chr == 'b' || angle_op (chr) || chr == 'q') {
+            if (chr == '+' || chr == '-' || chr == '/' || chr == '*' || chr == '^' || chr == 'm' || chr == 'l' || chr == '!' || chr == 'p' || chr == 'b' || angle_op (chr) || chr == 'q' || chr == 'u') {
                 return true;
             }
             else {
@@ -398,7 +403,7 @@ namespace Pebbles {
                 tp--;
                 return temp;
             }
-            return temp;
+            return 0;
         }
     }
 
