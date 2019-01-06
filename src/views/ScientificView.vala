@@ -225,7 +225,6 @@ namespace Pebbles {
             perm_comb_button = new StyledButton ("<sup>n</sup>P\xE1\xB5\xA3", "Permutations");
             perm_comb_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             memory_clear_button = new StyledButton ("MC", "Memory Clear");
-            memory_clear_button.sensitive = false;
             memory_clear_button.get_style_context ().add_class ("Pebbles_Buttons_Memory");
             fact_button = new StyledButton ("!", "Factorial");
             fact_button.get_style_context ().add_class ("Pebbles_Buttons_Function");

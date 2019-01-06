@@ -80,6 +80,11 @@ namespace Pebbles {
             answer_label = new Gtk.Label ("0");
             answer_label.set_halign (Gtk.Align.END);
             answer_label.get_style_context ().add_class ("pebbles_h1");
+            var scrollable = new Gtk.ScrolledWindow (null, null);
+            scrollable.add (answer_label);
+            scrollable.propagate_natural_height = true;
+            scrollable.shadow_type = Gtk.ShadowType.NONE;
+            scrollable.get_style_context ().add_class ("pebbles_h1");
 
             // Make Input entry
             input_entry = new Gtk.Entry ();
@@ -121,7 +126,7 @@ namespace Pebbles {
 
             // Put it together
             attach (lcd_status_bar, 0, 0, 1, 1);
-            attach (answer_label, 0, 1, 1, 1);
+            attach (scrollable, 0, 1, 1, 1);
             attach (lcd_separator, 0, 2, 1, 1);
             attach (input_entry, 0, 3, 1, 1);
 

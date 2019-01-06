@@ -125,7 +125,7 @@
 	text-shadow: 0 1px alpha (#000, 0.3);
 	-gtk-icon-shadow: 0 1px alpha (#000, 0.3);
 	border-color: shade (@bg_color, 0.35);
-	background-image: linear-gradient(#485a6c, #4e6276);
+	background-image: linear-gradient(#485a6c, #667885);
 	box-shadow:
 	inset 0px 1px 1px 0px alpha (#000, 0.05),
 	inset 0px 0px 1px 1px alpha (#000, 0.05),
@@ -146,7 +146,7 @@
 	font-size: 40px;
 	font-family: Open Sans;
 	text-shadow: 0 0px alpha (#000, 0);
-	opacity: 0.8;
+	opacity: 0.85;
 	color:#272863;
 	margin-top: 6px;
 }
@@ -211,4 +211,27 @@
 .Pebbles_Header_Switch slider {
 	min-height: 16px;
 	min-width: 16px;
+}
+
+scrollbar.horizontal slider {
+    min-width: 30px;
+    min-height: 3px;
+	border: none;
+	background-color: alpha (#272863, 0.8);
+}
+
+scrollbar.horizontal:hover slider {
+    min-height: 5px;
+}
+
+scrollbar.horizontal trough {
+    background: none;
+	border: none;
+}
+scrolledwindow overshoot.right {
+     background-image: none;
+
+}
+scrolledwindow overshoot.left {
+     background-image: none;
 }

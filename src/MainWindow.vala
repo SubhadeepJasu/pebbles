@@ -145,9 +145,20 @@ namespace Pebbles {
             var programmer_item  = new Granite.Widgets.SourceList.Item ("Programmer");
             var calculus_item    = new Granite.Widgets.SourceList.Item ("Calculus");
             var date_item        = new Granite.Widgets.SourceList.Item ("Date");
+            var stats_item       = new Granite.Widgets.SourceList.Item ("Statistics");
+            var finance_item     = new Granite.Widgets.SourceList.Item ("Financial");
             var conv_length_item = new Granite.Widgets.SourceList.Item ("Length");
             var conv_area_item   = new Granite.Widgets.SourceList.Item ("Area");
             var conv_volume_item = new Granite.Widgets.SourceList.Item ("Volume");
+            var conv_time_item   = new Granite.Widgets.SourceList.Item ("Time");
+            var conv_angle_item  = new Granite.Widgets.SourceList.Item ("Angle");
+            var conv_speed_item  = new Granite.Widgets.SourceList.Item ("Speed");
+            var conv_mass_item   = new Granite.Widgets.SourceList.Item ("Mass");
+            var conv_press_item  = new Granite.Widgets.SourceList.Item ("Pressure");
+            var conv_energy_item = new Granite.Widgets.SourceList.Item ("Energy");
+            var conv_power_item  = new Granite.Widgets.SourceList.Item ("Power");
+            var conv_data_item   = new Granite.Widgets.SourceList.Item ("Data");
+            var conv_curr_item   = new Granite.Widgets.SourceList.Item ("Currency");
             
             // Calculators
             var calc_category = new Granite.Widgets.SourceList.ExpandableItem ("Calculator");
@@ -156,12 +167,23 @@ namespace Pebbles {
             calc_category.add (programmer_item);
             calc_category.add (calculus_item);
             calc_category.add (date_item);
+            calc_category.add (stats_item);
+            calc_category.add (finance_item);
             // Converters
             var conv_category = new Granite.Widgets.SourceList.ExpandableItem ("Converter");
-            conv_category.expand_all ();
+            //conv_category.expand_all ();
             conv_category.add (conv_length_item);
             conv_category.add (conv_area_item);
             conv_category.add (conv_volume_item);
+            conv_category.add (conv_time_item);
+            conv_category.add (conv_angle_item);
+            conv_category.add (conv_speed_item);
+            conv_category.add (conv_mass_item);
+            conv_category.add (conv_press_item);
+            conv_category.add (conv_energy_item);
+            conv_category.add (conv_power_item);
+            conv_category.add (conv_data_item);
+            conv_category.add (conv_curr_item);
 
             var item_list = new Granite.Widgets.SourceList ();
             item_list.root.add (calc_category);

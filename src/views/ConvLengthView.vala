@@ -93,7 +93,7 @@ namespace Pebbles {
             interchange_button.margin_bottom = 8;
             interchange_button.margin_start = 100;
             interchange_button.margin_end   = 100;
-
+            
             Gtk.Grid conversion_grid = new Gtk.Grid ();
             conversion_grid.attach (from_unit, 0, 0, 1, 1);
             conversion_grid.attach (from_entry, 0, 1, 1, 1);
