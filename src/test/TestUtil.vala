@@ -139,7 +139,7 @@ namespace Pebbles {
             test_scientific ("sqrt(423) + (3.23 * 8.56) - 1E2", "-51.784236199");
             test_scientific ("sqrt(-1 + 423 + 1) + (3.23 * 8.56) - sin(90 + 0.2)", "47.428606036");
             test_scientific ("e^5.25 / exp(5.25)", "1");
-            test_scientific ("pi * pi", "9.869604404");
+            test_scientific ("pi * pi", "9.869604401");
             test_scientific ("10 + 5 - 10%", "14.9");
             
             stdout.printf ("\nTesting Date Difference Calculator\n");

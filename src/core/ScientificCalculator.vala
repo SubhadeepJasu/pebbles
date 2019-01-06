@@ -42,19 +42,19 @@ namespace Pebbles {
                 return false;
             }
             // Following the PEMDAS rule: <http://mathworld.wolfram.com/PEMDAS.html>
-            if (op1 == 'u' && (angle_op (op2) || op2 == '!' || op2 == 'p' || op2 == 'b' || op2 == 'l' || op2 == 'q' || op2 == '^' || op2 == '*' || op2 == '/' || op2 == '-' || op2 == '+' || op2 == 'm')) {
+            if (angle_op (op1) && (op2 == '!' || op2 == 'p' || op2 == 'b' || op2 == 'l' || op2 == 'u' || op2 == 'q' || op2 == '^' || op2 == '*' || op2 == '/' || op2 == '-' || op2 == '+' || op2 == 'm')) {
                 return false;
             }
-            else if (angle_op (op1) && (op2 == '!' || op2 == 'p' || op2 == 'b' || op2 == 'l' || op2 == 'q' || op2 == '^' || op2 == '*' || op2 == '/' || op2 == '-' || op2 == '+' || op2 == 'm')) {
+            else if ((op1 == '!') && (op2 == 'p' || op2 == 'b' || op2 == 'l' || op2 == 'u' || op2 == 'q' || op2 == '^' || op2 == '*' || op2 == '/' || op2 == '-' || op2 == '+' || op2 == 'm')) {
                 return false;
             }
-            else if ((op1 == '!') && (op2 == 'p' || op2 == 'b' || op2 == 'l' || op2 == 'q' || op2 == '^' || op2 == '*' || op2 == '/' || op2 == '-' || op2 == '+' || op2 == 'm')) {
+            else if ((op1 == 'p' || op1 == 'b') && (op2 == 'l' || op2 == 'u' || op2 == 'q' || op2 == '^' || op2 == '*' || op2 == '/' || op2 == '-' || op2 == '+' || op2 == 'm')) {
                 return false;
             }
-            else if ((op1 == 'p' || op1 == 'b') && (op2 == 'l' || op2 == 'q' || op2 == '^' || op2 == '*' || op2 == '/' || op2 == '-' || op2 == '+' || op2 == 'm')) {
+            else if ((op1 == 'l') && (op2 == 'u' || op2 == 'q' || op2 == '^' || op2 == '*' || op2 == '/' || op2 == '-' || op2 == '+' || op2 == 'm')) {
                 return false;
             }
-            else if ((op1 == 'l') && (op2 == 'q' || op2 == '^' || op2 == '*' || op2 == '/' || op2 == '-' || op2 == '+' || op2 == 'm')) {
+            else if ((op1 == 'u') && (op2 == '^' || op2 == 'q' || op2 == '*' || op2 == '/' || op2 == '-' || op2 == '+' || op2 == 'm')) {
                 return false;
             }
             else if ((op1 == '^' || op1 == 'q') && (op2 == '*' || op2 == '/' || op2 == '-' || op2 == '+' || op2 == 'm')) {
@@ -325,10 +325,14 @@ namespace Pebbles {
             for (int i = decimalPos - 3; i > end_position; i -= 3) {
                 output_builder.insert (i, ",");
             }
+            
+            if (output_builder.str == "-0") {
+                return "0";
+            }
             return output_builder.str;
         }
         private static bool r_l_associative (string operator) {
-            if (operator == "^" || operator == "") {
+            if (operator == "u" || operator == "^" || operator == "") {
                 return true;
             }
             return false;

@@ -190,7 +190,7 @@ namespace Pebbles
             return ("%.9f".printf (standard_deviation));
         }
     }
-
+/*
     void main() {
         stdout.printf("Enter the nos seperated by commas:- ");
         string input = stdin.read_line();
@@ -207,5 +207,6 @@ namespace Pebbles
         stdout.printf("The population variance is %s \n",s1.population_variance(input));
         stdout.printf("The population standard deviation is %s \n",s1.population_standard_deviation(input));
     }
+    */
 }
 

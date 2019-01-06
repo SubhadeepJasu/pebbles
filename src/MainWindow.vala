@@ -55,7 +55,7 @@ namespace Pebbles {
         Notification desktop_notification;
         
         // History
-        List<string> history_stack;
+        public List<string> history_stack;
 
         public MainWindow () {
             load_settings ();
@@ -72,7 +72,6 @@ namespace Pebbles {
                 save_settings ();
             });
             history_stack = new List<string> ();
-            history_stack.append ("3.14159265");
         }
         
         public void make_ui () {
@@ -178,11 +177,17 @@ namespace Pebbles {
             conv_volume_view = new Pebbles.ConvVolumeView ();
             
             // Create Views Pane
-            var common_view = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+            var common_view = new Gtk.Stack ();
             common_view.valign = Gtk.Align.CENTER;
             common_view.halign = Gtk.Align.CENTER;
-            common_view.add (scientific_view);
-
+            common_view.add_named (scientific_view, "Scientific");
+            common_view.add_named (programmer_view, "Programmer");
+            common_view.add_named (calculus_view, "Calculus");
+            common_view.add_named (date_view, "Date");
+            common_view.add_named (conv_length_view, "Length");
+            
+            common_view.set_transition_type (Gtk.StackTransitionType.SLIDE_UP_DOWN);
+            
             //Create Panes
             var paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
             paned.position = 170;
@@ -193,23 +198,23 @@ namespace Pebbles {
             // Create View Events
             item_list.item_selected.connect ((item) => {
                 if (item == scientific_item) {
-                    common_view.foreach ((element) => common_view.remove (element));
-                    common_view.add (scientific_view);
+                    common_view.set_visible_child (scientific_view);
                     view_index = 0;
                 }
                 else if (item == programmer_item) {
-                    common_view.foreach ((element) => common_view.remove (element));
-                    common_view.add (programmer_view);
+                    common_view.set_visible_child (programmer_view);
                     view_index = 1;
                 }
                 else if (item == calculus_item) {
-                    common_view.foreach ((element) => common_view.remove (element));
-                    common_view.add (calculus_view);
+                    common_view.set_visible_child (calculus_view);
                     view_index = 2;
                 }
+                else if (item == date_item) {
+                    common_view.set_visible_child (date_view);
+                    view_index = 3;
+                }
                 else if (item == conv_length_item) {
-                    common_view.foreach ((element) => common_view.remove (element));
-                    common_view.add (conv_length_view);
+                    common_view.set_visible_child (conv_length_view);
                     view_index = 4;
                 }
                 this.show_all ();

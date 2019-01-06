@@ -53,7 +53,7 @@ namespace Pebbles {
                 */
 
                 // Detect constants
-                exp = exp.replace ("\xCF\x80", " ( 3.141592654 ) ");
+                exp = exp.replace ("\xCF\x80", " ( 3.1415926535897932 ) ");
                 exp = exp.replace ("\xCF\x86", " ( 1.618033989 ) ");
                 exp = exp.replace ("\xF0\x9D\x9B\xBE", " ( 0.5772156649 ) ");
                 exp = exp.replace ("\xCE\xBB", " ( 1.30357 ) ");
@@ -62,7 +62,7 @@ namespace Pebbles {
                 exp = exp.replace ("\xCE\xB4", " ( 4.6692 ) ");
                 exp = exp.replace ("\xF0\x9D\x9B\x87(3)", " ( 1.2020569 ) ");
                 exp = exp.replace ("E", " * 10 ^ ");
-                exp = exp.replace ("pi", " ( 3.141592654 ) ");
+                exp = exp.replace ("pi", " ( 3.1415926535897932 ) ");
                 
                 exp = exp.down ();
                 

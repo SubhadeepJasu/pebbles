@@ -22,7 +22,7 @@ namespace Pebbles {
     public class ScientificView : Gtk.Grid {
         List<string> input_expression;
         // Reference of main window
-        MainWindow window;
+        public MainWindow window;
 
         // Fake LCD display
         Gtk.Box display_container;
@@ -113,7 +113,7 @@ namespace Pebbles {
             display_container.margin_end = 8;
             display_container.margin_top = 8;
             display_container.margin_bottom = 8;
-            display_unit = new ScientificDisplay ();
+            display_unit = new ScientificDisplay (this);
             display_container.pack_start (display_unit);
 
             // Make Input section on the left

@@ -39,6 +39,11 @@ namespace Pebbles {
         construct {
             sci_display_make_ui ();
         }
+        
+        ScientificView sci_view;
+        public ScientificDisplay (ScientificView view) {
+            this.sci_view = view;
+        }
         private void sci_display_make_ui () {
             // Stylize background;
             get_style_context ().add_class ("Pebbles_Display_Unit_Bg");
@@ -170,6 +175,9 @@ namespace Pebbles {
             answer_label.set_text (result);
             if (result == "E") {
                 shake ();
+            }
+            else {
+                this.sci_view.window.history_stack.append (result);
             }
         }
 
