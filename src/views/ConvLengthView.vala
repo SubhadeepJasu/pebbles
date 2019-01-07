@@ -43,7 +43,7 @@ namespace Pebbles {
 
             // Make Upper Unit Box
             from_entry = new Gtk.Entry ();
-            from_entry.set_text ("1");
+            from_entry.set_text ("0");
             from_entry.get_style_context ().add_class ("Pebbles_Conversion_Text_Box");
             from_entry.max_width_chars = 35;
             from_unit = new Gtk.ComboBoxText ();
@@ -62,7 +62,7 @@ namespace Pebbles {
 
             // Make Lower Unit Box
             to_entry = new Gtk.Entry ();
-            to_entry.set_text ("100");
+            to_entry.set_text ("0");
             to_entry.get_style_context ().add_class ("Pebbles_Conversion_Text_Box");
             to_entry.max_width_chars = 35;
             to_unit = new Gtk.ComboBoxText ();
@@ -183,6 +183,45 @@ namespace Pebbles {
                 string result = lc.convert (double.parse (from_entry.get_text ()), from_unit.active, to_unit.active);
                 to_entry.set_text (result);
                 allow_change = true;
+            });
+            
+            keypad.button_clicked.connect ((val) => {
+                if (from_to == 0) {
+                    if (val == "C") {
+                        from_entry.grab_focus_without_selecting ();
+                        from_entry.set_text ("0");
+                    }
+                    else if (val == "del") {
+                        from_entry.grab_focus_without_selecting ();
+                        from_entry.backspace ();
+                    }
+                    else {
+                        if (from_entry.get_text () == "0"){
+                            from_entry.set_text("");
+                        }
+                        from_entry.grab_focus_without_selecting ();
+                        from_entry.set_text (from_entry.get_text() + val);
+                        from_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                    }
+                }
+                else {
+                    if (val == "C") {
+                        to_entry.grab_focus_without_selecting ();
+                        to_entry.set_text ("0");
+                    }
+                    else if (val == "del") {
+                        to_entry.grab_focus_without_selecting ();
+                        to_entry.backspace ();
+                    }
+                    else {
+                        if (to_entry.get_text () == "0"){
+                            to_entry.set_text("");
+                        }
+                        to_entry.grab_focus_without_selecting ();
+                        to_entry.set_text (to_entry.get_text() + val);
+                        to_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                    }
+                }
             });
         }
     }

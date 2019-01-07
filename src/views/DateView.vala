@@ -306,6 +306,7 @@ namespace Pebbles {
         Gtk.Button plus_10_button;
         Gtk.Button minus_button;
         Gtk.Button minus_10_button;
+        Gtk.Button reset;
         Gtk.Entry entry;
         construct {
             main_grid = new Gtk.Grid ();
@@ -315,6 +316,13 @@ namespace Pebbles {
             plus_10_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             minus_10_button = new Gtk.Button.with_label ("−10");
             minus_10_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
+            
+            reset = new Gtk.Button.with_label ("Reset");
+            reset.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
+            
+            reset.clicked.connect (() => {
+                entry.set_text ("");
+            });
             
             plus_button.clicked.connect (() => {
                 int i = int.parse (entry.get_text ());
@@ -353,11 +361,13 @@ namespace Pebbles {
                 else 
                     entry.set_text (i.to_string ());
             });
-            
+            var seperator = new Gtk.Separator (Gtk.Orientation.VERTICAL);
             main_grid.attach (plus_10_button,  0, 0, 1, 1);
             main_grid.attach (plus_button,     1, 0, 1, 1);
             main_grid.attach (minus_button,    2, 0, 1, 1);
             main_grid.attach (minus_10_button, 3, 0, 1, 1);
+            main_grid.attach (seperator,       4, 0, 1, 1);
+            main_grid.attach (reset,           5, 0, 1, 1);
             main_grid.column_spacing = 4;
             main_grid.margin = 4;
 

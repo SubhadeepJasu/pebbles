@@ -154,6 +154,8 @@ namespace Pebbles {
             date_mode_stack.add_named (date_add_grid, "Date_Add");
             date_mode_stack.set_transition_type (Gtk.StackTransitionType.SLIDE_LEFT_RIGHT);
             
+            // Make Conversion Switcher null
+            var null_switcher = new Gtk.Label ("");
             
             // Create App Menu
             app_menu = new Gtk.MenuButton ();
@@ -181,6 +183,7 @@ namespace Pebbles {
             header_switcher.set_transition_type (Gtk.StackTransitionType.SLIDE_UP_DOWN);
             header_switcher.add_named (scientific_header_grid, "Scientific/Calculus Header Switch");
             header_switcher.add_named (date_mode_stack, "Date Mode Switch");
+            header_switcher.add_named (null_switcher, "Converter");
             
             
             
@@ -296,6 +299,7 @@ namespace Pebbles {
                 }
                 else if (item == conv_length_item) {
                     common_view.set_visible_child (conv_length_view);
+                    header_switcher.set_visible_child (null_switcher);
                     view_index = 4;
                 }
                 this.show_all ();

@@ -20,6 +20,12 @@
 
 namespace Pebbles {
     public class CommonKeyPadConverter : Gtk.Grid {
+
+        public string val {
+            get {return val;}
+            set {send_button_press (val);}
+        }
+
         StyledButton del_button;
         StyledButton all_clear_button;
         StyledButton seven_button;
@@ -33,7 +39,9 @@ namespace Pebbles {
         StyledButton three_button;
         StyledButton zero_button;
         StyledButton decimal_button;
-        
+
+        public signal void button_clicked (string input_text);
+    
         construct {
             // Make the buttons
             del_button = new StyledButton ("Del", "Backspace");
@@ -74,6 +82,24 @@ namespace Pebbles {
             margin_end = 8;
             column_spacing = 8;
             row_spacing = 8;
+            
+            // Handle events
+            del_button.clicked.connect (() => send_button_press ("del"));
+            all_clear_button.clicked.connect (() => send_button_press ("C"));
+            seven_button.clicked.connect (() => send_button_press ("7"));
+            eight_button.clicked.connect (() => send_button_press ("8"));
+            nine_button.clicked.connect (() => send_button_press ("9"));
+            four_button.clicked.connect (() => send_button_press ("4"));
+            five_button.clicked.connect (() => send_button_press ("5"));
+            six_button.clicked.connect (() => send_button_press ("6"));
+            one_button.clicked.connect (() => send_button_press ("1"));
+            two_button.clicked.connect (() => send_button_press ("2"));
+            three_button.clicked.connect (() => send_button_press ("3"));
+            zero_button.clicked.connect (() => send_button_press ("0"));
+            decimal_button.clicked.connect (() => send_button_press ("."));
+        }
+        private void send_button_press (string label) {
+            button_clicked (label);
         }
     }
 }
