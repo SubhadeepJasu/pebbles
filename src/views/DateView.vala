@@ -75,6 +75,7 @@ namespace Pebbles {
             from_label.get_style_context ().add_class (Granite.STYLE_CLASS_H4_LABEL);
             datepicker_diff_from = new Granite.Widgets.DatePicker ();
             var to_label  = new Gtk.Label ("To");
+            to_label.margin_top = 4;
             to_label.xalign = 0;
             to_label.get_style_context ().add_class (Granite.STYLE_CLASS_H4_LABEL);
             datepicker_diff_to   = new Granite.Widgets.DatePicker ();
@@ -103,6 +104,7 @@ namespace Pebbles {
             var separator_diff = new Gtk.Separator (Gtk.Orientation.VERTICAL);
             separator_diff.margin_start = 8;
             separator_diff.margin_end = 8;
+            separator_diff.height_request = 131;
             
             date_difference_view.attach (separator_diff, 1, 0, 1, 4);
             date_difference_view.attach (diff_grid, 2, 0, 1, 4);
@@ -124,12 +126,32 @@ namespace Pebbles {
             add_label.xalign = 0;
             add_label.get_style_context ().add_class (Granite.STYLE_CLASS_H4_LABEL);
             
-            var add_entry = new Gtk.Entry ();
-            datepicker_add_sub   = new Granite.Widgets.DatePicker ();
+            var date_input_grid = new Gtk.Grid ();
+            var add_entry_day   = new Gtk.Entry ();
+            add_entry_day.placeholder_text = "Day";
+            add_entry_day.max_length  = 3;
+            add_entry_day.width_chars = 6;
+            add_entry_day.set_input_purpose (Gtk.InputPurpose.NUMBER);
+            var add_entry_month = new Gtk.Entry ();
+            add_entry_month.placeholder_text = "Month";
+            add_entry_month.max_length  = 3;
+            add_entry_month.width_chars = 6;
+            add_entry_month.set_input_purpose (Gtk.InputPurpose.NUMBER);
+            var add_entry_year  = new Gtk.Entry ();
+            add_entry_year.placeholder_text = "Year";
+            add_entry_year.max_length  = 3;
+            add_entry_year.width_chars = 6;
+            add_entry_year.set_input_purpose (Gtk.InputPurpose.NUMBER);
+            date_input_grid.attach (add_entry_day, 0, 0, 1, 1);
+            date_input_grid.attach (add_entry_month, 1, 0, 1, 1);
+            date_input_grid.attach (add_entry_year, 2, 0, 1, 1);
+            date_input_grid.column_spacing = 4;
+            
+            datepicker_add_sub  = new Granite.Widgets.DatePicker ();
             date_add_view.attach (start_label, 0, 0, 1, 1);
             date_add_view.attach (datepicker_add_sub, 0, 1, 1, 1);
             date_add_view.attach (add_label, 0, 2, 1, 1);
-            date_add_view.attach (add_entry, 0, 3, 1, 1);
+            date_add_view.attach (date_input_grid, 0, 3, 1, 1);
             
             
             date_add_view.height_request = 200;
@@ -141,32 +163,37 @@ namespace Pebbles {
             
             var add_header = new Gtk.Label ("The Date will be");
             add_header.xalign = 0;
+            add_header.valign = Gtk.Align.START;
+            add_header.width_request = 160;
             add_header.get_style_context ().add_class (Granite.STYLE_CLASS_H4_LABEL);
             
-            week_day_label = new Gtk.Label ("... and it's a Saturday");
-            week_day_label.xalign = 0;
-            week_day_label.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
-            date_dmy_label = new Gtk.Label ("January 8, 2019");
-            date_dmy_label.xalign = 0;
-            date_dmy_label.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
+            week_day_label = new Gtk.Label ("Wednesday");
+            //week_day_label.xalign = 0;
+            week_day_label.valign = Gtk.Align.END;
+            week_day_label.halign = Gtk.Align.START;
+            week_day_label.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
+            date_dmy_label = new Gtk.Label ("January 31, 2019");
+            //date_dmy_label.xalign = 0;
+            date_dmy_label.halign = Gtk.Align.START;
+            date_dmy_label.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
             var add_grid = new Gtk.Grid ();
             add_grid.attach (add_header,0, 0, 1, 1);
-            add_grid.attach (date_dmy_label,0, 1, 1, 1);
-            add_grid.attach (week_day_label,0, 2, 1, 1);
+            add_grid.attach (week_day_label,0, 1, 1, 1);
+            add_grid.attach (date_dmy_label,0, 2, 1, 1);
             add_grid.width_request = 370;
+            
+            var main_calendar = new Gtk.Calendar ();
+            main_calendar.set_display_options (Gtk.CalendarDisplayOptions.NO_MONTH_CHANGE);
+            main_calendar.show_day_names = true;
+            main_calendar.width_request = 210;
+            add_grid.attach (main_calendar, 1, 0, 1, 3);
             
             var separator_add = new Gtk.Separator (Gtk.Orientation.VERTICAL);
             separator_add.margin_start = 8;
             separator_add.margin_end = 8;
             
             date_add_view.attach (separator_add, 1, 0, 1, 4);
-            date_add_view.attach (add_grid, 2, 0, 1, 4);
-            /*
-            var date_calc_holder = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-            date_calc_holder.add (date_difference_view);
-            date_calc_holder.add (date_add_view);
-            */
-            
+            date_add_view.attach (add_grid, 2, 0, 1, 4);            
             
             var date_calc_holder = new Gtk.Stack ();
             date_calc_holder.add_named (date_difference_view, "Difference Between Dates");
@@ -228,7 +255,7 @@ namespace Pebbles {
                     part++;
                 }
                 if (res_mon != "0") {
-                    if (result_days == "0" && res_wek == "0" && part > 0)
+                    if (res_day == "0" && res_wek == "0" && part > 0)
                         result_date += " and ";
                     else if (part > 0)
                         result_date += ", ";
