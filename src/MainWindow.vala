@@ -113,7 +113,6 @@ namespace Pebbles {
             scientific_header_grid = new Gtk.Grid ();
             shift_label = new Gtk.Label ("Shift ");
             shift_label.set_margin_start (2);
-            shift_label.set_opacity (0.7);
             shift_switch = new Gtk.Switch ();
             shift_switch.set_margin_top (4);
             shift_switch.set_margin_bottom (4);

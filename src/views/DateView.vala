@@ -131,16 +131,31 @@ namespace Pebbles {
             add_entry_day.placeholder_text = "Day";
             add_entry_day.max_length  = 3;
             add_entry_day.width_chars = 6;
+            add_entry_day.set_icon_from_icon_name (Gtk.EntryIconPosition.SECONDARY,"view-more-symbolic");
+            var day_popper = new BottomPopper (add_entry_day);
+            add_entry_day.icon_release.connect (() => {
+                day_popper.set_visible (true);
+            });
             add_entry_day.set_input_purpose (Gtk.InputPurpose.NUMBER);
             var add_entry_month = new Gtk.Entry ();
             add_entry_month.placeholder_text = "Month";
             add_entry_month.max_length  = 3;
             add_entry_month.width_chars = 6;
+            add_entry_month.set_icon_from_icon_name (Gtk.EntryIconPosition.SECONDARY,"view-more-symbolic");
+            var month_popper = new BottomPopper (add_entry_month);
+            add_entry_month.icon_release.connect (() => {
+                month_popper.set_visible (true);
+            });
             add_entry_month.set_input_purpose (Gtk.InputPurpose.NUMBER);
             var add_entry_year  = new Gtk.Entry ();
             add_entry_year.placeholder_text = "Year";
             add_entry_year.max_length  = 3;
             add_entry_year.width_chars = 6;
+            add_entry_year.set_icon_from_icon_name (Gtk.EntryIconPosition.SECONDARY,"view-more-symbolic");
+            var year_popper = new BottomPopper (add_entry_year);
+            add_entry_year.icon_release.connect (() => {
+                year_popper.set_visible (true);
+            });
             add_entry_year.set_input_purpose (Gtk.InputPurpose.NUMBER);
             date_input_grid.attach (add_entry_day, 0, 0, 1, 1);
             date_input_grid.attach (add_entry_month, 1, 0, 1, 1);
@@ -283,6 +298,77 @@ namespace Pebbles {
                 }
             }
             date_diff_label.set_text (result_date);
+        }
+    }
+    public class BottomPopper : Gtk.Popover {
+        Gtk.Grid main_grid;
+        Gtk.Button plus_button;
+        Gtk.Button plus_10_button;
+        Gtk.Button minus_button;
+        Gtk.Button minus_10_button;
+        Gtk.Entry entry;
+        construct {
+            main_grid = new Gtk.Grid ();
+            plus_button  = new Gtk.Button.with_label (" + ");
+            minus_button = new Gtk.Button.with_label (" − ");
+            plus_10_button  = new Gtk.Button.with_label ("+10");
+            plus_10_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
+            minus_10_button = new Gtk.Button.with_label ("−10");
+            minus_10_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
+            
+            plus_button.clicked.connect (() => {
+                int i = int.parse (entry.get_text ());
+                i++;
+                entry.set_text (i.to_string ());
+            });
+            
+            minus_button.clicked.connect (() => {
+                int i = int.parse (entry.get_text ());
+                if (i > 0)
+                    i--;
+                else if (i <= 0) {
+                    i = 0;
+                }
+                if (i == 0) 
+                    entry.set_text ("");
+                else 
+                    entry.set_text (i.to_string ());
+            });
+            
+            plus_10_button.clicked.connect (() => {
+                int i = int.parse (entry.get_text ());
+                i+=10;
+                entry.set_text (i.to_string ());
+            });
+            
+            minus_10_button.clicked.connect (() => {
+                int i = int.parse (entry.get_text ());
+                if (i > 10)
+                    i-=10;
+                else if (i <= 10) {
+                    i = 0;
+                }
+                if (i == 0) 
+                    entry.set_text ("");
+                else 
+                    entry.set_text (i.to_string ());
+            });
+            
+            main_grid.attach (plus_10_button,  0, 0, 1, 1);
+            main_grid.attach (plus_button,     1, 0, 1, 1);
+            main_grid.attach (minus_button,    2, 0, 1, 1);
+            main_grid.attach (minus_10_button, 3, 0, 1, 1);
+            main_grid.column_spacing = 4;
+            main_grid.margin = 4;
+
+            this.add (main_grid);
+        }
+        public BottomPopper (Gtk.Entry entry) {
+            this.entry = entry;
+            this.set_relative_to (entry);
+            this.show_all ();
+            this.set_visible (false);
+            this.position = Gtk.PositionType.BOTTOM;
         }
     }
 }
