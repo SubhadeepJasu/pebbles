@@ -38,9 +38,25 @@ namespace Pebbles {
         Gtk.Label week_day_label;
         Gtk.Label date_dmy_label;
         
+        // Header Bar Controls
+        Gtk.Stack date_mode_stack;
+        Gtk.Switch diff_mode_switch;
+        Gtk.Switch add_mode_switch;
+        
+        Gtk.Grid date_diff_grid;
+        Gtk.Grid date_add_grid;
+        
         DateCalculator date_calculator_object;
         construct {
             build_ui ();
+        }
+        
+        public DateView (MainWindow window) {
+            this.diff_mode_switch = window.diff_mode_switch;
+            this.add_mode_switch = window.add_mode_switch;
+            this.date_mode_stack = window.date_mode_stack;
+            this.date_diff_grid = window.date_diff_grid;
+            this.date_add_grid = window.date_add_grid;
         }
         
         private void build_ui () {
@@ -160,14 +176,13 @@ namespace Pebbles {
             // Add events to Mode Button
             date_mode.set_active (0);
             date_mode.mode_changed.connect (() => {
-                //date_calc_holder.foreach ((element) => date_calc_holder.remove (element));
                 if (date_mode.selected == 0) {
                     date_calc_holder.set_visible_child (date_difference_view);
-                    //date_calc_holder.add (date_difference_view);
+                    date_mode_stack.set_visible_child (date_diff_grid);
                 }
                 else if (date_mode.selected == 1){
                     date_calc_holder.set_visible_child (date_add_view);
-                    //date_calc_holder.add (date_add_view);
+                    date_mode_stack.set_visible_child (date_add_grid);
                 }
                 //stdout.printf ("%d\n", date_mode.selected);
             });

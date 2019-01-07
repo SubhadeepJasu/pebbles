@@ -24,12 +24,26 @@ namespace Pebbles {
         Gtk.HeaderBar headerbar;
         Granite.ModeSwitch dark_mode_switch;
         Pebbles.Settings settings;
-        Gtk.Button angle_unit_button;
-        Gtk.Grid shift_grid;
+        Gtk.MenuButton app_menu;
+        
+        // Switchable Controls
+        public Gtk.Stack header_switcher;
+        
+        Gtk.Grid scientific_header_grid;
         Gtk.Label shift_label;
         public Gtk.Switch shift_switch;
-        Gtk.MenuButton app_menu;
+        Gtk.Button angle_unit_button;
         Gtk.Button history_button;
+        
+        Gtk.Label date_age_label;
+        Gtk.Label date_dur_label;
+        public Gtk.Switch diff_mode_switch;
+        Gtk.Label date_add_label;
+        Gtk.Label date_sub_label;
+        public Gtk.Switch add_mode_switch;
+        public Gtk.Stack date_mode_stack;
+        public Gtk.Grid date_diff_grid;
+        public Gtk.Grid date_add_grid;
 
         // VIEWS
         Pebbles.ScientificView scientific_view;
@@ -85,9 +99,10 @@ namespace Pebbles {
                 settings.use_dark_theme = dark_mode_switch.active;
             });
             
+            // Make Scientific / Calculus View Controls ///////////////
             // Create angle unit button
             angle_unit_button = new Gtk.Button.with_label ("DEG");
-            angle_unit_button.margin = 7;
+            angle_unit_button.set_margin_end (7);
             angle_unit_button.width_request = 50;
             angle_unit_button.clicked.connect (() => {
                 settings.switch_angle_unit ();
@@ -95,19 +110,51 @@ namespace Pebbles {
             });
             
             // Create shift switcher
-            shift_grid = new Gtk.Grid ();
+            scientific_header_grid = new Gtk.Grid ();
             shift_label = new Gtk.Label ("Shift ");
             shift_label.set_margin_start (2);
             shift_label.set_opacity (0.7);
             shift_switch = new Gtk.Switch ();
+            shift_switch.set_margin_top (4);
+            shift_switch.set_margin_bottom (4);
             shift_switch.get_style_context ().add_class ("Pebbles_Header_Switch");
             shift_switch.notify["active"].connect (() => {
                 scientific_view.hold_shift (shift_switch.active);
             });
-            shift_grid.attach (shift_label, 0, 0, 1, 1);
-            shift_grid.attach (shift_switch, 1, 0, 1, 1);
-            shift_grid.valign = Gtk.Align.CENTER;
-            shift_grid.column_spacing = 6;
+            scientific_header_grid.attach (angle_unit_button, 0, 0, 1, 1);
+            scientific_header_grid.attach (shift_label, 1, 0, 1, 1);
+            scientific_header_grid.attach (shift_switch, 2, 0, 1, 1);
+            scientific_header_grid.valign = Gtk.Align.CENTER;
+            scientific_header_grid.column_spacing = 6;
+            
+            // Make Date Switcher ///////////////////////////////////////
+            date_mode_stack = new Gtk.Stack ();
+            date_age_label = new Gtk.Label ("AGE");
+            date_dur_label = new Gtk.Label ("DUR");
+            diff_mode_switch = new Gtk.Switch ();
+            diff_mode_switch.get_style_context ().add_class ("mode-switch");
+            date_diff_grid = new Gtk.Grid ();
+            date_diff_grid.column_spacing = 6;
+            date_diff_grid.attach (date_age_label, 0, 0, 1, 1);
+            date_diff_grid.attach (diff_mode_switch, 1, 0, 1, 1);
+            date_diff_grid.attach (date_dur_label, 2, 0, 1, 1);
+            date_diff_grid.valign = Gtk.Align.CENTER;
+            
+            date_add_label = new Gtk.Label ("ADD");
+            date_sub_label = new Gtk.Label ("SUB");
+            add_mode_switch = new Gtk.Switch ();
+            add_mode_switch.get_style_context ().add_class ("mode-switch");
+            date_add_grid = new Gtk.Grid ();
+            date_add_grid.column_spacing = 6;
+            date_add_grid.attach (date_add_label, 0, 0, 1, 1);
+            date_add_grid.attach (add_mode_switch, 1, 0, 1, 1);
+            date_add_grid.attach (date_sub_label, 2, 0, 1, 1);
+            date_add_grid.valign = Gtk.Align.CENTER;
+            
+            date_mode_stack.add_named (date_diff_grid, "Date_Diff");
+            date_mode_stack.add_named (date_add_grid, "Date_Add");
+            date_mode_stack.set_transition_type (Gtk.StackTransitionType.SLIDE_LEFT_RIGHT);
+            
             
             // Create App Menu
             app_menu = new Gtk.MenuButton ();
@@ -128,13 +175,23 @@ namespace Pebbles {
             history_button.set_image (new Gtk.Image.from_icon_name ("document-open-recent-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
             history_button.set_margin_end (4);
             
+            // Create Header Switcher
+            header_switcher = new Gtk.Stack ();
+            header_switcher.set_margin_top (7);
+            header_switcher.set_margin_bottom (7);
+            header_switcher.set_transition_type (Gtk.StackTransitionType.SLIDE_UP_DOWN);
+            header_switcher.add_named (scientific_header_grid, "Scientific/Calculus Header Switch");
+            header_switcher.add_named (date_mode_stack, "Date Mode Switch");
+            
+            
+            
             // Create headerbar
             headerbar = new Gtk.HeaderBar ();
             headerbar.title = ("Pebbles");
             headerbar.get_style_context ().add_class ("default-decoration");
             headerbar.show_close_button = true;
-            headerbar.pack_start (angle_unit_button);
-            headerbar.pack_start (shift_grid);
+            //headerbar.pack_start (angle_unit_button);
+            headerbar.pack_start (header_switcher);
             headerbar.pack_end (history_button);
             headerbar.pack_end (app_menu);
             headerbar.pack_end (dark_mode_switch);// Uncomment to use dark mode switch
@@ -193,7 +250,7 @@ namespace Pebbles {
             scientific_view  = new Pebbles.ScientificView (this);
             programmer_view  = new Pebbles.ProgrammerView ();
             calculus_view    = new Pebbles.CalculusView ();
-            date_view        = new Pebbles.DateView ();
+            date_view        = new Pebbles.DateView (this);
             conv_length_view = new Pebbles.ConvLengthView ();
             conv_area_view   = new Pebbles.ConvAreaView ();
             conv_volume_view = new Pebbles.ConvVolumeView ();
@@ -221,6 +278,7 @@ namespace Pebbles {
             item_list.item_selected.connect ((item) => {
                 if (item == scientific_item) {
                     common_view.set_visible_child (scientific_view);
+                    header_switcher.set_visible_child (scientific_header_grid);
                     view_index = 0;
                 }
                 else if (item == programmer_item) {
@@ -229,10 +287,12 @@ namespace Pebbles {
                 }
                 else if (item == calculus_item) {
                     common_view.set_visible_child (calculus_view);
+                    header_switcher.set_visible_child (scientific_header_grid);
                     view_index = 2;
                 }
                 else if (item == date_item) {
                     common_view.set_visible_child (date_view);
+                    header_switcher.set_visible_child (date_mode_stack);
                     view_index = 3;
                 }
                 else if (item == conv_length_item) {
