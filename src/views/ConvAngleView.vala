@@ -18,7 +18,7 @@
  */
 
 namespace Pebbles {
-    public class ConvVolumeView : Gtk.Grid {
+    public class ConvAngleView : Gtk.Grid {
         private CommonKeyPadConverter keypad;
 
         public Gtk.Entry from_entry;
@@ -30,60 +30,30 @@ namespace Pebbles {
         private Gtk.ComboBoxText to_unit;
         private Gtk.Button interchange_button;
 
-        private const string[] units = {
-            "Millilitre",
-            "Cubic centimetre",
-            "Litre",
-            "Cubic metre",
-            "US teaspoon",
-            "US tablespoon",
-            "US fluid ounce",
-            "US legal cup",
-            "US pint",
-            "US quart",
-            "US gallon",
-            "Imperial teaspoon",
-            "Imperial tablespoon",
-            "Imperial fluid ounce",
-            "Imperial cup",
-            "Imperial pint",
-            "Imperial quart",
-            "Imperial gallon",
-            "Cubic inch",
-            "Cubic foot",
-            "Cubic yard",
+        private const double[] unit_multipliers = {
+            1,
+            (Math.PI/180),
+            (200/180),
+            ((Math.PI * 1000)/180),
+            3600,
+            60,
         };
 
-        private const double[] multipliers = {
-            1000000,
-            1000000,
-            1000,
-            1,
-            202884,
-            67628,
-            33814,
-            4166.667,
-            2113.376,
-            1056.688,
-            264.172,
-            168936.313,
-            56312.104,
-            35195.08,
-            3519.508,
-            1759.754,
-            879.877,
-            219.969,
-            61023.744,
-            35.3147,
-            1.30795,
+        private const string[] units = {
+            "Degree",
+            "Radian",
+            "Gradian",
+            "Milliradian",
+            "Second of arc",
+            "Minute of arc",
         };
 
         construct {
-            conv = new Converter (multipliers);
+            conv = new Converter (unit_multipliers);
             keypad = new CommonKeyPadConverter ();
             
             // Make Header Label
-            var header_title = new Gtk.Label ("Volume");
+            var header_title = new Gtk.Label ("Angle");
             header_title.get_style_context ().add_class ("h1");
             header_title.set_justify (Gtk.Justification.LEFT);
             header_title.halign = Gtk.Align.START;
@@ -98,7 +68,7 @@ namespace Pebbles {
             for (int i = 0; i < units.length; i++) {
                 from_unit.append_text (units [i]);
             }
-            from_unit.active = 3;
+            from_unit.active = 0;
 
             // Make Lower Unit Box
             to_entry = new Gtk.Entry ();
@@ -109,7 +79,7 @@ namespace Pebbles {
             for (int i = 0; i < units.length; i++) {
                 to_unit.append_text (units [i]);
             }
-            to_unit.active = 2;
+            to_unit.active = 1;
             
             // Create Conversion active section
             interchange_button = new Gtk.Button ();

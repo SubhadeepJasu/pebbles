@@ -54,13 +54,14 @@ namespace Pebbles {
         Pebbles.ConvLengthView conv_length_view;
         Pebbles.ConvAreaView   conv_area_view;
         Pebbles.ConvVolumeView conv_volume_view;
+        Pebbles.ConvTimeView   conv_time_view;
         //Pebbles.ConvPressView  conv_press_view;
         //Pebbles.ConvWeightView conv_weight_view;
         //Pebbles.ConvEnergyView conv_energy_view;
         //Pebbles.ConvTempView   conv_temp_view;
         //Pebbles.ConvPowerView  conv_power_view;
-        //Pebbles.ConvSpeedView  conv_speed_view;
-        //Pebbles.ConvAngleView  conv_angle_view;
+        Pebbles.ConvSpeedView  conv_speed_view;
+        Pebbles.ConvAngleView  conv_angle_view;
         //Pebbles.ConvDataView   conv_data_view;
         // Active View Index
         private int view_index = 0;
@@ -256,7 +257,10 @@ namespace Pebbles {
             conv_length_view = new Pebbles.ConvLengthView ();
             conv_area_view   = new Pebbles.ConvAreaView ();
             conv_volume_view = new Pebbles.ConvVolumeView ();
-            
+            conv_time_view   = new Pebbles.ConvTimeView ();
+            conv_angle_view  = new Pebbles.ConvAngleView ();
+            conv_speed_view  = new Pebbles.ConvSpeedView ();
+
             // Create Views Pane
             var common_view = new Gtk.Stack ();
             common_view.valign = Gtk.Align.CENTER;
@@ -268,6 +272,9 @@ namespace Pebbles {
             common_view.add_named (conv_length_view, "Length");
             common_view.add_named (conv_area_view, "Area");
             common_view.add_named (conv_volume_view, "Volume");
+            common_view.add_named (conv_time_view, "Time");
+            common_view.add_named (conv_angle_view, "Angle");
+            common_view.add_named (conv_speed_view, "Speed");
             
             common_view.set_transition_type (Gtk.StackTransitionType.SLIDE_UP_DOWN);
             
@@ -313,6 +320,21 @@ namespace Pebbles {
                     common_view.set_visible_child (conv_volume_view);
                     header_switcher.set_visible_child (null_switcher);
                     view_index = 6;
+                }
+                else if (item == conv_time_item) {
+                    common_view.set_visible_child (conv_time_view);
+                    header_switcher.set_visible_child (null_switcher);
+                    view_index = 7;
+                }
+                else if (item == conv_angle_item) {
+                    common_view.set_visible_child (conv_angle_view);
+                    header_switcher.set_visible_child (null_switcher);
+                    view_index = 8;
+                }
+                else if (item == conv_speed_item) {
+                    common_view.set_visible_child (conv_speed_view);
+                    header_switcher.set_visible_child (null_switcher);
+                    view_index = 9;
                 }
                 this.show_all ();
             });
