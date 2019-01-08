@@ -1,5 +1,5 @@
 /*-
- * Copyright (c) 2017-2018 Subhadeep Jasu <subhajasu@gmail.com>
+ * Copyright (c) 2018-2019 Subhadeep Jasu <subhajasu@gmail.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public
@@ -19,23 +19,14 @@
  */
 
 namespace Pebbles {
-    public class LengthConverter {
-        private const double[] unit_multipliers = {
-            1000000000, // Nano
-            1000000,    // Micron
-            1000,       // Milli
-            100,        // Centi
-            1,          // Metre
-            0.001,      // Kilo
-            39.3701,    // Inch
-            3.28084,    // Foot
-            1.09361,    // Yard
-            0.000621371,// Mile
-            0.000539957,// Nautical
-        };
+    public class Converter {
+        private double[] unit_multipliers_list;
 
+        public Converter (double[] multipliers) {
+            unit_multipliers_list = multipliers;
+        }
         public string convert (double input, int unit_a, int unit_b) {
-            double result = input * (unit_multipliers [unit_b] / unit_multipliers [unit_a]);
+            double result = input * (unit_multipliers_list [unit_b] / unit_multipliers_list [unit_a]);
             string output = ("%.9f".printf (result));
 
             // Remove trailing 0s and decimals

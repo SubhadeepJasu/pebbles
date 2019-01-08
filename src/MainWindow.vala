@@ -266,6 +266,8 @@ namespace Pebbles {
             common_view.add_named (calculus_view, "Calculus");
             common_view.add_named (date_view, "Date");
             common_view.add_named (conv_length_view, "Length");
+            common_view.add_named (conv_area_view, "Area");
+            common_view.add_named (conv_volume_view, "Volume");
             
             common_view.set_transition_type (Gtk.StackTransitionType.SLIDE_UP_DOWN);
             
@@ -301,6 +303,16 @@ namespace Pebbles {
                     common_view.set_visible_child (conv_length_view);
                     header_switcher.set_visible_child (null_switcher);
                     view_index = 4;
+                }
+                else if (item == conv_area_item) {
+                    common_view.set_visible_child (conv_area_view);
+                    header_switcher.set_visible_child (null_switcher);
+                    view_index = 5;
+                }
+                else if (item == conv_volume_item) {
+                    common_view.set_visible_child (conv_volume_view);
+                    header_switcher.set_visible_child (null_switcher);
+                    view_index = 6;
                 }
                 this.show_all ();
             });

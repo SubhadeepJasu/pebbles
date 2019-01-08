@@ -1,5 +1,5 @@
 /*-
- * Copyright (c) 2017-2018 Subhadeep Jasu <subhajasu@gmail.com>
+ * Copyright (c) 2018-2019 Subhadeep Jasu <subhajasu@gmail.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public
@@ -15,7 +15,6 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  *
  * Authored by: Subhadeep Jasu <subhajasu@gmail.com>
- *              Saunak Biswas  <saunakbis97@gmail.com>
  */
 
 namespace Pebbles {
@@ -25,13 +24,41 @@ namespace Pebbles {
         public Gtk.Entry to_entry;
         private int from_to = 0;
         private bool allow_change = true;
-        private LengthConverter lc;
+        private Converter lc;
         private Gtk.ComboBoxText from_unit;
         private Gtk.ComboBoxText to_unit;
         private Gtk.Button interchange_button;
 
+        private const double[] unit_multipliers = {
+            1000000000, // Nano
+            1000000,    // Micron
+            1000,       // Milli
+            100,        // Centi
+            1,          // Metre
+            0.001,      // Kilo
+            39.3701,    // Inch
+            3.28084,    // Foot
+            1.09361,    // Yard
+            0.000621371,// Mile
+            0.000539957,// Nautical
+        };
+
+        private const string[] units = {
+            "Nanometre",
+            "Micron",
+            "Millimetre",
+            "Centimetre",
+            "Metre",
+            "Kilometre",
+            "Inch",
+            "Foot",
+            "Yard",
+            "Mile",
+            "Nautical Mile",
+        };
+
         construct {
-            lc = new LengthConverter ();
+            lc = new Converter (unit_multipliers);
             keypad = new CommonKeyPadConverter ();
 
             // Make Header Label
@@ -47,17 +74,9 @@ namespace Pebbles {
             from_entry.get_style_context ().add_class ("Pebbles_Conversion_Text_Box");
             from_entry.max_width_chars = 35;
             from_unit = new Gtk.ComboBoxText ();
-            from_unit.append_text ("Nanometre");
-            from_unit.append_text ("Micron");
-            from_unit.append_text ("Millimetre");
-            from_unit.append_text ("Centimetre");
-            from_unit.append_text ("Metre");
-            from_unit.append_text ("Kilometre");
-            from_unit.append_text ("Inch");
-            from_unit.append_text ("Foot");
-            from_unit.append_text ("Yard");
-            from_unit.append_text ("Mile");
-            from_unit.append_text ("Nautical Mile");
+            for (int i = 0; i < units.length; i++) {
+                from_unit.append_text (units [i]);
+            }
             from_unit.active = 4;
 
             // Make Lower Unit Box
@@ -66,17 +85,9 @@ namespace Pebbles {
             to_entry.get_style_context ().add_class ("Pebbles_Conversion_Text_Box");
             to_entry.max_width_chars = 35;
             to_unit = new Gtk.ComboBoxText ();
-            to_unit.append_text ("Nanometre");
-            to_unit.append_text ("Micron");
-            to_unit.append_text ("Millimetre");
-            to_unit.append_text ("Centimetre");
-            to_unit.append_text ("Metre");
-            to_unit.append_text ("Kilometre");
-            to_unit.append_text ("Inch");
-            to_unit.append_text ("Foot");
-            to_unit.append_text ("Yard");
-            to_unit.append_text ("Mile");
-            to_unit.append_text ("Nautical Mile");
+            for (int i = 0; i < units.length; i++) {
+                to_unit.append_text (units [i]);
+            }
             to_unit.active = 3;
 
             // Create Conversion active section

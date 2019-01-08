@@ -18,7 +18,7 @@ executable(
     'core/ScientificCalculator.vala',
     'core/ProgrammerCalculator.vala',
     'core/Utils.vala',
-    'core/LengthConverter.vala',
+    'core/Converter.vala',
     'core/DateCalculator.vala',
     dependencies: [
         core_deps,
