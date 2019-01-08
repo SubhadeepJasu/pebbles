@@ -30,7 +30,7 @@ namespace Pebbles {
         private Gtk.ComboBoxText to_unit;
         private Gtk.Button interchange_button;
 
-        private const double[] unit_multipliers = {
+        private double[] unit_multipliers = {
             1,
             70.184985,
         };
@@ -60,7 +60,7 @@ namespace Pebbles {
             for (int i = 0; i < units.length; i++) {
                 from_unit.append_text (units [i]);
             }
-            from_unit.active = 1;
+            from_unit.active = 11;
 
             // Make Lower Unit Box
             to_entry = new Gtk.Entry ();
@@ -72,7 +72,7 @@ namespace Pebbles {
                 to_unit.append_text (units [i]);
             }
             to_unit.active = 0;
-            
+
             // Create Conversion active section
             interchange_button = new Gtk.Button ();
             var up_button = new Gtk.Image.from_icon_name ("go-up-symbolic", Gtk.IconSize.BUTTON);
@@ -102,18 +102,18 @@ namespace Pebbles {
             conversion_grid.valign = Gtk.Align.CENTER;
             conversion_grid.halign = Gtk.Align.CENTER;
             conversion_grid.row_spacing = 8;
-            
+
             var separator = new Gtk.Separator (Gtk.Orientation.VERTICAL);
             separator.margin_start = 25;
             separator.margin_end = 25;
-            
+
             halign = Gtk.Align.CENTER;
             valign = Gtk.Align.CENTER;
             attach (header_title, 0, 0, 3, 1);
             attach (keypad, 0, 1, 1, 1);
             attach (separator, 1, 1, 1, 1);
             attach (conversion_grid, 2, 1, 1, 1);
-            
+
             row_spacing = 8;
 
             handle_events ();

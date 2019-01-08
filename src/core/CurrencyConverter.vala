@@ -17,8 +17,43 @@
  * Authored by: Subhadeep Jasu <subhajasu@gmail.com>
  */
 
+using Soup;
+using Json;
+
 namespace Pebbles {
     public class CurrencyConverter {
-        
+        public enum Currency {
+            USD = 0,
+            EUR = 1,
+            GBP = 2,
+            AUD = 3,
+            BRL = 4,
+            CAD = 5,
+            CNY = 6,
+            INR = 7,
+            JPY = 8,
+            RUB = 9,
+            ZAR = 10
+        }
+        public static bool request_update (string coin_iso_a, string coin_iso_b) {
+            var uri = """https://free.currencyconverterapi.com/api/v6/convert?q=%s_%s&compact=y""".printf(coin_iso_a, coin_iso_b);
+            var session = new Soup.Session ();
+            var message = new Soup.Message ("GET", uri);
+            double avg = 0.0;
+
+            session.send_message (message);
+
+            try {
+                var parser = new Json.Parser ();
+                parser.load_from_data ((string) message.response_body.flatten ().data, -1);
+                var root_object = parser.get_root ().get_object();
+                var response_object = root_object.get_object_member ("%s_%s".printf (coin_iso_a, coin_iso_b));
+                avg = response_object.get_double_member("val");
+            } catch (Error e) {
+                warning ("Failed to connect to service: %s", e.message);
+                return false;
+            }
+            return true;
+        }
     }
 }

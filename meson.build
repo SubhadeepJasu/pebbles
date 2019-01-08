@@ -18,6 +18,8 @@ asresources = gnome.compile_resources(
 core_deps = [
     dependency('glib-2.0'),
     dependency('gobject-2.0'),
+    dependency('libsoup-2.4'),
+    dependency('json-glib-1.0'),
     meson.get_compiler('vala').find_library('posix'),
     meson.get_compiler('c').find_library('m', required : false)
 ]
