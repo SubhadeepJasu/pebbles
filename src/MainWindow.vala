@@ -57,13 +57,12 @@ namespace Pebbles {
         Pebbles.ConvTimeView   conv_time_view;
         Pebbles.ConvMassView   conv_mass_view;
         Pebbles.ConvPressView  conv_press_view;
-        //Pebbles.ConvWeightView conv_weight_view;
         Pebbles.ConvEnergyView conv_energy_view;
-        //Pebbles.ConvTempView   conv_temp_view;
-        //Pebbles.ConvPowerView  conv_power_view;
+        Pebbles.ConvTempView   conv_temp_view;
+        Pebbles.ConvPowerView  conv_power_view;
         Pebbles.ConvSpeedView  conv_speed_view;
         Pebbles.ConvAngleView  conv_angle_view;
-        //Pebbles.ConvDataView   conv_data_view;
+        Pebbles.ConvDataView   conv_data_view;
         // Active View Index
         private int view_index = 0;
         
@@ -218,6 +217,7 @@ namespace Pebbles {
             var conv_press_item  = new Granite.Widgets.SourceList.Item ("Pressure");
             var conv_energy_item = new Granite.Widgets.SourceList.Item ("Energy");
             var conv_power_item  = new Granite.Widgets.SourceList.Item ("Power");
+            var conv_temp_item   = new Granite.Widgets.SourceList.Item ("Temperature");
             var conv_data_item   = new Granite.Widgets.SourceList.Item ("Data");
             var conv_curr_item   = new Granite.Widgets.SourceList.Item ("Currency");
             
@@ -243,6 +243,7 @@ namespace Pebbles {
             conv_category.add (conv_press_item);
             conv_category.add (conv_energy_item);
             conv_category.add (conv_power_item);
+            conv_category.add (conv_temp_item);
             conv_category.add (conv_data_item);
             conv_category.add (conv_curr_item);
 
@@ -264,6 +265,9 @@ namespace Pebbles {
             conv_mass_view   = new Pebbles.ConvMassView ();
             conv_press_view  = new Pebbles.ConvPressView ();
             conv_energy_view = new Pebbles.ConvEnergyView ();
+            conv_power_view  = new Pebbles.ConvPowerView ();
+            conv_temp_view   = new Pebbles.ConvTempView ();
+            conv_data_view   = new Pebbles.ConvDataView ();
 
             // Create Views Pane
             var common_view = new Gtk.Stack ();
@@ -282,6 +286,9 @@ namespace Pebbles {
             common_view.add_named (conv_mass_view, "Mass");
             common_view.add_named (conv_press_view, "Pressure");
             common_view.add_named (conv_energy_view, "Energy");
+            common_view.add_named (conv_power_view, "Power");
+            common_view.add_named (conv_temp_view, "Temperature");
+            common_view.add_named (conv_data_view, "Data");
             
             common_view.set_transition_type (Gtk.StackTransitionType.SLIDE_UP_DOWN);
             
@@ -357,6 +364,21 @@ namespace Pebbles {
                     common_view.set_visible_child (conv_energy_view);
                     header_switcher.set_visible_child (null_switcher);
                     view_index = 12;
+                }
+                else if (item == conv_power_item) {
+                    common_view.set_visible_child (conv_power_view);
+                    header_switcher.set_visible_child (null_switcher);
+                    view_index = 13;
+                }
+                else if (item == conv_temp_item) {
+                    common_view.set_visible_child (conv_temp_view);
+                    header_switcher.set_visible_child (null_switcher);
+                    view_index = 14;
+                }
+                else if (item == conv_data_item) {
+                    common_view.set_visible_child (conv_data_view);
+                    header_switcher.set_visible_child (null_switcher);
+                    view_index = 15;
                 }
                 this.show_all ();
             });
