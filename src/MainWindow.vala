@@ -63,6 +63,8 @@ namespace Pebbles {
         Pebbles.ConvSpeedView  conv_speed_view;
         Pebbles.ConvAngleView  conv_angle_view;
         Pebbles.ConvDataView   conv_data_view;
+        Pebbles.ConvCurrView   conv_curr_view;
+
         // Active View Index
         private int view_index = 0;
         
@@ -158,6 +160,12 @@ namespace Pebbles {
             // Make Conversion Switcher null
             var null_switcher = new Gtk.Label ("");
             
+            // Make currency update switcher
+            var update_button = new Gtk.Button.from_icon_name ("view-refresh-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+            update_button.width_request = 10;
+            update_button.halign = Gtk.Align.START;
+            update_button.margin = 1;
+            
             // Create App Menu
             app_menu = new Gtk.MenuButton ();
             app_menu.valign = Gtk.Align.CENTER;
@@ -185,6 +193,7 @@ namespace Pebbles {
             header_switcher.add_named (scientific_header_grid, "Scientific/Calculus Header Switch");
             header_switcher.add_named (date_mode_stack, "Date Mode Switch");
             header_switcher.add_named (null_switcher, "Converter");
+            header_switcher.add_named (update_button, "Update Currency");
             
             
             
@@ -268,6 +277,7 @@ namespace Pebbles {
             conv_power_view  = new Pebbles.ConvPowerView ();
             conv_temp_view   = new Pebbles.ConvTempView ();
             conv_data_view   = new Pebbles.ConvDataView ();
+            conv_curr_view   = new Pebbles.ConvCurrView ();
 
             // Create Views Pane
             var common_view = new Gtk.Stack ();
@@ -289,6 +299,7 @@ namespace Pebbles {
             common_view.add_named (conv_power_view, "Power");
             common_view.add_named (conv_temp_view, "Temperature");
             common_view.add_named (conv_data_view, "Data");
+            common_view.add_named (conv_curr_view, "Currency");
             
             common_view.set_transition_type (Gtk.StackTransitionType.SLIDE_UP_DOWN);
             
@@ -379,6 +390,11 @@ namespace Pebbles {
                     common_view.set_visible_child (conv_data_view);
                     header_switcher.set_visible_child (null_switcher);
                     view_index = 15;
+                }
+                else if (item == conv_curr_item) {
+                    common_view.set_visible_child (conv_curr_view);
+                    header_switcher.set_visible_child (update_button);
+                    view_index = 16;
                 }
                 this.show_all ();
             });

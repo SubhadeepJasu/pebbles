@@ -18,25 +18,7 @@
  */
 
 namespace Pebbles {
-    public class Converter {
-        private double[] unit_multipliers_list;
-
-        public Converter (double[] multipliers) {
-            unit_multipliers_list = multipliers;
-        }
-        public string convert (double input, int unit_a, int unit_b) {
-            double result = input * (unit_multipliers_list [unit_b] / unit_multipliers_list [unit_a]);
-            string output = ("%.9f".printf (result));
-
-            // Remove trailing 0s and decimals
-            while (output.has_suffix ("0")) {
-                output = output.slice (0, -1);
-            }
-            if (output.has_suffix (".")) {
-                output = output.slice (0, -1);
-            }
-
-            return output;
-        }
+    public class CurrencyConverter {
+        
     }
 }
