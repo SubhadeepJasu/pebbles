@@ -38,6 +38,7 @@ namespace Pebbles {
                 application_id: "com.github.SubhadeepJasu.pebbles",
                 flags: ApplicationFlags.HANDLES_COMMAND_LINE
             );
+            X.init_threads ();
             settings = Settings.get_default ();
         }
 

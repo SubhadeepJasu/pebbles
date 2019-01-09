@@ -156,7 +156,9 @@ namespace Pebbles {
             waiting_overlay_bar.label = "Updating currency information";
             waiting_overlay_bar.active = true;
             waiting_overlay_bar.opacity = 0.0;
-
+            
+            add_overlay (toast);
+            
             handle_events ();
         }
         public void update_currency_data () {

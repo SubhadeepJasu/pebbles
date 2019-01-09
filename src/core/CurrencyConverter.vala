@@ -56,8 +56,8 @@ namespace Pebbles {
             else {
                 try {
                     /* Without error handling (is not using the try/catch) */
-                    new Thread<void*> ("thread", update_currency_thread);
-
+                    //new Thread.try ("thread", update_currency_thread);
+                    Thread<int> thread_a = new Thread<int>.try ("thread_a", update_currency_thread);
                     // Wait for threads to finish (this will never happen in our case, but anyway)
                     // thread.join ();
 
@@ -68,21 +68,24 @@ namespace Pebbles {
             }
             return true;
         }
-        public void* update_currency_thread () {
-            int i = 0;
-            for (; i < 11; i++) {
-                for (int j = 0; j < 5; j++) {
-                    if (request_multiplier ("USD", currency [i], i))
+        int update_currency_thread () {
+            int cnt = 0;
+            for (int i = 0; i < 11; i++) {
+                for (int j = 0; j < 2; j++) {
+                    if (request_multiplier ("USD", currency [i], i)) {
+                        cnt++;
                         break;
+                    }
                 }
             }
-            if (i < 11) {
+            if (cnt < 11) {
+                warning ("Failed to connect to currency exchange service");
                 update_failed ();
             }
             else {
                 currency_updated (muliplier_info);
             }
-            return this;
+            return 0;
         }
         public bool request_multiplier (string coin_iso_a, string coin_iso_b, int index) {
             var uri = """https://free.currencyconverterapi.com/api/v6/convert?q=%s_%s&compact=y""".printf(coin_iso_a, coin_iso_b);
@@ -90,19 +93,18 @@ namespace Pebbles {
             var message = new Soup.Message ("GET", uri);
             double avg = 0.0;
 
-            session.send_message (message);
+            if(session.send_message (message) != 200) {
+                return false;
+            }
 
             try {
                 var parser = new Json.Parser ();
                 parser.load_from_data ((string) message.response_body.flatten ().data, -1);
                 var root_object = parser.get_root ().get_object();
                 var response_object = root_object.get_object_member ("%s_%s".printf (coin_iso_a, coin_iso_b));
-                if (response_object == null) {
-                    return false;
-                }
                 avg = response_object.get_double_member("val");
                 muliplier_info [index] = avg;
-                stdout.printf ("DEBUG_CURRENCY => %s -> %s: %lf\n", coin_iso_a, coin_iso_b, muliplier_info [index]);
+                //stdout.printf ("DEBUG_CURRENCY => %s -> %s: %lf\n", coin_iso_a, coin_iso_b, muliplier_info [index]);
             } catch (Error e) {
                 warning ("Failed to connect to service: %s", e.message);
                 return false;

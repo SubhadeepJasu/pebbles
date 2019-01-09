@@ -21,7 +21,8 @@ core_deps = [
     dependency('libsoup-2.4'),
     dependency('json-glib-1.0'),
     meson.get_compiler('vala').find_library('posix'),
-    meson.get_compiler('c').find_library('m', required : false)
+    meson.get_compiler('c').find_library('m', required : false),
+    meson.get_compiler('c').find_library('X11', required : false)
 ]
 
 meson.add_install_script('meson/post_install.py')
