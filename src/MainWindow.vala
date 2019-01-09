@@ -44,6 +44,8 @@ namespace Pebbles {
         public Gtk.Stack date_mode_stack;
         public Gtk.Grid date_diff_grid;
         public Gtk.Grid date_add_grid;
+        
+        public Gtk.Button update_button;
 
         // VIEWS
         Pebbles.ScientificView scientific_view;
@@ -161,10 +163,11 @@ namespace Pebbles {
             var null_switcher = new Gtk.Label ("");
             
             // Make currency update switcher
-            var update_button = new Gtk.Button.from_icon_name ("view-refresh-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+            update_button = new Gtk.Button.from_icon_name ("view-refresh-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
             update_button.width_request = 10;
             update_button.halign = Gtk.Align.START;
             update_button.margin = 1;
+            update_button.set_tooltip_markup ("<b>Update Currency Data</b>\nUpdates automatically every 10 minutes");
             
             // Create App Menu
             app_menu = new Gtk.MenuButton ();
@@ -278,6 +281,22 @@ namespace Pebbles {
             conv_temp_view   = new Pebbles.ConvTempView ();
             conv_data_view   = new Pebbles.ConvDataView ();
             conv_curr_view   = new Pebbles.ConvCurrView ();
+            
+            update_button.clicked.connect (() => {
+                update_button.set_sensitive (false);
+                conv_curr_view.update_currency_data ();
+            });
+            conv_curr_view.update_done_or_failed.connect (() => {
+                update_button.set_sensitive (true);
+            });
+
+            Timeout.add_seconds (600, () => {
+                if (update_button.get_sensitive ()) {
+                    update_button.set_sensitive (false);
+                    conv_curr_view.update_currency_data ();
+                }
+                return true;
+            });
 
             // Create Views Pane
             var common_view = new Gtk.Stack ();

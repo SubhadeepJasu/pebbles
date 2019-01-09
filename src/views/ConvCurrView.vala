@@ -18,7 +18,7 @@
  */
 
 namespace Pebbles {
-    public class ConvCurrView : Gtk.Grid {
+    public class ConvCurrView : Gtk.Overlay {
         private CommonKeyPadConverter keypad;
 
         public Gtk.Entry from_entry;
@@ -30,17 +30,50 @@ namespace Pebbles {
         private Gtk.ComboBoxText to_unit;
         private Gtk.Button interchange_button;
 
+        private Granite.Widgets.Toast toast;
+        private Granite.Widgets.OverlayBar waiting_overlay_bar;
+
+        private CurrencyConverter curr;
+        public signal void update_done_or_failed ();
+
         private double[] unit_multipliers = {
             1,
-            70.184985,
+            0.783103,
+            1.397070,
+            3.713500,
+            1.323665,
+            6.829198,
+            0,
+            0,
+            66.992604,
+            13.942950,
         };
 
         private const string[] units = {
-            "USD",
-            "INR",
+            "US Dollar                                                $",
+            "Euro                                                         €",
+            "British Pounds                                       £",
+            "Australian Dollar                                   $",
+            "Brazilian Real                                       R$",
+            "Canadian Dollar                                    $",
+            "Chinese Yuan                                         ¥",
+            "Indian Rupee                                          ₹",
+            "Japanese Yen                                         ¥",
+            "Russian Ruble                                        руб",
+            "South African Rand                               R",
         };
 
         construct {
+            /* Initialize Currency Converter API 
+             *
+             * Uses Currency Converter API v6
+             * <https://www.currencyconverterapi.com/>
+             */
+
+            curr = new CurrencyConverter ();
+
+            var main_grid = new Gtk.Grid ();
+
             conv = new Converter (unit_multipliers);
             keypad = new CommonKeyPadConverter ();
             
@@ -60,7 +93,7 @@ namespace Pebbles {
             for (int i = 0; i < units.length; i++) {
                 from_unit.append_text (units [i]);
             }
-            from_unit.active = 11;
+            from_unit.active = 0;
 
             // Make Lower Unit Box
             to_entry = new Gtk.Entry ();
@@ -71,7 +104,7 @@ namespace Pebbles {
             for (int i = 0; i < units.length; i++) {
                 to_unit.append_text (units [i]);
             }
-            to_unit.active = 0;
+            to_unit.active = 1;
 
             // Create Conversion active section
             interchange_button = new Gtk.Button ();
@@ -107,19 +140,43 @@ namespace Pebbles {
             separator.margin_start = 25;
             separator.margin_end = 25;
 
-            halign = Gtk.Align.CENTER;
-            valign = Gtk.Align.CENTER;
-            attach (header_title, 0, 0, 3, 1);
-            attach (keypad, 0, 1, 1, 1);
-            attach (separator, 1, 1, 1, 1);
-            attach (conversion_grid, 2, 1, 1, 1);
+            main_grid.halign = Gtk.Align.CENTER;
+            main_grid.valign = Gtk.Align.CENTER;
+            main_grid.attach (header_title, 0, 0, 3, 1);
+            main_grid.attach (keypad, 0, 1, 1, 1);
+            main_grid.attach (separator, 1, 1, 1, 1);
+            main_grid.attach (conversion_grid, 2, 1, 1, 1);
 
-            row_spacing = 8;
+            main_grid.row_spacing = 8;
+            
+            add (main_grid);
+            
+            toast = new Granite.Widgets.Toast ("Failed to connect to API!");
+            waiting_overlay_bar = new Granite.Widgets.OverlayBar (this);
+            waiting_overlay_bar.label = "Updating currency information";
+            waiting_overlay_bar.active = true;
+            waiting_overlay_bar.opacity = 0.0;
 
             handle_events ();
         }
-
+        public void update_currency_data () {
+            waiting_overlay_bar.opacity = 1.0;
+            curr.request_update ();
+        }
         private void handle_events () {
+            curr.update_failed.connect (() => {
+                toast.send_notification ();
+                waiting_overlay_bar.opacity = 0.0;
+                update_done_or_failed ();
+            });
+            
+            curr.currency_updated.connect ((currency_val) => {
+                unit_multipliers = currency_val;
+                conv.update_multipliers (unit_multipliers);
+                waiting_overlay_bar.opacity = 0.0;
+                update_done_or_failed ();
+            });
+
             from_entry.button_press_event.connect (() => {
                 from_to = 0;
                 return false;

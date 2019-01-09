@@ -38,5 +38,8 @@ namespace Pebbles {
 
             return output;
         }
+        public void update_multipliers (double[] multipliers) {
+            unit_multipliers_list = multipliers;
+        }
     }
 }
