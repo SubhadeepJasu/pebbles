@@ -1,5 +1,6 @@
 /*-
  * Copyright (c) 2017-2018 Subhadeep Jasu <subhajasu@gmail.com>
+ * Copyright (c) 2017-2018 Saunak Biswas <saunakbis97@gmail.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public
@@ -18,8 +19,9 @@
  *              Saunak Biswas  <saunakbis97@gmail.com>
  */
 namespace Pebbles {
-    public class Programmer {
-        private static string bin_to_hexa (string token) {
+    public class ProgrammerCalculator {
+
+        private static string binary_equivalent_hexadecimal (string token) {
             if (token == "0000") {
                 return "0";
             }
@@ -69,7 +71,6 @@ namespace Pebbles {
                 return "F";
             }
             return "e";
-
         }
 
         private static string remove_extra_zeroes (string bin) {
@@ -82,7 +83,7 @@ namespace Pebbles {
             return bin.slice (i, bin.length);
         }
 
-        public static string convert_to_hexa (string bin) {
+        public static string binary_to_hexadecimal (string bin) {
             string given_string = remove_extra_zeroes(bin);                               // Getting an owned copy of binary string
 
             int last_index = given_string.length - 1;
@@ -95,7 +96,7 @@ namespace Pebbles {
             }
             i = given_string.length;
             for (; i/4 > 0; i-=4) {
-                hex_string = bin_to_hexa(given_string.slice (i - 4, i)).concat (hex_string);
+                hex_string = binary_equivalent_hexadecimal(given_string.slice (i - 4, i)).concat (hex_string);
                 if (hex_string == "e") {
                     return "E";
                 }
@@ -106,7 +107,7 @@ namespace Pebbles {
             return hex_string;
         }
 
-        public static string hex_to_binary (string hex) {
+        public static string hexadecimal_to_binary (string hex) {
 	        string[] tokens=new string[hex.length];
 	        for(int i=0;i<hex.length;i++)
 	            tokens[i] = hex.get_char(i).to_string();
@@ -148,8 +149,9 @@ namespace Pebbles {
 	        }
 	        return binary;
         }
-        public static string hex_to_dec (string hex) {
-            int ans = 0;
+
+        public static string hexadecimal_to_decimal (string hex) {
+            int64 ans = 0;
             string[] tokens = new string [hex.length];
             for(int i = 0; i < hex.length; i++)
 	            tokens[i] = hex.get_char (i).to_string ();
@@ -176,12 +178,12 @@ namespace Pebbles {
             }
             return ans.to_string();
         }
-        public static string dec_to_hex (string dec) {
+
+        public static string decimal_to_hexadecimal (string dec) {
 	    string hex_num = "";
-	    int n;
-	    n = int.parse (dec);
+	    int64 n = int64.parse (dec);
 	    while (n != 0) {
-	        int temp  = n % 16;
+	        int64 temp  = n % 16;
 	        if ( temp < 10 ) {
 		    hex_num = hex_num.concat(temp.to_string());
 	        }
@@ -205,11 +207,10 @@ namespace Pebbles {
 	    }
 	    return hex_num.reverse ();
         }
-        public static string dec_to_oct (string dec) {
-	        int quotient, decimalnum;
-	        decimalnum = int.parse (dec);
-	        //int[] octal_number = new int [100];
-	        
+
+        public static string decimal_to_octal (string dec) {
+	        int64 quotient, decimalnum;
+	        decimalnum = int64.parse (dec);
 	        string octal_number = "";
 	        quotient = decimalnum;
 
@@ -219,5 +220,347 @@ namespace Pebbles {
 	        }
 	        return octal_number.reverse();
         }
-    }
+
+        public static string binary_to_decimal (string binary) {
+                int64 ans = 0;
+                string[] tokens = new string [binary.length];
+                for(int i = 0; i < binary.length; i++)
+                    tokens[i] = binary.get_char (i).to_string ();
+                int[] conv = new int [binary.length];
+                for (int i = 0; i < tokens.length; i++) {
+                    if (tokens[i].to_int() < 2)
+                        conv[i] = int.parse(tokens[i]);
+                }
+                for (int i = 0; i < tokens.length; i++) {
+                    ans += (int)(conv[i] * Math.pow (2, tokens.length - 1 - i));
+                }
+                return ans.to_string();
+        }
+
+        private static string binary_equivalent_octal (string token) {
+                if (token == "000") {
+                    return "0";
+                }
+                else if (token == "001") {
+                    return "1";
+                }
+                else if (token == "010") {
+                    return "2";
+                }
+                else if (token == "011") {
+                    return "3";
+                }
+                else if (token == "100") {
+                    return "4";
+                }
+                else if (token == "101") {
+                    return "5";
+                }
+                else if (token == "110") {
+                    return "6";
+                }
+                else if (token == "111") {
+                    return "7";
+                }
+                return "e";
+        }
+        public static string binary_to_octal (string bin) {
+                string given_string = remove_extra_zeroes(bin);                               // Getting an owned copy of binary string
+                int last_index = given_string.length - 1;
+                int i = last_index, cnt;
+                string octal_string = "";
+                if (bin.length % 3 != 0) {                               // Fills front extra with zeroes
+                    for (cnt = (i + 1) % 3; cnt < 3; cnt++) {
+                        given_string = "0".concat (given_string);
+                    }
+                }
+                i = given_string.length;
+                for (; i/3 > 0; i-=3) {
+                    octal_string = binary_equivalent_octal(given_string.slice (i - 3, i)).concat (octal_string);
+                    if (octal_string == "e") {
+                        return "E";
+                    }
+                    else {
+                        continue;
+                    }
+                }
+                return octal_string;
+        }
+
+        public static string decimal_to_binary (string decimal) 
+        {
+            int64 quotient, decimalnum;
+            decimalnum = int64.parse (decimal);
+            string binary_number_rev = "";
+            quotient = decimalnum;
+            while (quotient != 0) {
+                binary_number_rev = binary_number_rev.concat ((quotient % 2).to_string());
+                quotient = quotient / 2;
+            }
+            return binary_number_rev.reverse();
+        }
+
+        public static string octal_to_binary (string octal) {
+            string[] tokens=new string[octal.length];
+            for(int i=0;i<octal.length;i++)
+                tokens[i] = octal.get_char(i).to_string();
+            string binary = "";
+            int i = 0;
+            for (; i < octal.length; i++) {
+                if (tokens[i] == "0")
+                    binary = binary.concat("000");
+                else if (tokens[i] == "1")
+                    binary = binary.concat("001");
+                else if (tokens[i] == "2")
+                    binary = binary.concat("010");
+                else if (tokens[i] == "3")
+                    binary = binary.concat("011");
+                else if (tokens[i] == "4")
+                    binary = binary.concat("100");
+                else if (tokens[i] == "5")
+                    binary = binary.concat("101");
+                else if (tokens[i] == "6")
+                    binary = binary.concat("110");
+                else if (tokens[i] == "7")
+                    binary = binary.concat("111");
+            }
+            return binary;
+        }
+
+        public static string octal_to_decimal (string octal) {
+            int ans = 0;
+            string[] tokens = new string [octal.length];
+            for(int i = 0; i < octal.length; i++)
+                tokens[i] = octal.get_char (i).to_string ();
+            int[] conv = new int [octal.length];
+            for (int i = 0; i < tokens.length; i++) {
+                if (tokens[i].to_int() < 8)
+                    conv[i] = int.parse(tokens[i]);
+            }
+            for (int i = 0; i < tokens.length; i++) {
+                ans += (int)(conv[i] * Math.pow (8, tokens.length - 1 - i));
+            }
+            return ans.to_string();
+        }
+
+        public static string decimal_and_operation (string decimal1, string decimal2) {
+            int64 ans;
+            ans = int64.parse(decimal1) & int64.parse(decimal2);
+            return ans.to_string;
+        }
+
+        public static string decimal_or_operation (string decimal1, string decimal2) {
+            int64 ans;
+            ans = int64.parse(decimal1) | int64.parse(decimal2);
+            return ans.to_string;
+        }
+
+        public static string decimal_xor_operation (string decimal1, string decimal2) {
+            int64 ans;
+            ans = int64.parse(decimal1) ^ int64.parse(decimal2);
+            return ans.to_string;
+        }
+
+        public static string decimal_not_operation (string decimal) {
+            int64 ans;
+            ans = ~ int64.parse(decimal);
+            return ans.to_string;
+        }
+
+        public static string decimal_mod_operation (string decimal1, string decimal2) {
+            int64 ans;
+            ans = int64.parse(decimal1) % int64.parse(decimal2);
+            return ans.to_string;
+        }
+
+        public static string decimal_addition_operation (string decimal1, string decimal2) {
+            int64 ans;
+            ans = int64.parse(decimal1) + int64.parse(decimal2);
+            return ans.to_string;
+        }
+
+        public static string decimal_subtraction_operation (string decimal1, string decimal2) {
+            int64 ans;
+            ans = int64.parse(decimal1) - int64.parse(decimal2);
+            return ans.to_string;
+        }
+
+        public static string decimal_multiplication_operation (string decimal1, string decimal2) {
+            int64 ans;
+            ans = int64.parse(decimal1) * int64.parse(decimal2);
+            return ans.to_string;
+        }
+
+        public static string decimal_division_operation (string decimal1, string decimal2) {
+            int64 ans;
+            ans = int64.parse(decimal1) / int64.parse(decimal2);
+            return ans.to_string;
+        }
+
+        public static string decimal_left_shift_operation (string decimal1, string decimal2, string value_mode) {
+            string ans;
+            string binary1 = decimal_to_binary (decimal1);
+            if(value_mode == "QWORD") {
+                for(int i= 0 ; i < 64 - binary1.length; i++) {
+                        binary1 = "0" + binary1;
+                    }
+                for(int i = 0; i < decimal2; i++) {
+                    binary1 = binary1.slice(1,binary1.length + 1) + "0";
+                }
+            }
+            else if(value_mode == "DWORD") {
+                for(int i= 0 ; i < 32 - binary1.length; i++) {
+                        binary1 = "0" + binary1;
+                    }
+                for(int i = 0; i < decimal2; i++) {
+                    binary1 = binary1.slice(1,binary1.length + 1) + "0";
+                }
+            }
+            else if(value_mode == "WORD") {
+                for(int i= 0 ; i < 16 - binary1.length; i++) {
+                        binary1 = "0" + binary1;
+                    }
+                for(int i = 0; i < decimal2; i++) {
+                    binary1 = binary1.slice(1,binary1.length + 1) + "0";
+                }
+            }
+            else if(value_mode == "BYTE") {
+                for(int i= 0 ; i < 8 - binary1.length; i++) {
+                        binary1 = "0" + binary1;
+                    }
+                for(int i = 0; i < decimal2; i++) {
+                    binary1 = binary1.slice(1,binary1.length + 1) + "0";
+                }
+            }
+            ans = binary_to_decimal (binary1);
+            return ans;
+        }
+
+        public static string decimal_right_shift_operation (string decimal1, string decimal2, string value_mode) {
+            string ans;
+            string binary1 = decimal_to_binary (decimal1);
+            if(value_mode == "QWORD") {
+                for(int i= 0 ; i < 64 - binary1.length; i++) {
+                        binary1 = "0" + binary1;
+                    }
+                for(int i = 0; i < decimal2; i++) {
+                    binary1 = "0" + binary1.slice(0,binary1.length);
+                }
+            }
+            else if(value_mode == "DWORD") {
+                for(int i= 0 ; i < 32 - binary1.length; i++) {
+                        binary1 = "0" + binary1;
+                    }
+                for(int i = 0; i < decimal2; i++) {
+                    binary1 = "0" + binary1.slice(0,binary1.length);
+                }
+            }
+            else if(value_mode == "WORD") {
+                for(int i= 0 ; i < 16 - binary1.length; i++) {
+                        binary1 = "0" + binary1;
+                    }
+                for(int i = 0; i < decimal2; i++) {
+                    binary1 = "0" + binary1.slice(0,binary1.length);
+                }
+            }
+            else if(value_mode == "BYTE") {
+                for(int i= 0 ; i < 8 - binary1.length; i++) {
+                        binary1 = "0" + binary1;
+                    }
+                for(int i = 0; i < decimal2; i++) {
+                    binary1 = "0" + binary1.slice(0,binary1.length);
+                }
+            }
+            ans = binary_to_decimal (binary1);
+            return ans;
+        }
+
+        public static string decimal_left_rotate_operation (string decimal1, string decimal2, string value_mode) {
+            string ans;
+            string rotating_bit;
+            string binary1 = decimal_to_binary (decimal1);
+            if(value_mode == "QWORD") {
+                for(int i= 0 ; i < 64 - binary1.length; i++) {
+                        binary1 = "0" + binary1;
+                    }
+                for(int i = 0; i < decimal2; i++) {
+                    rotating_bit = binary1.slice(0,1);
+                    binary1 = binary1.slice(1,binary1.length + 1) + rotating_bit;
+                }
+            }
+            else if(value_mode == "DWORD") {
+                for(int i= 0 ; i < 32 - binary1.length; i++) {
+                        binary1 = "0" + binary1;
+                    }
+                for(int i = 0; i < decimal2; i++) {
+                    rotating_bit = binary1.slice(0,1);
+                    binary1 = binary1.slice(1,binary1.length + 1) + rotating_bit;
+                }
+            }
+            else if(value_mode == "WORD") {
+                for(int i= 0 ; i < 16 - binary1.length; i++) {
+                        binary1 = "0" + binary1;
+                    }
+                for(int i = 0; i < decimal2; i++) {
+                    rotating_bit = binary1.slice(0,1);
+                    binary1 = binary1.slice(1,binary1.length + 1) + rotating_bit;
+                }
+            }
+            else if(value_mode == "BYTE") {
+                for(int i= 0 ; i < 8 - binary1.length; i++) {
+                        binary1 = "0" + binary1;
+                    }
+                for(int i = 0; i < decimal2; i++) {
+                    rotating_bit = binary1.slice(0,1);
+                    binary1 = binary1.slice(1,binary1.length + 1) + rotating_bit;
+                }
+            }
+            ans = binary_to_decimal (binary1);
+            return ans;
+        }
+
+        public static string decimal_right_rotate_operation (string decimal1, string decimal2, string value_mode) {
+            string ans;
+            string rotating_bit;
+            string binary1 = decimal_to_binary (decimal1);
+            if(value_mode == "QWORD") {
+                for(int i= 0 ; i < 64 - binary1.length; i++) {
+                        binary1 = "0" + binary1;
+                    }
+                for(int i = 0; i < decimal2; i++) {
+                    rotating_bit = binary1.slice(binary1.length,binary1.length + 1);
+                    binary1 = rotating_bit + binary1.slice(0,binary1.length);
+                }
+            }
+            else if(value_mode == "DWORD") {
+                for(int i= 0 ; i < 32 - binary1.length; i++) {
+                        binary1 = "0" + binary1;
+                    }
+                for(int i = 0; i < decimal2; i++) {
+                    rotating_bit = binary1.slice(binary1.length,binary1.length + 1);
+                    binary1 = rotating_bit + binary1.slice(0,binary1.length);
+                }
+            }
+            else if(value_mode == "WORD") {
+                for(int i= 0 ; i < 16 - binary1.length; i++) {
+                        binary1 = "0" + binary1;
+                    }
+                for(int i = 0; i < decimal2; i++) {
+                    rotating_bit = binary1.slice(binary1.length,binary1.length + 1);
+                    binary1 = rotating_bit + binary1.slice(0,binary1.length);
+                }
+            }
+            else if(value_mode == "BYTE") {
+                for(int i= 0 ; i < 8 - binary1.length; i++) {
+                        binary1 = "0" + binary1;
+                    }
+                for(int i = 0; i < decimal2; i++) {
+                    rotating_bit = binary1.slice(binary1.length,binary1.length + 1);
+                    binary1 = rotating_bit + binary1.slice(0,binary1.length);
+                }
+            }
+            ans = binary_to_decimal (binary1);
+            return ans;
+        }
+   }
 }
