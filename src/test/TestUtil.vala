@@ -80,6 +80,17 @@ namespace Pebbles {
                  stdout.printf ("[ERROR] Given %s, the hexadecimal should be = %s but I got = %s\n",bin,hex,ProgrammerCalculator.binary_to_hexadecimal (bin));
             }
         }
+        private static void test_conversion_from_octal (string bin, string hex, string decimal, string octal) {
+            if(ProgrammerCalculator.remove_extra_zeroes (ProgrammerCalculator.octal_to_binary (octal)) != bin) {
+                 stdout.printf ("[ERROR] Given %s, the binary should be = %s but I got = %s\n",octal,bin,ProgrammerCalculator.remove_extra_zeroes (ProgrammerCalculator.octal_to_binary (octal)));
+            }
+            if(ProgrammerCalculator.octal_to_decimal (octal) != decimal) {
+                 stdout.printf ("[ERROR] Given %s, the decimal should be = %s but I got = %s\n",bin,octal,ProgrammerCalculator.octal_to_decimal (octal));
+            }
+            if(ProgrammerCalculator.octal_to_hexadecimal (octal) != hex) {
+                 stdout.printf ("[ERROR] Given %s, the hexadecimal should be = %s but I got = %s\n",bin,hex,ProgrammerCalculator.octal_to_hexadecimal (octal));
+            }
+        }
         public static void run_test () {
             show_greeter ();
             stdout.printf ("\nTesting Tokenization...\n");
@@ -165,6 +176,12 @@ namespace Pebbles {
             stdout.printf ("-------------------------------------------------------------\n");
             test_conversion_from_binary ("10", "2", "2", "2");
             test_conversion_from_binary ("1110", "E", "14", "16");
+
+            stdout.printf ("\nTesting All conversions from octal\n");
+            stdout.printf ("-------------------------------------------------------------\n");
+            test_conversion_from_octal ("11", "3", "3", "3");
+            test_conversion_from_octal ("1110", "E", "14", "16");
+            test_conversion_from_octal ("10000000000", "400", "1024", "2000");
         }
     }
 }

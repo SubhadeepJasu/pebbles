@@ -73,7 +73,7 @@ namespace Pebbles {
             return "e";
         }
 
-        private static string remove_extra_zeroes (string bin) {
+        public static string remove_extra_zeroes (string bin) {
             long i = 0;
             for (; i < bin.length; i++) {
                 if (bin.get(i) == '1') {
@@ -341,6 +341,14 @@ namespace Pebbles {
                 ans += (int)(conv[i] * Math.pow (8, tokens.length - 1 - i));
             }
             return ans.to_string();
+        }
+
+        public static string octal_to_hexadecimal (string octal) {
+            return  binary_to_hexadecimal (remove_extra_zeroes (octal_to_binary (octal)));
+        }
+
+        public static string hexadecimal_to_octal (string hex) {
+            return binary_to_octal (remove_extra_zeroes (hexadecimal_to_binary (hex)));
         }
 
         public static string decimal_and_operation (string decimal1, string decimal2) {
