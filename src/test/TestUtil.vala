@@ -69,6 +69,17 @@ namespace Pebbles {
                 stdout.printf ("        we should get %s years %s months %s weeks %s days.\n", year, month, week, day);
             }
         }
+        private static void test_conversion_from_binary (string bin, string hex, string decimal, string octal) {
+            if(ProgrammerCalculator.binary_to_decimal (bin) != decimal) {
+                 stdout.printf ("[ERROR] Given %s, the decimal should be = %s but I got = %s\n",bin,decimal,ProgrammerCalculator.binary_to_decimal (bin));
+            }
+            if(ProgrammerCalculator.binary_to_octal (bin) != octal) {
+                 stdout.printf ("[ERROR] Given %s, the octal should be = %s but I got = %s\n",bin,octal,ProgrammerCalculator.binary_to_octal (bin));
+            }
+            if(ProgrammerCalculator.binary_to_hexadecimal (bin) != hex) {
+                 stdout.printf ("[ERROR] Given %s, the hexadecimal should be = %s but I got = %s\n",bin,hex,ProgrammerCalculator.binary_to_hexadecimal (bin));
+            }
+        }
         public static void run_test () {
             show_greeter ();
             stdout.printf ("\nTesting Tokenization...\n");
@@ -149,6 +160,11 @@ namespace Pebbles {
             test_date_difference (20, 11, 2018, 30, 11, 2018, "10", "0", "0", "1", "3");
             test_date_difference (17, 1, 2019, 7, 2, 2042, "8422", "23", "0", "3", "0");
             test_date_difference (20, 11, 2018, 20, 11, 2018, "0", "0", "0", "0", "0"); 
+
+            stdout.printf ("\nTesting All conversions from binary\n");
+            stdout.printf ("-------------------------------------------------------------\n");
+            test_conversion_from_binary ("10", "2", "2", "2");
+            test_conversion_from_binary ("1110", "E", "14", "16");
         }
     }
 }

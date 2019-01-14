@@ -228,7 +228,7 @@ namespace Pebbles {
                     tokens[i] = binary.get_char (i).to_string ();
                 int[] conv = new int [binary.length];
                 for (int i = 0; i < tokens.length; i++) {
-                    if (tokens[i].to_int() < 2)
+                    if (int.parse(tokens[i]) < 2)
                         conv[i] = int.parse(tokens[i]);
                 }
                 for (int i = 0; i < tokens.length; i++) {
@@ -334,7 +334,7 @@ namespace Pebbles {
                 tokens[i] = octal.get_char (i).to_string ();
             int[] conv = new int [octal.length];
             for (int i = 0; i < tokens.length; i++) {
-                if (tokens[i].to_int() < 8)
+                if (int.parse(tokens[i]) < 8)
                     conv[i] = int.parse(tokens[i]);
             }
             for (int i = 0; i < tokens.length; i++) {
@@ -346,55 +346,55 @@ namespace Pebbles {
         public static string decimal_and_operation (string decimal1, string decimal2) {
             int64 ans;
             ans = int64.parse(decimal1) & int64.parse(decimal2);
-            return ans.to_string;
+            return ans.to_string();
         }
 
         public static string decimal_or_operation (string decimal1, string decimal2) {
             int64 ans;
             ans = int64.parse(decimal1) | int64.parse(decimal2);
-            return ans.to_string;
+            return ans.to_string();
         }
 
         public static string decimal_xor_operation (string decimal1, string decimal2) {
             int64 ans;
             ans = int64.parse(decimal1) ^ int64.parse(decimal2);
-            return ans.to_string;
+            return ans.to_string();
         }
 
         public static string decimal_not_operation (string decimal) {
             int64 ans;
             ans = ~ int64.parse(decimal);
-            return ans.to_string;
+            return ans.to_string();
         }
 
         public static string decimal_mod_operation (string decimal1, string decimal2) {
             int64 ans;
             ans = int64.parse(decimal1) % int64.parse(decimal2);
-            return ans.to_string;
+            return ans.to_string();
         }
 
         public static string decimal_addition_operation (string decimal1, string decimal2) {
             int64 ans;
             ans = int64.parse(decimal1) + int64.parse(decimal2);
-            return ans.to_string;
+            return ans.to_string();
         }
 
         public static string decimal_subtraction_operation (string decimal1, string decimal2) {
             int64 ans;
             ans = int64.parse(decimal1) - int64.parse(decimal2);
-            return ans.to_string;
+            return ans.to_string();
         }
 
         public static string decimal_multiplication_operation (string decimal1, string decimal2) {
             int64 ans;
             ans = int64.parse(decimal1) * int64.parse(decimal2);
-            return ans.to_string;
+            return ans.to_string();
         }
 
         public static string decimal_division_operation (string decimal1, string decimal2) {
             int64 ans;
             ans = int64.parse(decimal1) / int64.parse(decimal2);
-            return ans.to_string;
+            return ans.to_string();
         }
 
         public static string decimal_left_shift_operation (string decimal1, string decimal2, string value_mode) {
@@ -404,7 +404,7 @@ namespace Pebbles {
                 for(int i= 0 ; i < 64 - binary1.length; i++) {
                         binary1 = "0" + binary1;
                     }
-                for(int i = 0; i < decimal2; i++) {
+                for(int64 i = 0; i < int64.parse(decimal2); i++) {
                     binary1 = binary1.slice(1,binary1.length + 1) + "0";
                 }
             }
@@ -412,7 +412,7 @@ namespace Pebbles {
                 for(int i= 0 ; i < 32 - binary1.length; i++) {
                         binary1 = "0" + binary1;
                     }
-                for(int i = 0; i < decimal2; i++) {
+                for(int64 i = 0; i < int64.parse(decimal2); i++) {
                     binary1 = binary1.slice(1,binary1.length + 1) + "0";
                 }
             }
@@ -420,7 +420,7 @@ namespace Pebbles {
                 for(int i= 0 ; i < 16 - binary1.length; i++) {
                         binary1 = "0" + binary1;
                     }
-                for(int i = 0; i < decimal2; i++) {
+                for(int64 i = 0; i < int64.parse(decimal2); i++) {
                     binary1 = binary1.slice(1,binary1.length + 1) + "0";
                 }
             }
@@ -428,7 +428,7 @@ namespace Pebbles {
                 for(int i= 0 ; i < 8 - binary1.length; i++) {
                         binary1 = "0" + binary1;
                     }
-                for(int i = 0; i < decimal2; i++) {
+                for(int64 i = 0; i < int64.parse(decimal2); i++) {
                     binary1 = binary1.slice(1,binary1.length + 1) + "0";
                 }
             }
@@ -443,7 +443,7 @@ namespace Pebbles {
                 for(int i= 0 ; i < 64 - binary1.length; i++) {
                         binary1 = "0" + binary1;
                     }
-                for(int i = 0; i < decimal2; i++) {
+                for(int64 i = 0; i < int64.parse(decimal2); i++) {
                     binary1 = "0" + binary1.slice(0,binary1.length);
                 }
             }
@@ -451,7 +451,7 @@ namespace Pebbles {
                 for(int i= 0 ; i < 32 - binary1.length; i++) {
                         binary1 = "0" + binary1;
                     }
-                for(int i = 0; i < decimal2; i++) {
+                for(int64 i = 0; i < int64.parse(decimal2); i++) {
                     binary1 = "0" + binary1.slice(0,binary1.length);
                 }
             }
@@ -459,7 +459,7 @@ namespace Pebbles {
                 for(int i= 0 ; i < 16 - binary1.length; i++) {
                         binary1 = "0" + binary1;
                     }
-                for(int i = 0; i < decimal2; i++) {
+                for(int64 i = 0; i < int64.parse(decimal2); i++) {
                     binary1 = "0" + binary1.slice(0,binary1.length);
                 }
             }
@@ -467,7 +467,7 @@ namespace Pebbles {
                 for(int i= 0 ; i < 8 - binary1.length; i++) {
                         binary1 = "0" + binary1;
                     }
-                for(int i = 0; i < decimal2; i++) {
+                for(int64 i = 0; i < int64.parse(decimal2); i++) {
                     binary1 = "0" + binary1.slice(0,binary1.length);
                 }
             }
@@ -483,7 +483,7 @@ namespace Pebbles {
                 for(int i= 0 ; i < 64 - binary1.length; i++) {
                         binary1 = "0" + binary1;
                     }
-                for(int i = 0; i < decimal2; i++) {
+                for(int64 i = 0; i < int64.parse(decimal2); i++) {
                     rotating_bit = binary1.slice(0,1);
                     binary1 = binary1.slice(1,binary1.length + 1) + rotating_bit;
                 }
@@ -492,7 +492,7 @@ namespace Pebbles {
                 for(int i= 0 ; i < 32 - binary1.length; i++) {
                         binary1 = "0" + binary1;
                     }
-                for(int i = 0; i < decimal2; i++) {
+                for(int64 i = 0; i < int64.parse(decimal2); i++) {
                     rotating_bit = binary1.slice(0,1);
                     binary1 = binary1.slice(1,binary1.length + 1) + rotating_bit;
                 }
@@ -501,7 +501,7 @@ namespace Pebbles {
                 for(int i= 0 ; i < 16 - binary1.length; i++) {
                         binary1 = "0" + binary1;
                     }
-                for(int i = 0; i < decimal2; i++) {
+                for(int64 i = 0; i < int64.parse(decimal2); i++) {
                     rotating_bit = binary1.slice(0,1);
                     binary1 = binary1.slice(1,binary1.length + 1) + rotating_bit;
                 }
@@ -510,7 +510,7 @@ namespace Pebbles {
                 for(int i= 0 ; i < 8 - binary1.length; i++) {
                         binary1 = "0" + binary1;
                     }
-                for(int i = 0; i < decimal2; i++) {
+                for(int64 i = 0; i < int64.parse(decimal2); i++) {
                     rotating_bit = binary1.slice(0,1);
                     binary1 = binary1.slice(1,binary1.length + 1) + rotating_bit;
                 }
@@ -527,7 +527,7 @@ namespace Pebbles {
                 for(int i= 0 ; i < 64 - binary1.length; i++) {
                         binary1 = "0" + binary1;
                     }
-                for(int i = 0; i < decimal2; i++) {
+                for(int64 i = 0; i < int64.parse(decimal2); i++) {
                     rotating_bit = binary1.slice(binary1.length,binary1.length + 1);
                     binary1 = rotating_bit + binary1.slice(0,binary1.length);
                 }
@@ -536,7 +536,7 @@ namespace Pebbles {
                 for(int i= 0 ; i < 32 - binary1.length; i++) {
                         binary1 = "0" + binary1;
                     }
-                for(int i = 0; i < decimal2; i++) {
+                for(int64 i = 0; i < int64.parse(decimal2); i++) {
                     rotating_bit = binary1.slice(binary1.length,binary1.length + 1);
                     binary1 = rotating_bit + binary1.slice(0,binary1.length);
                 }
@@ -545,7 +545,7 @@ namespace Pebbles {
                 for(int i= 0 ; i < 16 - binary1.length; i++) {
                         binary1 = "0" + binary1;
                     }
-                for(int i = 0; i < decimal2; i++) {
+                for(int64 i = 0; i < int64.parse(decimal2); i++) {
                     rotating_bit = binary1.slice(binary1.length,binary1.length + 1);
                     binary1 = rotating_bit + binary1.slice(0,binary1.length);
                 }
@@ -554,7 +554,7 @@ namespace Pebbles {
                 for(int i= 0 ; i < 8 - binary1.length; i++) {
                         binary1 = "0" + binary1;
                     }
-                for(int i = 0; i < decimal2; i++) {
+                for(int64 i = 0; i < int64.parse(decimal2); i++) {
                     rotating_bit = binary1.slice(binary1.length,binary1.length + 1);
                     binary1 = rotating_bit + binary1.slice(0,binary1.length);
                 }
