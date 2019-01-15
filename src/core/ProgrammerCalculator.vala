@@ -73,7 +73,7 @@ namespace Pebbles {
             return "e";
         }
 
-        public static string remove_extra_zeroes (string bin) {
+        private static string remove_extra_zeroes (string bin) {
             long i = 0;
             for (; i < bin.length; i++) {
                 if (bin.get(i) == '1') {
@@ -108,6 +108,9 @@ namespace Pebbles {
         }
 
         public static string hexadecimal_to_binary (string hex) {
+            if(int64.parse(hex) == 0) {
+                return "0";
+            }
 	        string[] tokens=new string[hex.length];
 	        for(int i=0;i<hex.length;i++)
 	            tokens[i] = hex.get_char(i).to_string();
@@ -147,7 +150,7 @@ namespace Pebbles {
 		        else if (tokens[i] == "F")
 		            binary = binary.concat("1111");    
 	        }
-	        return binary;
+	        return remove_extra_zeroes (binary);
         }
 
         public static string hexadecimal_to_decimal (string hex) {
@@ -182,6 +185,9 @@ namespace Pebbles {
         public static string decimal_to_hexadecimal (string dec) {
 	    string hex_num = "";
 	    int64 n = int64.parse (dec);
+        if (n == 0) {
+            return "0";
+        }
 	    while (n != 0) {
 	        int64 temp  = n % 16;
 	        if ( temp < 10 ) {
@@ -213,7 +219,9 @@ namespace Pebbles {
 	        decimalnum = int64.parse (dec);
 	        string octal_number = "";
 	        quotient = decimalnum;
-
+            if(quotient == 0) {
+                return "0";
+            }
 	        while (quotient != 0) {
 	            octal_number = octal_number.concat ((quotient % 8).to_string());
 	            quotient = quotient / 8;
@@ -291,6 +299,9 @@ namespace Pebbles {
         {
             int64 quotient, decimalnum;
             decimalnum = int64.parse (decimal);
+            if(decimalnum == 0) {
+                return "0";
+            }
             string binary_number_rev = "";
             quotient = decimalnum;
             while (quotient != 0) {
@@ -301,6 +312,9 @@ namespace Pebbles {
         }
 
         public static string octal_to_binary (string octal) {
+            if(int64.parse(octal) == 0) {
+                return "0";
+            }
             string[] tokens=new string[octal.length];
             for(int i=0;i<octal.length;i++)
                 tokens[i] = octal.get_char(i).to_string();
@@ -324,7 +338,7 @@ namespace Pebbles {
                 else if (tokens[i] == "7")
                     binary = binary.concat("111");
             }
-            return binary;
+            return remove_extra_zeroes (binary);
         }
 
         public static string octal_to_decimal (string octal) {
@@ -344,10 +358,16 @@ namespace Pebbles {
         }
 
         public static string octal_to_hexadecimal (string octal) {
+            if(int64.parse(octal) == 0) {
+                return "0";
+            }
             return  binary_to_hexadecimal (remove_extra_zeroes (octal_to_binary (octal)));
         }
 
         public static string hexadecimal_to_octal (string hex) {
+            if(int64.parse(hex) == 0) {
+                return "0";
+            }
             return binary_to_octal (remove_extra_zeroes (hexadecimal_to_binary (hex)));
         }
 
