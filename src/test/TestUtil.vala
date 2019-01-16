@@ -113,7 +113,54 @@ namespace Pebbles {
                  stdout.printf ("[ERROR] Given %s, the decimal should be = %s but I got = %s\n",hex,decimal,ProgrammerCalculator.hexadecimal_to_decimal (hex));
             }
         }
-        
+        private static void test_logical_operations_on_decimal (string decimal1, string decimal2, string and_decimal, string or_decimal, string not_decimal1, string not_decimal2, string xor_decimal) {
+            if(ProgrammerCalculator.decimal_and_operation(decimal1,decimal2) != and_decimal) {
+                stdout.printf ("[ERROR] Given %s and %s, the AND of the two should be = %s but I got = %s\n",decimal1, decimal2, and_decimal,ProgrammerCalculator.decimal_and_operation (decimal1, decimal2));
+            }
+            if(ProgrammerCalculator.decimal_or_operation(decimal1,decimal2) != or_decimal) {
+                stdout.printf ("[ERROR] Given %s and %s, the OR of the two should be = %s but I got = %s\n",decimal1, decimal2, or_decimal,ProgrammerCalculator.decimal_or_operation (decimal1, decimal2));
+            }
+            if(ProgrammerCalculator.decimal_not_operation(decimal1) != not_decimal1) {
+                stdout.printf ("[ERROR] Given %s , the NOT should be = %s but I got = %s\n",decimal1, not_decimal1,ProgrammerCalculator.decimal_not_operation (decimal1));
+            }
+            if(ProgrammerCalculator.decimal_not_operation(decimal2) != not_decimal2) {
+                stdout.printf ("[ERROR] Given %s , the NOT should be = %s but I got = %s\n",decimal2, not_decimal2,ProgrammerCalculator.decimal_not_operation (decimal2));
+            }
+            if(ProgrammerCalculator.decimal_xor_operation(decimal1,decimal2) != xor_decimal) {
+                stdout.printf ("[ERROR] Given %s and %s, the XOR of the two should be = %s but I got = %s\n",decimal1, decimal2, xor_decimal,ProgrammerCalculator.decimal_xor_operation (decimal1, decimal2));
+            }
+        }
+        private static void test_arithmetic_operations_on_decimal (string decimal1, string decimal2, string mod_decimal, string addition_decimal, string subtraction_decimal, string multiplication_decimal, string division_decimal) {
+            if(ProgrammerCalculator.decimal_mod_operation(decimal1,decimal2) != mod_decimal) {
+                stdout.printf ("[ERROR] Given %s and %s, the MOD of the two should be = %s but I got = %s\n",decimal1, decimal2, mod_decimal,ProgrammerCalculator.decimal_mod_operation (decimal1, decimal2));
+            }
+            if(ProgrammerCalculator.decimal_addition_operation(decimal1,decimal2) != addition_decimal) {
+                stdout.printf ("[ERROR] Given %s and %s, the ADDITION of the two should be = %s but I got = %s\n",decimal1, decimal2, addition_decimal,ProgrammerCalculator.decimal_addition_operation (decimal1, decimal2));
+            }
+            if(ProgrammerCalculator.decimal_subtraction_operation(decimal1,decimal2) != subtraction_decimal) {
+                stdout.printf ("[ERROR] Given %s and %s, the SUBTRACTION of the two should be = %s but I got = %s\n",decimal1, decimal2, subtraction_decimal,ProgrammerCalculator.decimal_subtraction_operation (decimal1, decimal2));
+            }
+            if(ProgrammerCalculator.decimal_multiplication_operation(decimal1,decimal2) != multiplication_decimal) {
+                stdout.printf ("[ERROR] Given %s and %s, the MULTIPLICATION of the two should be = %s but I got = %s\n",decimal1, decimal2, multiplication_decimal,ProgrammerCalculator.decimal_multiplication_operation (decimal1, decimal2));
+            }
+            if(ProgrammerCalculator.decimal_division_operation(decimal1,decimal2) != division_decimal) {
+                stdout.printf ("[ERROR] Given %s and %s, the DIVISION of the two should be = %s but I got = %s\n",decimal1, decimal2, division_decimal,ProgrammerCalculator.decimal_division_operation (decimal1, decimal2));
+            }
+        }
+        private static void test_shift_operations_on_decimal (string decimal1, string decimal2, string left_shift_decimal, string right_shift_decimal, string left_rotate_decimal, string right_rotate_decimal, string value_mode) {
+            if(ProgrammerCalculator.decimal_left_shift_operation(decimal1,decimal2,value_mode) != left_shift_decimal) {
+                stdout.printf ("[ERROR] Given %s and %s, value mode is %s, the LEFT SHIFT of the first by second should be = %s but I got = %s\n",decimal1, decimal2, value_mode, left_shift_decimal,ProgrammerCalculator.decimal_left_shift_operation (decimal1, decimal2, value_mode));
+            }
+            if(ProgrammerCalculator.decimal_right_shift_operation(decimal1,decimal2,value_mode) != right_shift_decimal) {
+                stdout.printf ("[ERROR] Given %s and %s, value mode is %s, the RIGHT SHIFT of the first by second should be = %s but I got = %s\n",decimal1, decimal2, value_mode, right_shift_decimal,ProgrammerCalculator.decimal_right_shift_operation (decimal1, decimal2, value_mode));
+            }
+            if(ProgrammerCalculator.decimal_left_rotate_operation(decimal1,decimal2,value_mode) != left_rotate_decimal) {
+                stdout.printf ("[ERROR] Given %s and %s, value mode is %s, the LEFT ROTATION of the first by second should be = %s but I got = %s\n",decimal1, decimal2, value_mode, left_rotate_decimal,ProgrammerCalculator.decimal_left_rotate_operation (decimal1, decimal2, value_mode));
+            }
+            if(ProgrammerCalculator.decimal_right_rotate_operation(decimal1,decimal2,value_mode) != right_rotate_decimal) {
+                stdout.printf ("[ERROR] Given %s and %s, value mode is %s, the RIGHT ROTATION of the first by second should be = %s but I got = %s\n",decimal1, decimal2, value_mode, right_rotate_decimal,ProgrammerCalculator.decimal_right_rotate_operation (decimal1, decimal2, value_mode));
+            }
+        }
         public static void run_test () {
             show_greeter ();
             stdout.printf ("\nTesting Tokenization...\n");
@@ -219,6 +266,22 @@ namespace Pebbles {
             test_conversion_from_hexadecimal ("16", "22", "26", "10110");
             test_conversion_from_hexadecimal ("3", "3", "3", "11");
             test_conversion_from_hexadecimal ("0", "0", "0", "0");
+
+            stdout.printf ("\nTesting All logical operations in decimal\n");
+            stdout.printf ("-------------------------------------------------------------\n");
+            test_logical_operations_on_decimal ("5", "0", "0", "5", "-6", "-1", "5");
+            test_logical_operations_on_decimal ("889", "66", "64", "891", "-890", "-67", "827");
+            test_logical_operations_on_decimal ("-66", "6", "6", "-66", "65", "-7", "-72");
+
+            stdout.printf ("\nTesting All arithmetic operations in decimal\n");
+            stdout.printf ("-------------------------------------------------------------\n");
+            test_arithmetic_operations_on_decimal ("10", "51", "1", "61", "-41", "510", "0");
+            test_arithmetic_operations_on_decimal ("-4", "0", "Undefined", "-4", "-4", "0", "Not possible");
+
+            stdout.printf ("\nTesting All shift operations in decimal\n");
+            stdout.printf ("-------------------------------------------------------------\n");
+            test_shift_operations_on_decimal ("1010", "5", "32320", "3", "32320", "-1879048161", "DWORD");
+            test_shift_operations_on_decimal ("88", "1", "-80", "44", "-80", "44", "BYTE");
         }
     }
 }
