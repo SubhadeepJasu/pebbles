@@ -265,7 +265,7 @@ namespace Pebbles {
             
             // Create Views
             scientific_view  = new Pebbles.ScientificView (this);
-            programmer_view  = new Pebbles.ProgrammerView ();
+            programmer_view  = new Pebbles.ProgrammerView (this);
             calculus_view    = new Pebbles.CalculusView ();
             date_view        = new Pebbles.DateView (this);
             conv_length_view = new Pebbles.ConvLengthView ();
