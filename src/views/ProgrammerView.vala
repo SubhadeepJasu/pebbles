@@ -138,24 +138,30 @@ namespace Pebbles {
             a_button     = new StyledButton ("A");
             d_button     = new StyledButton ("D");
             or_button    = new StyledButton ("OR", "Logical OR");
+            or_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             four_button  = new StyledButton ("4");
             five_button  = new StyledButton ("5");
             six_button   = new StyledButton ("6");
             b_button     = new StyledButton ("B");
             e_button     = new StyledButton ("E");
             and_button   = new StyledButton ("AND", "Logical AND");
+            and_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             one_button   = new StyledButton ("1");
             two_button   = new StyledButton ("2");
             three_button = new StyledButton ("3");
             c_button     = new StyledButton ("C");
             f_button     = new StyledButton ("F");
             xor_button   = new StyledButton ("XOR", "Logical Exclusive OR");
+            xor_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             zero_button  = new StyledButton ("0");
             left_parenthesis_button = new StyledButton ("(");
             right_parenthesis_button = new StyledButton (")");
             lsh_button   = new StyledButton ("Lsh", "Left Shift");
+            lsh_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             rsh_button   = new StyledButton ("Rsh", "Right Shift");
+            rsh_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             not_button   = new StyledButton ("NOT", "Logical Inverse");
+            not_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
 
             button_container_left.attach (all_clear_button, 0, 0, 1, 1);
             button_container_left.attach (del_button, 1, 0, 1, 1);
@@ -194,14 +200,20 @@ namespace Pebbles {
             // Make buttons on the right
             divide_button = new StyledButton ("\xC3\xB7");
             memory_plus_button = new StyledButton ("M+", "Add it to the value in Memory");
+            memory_plus_button.get_style_context ().add_class ("Pebbles_Buttons_Memory");
             multiply_button = new StyledButton ("\xC3\x97");
             memory_minus_button = new StyledButton ("M-", "Subtract it from the value in Memory");
+            memory_minus_button.get_style_context ().add_class ("Pebbles_Buttons_Memory");
             subtract_button = new StyledButton ("-");
             memory_recall_button = new StyledButton ("MR", "Recall value from Memory");
+            memory_recall_button.get_style_context ().add_class ("Pebbles_Buttons_Memory");
             addition_button = new StyledButton ("+");
             memory_clear_button = new StyledButton ("MC", "Memory Clear");
+            memory_clear_button.get_style_context ().add_class ("Pebbles_Buttons_Memory");
             ans_button = new StyledButton ("Ans", "Last answer");
             result_button = new StyledButton ("=", "Result");
+            result_button.get_style_context ().add_class ("h2");
+            result_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
 
             button_container_right.attach (divide_button,       0, 0, 1, 1);
             button_container_right.attach (memory_plus_button,  1, 0, 1, 1);
