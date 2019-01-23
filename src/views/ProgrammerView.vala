@@ -97,7 +97,7 @@ namespace Pebbles {
             // Make fake LCD display
             display_container = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
             display_container.height_request = 120;
-            display_container.width_request = 520;
+            display_container.width_request = 560;
             display_container.margin_start = 8;
             display_container.margin_end = 8;
             display_container.margin_top = 8;
@@ -107,7 +107,7 @@ namespace Pebbles {
 
             // Make Input section on the left
             button_container_left = new Gtk.Grid ();
-            button_container_left.height_request = 333;
+            button_container_left.height_request = 250;
             button_container_left.margin_start = 8;
             button_container_left.margin_end = 8;
             button_container_left.margin_bottom = 8;
@@ -116,7 +116,7 @@ namespace Pebbles {
 
             // Make Input section on the right
             button_container_right = new Gtk.Grid ();
-            button_container_right.height_request = 167;
+            button_container_right.height_request = 250;
             button_container_right.margin_start = 8;
             button_container_right.margin_end = 8;
             button_container_right.margin_bottom = 8;
@@ -128,10 +128,10 @@ namespace Pebbles {
             all_clear_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
             del_button = new StyledButton ("Del", "Backspace");
             del_button.sensitive = false;
-            qword_button = new StyledButton ("QWORD", "64 bit value");
-            dword_button = new StyledButton ("DWORD", "32 bit value");
-            word_button  = new StyledButton ("WORD", "16 bit value");
-            byte_button  = new StyledButton ("BYTE", "8 bit value");
+            qword_button = new StyledButton ("QWD", "64 bit value");
+            dword_button = new StyledButton ("DWD", "32 bit value");
+            word_button  = new StyledButton ("WRD", "16 bit value");
+            byte_button  = new StyledButton ("BYT", "8 bit value");
             seven_button = new StyledButton ("7");
             eight_button = new StyledButton ("8");
             nine_button  = new StyledButton ("9");
