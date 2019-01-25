@@ -590,5 +590,20 @@ namespace Pebbles {
             ans = binary_to_decimal (binary1);
             return ans;
         }
+
+        //function calls have unmatched parameters from here on
+        public static string binary_ones_complement_operation (string binary, string value_mode) {
+            string complement = "";
+            for(int i = 0; i < binary.length; i++) {
+                if(binary.slice(i,i+1) == "0") {
+                    complement = complement + "1";
+                }
+                else if(binary.slice(i,i+1) == "1") {
+                    complement = complement + "0";
+                }
+            }
+           return decimal_to_binary (decimal_addition_operation (binary_to_decimal (complement, value_mode), "1") ,value_mode);
+        }
+        //no wrong calls after this point
    }
 }
