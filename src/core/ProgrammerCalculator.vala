@@ -53,24 +53,24 @@ namespace Pebbles {
                 return "9";
             }
             else if (token == "1010") {
-                return "A";
+                return "a";
             }
             else if (token == "1011") {
-                return "B";
+                return "b";
             }
             else if (token == "1100") {
-                return "C";
+                return "c";
             }
             else if (token == "1101") {
-                return "D";
+                return "d";
             }
             else if (token == "1110") {
-                return "E";
+                return "e";
             }
             else if (token == "1111") {
-                return "F";
+                return "f";
             }
-            return "e";
+            return "E";
         }
 
         private static string remove_extra_zeroes (string bin) {
@@ -97,7 +97,7 @@ namespace Pebbles {
             i = given_string.length;
             for (; i/4 > 0; i-=4) {
                 hex_string = binary_equivalent_hexadecimal(given_string.slice (i - 4, i)).concat (hex_string);
-                if (hex_string == "e") {
+                if (hex_string == "E") {
                     return "E";
                 }
                 else {
@@ -137,17 +137,17 @@ namespace Pebbles {
 		            binary = binary.concat("1000");
 		        else if (tokens[i] == "9")
 		            binary = binary.concat("1001");
-		        else if (tokens[i] == "A")
+		        else if (tokens[i] == "a")
 		            binary = binary.concat("1010");
-		        else if (tokens[i] == "B")
+		        else if (tokens[i] == "b")
 		            binary = binary.concat("1011");
-		        else if (tokens[i] == "C")
+		        else if (tokens[i] == "c")
 		            binary = binary.concat("1100");
-		        else if (tokens[i] == "D")
+		        else if (tokens[i] == "d")
 		            binary = binary.concat("1101");
-		        else if (tokens[i] == "E")
+		        else if (tokens[i] == "e")
 		            binary = binary.concat("1110");
-		        else if (tokens[i] == "F")
+		        else if (tokens[i] == "f")
 		            binary = binary.concat("1111");    
 	        }
 	        return remove_extra_zeroes (binary);
@@ -160,22 +160,22 @@ namespace Pebbles {
 	            tokens[i] = hex.get_char (i).to_string ();
             int[] conv = new int [hex.length];
             for (int i = 0; i < tokens.length; i++) {
-                if (tokens[i] == "A")
+                if (tokens[i] == "a")
                     conv[i] = 10;
-                else if (tokens[i] == "B")
+                else if (tokens[i] == "b")
                     conv[i] = 11;
-                else if (tokens[i] == "C")
+                else if (tokens[i] == "c")
                     conv[i] = 12;
-                else if (tokens[i] == "D")
+                else if (tokens[i] == "d")
                     conv[i] = 13;
-                else if (tokens[i] == "E")
+                else if (tokens[i] == "e")
                     conv[i] = 14;
-                else if (tokens[i] == "F")
+                else if (tokens[i] == "f")
                     conv[i] = 15;
                 else
                     conv[i] = int.parse(tokens[i]);
             }
-            
+
             for (int i = 0; i < tokens.length; i++) {
                 ans += (int)(conv[i] * Math.pow (16, tokens.length - 1 - i));
             }
@@ -195,17 +195,17 @@ namespace Pebbles {
 	        }
 	        else {
 		    switch (temp) {
-		        case 10 : hex_num = hex_num.concat ("A");
+		        case 10 : hex_num = hex_num.concat ("a");
 			          break;
-		        case 11 : hex_num = hex_num.concat ("B");
+		        case 11 : hex_num = hex_num.concat ("b");
 			          break;
-		        case 12 : hex_num = hex_num.concat ("C");
+		        case 12 : hex_num = hex_num.concat ("c");
 			          break;
-		        case 13 : hex_num = hex_num.concat ("D");
+		        case 13 : hex_num = hex_num.concat ("d");
 			          break;
-		        case 14 : hex_num = hex_num.concat ("E");
+		        case 14 : hex_num = hex_num.concat ("e");
 			          break;
-		        case 15 : hex_num = hex_num.concat ("F");
+		        case 15 : hex_num = hex_num.concat ("f");
 			          break;
 		    }
 	        }
