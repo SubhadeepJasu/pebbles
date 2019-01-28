@@ -57,6 +57,10 @@ namespace Pebbles {
             this.date_mode_stack = window.date_mode_stack;
             this.date_diff_grid = window.date_diff_grid;
             this.date_add_grid = window.date_add_grid;
+            this.diff_mode_switch.state_set.connect ((event) => {
+                do_calculations ();
+                return false;
+            });
         }
         
         private void build_ui () {
@@ -237,7 +241,6 @@ namespace Pebbles {
             datepicker_diff_to.changed.connect (() => {
                 do_calculations ();
             });
-            
             attach (date_mode, 0, 0, 2, 1);
             attach (date_calc_holder, 0, 1, 1, 1);
             row_spacing = 54;
