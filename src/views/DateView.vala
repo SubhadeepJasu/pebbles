@@ -158,6 +158,9 @@ namespace Pebbles {
                 day_popper.set_visible (true);
             });
             add_entry_day.set_input_purpose (Gtk.InputPurpose.NUMBER);
+            add_entry_day.changed.connect (() => {
+                find_date (add_mode_switch.get_active ());
+            });
             
             add_entry_month = new Gtk.Entry ();
             add_entry_month.placeholder_text = "Month";
@@ -169,6 +172,9 @@ namespace Pebbles {
                 month_popper.set_visible (true);
             });
             add_entry_month.set_input_purpose (Gtk.InputPurpose.NUMBER);
+            add_entry_month.changed.connect (() => {
+                find_date (add_mode_switch.get_active ());
+            });
             
             add_entry_year  = new Gtk.Entry ();
             add_entry_year.placeholder_text = "Year";
@@ -180,6 +186,9 @@ namespace Pebbles {
                 year_popper.set_visible (true);
             });
             add_entry_year.set_input_purpose (Gtk.InputPurpose.NUMBER);
+            add_entry_year.changed.connect (() => {
+                find_date (add_mode_switch.get_active ());
+            });
             date_input_grid.attach (add_entry_day, 0, 0, 1, 1);
             date_input_grid.attach (add_entry_month, 1, 0, 1, 1);
             date_input_grid.attach (add_entry_year, 2, 0, 1, 1);
@@ -259,6 +268,9 @@ namespace Pebbles {
             });
             datepicker_diff_to.changed.connect (() => {
                 do_calculations ();
+            });
+            datepicker_add_sub.changed.connect (() => {
+                find_date (add_mode_switch.get_active ());
             });
             attach (date_mode, 0, 0, 2, 1);
             attach (date_calc_holder, 0, 1, 1, 1);
