@@ -37,6 +37,10 @@ namespace Pebbles {
         Granite.Widgets.DatePicker datepicker_add_sub;
         Gtk.Label week_day_label;
         Gtk.Label date_dmy_label;
+        Gtk.Label add_label;
+        Gtk.Entry add_entry_day;
+        Gtk.Entry add_entry_month;
+        Gtk.Entry add_entry_year;
         
         // Header Bar Controls
         Gtk.Stack date_mode_stack;
@@ -59,6 +63,17 @@ namespace Pebbles {
             this.date_add_grid = window.date_add_grid;
             this.diff_mode_switch.state_set.connect ((event) => {
                 do_calculations ();
+                return false;
+            });
+            this.add_mode_switch.state_set.connect ((event) => {
+                if (add_mode_switch.get_active ()) {
+                    add_label.set_text ("Subtract");
+                    find_date (true);
+                }
+                else {
+                    add_label.set_text ("Add");
+                    find_date (false);
+                }
                 return false;
             });
         }
@@ -126,12 +141,13 @@ namespace Pebbles {
             var start_label = new Gtk.Label ("Starting from");
             start_label.xalign = 0;
             start_label.get_style_context ().add_class (Granite.STYLE_CLASS_H4_LABEL);
-            var add_label = new Gtk.Label ("Days to Add");
+            add_label = new Gtk.Label ("Add");
             add_label.xalign = 0;
             add_label.get_style_context ().add_class (Granite.STYLE_CLASS_H4_LABEL);
             
             var date_input_grid = new Gtk.Grid ();
-            var add_entry_day   = new Gtk.Entry ();
+            
+            add_entry_day   = new Gtk.Entry ();
             add_entry_day.placeholder_text = "Day";
             add_entry_day.max_length  = 3;
             add_entry_day.width_chars = 6;
@@ -141,7 +157,8 @@ namespace Pebbles {
                 day_popper.set_visible (true);
             });
             add_entry_day.set_input_purpose (Gtk.InputPurpose.NUMBER);
-            var add_entry_month = new Gtk.Entry ();
+            
+            add_entry_month = new Gtk.Entry ();
             add_entry_month.placeholder_text = "Month";
             add_entry_month.max_length  = 3;
             add_entry_month.width_chars = 6;
@@ -151,7 +168,8 @@ namespace Pebbles {
                 month_popper.set_visible (true);
             });
             add_entry_month.set_input_purpose (Gtk.InputPurpose.NUMBER);
-            var add_entry_year  = new Gtk.Entry ();
+            
+            add_entry_year  = new Gtk.Entry ();
             add_entry_year.placeholder_text = "Year";
             add_entry_year.max_length  = 3;
             add_entry_year.width_chars = 6;
@@ -304,6 +322,48 @@ namespace Pebbles {
                 }
             }
             date_diff_label.set_text (result_date);
+        }
+        private void find_date (bool mode) {
+            var given_date = datepicker_add_sub.date;
+            if (!mode) {
+                given_date = given_date.add_days (int.parse (add_entry_day.get_text ()));
+                given_date = given_date.add_months (int.parse (add_entry_month.get_text ()));
+                given_date = given_date.add_years (int.parse (add_entry_year.get_text ()));
+            }
+            else {
+                given_date = given_date.add_days (0 - int.parse (add_entry_day.get_text ()));
+                given_date = given_date.add_months (0 - int.parse (add_entry_month.get_text ()));
+                given_date = given_date.add_years (0 - int.parse (add_entry_year.get_text ()));
+            }
+
+            switch (given_date.get_day_of_week ()) {
+                case 1:
+                    week_day_label.set_text ("Monday");
+                    break;
+                case 2:
+                    week_day_label.set_text ("Tuesday");
+                    break;
+                case 3:
+                    week_day_label.set_text ("Wednesday");
+                    break;
+                case 4:
+                    week_day_label.set_text ("Thursday");
+                    break;
+                case 5:
+                    week_day_label.set_text ("Friday");
+                    break;
+                case 6:
+                    week_day_label.set_text ("Saturday");
+                    break;
+                case 7:
+                    week_day_label.set_text ("Sunday");
+                    break;
+                default:
+                    week_day_label.set_text ("");
+                    break;
+            }
+            given_date.format ("%x");
+            date_dmy_label.set_text (given_date.to_string ());
         }
     }
     public class BottomPopper : Gtk.Popover {
