@@ -248,6 +248,9 @@ namespace Pebbles {
         private void do_calculations () {
             datetime_diff_from = datepicker_diff_from.date;
             datetime_diff_to = datepicker_diff_to.date;
+            if (diff_mode_switch.get_active()) {
+                datetime_diff_to = datetime_diff_to.add_days (1);
+            }
             string result_days = date_calculator_object.date_difference( datetime_diff_from , datetime_diff_to );
             result_days += (result_days == "1") ? " day" : " days";
             days_diff_label.set_text ("A total of " + result_days);

@@ -229,7 +229,7 @@ namespace Pebbles {
 	        return octal_number.reverse();
         }
 
-        public static string binary_to_decimal (string binary) {
+        public static string binary_to_decimal (string binary, string? value_mode = "") {
                 int64 ans = 0;
                 string[] tokens = new string [binary.length];
                 for(int i = 0; i < binary.length; i++)
@@ -295,7 +295,7 @@ namespace Pebbles {
                 return octal_string;
         }
 
-        public static string decimal_to_binary (string decimal) 
+        public static string decimal_to_binary (string decimal, string? value_mode = "") 
         {
             int64 quotient, decimalnum;
             decimalnum = int64.parse (decimal);
