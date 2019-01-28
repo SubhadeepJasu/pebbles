@@ -41,6 +41,7 @@ namespace Pebbles {
         Gtk.Entry add_entry_day;
         Gtk.Entry add_entry_month;
         Gtk.Entry add_entry_year;
+        Gtk.Calendar main_calendar;
         
         // Header Bar Controls
         Gtk.Stack date_mode_stack;
@@ -219,7 +220,7 @@ namespace Pebbles {
             add_grid.attach (date_dmy_label,0, 2, 1, 1);
             add_grid.width_request = 370;
             
-            var main_calendar = new Gtk.Calendar ();
+            main_calendar = new Gtk.Calendar ();
             main_calendar.set_display_options (Gtk.CalendarDisplayOptions.NO_MONTH_CHANGE);
             main_calendar.show_day_names = true;
             main_calendar.width_request = 210;
@@ -335,35 +336,43 @@ namespace Pebbles {
                 given_date = given_date.add_months (0 - int.parse (add_entry_month.get_text ()));
                 given_date = given_date.add_years (0 - int.parse (add_entry_year.get_text ()));
             }
-
+            string formatted_date = given_date.format ("%x");
             switch (given_date.get_day_of_week ()) {
                 case 1:
                     week_day_label.set_text ("Monday");
+                    formatted_date = formatted_date.replace ("Monday ", "");
                     break;
                 case 2:
                     week_day_label.set_text ("Tuesday");
+                    formatted_date = formatted_date.replace ("Tuesday ", "");
                     break;
                 case 3:
                     week_day_label.set_text ("Wednesday");
+                    formatted_date = formatted_date.replace ("Wednesday ", "");
                     break;
                 case 4:
                     week_day_label.set_text ("Thursday");
+                    formatted_date = formatted_date.replace ("Thursday ", "");
                     break;
                 case 5:
                     week_day_label.set_text ("Friday");
+                    formatted_date = formatted_date.replace ("Friday ", "");
                     break;
                 case 6:
                     week_day_label.set_text ("Saturday");
+                    formatted_date = formatted_date.replace ("Saturday ", "");
                     break;
                 case 7:
                     week_day_label.set_text ("Sunday");
+                    formatted_date = formatted_date.replace ("Sunday ", "");
                     break;
                 default:
                     week_day_label.set_text ("");
                     break;
             }
-            given_date.format ("%x");
-            date_dmy_label.set_text (given_date.to_string ());
+            main_calendar.select_month (given_date.get_month () - 1, given_date.get_year ());
+            main_calendar.select_day (given_date.get_day_of_month ());
+            date_dmy_label.set_text (formatted_date);
         }
     }
     public class BottomPopper : Gtk.Popover {
