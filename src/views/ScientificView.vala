@@ -567,17 +567,68 @@ namespace Pebbles {
                 else
                     char_button_click ("10^");
             });
+            sin_button.clicked.connect (() => {
+                if (shift_held)
+                    char_button_click ("isin");
+                else
+                    char_button_click ("sin");
+            });
+            sinh_button.clicked.connect (() => {
+                if (shift_held)
+                    char_button_click ("isinh");
+                else
+                    char_button_click ("sinh");
+            });
             log_cont_base_button.clicked.connect (() => {
                 if (shift_held)
                     char_button_click ("ln");
                 else
                     char_button_click ("10log");
             });
+            cos_button.clicked.connect (() => {
+                if (shift_held)
+                    char_button_click ("icos");
+                else
+                    char_button_click ("cos");
+            });
+            cosh_button.clicked.connect (() => {
+                if (shift_held)
+                    char_button_click ("icosh");
+                else
+                    char_button_click ("cosh");
+            });
             log_mod_button.clicked.connect (() => {
                 if (shift_held)
                     char_button_click ("log");
                 else
                     char_button_click ("mod");
+            });
+            tan_button.clicked.connect (() => {
+                if (shift_held)
+                    char_button_click ("itan");
+                else
+                    char_button_click ("tan");
+            });
+            tanh_button.clicked.connect (() => {
+                if (shift_held)
+                    char_button_click ("itanh");
+                else
+                    char_button_click ("tanh");
+            });
+            perm_comb_button.clicked.connect (() => {
+                if (shift_held)
+                    char_button_click ("c");
+                else
+                    char_button_click ("p");
+            });
+            fact_button.clicked.connect (() => {
+                char_button_click ("!");
+            });
+            constant_button.clicked.connect (() => {
+                if (shift_held)
+                    char_button_click (constant_label_2);
+                else
+                    char_button_click (constant_label_1);
             });
         }
 
