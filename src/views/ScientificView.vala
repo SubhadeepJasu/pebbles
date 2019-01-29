@@ -58,16 +58,16 @@ namespace Pebbles {
 
         // Input section right buttons
         StyledButton sqr_button;
-        StyledButton log_ten_button;
-        StyledButton log_e_button;
+        StyledButton pow_root_button;
+        StyledButton expo_power_button;
         StyledButton memory_plus_button;
         StyledButton sin_button;
         StyledButton sinh_button;
-        StyledButton mod_button;
+        StyledButton log_cont_base_button;
         StyledButton memory_minus_button;
         StyledButton cos_button;
         StyledButton cosh_button;
-        StyledButton log_power_button;
+        StyledButton log_mod_button;
         StyledButton memory_recall_button;
         StyledButton tan_button;
         StyledButton tanh_button;
@@ -196,26 +196,26 @@ namespace Pebbles {
             // Make buttons on the right
             sqr_button = new StyledButton ("x<sup>2</sup>", "Square a number");
             sqr_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            log_ten_button = new StyledButton ("10<sup>x</sup>", "10 raised to the power x");
-            log_ten_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            log_e_button = new StyledButton ("e<sup>x</sup>", "e raised to the power x");
-            log_e_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
+            pow_root_button = new StyledButton ("x<sup>y</sup>", "x raised to the power y");
+            pow_root_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
+            expo_power_button = new StyledButton ("10<sup>x</sup>", "10 raised to the power x");
+            expo_power_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             memory_plus_button = new StyledButton ("M+", "Add it to the value in Memory");
             memory_plus_button.get_style_context ().add_class ("Pebbles_Buttons_Memory");
             sin_button = new StyledButton ("sin", "Sine");
             sin_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             sinh_button = new StyledButton ("sinh", "Hyperbolic Sine");
             sinh_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            mod_button = new StyledButton ("Mod", "Modulus");
-            mod_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
+            log_cont_base_button = new StyledButton ("log x", "Log base 10");
+            log_cont_base_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             memory_minus_button = new StyledButton ("M\xE2\x88\x92", "Subtract it from the value in Memory");
             memory_minus_button.get_style_context ().add_class ("Pebbles_Buttons_Memory");
             cos_button = new StyledButton ("cos", "Cosine");
             cos_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             cosh_button = new StyledButton ("cosh", "Hyperbolic Cosine");
             cosh_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            log_power_button = new StyledButton ("x<sup>y</sup>", "x raised to the power y");
-            log_power_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
+            log_mod_button = new StyledButton ("Mod", "Modulus");
+            log_mod_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             memory_recall_button = new StyledButton ("MR", "Recall value from Memory");
             memory_recall_button.get_style_context ().add_class ("Pebbles_Buttons_Memory");
             tan_button = new StyledButton ("tan", "Tangent");
@@ -238,16 +238,16 @@ namespace Pebbles {
             result_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
 
             button_container_right.attach (sqr_button, 0, 0, 1, 1);
-            button_container_right.attach (log_ten_button, 1, 0, 1, 1);
-            button_container_right.attach (log_e_button, 2, 0, 1, 1);
+            button_container_right.attach (pow_root_button, 1, 0, 1, 1);
+            button_container_right.attach (expo_power_button, 2, 0, 1, 1);
             button_container_right.attach (memory_plus_button, 3, 0, 1, 1); 
             button_container_right.attach (sin_button, 0, 1, 1, 1);
             button_container_right.attach (sinh_button, 1, 1, 1, 1);
-            button_container_right.attach (mod_button, 2, 1, 1, 1);
+            button_container_right.attach (log_cont_base_button, 2, 1, 1, 1);
             button_container_right.attach (memory_minus_button, 3, 1, 1, 1);
             button_container_right.attach (cos_button, 0, 2, 1, 1);
             button_container_right.attach (cosh_button, 1, 2, 1, 1);
-            button_container_right.attach (log_power_button, 2, 2, 1, 1);
+            button_container_right.attach (log_mod_button, 2, 2, 1, 1);
             button_container_right.attach (memory_recall_button, 3, 2, 1, 1);
             button_container_right.attach (tan_button, 0, 3, 1, 1);
             button_container_right.attach (tanh_button, 1, 3, 1, 1);
@@ -282,15 +282,15 @@ namespace Pebbles {
                     set_alternative_button ();
                 });
 
-                log_ten_button.update_label ("log\xE2\x82\x81\xE2\x82\x80x", "Log base 10");
-                log_ten_button.clicked.connect (() => {
+                pow_root_button.update_label ("<sup>n</sup>\xE2\x88\x9A", "nth root over number");
+                pow_root_button.clicked.connect (() => {
                     shift_held = false;
                     window.shift_switch.set_active (false);
                     set_alternative_button ();
                 });
 
-                log_e_button.update_label ("ln x", "Natural Logarithm (base e)");
-                log_e_button.clicked.connect (() => {
+                expo_power_button.update_label ("e<sup>x</sup>", "e raised to the power x");
+                expo_power_button.clicked.connect (() => {
                     shift_held = false;
                     window.shift_switch.set_active (false);
                     set_alternative_button ();
@@ -338,13 +338,18 @@ namespace Pebbles {
                     set_alternative_button ();
                 });
 
-                log_power_button.update_label ("log\xE2\x82\x93y", "Log base x");
-                log_power_button.clicked.connect (() => {
+                log_mod_button.update_label ("log\xE2\x82\x93y", "Log base x");
+                log_mod_button.clicked.connect (() => {
                     shift_held = false;
                     window.shift_switch.set_active (false);
                     set_alternative_button ();
                 });
-
+                log_cont_base_button.update_label ("ln x", "Natural Logarithm");
+                log_cont_base_button.clicked.connect (() => {
+                    shift_held = false;
+                    window.shift_switch.set_active (false);
+                    set_alternative_button ();
+                });
                 perm_comb_button.update_label ("<sup>n</sup>C\xE1\xB5\xA3", "Combinations");
                 perm_comb_button.clicked.connect (() => {
                     shift_held = false;
@@ -360,15 +365,16 @@ namespace Pebbles {
             }
             else {
                 sqr_button.update_label ("x<sup>2</sup>", "Square a number");
-                log_ten_button.update_label ("10<sup>x</sup>", "10 raised to the power x");
-                log_e_button.update_label ("e<sup>x</sup>", "e raised to the power x");
+                pow_root_button.update_label ("x<sup>y</sup>", "x raised to the power y");
+                expo_power_button.update_label ("10<sup>x</sup>", "10 raised to the power x");
                 sin_button.update_label ("sin", "Sine");
                 cos_button.update_label ("cos", "Cosine");
                 tan_button.update_label ("tan", "Tangent");
                 sinh_button.update_label ("sinh", "Hyperbolic Sine");
                 cosh_button.update_label ("cosh", "Hyperbolic Cosine");
                 tanh_button.update_label ("tanh", "Hyperbolic Tangent");
-                log_power_button.update_label ("x<sup>y</sup>", "x raised to the power y");
+                log_mod_button.update_label ("Mod", "Modulus");
+                log_cont_base_button.update_label ("log x", "Log base 10");
                 perm_comb_button.update_label ("<sup>n</sup>P\xE1\xB5\xA3", "Permutations");
                 constant_button.update_label (constant_label_1, constant_desc_1);
             }
