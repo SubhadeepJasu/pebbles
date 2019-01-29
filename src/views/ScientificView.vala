@@ -549,6 +549,36 @@ namespace Pebbles {
             right_parenthesis_button.clicked.connect (() => {;
                 char_button_click (")");
             });
+            sqr_button.clicked.connect (() => {
+                if (shift_held)
+                    char_button_click ("√");
+                else
+                    char_button_click ("^2");
+            });
+            pow_root_button.clicked.connect (() => {
+                if (shift_held)
+                    char_button_click ("\xE2\x81\xBF√");
+                else
+                    char_button_click ("^");
+            });
+            expo_power_button.clicked.connect (() => {
+                if (shift_held)
+                    char_button_click ("e^");
+                else
+                    char_button_click ("10^");
+            });
+            log_cont_base_button.clicked.connect (() => {
+                if (shift_held)
+                    char_button_click ("ln");
+                else
+                    char_button_click ("10log");
+            });
+            log_mod_button.clicked.connect (() => {
+                if (shift_held)
+                    char_button_click ("log");
+                else
+                    char_button_click ("mod");
+            });
         }
 
         private void char_button_click (string input) {
