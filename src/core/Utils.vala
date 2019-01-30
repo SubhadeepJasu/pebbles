@@ -80,10 +80,13 @@ namespace Pebbles {
                 exp = exp.replace ("sin", " [9] ");
                 exp = exp.replace ("cos", " [10] ");
                 exp = exp.replace ("tan", " [11] ");
+                exp = exp.replace ("log\xE2\x82\x81\xE2\x82\x80", " 10 log ");
                 exp = exp.replace ("log", " log ");
-                exp = exp.replace ("ln", " ln ");
+                exp = exp.replace ("ln", " e log ");
                 exp = exp.replace ("mod", " m ");
                 exp = exp.replace ("p", " p ");
+                exp = exp.replace ("P", " p ");
+                exp = exp.replace ("C", " b ");
                 exp = exp.replace ("c", " b ");
 
                 // Convert to symbolic terms and introduce additional spaces
@@ -102,7 +105,6 @@ namespace Pebbles {
                 exp = exp.replace ("[10]", " 0 c ");
                 exp = exp.replace ("[11]", " 0 t ");
                 exp = exp.replace ("log", " l ");
-                exp = exp.replace ("ln" , " n ");
                 exp = exp.replace ("(", " ( ");
                 exp = exp.replace (")", " ) ");
                 exp = exp.replace ("\xC3\x97", " * ");

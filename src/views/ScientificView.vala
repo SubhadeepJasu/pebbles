@@ -475,7 +475,6 @@ namespace Pebbles {
                     if (display_unit.input_entry.get_text ().length == 0 && display_unit.input_entry.get_text () != "0") {
                         display_unit.input_entry.set_text ("0");
                     }
-                    display_unit.input_entry.set_text (Utils.preformat (display_unit.input_entry.get_text ()));
                     display_unit.input_entry.grab_focus_without_selecting ();
                     if (display_unit.input_entry.cursor_position < display_unit.input_entry.get_text ().length)
                         display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
@@ -499,7 +498,7 @@ namespace Pebbles {
                 char_button_click ("%");
             });
             divide_button.clicked.connect (() => {
-                char_button_click ("÷");
+                char_button_click (" ÷ ");
             });
             seven_button.clicked.connect (() => {
                 char_button_click ("7");
@@ -511,7 +510,7 @@ namespace Pebbles {
                 char_button_click ("9");
             });
             multiply_button.clicked.connect (() => {;
-                char_button_click ("×");
+                char_button_click (" × ");
             });
             four_button.clicked.connect (() => {;
                 char_button_click ("4");
@@ -523,7 +522,7 @@ namespace Pebbles {
                 char_button_click ("6");
             });
             subtract_button.clicked.connect (() => {;
-                char_button_click ("-");
+                char_button_click (" - ");
             });
             one_button.clicked.connect (() => {;
                 char_button_click ("1");
@@ -535,7 +534,7 @@ namespace Pebbles {
                 char_button_click ("3");
             });
             plus_button.clicked.connect (() => {;
-                char_button_click ("+");
+                char_button_click (" + ");
             });
             zero_button.clicked.connect (() => {;
                 char_button_click ("0");
@@ -544,16 +543,16 @@ namespace Pebbles {
                 char_button_click (".");
             });
             left_parenthesis_button.clicked.connect (() => {;
-                char_button_click ("(");
+                char_button_click ("( ");
             });
             right_parenthesis_button.clicked.connect (() => {;
-                char_button_click (")");
+                char_button_click (") ");
             });
             sqr_button.clicked.connect (() => {
                 if (shift_held)
                     char_button_click ("√");
                 else
-                    char_button_click ("^2");
+                    char_button_click ("^2 ");
             });
             pow_root_button.clicked.connect (() => {
                 if (shift_held)
@@ -569,57 +568,57 @@ namespace Pebbles {
             });
             sin_button.clicked.connect (() => {
                 if (shift_held)
-                    char_button_click ("isin");
+                    char_button_click ("isin ");
                 else
-                    char_button_click ("sin");
+                    char_button_click ("sin ");
             });
             sinh_button.clicked.connect (() => {
                 if (shift_held)
-                    char_button_click ("isinh");
+                    char_button_click ("isinh ");
                 else
-                    char_button_click ("sinh");
+                    char_button_click ("sinh ");
             });
             log_cont_base_button.clicked.connect (() => {
                 if (shift_held)
-                    char_button_click ("ln");
+                    char_button_click ("ln ");
                 else
-                    char_button_click ("10log");
+                    char_button_click ("log\xE2\x82\x81\xE2\x82\x80 ");
             });
             cos_button.clicked.connect (() => {
                 if (shift_held)
-                    char_button_click ("icos");
+                    char_button_click ("icos ");
                 else
-                    char_button_click ("cos");
+                    char_button_click ("cos ");
             });
             cosh_button.clicked.connect (() => {
                 if (shift_held)
-                    char_button_click ("icosh");
+                    char_button_click ("icosh ");
                 else
-                    char_button_click ("cosh");
+                    char_button_click ("cosh ");
             });
             log_mod_button.clicked.connect (() => {
                 if (shift_held)
-                    char_button_click ("log");
+                    char_button_click ("log ");
                 else
-                    char_button_click ("mod");
+                    char_button_click ("mod ");
             });
             tan_button.clicked.connect (() => {
                 if (shift_held)
-                    char_button_click ("itan");
+                    char_button_click ("itan ");
                 else
-                    char_button_click ("tan");
+                    char_button_click ("tan ");
             });
             tanh_button.clicked.connect (() => {
                 if (shift_held)
-                    char_button_click ("itanh");
+                    char_button_click ("itanh ");
                 else
-                    char_button_click ("tanh");
+                    char_button_click ("tanh ");
             });
             perm_comb_button.clicked.connect (() => {
                 if (shift_held)
-                    char_button_click ("c");
+                    char_button_click ("C");
                 else
-                    char_button_click ("p");
+                    char_button_click ("P");
             });
             fact_button.clicked.connect (() => {
                 char_button_click ("!");
