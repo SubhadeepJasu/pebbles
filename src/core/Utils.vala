@@ -122,6 +122,7 @@ namespace Pebbles {
                 exp = exp.replace ("sqr", " ^ 2 ");
                 exp = exp.replace ("rt", " q ");
                 exp = exp.replace ("!", " ! ");
+                exp = exp.replace ("∞", "inf");
 
                 exp = exp.strip ();
                 exp = space_removal (exp);

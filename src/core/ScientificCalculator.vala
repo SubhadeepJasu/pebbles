@@ -34,7 +34,12 @@ namespace Pebbles {
             if (result == "E") {
                 return result;
             }
-            return evaluate_exp (result);
+            string evaluated_result = evaluate_exp (result);
+            if (evaluated_result == "nan")
+                evaluated_result = "E";
+            if (evaluated_result == "inf")
+                evaluated_result = "∞";
+            return evaluated_result;
         }
 
         private static bool has_precedence (char op1, char op2) {

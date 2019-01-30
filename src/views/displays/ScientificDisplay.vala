@@ -168,7 +168,7 @@ namespace Pebbles {
 
         public void set_memory_status (bool state) {
             if (state) {
-                memory_label.set_opacity (0.8);
+                memory_label.set_opacity (1);
             }
             else {
                 memory_label.set_opacity (0.2);

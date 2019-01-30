@@ -85,6 +85,21 @@ namespace Pebbles {
         string constant_label_2;
         string constant_desc_2;
 
+        // Scietific Calculator Memory Store
+        private double _memory_reserve;
+        private double memory_reserve {
+            get { return _memory_reserve; }
+            set {
+                _memory_reserve = value;
+                if (_memory_reserve == 0 || _memory_reserve == 0.0) {
+                    display_unit.set_memory_status (false);
+                }
+                else {
+                    display_unit.set_memory_status (true);
+                }
+            }
+        }
+
         private bool shift_held = false;
 
         public ScientificView (MainWindow window) {
@@ -628,6 +643,66 @@ namespace Pebbles {
                     char_button_click (constant_label_2);
                 else
                     char_button_click (constant_label_1);
+            });
+            
+            memory_plus_button.button_press_event.connect ((event) => {
+                if (event.button == 1) {
+                    display_unit.display_off ();
+                    display_unit.get_answer_evaluate ();
+                    if (display_unit.input_entry.get_text ().length == 0 && display_unit.input_entry.get_text () != "0") {
+                        display_unit.input_entry.set_text ("0");
+                    }
+                    display_unit.input_entry.grab_focus_without_selecting ();
+                    if (display_unit.input_entry.cursor_position < display_unit.input_entry.get_text ().length)
+                        display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                    if (display_unit.answer_label.get_text () != "E") {
+                        var res = display_unit.answer_label.get_text ();
+                        res = res.replace (",", "");
+                        memory_reserve += double.parse (res);
+                    }
+                }
+                return false;
+            });
+            memory_plus_button.button_release_event.connect (() => {
+                display_unit.display_on ();
+                return false;
+            });
+            
+            memory_minus_button.button_press_event.connect ((event) => {
+                if (event.button == 1) {
+                    display_unit.display_off ();
+                    display_unit.get_answer_evaluate ();
+                    if (display_unit.input_entry.get_text ().length == 0 && display_unit.input_entry.get_text () != "0") {
+                        display_unit.input_entry.set_text ("0");
+                    }
+                    display_unit.input_entry.grab_focus_without_selecting ();
+                    if (display_unit.input_entry.cursor_position < display_unit.input_entry.get_text ().length)
+                        display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                    if (display_unit.answer_label.get_text () != "E") {
+                        var res = display_unit.answer_label.get_text ();
+                        res = res.replace (",", "");
+                        memory_reserve -= double.parse (res);
+                    }
+                }
+                return false;
+            });
+            memory_minus_button.button_release_event.connect (() => {
+                display_unit.display_on ();
+                return false;
+            });
+            
+            memory_clear_button.button_press_event.connect ((event) => {
+                display_unit.display_off ();
+                memory_reserve = 0.0;
+                return false;
+            });
+            memory_clear_button.button_release_event.connect (() => {
+                display_unit.display_on ();
+                return false;
+            });
+            
+            memory_recall_button.clicked.connect (() => {
+                char_button_click (memory_reserve.to_string ());
             });
         }
 
