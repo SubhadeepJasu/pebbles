@@ -635,7 +635,12 @@ namespace Pebbles {
         private void char_button_click (string input) {
             string sample = display_unit.input_entry.get_text ();
             display_unit.input_entry.grab_focus_without_selecting ();
-            display_unit.input_entry.set_text (sample.concat (input));
+            if (sample != "0") {
+                display_unit.input_entry.set_text (sample.concat (input));
+            }
+            else {
+                display_unit.input_entry.set_text (input);
+            }
             display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
         }
 
