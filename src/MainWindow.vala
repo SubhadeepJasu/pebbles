@@ -241,7 +241,7 @@ namespace Pebbles {
             calc_category.add (calculus_item);
             calc_category.add (date_item);
             calc_category.add (stats_item);
-            calc_category.add (finance_item);
+            //calc_category.add (finance_item);
             // Converters
             var conv_category = new Granite.Widgets.SourceList.ExpandableItem ("Converter");
             //conv_category.expand_all ();
