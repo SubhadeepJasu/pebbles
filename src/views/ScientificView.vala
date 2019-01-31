@@ -75,7 +75,7 @@ namespace Pebbles {
         StyledButton memory_clear_button;
         StyledButton fact_button;
         StyledButton constant_button;
-        StyledButton last_answer_button;
+        public StyledButton last_answer_button;
         StyledButton result_button;
 
         // App Settings

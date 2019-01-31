@@ -190,6 +190,7 @@ namespace Pebbles {
             }
             else {
                 this.sci_view.window.history_stack.append (result.replace (",", ""));
+                this.sci_view.last_answer_button.set_sensitive (true);
             }
         }
 
