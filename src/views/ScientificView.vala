@@ -704,6 +704,10 @@ namespace Pebbles {
             memory_recall_button.clicked.connect (() => {
                 char_button_click (memory_reserve.to_string ());
             });
+            
+            last_answer_button.clicked.connect (() => {
+                char_button_click ("ans ");
+            });
         }
 
         private void char_button_click (string input) {

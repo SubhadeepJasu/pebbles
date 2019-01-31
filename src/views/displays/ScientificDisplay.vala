@@ -176,13 +176,20 @@ namespace Pebbles {
         }
         public void get_answer_evaluate () {
             var sci_calc = new ScientificCalculator ();
-            string result = sci_calc.get_result (input_entry.get_text (), angle_mode);
+            string result = "";
+            if (this.sci_view.window.history_stack.length () > 0) {
+                unowned List<string>? last_answer = this.sci_view.window.history_stack.last ();
+                result = sci_calc.get_result (input_entry.get_text ().replace ("ans", last_answer.data), angle_mode);
+            }
+            else {
+                result = sci_calc.get_result (input_entry.get_text (), angle_mode);
+            }
             answer_label.set_text (result);
             if (result == "E") {
                 shake ();
             }
             else {
-                this.sci_view.window.history_stack.append (result);
+                this.sci_view.window.history_stack.append (result.replace (",", ""));
             }
         }
 
