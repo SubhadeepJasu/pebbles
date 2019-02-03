@@ -37,16 +37,16 @@ namespace Pebbles {
         public signal void update_done_or_failed ();
 
         private double[] unit_multipliers = {
-            1,
-            0.783103,
-            1.397070,
-            3.713500,
-            1.323665,
-            6.829198,
             0,
             0,
-            66.992604,
-            13.942950,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
         };
 
         private const string[] units = {
@@ -204,6 +204,8 @@ namespace Pebbles {
             from_entry.changed.connect (() => {
                 if (from_to == 0 && allow_change) {
                     string result = conv.convert (double.parse (from_entry.get_text ()), from_unit.active, to_unit.active);
+                    if (result == "-nan" || result == "nan")
+                        result = "E";
                     to_entry.set_text (result);
                 }
             });
@@ -211,6 +213,8 @@ namespace Pebbles {
             to_entry.changed.connect (() => {
                 if (from_to == 1 && allow_change) {
                     string result = conv.convert (double.parse (to_entry.get_text ()), to_unit.active, from_unit.active);
+                    if (result == "-nan" || result == "nan")
+                        result = "E";
                     from_entry.set_text (result);
                 }
             });
@@ -218,6 +222,8 @@ namespace Pebbles {
             from_unit.changed.connect (() => {
                 if (allow_change) {
                     string result = conv.convert (double.parse (to_entry.get_text ()), to_unit.active, from_unit.active);
+                    if (result == "-nan" || result == "nan")
+                        result = "E";
                     from_entry.set_text (result);
                 }
             });
@@ -225,6 +231,8 @@ namespace Pebbles {
             to_unit.changed.connect (() => {
                 if (allow_change) {
                     string result = conv.convert (double.parse (from_entry.get_text ()), from_unit.active, to_unit.active);
+                    if (result == "-nan" || result == "nan")
+                        result = "E";
                     to_entry.set_text (result);
                 }
             });
@@ -235,6 +243,8 @@ namespace Pebbles {
                 to_unit.active = from_unit.active;
                 from_unit.active = temp;
                 string result = conv.convert (double.parse (from_entry.get_text ()), from_unit.active, to_unit.active);
+                if (result == "-nan" || result == "nan")
+                        result = "E";
                 to_entry.set_text (result);
                 allow_change = true;
             });

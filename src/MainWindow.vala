@@ -75,6 +75,7 @@ namespace Pebbles {
         
         // History
         public List<string> history_stack;
+        private bool currency_view_visited = false;
 
         public MainWindow () {
             load_settings ();
@@ -289,11 +290,12 @@ namespace Pebbles {
             conv_curr_view.update_done_or_failed.connect (() => {
                 update_button.set_sensitive (true);
             });
-
+            
             Timeout.add_seconds (600, () => {
                 if (update_button.get_sensitive ()) {
                     update_button.set_sensitive (false);
                     conv_curr_view.update_currency_data ();
+                    currency_view_visited = true;
                 }
                 return true;
             });
@@ -414,6 +416,11 @@ namespace Pebbles {
                     common_view.set_visible_child (conv_curr_view);
                     header_switcher.set_visible_child (update_button);
                     view_index = 16;
+                    if (!currency_view_visited) {
+                        update_button.set_sensitive (false);
+                        conv_curr_view.update_currency_data ();
+                        currency_view_visited = true;
+                    }
                 }
                 this.show_all ();
             });
