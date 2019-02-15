@@ -213,6 +213,54 @@
 	min-width: 16px;
 }
 
+.circular_button {
+	border-top-left-radius: 50px;
+	border-top-right-radius: 50px;
+	border-bottom-left-radius: 50px;
+	border-bottom-right-radius: 50px;
+}
+
+.Pebbles_Card {
+	border: 1px solid @border_color;
+	box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 3px 3px rgba(0, 0, 0, 0.22);
+	border-radius: 2.5px;
+	padding-bottom: 3px;
+	padding-top: 3px;
+	padding-left: 6px;
+	padding-right: 6px;
+	margin-left: 8px;
+}
+
+.Pebbles_Card:backdrop {
+	border: 1px solid @border_color;
+	box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.03), 0 2px 2px rgba(0, 0, 0, 0.10);
+	border-radius: 2.5px;
+	padding-bottom: 3px;
+	padding-top: 3px;
+	padding-left: 6px;
+	padding-right: 6px;
+	margin-left: 8px;
+}
+
+.PebblesFlat {
+	background: none;
+}
+
+.PebblesFlat:hover {
+	color: @fg_color;
+	background-color: shade (@bg_color, 0.95);
+}
+
+.Pebbles_Bit_Activated {
+	color: alpha (#ffffff, 0.8);
+	background-color: shade (#3689e6, 0.95);
+}
+
+.Pebbles_Bit_Activated:hover {
+	color: #ffffff;
+	background-color: shade (#64baff, 0.95);
+}
+
 scrollbar.horizontal slider {
     min-width: 30px;
     min-height: 3px;
