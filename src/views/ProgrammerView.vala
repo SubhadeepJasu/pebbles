@@ -87,7 +87,7 @@ namespace Pebbles {
 
             // Make UI
             prog_make_ui ();
-            //prog_make_events ();
+            prog_make_events ();
         }
 
         public void prog_make_ui () {
@@ -164,7 +164,7 @@ namespace Pebbles {
             plus_button  = new StyledButton ("+");
             plus_button.get_style_context ().add_class ("h3");
             
-            Granite.Widgets.ModeButton bit_mode_button = new Granite.Widgets.ModeButton ();
+            bit_mode_button = new Granite.Widgets.ModeButton ();
             bit_mode_button.append_text ("  HEXA  ");
             bit_mode_button.append_text ("DECI");
             bit_mode_button.append_text ("OCTL");
@@ -265,6 +265,35 @@ namespace Pebbles {
             //main_grid.set_column_homogeneous (true);
             
             add_overlay (main_grid);
+        }
+        private void prog_make_events () {
+            display_unit.dec_label.get_style_context ().add_class ("PebblesLCDSwitchSelected");
+            bit_mode_button.mode_changed.connect (() => {
+                if (bit_mode_button.selected == 0) {
+                    display_unit.dec_label.get_style_context ().remove_class ("PebblesLCDSwitchSelected");
+                    display_unit.oct_label.get_style_context ().remove_class ("PebblesLCDSwitchSelected");
+                    display_unit.bin_label.get_style_context ().remove_class ("PebblesLCDSwitchSelected");
+                    display_unit.hex_label.get_style_context ().add_class    ("PebblesLCDSwitchSelected");
+                }
+                else if (bit_mode_button.selected == 1){
+                    display_unit.hex_label.get_style_context ().remove_class ("PebblesLCDSwitchSelected");
+                    display_unit.oct_label.get_style_context ().remove_class ("PebblesLCDSwitchSelected");
+                    display_unit.bin_label.get_style_context ().remove_class ("PebblesLCDSwitchSelected");
+                    display_unit.dec_label.get_style_context ().add_class    ("PebblesLCDSwitchSelected");
+                }
+                else if (bit_mode_button.selected == 2){
+                    display_unit.hex_label.get_style_context ().remove_class ("PebblesLCDSwitchSelected");
+                    display_unit.dec_label.get_style_context ().remove_class ("PebblesLCDSwitchSelected");
+                    display_unit.bin_label.get_style_context ().remove_class ("PebblesLCDSwitchSelected");
+                    display_unit.oct_label.get_style_context ().add_class    ("PebblesLCDSwitchSelected");
+                }
+                else if (bit_mode_button.selected == 3){
+                    display_unit.hex_label.get_style_context ().remove_class ("PebblesLCDSwitchSelected");
+                    display_unit.oct_label.get_style_context ().remove_class ("PebblesLCDSwitchSelected");
+                    display_unit.dec_label.get_style_context ().remove_class ("PebblesLCDSwitchSelected");
+                    display_unit.bin_label.get_style_context ().add_class    ("PebblesLCDSwitchSelected");
+                }
+            });
         }
     }
 }   

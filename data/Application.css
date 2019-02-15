@@ -173,6 +173,29 @@
 	font-weight: bold;
 }
 
+.PebblesLCDSwitch {
+
+	font-size: 10px;
+	opacity: 0.8;
+	font-weight: bold;
+	color:#272863;
+	border: 1px solid #272863;
+	padding-left : 6px;
+	padding-right: 6px;
+	border-radius: 2.25px;
+}
+
+.PebblesLCDSwitchSelected {
+	color:#C6D0C6;
+	background-color: #272863;
+}
+
+.PebblesLCDLabelSmall {
+	font-size: 10px;
+	opacity: 0.8;
+	color:#272863;
+}
+
 .Pebbles_Conversion_Text_Box {
 	background: none;
 	border: 1px solid alpha (@border_color, 0);
