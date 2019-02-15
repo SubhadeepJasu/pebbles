@@ -38,8 +38,7 @@ namespace Pebbles {
         Gtk.Label hex_number_label;
         Gtk.Label dec_number_label;
         Gtk.Label oct_number_label;
-        Gtk.Label bin_number_label1;
-        Gtk.Label bin_number_label2;
+        Gtk.Label bin_number_label;
         
         // Answer label
         public Gtk.Label answer_label;
@@ -108,32 +107,28 @@ namespace Pebbles {
             bin_label.set_yalign (0);
             bin_label.set_margin_bottom (12);
             
-            hex_number_label  = new Gtk.Label ("FFFF FFFF FFFF FFFF");
-            dec_number_label  = new Gtk.Label ("18446744073709552000");
-            oct_number_label  = new Gtk.Label ("2000000000000000000000");
-            //bin_number_label1 = new Gtk.Label ("11111111111111111111111111111111");
-            //bin_number_label2 = new Gtk.Label ("11111111111111111111111111111111");
-            bin_number_label1 = new Gtk.Label ("1111111111111111111111111111111111111111111111111111111111111111");
-            bin_number_label1.set_line_wrap_mode (Pango.WrapMode.CHAR);
-            bin_number_label1.set_line_wrap (true);
-            bin_number_label1.lines = 2;
-            bin_number_label1.set_width_chars (32);
-            bin_number_label1.set_max_width_chars (32);
-            bin_number_label1.single_line_mode =    false;
-            bin_number_label1.set_xalign (0);
-            bin_number_label2 = new Gtk.Label ("");
-            bin_number_label2.set_width_chars (32);
+            hex_number_label  = new Gtk.Label ("0");
+            dec_number_label  = new Gtk.Label ("0");
+            oct_number_label  = new Gtk.Label ("0");
+            bin_number_label = new Gtk.Label ("0");
+            bin_number_label.set_line_wrap_mode (Pango.WrapMode.CHAR);
+            bin_number_label.set_line_wrap (true);
+            bin_number_label.lines = 2;
+            bin_number_label.set_width_chars (32);
+            bin_number_label.set_max_width_chars (32);
+            bin_number_label.single_line_mode =    false;
+            bin_number_label.set_xalign (0);
+            bin_number_label.set_yalign (0);
             
             hex_number_label.halign = Gtk.Align.START;
             dec_number_label.halign = Gtk.Align.START;
             oct_number_label.halign = Gtk.Align.START;
-            bin_number_label1.halign = Gtk.Align.START;
+            bin_number_label.halign = Gtk.Align.START;
             
             hex_number_label.get_style_context ().add_class ("PebblesLCDLabelSmall");
             dec_number_label.get_style_context ().add_class ("PebblesLCDLabelSmall");
             oct_number_label.get_style_context ().add_class ("PebblesLCDLabelSmall");
-            bin_number_label1.get_style_context ().add_class ("PebblesLCDLabelSmall");
-            bin_number_label2.get_style_context ().add_class ("PebblesLCDLabelSmall");
+            bin_number_label.get_style_context ().add_class ("PebblesLCDLabelSmall");
             
             
             number_system_grid.attach (hex_label,      0, 0, 1, 1);
@@ -143,8 +138,7 @@ namespace Pebbles {
             number_system_grid.attach (oct_label,      0, 2, 1, 1);
             number_system_grid.attach (oct_number_label, 1, 2, 1, 1);
             number_system_grid.attach (bin_label,      0, 3, 1, 1);
-            number_system_grid.attach (bin_number_label1, 1, 3, 1, 1);
-            //number_system_grid.attach (bin_number_label2, 1, 4, 1, 1);
+            number_system_grid.attach (bin_number_label, 1, 3, 1, 1);
             number_system_grid.column_spacing = 8;
             number_system_grid.row_spacing    = 4;
             number_system_grid.margin_top     = 8;
@@ -176,6 +170,8 @@ namespace Pebbles {
             Gtk.Separator lcd_separator_v = new Gtk.Separator (Gtk.Orientation.VERTICAL);
             lcd_separator_v.set_opacity (0.6);
             lcd_separator_v.margin_bottom = 8;
+            lcd_separator_v.margin_start = 21;
+            lcd_separator_v.margin_end   = 7;
             
             // Put it together
             attach (lcd_status_bar,     0, 0, 3, 1);
