@@ -105,12 +105,24 @@ namespace Pebbles {
             dec_label.get_style_context ().add_class ("PebblesLCDSwitch");
             oct_label.get_style_context ().add_class ("PebblesLCDSwitch");
             bin_label.get_style_context ().add_class ("PebblesLCDSwitch");
+            bin_label.set_yalign (0);
+            bin_label.set_margin_bottom (12);
             
             hex_number_label  = new Gtk.Label ("FFFF FFFF FFFF FFFF");
             dec_number_label  = new Gtk.Label ("18446744073709552000");
             oct_number_label  = new Gtk.Label ("2000000000000000000000");
-            bin_number_label1 = new Gtk.Label ("11111111111111111111111111111111");
-            bin_number_label2 = new Gtk.Label ("11111111111111111111111111111111");
+            //bin_number_label1 = new Gtk.Label ("11111111111111111111111111111111");
+            //bin_number_label2 = new Gtk.Label ("11111111111111111111111111111111");
+            bin_number_label1 = new Gtk.Label ("1111111111111111111111111111111111111111111111111111111111111111");
+            bin_number_label1.set_line_wrap_mode (Pango.WrapMode.CHAR);
+            bin_number_label1.set_line_wrap (true);
+            bin_number_label1.lines = 2;
+            bin_number_label1.set_width_chars (32);
+            bin_number_label1.set_max_width_chars (32);
+            bin_number_label1.single_line_mode =    false;
+            bin_number_label1.set_xalign (0);
+            bin_number_label2 = new Gtk.Label ("");
+            bin_number_label2.set_width_chars (32);
             
             hex_number_label.halign = Gtk.Align.START;
             dec_number_label.halign = Gtk.Align.START;
@@ -132,7 +144,7 @@ namespace Pebbles {
             number_system_grid.attach (oct_number_label, 1, 2, 1, 1);
             number_system_grid.attach (bin_label,      0, 3, 1, 1);
             number_system_grid.attach (bin_number_label1, 1, 3, 1, 1);
-            number_system_grid.attach (bin_number_label2, 1, 4, 1, 1);
+            //number_system_grid.attach (bin_number_label2, 1, 4, 1, 1);
             number_system_grid.column_spacing = 8;
             number_system_grid.row_spacing    = 4;
             number_system_grid.margin_top     = 8;
