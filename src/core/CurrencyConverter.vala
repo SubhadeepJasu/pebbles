@@ -88,7 +88,7 @@ namespace Pebbles {
             return 0;
         }
         public bool request_multiplier (string coin_iso_a, string coin_iso_b, int index) {
-            var uri = """https://free.currencyconverterapi.com/api/v6/convert?q=%s_%s&compact=y""".printf(coin_iso_a, coin_iso_b);
+            var uri = """https://free.currencyconverterapi.com/api/v6/convert?q=%s_%s&compact=y&apiKey=03eb97e97cbf3fa3e228""".printf(coin_iso_a, coin_iso_b);
             var session = new Soup.Session ();
             var message = new Soup.Message ("GET", uri);
             double avg = 0.0;
