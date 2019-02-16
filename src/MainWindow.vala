@@ -183,7 +183,7 @@ namespace Pebbles {
             shift_switch_prog.set_margin_bottom (4);
             shift_switch_prog.get_style_context ().add_class ("Pebbles_Header_Switch");
             shift_switch_prog.notify["active"].connect (() => {
-                scientific_view.hold_shift (shift_switch.active);
+                programmer_view.hold_shift (shift_switch_prog.active);
             });
             programmer_header_grid.attach (word_length_button, 0, 0, 1, 1);
             programmer_header_grid.attach (shift_label_prog, 1, 0, 1, 1);
@@ -518,18 +518,26 @@ namespace Pebbles {
             if (settings.global_word_length == Pebbles.GlobalAngleUnit.QWD) {
                 word_length_button.label = "QWD";
                 word_length_button.tooltip_text = "QWORD";
+                programmer_view.display_unit.set_word_length_status (0);
+                programmer_view.bit_grid.set_bit_length_mode (3);
             }
             else if (settings.global_word_length == Pebbles.GlobalAngleUnit.DWD) {
                 word_length_button.label = "DWD";
                 word_length_button.tooltip_text = "DWORD";
+                programmer_view.display_unit.set_word_length_status (1);
+                programmer_view.bit_grid.set_bit_length_mode (2);
             }
             else if (settings.global_word_length == Pebbles.GlobalAngleUnit.WRD) {
                 word_length_button.label = "WRD";
                 word_length_button.tooltip_text = "WORD";
+                programmer_view.display_unit.set_word_length_status (2);
+                programmer_view.bit_grid.set_bit_length_mode (1);
             }
             else if (settings.global_word_length == Pebbles.GlobalAngleUnit.BYT) {
                 word_length_button.label = "BYT";
                 word_length_button.tooltip_text = "BYTE";
+                programmer_view.display_unit.set_word_length_status (3);
+                programmer_view.bit_grid.set_bit_length_mode (0);
             }
         }
         private void load_settings () {

@@ -75,7 +75,7 @@ namespace Pebbles {
         StyledButton result_button;
         
         // Bit Toggle View
-        BitToggleGrid bit_grid;
+        public BitToggleGrid bit_grid;
 
         // App Settings
         Pebbles.Settings settings;
@@ -180,11 +180,11 @@ namespace Pebbles {
             and_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             memory_minus_button = new StyledButton ("M-", "Subtract it from the value in Memory");
             memory_minus_button.get_style_context ().add_class ("Pebbles_Buttons_Memory");
-            xor_button = new StyledButton ("Xor", "TRUE for exactly one input being TRUE");
+            xor_button = new StyledButton ("Xor", "Logical Exclusive-OR (TRUE for exactly one input being TRUE)");
             xor_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             memory_recall_button = new StyledButton ("MR", "Recall value from Memory");
             memory_recall_button.get_style_context ().add_class ("Pebbles_Buttons_Memory");
-            not_button = new StyledButton ("Not", "TRUE for input being FALSE and vice versa");
+            not_button = new StyledButton ("Not", "Logical Inverter (TRUE for input being FALSE and vice versa)");
             not_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             memory_clear_button = new StyledButton ("MC", "Memory Clear");
             memory_clear_button.get_style_context ().add_class ("Pebbles_Buttons_Memory");
@@ -266,6 +266,27 @@ namespace Pebbles {
             
             add_overlay (main_grid);
         }
+        public void hold_shift (bool hold) {
+            shift_held = hold;
+            display_unit.set_shift_enable (hold);
+            set_alternative_button ();
+        }
+        public void set_alternative_button () {
+            if (shift_held) {
+                or_button.update_label ("Nor", "Logical NOT-of-OR (TRUE only for all inputs being FALSE)");
+                and_button.update_label ("Nand", "Logical NOT-of-AND (FALSE only for all inputs being TRUE)");
+                xor_button.update_label ("Xnor", "Logical NOT-of-XOR (TRUE only for all inputs being same)");
+                not_button.update_label ("Mod", "Modulus");
+                lsh_rsh_button.update_label ("Rsh", "Right Shift");
+            }
+            else {
+                or_button.update_label      ("Or", "Logical OR (TRUE for any input being TRUE)");
+                and_button.update_label     ("And", "Logical AND (TRUE for all inputs being TRUE)");
+                xor_button.update_label     ("Xor", "Logical Exclusive-OR (TRUE for exactly one input being TRUE)");
+                not_button.update_label     ("Not", "Logical Inverter (TRUE for input being FALSE and vice versa)");
+                lsh_rsh_button.update_label ("Lsh", "Left Shift");
+            }
+        }
         private void prog_make_events () {
             display_unit.dec_label.get_style_context ().add_class ("PebblesLCDSwitchSelected");
             bit_mode_button.mode_changed.connect (() => {
@@ -293,7 +314,76 @@ namespace Pebbles {
                     display_unit.dec_label.get_style_context ().remove_class ("PebblesLCDSwitchSelected");
                     display_unit.bin_label.get_style_context ().add_class    ("PebblesLCDSwitchSelected");
                 }
+                set_keypad_mode (bit_mode_button.selected);
             });
+        }
+        private void set_keypad_mode (int mode) {
+            switch (mode) {
+                case 0:
+                    seven_button.set_sensitive (true);
+                    eight_button.set_sensitive (true);
+                    nine_button.set_sensitive (true);
+                    a_button.set_sensitive (true);
+                    d_button.set_sensitive (true);
+                    four_button.set_sensitive (true);
+                    five_button.set_sensitive (true);
+                    six_button.set_sensitive (true);
+                    b_button.set_sensitive (true);
+                    e_button.set_sensitive (true);
+                    two_button.set_sensitive (true);
+                    three_button.set_sensitive (true);
+                    c_button.set_sensitive (true);
+                    f_button.set_sensitive (true);
+                    break;
+                case 1:
+                    seven_button.set_sensitive (true);
+                    eight_button.set_sensitive (true);
+                    nine_button.set_sensitive (true);
+                    a_button.set_sensitive (false);
+                    d_button.set_sensitive (false);
+                    four_button.set_sensitive (true);
+                    five_button.set_sensitive (true);
+                    six_button.set_sensitive (true);
+                    b_button.set_sensitive (false);
+                    e_button.set_sensitive (false);
+                    two_button.set_sensitive (true);
+                    three_button.set_sensitive (true);
+                    c_button.set_sensitive (false);
+                    f_button.set_sensitive (false);
+                    break;
+                case 2:
+                    seven_button.set_sensitive (true);
+                    eight_button.set_sensitive (false);
+                    nine_button.set_sensitive (false);
+                    a_button.set_sensitive (false);
+                    d_button.set_sensitive (false);
+                    four_button.set_sensitive (true);
+                    five_button.set_sensitive (true);
+                    six_button.set_sensitive (true);
+                    b_button.set_sensitive (false);
+                    e_button.set_sensitive (false);
+                    two_button.set_sensitive (true);
+                    three_button.set_sensitive (true);
+                    c_button.set_sensitive (false);
+                    f_button.set_sensitive (false);
+                    break;
+                case 3:
+                    seven_button.set_sensitive (false);
+                    eight_button.set_sensitive (false);
+                    nine_button.set_sensitive (false);
+                    a_button.set_sensitive (false);
+                    d_button.set_sensitive (false);
+                    four_button.set_sensitive (false);
+                    five_button.set_sensitive (false);
+                    six_button.set_sensitive (false);
+                    b_button.set_sensitive (false);
+                    e_button.set_sensitive (false);
+                    two_button.set_sensitive (false);
+                    three_button.set_sensitive (false);
+                    c_button.set_sensitive (false);
+                    f_button.set_sensitive (false);
+                    break;
+            }
         }
     }
 }   

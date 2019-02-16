@@ -183,5 +183,45 @@ namespace Pebbles {
 
             width_request = 530;
         }
+        public void set_shift_enable (bool s_on) {
+            if (s_on) {
+                shift_label.set_opacity (1);
+            }
+            else {
+                shift_label.set_opacity (0.2);
+            }
+        }
+        public void set_word_length_status (int state) {
+            switch (state) {
+                case 1 :
+                    qwd_label.set_opacity  (0.2);
+                    dwd_label.set_opacity  (1);
+                    wrd_label.set_opacity  (0.2);
+                    byt_label.set_opacity  (0.2);
+                    word_mode = GlobalWordLength.DWD;
+                    break;
+                case 2 :
+                    qwd_label.set_opacity  (0.2);
+                    dwd_label.set_opacity  (0.2);
+                    wrd_label.set_opacity  (1);
+                    byt_label.set_opacity  (0.2);
+                    word_mode = GlobalWordLength.WRD;
+                    break;
+                case 3 :
+                    qwd_label.set_opacity  (0.2);
+                    dwd_label.set_opacity  (0.2);
+                    wrd_label.set_opacity  (0.2);
+                    byt_label.set_opacity  (1);
+                    word_mode = GlobalWordLength.BYT;
+                    break;
+                default :
+                    qwd_label.set_opacity  (1);
+                    dwd_label.set_opacity  (0.2);
+                    wrd_label.set_opacity  (0.2);
+                    byt_label.set_opacity  (0.2);
+                    word_mode = GlobalWordLength.QWD;
+                    break;
+            }
+        }
     }
 }
