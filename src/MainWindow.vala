@@ -45,6 +45,9 @@ namespace Pebbles {
         public Gtk.Grid date_diff_grid;
         public Gtk.Grid date_add_grid;
         
+        Gtk.Button word_length_button;
+        public Gtk.Switch shift_switch_prog;
+        
         public Gtk.Button update_button;
 
         // VIEWS
@@ -108,6 +111,7 @@ namespace Pebbles {
             // Make Scientific / Calculus View Controls ///////////////
             // Create angle unit button
             angle_unit_button = new Gtk.Button.with_label ("DEG");
+            angle_unit_button.tooltip_text = "Degrees";
             angle_unit_button.set_margin_end (7);
             angle_unit_button.width_request = 50;
             angle_unit_button.clicked.connect (() => {
@@ -131,6 +135,7 @@ namespace Pebbles {
             scientific_header_grid.attach (shift_switch, 2, 0, 1, 1);
             scientific_header_grid.valign = Gtk.Align.CENTER;
             scientific_header_grid.column_spacing = 6;
+        
             
             // Make Date Switcher ///////////////////////////////////////
             date_mode_stack = new Gtk.Stack ();
@@ -159,6 +164,33 @@ namespace Pebbles {
             date_mode_stack.add_named (date_diff_grid, "Date_Diff");
             date_mode_stack.add_named (date_add_grid, "Date_Add");
             date_mode_stack.set_transition_type (Gtk.StackTransitionType.SLIDE_LEFT_RIGHT);
+            
+            // Make Programmer Controls
+            word_length_button = new Gtk.Button.with_label ("QWD");
+            word_length_button.tooltip_text = "QWORD";
+            word_length_button.set_margin_end (7);
+            word_length_button.width_request = 50;
+            word_length_button.clicked.connect (() => {
+                settings.switch_word_length ();
+                word_length_button_label_update ();
+            });
+            // Create shift switcher for programmer view
+            var programmer_header_grid = new Gtk.Grid ();
+            var shift_label_prog = new Gtk.Label ("Shift ");
+            shift_label_prog.set_margin_start (2);
+            shift_switch_prog = new Gtk.Switch ();
+            shift_switch_prog.set_margin_top (4);
+            shift_switch_prog.set_margin_bottom (4);
+            shift_switch_prog.get_style_context ().add_class ("Pebbles_Header_Switch");
+            shift_switch_prog.notify["active"].connect (() => {
+                scientific_view.hold_shift (shift_switch.active);
+            });
+            programmer_header_grid.attach (word_length_button, 0, 0, 1, 1);
+            programmer_header_grid.attach (shift_label_prog, 1, 0, 1, 1);
+            programmer_header_grid.attach (shift_switch_prog, 2, 0, 1, 1);
+            programmer_header_grid.valign = Gtk.Align.CENTER;
+            programmer_header_grid.column_spacing = 6;
+
             
             // Make Conversion Switcher null
             var null_switcher = new Gtk.Label ("");
@@ -195,6 +227,7 @@ namespace Pebbles {
             header_switcher.set_margin_bottom (7);
             header_switcher.set_transition_type (Gtk.StackTransitionType.SLIDE_UP_DOWN);
             header_switcher.add_named (scientific_header_grid, "Scientific/Calculus Header Switch");
+            header_switcher.add_named (programmer_header_grid, "Programmer Header Switch");
             header_switcher.add_named (date_mode_stack, "Date Mode Switch");
             header_switcher.add_named (null_switcher, "Converter");
             header_switcher.add_named (update_button, "Update Currency");
@@ -340,6 +373,7 @@ namespace Pebbles {
                 }
                 else if (item == programmer_item) {
                     common_view.set_visible_child (programmer_view);
+                    header_switcher.set_visible_child (programmer_header_grid);
                     view_index = 1;
                 }
                 else if (item == calculus_item) {
@@ -425,6 +459,7 @@ namespace Pebbles {
                 this.show_all ();
             });
             angle_unit_button_label_update ();
+            word_length_button_label_update ();
             item_list.selected = scientific_item;
 
             // Set up window attributes
@@ -465,15 +500,36 @@ namespace Pebbles {
         private void angle_unit_button_label_update () {
             if (settings.global_angle_unit == Pebbles.GlobalAngleUnit.DEG) {
                 angle_unit_button.label = "DEG";
+                angle_unit_button.tooltip_text = "Degrees";
                 scientific_view.set_angle_mode_display (0);
             }
             else if (settings.global_angle_unit == Pebbles.GlobalAngleUnit.RAD) {
                 angle_unit_button.label = "RAD";
+                angle_unit_button.tooltip_text = "Radians";
                 scientific_view.set_angle_mode_display (1);
             }
             else if (settings.global_angle_unit == Pebbles.GlobalAngleUnit.GRAD) {
                 angle_unit_button.label = "GRA";
+                angle_unit_button.tooltip_text = "Gradians";
                 scientific_view.set_angle_mode_display (2);
+            }
+        }
+        private void word_length_button_label_update () {
+            if (settings.global_word_length == Pebbles.GlobalAngleUnit.QWD) {
+                word_length_button.label = "QWD";
+                word_length_button.tooltip_text = "QWORD";
+            }
+            else if (settings.global_word_length == Pebbles.GlobalAngleUnit.DWD) {
+                word_length_button.label = "DWD";
+                word_length_button.tooltip_text = "DWORD";
+            }
+            else if (settings.global_word_length == Pebbles.GlobalAngleUnit.WRD) {
+                word_length_button.label = "WRD";
+                word_length_button.tooltip_text = "WORD";
+            }
+            else if (settings.global_word_length == Pebbles.GlobalAngleUnit.BYT) {
+                word_length_button.label = "BYT";
+                word_length_button.tooltip_text = "BYTE";
             }
         }
         private void load_settings () {
