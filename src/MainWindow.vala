@@ -296,11 +296,12 @@ namespace Pebbles {
             var item_list = new Granite.Widgets.SourceList ();
             item_list.root.add (calc_category);
             item_list.root.add (conv_category);
+            item_list.width_request = 170;
             
             // Create Views
             scientific_view  = new Pebbles.ScientificView (this);
             programmer_view  = new Pebbles.ProgrammerView (this);
-            calculus_view    = new Pebbles.CalculusView ();
+            calculus_view    = new Pebbles.CalculusView (this);
             date_view        = new Pebbles.DateView (this);
             conv_length_view = new Pebbles.ConvLengthView ();
             conv_area_view   = new Pebbles.ConvAreaView ();
@@ -359,7 +360,7 @@ namespace Pebbles {
             
             //Create Panes
             var paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
-            paned.position = 170;
+            paned.position = 200;
             paned.position_set = true;
             paned.pack1 (item_list, false, false);
             paned.pack2 (common_view, false, false);
