@@ -129,6 +129,7 @@ namespace Pebbles {
             shift_switch.get_style_context ().add_class ("Pebbles_Header_Switch");
             shift_switch.notify["active"].connect (() => {
                 scientific_view.hold_shift (shift_switch.active);
+                calculus_view.hold_shift (shift_switch.active);
             });
             scientific_header_grid.attach (angle_unit_button, 0, 0, 1, 1);
             scientific_header_grid.attach (shift_label, 1, 0, 1, 1);
@@ -248,8 +249,8 @@ namespace Pebbles {
             
             // Create Item Pane
             var scientific_item  = new Granite.Widgets.SourceList.Item ("Scientific");
-            var programmer_item  = new Granite.Widgets.SourceList.Item ("Programmer");
             var calculus_item    = new Granite.Widgets.SourceList.Item ("Calculus");
+            var programmer_item  = new Granite.Widgets.SourceList.Item ("Programmer");
             var date_item        = new Granite.Widgets.SourceList.Item ("Date");
             var stats_item       = new Granite.Widgets.SourceList.Item ("Statistics");
             var finance_item     = new Granite.Widgets.SourceList.Item ("Financial");
@@ -271,8 +272,8 @@ namespace Pebbles {
             var calc_category = new Granite.Widgets.SourceList.ExpandableItem ("Calculator");
             calc_category.expand_all ();
             calc_category.add (scientific_item);
-            calc_category.add (programmer_item);
             calc_category.add (calculus_item);
+            calc_category.add (programmer_item);
             calc_category.add (date_item);
             calc_category.add (stats_item);
             //calc_category.add (finance_item);
@@ -339,8 +340,8 @@ namespace Pebbles {
             common_view.valign = Gtk.Align.CENTER;
             common_view.halign = Gtk.Align.CENTER;
             common_view.add_named (scientific_view, "Scientific");
-            common_view.add_named (programmer_view, "Programmer");
             common_view.add_named (calculus_view, "Calculus");
+            common_view.add_named (programmer_view, "Programmer");
             common_view.add_named (date_view, "Date");
             common_view.add_named (conv_length_view, "Length");
             common_view.add_named (conv_area_view, "Area");
@@ -503,16 +504,19 @@ namespace Pebbles {
                 angle_unit_button.label = "DEG";
                 angle_unit_button.tooltip_text = "Degrees";
                 scientific_view.set_angle_mode_display (0);
+                calculus_view.set_angle_mode_display (0);
             }
             else if (settings.global_angle_unit == Pebbles.GlobalAngleUnit.RAD) {
                 angle_unit_button.label = "RAD";
                 angle_unit_button.tooltip_text = "Radians";
                 scientific_view.set_angle_mode_display (1);
+                calculus_view.set_angle_mode_display (1);
             }
             else if (settings.global_angle_unit == Pebbles.GlobalAngleUnit.GRAD) {
                 angle_unit_button.label = "GRA";
                 angle_unit_button.tooltip_text = "Gradians";
                 scientific_view.set_angle_mode_display (2);
+                calculus_view.set_angle_mode_display (2);
             }
         }
         private void word_length_button_label_update () {

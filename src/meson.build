@@ -25,6 +25,7 @@ executable(
     'views/ConvCurrView.vala',
     'views/BitToggleGrid.vala',
     'views/displays/ScientificDisplay.vala',
+    'views/displays/CalculusDisplay.vala',
     'views/displays/ProgrammerDisplay.vala',
     'test/TestUtil.vala',
     'core/ScientificCalculator.vala',

@@ -26,7 +26,7 @@ namespace Pebbles {
 
         // Fake LCD display
         Gtk.Box display_container;
-        public Gtk.Entry display_unit;
+        public CalculusDisplay display_unit;
 
         // Input section left side
         Gtk.Grid button_container_left;
@@ -37,7 +37,7 @@ namespace Pebbles {
         // Input section left buttons
         StyledButton all_clear_button;
         StyledButton del_button;
-        StyledButton percent_button;
+        StyledButton variable_button;
         StyledButton divide_button;
         StyledButton seven_button;
         StyledButton eight_button;
@@ -89,9 +89,11 @@ namespace Pebbles {
         string constant_label_2 = "";
         string constant_desc_2 = "";
 
+        private bool shift_held = false;
+        
         public CalculusView (MainWindow window) {
             this.window = window;
-            
+            load_constant_button_settings ();
             // Make UI
             cal_make_ui ();
         }
@@ -108,7 +110,7 @@ namespace Pebbles {
             display_container.margin_end = 8;
             display_container.margin_top = 8;
             display_container.margin_bottom = 8;
-            display_unit = new Gtk.Entry ();
+            display_unit = new CalculusDisplay ();
             display_container.pack_start (display_unit);
             
             // Make Input section on the left
@@ -140,8 +142,7 @@ namespace Pebbles {
                 else
                     del_button.sensitive = true;
             });*/
-            percent_button = new StyledButton ("%", "Percentage");
-            percent_button.get_style_context ().add_class ("h3");
+            variable_button = new StyledButton ("<i>x</i>", "Variable for linear expressions");
             divide_button = new StyledButton ("\xC3\xB7", "Divide");
             divide_button.get_style_context ().add_class ("h3");
             seven_button = new StyledButton ("7");
@@ -166,7 +167,7 @@ namespace Pebbles {
             
             button_container_left.attach (all_clear_button, 0, 0, 1, 1);
             button_container_left.attach (del_button, 1, 0, 1, 1);
-            button_container_left.attach (percent_button, 2, 0, 1, 1);
+            button_container_left.attach (variable_button, 2, 0, 1, 1);
             button_container_left.attach (divide_button, 3, 0, 1, 1);
             button_container_left.attach (seven_button, 0, 1, 1, 1);
             button_container_left.attach (eight_button, 1, 1, 1, 1);
@@ -298,6 +299,127 @@ namespace Pebbles {
             attach (button_container_left, 0, 1, 1, 1);
             attach (button_container_right, 1, 1, 1, 1);
             set_column_homogeneous (true);
+        }
+        public void hold_shift (bool hold) {
+            shift_held = hold;
+            display_unit.set_shift_enable (hold);
+            set_alternative_button ();
+        }
+        public void set_alternative_button () {
+            if (shift_held) {
+                pow_root_button.update_label ("<sup>n</sup>\xE2\x88\x9A", "nth root over number");
+                sin_button.update_label ("sin<sup>-1</sup>", "Inverse Sine");
+                sinh_button.update_label ("sinh<sup>-1</sup>", "Inverse Syperbolic Sine");
+                cos_button.update_label ("cos<sup>-1</sup>", "Inverse Cosine");
+                cosh_button.update_label ("cosh<sup>-1</sup>", "Inverse Hyperbolic Cosine");
+                log_mod_button.update_label ("log\xE2\x82\x93y", "Log base x");
+                tan_button.update_label ("tan<sup>-1</sup>", "Inverse Tangent");
+                tanh_button.update_label ("tanh<sup>-1</sup>", "Inverse Hyperbolic Tangent");
+                perm_comb_button.update_label ("<sup>n</sup>C\xE1\xB5\xA3", "Combinations");
+                constant_button.update_label (constant_label_2, constant_desc_2);
+            }
+            else {
+                pow_root_button.update_label ("x<sup>y</sup>", "x raised to the power y");
+                sin_button.update_label ("sin", "Sine");
+                sinh_button.update_label ("sinh", "Hyperbolic Sine");
+                cos_button.update_label ("cos", "Cosine");
+                cosh_button.update_label ("cosh", "Hyperbolic Cosine");
+                log_mod_button.update_label ("Mod", "Modulus");
+                tan_button.update_label ("tan", "Tangent");
+                tanh_button.update_label ("tanh", "Hyperbolic Tangent");
+                perm_comb_button.update_label ("<sup>n</sup>P\xE1\xB5\xA3", "Permutations");
+                constant_button.update_label (constant_label_1, constant_desc_1);
+            }
+        }
+        private void load_constant_button_settings () {
+            settings = Pebbles.Settings.get_default ();
+            switch (settings.constant_key_value1) {
+                case ConstantKeyIndex.ARCHIMEDES:
+                    constant_label_1 = "\xCF\x80";
+                    constant_desc_1 = "Archimedes' constant (pi)";
+                    break;
+                case ConstantKeyIndex.IMAGINARY:
+                    constant_label_1 = "i";
+                    constant_desc_1 = "Imaginary number (\xE2\x88\x9A-1)";
+                    break;
+                case ConstantKeyIndex.GOLDEN_RATIO:
+                    constant_label_1 = "\xCF\x86";
+                    constant_desc_1 = "Golden ratio (phi)";
+                    break;
+                case ConstantKeyIndex.EULER_MASCH:
+                    constant_label_1 = "\xF0\x9D\x9B\xBE";
+                    constant_desc_1 = "Euler–Mascheroni constant (gamma)";
+                    break;
+                case ConstantKeyIndex.CONWAY:
+                    constant_label_1 = "\xCE\xBB";
+                    constant_desc_1 = "Conway's constant (lamda)";
+                    break;
+                case ConstantKeyIndex.KHINCHIN:
+                    constant_label_1 = "K";
+                    constant_desc_1 = "Khinchin's constant";
+                    break;
+                case ConstantKeyIndex.FEIGEN_ALPHA:
+                    constant_label_1 = "\xCE\xB1";
+                    constant_desc_1 = "The Feigenbaum constant alpha";
+                    break;
+                case ConstantKeyIndex.FEIGEN_DELTA:
+                    constant_label_1 = "\xCE\xB4";
+                    constant_desc_1 = "The Feigenbaum constant delta";
+                    break;
+                case ConstantKeyIndex.APERY:
+                    constant_label_1 = "\xF0\x9D\x9B\x87(3)";
+                    constant_desc_1 = "Apery's constant";
+                    break;
+                default:
+                    constant_label_1 = "e";
+                    constant_desc_1 = "Euler's constant (exponential)";
+                    break;
+            }
+            switch (settings.constant_key_value2) {
+                case ConstantKeyIndex.ARCHIMEDES:
+                    constant_label_2 = "\xCF\x80";
+                    constant_desc_2 = "Archimedes' constant (pi)";
+                    break;
+                case ConstantKeyIndex.IMAGINARY:
+                    constant_label_2 = "i";
+                    constant_desc_2 = "Imaginary number (\xE2\x88\x9A-1)";
+                    break;
+                case ConstantKeyIndex.GOLDEN_RATIO:
+                    constant_label_2 = "\xCF\x86";
+                    constant_desc_2 = "Golden ratio (phi)";
+                    break;
+                case ConstantKeyIndex.EULER_MASCH:
+                    constant_label_2 = "\xF0\x9D\x9B\xBE";
+                    constant_desc_2 = "Euler–Mascheroni constant (gamma)";
+                    break;
+                case ConstantKeyIndex.CONWAY:
+                    constant_label_2 = "\xCE\xBB";
+                    constant_desc_2 = "Conway's constant (lamda)";
+                    break;
+                case ConstantKeyIndex.KHINCHIN:
+                    constant_label_2 = "K";
+                    constant_desc_2 = "Khinchin's constant";
+                    break;
+                case ConstantKeyIndex.FEIGEN_ALPHA:
+                    constant_label_2 = "\xCE\xB1";
+                    constant_desc_2 = "The Feigenbaum constant alpha";
+                    break;
+                case ConstantKeyIndex.FEIGEN_DELTA:
+                    constant_label_2 = "\xCE\xB4";
+                    constant_desc_2 = "The Feigenbaum constant delta";
+                    break;
+                case ConstantKeyIndex.APERY:
+                    constant_label_2 = "\xF0\x9D\x9B\x87(3)";
+                    constant_desc_2 = "Apery's constant";
+                    break;
+                default:
+                    constant_label_2 = "e";
+                    constant_desc_2 = "Euler's constant (exponential)";
+                    break;
+            }
+        }
+        public void set_angle_mode_display (int state) {
+            display_unit.set_angle_status (state);
         }
     }
 }
