@@ -59,7 +59,6 @@ namespace Pebbles {
             shift_label    = new Gtk.Label ("SHIFT");
             shift_label.get_style_context ().add_class ("pebbles_h4");
             shift_label.set_opacity (0.2);
-            shift_label.selectable = false;
 
             var angle_mode_display = new Gtk.Grid ();
             angle_mode_display.attach (deg_label,  0, 0, 1, 1);

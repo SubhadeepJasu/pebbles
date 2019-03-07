@@ -29,6 +29,7 @@ executable(
     'views/displays/ProgrammerDisplay.vala',
     'test/TestUtil.vala',
     'core/ScientificCalculator.vala',
+    'core/Calculus.vala',
     'core/ProgrammerCalculator.vala',
     'core/Utils.vala',
     'core/Converter.vala',
