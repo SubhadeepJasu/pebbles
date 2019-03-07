@@ -101,13 +101,12 @@ namespace Pebbles {
                 if (input_entry.get_text ().length == 0 && input_entry.get_text () != "0") {
                     input_entry.set_text ("0");
                 }
-                input_entry.set_text (Utils.preformat (input_entry.get_text ()));
+                //input_entry.set_text (Utils.preformat (input_entry.get_text ()));
             });
             input_entry.changed.connect (() => {
                     if (input_entry.get_text ().has_prefix ("0") && input_entry.get_text () != null) {
                         if (input_entry.get_text ().length != 1) {
                             input_entry.set_text (input_entry.get_text ().slice (1, 2));
-
                         }
                     }
                     else if (input_entry.get_text () == "" || input_entry.get_text () == null) {

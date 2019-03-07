@@ -88,6 +88,8 @@ namespace Pebbles {
         string constant_desc_1 = "";
         string constant_label_2 = "";
         string constant_desc_2 = "";
+        
+        public int integral_accuracy { get; set; }
 
         private bool shift_held = false;
         
@@ -96,6 +98,7 @@ namespace Pebbles {
             load_constant_button_settings ();
             // Make UI
             cal_make_ui ();
+            cal_make_events ();
         }
         construct {
             halign = Gtk.Align.CENTER;
@@ -110,7 +113,7 @@ namespace Pebbles {
             display_container.margin_end = 8;
             display_container.margin_top = 8;
             display_container.margin_bottom = 8;
-            display_unit = new CalculusDisplay ();
+            display_unit = new CalculusDisplay (this);
             display_container.pack_start (display_unit);
             
             // Make Input section on the left
@@ -417,6 +420,32 @@ namespace Pebbles {
                     constant_desc_2 = "Euler's constant (exponential)";
                     break;
             }
+        }
+        private void cal_make_events () {
+            derivation_button.button_press_event.connect ((event) => {
+                if (event.button == 1) {
+                    display_unit.display_off ();
+                    string? limit = int_limit_x.get_text();
+                    if (limit == "") {
+                        display_unit.get_answer_evaluate_derivative (0.0);
+                    }
+                    else {
+                        display_unit.get_answer_evaluate_derivative (double.parse (limit));
+                    }
+                    
+                    if (display_unit.input_entry.get_text ().length == 0 && display_unit.input_entry.get_text () != "0") {
+                        display_unit.input_entry.set_text ("0");
+                    }
+                    display_unit.input_entry.grab_focus_without_selecting ();
+                    if (display_unit.input_entry.cursor_position < display_unit.input_entry.get_text ().length)
+                        display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                }
+                return false;
+            });
+            derivation_button.button_release_event.connect (() => {
+                display_unit.display_on ();
+                return false;
+            });
         }
         public void set_angle_mode_display (int state) {
             display_unit.set_angle_status (state);

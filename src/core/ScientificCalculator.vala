@@ -28,13 +28,13 @@ namespace Pebbles {
         private const double INV_GRAD_VAL = 200 / Math.PI;
         private const double INV_DEG_VAL  = 180 / Math.PI;
 
-        public string get_result (string exp, GlobalAngleUnit angle_mode_in) {
+        public string get_result (string exp, GlobalAngleUnit angle_mode_in, int? float_accuracy = 0) {
             var result = Utils.st_tokenize (exp);
             angle_mode_sci = angle_mode_in;
             if (result == "E") {
                 return result;
             }
-            string evaluated_result = evaluate_exp (result);
+            string evaluated_result = evaluate_exp (result, float_accuracy);
             if (evaluated_result == "nan")
                 evaluated_result = "E";
             if (evaluated_result == "inf")
@@ -250,7 +250,7 @@ namespace Pebbles {
                 return false;
             }
         }
-        public string evaluate_exp (string exp) {
+        public string evaluate_exp (string exp, int float_accuracy) {
             tokens = exp.split(" ");
             DoubleStack values = new DoubleStack (50);
             CharStack ops = new CharStack (50);
@@ -304,9 +304,44 @@ namespace Pebbles {
                     return "E";
                 }
             }
-
-            string output = ("%.9f".printf (values.pop()));
-
+            string output = "";
+            //string output = ("%.9f".printf (values.pop()));
+            // Take care of float accuracy
+            switch (float_accuracy) {
+                case 10:
+                    output = ("%.10f".printf (values.pop()));
+                    break;
+                case 9:
+                    output = ("%.9f".printf (values.pop()));
+                    break;
+                case 8:
+                    output = ("%.8f".printf (values.pop()));
+                    break;
+                case 7:
+                    output = ("%.7f".printf (values.pop()));
+                    break;
+                case 6:
+                    output = ("%.6f".printf (values.pop()));
+                    break;
+                case 5:
+                    output = ("%.5f".printf (values.pop()));
+                    break;
+                case 4:
+                    output = ("%.4f".printf (values.pop()));
+                    break;
+                case 3:
+                    output = ("%.3f".printf (values.pop()));
+                    break;
+                case 2:
+                    output = ("%.2f".printf (values.pop()));
+                    break;
+                case 1:
+                    output = ("%.1f".printf (values.pop()));
+                    break;
+                default:
+                    output = values.pop ().to_string ();
+                    break;
+            }
             // Remove trailing 0s and decimals
             while (output.has_suffix ("0")) {
                 output = output.slice (0, -1);

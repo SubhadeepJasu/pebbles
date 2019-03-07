@@ -23,11 +23,11 @@ namespace Pebbles {
         private static Pebbles.ScientificCalculator sci_calc;
         public static string get_derivative (string exp, GlobalAngleUnit angle_mode_in, double val) {
             sci_calc = new ScientificCalculator ();
-            double dx = 0.00000000000000001; // Tends to zero but not zero.
+            double dx = 0.00000000000001; // Tends to zero but not zero.
             
-            string exp1 = sci_calc.get_result (exp.replace ("x", (val + dx).to_string()), angle_mode_in);
-            string exp2 = sci_calc.get_result (exp.replace ("x", (val).to_string()), angle_mode_in);
-            
+            string exp1 = sci_calc.get_result (exp.replace ("x", (val + dx).to_string()), angle_mode_in, 0).replace (",", "");
+            string exp2 = sci_calc.get_result (exp.replace ("x", (val).to_string()), angle_mode_in, 0).replace (",", "");
+ 
             if (exp1 != "E" && exp2 != "E") {
                 if (exp1 == "∞" && exp2 == "∞") {
                     return ((double.INFINITY - double.INFINITY) / dx).to_string();

@@ -40,7 +40,12 @@ namespace Pebbles {
         construct {
             calc_make_display_ui ();
         }
-        
+
+        CalculusView cal_view;
+        public CalculusDisplay (CalculusView view) {
+            this.cal_view = view;
+        }
+
         void calc_make_display_ui () {
             // Stylize background;
             get_style_context ().add_class ("Pebbles_Display_Unit_Bg");
@@ -92,7 +97,7 @@ namespace Pebbles {
             input_entry.set_halign (Gtk.Align.START);
             input_entry.width_request = 530;
             input_entry.max_width_chars = 39;
-
+            
             // Make seperator
             Gtk.Separator lcd_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
             lcd_separator.set_opacity (0.6);
@@ -145,6 +150,62 @@ namespace Pebbles {
             else {
                 memory_label.set_opacity (0.2);
             }
+        }
+        
+        public void get_answer_evaluate_derivative (double dx) {
+            string result = "";
+            if (this.cal_view.window.history_stack.length () > 0) {
+                unowned List<string>? last_answer = this.cal_view.window.history_stack.last ();
+                result = Calculus.get_derivative (input_entry.get_text ().replace ("ans", last_answer.data), angle_mode, dx);
+            }
+            else {
+                result = Calculus.get_derivative (input_entry.get_text (), angle_mode, dx);
+            }
+            answer_label.set_text (result);
+            if (result == "E") {
+                shake ();
+            }
+            else {
+                this.cal_view.window.history_stack.append (result.replace (",", ""));
+                this.cal_view.last_answer_button.set_sensitive (true);
+            }
+        }
+        public void get_answer_evaluate_integral (double l, double u, int accuracy) {
+            string result = "";
+            if (this.cal_view.window.history_stack.length () > 0) {
+                unowned List<string>? last_answer = this.cal_view.window.history_stack.last ();
+                result = Calculus.get_definite_integral (input_entry.get_text ().replace ("ans", last_answer.data), angle_mode, l, u, accuracy);
+            }
+            else {
+                result = Calculus.get_definite_integral (input_entry.get_text (), angle_mode, l, u, accuracy);
+            }
+            answer_label.set_text (result);
+            if (result == "E") {
+                shake ();
+            }
+            else {
+                this.cal_view.window.history_stack.append (result.replace (",", ""));
+                this.cal_view.last_answer_button.set_sensitive (true);
+            }
+        }
+        private void shake () {
+            get_style_context ().add_class ("pebbles_shake");
+            Timeout.add (450, () => {
+                get_style_context ().remove_class ("pebbles_shake");
+                return false;
+            });
+        }
+        // Just eye-candy
+        public void display_off () {
+            answer_label.set_opacity (0.1);
+            input_entry.set_opacity (0.1);
+            lcd_status_bar.set_opacity (0.1);
+        }
+
+        public void display_on () {
+            answer_label.set_opacity (1);
+            input_entry.set_opacity (1);
+            lcd_status_bar.set_opacity (1);
         }
     }
 }
