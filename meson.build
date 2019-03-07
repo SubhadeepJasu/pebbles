@@ -17,6 +17,7 @@ asresources = gnome.compile_resources(
 
 core_deps = [
     dependency('glib-2.0'),
+    dependency('gsl'),
     dependency('gobject-2.0'),
     dependency('libsoup-2.4'),
     dependency('json-glib-1.0'),

@@ -17,38 +17,39 @@
  *
  * Authored by: Subhadeep Jasu <subhajasu@gmail.com>
  */
-
+using Gsl;
 namespace Pebbles {
-    public class Calculus {
-        private static Pebbles.ScientificCalculator sci_calc;
-        public static string get_derivative (string exp, GlobalAngleUnit angle_mode_in, double val) {
-            sci_calc = new ScientificCalculator ();
-            double dx = 0.00000000000001; // Tends to zero but not zero.
-            
-            string exp1 = sci_calc.get_result (exp.replace ("x", (val + dx).to_string()), angle_mode_in, 0).replace (",", "");
-            string exp2 = sci_calc.get_result (exp.replace ("x", (val).to_string()), angle_mode_in, 0).replace (",", "");
- 
-            if (exp1 != "E" && exp2 != "E") {
-                if (exp1 == "∞" && exp2 == "∞") {
-                    return ((double.INFINITY - double.INFINITY) / dx).to_string();
-                }
-                else if (exp1 == "∞") {
-                    return ((double.INFINITY - double.parse(exp2)) / dx).to_string();
-                }
-                else if (exp2 == "∞") {
-                    return ((double.parse (exp1) - double.INFINITY) / dx).to_string();
-                }
-                else
-                    return ((double.parse (exp1) - double.parse(exp2)) / dx).to_string();
-            }
-            else {
-                return "E";
-            }
+    public class Calculus : GLib.Object {
+
+        private static double derivable_function (double x, char* params) {
+            string exp = (string) params;
+            Settings settings = Settings.get_default ();
+            ScientificCalculator sci_calc = new ScientificCalculator ();
+            string res = sci_calc.get_result (exp.replace ("x", x.to_string ()), settings.global_angle_unit, 0).replace (",", "");
+            return double.parse (res);
         }
+
+        public static string get_derivative (string exp, GlobalAngleUnit angle_mode_in, double val) {
+            double result, error;
+            double h = double.MIN;
+            char* user_func = new char [exp.length];
+            for (int i = 0; i < exp.length; i++) {
+                user_func [i] = (char)exp.get_char (i);
+            }
+
+            Function scientific_function = Function () { function = derivable_function, params = user_func };
+
+            Deriv.central (&scientific_function, val, 0.01, out result, out error);
+            return result.to_string ();
+        }
+
+
+/////// INTEGRATION ///////////////////////////////////////////////////////////////////////////////////////////////////////
+
         public static string get_definite_integral (string exp, GlobalAngleUnit angle_mode_in, double lower_limit, double upper_limit, int accuracy) {
             // Simpson's 3/8 method
             
-            sci_calc = new ScientificCalculator ();
+            ScientificCalculator sci_calc = new ScientificCalculator ();
             double interval_size = (upper_limit - lower_limit) / accuracy;
             
             string exp1 = sci_calc.get_result (exp.replace ("x", lower_limit.to_string()), angle_mode_in);
