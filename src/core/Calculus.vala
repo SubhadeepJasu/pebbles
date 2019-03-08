@@ -54,9 +54,9 @@ namespace Pebbles {
             // Using Simpson's 3/8 method
             
             ScientificCalculator sci_calc = new ScientificCalculator ();
-            int accuracy = 10;
+            int accuracy = 40;
             double interval_size = (upper_limit - lower_limit) / accuracy;
-            
+            //stdout.printf ("DEBUG: lower_limit = %lf, upper_limit = %lf\n", lower_limit, upper_limit);
             string exp1 = sci_calc.get_result (exp.replace ("x", lower_limit.to_string()), angle_mode_in);
             string exp2 = sci_calc.get_result (exp.replace ("x", upper_limit.to_string()), angle_mode_in);
             

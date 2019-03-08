@@ -461,7 +461,7 @@ namespace Pebbles {
                         display_unit.get_answer_evaluate_integral (0, double.parse (limit_u));
                     }
                     else {
-                        display_unit.get_answer_evaluate_integral (double.parse (limit_l), double.parse (limit_l));
+                        display_unit.get_answer_evaluate_integral (double.parse (limit_l), double.parse (limit_u));
                     }
                     
                     if (display_unit.input_entry.get_text ().length == 0 && display_unit.input_entry.get_text () != "0") {
