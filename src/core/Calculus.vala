@@ -28,15 +28,17 @@ namespace Pebbles {
             string exp = (string) params;
             Settings settings = Settings.get_default ();
             ScientificCalculator sci_calc = new ScientificCalculator ();
-            string res = sci_calc.get_result (exp.replace ("x", x.to_string ()), settings.global_angle_unit, 0).replace (",", "");
+            string res = sci_calc.get_result (exp.replace ("x", x.to_string ()), settings.global_angle_unit, 0, false).replace (",", "");
             return double.parse (res);
         }
 
         public static string get_derivative (string exp, GlobalAngleUnit angle_mode_in, double val) {
             double result, error;
-            char* user_func = new char [exp.length];
-            for (int i = 0; i < exp.length; i++) {
-                user_func [i] = (char)exp.get_char (i);
+            
+            string revised_exp = Utils.st_tokenize (exp);
+            char* user_func = new char [revised_exp.length];
+            for (int i = 0; i < revised_exp.length; i++) {
+                user_func [i] = (char)revised_exp.get_char (i);
             }
 
             Function scientific_function = Function () { function = derivable_function, params = user_func };
@@ -52,7 +54,7 @@ namespace Pebbles {
             // Using Simpson's 3/8 method
             
             ScientificCalculator sci_calc = new ScientificCalculator ();
-            int accuracy = 20;
+            int accuracy = 10;
             double interval_size = (upper_limit - lower_limit) / accuracy;
             
             string exp1 = sci_calc.get_result (exp.replace ("x", lower_limit.to_string()), angle_mode_in);
