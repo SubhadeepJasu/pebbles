@@ -21,3 +21,6 @@ i18n.merge_file (
     install_dir: join_paths(get_option('datadir'), 'metainfo'),
     po_dir: join_paths(meson.source_root (), 'po', 'extra')
 )
+
+
+subdir('icons')
