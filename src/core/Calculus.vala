@@ -19,6 +19,9 @@
  */
 using Gsl;
 namespace Pebbles {
+
+/////// DERIVATION ///////////////////////////////////////////////////////////////////////////////////////////////////////
+
     public class Calculus : GLib.Object {
 
         private static double derivable_function (double x, char* params) {
@@ -31,7 +34,6 @@ namespace Pebbles {
 
         public static string get_derivative (string exp, GlobalAngleUnit angle_mode_in, double val) {
             double result, error;
-            double h = double.MIN;
             char* user_func = new char [exp.length];
             for (int i = 0; i < exp.length; i++) {
                 user_func [i] = (char)exp.get_char (i);
@@ -46,10 +48,11 @@ namespace Pebbles {
 
 /////// INTEGRATION ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        public static string get_definite_integral (string exp, GlobalAngleUnit angle_mode_in, double lower_limit, double upper_limit, int accuracy) {
-            // Simpson's 3/8 method
+        public static string get_definite_integral (string exp, GlobalAngleUnit angle_mode_in, double lower_limit, double upper_limit) {
+            // Using Simpson's 3/8 method
             
             ScientificCalculator sci_calc = new ScientificCalculator ();
+            int accuracy = 20;
             double interval_size = (upper_limit - lower_limit) / accuracy;
             
             string exp1 = sci_calc.get_result (exp.replace ("x", lower_limit.to_string()), angle_mode_in);

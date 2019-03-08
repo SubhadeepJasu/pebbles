@@ -170,14 +170,14 @@ namespace Pebbles {
                 this.cal_view.last_answer_button.set_sensitive (true);
             }
         }
-        public void get_answer_evaluate_integral (double l, double u, int accuracy) {
+        public void get_answer_evaluate_integral (double l, double u) {
             string result = "";
             if (this.cal_view.window.history_stack.length () > 0) {
                 unowned List<string>? last_answer = this.cal_view.window.history_stack.last ();
-                result = Calculus.get_definite_integral (input_entry.get_text ().replace ("ans", last_answer.data), angle_mode, l, u, accuracy);
+                result = Calculus.get_definite_integral (input_entry.get_text ().replace ("ans", last_answer.data), angle_mode, l, u);
             }
             else {
-                result = Calculus.get_definite_integral (input_entry.get_text (), angle_mode, l, u, accuracy);
+                result = Calculus.get_definite_integral (input_entry.get_text (), angle_mode, l, u);
             }
             answer_label.set_text (result);
             if (result == "E") {

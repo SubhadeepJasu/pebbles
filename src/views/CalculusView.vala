@@ -446,6 +446,176 @@ namespace Pebbles {
                 display_unit.display_on ();
                 return false;
             });
+            integration_button.button_press_event.connect ((event) => {
+                if (event.button == 1) {
+                    display_unit.display_off ();
+                    string? limit_u = int_limit_a.get_text ();
+                    string? limit_l = int_limit_b.get_text ();
+                    if (limit_u == "" && limit_l == "") {
+                        display_unit.get_answer_evaluate_integral (0, 1);
+                    }
+                    else if (limit_u == "" && limit_l != "") {
+                        display_unit.get_answer_evaluate_integral (double.parse (limit_l), 1);
+                    }
+                    else if (limit_u != "" && limit_l == "") {
+                        display_unit.get_answer_evaluate_integral (0, double.parse (limit_u));
+                    }
+                    else {
+                        display_unit.get_answer_evaluate_integral (double.parse (limit_l), double.parse (limit_l));
+                    }
+                    
+                    if (display_unit.input_entry.get_text ().length == 0 && display_unit.input_entry.get_text () != "0") {
+                        display_unit.input_entry.set_text ("0");
+                    }
+                    display_unit.input_entry.grab_focus_without_selecting ();
+                    if (display_unit.input_entry.cursor_position < display_unit.input_entry.get_text ().length)
+                        display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                }
+                return false;
+            });
+            integration_button.button_release_event.connect (() => {
+                display_unit.display_on ();
+                return false;
+            });
+            
+            all_clear_button.clicked.connect (() => {
+                display_unit.input_entry.grab_focus_without_selecting ();
+                display_unit.input_entry.set_text ("");
+                display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+            });
+            del_button.clicked.connect (() => {
+                display_unit.input_entry.grab_focus_without_selecting ();
+                display_unit.input_entry.backspace ();
+            });
+            variable_button.clicked.connect (() => {
+                char_button_click ("x");
+            });
+            divide_button.clicked.connect (() => {
+                char_button_click (" ÷ ");
+            });
+            seven_button.clicked.connect (() => {
+                char_button_click ("7");
+            });
+            eight_button.clicked.connect (() => {;
+                char_button_click ("8");
+            });
+            nine_button.clicked.connect (() => {;
+                char_button_click ("9");
+            });
+            multiply_button.clicked.connect (() => {;
+                char_button_click (" × ");
+            });
+            four_button.clicked.connect (() => {;
+                char_button_click ("4");
+            });
+            five_button.clicked.connect (() => {;
+                char_button_click ("5");
+            });
+            six_button.clicked.connect (() => {;
+                char_button_click ("6");
+            });
+            subtract_button.clicked.connect (() => {;
+                char_button_click (" - ");
+            });
+            one_button.clicked.connect (() => {;
+                char_button_click ("1");
+            });
+            two_button.clicked.connect (() => {;
+                char_button_click ("2");
+            });
+            three_button.clicked.connect (() => {;
+                char_button_click ("3");
+            });
+            plus_button.clicked.connect (() => {;
+                char_button_click (" + ");
+            });
+            zero_button.clicked.connect (() => {;
+                char_button_click ("0");
+            });
+            decimal_button.clicked.connect (() => {;
+                char_button_click (".");
+            });
+            left_parenthesis_button.clicked.connect (() => {;
+                char_button_click ("( ");
+            });
+            right_parenthesis_button.clicked.connect (() => {;
+                char_button_click (") ");
+            });
+            
+            pow_root_button.clicked.connect (() => {
+                if (shift_held)
+                    char_button_click ("\xE2\x81\xBF√ ");
+                else
+                    char_button_click ("^ ");
+            });
+            sin_button.clicked.connect (() => {
+                if (shift_held)
+                    char_button_click ("isin ");
+                else
+                    char_button_click ("sin ");
+            });
+            sinh_button.clicked.connect (() => {
+                if (shift_held)
+                    char_button_click ("isinh ");
+                else
+                    char_button_click ("sinh ");
+            });
+            cos_button.clicked.connect (() => {
+                if (shift_held)
+                    char_button_click ("icos ");
+                else
+                    char_button_click ("cos ");
+            });
+            cosh_button.clicked.connect (() => {
+                if (shift_held)
+                    char_button_click ("icosh ");
+                else
+                    char_button_click ("cosh ");
+            });
+            tan_button.clicked.connect (() => {
+                if (shift_held)
+                    char_button_click ("itan ");
+                else
+                    char_button_click ("tan ");
+            });
+            tanh_button.clicked.connect (() => {
+                if (shift_held)
+                    char_button_click ("itanh ");
+                else
+                    char_button_click ("tanh ");
+            });
+            perm_comb_button.clicked.connect (() => {
+                if (shift_held)
+                    char_button_click ("C");
+                else
+                    char_button_click ("P");
+            });
+            fact_button.clicked.connect (() => {
+                char_button_click ("!");
+            });
+            constant_button.clicked.connect (() => {
+                if (shift_held)
+                    char_button_click (constant_label_2);
+                else
+                    char_button_click (constant_label_1);
+            });
+            log_mod_button.clicked.connect (() => {
+                if (shift_held)
+                    char_button_click ("log ");
+                else
+                    char_button_click ("mod ");
+            });
+        }
+        private void char_button_click (string input) {
+            string sample = display_unit.input_entry.get_text ();
+            display_unit.input_entry.grab_focus_without_selecting ();
+            if (sample != "0") {
+                display_unit.input_entry.set_text (sample.concat (input));
+            }
+            else {
+                display_unit.input_entry.set_text (input);
+            }
+            display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
         }
         public void set_angle_mode_display (int state) {
             display_unit.set_angle_status (state);
