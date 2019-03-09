@@ -12,7 +12,7 @@
    id="svg4942"
    height="24"
    width="24"
-   sodipodi:docname="24.svg"
+   sodipodi:docname="com.github.SubhadeepJasu.pebbles.svg"
    inkscape:version="0.92.3 (2405546, 2018-03-11)">
   <sodipodi:namedview
      pagecolor="#ffffff"
@@ -28,7 +28,7 @@
      id="namedview59"
      showgrid="true"
      inkscape:zoom="16"
-     inkscape:cx="5.2135167"
+     inkscape:cx="-4.4427333"
      inkscape:cy="14.432656"
      inkscape:window-x="0"
      inkscape:window-y="30"
@@ -186,11 +186,11 @@
        id="linearGradient3994-617-9-9">
       <stop
          offset="0"
-         style="stop-color:#393d42;stop-opacity:1"
+         style="stop-color:#5a5a5a;stop-opacity:1"
          id="stop4324-9-7" />
       <stop
          offset="1"
-         style="stop-color:#34383c;stop-opacity:1"
+         style="stop-color:#333333;stop-opacity:1"
          id="stop4326-1-1" />
     </linearGradient>
     <linearGradient

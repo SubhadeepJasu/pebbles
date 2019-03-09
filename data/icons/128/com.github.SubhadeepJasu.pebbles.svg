@@ -27,9 +27,9 @@
      inkscape:window-height="705"
      id="namedview84"
      showgrid="false"
-     inkscape:zoom="5.6568542"
-     inkscape:cx="54.900692"
-     inkscape:cy="95.62197"
+     inkscape:zoom="4"
+     inkscape:cx="60.986078"
+     inkscape:cy="68.36937"
      inkscape:window-x="0"
      inkscape:window-y="30"
      inkscape:window-maximized="1"
@@ -280,11 +280,11 @@
        id="linearGradient3994-617-9-9">
       <stop
          offset="0"
-         style="stop-color:#393d42;stop-opacity:1"
+         style="stop-color:#5a5a5a;stop-opacity:1"
          id="stop4324-9-7" />
       <stop
          offset="1"
-         style="stop-color:#34383c;stop-opacity:1"
+         style="stop-color:#333333;stop-opacity:1"
          id="stop4326-1-1" />
     </linearGradient>
     <linearGradient
