@@ -48,7 +48,9 @@ namespace Pebbles {
             else {
                 Deriv.forward (&scientific_function, val, 1e-8, out result, out error);
             }
-            return result.to_string ();
+            
+            Settings accuracy_settings = Settings.get_default ();
+            return Utils.manage_decimal_places (result, accuracy_settings.decimal_places);
         }
 
 
@@ -88,7 +90,8 @@ namespace Pebbles {
                         sum = sum + 3 * double.parse (sci_calc.get_result (exp.replace ("x", (lower_limit + i * interval_size).to_string()), angle_mode_in));
                     }
                 }
-                return ((3 * interval_size / 8) * sum).to_string();
+                Settings accuracy_settings = Settings.get_default ();
+                return Utils.manage_decimal_places ((3 * interval_size / 8) * sum, accuracy_settings.decimal_places);
             }
             else {
                 return "E";

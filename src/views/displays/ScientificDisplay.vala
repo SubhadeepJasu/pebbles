@@ -176,12 +176,13 @@ namespace Pebbles {
         public void get_answer_evaluate () {
             var sci_calc = new ScientificCalculator ();
             string result = "";
+            Settings accuracy_settings = Settings.get_default ();
             if (this.sci_view.window.history_stack.length () > 0) {
                 unowned List<string>? last_answer = this.sci_view.window.history_stack.last ();
-                result = sci_calc.get_result (input_entry.get_text ().replace ("ans", last_answer.data), angle_mode);
+                result = sci_calc.get_result (input_entry.get_text ().replace ("ans", last_answer.data), angle_mode, accuracy_settings.decimal_places);
             }
             else {
-                result = sci_calc.get_result (input_entry.get_text (), angle_mode);
+                result = sci_calc.get_result (input_entry.get_text (), angle_mode, accuracy_settings.decimal_places);
             }
             answer_label.set_text (result);
             if (result == "E") {

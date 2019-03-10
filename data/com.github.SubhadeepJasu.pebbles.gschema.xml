@@ -63,5 +63,11 @@
 			<summary>Choose Constant 2</summary>
 			<description>Choose constant value for the button when shift is ON.</description>
 		</key>
+		<key name="decimal-places" type="i">
+			<range min="0" max="10"/>
+			<default>9</default>
+			<summary>Number of decimal places after radix</summary>
+			<description>Number of decimal places after radix point.</description>
+		</key>
 		</schema>
 </schemalist>

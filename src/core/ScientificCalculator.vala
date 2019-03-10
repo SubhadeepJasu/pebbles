@@ -307,44 +307,10 @@ namespace Pebbles {
                     return "E";
                 }
             }
-            string output = "";
-            //string output = ("%.9f".printf (values.pop()));
-            // Take care of float accuracy
-            switch (float_accuracy) {
-                case 10:
-                    output = ("%.10f".printf (values.pop()));
-                    break;
-                case 9:
-                    output = ("%.9f".printf (values.pop()));
-                    break;
-                case 8:
-                    output = ("%.8f".printf (values.pop()));
-                    break;
-                case 7:
-                    output = ("%.7f".printf (values.pop()));
-                    break;
-                case 6:
-                    output = ("%.6f".printf (values.pop()));
-                    break;
-                case 5:
-                    output = ("%.5f".printf (values.pop()));
-                    break;
-                case 4:
-                    output = ("%.4f".printf (values.pop()));
-                    break;
-                case 3:
-                    output = ("%.3f".printf (values.pop()));
-                    break;
-                case 2:
-                    output = ("%.2f".printf (values.pop()));
-                    break;
-                case 1:
-                    output = ("%.1f".printf (values.pop()));
-                    break;
-                default:
-                    output = values.pop ().to_string ();
-                    break;
-            }
+
+            // Take care of float accuracy of the result
+            string output = Utils.manage_decimal_places (values.pop (), float_accuracy);
+
             // Remove trailing 0s and decimals
             while (output.has_suffix ("0")) {
                 output = output.slice (0, -1);

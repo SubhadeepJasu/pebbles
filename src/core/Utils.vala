@@ -189,6 +189,45 @@ namespace Pebbles {
                     return true;
                 }
                 return false;
-        } 
+        }
+        public static string manage_decimal_places (double result, int accuracy) {
+            string output = "";
+            switch (accuracy) {
+                case 10:
+                    output = ("%.10f".printf (result));
+                    break;
+                case 9:
+                    output = ("%.9f".printf (result));
+                    break;
+                case 8:
+                    output = ("%.8f".printf (result));
+                    break;
+                case 7:
+                    output = ("%.7f".printf (result));
+                    break;
+                case 6:
+                    output = ("%.6f".printf (result));
+                    break;
+                case 5:
+                    output = ("%.5f".printf (result));
+                    break;
+                case 4:
+                    output = ("%.4f".printf (result));
+                    break;
+                case 3:
+                    output = ("%.3f".printf (result));
+                    break;
+                case 2:
+                    output = ("%.2f".printf (result));
+                    break;
+                case 1:
+                    output = ("%.1f".printf (result));
+                    break;
+                default:
+                    output = result.to_string ();
+                    break;
+            }
+            return output;
+        }
     }
 }
