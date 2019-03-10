@@ -1,5 +1,6 @@
 /*-
- * Copyright (c) 2017-2018 Subhadeep Jasu <subhajasu@gmail.com>
+ * Copyright (c) 2018-2019 Subhadeep Jasu <subhajasu@gmail.com>
+ * Copyright (c) 2018-2019 Saunak Biswas  <saunakbis97@gmail.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public
@@ -15,7 +16,6 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  *
  * Authored by: Subhadeep Jasu <subhajasu@gmail.com>
- *              Saunak Biswas  <saunakbis97@gmail.com>
  */
 
 namespace Pebbles {
@@ -91,6 +91,21 @@ namespace Pebbles {
         
         public int integral_accuracy { get; set; }
 
+        private double _memory_reserve;
+        private double memory_reserve {
+            get { return _memory_reserve; }
+            set {
+                _memory_reserve = value;
+                if (_memory_reserve == 0 || _memory_reserve == 0.0) {
+                    display_unit.set_memory_status (false);
+                }
+                else {
+                    display_unit.set_memory_status (true);
+                }
+            }
+        }
+
+        
         private bool shift_held = false;
         
         public CalculusView (MainWindow window) {
@@ -139,12 +154,12 @@ namespace Pebbles {
             all_clear_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
             del_button = new StyledButton ("Del", "Backspace");
             del_button.sensitive = false;
-            /*display_unit.input_entry.changed.connect (() => {
+            display_unit.input_entry.changed.connect (() => {
                 if (display_unit.input_entry.get_text () == "0" || display_unit.input_entry.get_text () == "")
                     del_button.sensitive = false;
                 else
                     del_button.sensitive = true;
-            });*/
+            });
             variable_button = new StyledButton ("<i>x</i>", "Variable for linear expressions");
             divide_button = new StyledButton ("\xC3\xB7", "Divide");
             divide_button.get_style_context ().add_class ("h3");
@@ -311,15 +326,65 @@ namespace Pebbles {
         public void set_alternative_button () {
             if (shift_held) {
                 pow_root_button.update_label ("<sup>n</sup>\xE2\x88\x9A", "nth root over number");
+                pow_root_button.clicked.connect (() => {
+                    shift_held = false;
+                    window.shift_switch.set_active (false);
+                    set_alternative_button ();
+                });
                 sin_button.update_label ("sin<sup>-1</sup>", "Inverse Sine");
+                sin_button.clicked.connect (() => {
+                    shift_held = false;
+                    window.shift_switch.set_active (false);
+                    set_alternative_button ();
+                });
                 sinh_button.update_label ("sinh<sup>-1</sup>", "Inverse Syperbolic Sine");
+                sinh_button.clicked.connect (() => {
+                    shift_held = false;
+                    window.shift_switch.set_active (false);
+                    set_alternative_button ();
+                });
                 cos_button.update_label ("cos<sup>-1</sup>", "Inverse Cosine");
+                cos_button.clicked.connect (() => {
+                    shift_held = false;
+                    window.shift_switch.set_active (false);
+                    set_alternative_button ();
+                });
                 cosh_button.update_label ("cosh<sup>-1</sup>", "Inverse Hyperbolic Cosine");
+                cosh_button.clicked.connect (() => {
+                    shift_held = false;
+                    window.shift_switch.set_active (false);
+                    set_alternative_button ();
+                });
                 log_mod_button.update_label ("log\xE2\x82\x93y", "Log base x");
+                log_mod_button.clicked.connect (() => {
+                    shift_held = false;
+                    window.shift_switch.set_active (false);
+                    set_alternative_button ();
+                });
                 tan_button.update_label ("tan<sup>-1</sup>", "Inverse Tangent");
+                tan_button.clicked.connect (() => {
+                    shift_held = false;
+                    window.shift_switch.set_active (false);
+                    set_alternative_button ();
+                });
                 tanh_button.update_label ("tanh<sup>-1</sup>", "Inverse Hyperbolic Tangent");
+                tanh_button.clicked.connect (() => {
+                    shift_held = false;
+                    window.shift_switch.set_active (false);
+                    set_alternative_button ();
+                });
                 perm_comb_button.update_label ("<sup>n</sup>C\xE1\xB5\xA3", "Combinations");
+                perm_comb_button.clicked.connect (() => {
+                    shift_held = false;
+                    window.shift_switch.set_active (false);
+                    set_alternative_button ();
+                });
                 constant_button.update_label (constant_label_2, constant_desc_2);
+                constant_button.clicked.connect (() => {
+                    shift_held = false;
+                    window.shift_switch.set_active (false);
+                    set_alternative_button ();
+                });
             }
             else {
                 pow_root_button.update_label ("x<sup>y</sup>", "x raised to the power y");
@@ -604,6 +669,68 @@ namespace Pebbles {
                     char_button_click ("log ");
                 else
                     char_button_click ("mod ");
+            });
+            
+            memory_plus_button.button_press_event.connect ((event) => {
+                if (event.button == 1) {
+                    display_unit.display_off ();
+                    if (display_unit.input_entry.get_text ().length == 0 && display_unit.input_entry.get_text () != "0") {
+                        display_unit.input_entry.set_text ("0");
+                    }
+                    display_unit.input_entry.grab_focus_without_selecting ();
+                    if (display_unit.input_entry.cursor_position < display_unit.input_entry.get_text ().length)
+                        display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                    if (display_unit.answer_label.get_text () != "E") {
+                        var res = display_unit.answer_label.get_text ();
+                        res = res.replace (",", "");
+                        memory_reserve += double.parse (res);
+                    }
+                }
+                return false;
+            });
+            memory_plus_button.button_release_event.connect (() => {
+                display_unit.display_on ();
+                return false;
+            });
+            
+            memory_minus_button.button_press_event.connect ((event) => {
+                if (event.button == 1) {
+                    display_unit.display_off ();
+                    if (display_unit.input_entry.get_text ().length == 0 && display_unit.input_entry.get_text () != "0") {
+                        display_unit.input_entry.set_text ("0");
+                    }
+                    display_unit.input_entry.grab_focus_without_selecting ();
+                    if (display_unit.input_entry.cursor_position < display_unit.input_entry.get_text ().length)
+                        display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                    if (display_unit.answer_label.get_text () != "E") {
+                        var res = display_unit.answer_label.get_text ();
+                        res = res.replace (",", "");
+                        memory_reserve -= double.parse (res);
+                    }
+                }
+                return false;
+            });
+            memory_minus_button.button_release_event.connect (() => {
+                display_unit.display_on ();
+                return false;
+            });
+            
+            memory_clear_button.button_press_event.connect ((event) => {
+                display_unit.display_off ();
+                memory_reserve = 0.0;
+                return false;
+            });
+            memory_clear_button.button_release_event.connect (() => {
+                display_unit.display_on ();
+                return false;
+            });
+            
+            memory_recall_button.clicked.connect (() => {
+                char_button_click (memory_reserve.to_string ());
+            });
+            
+            last_answer_button.clicked.connect (() => {
+                char_button_click ("ans ");
             });
         }
         private void char_button_click (string input) {

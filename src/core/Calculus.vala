@@ -42,8 +42,12 @@ namespace Pebbles {
             }
 
             Function scientific_function = Function () { function = derivable_function, params = user_func };
-
-            Deriv.central (&scientific_function, val, 0.01, out result, out error);
+            if (val != 0) {
+                Deriv.central (&scientific_function, val, 1e-8, out result, out error);
+            }
+            else {
+                Deriv.forward (&scientific_function, val, 1e-8, out result, out error);
+            }
             return result.to_string ();
         }
 
