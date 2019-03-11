@@ -40,7 +40,9 @@ namespace Pebbles {
         StyledButton three_button;
         StyledButton zero_button;
         StyledButton decimal_button;
-        StyledButton done_button;
+        Gtk.Button done_button;
+        
+        Gtk.Entry entry;
         
         public signal void button_clicked (string input_text);
         
@@ -61,7 +63,7 @@ namespace Pebbles {
             three_button = new StyledButton ("3");
             zero_button = new StyledButton ("0");
             decimal_button = new StyledButton (".");
-            done_button = new StyledButton ("");
+            done_button = new Gtk.Button.from_icon_name ("pan-down-symbolic", Gtk.IconSize.BUTTON);
 
             // Arange the buttons
             main_grid.attach (all_clear_button, 0, 0, 1, 1);
@@ -81,10 +83,9 @@ namespace Pebbles {
             main_grid.set_column_homogeneous (true);
             main_grid.set_row_homogeneous (true);
             
-            main_grid.margin_start = 8;
-            main_grid.margin_end = 8;
             main_grid.column_spacing = 8;
             main_grid.row_spacing = 8;
+            main_grid.margin = 8;
             
             // Handle events
             del_button.clicked.connect (() => send_button_press ("del"));
@@ -103,10 +104,16 @@ namespace Pebbles {
             done_button.clicked.connect (() => {
                 this.popdown ();
             });
-            
+
             this.add (main_grid);
         }
-        
+        public CommonNumericKeypad (Gtk.Entry entry) {
+            this.entry = entry;
+            this.set_relative_to (entry);
+            this.show_all ();
+            this.set_visible (false);
+            this.position = Gtk.PositionType.TOP;
+        }
         private void send_button_press (string label) {
             button_clicked (label);
         }

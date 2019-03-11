@@ -82,6 +82,9 @@ namespace Pebbles {
         
         Gtk.Entry differential_value;
         
+        CommonNumericKeypad keypad_a;
+        CommonNumericKeypad keypad_b;
+        CommonNumericKeypad keypad_x;
         // App Settings
         Pebbles.Settings settings;
         string constant_label_1 = "";
@@ -258,17 +261,27 @@ namespace Pebbles {
             int_limit_a.width_chars = 4;
             int_limit_a.margin_start = 5;
             int_limit_a.margin_top = 5;
-            int_limit_a.placeholder_text = "u =";
+            int_limit_a.placeholder_text = "u";
             int_limit_b = new Gtk.Entry ();
             int_limit_b.get_style_context ().add_class ("Pebbles_Small_Entry");
             int_limit_b.max_width_chars = 4;
             int_limit_b.width_chars = 4;
             int_limit_b.margin_start = 5;
             int_limit_b.margin_top = 5;
-            int_limit_b.placeholder_text = "l =";
+            int_limit_b.placeholder_text = "l";
             integration_grid.attach (integration_button,            0, 0, 1, 1);
             integration_grid.attach (int_limit_a,                   1, 0, 1, 1);
             integration_grid.attach (int_limit_b,                   2, 0, 1, 1);
+            int_limit_a.set_icon_from_icon_name (Gtk.EntryIconPosition.SECONDARY,"view-more-symbolic");
+            int_limit_b.set_icon_from_icon_name (Gtk.EntryIconPosition.SECONDARY,"view-more-symbolic");
+            keypad_a = new CommonNumericKeypad (int_limit_a);
+            keypad_b = new CommonNumericKeypad (int_limit_b);
+            int_limit_a.icon_release.connect (() => {
+                keypad_a.set_visible (true);
+            });
+            int_limit_b.icon_release.connect (() => {
+                keypad_b.set_visible (true);
+            });
             
             // Make derivation section
             var derivation_grid = new Gtk.Grid ();
@@ -286,9 +299,14 @@ namespace Pebbles {
             int_limit_x.width_chars = 6;
             int_limit_x.margin_start = 7;
             int_limit_x.margin_top = 5;
-            int_limit_x.placeholder_text = "at x =";
+            int_limit_x.placeholder_text = "at x";
             derivation_grid.attach (derivation_button,              0, 0, 1, 1);
             derivation_grid.attach (int_limit_x,                    1, 0, 1, 1);
+            int_limit_x.set_icon_from_icon_name (Gtk.EntryIconPosition.SECONDARY,"view-more-symbolic");
+            keypad_x = new CommonNumericKeypad (int_limit_x);
+            int_limit_x.icon_release.connect (() => {
+                keypad_x.set_visible (true);
+            });
             
             button_container_right.attach (sin_button,              0, 0, 1, 1);
             button_container_right.attach (sinh_button,             1, 0, 1, 1);
@@ -732,6 +750,54 @@ namespace Pebbles {
             last_answer_button.clicked.connect (() => {
                 char_button_click ("ans ");
             });
+            keypad_a.button_clicked.connect ((val) => {
+                if (val == "C") {
+                    int_limit_a.set_text ("");
+                }
+                else if (val == "del") {
+                    int_limit_a.backspace ();
+                }
+                else {
+                    if (int_limit_a.get_text () == "0"){
+                        int_limit_a.set_text("");
+                    }
+                    int_limit_a.set_text (int_limit_a.get_text() + val);
+                    int_limit_a.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                }
+            });
+            keypad_b.button_clicked.connect ((val) => {
+                if (val == "C") {
+                    int_limit_b.set_text ("");
+                }
+                else if (val == "del") {
+                    int_limit_b.backspace ();
+                }
+                else {
+                    if (int_limit_b.get_text () == "0"){
+                        int_limit_b.set_text("");
+                    }
+                    int_limit_b.set_text (int_limit_b.get_text() + val);
+                    int_limit_b.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                }
+            });
+            keypad_x.button_clicked.connect ((val) => {
+                if (val == "C") {
+                    int_limit_x.set_text ("");
+                }
+                else if (val == "del") {
+                    int_limit_x.backspace ();
+                }
+                else {
+                    if (int_limit_x.get_text () == "0"){
+                        int_limit_x.set_text("");
+                    }
+                    int_limit_x.set_text (int_limit_x.get_text() + val);
+                    int_limit_x.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                }
+            });
+            keypad_a.closed.connect (() => display_unit.input_entry.grab_focus_without_selecting ());
+            keypad_b.closed.connect (() => display_unit.input_entry.grab_focus_without_selecting ());
+            keypad_x.closed.connect (() => display_unit.input_entry.grab_focus_without_selecting ());
         }
         private void char_button_click (string input) {
             string sample = display_unit.input_entry.get_text ();

@@ -249,6 +249,12 @@
 	text-shadow: none;
 	caret-color: #000;
 }
+.Pebbles_Small_Entry image.right {
+	color: rgb(133, 133, 133);
+}
+.Pebbles_Small_Entry image.right:hover {
+	color: rgb(51, 51, 51);
+}
 .suggested-override {
 	border: 1px solid alpha(#000, 0.3);
 }
