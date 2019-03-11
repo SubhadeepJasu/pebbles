@@ -19,13 +19,14 @@
  */
 
 namespace Pebbles {
-    public class CommonKeyPadConverter : Gtk.Grid {
-
+    public class CommonNumericKeypad : Gtk.Popover {
+        Gtk.Grid main_grid;
+        
         public string val {
             get {return val;}
             set {send_button_press (val);}
         }
-
+        
         StyledButton del_button;
         StyledButton all_clear_button;
         StyledButton seven_button;
@@ -39,10 +40,12 @@ namespace Pebbles {
         StyledButton three_button;
         StyledButton zero_button;
         StyledButton decimal_button;
-
+        StyledButton done_button;
+        
         public signal void button_clicked (string input_text);
-    
+        
         construct {
+            main_grid = new Gtk.Grid ();
             // Make the buttons
             del_button = new StyledButton ("Del", "Backspace");
             all_clear_button = new StyledButton ("C", "Clear Entry");
@@ -58,30 +61,30 @@ namespace Pebbles {
             three_button = new StyledButton ("3");
             zero_button = new StyledButton ("0");
             decimal_button = new StyledButton (".");
+            done_button = new StyledButton ("");
 
             // Arange the buttons
-            attach (all_clear_button, 0, 0, 1, 1);
-            attach (del_button, 1, 0, 1, 1);
-            attach (seven_button, 0, 1, 1, 1);
-            attach (eight_button, 1, 1, 1, 1);
-            attach (nine_button, 2, 1, 1, 1);
-            attach (four_button, 0, 2, 1, 1);
-            attach (five_button, 1, 2, 1, 1);
-            attach (six_button, 2, 2, 1, 1);
-            attach (one_button, 0, 3, 1, 1);
-            attach (two_button, 1, 3, 1, 1);
-            attach (three_button, 2, 3, 1, 1);
-            attach (zero_button, 0, 4, 1, 1);
-            attach (decimal_button, 1, 4, 1, 1);
-            set_column_homogeneous (true);
-            set_row_homogeneous (true);
+            main_grid.attach (all_clear_button, 0, 0, 1, 1);
+            main_grid.attach (del_button, 1, 0, 1, 1);
+            main_grid.attach (done_button, 2, 0, 1, 1);
+            main_grid.attach (seven_button, 0, 1, 1, 1);
+            main_grid.attach (eight_button, 1, 1, 1, 1);
+            main_grid.attach (nine_button, 2, 1, 1, 1);
+            main_grid.attach (four_button, 0, 2, 1, 1);
+            main_grid.attach (five_button, 1, 2, 1, 1);
+            main_grid.attach (six_button, 2, 2, 1, 1);
+            main_grid.attach (one_button, 0, 3, 1, 1);
+            main_grid.attach (two_button, 1, 3, 1, 1);
+            main_grid.attach (three_button, 2, 3, 1, 1);
+            main_grid.attach (zero_button, 0, 4, 1, 1);
+            main_grid.attach (decimal_button, 1, 4, 1, 1);
+            main_grid.set_column_homogeneous (true);
+            main_grid.set_row_homogeneous (true);
             
-            width_request = 248;
-            height_request = 210;
-            margin_start = 8;
-            margin_end = 8;
-            column_spacing = 8;
-            row_spacing = 8;
+            main_grid.margin_start = 8;
+            main_grid.margin_end = 8;
+            main_grid.column_spacing = 8;
+            main_grid.row_spacing = 8;
             
             // Handle events
             del_button.clicked.connect (() => send_button_press ("del"));
@@ -97,7 +100,13 @@ namespace Pebbles {
             three_button.clicked.connect (() => send_button_press ("3"));
             zero_button.clicked.connect (() => send_button_press ("0"));
             decimal_button.clicked.connect (() => send_button_press ("."));
+            done_button.clicked.connect (() => {
+                this.popdown ();
+            });
+            
+            this.add (main_grid);
         }
+        
         private void send_button_press (string label) {
             button_clicked (label);
         }

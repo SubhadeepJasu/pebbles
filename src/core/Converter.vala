@@ -24,9 +24,11 @@ namespace Pebbles {
         public Converter (double[] multipliers) {
             unit_multipliers_list = multipliers;
         }
+        Settings settings;
         public string convert (double input, int unit_a, int unit_b) {
+            settings = Settings.get_default ();
             double result = input * (unit_multipliers_list [unit_b] / unit_multipliers_list [unit_a]);
-            string output = ("%.9f".printf (result));
+            string output = Utils.manage_decimal_places (result, settings.decimal_places);
 
             // Remove trailing 0s and decimals
             while (output.has_suffix ("0")) {
