@@ -43,10 +43,16 @@ namespace Pebbles {
         }
 
         public MainWindow mainwindow { get; private set; default = null; }
+        public MiniCalculator minicalcwindow { get; private set; default = null; }
+
         protected override void activate () {
             if (mainwindow == null) {
                 mainwindow = new MainWindow ();
                 mainwindow.application = this;
+            }
+            if (minicalcwindow == null) {
+                minicalcwindow = new MiniCalculator ();
+                minicalcwindow.application = this;
             }
             var css_provider = new Gtk.CssProvider();
             try {
