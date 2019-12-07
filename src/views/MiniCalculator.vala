@@ -29,7 +29,7 @@ namespace Pebbles {
         Gtk.Button restore_button;
         StyledButton all_clear_button;
         StyledButton seven_button;
-        StyledButton eigth_button;
+        StyledButton eight_button;
         StyledButton nine_button;
         StyledButton four_button;
         StyledButton five_button;
@@ -75,7 +75,7 @@ namespace Pebbles {
             all_clear_button = new StyledButton ("C", "All Clear");
             all_clear_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
             seven_button = new StyledButton ("7");
-            eigth_button = new StyledButton ("8");
+            eight_button = new StyledButton ("8");
             nine_button = new StyledButton ("9");
             four_button = new StyledButton ("4");
             five_button = new StyledButton ("5");
@@ -109,7 +109,7 @@ namespace Pebbles {
             button_grid.attach (multiply_button, 2, 0, 1, 1);
             button_grid.attach (subtract_button, 3, 0, 1, 1);
             button_grid.attach (seven_button, 0, 1, 1, 1);
-            button_grid.attach (eigth_button, 1, 1, 1, 1);
+            button_grid.attach (eight_button, 1, 1, 1, 1);
             button_grid.attach (nine_button, 2, 1, 1, 1);
             button_grid.attach (add_button, 3, 1, 1, 3);
             button_grid.attach (four_button, 0, 2, 1, 1);
@@ -150,6 +150,64 @@ namespace Pebbles {
             close_button.clicked.connect (() => {
                 this.close ();
             });
+
+            divide_button.clicked.connect (() => {
+                char_button_click (" ÷ ");
+            });
+            seven_button.clicked.connect (() => {
+                char_button_click ("7");
+            });
+            eight_button.clicked.connect (() => {;
+                char_button_click ("8");
+            });
+            nine_button.clicked.connect (() => {;
+                char_button_click ("9");
+            });
+            multiply_button.clicked.connect (() => {;
+                char_button_click (" × ");
+            });
+            four_button.clicked.connect (() => {;
+                char_button_click ("4");
+            });
+            five_button.clicked.connect (() => {;
+                char_button_click ("5");
+            });
+            six_button.clicked.connect (() => {;
+                char_button_click ("6");
+            });
+            subtract_button.clicked.connect (() => {;
+                char_button_click (" - ");
+            });
+            one_button.clicked.connect (() => {;
+                char_button_click ("1");
+            });
+            two_button.clicked.connect (() => {;
+                char_button_click ("2");
+            });
+            three_button.clicked.connect (() => {;
+                char_button_click ("3");
+            });
+            add_button.clicked.connect (() => {;
+                char_button_click (" + ");
+            });
+            zero_button.clicked.connect (() => {;
+                char_button_click ("0");
+            });
+            radix_button.clicked.connect (() => {;
+                char_button_click (".");
+            });
+        }
+
+        private void char_button_click (string input) {
+            string sample = main_entry.get_text ();
+            main_entry.grab_focus_without_selecting ();
+            if (sample != "0") {
+                main_entry.set_text (sample.concat (input));
+            }
+            else {
+                main_entry.set_text (input);
+            }
+            main_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
         }
     }
 }

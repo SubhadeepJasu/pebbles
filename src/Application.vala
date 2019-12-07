@@ -90,6 +90,7 @@ namespace Pebbles {
             if (mini_mode) {
                 var minicalcwindow = new Pebbles.MiniCalculator ();
                 minicalcwindow.show_all ();
+                minicalcwindow.application = this;
                 add_window (minicalcwindow);
             }
             else if (test_mode) {
