@@ -95,10 +95,10 @@ namespace Pebbles {
             multiply_button.get_style_context ().add_class ("h3");
             result_button = new StyledButton ("=", "Result");
             result_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
-            result_button.get_style_context ().add_class ("h2");
+            result_button.get_style_context ().add_class ("h3");
             answer_button = new StyledButton ("Ans", "Last Result");
 
-            var header_box = new Gtk.HBox (false, 2);
+            var header_box = new Gtk.HBox (false, 0);
             header_box.pack_start (close_button);
             header_box.pack_end (clear_button);
             header_box.pack_end (main_entry);
