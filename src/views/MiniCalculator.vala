@@ -21,6 +21,7 @@
 namespace Pebbles {
     public class MiniCalculator : Gtk.Window {
         public signal void mini_window_restore ();
+        Pebbles.Settings settings;
         
         Gtk.Entry  main_entry;
         Gtk.Button clear_button;
@@ -45,6 +46,13 @@ namespace Pebbles {
         StyledButton answer_button;
 
         Gtk.HeaderBar headerbar;
+
+        construct {
+            settings = Pebbles.Settings.get_default ();
+            settings.notify["use-dark-theme"].connect (() => {
+                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = settings.use_dark_theme;
+            });
+        }
 
         public MiniCalculator () {
             main_entry = new Gtk.Entry ();
@@ -77,7 +85,7 @@ namespace Pebbles {
             multiply_button.get_style_context ().add_class ("h3");
             result_button = new StyledButton ("=", "Result");
             result_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
-            result_button.get_style_context ().add_class ("h3");
+            result_button.get_style_context ().add_class ("h2");
             answer_button = new StyledButton ("Ans", "Last Result");
 
             headerbar = new Gtk.HeaderBar ();
@@ -121,10 +129,16 @@ namespace Pebbles {
 
             this.add (button_grid);
             this.set_keep_above (true);
+            load_settings ();
             make_events ();
         }
 
+        private void load_settings () {
+            Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = settings.use_dark_theme;
+        }
+
         void make_events () {
+            
         }
     }
 }
