@@ -20,34 +20,38 @@
 
 namespace Pebbles {
     public class MiniCalculator : Gtk.Window {
-       Gtk.Entry  main_entry;
-       Gtk.Button clear_button;
-       StyledButton all_clear_button;
-       StyledButton seven_button;
-       StyledButton eigth_button;
-       StyledButton nine_button;
-       StyledButton four_button;
-       StyledButton five_button;
-       StyledButton six_button;
-       StyledButton one_button;
-       StyledButton two_button;
-       StyledButton three_button;
-       StyledButton zero_button;
-       StyledButton radix_button;
-       StyledButton add_button;
-       StyledButton subtract_button;
-       StyledButton divide_button;
-       StyledButton multiply_button;
-       StyledButton result_button;
-       StyledButton answer_button;
+        public signal void mini_window_restore ();
+        
+        Gtk.Entry  main_entry;
+        Gtk.Button clear_button;
+        Gtk.Button restore_button;
+        StyledButton all_clear_button;
+        StyledButton seven_button;
+        StyledButton eigth_button;
+        StyledButton nine_button;
+        StyledButton four_button;
+        StyledButton five_button;
+        StyledButton six_button;
+        StyledButton one_button;
+        StyledButton two_button;
+        StyledButton three_button;
+        StyledButton zero_button;
+        StyledButton radix_button;
+        StyledButton add_button;
+        StyledButton subtract_button;
+        StyledButton divide_button;
+        StyledButton multiply_button;
+        StyledButton result_button;
+        StyledButton answer_button;
 
-       Gtk.HeaderBar headerbar;
+        Gtk.HeaderBar headerbar;
 
-       public MiniCalculator () {
+        public MiniCalculator () {
             main_entry = new Gtk.Entry ();
             main_entry.margin_top = 8;
             main_entry.margin_bottom = 8;
             main_entry.placeholder_text = "0";
+            main_entry.xalign = (float)1.0;
             clear_button = new Gtk.Button.from_icon_name ("edit-clear-symbolic", Gtk.IconSize.BUTTON);
 
             all_clear_button = new StyledButton ("C", "All Clear");
@@ -73,7 +77,7 @@ namespace Pebbles {
             multiply_button.get_style_context ().add_class ("h3");
             result_button = new StyledButton ("=", "Result");
             result_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
-            result_button.get_style_context ().add_class ("h2");
+            result_button.get_style_context ().add_class ("h3");
             answer_button = new StyledButton ("Ans", "Last Result");
 
             headerbar = new Gtk.HeaderBar ();
@@ -116,8 +120,11 @@ namespace Pebbles {
             this.set_size_request (300, 200);
 
             this.add (button_grid);
-            this.show_all ();
             this.set_keep_above (true);
-       }
+            make_events ();
+        }
+
+        void make_events () {
+        }
     }
 }

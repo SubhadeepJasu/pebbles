@@ -10,9 +10,14 @@ Type=Application
 Keywords=calculator;scientific;programmer;statistics;converter;convert;calculate;boolean
 X-GNOME-Gettext-Domain=com.github.SubhadeepJasu.pebbles
 X-GNOME-UsesNotifications=true
-Actions=GetLastResult;
+Actions=MiniMode;NewWindow;
 
-[Desktop Action GetLastResult]
-Name=Get last answer
-Exec=com.github.SubhadeepJasu.pebbles --last_result
-Icon=document-open-recent-symbolic
+[Desktop Action MiniMode]
+Name=Open in Mini Mode
+Exec=com.github.SubhadeepJasu.pebbles --mini_mode
+Icon=accessories-calculator-symbolic
+
+[Desktop Action NewWindow]
+Name=Open a New Window
+Exec=com.github.SubhadeepJasu.pebbles --new_window
+Icon=window-new-symbolic
