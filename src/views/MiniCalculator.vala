@@ -64,8 +64,10 @@ namespace Pebbles {
             main_entry = new Gtk.Entry ();
             main_entry.margin = 3;
             main_entry.placeholder_text = "0";
+            main_entry.set_text ("0");
             main_entry.xalign = (float)1.0;
             clear_button = new Gtk.Button.from_icon_name ("edit-clear-symbolic", Gtk.IconSize.BUTTON);
+            clear_button.sensitive = false;
             clear_button.get_style_context ().add_class ("titlebutton");
             clear_button.get_style_context ().add_class ("close");
             clear_button.get_style_context ().remove_class ("image-button");
@@ -196,6 +198,37 @@ namespace Pebbles {
             radix_button.clicked.connect (() => {;
                 char_button_click (".");
             });
+            clear_button.clicked.connect (() => {
+                main_entry.grab_focus_without_selecting ();
+                main_entry.backspace ();
+            });
+            all_clear_button.clicked.connect (() => {
+                main_entry.grab_focus_without_selecting ();
+                main_entry.set_text ("0");
+                main_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+            });
+            result_button.clicked.connect (() => {
+                get_answer_evaluate ();
+                main_entry.grab_focus_without_selecting ();
+                if (main_entry.get_text ().length == 0 && main_entry.get_text () != "0") {
+                    main_entry.set_text ("0");
+                }
+            });
+
+            main_entry.activate.connect (() => {
+                get_answer_evaluate ();
+                if (main_entry.get_text ().length == 0 && main_entry.get_text () != "0") {
+                    main_entry.set_text ("0");
+                }
+                //input_entry.set_text (Utils.preformat (input_entry.get_text ()));
+            });
+
+            main_entry.changed.connect (() => {
+                if (main_entry.get_text () == "0" || main_entry.get_text () == "")
+                    clear_button.sensitive = false;
+                else
+                    clear_button.sensitive = true;
+            });
         }
 
         private void char_button_click (string input) {
@@ -206,6 +239,28 @@ namespace Pebbles {
             }
             else {
                 main_entry.set_text (input);
+            }
+            main_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+        }
+
+        private void get_answer_evaluate () {
+            var sci_calc = new ScientificCalculator ();
+            string result = "";
+            Settings accuracy_settings = Settings.get_default ();
+            //if (this.sci_view.window.history_stack.length () > 0) {
+                //unowned List<string>? last_answer = this.sci_view.window.history_stack.last ();
+            //    result = sci_calc.get_result (main_entry.get_text ().replace ("ans", "2"), GlobalAngleUnit.DEG, accuracy_settings.decimal_places);
+            //}
+            //else {
+                result = sci_calc.get_result (main_entry.get_text (), GlobalAngleUnit.DEG, accuracy_settings.decimal_places);
+            //}
+            main_entry.set_text (result);
+            if (result == "E") {
+                //shake ();
+            }
+            else {
+                //this.sci_view.window.history_stack.append (result.replace (",", ""));
+                //this.sci_view.last_answer_button.set_sensitive (true);
             }
             main_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
         }
