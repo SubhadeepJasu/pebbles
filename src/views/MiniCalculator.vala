@@ -23,6 +23,7 @@ namespace Pebbles {
         public signal void mini_window_restore ();
         Pebbles.Settings settings;
         
+        Gtk.Button close_button;
         Gtk.Entry  main_entry;
         Gtk.Button clear_button;
         Gtk.Button restore_button;
@@ -45,8 +46,6 @@ namespace Pebbles {
         StyledButton result_button;
         StyledButton answer_button;
 
-        Gtk.HeaderBar headerbar;
-
         construct {
             settings = Pebbles.Settings.get_default ();
             settings.notify["use-dark-theme"].connect (() => {
@@ -55,12 +54,23 @@ namespace Pebbles {
         }
 
         public MiniCalculator () {
+            close_button = new Gtk.Button.from_icon_name ("window-close-symbolic", Gtk.IconSize.BUTTON);
+            close_button.get_style_context ().add_class ("titlebutton");
+            close_button.get_style_context ().add_class ("close");
+            close_button.get_style_context ().remove_class ("image-button");
+            close_button.margin = 3;
+            close_button.margin_left = 0;
+
             main_entry = new Gtk.Entry ();
-            main_entry.margin_top = 8;
-            main_entry.margin_bottom = 8;
+            main_entry.margin = 3;
             main_entry.placeholder_text = "0";
             main_entry.xalign = (float)1.0;
             clear_button = new Gtk.Button.from_icon_name ("edit-clear-symbolic", Gtk.IconSize.BUTTON);
+            clear_button.get_style_context ().add_class ("titlebutton");
+            clear_button.get_style_context ().add_class ("close");
+            clear_button.get_style_context ().remove_class ("image-button");
+            clear_button.margin = 3;
+            clear_button.margin_right = 0;
 
             all_clear_button = new StyledButton ("C", "All Clear");
             all_clear_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
@@ -88,13 +98,11 @@ namespace Pebbles {
             result_button.get_style_context ().add_class ("h2");
             answer_button = new StyledButton ("Ans", "Last Result");
 
-            headerbar = new Gtk.HeaderBar ();
-            headerbar.get_style_context ().add_class ("default-decoration");
-            headerbar.show_close_button = true;
-            headerbar.pack_start (main_entry);
-            headerbar.pack_end (clear_button);
-            headerbar.spacing = 0;
-
+            var header_box = new Gtk.HBox (false, 2);
+            header_box.pack_start (close_button);
+            header_box.pack_end (clear_button);
+            header_box.pack_end (main_entry);
+            
             var button_grid = new Gtk.Grid ();
             button_grid.attach (all_clear_button, 0, 0, 1, 1);
             button_grid.attach (divide_button, 1, 0, 1, 1);
@@ -121,7 +129,8 @@ namespace Pebbles {
             button_grid.row_spacing = 4;
 
             this.resizable = false;
-            this.set_titlebar (headerbar);
+            this.set_titlebar (header_box);
+            this.title = "Pebbles Mini Mode";
 
             // Set up window attributes
             this.set_default_size (300, 200);
@@ -138,7 +147,9 @@ namespace Pebbles {
         }
 
         void make_events () {
-            
+            close_button.clicked.connect (() => {
+                this.close ();
+            });
         }
     }
 }
