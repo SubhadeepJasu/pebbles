@@ -33,7 +33,7 @@ namespace Pebbles {
         private const double[] unit_multipliers = {
             1,
             (Math.PI/180),
-            (200/180),
+            (1.111111111),
             ((Math.PI * 1000)/180),
             3600,
             60,
