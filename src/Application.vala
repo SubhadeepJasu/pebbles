@@ -42,12 +42,9 @@ namespace Pebbles {
             settings = Settings.get_default ();
         }
 
-        public MainWindow mainwindow { get; private set; default = null; }
         protected override void activate () {
-            if (mainwindow == null) {
-                mainwindow = new MainWindow ();
-                mainwindow.application = this;
-            }
+            var mainwindow = new MainWindow ();
+            mainwindow.application = this;
             var css_provider = new Gtk.CssProvider();
             try {
                 css_provider.load_from_resource ("/com/github/SubhadeepJasu/pebbles/Application.css");
@@ -73,12 +70,13 @@ namespace Pebbles {
             string[] cmd_args = cmd.get_arguments ();
             unowned string[] args = cmd_args;
             
-            bool mem_to_clip = false;
+            bool new_window = false, mini_mode = false;
             
-            GLib.OptionEntry [] option = new OptionEntry [3];
-            option [0] = { "last_result", 0, 0, OptionArg.NONE, ref mem_to_clip, "Get last answer", null };
-            option [1] = { "test", 0, 0, OptionArg.NONE, ref test_mode, "Enable test mode", null };
-            option [2] = { null };
+            GLib.OptionEntry [] option = new OptionEntry [4];
+            option [0] = { "mini_mode", 0, 0, OptionArg.NONE, ref mini_mode, "Open In Mini Mode", null };
+            option [1] = { "new_window", 0, 0, OptionArg.NONE, ref new_window, "Open A New Window", null };
+            option [2] = { "test", 0, 0, OptionArg.NONE, ref test_mode, "Enable test mode", null };
+            option [3] = { null };
             
             var option_context = new OptionContext ("actions");
             option_context.add_main_entries (option, null);
@@ -89,14 +87,11 @@ namespace Pebbles {
                 return;
             }
             
-            if (mem_to_clip && !test_mode) {
-                if (mainwindow != null) {
-                    mainwindow.answer_notify ();
-                    message ("Last answer copied to clipboard.");
-                }
-                else if (mainwindow == null) {
-                    error ("Action ignored. App UI not running");
-                }
+            if (mini_mode) {
+                var minicalcwindow = new Pebbles.MiniCalculator ();
+                minicalcwindow.show_all ();
+                minicalcwindow.application = this;
+                add_window (minicalcwindow);
             }
             else if (test_mode) {
                 TestUtil.run_test ();
