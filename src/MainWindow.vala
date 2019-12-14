@@ -55,6 +55,7 @@ namespace Pebbles {
         Pebbles.ProgrammerView programmer_view;
         Pebbles.CalculusView   calculus_view;
         Pebbles.DateView       date_view;
+        Pebbles.StatisticsView statistics_view;
 
         Pebbles.ConvLengthView conv_length_view;
         Pebbles.ConvAreaView   conv_area_view;
@@ -304,6 +305,7 @@ namespace Pebbles {
             programmer_view  = new Pebbles.ProgrammerView (this);
             calculus_view    = new Pebbles.CalculusView (this);
             date_view        = new Pebbles.DateView (this);
+            statistics_view  = new Pebbles.StatisticsView ();
             conv_length_view = new Pebbles.ConvLengthView ();
             conv_area_view   = new Pebbles.ConvAreaView ();
             conv_volume_view = new Pebbles.ConvVolumeView ();
@@ -343,6 +345,7 @@ namespace Pebbles {
             common_view.add_named (calculus_view, "Calculus");
             common_view.add_named (programmer_view, "Programmer");
             common_view.add_named (date_view, "Date");
+            common_view.add_named (statistics_view, "Statistics");
             common_view.add_named (conv_length_view, "Length");
             common_view.add_named (conv_area_view, "Area");
             common_view.add_named (conv_volume_view, "Volume");
@@ -388,70 +391,75 @@ namespace Pebbles {
                     header_switcher.set_visible_child (date_mode_stack);
                     view_index = 3;
                 }
+                else if (item == stats_item) {
+                    common_view.set_visible_child (statistics_view);
+                    header_switcher.set_visible_child (null_switcher);
+                    view_index = 4;
+                }
                 else if (item == conv_length_item) {
                     common_view.set_visible_child (conv_length_view);
                     header_switcher.set_visible_child (null_switcher);
-                    view_index = 4;
+                    view_index = 5;
                 }
                 else if (item == conv_area_item) {
                     common_view.set_visible_child (conv_area_view);
                     header_switcher.set_visible_child (null_switcher);
-                    view_index = 5;
+                    view_index = 6;
                 }
                 else if (item == conv_volume_item) {
                     common_view.set_visible_child (conv_volume_view);
                     header_switcher.set_visible_child (null_switcher);
-                    view_index = 6;
+                    view_index = 7;
                 }
                 else if (item == conv_time_item) {
                     common_view.set_visible_child (conv_time_view);
                     header_switcher.set_visible_child (null_switcher);
-                    view_index = 7;
+                    view_index = 8;
                 }
                 else if (item == conv_angle_item) {
                     common_view.set_visible_child (conv_angle_view);
                     header_switcher.set_visible_child (null_switcher);
-                    view_index = 8;
+                    view_index = 9;
                 }
                 else if (item == conv_speed_item) {
                     common_view.set_visible_child (conv_speed_view);
                     header_switcher.set_visible_child (null_switcher);
-                    view_index = 9;
+                    view_index = 10;
                 }
                 else if (item == conv_mass_item) {
                     common_view.set_visible_child (conv_mass_view);
                     header_switcher.set_visible_child (null_switcher);
-                    view_index = 10;
+                    view_index = 11;
                 }
                 else if (item == conv_press_item) {
                     common_view.set_visible_child (conv_press_view);
                     header_switcher.set_visible_child (null_switcher);
-                    view_index = 11;
+                    view_index = 12;
                 }
                 else if (item == conv_energy_item) {
                     common_view.set_visible_child (conv_energy_view);
                     header_switcher.set_visible_child (null_switcher);
-                    view_index = 12;
+                    view_index = 13;
                 }
                 else if (item == conv_power_item) {
                     common_view.set_visible_child (conv_power_view);
                     header_switcher.set_visible_child (null_switcher);
-                    view_index = 13;
+                    view_index = 14;
                 }
                 else if (item == conv_temp_item) {
                     common_view.set_visible_child (conv_temp_view);
                     header_switcher.set_visible_child (null_switcher);
-                    view_index = 14;
+                    view_index = 15;
                 }
                 else if (item == conv_data_item) {
                     common_view.set_visible_child (conv_data_view);
                     header_switcher.set_visible_child (null_switcher);
-                    view_index = 15;
+                    view_index = 16;
                 }
                 else if (item == conv_curr_item) {
                     common_view.set_visible_child (conv_curr_view);
                     header_switcher.set_visible_child (update_button);
-                    view_index = 16;
+                    view_index = 17;
                     if (!currency_view_visited) {
                         update_button.set_sensitive (false);
                         conv_curr_view.update_currency_data ();
@@ -569,7 +577,7 @@ namespace Pebbles {
                         if (scientific_view.display_unit.input_entry.get_text () == "0" && scientific_view.display_unit.input_entry.cursor_position == 0)
                             scientific_view.display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
                         break;
-                    case 4:
+                    case 5:
                         conv_length_view.key_press_event (event);
                         break;
                 }

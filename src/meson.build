@@ -10,6 +10,7 @@ executable(
     'views/ProgrammerView.vala',
     'views/ScientificView.vala',
     'views/DateView.vala',
+    'views/StatisticsView.vala',
     'views/CommonNumericKeypad.vala',
     'views/CommonKeyPadConverter.vala',
     'views/ConvLengthView.vala',
