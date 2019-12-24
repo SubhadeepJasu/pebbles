@@ -21,7 +21,7 @@
 namespace Pebbles { 
     public class StatisticsView : Gtk.Grid {
         // Display
-        Gtk.Entry display_unit;
+        StatisticsDisplay display_unit;
 
         // Left Buttons
         StyledButton all_clear_button;
@@ -60,10 +60,11 @@ namespace Pebbles {
         StyledButton geometric_mean_button;
         StyledButton pop_variance_button;
         StyledButton pop_std_dev_button;
-        StyledButton memory_clear;
+        StyledButton memory_clear_button;
         
         public StatisticsView () {
             stat_make_ui ();
+            stat_make_event ();
         }
 
         public void stat_make_ui () {
@@ -76,7 +77,7 @@ namespace Pebbles {
             display_container.margin_top = 8;
             display_container.margin_bottom = 8;
             //display_unit = new ScientificDisplay (this);
-            display_unit = new Gtk.Entry ();
+            display_unit = new StatisticsDisplay (this);
             display_container.pack_start (display_unit);
 
 
@@ -99,10 +100,11 @@ namespace Pebbles {
             button_container_right.row_spacing = 8;
 
             // Make buttons on the left
-            all_clear_button = new StyledButton ("C", "Clear sample");
+            all_clear_button = new StyledButton ("C", "Clear cell data");
+            all_clear_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
             del_button = new StyledButton ("Del", "Backspace");
             del_button.sensitive = false;
-            reset_button = new StyledButton ("Reset", "Clear all samples");
+            reset_button = new StyledButton ("Reset", "Clear sample");
             seven_button = new StyledButton ("7");
             eight_button = new StyledButton ("8");
             nine_button = new StyledButton ("9");
@@ -139,23 +141,41 @@ namespace Pebbles {
             nav_left_button = new StyledButton ("❰", "Navigate to the cell on the left");
             nav_right_button = new StyledButton ("❱", "Navigate to the cell on the right");
             add_cell_button = new Gtk.Button.from_icon_name ("document-new-symbolic", Gtk.IconSize.BUTTON);
+            add_cell_button.set_tooltip_text ("Insert new cell");
             remove_cell_button = new Gtk.Button.from_icon_name ("edit-delete-symbolic", Gtk.IconSize.BUTTON);
+            remove_cell_button.set_tooltip_text ("Remove current cell");
             cardinality_button = new StyledButton ("n", "Sample size");
+            cardinality_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             statistical_mode_button = new StyledButton ("mode", "Mode of the sample data");
+            statistical_mode_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             median_button = new StyledButton ("M", "Median");
+            median_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             memory_plus_button = new StyledButton ("M+");
+            memory_plus_button.get_style_context ().add_class ("Pebbles_Buttons_Memory");
             summation_button = new StyledButton ("Σx", "Summation of all data values");
+            summation_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             summation_sq_button = new StyledButton ("Σx<sup>2</sup>", "Summation of all data values squared");
+            summation_sq_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             sample_variance_button = new StyledButton ("SV", "Sample variance");
+            sample_variance_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             memory_minus_button = new StyledButton ("M-");
+            memory_minus_button.get_style_context ().add_class ("Pebbles_Buttons_Memory");
             mean_button = new StyledButton ("x̄", "Mean");
+            mean_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             mean_sq_button = new StyledButton ("x̄<sup>2</sup>", "Mean of squared data values");
+            mean_sq_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             sample_std_dev_button = new StyledButton ("SD", "Standard deviation");
+            sample_std_dev_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             memory_recall_button = new StyledButton ("MR", "Memory Recall");
+            memory_recall_button.get_style_context ().add_class ("Pebbles_Buttons_Memory");
             geometric_mean_button = new StyledButton ("GM", "Geometric mean");
+            geometric_mean_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             pop_variance_button = new StyledButton ("σ<sup>2</sup>", "Population Variance");
+            pop_variance_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             pop_std_dev_button = new StyledButton ("σ", "Population standard deviation");
-            memory_clear = new StyledButton ("MC");
+            pop_std_dev_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
+            memory_clear_button = new StyledButton ("MC");
+            memory_clear_button.get_style_context ().add_class ("Pebbles_Buttons_Memory");
 
 
 
@@ -178,7 +198,7 @@ namespace Pebbles {
             button_container_right.attach (geometric_mean_button, 0, 4, 1, 1);
             button_container_right.attach (pop_variance_button, 1, 4, 1, 1);
             button_container_right.attach (pop_std_dev_button, 2, 4, 1, 1);
-            button_container_right.attach (memory_clear, 3, 4, 1, 1);
+            button_container_right.attach (memory_clear_button, 3, 4, 1, 1);
 
             button_container_right.set_column_homogeneous (true);
             button_container_right.set_row_homogeneous (true);
@@ -187,6 +207,45 @@ namespace Pebbles {
             attach (button_container_left, 0, 1, 1, 1);
             attach (button_container_right, 1, 1, 1, 1);
             //set_column_homogeneous (true);
+        }
+
+        void stat_make_event () {
+            cardinality_button.clicked.connect (() => {
+                display_unit.set_result_type (2);
+            });
+            statistical_mode_button.clicked.connect (() => {
+                display_unit.set_result_type (3);
+            });
+            median_button.clicked.connect (() => {
+                display_unit.set_result_type (1);
+            });
+            summation_button.clicked.connect (() => {
+                display_unit.set_result_type (4);
+            });
+            summation_sq_button.clicked.connect (() => {
+                display_unit.set_result_type (5);
+            });
+            sample_variance_button.clicked.connect (() => {
+                display_unit.set_result_type (10);
+            });
+            mean_button.clicked.connect (() => {
+                display_unit.set_result_type (6);
+            });
+            mean_sq_button.clicked.connect (() => {
+                display_unit.set_result_type (7);
+            });
+            sample_std_dev_button.clicked.connect (() => {
+                display_unit.set_result_type (11);
+            });
+            geometric_mean_button.clicked.connect (() => {
+                display_unit.set_result_type (0);
+            });
+            pop_variance_button.clicked.connect (() => {
+                display_unit.set_result_type (9);
+            });
+            pop_std_dev_button.clicked.connect (() => {
+                display_unit.set_result_type (8);
+            });
         }
     }
 }
