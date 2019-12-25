@@ -262,16 +262,31 @@ namespace Pebbles {
                 return false;
             });
 
-            nav_left_button.clicked.connect (() => {
-                display_unit.navigate_left ();
+            nav_left_button.button_press_event.connect (() => {
+                display_unit.navigate_left();
+                return false;
+            });
+            nav_left_button.button_release_event.connect (() => {
+                display_unit.set_editable_cell ();
+                return false;
             });
 
-            nav_right_button.clicked.connect (() => {
+            nav_right_button.button_press_event.connect (() => {
                 display_unit.navigate_right ();
+                return false;
+            });
+            nav_right_button.button_release_event.connect (() => {
+                display_unit.set_editable_cell ();
+                return false;
             });
 
-            remove_cell_button.clicked.connect (() => {
+            remove_cell_button.button_press_event.connect (() => {
                 display_unit.remove_cell ();
+                return false;
+            });
+            remove_cell_button.button_release_event.connect (() => {
+                display_unit.set_editable_cell ();
+                return false;
             });
         }
     }

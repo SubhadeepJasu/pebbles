@@ -359,9 +359,11 @@ namespace Pebbles {
             int i = 0;
             stdout.printf ("Delete: %d\n", sample_index);
             input_table.foreach ((cell) => {
-                if (i == sample_index) {
+                if (i == sample_index && sample_index != -1) {
                     input_table.remove (cell);
-                    sample_index--;
+                    if (sample_index > 0) {
+                        sample_index--;
+                    }
                 }
                 i++;
             });
@@ -399,18 +401,21 @@ namespace Pebbles {
             input_table.foreach ((cell) => {
                 n++;
             });
-            if (sample_index == 0) {
-                stdout.printf ("Navigate right rr: %d\n", sample_index);
-                set_editable_cell ();
-            }
             if (sample_index < n - 1) {
                 sample_index++;
                 set_editable_cell ();
                 stdout.printf ("Navigate right: %d\n", sample_index);
                 return true;
             }
-            set_editable_cell ();
             return false;
+        }
+
+        public bool reset_sample () {
+            input_table.foreach ((cell) => {
+                input_table.remove (cell);
+                sample_index = -1;
+            });
+            return true;
         }
     }
 }
