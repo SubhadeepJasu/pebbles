@@ -209,41 +209,88 @@ namespace Pebbles {
         }
 
         void stat_make_event () {
-            cardinality_button.clicked.connect (() => {
+            cardinality_button.button_release_event.connect (() => {
                 display_unit.set_result_type (2);
+                display_unit.answer_label.set_text (display_unit.get_cardinality ().to_string ());
+                display_unit.set_editable_cell ();
+                return false;
             });
-            statistical_mode_button.clicked.connect (() => {
+            statistical_mode_button.button_release_event.connect (() => {
                 display_unit.set_result_type (3);
+                Statistics stat_calc = new Statistics();
+                display_unit.answer_label.set_text (stat_calc.mode (display_unit.get_samples ()));
+                display_unit.set_editable_cell ();
+                return false;
             });
-            median_button.clicked.connect (() => {
+            median_button.button_release_event.connect (() => {
                 display_unit.set_result_type (1);
+                Statistics stat_calc = new Statistics();
+                display_unit.answer_label.set_text (stat_calc.median (display_unit.get_samples ()));
+                display_unit.set_editable_cell ();
+                return false;
             });
-            summation_button.clicked.connect (() => {
+            summation_button.button_release_event.connect (() => {
                 display_unit.set_result_type (4);
+                Statistics stat_calc = new Statistics();
+                display_unit.answer_label.set_text (stat_calc.summation_x (display_unit.get_samples ()));
+                display_unit.set_editable_cell ();
+                return false;
             });
-            summation_sq_button.clicked.connect (() => {
+            summation_sq_button.button_release_event.connect (() => {
                 display_unit.set_result_type (5);
+                Statistics stat_calc = new Statistics();
+                display_unit.answer_label.set_text (stat_calc.summation_x_square (display_unit.get_samples ()));
+                display_unit.set_editable_cell ();
+                return false;
             });
-            sample_variance_button.clicked.connect (() => {
+            sample_variance_button.button_release_event.connect (() => {
                 display_unit.set_result_type (10);
+                Statistics stat_calc = new Statistics();
+                display_unit.answer_label.set_text (stat_calc.sample_variance (display_unit.get_samples ()));
+                display_unit.set_editable_cell ();
+                return false;
             });
-            mean_button.clicked.connect (() => {
+            mean_button.button_release_event.connect (() => {
                 display_unit.set_result_type (6);
+                Statistics stat_calc = new Statistics();
+                display_unit.answer_label.set_text (stat_calc.mean_x (display_unit.get_samples ()));
+                display_unit.set_editable_cell ();
+                return false;
             });
-            mean_sq_button.clicked.connect (() => {
+            mean_sq_button.button_release_event.connect (() => {
                 display_unit.set_result_type (7);
+                Statistics stat_calc = new Statistics();
+                display_unit.answer_label.set_text (stat_calc.mean_x_square (display_unit.get_samples ()));
+                display_unit.set_editable_cell ();
+                return false;
             });
-            sample_std_dev_button.clicked.connect (() => {
+            sample_std_dev_button.button_release_event.connect (() => {
                 display_unit.set_result_type (11);
+                Statistics stat_calc = new Statistics();
+                display_unit.answer_label.set_text (stat_calc.sample_standard_deviation (display_unit.get_samples ()));
+                display_unit.set_editable_cell ();
+                return false;
             });
-            geometric_mean_button.clicked.connect (() => {
+            geometric_mean_button.button_release_event.connect (() => {
                 display_unit.set_result_type (0);
+                Statistics stat_calc = new Statistics();
+                display_unit.answer_label.set_text (stat_calc.geometric_mean (display_unit.get_samples ()));
+                display_unit.set_editable_cell ();
+                return false;
             });
-            pop_variance_button.clicked.connect (() => {
+            pop_variance_button.button_release_event.connect (() => {
                 display_unit.set_result_type (9);
+                Statistics stat_calc = new Statistics();
+                display_unit.answer_label.set_text (stat_calc.population_variance (display_unit.get_samples ()));
+                display_unit.set_editable_cell ();
+                return false;
             });
-            pop_std_dev_button.clicked.connect (() => {
+            pop_std_dev_button.button_release_event.connect (() => {
                 display_unit.set_result_type (8);
+                Statistics stat_calc = new Statistics();
+                display_unit.answer_label.set_text (stat_calc.population_standard_deviation (display_unit.get_samples ()));
+                display_unit.set_editable_cell ();
+                return false;
             });
 
             add_cell_button.button_press_event.connect ((event) => {

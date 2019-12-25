@@ -164,6 +164,11 @@
 	caret-color: alpha (#272863, 0.8);
 }
 
+.pebbles_h2 selection {
+	color: #C6D0C6;
+	background: #272863;
+}
+
 .pebbles_h4 {
 	font-size: 10px;
 	font-family: Roboto;
@@ -304,6 +309,31 @@
 .Pebbles_Bit_Activated:hover {
 	color: #ffffff;
 	background-color: shade (#64baff, 0.95);
+}
+
+.stat_cell {
+	margin-top: 4px;
+	margin-bottom: 4px;
+	background: none;
+	color:#272863;
+	border: 1px solid alpha (#272863, 0.8);
+	border-style: dotted;
+	box-shadow: none;
+	text-shadow: 0 0px alpha (#000, 0);
+	opacity: 0.8;
+	caret-color: alpha (#272863, 0.8);
+}
+
+.stat_cell selection {
+	color: #C6D0C6;
+	background: #272863;
+	text-shadow: 0 0px alpha (#000, 0);
+	opacity: 0.8;
+}
+
+.stat_cell:focus {
+	border: 1px solid;
+	border-style: solid;
 }
 
 scrollbar.horizontal slider {

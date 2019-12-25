@@ -35,6 +35,7 @@ executable(
     'core/ScientificCalculator.vala',
     'core/Calculus.vala',
     'core/ProgrammerCalculator.vala',
+    'core/Statistics.vala',
     'core/Utils.vala',
     'core/Converter.vala',
     'core/CurrencyConverter.vala',

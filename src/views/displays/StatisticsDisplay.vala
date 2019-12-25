@@ -35,7 +35,7 @@ namespace Pebbles {
         Gtk.Label memory_label;
 
         // Answer Label
-        Gtk.Label answer_label;
+        public Gtk.Label answer_label;
 
         // Input cells
         Gtk.Box input_table;
@@ -113,10 +113,16 @@ namespace Pebbles {
             answer_label = new Gtk.Label ("0");
             answer_label.set_halign (Gtk.Align.END);
             answer_label.get_style_context ().add_class ("pebbles_h1");
+            var answer_scrollable = new Gtk.ScrolledWindow (null, null);
+            answer_scrollable.add (answer_label);
+            answer_scrollable.propagate_natural_height = true;
+            answer_scrollable.shadow_type = Gtk.ShadowType.NONE;
 
             
-            input_table = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 1);
+            input_table = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
             input_table.get_style_context ().add_class ("stats_table");
+            var input_table_scrollable = new Gtk.ScrolledWindow (null, null);
+            input_table_scrollable.add (input_table);
 
             
             
@@ -126,9 +132,9 @@ namespace Pebbles {
             lcd_separator.set_opacity (0.6);
 
             attach (lcd_status_bar, 0, 0, 1, 1);
-            attach (answer_label, 0, 1, 1, 1);
+            attach (answer_scrollable, 0, 1, 1, 1);
             attach (lcd_separator, 0, 2, 1, 1);
-            attach (input_table, 0, 3, 1, 1);
+            attach (input_table_scrollable, 0, 3, 1, 1);
             
         }
 
@@ -336,6 +342,8 @@ namespace Pebbles {
         public void insert_cell (bool add_cell) {
             var cell = new Gtk.Entry ();
             cell.get_style_context ().add_class ("stat_cell");
+            cell.has_frame = false;
+            cell.width_chars = 16;
             this.input_table.pack_start (cell, false, false, 0);
             this.show_all ();
             if (!add_cell) {
@@ -343,14 +351,12 @@ namespace Pebbles {
                     sample_index = 0;
                 }
                 this.input_table.reorder_child (cell, sample_index);
-                stdout.printf ("Insert: %d\n", sample_index);
             } else {
                 int n = 0;
                 input_table.foreach ((cell) => {
                     n++;
                 });
                 sample_index = n - 1;
-                stdout.printf ("Add: %d\n", sample_index);
             }
             cell.button_release_event.connect (() => {
                 find_focused_cell ();
@@ -360,7 +366,6 @@ namespace Pebbles {
 
         public void remove_cell () {
             int i = 0;
-            stdout.printf ("Delete: %d\n", sample_index);
             input_table.foreach ((cell) => {
                 if (i == sample_index && sample_index != -1) {
                     input_table.remove (cell);
@@ -391,7 +396,6 @@ namespace Pebbles {
         public bool navigate_left () {
             if (sample_index > 0) {
                 sample_index--;
-                stdout.printf ("Navigate left: %d\n", sample_index);
                 return true;
             }
             return false;
@@ -399,13 +403,11 @@ namespace Pebbles {
 
         public bool navigate_right () {
             int n = 0;
-            stdout.printf ("Navigate right before: %d\n", sample_index);
             input_table.foreach ((cell) => {
                 n++;
             });
             if (sample_index < n - 1) {
                 sample_index++;
-                stdout.printf ("Navigate right: %d\n", sample_index);
                 return true;
             }
             return false;
@@ -416,7 +418,6 @@ namespace Pebbles {
             input_table.foreach ((cell) => {
                 if (cell.has_focus) {
                     sample_index = i;
-                    stdout.printf ("Focused: %d\n",sample_index);
                 }
                 i++;
             });
@@ -428,6 +429,31 @@ namespace Pebbles {
                 sample_index = -1;
             });
             return true;
+        }
+
+        public uint get_cardinality () {
+            List<string> samples = new List<string> ();
+            input_table.foreach ((cell) => {
+                Gtk.Entry cell_e = (Gtk.Entry)cell;
+                if (cell_e.get_text () != "" && cell_e.get_text () != null)
+                samples.append (cell_e.get_text ());
+            });
+            return samples.length ();
+        }
+
+        public string get_samples () {
+            List<string> samples = new List<string> ();
+            string sample_text = "";
+            input_table.foreach ((cell) => {
+                Gtk.Entry cell_e = (Gtk.Entry)cell;
+                if (cell_e.get_text () != "" && cell_e.get_text () != null)
+                samples.append (cell_e.get_text ());
+            });
+            samples.foreach ((cell_data) => {
+                sample_text = sample_text.concat (cell_data, ",");
+            });
+            sample_text = sample_text.slice (0, sample_text.len () - 1);
+            return sample_text;
         }
     }
 }
