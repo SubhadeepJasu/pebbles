@@ -352,7 +352,10 @@ namespace Pebbles {
                 sample_index = n - 1;
                 stdout.printf ("Add: %d\n", sample_index);
             }
-            
+            cell.button_release_event.connect (() => {
+                find_focused_cell ();
+                return false;
+            });
         }
 
         public void remove_cell () {
@@ -388,7 +391,6 @@ namespace Pebbles {
         public bool navigate_left () {
             if (sample_index > 0) {
                 sample_index--;
-                set_editable_cell ();
                 stdout.printf ("Navigate left: %d\n", sample_index);
                 return true;
             }
@@ -403,11 +405,21 @@ namespace Pebbles {
             });
             if (sample_index < n - 1) {
                 sample_index++;
-                set_editable_cell ();
                 stdout.printf ("Navigate right: %d\n", sample_index);
                 return true;
             }
             return false;
+        }
+
+        private void find_focused_cell () {
+            int i = 0;
+            input_table.foreach ((cell) => {
+                if (cell.has_focus) {
+                    sample_index = i;
+                    stdout.printf ("Focused: %d\n",sample_index);
+                }
+                i++;
+            });
         }
 
         public bool reset_sample () {
