@@ -38,10 +38,12 @@ namespace Pebbles {
         Gtk.Label answer_label;
 
         // Input cells
-        Gtk.HBox table;
+        Gtk.Box input_table;
+        public int sample_index = -1;
 
         construct {
             stats_display_make_ui ();
+            set_result_type (-1);
         }
 
         StatisticsView stats_view;
@@ -108,7 +110,25 @@ namespace Pebbles {
             lcd_status_bar.set_halign (Gtk.Align.END);
 
 
+            answer_label = new Gtk.Label ("0");
+            answer_label.set_halign (Gtk.Align.END);
+            answer_label.get_style_context ().add_class ("pebbles_h1");
+
+            
+            input_table = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 1);
+            input_table.get_style_context ().add_class ("stats_table");
+
+            
+            
+
+            // Make seperator
+            Gtk.Separator lcd_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+            lcd_separator.set_opacity (0.6);
+
             attach (lcd_status_bar, 0, 0, 1, 1);
+            attach (answer_label, 0, 1, 1, 1);
+            attach (lcd_separator, 0, 2, 1, 1);
+            attach (input_table, 0, 3, 1, 1);
             
         }
 
@@ -295,9 +315,102 @@ namespace Pebbles {
                     result_type_label_sd.set_opacity (1);
                     break;
                 default:
+                    result_type_label_g.set_opacity (0.2);
+                    result_type_label_m.set_opacity (0.2);
+                    result_type_label_edia.set_opacity (0.2);
+                    result_type_label_n.set_opacity (0.2);
+                    result_type_label_mode.set_opacity (0.2);
+                    result_type_label_summation.set_opacity (0.2);
+                    result_type_label_x_bar.set_opacity (0.2);
                     result_type_label_x_bar.set_text ("x̄");
+                    result_type_label_x_sqr.set_opacity (0.2);
+                    result_type_label_sigma.set_opacity (0.2);
+                    result_type_label_sig_sqr.set_opacity (0.2);
+                    result_type_label_sv.set_opacity (0.2);
+                    result_type_label_sd.set_opacity (0.2);
                     break;
             }
+            this.queue_draw ();
+        }
+
+        public void insert_cell (bool add_cell) {
+            var cell = new Gtk.Entry ();
+            cell.get_style_context ().add_class ("stat_cell");
+            this.input_table.pack_start (cell, false, false, 0);
+            this.show_all ();
+            if (!add_cell) {
+                if (sample_index == -1){
+                    sample_index = 0;
+                }
+                this.input_table.reorder_child (cell, sample_index);
+                stdout.printf ("Insert: %d\n", sample_index);
+            } else {
+                int n = 0;
+                input_table.foreach ((cell) => {
+                    n++;
+                });
+                sample_index = n - 1;
+                stdout.printf ("Add: %d\n", sample_index);
+            }
+            
+        }
+
+        public void remove_cell () {
+            int i = 0;
+            stdout.printf ("Delete: %d\n", sample_index);
+            input_table.foreach ((cell) => {
+                if (i == sample_index) {
+                    input_table.remove (cell);
+                    sample_index--;
+                }
+                i++;
+            });
+            //  foreach (Gtk.Entry cell in input_table) {
+            //      if (i == sample_index) {
+            //          input_table.remove (cell);
+            //      }
+            //      i++;
+            //  }
+        }
+
+        public void set_editable_cell () {
+            int i = 0;
+            input_table.foreach ((cell) => {
+                if (i == sample_index) {
+                    cell.grab_focus ();
+                }
+                i++;
+            });
+        }
+
+        public bool navigate_left () {
+            if (sample_index > 0) {
+                sample_index--;
+                set_editable_cell ();
+                stdout.printf ("Navigate left: %d\n", sample_index);
+                return true;
+            }
+            return false;
+        }
+
+        public bool navigate_right () {
+            int n = 0;
+            stdout.printf ("Navigate right before: %d\n", sample_index);
+            input_table.foreach ((cell) => {
+                n++;
+            });
+            if (sample_index == 0) {
+                stdout.printf ("Navigate right rr: %d\n", sample_index);
+                set_editable_cell ();
+            }
+            if (sample_index < n - 1) {
+                sample_index++;
+                set_editable_cell ();
+                stdout.printf ("Navigate right: %d\n", sample_index);
+                return true;
+            }
+            set_editable_cell ();
+            return false;
         }
     }
 }

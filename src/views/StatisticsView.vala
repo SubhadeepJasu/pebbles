@@ -76,7 +76,6 @@ namespace Pebbles {
             display_container.margin_end = 8;
             display_container.margin_top = 8;
             display_container.margin_bottom = 8;
-            //display_unit = new ScientificDisplay (this);
             display_unit = new StatisticsDisplay (this);
             display_container.pack_start (display_unit);
 
@@ -245,6 +244,34 @@ namespace Pebbles {
             });
             pop_std_dev_button.clicked.connect (() => {
                 display_unit.set_result_type (8);
+            });
+
+            add_cell_button.button_press_event.connect ((event) => {
+                switch (event.button) {
+                    case 1:
+                        display_unit.insert_cell (true);
+                        break;
+                    case 3:
+                        display_unit.insert_cell (false);
+                        break;
+                }
+                return false;
+            });
+            add_cell_button.button_release_event.connect (() => {
+                display_unit.set_editable_cell ();
+                return false;
+            });
+
+            nav_left_button.clicked.connect (() => {
+                display_unit.navigate_left ();
+            });
+
+            nav_right_button.clicked.connect (() => {
+                display_unit.navigate_right ();
+            });
+
+            remove_cell_button.clicked.connect (() => {
+                display_unit.remove_cell ();
             });
         }
     }
