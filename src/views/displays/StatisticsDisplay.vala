@@ -37,6 +37,9 @@ namespace Pebbles {
         // Answer Label
         public Gtk.Label answer_label;
 
+        // Statistical Bar Graph
+        StatisticsGraph bar_graph;
+
         // Input cells
         Gtk.Box input_table;
         public int sample_index = -1;
@@ -117,6 +120,9 @@ namespace Pebbles {
             answer_scrollable.add (answer_label);
             answer_scrollable.propagate_natural_height = true;
             answer_scrollable.shadow_type = Gtk.ShadowType.NONE;
+            answer_scrollable.expand = true;
+
+            bar_graph = new StatisticsGraph ();
 
             
             input_table = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
@@ -128,13 +134,19 @@ namespace Pebbles {
             
 
             // Make seperator
-            Gtk.Separator lcd_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
-            lcd_separator.set_opacity (0.6);
+            Gtk.Separator lcd_separator_horizontal = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+            lcd_separator_horizontal.set_opacity (0.6);
+            Gtk.Separator lcd_separator_vertical = new Gtk.Separator (Gtk.Orientation.VERTICAL);
+            lcd_separator_vertical.margin = 4;
+            lcd_separator_vertical.halign = Gtk.Align.CENTER;
+            lcd_separator_vertical.set_opacity (0.6);
 
-            attach (lcd_status_bar, 0, 0, 1, 1);
+            attach (lcd_status_bar, 0, 0, 3, 1);
             attach (answer_scrollable, 0, 1, 1, 1);
-            attach (lcd_separator, 0, 2, 1, 1);
-            attach (input_table_scrollable, 0, 3, 1, 1);
+            attach (lcd_separator_vertical, 1, 1, 1, 1);
+            attach (bar_graph, 2, 1, 1, 1);
+            attach (lcd_separator_horizontal, 0, 2, 3, 1);
+            attach (input_table_scrollable, 0, 3, 3, 1);
             
         }
 
@@ -337,6 +349,12 @@ namespace Pebbles {
                     break;
             }
             this.queue_draw ();
+        }
+
+        public void update_graph () {
+            string[] data_set= get_samples ().split (",");
+            bar_graph.set_data_set (data_set);
+            bar_graph.queue_draw ();
         }
 
         public void insert_cell (bool add_cell) {

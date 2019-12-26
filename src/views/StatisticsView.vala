@@ -140,7 +140,7 @@ namespace Pebbles {
             nav_left_button = new StyledButton ("❰", "Navigate to the cell on the left");
             nav_right_button = new StyledButton ("❱", "Navigate to the cell on the right");
             add_cell_button = new Gtk.Button.from_icon_name ("document-new-symbolic", Gtk.IconSize.BUTTON);
-            add_cell_button.set_tooltip_text ("Left click: Add cell, Right click: Insert new cell");
+            add_cell_button.set_tooltip_text ("Left click: Add cell, Right click: Insert cell");
             remove_cell_button = new Gtk.Button.from_icon_name ("edit-delete-symbolic", Gtk.IconSize.BUTTON);
             remove_cell_button.set_tooltip_text ("Remove current cell");
             cardinality_button = new StyledButton ("n", "Sample size");
@@ -213,6 +213,7 @@ namespace Pebbles {
                 display_unit.set_result_type (2);
                 display_unit.answer_label.set_text (display_unit.get_cardinality ().to_string ());
                 display_unit.set_editable_cell ();
+                display_unit.update_graph ();
                 return false;
             });
             statistical_mode_button.button_release_event.connect (() => {

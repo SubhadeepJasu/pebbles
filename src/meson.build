@@ -31,6 +31,7 @@ executable(
     'views/displays/CalculusDisplay.vala',
     'views/displays/ProgrammerDisplay.vala',
     'views/displays/StatisticsDisplay.vala',
+    'views/displays/StatisticsGraph.vala',
     'test/TestUtil.vala',
     'core/ScientificCalculator.vala',
     'core/Calculus.vala',
