@@ -209,11 +209,19 @@ namespace Pebbles {
         }
 
         void stat_make_event () {
+            cardinality_button.button_press_event.connect (() => {
+                display_unit.display_off ();
+                return false;
+            });
             cardinality_button.button_release_event.connect (() => {
                 display_unit.set_result_type (2);
                 display_unit.answer_label.set_text (display_unit.get_cardinality ().to_string ());
                 display_unit.set_editable_cell ();
-                display_unit.update_graph ();
+                display_unit.display_on ();
+                return false;
+            });
+            statistical_mode_button.button_press_event.connect (() => {
+                display_unit.display_off ();
                 return false;
             });
             statistical_mode_button.button_release_event.connect (() => {
@@ -221,6 +229,11 @@ namespace Pebbles {
                 Statistics stat_calc = new Statistics();
                 display_unit.answer_label.set_text (stat_calc.mode (display_unit.get_samples ()));
                 display_unit.set_editable_cell ();
+                display_unit.display_on ();
+                return false;
+            });
+            median_button.button_press_event.connect (() => {
+                display_unit.display_off ();
                 return false;
             });
             median_button.button_release_event.connect (() => {
@@ -228,6 +241,11 @@ namespace Pebbles {
                 Statistics stat_calc = new Statistics();
                 display_unit.answer_label.set_text (stat_calc.median (display_unit.get_samples ()));
                 display_unit.set_editable_cell ();
+                display_unit.display_on ();
+                return false;
+            });
+            summation_button.button_press_event.connect (() => {
+                display_unit.display_off ();
                 return false;
             });
             summation_button.button_release_event.connect (() => {
@@ -235,6 +253,11 @@ namespace Pebbles {
                 Statistics stat_calc = new Statistics();
                 display_unit.answer_label.set_text (stat_calc.summation_x (display_unit.get_samples ()));
                 display_unit.set_editable_cell ();
+                display_unit.display_on ();
+                return false;
+            });
+            summation_sq_button.button_press_event.connect (() => {
+                display_unit.display_off ();
                 return false;
             });
             summation_sq_button.button_release_event.connect (() => {
@@ -242,6 +265,11 @@ namespace Pebbles {
                 Statistics stat_calc = new Statistics();
                 display_unit.answer_label.set_text (stat_calc.summation_x_square (display_unit.get_samples ()));
                 display_unit.set_editable_cell ();
+                display_unit.display_on ();
+                return false;
+            });
+            sample_variance_button.button_press_event.connect (() => {
+                display_unit.display_off ();
                 return false;
             });
             sample_variance_button.button_release_event.connect (() => {
@@ -249,6 +277,11 @@ namespace Pebbles {
                 Statistics stat_calc = new Statistics();
                 display_unit.answer_label.set_text (stat_calc.sample_variance (display_unit.get_samples ()));
                 display_unit.set_editable_cell ();
+                display_unit.display_on ();
+                return false;
+            });
+            mean_button.button_press_event.connect (() => {
+                display_unit.display_off ();
                 return false;
             });
             mean_button.button_release_event.connect (() => {
@@ -256,6 +289,11 @@ namespace Pebbles {
                 Statistics stat_calc = new Statistics();
                 display_unit.answer_label.set_text (stat_calc.mean_x (display_unit.get_samples ()));
                 display_unit.set_editable_cell ();
+                display_unit.display_on ();
+                return false;
+            });
+            mean_sq_button.button_press_event.connect (() => {
+                display_unit.display_off ();
                 return false;
             });
             mean_sq_button.button_release_event.connect (() => {
@@ -263,6 +301,11 @@ namespace Pebbles {
                 Statistics stat_calc = new Statistics();
                 display_unit.answer_label.set_text (stat_calc.mean_x_square (display_unit.get_samples ()));
                 display_unit.set_editable_cell ();
+                display_unit.display_on ();
+                return false;
+            });
+            sample_std_dev_button.button_press_event.connect (() => {
+                display_unit.display_off ();
                 return false;
             });
             sample_std_dev_button.button_release_event.connect (() => {
@@ -270,6 +313,11 @@ namespace Pebbles {
                 Statistics stat_calc = new Statistics();
                 display_unit.answer_label.set_text (stat_calc.sample_standard_deviation (display_unit.get_samples ()));
                 display_unit.set_editable_cell ();
+                display_unit.display_on ();
+                return false;
+            });
+            geometric_mean_button.button_press_event.connect (() => {
+                display_unit.display_off ();
                 return false;
             });
             geometric_mean_button.button_release_event.connect (() => {
@@ -277,6 +325,11 @@ namespace Pebbles {
                 Statistics stat_calc = new Statistics();
                 display_unit.answer_label.set_text (stat_calc.geometric_mean (display_unit.get_samples ()));
                 display_unit.set_editable_cell ();
+                display_unit.display_on ();
+                return false;
+            });
+            pop_variance_button.button_press_event.connect (() => {
+                display_unit.display_off ();
                 return false;
             });
             pop_variance_button.button_release_event.connect (() => {
@@ -284,6 +337,11 @@ namespace Pebbles {
                 Statistics stat_calc = new Statistics();
                 display_unit.answer_label.set_text (stat_calc.population_variance (display_unit.get_samples ()));
                 display_unit.set_editable_cell ();
+                display_unit.display_on ();
+                return false;
+            });
+            pop_std_dev_button.button_press_event.connect (() => {
+                display_unit.display_off ();
                 return false;
             });
             pop_std_dev_button.button_release_event.connect (() => {
@@ -291,6 +349,7 @@ namespace Pebbles {
                 Statistics stat_calc = new Statistics();
                 display_unit.answer_label.set_text (stat_calc.population_standard_deviation (display_unit.get_samples ()));
                 display_unit.set_editable_cell ();
+                display_unit.display_on ();
                 return false;
             });
 
@@ -303,10 +362,12 @@ namespace Pebbles {
                         display_unit.insert_cell (false);
                         break;
                 }
+                display_unit.display_off ();
                 return false;
             });
             add_cell_button.button_release_event.connect (() => {
                 display_unit.set_editable_cell ();
+                display_unit.display_on ();
                 return false;
             });
 
@@ -330,10 +391,12 @@ namespace Pebbles {
 
             remove_cell_button.button_press_event.connect (() => {
                 display_unit.remove_cell ();
+                display_unit.display_off ();
                 return false;
             });
             remove_cell_button.button_release_event.connect (() => {
                 display_unit.set_editable_cell ();
+                display_unit.display_on ();
                 return false;
             });
         }

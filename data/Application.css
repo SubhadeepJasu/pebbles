@@ -316,8 +316,9 @@
 	margin-bottom: 4px;
 	background: none;
 	color:#272863;
-	border: 1px solid alpha (#272863, 0.8);
-	border-style: dotted;
+	border: 1px solid alpha (#272863, 0.4);
+	border-top: 1px solid alpha (#000, 0);
+	border-bottom: 1px solid alpha (#000, 0);
 	box-shadow: none;
 	text-shadow: 0 0px alpha (#000, 0);
 	opacity: 0.8;
@@ -332,8 +333,8 @@
 }
 
 .stat_cell:focus {
-	border: 1px solid;
-	border-style: solid;
+	border: 1px solid alpha (#272863, 0.8);
+	border-style: dashed;
 }
 
 scrollbar.horizontal slider {

@@ -20,6 +20,8 @@
 namespace Pebbles {
     public class StatisticsDisplay : Gtk.Grid {
         // Status bar
+        Gtk.Grid lcd_status_bar;
+
         Gtk.Label result_type_label_g;
         Gtk.Label result_type_label_m;
         Gtk.Label result_type_label_edia;
@@ -60,7 +62,7 @@ namespace Pebbles {
             get_style_context ().add_class ("Pebbles_Display_Unit_Bg");
 
             // Make status bar
-            var lcd_status_bar = new Gtk.Grid ();
+            lcd_status_bar = new Gtk.Grid ();
 
             result_type_label_g = new Gtk.Label ("g");
             result_type_label_g.get_style_context ().add_class ("pebbles_h4");
@@ -120,7 +122,7 @@ namespace Pebbles {
             answer_scrollable.add (answer_label);
             answer_scrollable.propagate_natural_height = true;
             answer_scrollable.shadow_type = Gtk.ShadowType.NONE;
-            answer_scrollable.expand = true;
+            answer_scrollable.width_request = 370;
 
             bar_graph = new StatisticsGraph ();
 
@@ -409,6 +411,7 @@ namespace Pebbles {
                 }
                 i++;
             });
+            update_graph ();
         }
 
         public bool navigate_left () {
@@ -472,6 +475,21 @@ namespace Pebbles {
             });
             sample_text = sample_text.slice (0, sample_text.len () - 1);
             return sample_text;
+        }
+
+        // Just eye-candy
+        public void display_off () {
+            answer_label.set_opacity (0.1);
+            input_table.set_opacity (0.1);
+            lcd_status_bar.set_opacity (0.1);
+            bar_graph.set_opacity (0.1);
+        }
+
+        public void display_on () {
+            answer_label.set_opacity (1);
+            input_table.set_opacity (1);
+            lcd_status_bar.set_opacity (1);
+            bar_graph.set_opacity (1);
         }
     }
 }

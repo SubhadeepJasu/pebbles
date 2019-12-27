@@ -24,7 +24,7 @@ namespace Pebbles {
         private double[] data_set;
 
         private const double scale_x = 140;
-        private const double scale_y = 50;
+        private const double scale_y = 56;
 
         public void set_data_set (string[] data_points) {
             data_set = new double[data_points.length];
@@ -36,7 +36,7 @@ namespace Pebbles {
 
         public StatisticsGraph () {
             this.draw.connect (on_draw);
-            this.width_request = 150;
+            this.width_request = 140;
             this.queue_draw ();
             this.show_all ();
 
@@ -62,16 +62,17 @@ namespace Pebbles {
                 // Draw bars as per data points
                 for (int i = 0; i < cardinality; i++) {
                     draw_bar (context, (int)(line_width - gap), (int)((data_set[i]/max_height) * scale_y), (int)(i * line_width), baseline);
+                    stdout.printf ("%d\n", i);
                 }
-            }            
+            }
 
             return true;
         }
 
         private void draw_bar (Cairo.Context ctx, int width, int height, int x_offset, int y_offset) {
             ctx.set_line_width (width);
-            ctx.move_to (18 + x_offset, 10 + scale_y - (y_offset));
-            ctx.line_to (18 + x_offset, 10 + scale_y - (height + y_offset));
+            ctx.move_to (x_offset + (width/2), 2 + scale_y - (y_offset));
+            ctx.line_to (x_offset + (width/2), 2 + scale_y - (height + y_offset));
             ctx.stroke ();
         }
 
