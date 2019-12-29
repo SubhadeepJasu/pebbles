@@ -38,7 +38,7 @@ namespace Pebbles {
         StyledButton three_button;
         StyledButton zero_button;
         StyledButton decimal_button;
-        StyledButton exp_button;
+        StyledButton negative_button;
 
         // Right Buttons
         StyledButton nav_left_button;
@@ -115,7 +115,7 @@ namespace Pebbles {
             three_button = new StyledButton ("3");
             zero_button = new StyledButton ("0");
             decimal_button = new StyledButton (".");
-            exp_button = new StyledButton ("e<sup>x</sup>", "exponential");
+            negative_button = new StyledButton ("+/-", "Negative");
 
             button_container_left.attach (all_clear_button, 0, 0, 1, 1);
             button_container_left.attach (del_button, 1, 0, 1, 1);
@@ -131,7 +131,7 @@ namespace Pebbles {
             button_container_left.attach (three_button, 2, 3, 1, 1);
             button_container_left.attach (zero_button, 0, 4, 1 ,1);
             button_container_left.attach (decimal_button, 1, 4, 1, 1);
-            button_container_left.attach (exp_button, 2, 4, 1, 1);
+            button_container_left.attach (negative_button, 2, 4, 1, 1);
 
             button_container_left.set_column_homogeneous (true);
             button_container_left.set_row_homogeneous (true);
@@ -209,6 +209,67 @@ namespace Pebbles {
         }
 
         void stat_make_event () {
+            // Numeric Buttons
+            seven_button.clicked.connect (() => {
+                display_unit.char_button_click ("7");
+            });
+            eight_button.clicked.connect (() => {
+                display_unit.char_button_click ("8");
+            });
+            nine_button.clicked.connect (() => {
+                display_unit.char_button_click ("9");
+            });
+            four_button.clicked.connect (() => {
+                display_unit.char_button_click ("4");
+            });
+            five_button.clicked.connect (() => {
+                display_unit.char_button_click ("5");
+            });
+            six_button.clicked.connect (() => {
+                display_unit.char_button_click ("6");
+            });
+            one_button.clicked.connect (() => {
+                display_unit.char_button_click ("1");
+            });
+            two_button.clicked.connect (() => {
+                display_unit.char_button_click ("2");
+            });
+            three_button.clicked.connect (() => {
+                display_unit.char_button_click ("3");
+            });
+            zero_button.clicked.connect (() => {
+                display_unit.char_button_click ("0");
+            });
+            decimal_button.clicked.connect (() => {
+                display_unit.char_button_click (".");
+            });
+            negative_button.clicked.connect (() => {
+                display_unit.char_button_click ("-");
+            });
+
+            display_unit.cell_content_changed.connect ((content) => {
+                if (content != "" && content != null) {
+                    del_button.sensitive = true;
+                } else {
+                    del_button.sensitive = false;
+                }
+            });
+
+            del_button.clicked.connect (() => {
+                display_unit.send_backspace ();
+            });
+
+            all_clear_button.clicked.connect (() => {
+                display_unit.clear_cell ();
+            });
+
+            reset_button.clicked.connect (() => {
+                display_unit.reset_sample ();
+                del_button.sensitive = false;
+            });
+
+
+            // Function Buttons
             cardinality_button.button_press_event.connect (() => {
                 display_unit.display_off ();
                 return false;

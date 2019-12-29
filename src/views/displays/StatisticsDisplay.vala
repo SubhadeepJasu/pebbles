@@ -45,6 +45,10 @@ namespace Pebbles {
         // Input cells
         Gtk.Box input_table;
         public int sample_index = -1;
+        Gtk.Entry editable_cell;
+
+        // Signals
+        public signal void cell_content_changed (string content);
 
         construct {
             stats_display_make_ui ();
@@ -378,7 +382,11 @@ namespace Pebbles {
                 });
                 sample_index = n - 1;
             }
+            cell.changed.connect (() => {
+                cell_content_changed (cell.get_text ());
+            });
             cell.button_release_event.connect (() => {
+                cell_content_changed (cell.get_text ());
                 find_focused_cell ();
                 return false;
             });
@@ -407,10 +415,13 @@ namespace Pebbles {
             int i = 0;
             input_table.foreach ((cell) => {
                 if (i == sample_index) {
-                    cell.grab_focus ();
+                    editable_cell = (Gtk.Entry)cell;
+                    editable_cell.grab_focus_without_selecting ();
+                    editable_cell.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
                 }
                 i++;
             });
+            cell_content_changed (editable_cell.get_text ());
             update_graph ();
         }
 
@@ -434,11 +445,24 @@ namespace Pebbles {
             return false;
         }
 
+        public void shift_tab_navigate () {
+            if(!navigate_left ()) {
+                insert_cell (false);
+            }
+        }
+
+        public void tab_navigate () {
+            if (!navigate_right ()) {
+                insert_cell (true);
+            }
+        }
+
         private void find_focused_cell () {
             int i = 0;
             input_table.foreach ((cell) => {
                 if (cell.has_focus) {
                     sample_index = i;
+                    editable_cell = (Gtk.Entry)cell;
                 }
                 i++;
             });
@@ -490,6 +514,28 @@ namespace Pebbles {
             input_table.set_opacity (1);
             lcd_status_bar.set_opacity (1);
             bar_graph.set_opacity (1);
+        }
+
+        public string get_current_cell_content () {
+            return editable_cell.get_text ();
+        }
+
+        public void char_button_click (string text) {
+            string str = editable_cell.get_text ();
+            str = str.concat ("", text);
+            editable_cell.set_text (str);
+            editable_cell.grab_focus_without_selecting ();
+            editable_cell.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+        }
+
+        public void clear_cell () {
+            editable_cell.grab_focus_without_selecting ();
+            editable_cell.set_text("");
+        }
+
+        public void send_backspace () {
+            editable_cell.grab_focus_without_selecting ();
+            editable_cell.backspace ();
         }
     }
 }
