@@ -62,6 +62,21 @@ namespace Pebbles {
         StyledButton pop_std_dev_button;
         StyledButton memory_clear_button;
         
+        // Statistics Calculator Memory Store
+        private double _memory_reserve;
+        private double memory_reserve {
+            get { return _memory_reserve; }
+            set {
+                _memory_reserve = value;
+                if (_memory_reserve == 0 || _memory_reserve == 0.0) {
+                    display_unit.set_memory_status (false);
+                }
+                else {
+                    display_unit.set_memory_status (true);
+                }
+            }
+        }
+
         public StatisticsView () {
             stat_make_ui ();
             stat_make_event ();
@@ -457,6 +472,58 @@ namespace Pebbles {
             });
             remove_cell_button.button_release_event.connect (() => {
                 display_unit.set_editable_cell ();
+                display_unit.display_on ();
+                return false;
+            });
+
+            memory_plus_button.button_press_event.connect ((event) => {
+                if (event.button == 1) {
+                    display_unit.display_off ();
+                    if (display_unit.answer_label.get_text () != "nan" && !display_unit.answer_label.get_text ().contains (",")) {
+                        memory_reserve += double.parse (display_unit.answer_label.get_text ());
+                    }
+                }
+                return false;
+            });
+            memory_plus_button.button_release_event.connect (() => {
+                display_unit.set_editable_cell ();
+                display_unit.display_on ();
+                return false;
+            });
+
+            memory_minus_button.button_press_event.connect ((event) => {
+                if (event.button == 1) {
+                    display_unit.display_off ();
+                    if (display_unit.answer_label.get_text () != "nan" && !display_unit.answer_label.get_text ().contains (",")) {
+                        memory_reserve -= double.parse (display_unit.answer_label.get_text ());
+                    }
+                }
+                return false;
+            });
+            memory_minus_button.button_release_event.connect (() => {
+                display_unit.set_editable_cell ();
+                display_unit.display_on ();
+                return false;
+            });
+
+            memory_recall_button.button_press_event.connect (() => {
+                display_unit.display_off ();
+                display_unit.char_button_click (memory_reserve.to_string ());
+                return false;
+            });
+
+            memory_recall_button.button_release_event.connect (() => {
+                display_unit.set_editable_cell ();
+                display_unit.display_on ();
+                return false;
+            });
+
+            memory_clear_button.button_press_event.connect ((event) => {
+                display_unit.display_off ();
+                memory_reserve = 0.0;
+                return false;
+            });
+            memory_clear_button.button_release_event.connect (() => {
                 display_unit.display_on ();
                 return false;
             });

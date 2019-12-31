@@ -111,6 +111,7 @@ namespace Pebbles {
 
             memory_label = new Gtk.Label ("M");
             memory_label.get_style_context ().add_class ("pebbles_h4");
+            memory_label.set_opacity (0.2);
 
             lcd_status_bar.attach (result_type_box, 0, 0, 1, 1);
             lcd_status_bar.attach (memory_label, 1, 0, 1, 1);
@@ -417,7 +418,8 @@ namespace Pebbles {
                 if (i == sample_index) {
                     editable_cell = (Gtk.Entry)cell;
                     editable_cell.grab_focus_without_selecting ();
-                    editable_cell.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                    if (editable_cell.cursor_position < editable_cell.get_text ().length)
+                        editable_cell.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
                 }
                 i++;
             });
@@ -536,6 +538,15 @@ namespace Pebbles {
         public void send_backspace () {
             editable_cell.grab_focus_without_selecting ();
             editable_cell.backspace ();
+        }
+
+        public void set_memory_status (bool memory_set) {
+            if (memory_set) {
+                memory_label.set_opacity (1.0);
+            } else {
+                memory_label.set_opacity (0.2);
+            }
+            
         }
     }
 }
