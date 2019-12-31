@@ -527,6 +527,33 @@ namespace Pebbles {
                 display_unit.display_on ();
                 return false;
             });
+
+            this.key_release_event.connect ((event) => {
+                key_released ();
+                return false;
+            });
+        }
+
+        public void key_pressed (Gdk.EventKey event) {
+            stdout.printf ("key: %u\n", event.keyval);
+            display_unit.set_editable_cell ();
+            switch (event.keyval) {
+                case 65288:
+                    del_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                    break;
+                case 65463: // 7 key numpad
+                    seven_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                    break;
+                case 65471:
+                    memory_plus_button.get_style_context ().add_class ("Pebbles_Buttons_Memory_Pressed");
+                    break;
+            }
+        }
+        public void key_released () {
+            del_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            seven_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            eight_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            memory_plus_button.get_style_context ().remove_class ("Pebbles_Buttons_Memory_Pressed");
         }
     }
 }

@@ -577,8 +577,20 @@ namespace Pebbles {
                         if (scientific_view.display_unit.input_entry.get_text () == "0" && scientific_view.display_unit.input_entry.cursor_position == 0)
                             scientific_view.display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
                         break;
+                    case 4:
+                        statistics_view.grab_focus ();
+                        statistics_view.key_pressed (event);
+                        break;
                     case 5:
                         conv_length_view.key_press_event (event);
+                        break;
+                }
+                return false;
+            });
+            key_release_event.connect (() => {
+                switch (view_index) {
+                    case 4:
+                        statistics_view.key_released ();
                         break;
                 }
                 return false;

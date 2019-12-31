@@ -417,9 +417,11 @@ namespace Pebbles {
             input_table.foreach ((cell) => {
                 if (i == sample_index) {
                     editable_cell = (Gtk.Entry)cell;
-                    editable_cell.grab_focus_without_selecting ();
-                    if (editable_cell.cursor_position < editable_cell.get_text ().length)
-                        editable_cell.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                    if (!editable_cell.has_focus) {
+                        editable_cell.grab_focus_without_selecting ();
+                        if (editable_cell.cursor_position < editable_cell.get_text ().length)
+                            editable_cell.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                    }
                 }
                 i++;
             });
