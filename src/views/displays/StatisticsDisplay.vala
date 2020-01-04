@@ -52,6 +52,7 @@ namespace Pebbles {
 
         // Signals
         public signal void cell_content_changed (string content);
+        public signal void navigate_cell (bool navigate_add, bool navigate_left);
 
         construct {
             stats_display_make_ui ();
@@ -467,12 +468,18 @@ namespace Pebbles {
         public void shift_tab_navigate () {
             if(!navigate_left ()) {
                 insert_cell (false);
+                navigate_cell (false, true);
+            } else {
+                navigate_cell (true, true);
             }
         }
 
         public void tab_navigate () {
             if (!navigate_right ()) {
                 insert_cell (true);
+                navigate_cell (false, false);
+            } else {
+                navigate_cell (true, false);
             }
         }
 

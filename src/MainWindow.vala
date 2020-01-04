@@ -587,7 +587,7 @@ namespace Pebbles {
                 }
                 return false;
             });
-            key_release_event.connect (() => {
+            key_release_event.connect ((event) => {
                 switch (view_index) {
                     case 4:
                         statistics_view.key_released ();

@@ -25,7 +25,7 @@ namespace Pebbles {
 
         // Left Buttons
         StyledButton all_clear_button;
-        StyledButton del_button;
+        Gtk.Button del_button;
         StyledButton reset_button;
         StyledButton seven_button;
         StyledButton eight_button;
@@ -116,7 +116,8 @@ namespace Pebbles {
             // Make buttons on the left
             all_clear_button = new StyledButton ("C", "Clear cell data");
             all_clear_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
-            del_button = new StyledButton ("Del", "Backspace");
+            del_button = new Gtk.Button.from_icon_name ("edit-clear-symbolic", Gtk.IconSize.BUTTON);
+            del_button.set_tooltip_text ("Backspace");
             del_button.sensitive = false;
             reset_button = new StyledButton ("Reset", "Clear sample");
             seven_button = new StyledButton ("7");
@@ -440,12 +441,12 @@ namespace Pebbles {
                         break;
                 }
                 display_unit.display_off ();
-                add_cell_button.get_style_context ().remove_class ("pebbles_button_prompt");
                 return false;
             });
             add_cell_button.button_release_event.connect (() => {
                 display_unit.set_editable_cell ();
                 display_unit.display_on ();
+                add_cell_button.get_style_context ().remove_class ("pebbles_button_prompt");
                 return false;
             });
 
@@ -534,6 +535,18 @@ namespace Pebbles {
                 key_released ();
                 return false;
             });
+
+            this.display_unit.navigate_cell.connect ((navigating, direction_left) => {
+                if (navigating) {
+                    if (direction_left) {
+                        nav_left_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                    } else {
+                        nav_right_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                    }
+                } else {
+                    add_cell_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                }
+            });
         }
 
         public void key_pressed (Gdk.EventKey event) {
@@ -546,8 +559,55 @@ namespace Pebbles {
                 case 65463: // 7 key numpad
                     seven_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
                     break;
+                case 65464: // 8 key numpad
+                    eight_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                    break;
+                case 65465: // 9 key numpad
+                    nine_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                    break;
+                case 65460: // 4 key numpad
+                    four_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                    break;
+                case 65461: // 5 key numpad
+                    five_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                    break;
+                case 65462: // 6 key numpad
+                    six_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                    break;
+                case 65457:
+                    one_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                    break;
+                case 65458:
+                    two_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                    break;
+                case 65459:
+                    three_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                    break;
+                case 65456:
+                    zero_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                    break;
+                case 65454:
+                    decimal_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                    break;
                 case 65471:
                     memory_plus_button.get_style_context ().add_class ("Pebbles_Buttons_Memory_Pressed");
+                    break;
+                case 65472:
+                    memory_minus_button.get_style_context ().add_class ("Pebbles_Buttons_Memory_Pressed");
+                    break;
+                case 65473:
+                    memory_recall_button.get_style_context ().add_class ("Pebbles_Buttons_Memory_Pressed");
+                    break;
+                case 65474:
+                    memory_clear_button.get_style_context ().add_class ("Pebbles_Buttons_Memory_Pressed");
+                    break;
+                case 65289:
+                    display_unit.tab_navigate ();
+                    add_cell_button.get_style_context ().remove_class ("pebbles_button_prompt");
+                    break;
+                case 65056:
+                    display_unit.shift_tab_navigate ();
+                    add_cell_button.get_style_context ().remove_class ("pebbles_button_prompt");
                     break;
             }
         }
@@ -555,7 +615,24 @@ namespace Pebbles {
             del_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
             seven_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
             eight_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            nine_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            four_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            five_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            six_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            one_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            two_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            three_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            zero_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            decimal_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
             memory_plus_button.get_style_context ().remove_class ("Pebbles_Buttons_Memory_Pressed");
+            memory_minus_button.get_style_context ().remove_class ("Pebbles_Buttons_Memory_Pressed");
+            memory_recall_button.get_style_context ().remove_class ("Pebbles_Buttons_Memory_Pressed");
+            memory_clear_button.get_style_context ().remove_class ("Pebbles_Buttons_Memory_Pressed");
+            add_cell_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            nav_left_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            nav_right_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+
+            display_unit.set_editable_cell ();
         }
     }
 }
