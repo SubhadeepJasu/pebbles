@@ -619,6 +619,24 @@ namespace Pebbles {
                     display_unit.shift_tab_navigate ();
                     add_cell_button.get_style_context ().remove_class ("pebbles_button_prompt");
                     break;
+                case 65535:
+                    display_unit.clear_cell ();
+                    add_cell_button.get_style_context ().remove_class ("pebbles_button_prompt");
+                    break;
+                case 65365:
+                    display_unit.insert_cell (true);
+                    add_cell_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                    add_cell_button.get_style_context ().remove_class ("pebbles_button_prompt");
+                    break;
+                case 65366:
+                    display_unit.insert_cell (false);
+                    add_cell_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                    add_cell_button.get_style_context ().remove_class ("pebbles_button_prompt");
+                    break;
+                case 65367:
+                    display_unit.remove_cell ();
+                    remove_cell_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                    break;
             }
         }
         public void key_released () {
@@ -641,6 +659,8 @@ namespace Pebbles {
             add_cell_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
             nav_left_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
             nav_right_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            all_clear_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            remove_cell_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
 
             display_unit.set_editable_cell ();
         }

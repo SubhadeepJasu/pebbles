@@ -414,12 +414,16 @@ namespace Pebbles {
                     if (sample_index > 0) {
                         sample_index--;
                     }
-                    else {
-                        add_cell_warning.set_opacity (1.0);
-                    }
                 }
                 i++;
             });
+            i = 0;
+            input_table.foreach ((cell) => {
+                i++;
+            });
+            if (i == 0) {
+                add_cell_warning.set_opacity (1.0);
+            }
             //  foreach (Gtk.Entry cell in input_table) {
             //      if (i == sample_index) {
             //          input_table.remove (cell);
