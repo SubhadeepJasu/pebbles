@@ -557,33 +557,43 @@ namespace Pebbles {
                     del_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
                     break;
                 case 65463: // 7 key numpad
+                case 55:
                     seven_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
                     break;
                 case 65464: // 8 key numpad
+                case 56:
                     eight_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
                     break;
                 case 65465: // 9 key numpad
+                case 57:
                     nine_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
                     break;
                 case 65460: // 4 key numpad
+                case 52:
                     four_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
                     break;
                 case 65461: // 5 key numpad
+                case 53:
                     five_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
                     break;
                 case 65462: // 6 key numpad
+                case 54:
                     six_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
                     break;
-                case 65457:
+                case 65457: // 1 key numpad
+                case 49:
                     one_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
                     break;
-                case 65458:
+                case 65458: // 2 key numpad
+                case 50:
                     two_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
                     break;
-                case 65459:
+                case 65459: // 3 key numpad
+                case 51:
                     three_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
                     break;
-                case 65456:
+                case 65456: // 0 key numpad
+                case 48:
                     zero_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
                     break;
                 case 65454:
