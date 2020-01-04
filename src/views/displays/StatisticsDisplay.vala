@@ -47,6 +47,9 @@ namespace Pebbles {
         public int sample_index = -1;
         Gtk.Entry editable_cell;
 
+        // Warning
+        Gtk.Label add_cell_warning;
+
         // Signals
         public signal void cell_content_changed (string content);
 
@@ -137,6 +140,14 @@ namespace Pebbles {
             var input_table_scrollable = new Gtk.ScrolledWindow (null, null);
             input_table_scrollable.add (input_table);
 
+            add_cell_warning = new Gtk.Label ("▭+  Enter data by adding new cell");
+            add_cell_warning.get_style_context ().add_class ("pebbles_h3");
+
+            Gtk.Overlay display_overlay = new Gtk.Overlay ();
+            display_overlay.add_overlay (add_cell_warning);
+            display_overlay.add_overlay (input_table_scrollable);
+            display_overlay.height_request = 34;
+
             
             
 
@@ -153,7 +164,7 @@ namespace Pebbles {
             attach (lcd_separator_vertical, 1, 1, 1, 1);
             attach (bar_graph, 2, 1, 1, 1);
             attach (lcd_separator_horizontal, 0, 2, 3, 1);
-            attach (input_table_scrollable, 0, 3, 3, 1);
+            attach (display_overlay, 0, 3, 3, 1);
             
         }
 
@@ -391,6 +402,7 @@ namespace Pebbles {
                 find_focused_cell ();
                 return false;
             });
+            add_cell_warning.set_opacity (0.0);
         }
 
         public void remove_cell () {
@@ -400,6 +412,9 @@ namespace Pebbles {
                     input_table.remove (cell);
                     if (sample_index > 0) {
                         sample_index--;
+                    }
+                    else {
+                        add_cell_warning.set_opacity (1.0);
                     }
                 }
                 i++;
@@ -477,6 +492,7 @@ namespace Pebbles {
                 input_table.remove (cell);
                 sample_index = -1;
             });
+            add_cell_warning.set_opacity (1.0);
             return true;
         }
 

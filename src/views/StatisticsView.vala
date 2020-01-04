@@ -43,7 +43,7 @@ namespace Pebbles {
         // Right Buttons
         StyledButton nav_left_button;
         StyledButton nav_right_button;
-        Gtk.Button add_cell_button;
+        StyledButton add_cell_button;
         Gtk.Button remove_cell_button;
         StyledButton cardinality_button;
         StyledButton statistical_mode_button;
@@ -154,10 +154,11 @@ namespace Pebbles {
             // Make buttons on the right
             nav_left_button = new StyledButton ("❰", "Navigate to the cell on the left");
             nav_right_button = new StyledButton ("❱", "Navigate to the cell on the right");
-            add_cell_button = new Gtk.Button.from_icon_name ("document-new-symbolic", Gtk.IconSize.BUTTON);
-            add_cell_button.set_tooltip_text ("Left click: Add cell, Right click: Insert cell");
-            remove_cell_button = new Gtk.Button.from_icon_name ("edit-delete-symbolic", Gtk.IconSize.BUTTON);
-            remove_cell_button.set_tooltip_text ("Remove current cell");
+            add_cell_button = new StyledButton ("▭⁺", "Left click: Add cell, Right click: Insert cell");
+            add_cell_button.get_style_context ().add_class ("h3");
+            add_cell_button.get_style_context ().add_class ("pebbles_button_prompt");
+            remove_cell_button = new StyledButton ("▭⁻", "Remove current cell");
+            remove_cell_button.get_style_context ().add_class ("h3");
             cardinality_button = new StyledButton ("n", "Sample size");
             cardinality_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             statistical_mode_button = new StyledButton ("mode", "Mode of the sample data");
@@ -439,6 +440,7 @@ namespace Pebbles {
                         break;
                 }
                 display_unit.display_off ();
+                add_cell_button.get_style_context ().remove_class ("pebbles_button_prompt");
                 return false;
             });
             add_cell_button.button_release_event.connect (() => {

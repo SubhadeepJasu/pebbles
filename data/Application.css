@@ -71,6 +71,17 @@
         0 1px 0 0 alpha (@bg_highlight_color, 0.3);
 }
 
+.pebbles_button_prompt
+{
+	animation: throbe 1s ease-out 1;
+	animation-iteration-count: infinite;
+}
+
+@keyframes throbe {
+    0% {background-color: alpha(#f9c440, 0.5);}
+    100% {background-color: alpha(#f9c440, 0.0);}
+}
+
 .Pebbles_Buttons_Memory {
 	color: #333;
 	text-shadow: 0 1px alpha (#000, 0.0);
@@ -188,6 +199,19 @@
 .pebbles_h2 selection {
 	color: #C6D0C6;
 	background: #272863;
+}
+
+.pebbles_h3 {
+	font-size: 16px;
+	font-family: Raleway;
+	text-shadow: 0 0px alpha (#000, 0);
+	opacity: 0.8;
+	color:#272863;
+	margin-top: 3px;
+	border: none;
+	background: none;
+	box-shadow: none;
+	caret-color: alpha (#272863, 0.8);
 }
 
 .pebbles_h4 {
