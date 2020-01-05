@@ -5,6 +5,7 @@ executable(
     'Settings.vala',
     'MainWindow.vala',
     'StyledButton.vala',
+    'KeyboardMap.vala',
     'views/MiniCalculator.vala',
     'views/CalculusView.vala',
     'views/ProgrammerView.vala',

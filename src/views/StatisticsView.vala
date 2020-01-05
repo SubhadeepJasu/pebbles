@@ -553,87 +553,88 @@ namespace Pebbles {
             stdout.printf ("key: %u\n", event.keyval);
             display_unit.set_editable_cell ();
             switch (event.keyval) {
-                case 65288:
+                case KeyboardMap.KeyMap.BACKSPACE:
                     del_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
                     break;
-                case 65463: // 7 key numpad
-                case 55:
+                case KeyboardMap.KeyMap.NUMPAD_7: // 7 key numpad
+                case KeyboardMap.KeyMap.KEYPAD_7:
                     seven_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
                     break;
-                case 65464: // 8 key numpad
-                case 56:
+                case KeyboardMap.KeyMap.NUMPAD_8: // 8 key numpad
+                case KeyboardMap.KeyMap.KEYPAD_8:
                     eight_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
                     break;
-                case 65465: // 9 key numpad
-                case 57:
+                case KeyboardMap.KeyMap.NUMPAD_9: // 9 key numpad
+                case KeyboardMap.KeyMap.KEYPAD_9:
                     nine_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
                     break;
-                case 65460: // 4 key numpad
-                case 52:
+                case KeyboardMap.KeyMap.NUMPAD_4: // 4 key numpad
+                case KeyboardMap.KeyMap.KEYPAD_4:
                     four_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
                     break;
-                case 65461: // 5 key numpad
-                case 53:
+                case KeyboardMap.KeyMap.NUMPAD_5: // 5 key numpad
+                case KeyboardMap.KeyMap.KEYPAD_5:
                     five_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
                     break;
-                case 65462: // 6 key numpad
-                case 54:
+                case KeyboardMap.KeyMap.NUMPAD_6: // 6 key numpad
+                case KeyboardMap.KeyMap.KEYPAD_6:
                     six_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
                     break;
-                case 65457: // 1 key numpad
-                case 49:
+                case KeyboardMap.KeyMap.NUMPAD_1: // 1 key numpad
+                case KeyboardMap.KeyMap.KEYPAD_1:
                     one_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
                     break;
-                case 65458: // 2 key numpad
-                case 50:
+                case KeyboardMap.KeyMap.NUMPAD_2: // 2 key numpad
+                case KeyboardMap.KeyMap.KEYPAD_2:
                     two_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
                     break;
-                case 65459: // 3 key numpad
-                case 51:
+                case KeyboardMap.KeyMap.NUMPAD_3: // 3 key numpad
+                case KeyboardMap.KeyMap.KEYPAD_3:
                     three_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
                     break;
-                case 65456: // 0 key numpad
-                case 48:
+                case KeyboardMap.KeyMap.NUMPAD_0: // 0 key numpad
+                case KeyboardMap.KeyMap.KEYPAD_0:
                     zero_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
                     break;
-                case 65454:
+                case KeyboardMap.KeyMap.NUMPAD_RADIX:
+                case KeyboardMap.KeyMap.KEYPAD_RADIX:
                     decimal_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
                     break;
-                case 65471:
+                case KeyboardMap.KeyMap.F2:
                     memory_plus_button.get_style_context ().add_class ("Pebbles_Buttons_Memory_Pressed");
                     break;
-                case 65472:
+                case KeyboardMap.KeyMap.F3:
                     memory_minus_button.get_style_context ().add_class ("Pebbles_Buttons_Memory_Pressed");
                     break;
-                case 65473:
+                case KeyboardMap.KeyMap.F4:
                     memory_recall_button.get_style_context ().add_class ("Pebbles_Buttons_Memory_Pressed");
                     break;
-                case 65474:
+                case KeyboardMap.KeyMap.F5:
                     memory_clear_button.get_style_context ().add_class ("Pebbles_Buttons_Memory_Pressed");
                     break;
-                case 65289:
+                case KeyboardMap.KeyMap.TAB:
                     display_unit.tab_navigate ();
                     add_cell_button.get_style_context ().remove_class ("pebbles_button_prompt");
                     break;
-                case 65056:
+                case KeyboardMap.KeyMap.SHIFT_TAB:
                     display_unit.shift_tab_navigate ();
                     add_cell_button.get_style_context ().remove_class ("pebbles_button_prompt");
                     break;
-                case 65535:
+                case KeyboardMap.KeyMap.DELETE:
                     display_unit.clear_cell ();
                     add_cell_button.get_style_context ().remove_class ("pebbles_button_prompt");
                     break;
-                case 65365:
+                case KeyboardMap.KeyMap.PAGE_UP:
                     display_unit.insert_cell (true);
                     add_cell_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
                     add_cell_button.get_style_context ().remove_class ("pebbles_button_prompt");
                     break;
-                case 65366:
+                case KeyboardMap.KeyMap.PAGE_DOWN:
                     display_unit.insert_cell (false);
                     add_cell_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
                     add_cell_button.get_style_context ().remove_class ("pebbles_button_prompt");
                     break;
-                case 65367:
+                case KeyboardMap.KeyMap.NUMPAD_END:
                     display_unit.remove_cell ();
                     remove_cell_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
                     break;
