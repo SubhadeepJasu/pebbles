@@ -118,6 +118,7 @@ namespace Pebbles {
             else {
                 shift_label.set_opacity (0.2);
             }
+            this.queue_draw ();
         }
         
         public void set_angle_status (int state) {
@@ -141,6 +142,7 @@ namespace Pebbles {
                     angle_mode = GlobalAngleUnit.DEG;
                     break;
             }
+            this.queue_draw ();
         }
 
         public void set_memory_status (bool state) {
