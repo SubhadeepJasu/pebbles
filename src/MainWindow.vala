@@ -71,6 +71,8 @@ namespace Pebbles {
         Pebbles.ConvDataView   conv_data_view;
         Pebbles.ConvCurrView   conv_curr_view;
 
+
+        ControlsOverlay controls_modal;
         // Active View Index
         private int view_index = 0;
         
@@ -210,10 +212,30 @@ namespace Pebbles {
             app_menu.set_image (new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
             
             var settings_menu = new Gtk.Menu ();
-            var menu_item_constants = new Gtk.MenuItem.with_label ("Configure Constant Button");
+            var menu_item_constants_item = new Gtk.MenuItem.with_label ("Configure Constant Button");
+            var controls_overlay_item = new Gtk.MenuItem.with_label ("Show Controls");
 
-            settings_menu.append (menu_item_constants);
+            settings_menu.append (menu_item_constants_item);
+            settings_menu.append (controls_overlay_item);
             settings_menu.show_all();
+
+            controls_overlay_item.activate.connect (() => {
+                if (controls_modal == null) {
+                    controls_modal = new ControlsOverlay ();
+                    controls_modal.application = this.application;
+                    this.application.add_window (controls_modal);
+                    controls_modal.set_attached_to (this);
+                    
+                    controls_modal.set_transient_for (this);
+
+                    controls_modal.delete_event.connect (() => {
+                        controls_modal = null;
+                        return false;
+                    });
+                }
+                controls_modal.present ();
+                
+            });
             
             app_menu.popup = settings_menu;
             
@@ -585,7 +607,7 @@ namespace Pebbles {
                         conv_length_view.key_press_event (event);
                         break;
                 }
-                return false;
+                return true;
             });
             key_release_event.connect ((event) => {
                 switch (view_index) {

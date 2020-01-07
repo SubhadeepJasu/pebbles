@@ -114,12 +114,12 @@ namespace Pebbles {
             button_container_right.row_spacing = 8;
 
             // Make buttons on the left
-            all_clear_button = new StyledButton ("C", "Clear cell data");
+            all_clear_button = new StyledButton ("AC", "All Clear", {"Delete"});
             all_clear_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
             del_button = new Gtk.Button.from_icon_name ("edit-clear-symbolic", Gtk.IconSize.BUTTON);
             del_button.set_tooltip_text ("Backspace");
             del_button.sensitive = false;
-            reset_button = new StyledButton ("Reset", "Clear sample");
+            reset_button = new StyledButton ("Reset", "Clear sample", {"End"});
             seven_button = new StyledButton ("7");
             eight_button = new StyledButton ("8");
             nine_button = new StyledButton ("9");
@@ -153,44 +153,44 @@ namespace Pebbles {
             button_container_left.set_row_homogeneous (true);
 
             // Make buttons on the right
-            nav_left_button = new StyledButton ("❰", "Navigate to the cell on the left");
-            nav_right_button = new StyledButton ("❱", "Navigate to the cell on the right");
-            add_cell_button = new StyledButton ("▭⁺", "Left click: Add cell, Right click: Insert cell");
+            nav_left_button = new StyledButton ("❰", "Navigate to the cell on the left", {"Left"});
+            nav_right_button = new StyledButton ("❱", "Navigate to the cell on the right", {"Right"});
+            add_cell_button = new StyledButton ("▭⁺", "Left click: Add cell, Right click: Insert cell", {"PageUp", "PageDown"});
             add_cell_button.get_style_context ().add_class ("h3");
             add_cell_button.get_style_context ().add_class ("pebbles_button_prompt");
-            remove_cell_button = new StyledButton ("▭⁻", "Remove current cell");
+            remove_cell_button = new StyledButton ("▭⁻", "Remove current cell", {"Home"});
             remove_cell_button.get_style_context ().add_class ("h3");
-            cardinality_button = new StyledButton ("n", "Sample size");
+            cardinality_button = new StyledButton ("n", "Sample size", {"N"});
             cardinality_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            statistical_mode_button = new StyledButton ("mode", "Mode of the sample data");
+            statistical_mode_button = new StyledButton ("mode", "Mode of the sample data", {"O"});
             statistical_mode_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            median_button = new StyledButton ("M", "Median");
+            median_button = new StyledButton ("M", "Median", {"E"});
             median_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            memory_plus_button = new StyledButton ("M+");
+            memory_plus_button = new StyledButton ("M+", "Add to Memory", {"F2"});
             memory_plus_button.get_style_context ().add_class ("Pebbles_Buttons_Memory");
-            summation_button = new StyledButton ("Σx", "Summation of all data values");
+            summation_button = new StyledButton ("Σx", "Summation of all data values", {"S"});
             summation_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            summation_sq_button = new StyledButton ("Σx<sup>2</sup>", "Summation of all data values squared");
+            summation_sq_button = new StyledButton ("Σx<sup>2</sup>", "Summation of all data values squared", {"Q"});
             summation_sq_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            sample_variance_button = new StyledButton ("SV", "Sample variance");
+            sample_variance_button = new StyledButton ("SV", "Sample variance", {"V"});
             sample_variance_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            memory_minus_button = new StyledButton ("M-");
+            memory_minus_button = new StyledButton ("M-", "Subtract from Memory", {"F3"});
             memory_minus_button.get_style_context ().add_class ("Pebbles_Buttons_Memory");
-            mean_button = new StyledButton ("x̄", "Mean");
+            mean_button = new StyledButton ("x̄", "Mean", {"M"});
             mean_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            mean_sq_button = new StyledButton ("x̄<sup>2</sup>", "Mean of squared data values");
+            mean_sq_button = new StyledButton ("x̄<sup>2</sup>", "Mean of squared data values", {"A"});
             mean_sq_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            sample_std_dev_button = new StyledButton ("SD", "Standard deviation");
+            sample_std_dev_button = new StyledButton ("SD", "Standard deviation", {"D"});
             sample_std_dev_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            memory_recall_button = new StyledButton ("MR", "Memory Recall");
+            memory_recall_button = new StyledButton ("MR", "Memory Recall", {"F4"});
             memory_recall_button.get_style_context ().add_class ("Pebbles_Buttons_Memory");
-            geometric_mean_button = new StyledButton ("GM", "Geometric mean");
+            geometric_mean_button = new StyledButton ("GM", "Geometric mean", {"G"});
             geometric_mean_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            pop_variance_button = new StyledButton ("σ<sup>2</sup>", "Population Variance");
+            pop_variance_button = new StyledButton ("σ<sup>2</sup>", "Population Variance", {"P"});
             pop_variance_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            pop_std_dev_button = new StyledButton ("σ", "Population standard deviation");
+            pop_std_dev_button = new StyledButton ("σ", "Population standard deviation", {"L"});
             pop_std_dev_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            memory_clear_button = new StyledButton ("MC");
+            memory_clear_button = new StyledButton ("MC", "Memory Clear", {"F5"});
             memory_clear_button.get_style_context ().add_class ("Pebbles_Buttons_Memory");
 
 
@@ -228,40 +228,40 @@ namespace Pebbles {
         void stat_make_event () {
             // Numeric Buttons
             seven_button.clicked.connect (() => {
-                display_unit.char_button_click ("7");
+                display_unit.insert_text ("7");
             });
             eight_button.clicked.connect (() => {
-                display_unit.char_button_click ("8");
+                display_unit.insert_text ("8");
             });
             nine_button.clicked.connect (() => {
-                display_unit.char_button_click ("9");
+                display_unit.insert_text ("9");
             });
             four_button.clicked.connect (() => {
-                display_unit.char_button_click ("4");
+                display_unit.insert_text ("4");
             });
             five_button.clicked.connect (() => {
-                display_unit.char_button_click ("5");
+                display_unit.insert_text ("5");
             });
             six_button.clicked.connect (() => {
-                display_unit.char_button_click ("6");
+                display_unit.insert_text ("6");
             });
             one_button.clicked.connect (() => {
-                display_unit.char_button_click ("1");
+                display_unit.insert_text ("1");
             });
             two_button.clicked.connect (() => {
-                display_unit.char_button_click ("2");
+                display_unit.insert_text ("2");
             });
             three_button.clicked.connect (() => {
-                display_unit.char_button_click ("3");
+                display_unit.insert_text ("3");
             });
             zero_button.clicked.connect (() => {
-                display_unit.char_button_click ("0");
+                display_unit.insert_text ("0");
             });
             decimal_button.clicked.connect (() => {
-                display_unit.char_button_click (".");
+                display_unit.insert_text (".");
             });
             negative_button.clicked.connect (() => {
-                display_unit.char_button_click ("-");
+                display_unit.insert_text ("-");
             });
 
             display_unit.cell_content_changed.connect ((content) => {
@@ -280,9 +280,15 @@ namespace Pebbles {
                 display_unit.clear_cell ();
             });
 
-            reset_button.clicked.connect (() => {
+            reset_button.button_press_event.connect (() => {
+                display_unit.display_off ();
+                return false;
+            });
+            reset_button.button_release_event.connect (() => {
                 display_unit.reset_sample ();
                 del_button.sensitive = false;
+                display_unit.display_on ();
+                return false;
             });
 
 
@@ -511,7 +517,7 @@ namespace Pebbles {
 
             memory_recall_button.button_press_event.connect (() => {
                 display_unit.display_off ();
-                display_unit.char_button_click (memory_reserve.to_string ());
+                display_unit.insert_text (memory_reserve.to_string ());
                 return false;
             });
 
@@ -553,91 +559,231 @@ namespace Pebbles {
             stdout.printf ("key: %u\n", event.keyval);
             display_unit.set_editable_cell ();
             switch (event.keyval) {
-                case KeyboardMap.KeyMap.BACKSPACE:
-                    del_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
-                    break;
-                case KeyboardMap.KeyMap.NUMPAD_7: // 7 key numpad
-                case KeyboardMap.KeyMap.KEYPAD_7:
-                    seven_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
-                    break;
-                case KeyboardMap.KeyMap.NUMPAD_8: // 8 key numpad
-                case KeyboardMap.KeyMap.KEYPAD_8:
-                    eight_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
-                    break;
-                case KeyboardMap.KeyMap.NUMPAD_9: // 9 key numpad
-                case KeyboardMap.KeyMap.KEYPAD_9:
-                    nine_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
-                    break;
-                case KeyboardMap.KeyMap.NUMPAD_4: // 4 key numpad
-                case KeyboardMap.KeyMap.KEYPAD_4:
-                    four_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
-                    break;
-                case KeyboardMap.KeyMap.NUMPAD_5: // 5 key numpad
-                case KeyboardMap.KeyMap.KEYPAD_5:
-                    five_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
-                    break;
-                case KeyboardMap.KeyMap.NUMPAD_6: // 6 key numpad
-                case KeyboardMap.KeyMap.KEYPAD_6:
-                    six_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
-                    break;
-                case KeyboardMap.KeyMap.NUMPAD_1: // 1 key numpad
-                case KeyboardMap.KeyMap.KEYPAD_1:
-                    one_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
-                    break;
-                case KeyboardMap.KeyMap.NUMPAD_2: // 2 key numpad
-                case KeyboardMap.KeyMap.KEYPAD_2:
-                    two_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
-                    break;
-                case KeyboardMap.KeyMap.NUMPAD_3: // 3 key numpad
-                case KeyboardMap.KeyMap.KEYPAD_3:
-                    three_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
-                    break;
-                case KeyboardMap.KeyMap.NUMPAD_0: // 0 key numpad
-                case KeyboardMap.KeyMap.KEYPAD_0:
-                    zero_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
-                    break;
-                case KeyboardMap.KeyMap.NUMPAD_RADIX:
-                case KeyboardMap.KeyMap.KEYPAD_RADIX:
-                    decimal_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
-                    break;
-                case KeyboardMap.KeyMap.F2:
-                    memory_plus_button.get_style_context ().add_class ("Pebbles_Buttons_Memory_Pressed");
-                    break;
-                case KeyboardMap.KeyMap.F3:
-                    memory_minus_button.get_style_context ().add_class ("Pebbles_Buttons_Memory_Pressed");
-                    break;
-                case KeyboardMap.KeyMap.F4:
-                    memory_recall_button.get_style_context ().add_class ("Pebbles_Buttons_Memory_Pressed");
-                    break;
-                case KeyboardMap.KeyMap.F5:
-                    memory_clear_button.get_style_context ().add_class ("Pebbles_Buttons_Memory_Pressed");
-                    break;
-                case KeyboardMap.KeyMap.TAB:
-                    display_unit.tab_navigate ();
-                    add_cell_button.get_style_context ().remove_class ("pebbles_button_prompt");
-                    break;
-                case KeyboardMap.KeyMap.SHIFT_TAB:
-                    display_unit.shift_tab_navigate ();
-                    add_cell_button.get_style_context ().remove_class ("pebbles_button_prompt");
-                    break;
-                case KeyboardMap.KeyMap.DELETE:
-                    display_unit.clear_cell ();
-                    add_cell_button.get_style_context ().remove_class ("pebbles_button_prompt");
-                    break;
-                case KeyboardMap.KeyMap.PAGE_UP:
-                    display_unit.insert_cell (true);
-                    add_cell_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
-                    add_cell_button.get_style_context ().remove_class ("pebbles_button_prompt");
-                    break;
-                case KeyboardMap.KeyMap.PAGE_DOWN:
-                    display_unit.insert_cell (false);
-                    add_cell_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
-                    add_cell_button.get_style_context ().remove_class ("pebbles_button_prompt");
-                    break;
-                case KeyboardMap.KeyMap.NUMPAD_END:
-                    display_unit.remove_cell ();
-                    remove_cell_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
-                    break;
+                case KeyboardHandler.KeyMap.BACKSPACE:
+                display_unit.send_backspace ();
+                del_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.NUMPAD_7: // 7 key numpad
+                case KeyboardHandler.KeyMap.KEYPAD_7:
+                display_unit.insert_text ("7");
+                seven_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.NUMPAD_8: // 8 key numpad
+                case KeyboardHandler.KeyMap.KEYPAD_8:
+                display_unit.insert_text ("8");
+                eight_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.NUMPAD_9: // 9 key numpad
+                case KeyboardHandler.KeyMap.KEYPAD_9:
+                display_unit.insert_text ("9");
+                nine_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.NUMPAD_4: // 4 key numpad
+                case KeyboardHandler.KeyMap.KEYPAD_4:
+                display_unit.insert_text ("4");
+                four_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.NUMPAD_5: // 5 key numpad
+                case KeyboardHandler.KeyMap.KEYPAD_5:
+                display_unit.insert_text ("5");
+                five_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.NUMPAD_6: // 6 key numpad
+                case KeyboardHandler.KeyMap.KEYPAD_6:
+                display_unit.insert_text ("6");
+                six_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.NUMPAD_1: // 1 key numpad
+                case KeyboardHandler.KeyMap.KEYPAD_1:
+                display_unit.insert_text ("1");
+                one_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.NUMPAD_2: // 2 key numpad
+                case KeyboardHandler.KeyMap.KEYPAD_2:
+                display_unit.insert_text ("2");
+                two_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.NUMPAD_3: // 3 key numpad
+                case KeyboardHandler.KeyMap.KEYPAD_3:
+                display_unit.insert_text ("3");
+                three_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.NUMPAD_0: // 0 key numpad
+                case KeyboardHandler.KeyMap.KEYPAD_0:
+                display_unit.insert_text ("0");
+                zero_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.NUMPAD_RADIX:
+                case KeyboardHandler.KeyMap.KEYPAD_RADIX:
+                display_unit.insert_text (".");
+                decimal_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.F2:
+                display_unit.display_off ();
+                if (display_unit.answer_label.get_text () != "nan" && !display_unit.answer_label.get_text ().contains (",")) {
+                    memory_reserve += double.parse (display_unit.answer_label.get_text ());
+                }
+                memory_plus_button.get_style_context ().add_class ("Pebbles_Buttons_Memory_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.F3:
+                display_unit.display_off ();
+                if (display_unit.answer_label.get_text () != "nan" && !display_unit.answer_label.get_text ().contains (",")) {
+                    memory_reserve -= double.parse (display_unit.answer_label.get_text ());
+                }
+                memory_minus_button.get_style_context ().add_class ("Pebbles_Buttons_Memory_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.F4:
+                display_unit.insert_text (memory_reserve.to_string ());
+                memory_recall_button.get_style_context ().add_class ("Pebbles_Buttons_Memory_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.F5:
+                display_unit.display_off ();
+                memory_reserve = 0.0;
+                memory_clear_button.get_style_context ().add_class ("Pebbles_Buttons_Memory_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.TAB:
+                display_unit.tab_navigate ();
+                add_cell_button.get_style_context ().remove_class ("pebbles_button_prompt");
+                break;
+                case KeyboardHandler.KeyMap.SHIFT_TAB:
+                display_unit.shift_tab_navigate ();
+                add_cell_button.get_style_context ().remove_class ("pebbles_button_prompt");
+                break;
+                case KeyboardHandler.KeyMap.DELETE:
+                display_unit.display_off ();
+                display_unit.clear_cell ();
+                add_cell_button.get_style_context ().remove_class ("pebbles_button_prompt");
+                break;
+                case KeyboardHandler.KeyMap.PAGE_UP:
+                display_unit.display_off ();
+                display_unit.insert_cell (true);
+                add_cell_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                add_cell_button.get_style_context ().remove_class ("pebbles_button_prompt");
+                break;
+                case KeyboardHandler.KeyMap.PAGE_DOWN:
+                display_unit.display_off ();
+                display_unit.insert_cell (false);
+                add_cell_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                add_cell_button.get_style_context ().remove_class ("pebbles_button_prompt");
+                break;
+                case KeyboardHandler.KeyMap.MINUS_NUMPAD:
+                display_unit.insert_text ("-");
+                negative_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.NUMPAD_HOME:
+                display_unit.display_off ();
+                display_unit.remove_cell ();
+                remove_cell_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+
+                case KeyboardHandler.KeyMap.NAV_LEFT:
+                display_unit.navigate_left ();
+                break;
+                case KeyboardHandler.KeyMap.NAV_RIGHT:
+                display_unit.navigate_right ();
+                break;
+
+                // Function Buttons
+                case KeyboardHandler.KeyMap.N_LOWER:
+                case KeyboardHandler.KeyMap.N_UPPER:
+                display_unit.set_result_type (2);
+                display_unit.answer_label.set_text (display_unit.get_cardinality ().to_string ());
+                display_unit.display_off ();
+                cardinality_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.O_LOWER:
+                case KeyboardHandler.KeyMap.O_UPPER:
+                display_unit.set_result_type (3);
+                Statistics stat_calc = new Statistics();
+                display_unit.answer_label.set_text (stat_calc.mode (display_unit.get_samples ()));
+                display_unit.display_off ();
+                statistical_mode_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.E_LOWER:
+                case KeyboardHandler.KeyMap.E_UPPER:
+                display_unit.set_result_type (1);
+                Statistics stat_calc = new Statistics();
+                display_unit.answer_label.set_text (stat_calc.median (display_unit.get_samples ()));
+                display_unit.display_off ();
+                median_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.S_LOWER:
+                case KeyboardHandler.KeyMap.S_UPPER:
+                display_unit.set_result_type (4);
+                Statistics stat_calc = new Statistics();
+                display_unit.answer_label.set_text (stat_calc.summation_x (display_unit.get_samples ()));
+                display_unit.display_off ();
+                summation_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.Q_LOWER:
+                case KeyboardHandler.KeyMap.Q_UPPER:
+                display_unit.set_result_type (5);
+                Statistics stat_calc = new Statistics();
+                display_unit.answer_label.set_text (stat_calc.summation_x_square (display_unit.get_samples ()));
+                display_unit.display_off ();
+                summation_sq_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.V_LOWER:
+                case KeyboardHandler.KeyMap.V_UPPER:
+                display_unit.set_result_type (10);
+                Statistics stat_calc = new Statistics();
+                display_unit.answer_label.set_text (stat_calc.sample_variance (display_unit.get_samples ()));
+                display_unit.display_off ();
+                sample_variance_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.M_LOWER:
+                case KeyboardHandler.KeyMap.M_UPPER:
+                display_unit.set_result_type (6);
+                Statistics stat_calc = new Statistics();
+                display_unit.answer_label.set_text (stat_calc.mean_x (display_unit.get_samples ()));
+                display_unit.display_off ();
+                mean_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.A_LOWER:
+                case KeyboardHandler.KeyMap.A_UPPER:
+                display_unit.set_result_type (7);
+                Statistics stat_calc = new Statistics();
+                display_unit.answer_label.set_text (stat_calc.mean_x_square (display_unit.get_samples ()));
+                display_unit.display_off ();
+                mean_sq_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.D_LOWER:
+                case KeyboardHandler.KeyMap.D_UPPER:
+                display_unit.set_result_type (11);
+                Statistics stat_calc = new Statistics();
+                display_unit.answer_label.set_text (stat_calc.sample_standard_deviation (display_unit.get_samples ()));
+                display_unit.display_off ();
+                sample_std_dev_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.G_LOWER:
+                case KeyboardHandler.KeyMap.G_UPPER:
+                display_unit.set_result_type (0);
+                Statistics stat_calc = new Statistics();
+                display_unit.answer_label.set_text (stat_calc.geometric_mean (display_unit.get_samples ()));
+                display_unit.display_off ();
+                geometric_mean_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.P_LOWER:
+                case KeyboardHandler.KeyMap.P_UPPER:
+                display_unit.set_result_type (9);
+                Statistics stat_calc = new Statistics();
+                display_unit.answer_label.set_text (stat_calc.population_variance (display_unit.get_samples ()));
+                display_unit.display_off ();
+                pop_variance_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.L_LOWER:
+                case KeyboardHandler.KeyMap.L_UPPER:
+                display_unit.set_result_type (8);
+                Statistics stat_calc = new Statistics();
+                display_unit.answer_label.set_text (stat_calc.population_standard_deviation (display_unit.get_samples ()));
+                display_unit.display_off ();
+                pop_std_dev_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.NUMPAD_END:
+                display_unit.display_off ();
+                display_unit.reset_sample ();
+                reset_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
             }
         }
         public void key_released () {
@@ -653,6 +799,7 @@ namespace Pebbles {
             three_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
             zero_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
             decimal_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            negative_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
             memory_plus_button.get_style_context ().remove_class ("Pebbles_Buttons_Memory_Pressed");
             memory_minus_button.get_style_context ().remove_class ("Pebbles_Buttons_Memory_Pressed");
             memory_recall_button.get_style_context ().remove_class ("Pebbles_Buttons_Memory_Pressed");
@@ -663,7 +810,22 @@ namespace Pebbles {
             all_clear_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
             remove_cell_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
 
+            cardinality_button.get_style_context ().remove_class ("Pebbles_Buttons_Function_Pressed");
+            statistical_mode_button.get_style_context ().remove_class ("Pebbles_Buttons_Function_Pressed");
+            median_button.get_style_context ().remove_class ("Pebbles_Buttons_Function_Pressed");
+            summation_button.get_style_context ().remove_class ("Pebbles_Buttons_Function_Pressed");
+            summation_sq_button.get_style_context ().remove_class ("Pebbles_Buttons_Function_Pressed");
+            sample_variance_button.get_style_context ().remove_class ("Pebbles_Buttons_Function_Pressed");
+            mean_button.get_style_context ().remove_class ("Pebbles_Buttons_Function_Pressed");
+            mean_sq_button.get_style_context ().remove_class ("Pebbles_Buttons_Function_Pressed");
+            sample_std_dev_button.get_style_context ().remove_class ("Pebbles_Buttons_Function_Pressed");
+            geometric_mean_button.get_style_context ().remove_class ("Pebbles_Buttons_Function_Pressed");
+            pop_variance_button.get_style_context ().remove_class ("Pebbles_Buttons_Function_Pressed");
+            pop_std_dev_button.get_style_context ().remove_class ("Pebbles_Buttons_Function_Pressed");
+            reset_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+
             display_unit.set_editable_cell ();
+            display_unit.display_on ();
         }
     }
 }
