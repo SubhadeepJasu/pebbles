@@ -33,6 +33,8 @@ namespace Pebbles {
             }
         }
 
+        Gtk.CssProvider css_provider;
+
         public PebblesApp () {
             Object (
                 application_id: "com.github.SubhadeepJasu.pebbles",
@@ -45,19 +47,7 @@ namespace Pebbles {
         protected override void activate () {
             var mainwindow = new MainWindow ();
             mainwindow.application = this;
-            var css_provider = new Gtk.CssProvider();
-            try {
-                css_provider.load_from_resource ("/com/github/SubhadeepJasu/pebbles/Application.css");
-            }
-            catch (Error e) {
-                warning("%s", e.message);
-            }
-            // CSS Provider
-            Gtk.StyleContext.add_provider_for_screen (
-                Gdk.Screen.get_default(),
-                css_provider,
-                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-            );
+            
             mainwindow.present ();
         }
 
@@ -85,6 +75,22 @@ namespace Pebbles {
             } catch (Error err) {
                 warning (err.message);
                 return;
+            }
+
+            if (css_provider == null) {
+                css_provider = new Gtk.CssProvider();
+                try {
+                    css_provider.load_from_resource ("/com/github/SubhadeepJasu/pebbles/Application.css");
+                }
+                catch (Error e) {
+                    warning("%s", e.message);
+                }
+                // CSS Provider
+                Gtk.StyleContext.add_provider_for_screen (
+                    Gdk.Screen.get_default(),
+                    css_provider,
+                    Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+                );
             }
             
             if (mini_mode) {

@@ -187,6 +187,39 @@
 	0 1px 0 0 alpha (#4c4a52, 0.5);
 }
 
+.Pebbles_Buttons_Suggested_Pressed {
+	background-image:
+		linear-gradient(
+			to bottom,
+			shade (
+				@selected_bg_color,
+				1.05
+			),
+			shade (
+				@selected_bg_color,
+				0.95
+			)
+		);
+	border-color: shade (@selected_bg_color, 0.4);
+	box-shadow:
+		inset 0 0 0 1px alpha (#000, 0.05),
+		0 1px 0 0 alpha (@bg_highlight_color, 0.3);
+
+}
+
+.Pebbles_Buttons_Destructive_Pressed {
+	background-image:
+        linear-gradient(
+            to bottom,
+            shade (
+                @error_color,
+                1.2
+            ),
+            @error_color
+        );
+    border-color: shade (@error_color, 0.5);
+}
+
 .pebbles_h1 {
 	font-size: 40px;
 	font-family: Open Sans;

@@ -141,7 +141,8 @@ namespace Pebbles {
             NAV_UP       = 65362,
             NAV_DOWN     = 65364,
 
-            RETURN       = 13,
+            RETURN       = 65293,
+            RETURN_NUMPAD= 65421,
             ESCAPE       = 27,
             SPACE_BAR    = 32
         }

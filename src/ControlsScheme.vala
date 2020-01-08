@@ -23,10 +23,10 @@ namespace Pebbles {
             };
             statistics = {
                 {
-                    "Add Cell", "PageUp"
+                    "Add Cell", "Page_Up"
                 },
                 {
-                    "Insert Cell", "PageDown"
+                    "Insert Cell", "Page_Down"
                 },
                 {
                     "Next Cell or Add Right", "Tab"

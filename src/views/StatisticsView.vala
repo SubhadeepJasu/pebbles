@@ -155,7 +155,7 @@ namespace Pebbles {
             // Make buttons on the right
             nav_left_button = new StyledButton ("❰", "Navigate to the cell on the left", {"Left"});
             nav_right_button = new StyledButton ("❱", "Navigate to the cell on the right", {"Right"});
-            add_cell_button = new StyledButton ("▭⁺", "Left click: Add cell, Right click: Insert cell", {"PageUp", "PageDown"});
+            add_cell_button = new StyledButton ("▭⁺", "Left click: Add cell, Right click: Insert cell", {"Page_Up", "Page_Down"});
             add_cell_button.get_style_context ().add_class ("h3");
             add_cell_button.get_style_context ().add_class ("pebbles_button_prompt");
             remove_cell_button = new StyledButton ("▭⁻", "Remove current cell", {"Home"});
