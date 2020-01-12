@@ -37,7 +37,19 @@ namespace Pebbles {
             }
             main_grid.attach (common_grid, 0, 1, 1, 1);
 
-            main_grid.attach (new Granite.HeaderLabel (_("Statistics")), 0, 2, 1, 1);
+            main_grid.attach (new Granite.HeaderLabel (_("Scientific")), 0, 2, 1, 1);
+
+            var scientific_grid = new Gtk.Grid ();
+            scientific_grid.margin_start = 8;
+            scientific_grid.margin_end = 8;
+            scientific_grid.row_spacing = 4;
+            for (int i = 0; i < scheme.scientific.length[0]; i++) {
+                scientific_grid.attach (new Granite.AccelLabel (scheme.scientific[i, 0], scheme.scientific[i, 1]), 0, i, 1, 1);
+            }
+
+            main_grid.attach (scientific_grid, 0, 3, 1, 1);
+
+            main_grid.attach (new Granite.HeaderLabel (_("Statistics")), 0, 4, 1, 1);
 
             var statistics_grid = new Gtk.Grid ();
             statistics_grid.margin_start = 8;
@@ -47,7 +59,7 @@ namespace Pebbles {
                 statistics_grid.attach (new Granite.AccelLabel (scheme.statistics[i, 0], scheme.statistics[i, 1]), 0, i, 1, 1);
             }
 
-            main_grid.attach (statistics_grid, 0, 3, 1, 1);
+            main_grid.attach (statistics_grid, 0, 5, 1, 1);
 
             var scrolled_window = new Gtk.ScrolledWindow (null, null);
             scrolled_window.add (main_grid);

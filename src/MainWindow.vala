@@ -83,6 +83,10 @@ namespace Pebbles {
         public List<string> history_stack;
         private bool currency_view_visited = false;
 
+        // Keyboard Events
+        Gdk.Keymap keymap;
+        bool keyboard_shift_status;
+
         public MainWindow () {
             load_settings ();
             make_ui ();
@@ -98,6 +102,9 @@ namespace Pebbles {
                 save_settings ();
             });
             history_stack = new List<string> ();
+
+            keymap = Gdk.Keymap.get_for_display (Gdk.Display.get_default ());
+            keymap.state_changed.connect (update_caps_status);
         }
         
         public void make_ui () {
@@ -220,21 +227,7 @@ namespace Pebbles {
             settings_menu.show_all();
 
             controls_overlay_item.activate.connect (() => {
-                if (controls_modal == null) {
-                    controls_modal = new ControlsOverlay ();
-                    controls_modal.application = this.application;
-                    this.application.add_window (controls_modal);
-                    controls_modal.set_attached_to (this);
-                    
-                    controls_modal.set_transient_for (this);
-
-                    controls_modal.delete_event.connect (() => {
-                        controls_modal = null;
-                        return false;
-                    });
-                }
-                controls_modal.present ();
-                
+                show_controls ();
             });
             
             app_menu.popup = settings_menu;
@@ -502,6 +495,25 @@ namespace Pebbles {
             this.add (paned);
             this.set_resizable (false);
             this.show_all ();
+
+            update_caps_status ();
+        }
+
+        private void show_controls () {
+            if (controls_modal == null) {
+                controls_modal = new ControlsOverlay ();
+                controls_modal.application = this.application;
+                this.application.add_window (controls_modal);
+                controls_modal.set_attached_to (this);
+                
+                controls_modal.set_transient_for (this);
+
+                controls_modal.delete_event.connect (() => {
+                    controls_modal = null;
+                    return false;
+                });
+            }
+            controls_modal.present ();
         }
 
         public void answer_notify () {
@@ -595,9 +607,11 @@ namespace Pebbles {
             key_press_event.connect ((event) => {
                 switch (view_index) {
                     case 0: 
-                        scientific_view.display_unit.input_entry.grab_focus_without_selecting ();
-                        if (scientific_view.display_unit.input_entry.get_text () == "0" && scientific_view.display_unit.input_entry.cursor_position == 0)
-                            scientific_view.display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                        //scientific_view.display_unit.input_entry.grab_focus_without_selecting ();
+                        //if (scientific_view.display_unit.input_entry.get_text () == "0" && scientific_view.display_unit.input_entry.cursor_position == 0)
+                        //    scientific_view.display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                        scientific_view.grab_focus ();
+                        scientific_view.key_pressed (event);
                         break;
                     case 4:
                         statistics_view.grab_focus ();
@@ -607,17 +621,34 @@ namespace Pebbles {
                         conv_length_view.key_press_event (event);
                         break;
                 }
+                if (event.keyval == 65505) {
+                    keyboard_shift_status = true;
+                }
+                if (event.keyval == KeyboardHandler.KeyMap.F1) {
+                    show_controls ();
+                }
                 return true;
             });
             key_release_event.connect ((event) => {
                 switch (view_index) {
+                    case 0:
+                        scientific_view.key_released ();
+                        break;
                     case 4:
                         statistics_view.key_released ();
                         break;
+                }
+                if (event.keyval == 65505) {
+                    keyboard_shift_status = false;
                 }
                 return false;
             });
         }
 
+        void update_caps_status () {
+            bool caps_on = (keyboard_shift_status) ? !(keymap.get_caps_lock_state ()) : (keymap.get_caps_lock_state ());
+            this.shift_switch.state_set (caps_on);
+            this.shift_switch_prog.state_set (caps_on);
+        }
     }
 }

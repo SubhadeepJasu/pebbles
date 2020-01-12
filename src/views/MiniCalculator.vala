@@ -362,7 +362,7 @@ namespace Pebbles {
                 main_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
                 all_clear_button.get_style_context ().add_class ("Pebbles_Buttons_Destructive_Pressed");
                 break;
-                case KeyboardHandler.KeyMap.F1:
+                case KeyboardHandler.KeyMap.F6:
                 insert_text ("ans");
                 answer_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
                 break;

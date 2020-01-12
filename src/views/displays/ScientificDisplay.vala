@@ -109,10 +109,10 @@ namespace Pebbles {
                             input_entry.set_text (input_entry.get_text ().slice (1, 2));
                         }
                     }
-                    else if (input_entry.get_text () == "" || input_entry.get_text () == null) {
-                        input_entry.set_text ("0");
-                    }
-                    input_entry.set_text (Utils.preformat (input_entry.get_text ()));
+                    //  else if (input_entry.get_text () == "" || input_entry.get_text () == null) {
+                    //      input_entry.set_text ("0");
+                    //  }
+                    // input_entry.set_text (Utils.preformat (input_entry.get_text ()));
             });
             input_entry.key_release_event.connect (() => {
                 display_on ();
@@ -212,6 +212,22 @@ namespace Pebbles {
             answer_label.set_opacity (1);
             input_entry.set_opacity (1);
             lcd_status_bar.set_opacity (1);
+        }
+
+        public void send_backspace () {
+            input_entry.backspace ();
+            if (input_entry.get_text () == "") {
+                input_entry.set_text ("0");
+                input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+            }
+        }
+
+        public void insert_text (string text) {
+            if (input_entry.get_text () == "0") {
+                input_entry.set_text ("");
+            }
+            input_entry.grab_focus_without_selecting ();
+            input_entry.insert_at_cursor (text);
         }
     }
 }
