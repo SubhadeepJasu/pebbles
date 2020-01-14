@@ -292,92 +292,18 @@ namespace Pebbles {
         public void set_alternative_button () {
             if (shift_held) {
                 sqr_button.update_label ("\xE2\x88\x9A", "Square root over number", {"Q"});
-                sqr_button.clicked.connect (() => {
-                    shift_held = false;
-                    window.shift_switch.set_active (false);
-                    set_alternative_button ();
-                });
-
                 pow_root_button.update_label ("<sup>n</sup>\xE2\x88\x9A", "nth root over number", {"Z"});
-                pow_root_button.clicked.connect (() => {
-                    shift_held = false;
-                    window.shift_switch.set_active (false);
-                    set_alternative_button ();
-                });
-
                 expo_power_button.update_label ("e<sup>x</sup>", "e raised to the power x", {"W"});
-                expo_power_button.clicked.connect (() => {
-                    shift_held = false;
-                    window.shift_switch.set_active (false);
-                    set_alternative_button ();
-                });
-
                 sin_button.update_label ("sin<sup>-1</sup>", "Sine Inverse", {"S"});
-                sin_button.clicked.connect (() => {
-                    shift_held = false;
-                    window.shift_switch.set_active (false);
-                    set_alternative_button ();
-                });
-
                 cos_button.update_label ("cos<sup>-1</sup>", "Cosine Inverse", {"C"});
-                cos_button.clicked.connect (() => {
-                    shift_held = false;
-                    window.shift_switch.set_active (false);
-                    set_alternative_button ();
-                });
-
                 tan_button.update_label ("tan<sup>-1</sup>", "Tangent Inverse", {"T"});
-                tan_button.clicked.connect (() => {
-                    shift_held = false;
-                    window.shift_switch.set_active (false);
-                    set_alternative_button ();
-                });
-
                 sinh_button.update_label ("sinh<sup>-1</sup>", "Hyperbolic Sine Inverse", {"H"});
-                sinh_button.clicked.connect (() => {
-                    shift_held = false;
-                    window.shift_switch.set_active (false);
-                    set_alternative_button ();
-                });
-
                 cosh_button.update_label ("cosh<sup>-1</sup>", "Hyperbolic Cosine Inverse", {"O"});
-                cosh_button.clicked.connect (() => {
-                    shift_held = false;
-                    window.shift_switch.set_active (false);
-                    set_alternative_button ();
-                });
-
                 tanh_button.update_label ("tanh<sup>-1</sup>", "Hyperbolic Tangent Inverse", {"A"});
-                tanh_button.clicked.connect (() => {
-                    shift_held = false;
-                    window.shift_switch.set_active (false);
-                    set_alternative_button ();
-                });
-
                 log_mod_button.update_label ("log\xE2\x82\x93y", "Log base x", {"M"});
-                log_mod_button.clicked.connect (() => {
-                    shift_held = false;
-                    window.shift_switch.set_active (false);
-                    set_alternative_button ();
-                });
                 log_cont_base_button.update_label ("ln x", "Natural Logarithm", {"L"});
-                log_cont_base_button.clicked.connect (() => {
-                    shift_held = false;
-                    window.shift_switch.set_active (false);
-                    set_alternative_button ();
-                });
                 perm_comb_button.update_label ("<sup>n</sup>C\xE1\xB5\xA3", "Combinations", {"P"});
-                perm_comb_button.clicked.connect (() => {
-                    shift_held = false;
-                    window.shift_switch.set_active (false);
-                    set_alternative_button ();
-                });
                 constant_button.update_label (constant_label_2, constant_desc_2, {"R"});
-                constant_button.clicked.connect (() => {
-                    shift_held = false;
-                    window.shift_switch.set_active (false);
-                    set_alternative_button ();
-                });
             }
             else {
                 sqr_button.update_label ("x<sup>2</sup>", "Square a number", {"Q"});
