@@ -304,8 +304,7 @@ namespace Pebbles {
                 log_cont_base_button.update_label ("ln x", "Natural Logarithm", {"L"});
                 perm_comb_button.update_label ("<sup>n</sup>C\xE1\xB5\xA3", "Combinations", {"P"});
                 constant_button.update_label (constant_label_2, constant_desc_2, {"R"});
-            }
-            else {
+            } else {
                 sqr_button.update_label ("x<sup>2</sup>", "Square a number", {"Q"});
                 pow_root_button.update_label ("x<sup>y</sup>", "x raised to the power y", {"Z"});
                 expo_power_button.update_label ("10<sup>x</sup>", "10 raised to the power x", {"W"});
@@ -713,6 +712,7 @@ namespace Pebbles {
                 display_unit.input_entry.grab_focus_without_selecting ();
                 display_unit.input_entry.set_text ("0");
                 display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                all_clear_button.get_style_context ().add_class ("Pebbles_Buttons_Destructive_Pressed");
                 break;
 
                 case KeyboardHandler.KeyMap.PLUS_NUMPAD:
@@ -848,7 +848,7 @@ namespace Pebbles {
                 case KeyboardHandler.KeyMap.F_UPPER:
                 case KeyboardHandler.KeyMap.EXCLAMATION:
                 display_unit.insert_text ("!");
-                fact_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                fact_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
                 break;
                 case KeyboardHandler.KeyMap.R_LOWER:
                 display_unit.insert_text (constant_label_1);
@@ -920,6 +920,7 @@ namespace Pebbles {
             zero_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
             decimal_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
             last_answer_button.get_style_context ().remove_class ("Pebbles_Buttons_Function_Pressed");
+            all_clear_button.get_style_context ().remove_class ("Pebbles_Buttons_Destructive_Pressed");
 
             plus_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
             subtract_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
@@ -929,7 +930,7 @@ namespace Pebbles {
             result_button.get_style_context ().remove_class ("Pebbles_Buttons_Suggested_Pressed");
             left_parenthesis_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
             right_parenthesis_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
-            fact_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            fact_button.get_style_context ().remove_class ("Pebbles_Buttons_Function_Pressed");
             percent_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
 
             pow_root_button.get_style_context ().remove_class ("Pebbles_Buttons_Function_Pressed");

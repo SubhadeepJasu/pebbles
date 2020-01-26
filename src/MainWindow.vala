@@ -1,5 +1,5 @@
 /*-
- * Copyright (c) 2017-2018 Subhadeep Jasu <subhajasu@gmail.com>
+ * Copyright (c) 2017-2019 Subhadeep Jasu <subhajasu@gmail.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public
@@ -32,7 +32,7 @@ namespace Pebbles {
         Gtk.Grid scientific_header_grid;
         Gtk.Label shift_label;
         public Gtk.Switch shift_switch;
-        Gtk.Button angle_unit_button;
+        StyledButton angle_unit_button;
         Gtk.Button history_button;
         
         Gtk.Label date_age_label;
@@ -120,8 +120,7 @@ namespace Pebbles {
             
             // Make Scientific / Calculus View Controls ///////////////
             // Create angle unit button
-            angle_unit_button = new Gtk.Button.with_label ("DEG");
-            angle_unit_button.tooltip_text = "Degrees";
+            angle_unit_button = new StyledButton ("DEG", "<b>Degrees</b> \xE2\x86\x92 Radians", {"F7"});
             angle_unit_button.set_margin_end (7);
             angle_unit_button.width_request = 50;
             angle_unit_button.clicked.connect (() => {
@@ -543,22 +542,24 @@ namespace Pebbles {
         }
         private void angle_unit_button_label_update () {
             if (settings.global_angle_unit == Pebbles.GlobalAngleUnit.DEG) {
-                angle_unit_button.label = "DEG";
-                angle_unit_button.tooltip_text = "Degrees";
+                angle_unit_button.update_label ("DEG", "<b>Degrees</b> \xE2\x86\x92 Radians", {"F7"});
                 scientific_view.set_angle_mode_display (0);
                 calculus_view.set_angle_mode_display (0);
             }
             else if (settings.global_angle_unit == Pebbles.GlobalAngleUnit.RAD) {
-                angle_unit_button.label = "RAD";
-                angle_unit_button.tooltip_text = "Radians";
+                angle_unit_button.update_label ("RAD", "<b>Radians</b> \xE2\x86\x92 Gradians", {"F7"});
                 scientific_view.set_angle_mode_display (1);
                 calculus_view.set_angle_mode_display (1);
             }
             else if (settings.global_angle_unit == Pebbles.GlobalAngleUnit.GRAD) {
-                angle_unit_button.label = "GRA";
-                angle_unit_button.tooltip_text = "Gradians";
+                angle_unit_button.update_label ("GRD", "<b>Gradians</b> \xE2\x86\x92 Degrees", {"F7"});
                 scientific_view.set_angle_mode_display (2);
                 calculus_view.set_angle_mode_display (2);
+            }
+            if (view_index == 0) {
+                this.scientific_view.display_unit.input_entry.grab_focus_without_selecting ();
+            } else if (view_index == 2) {
+                this.calculus_view.display_unit.input_entry.grab_focus_without_selecting ();
             }
         }
         private void word_length_button_label_update () {
@@ -613,6 +614,10 @@ namespace Pebbles {
                         scientific_view.grab_focus ();
                         scientific_view.key_pressed (event);
                         break;
+                    case 2:
+                        calculus_view.grab_focus ();
+                        calculus_view.key_pressed (event);
+                        break;
                     case 4:
                         statistics_view.grab_focus ();
                         statistics_view.key_pressed (event);
@@ -627,12 +632,21 @@ namespace Pebbles {
                 if (event.keyval == KeyboardHandler.KeyMap.F1) {
                     show_controls ();
                 }
+                if (event.keyval == KeyboardHandler.KeyMap.F7) {
+                    if (view_index == 0 || view_index == 2) {
+                        settings.switch_angle_unit ();
+                        this.angle_unit_button_label_update ();
+                    }
+                }
                 return true;
             });
             key_release_event.connect ((event) => {
                 switch (view_index) {
                     case 0:
                         scientific_view.key_released ();
+                        break;
+                    case 2:
+                        calculus_view.key_released ();
                         break;
                     case 4:
                         statistics_view.key_released ();

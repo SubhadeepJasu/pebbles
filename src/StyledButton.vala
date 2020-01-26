@@ -40,6 +40,7 @@ namespace Pebbles {
             } else {
                 tooltip_text = tooltip_desc;
             }
+            get_style_context ().remove_class ("image-button");
         }
     }
 }
