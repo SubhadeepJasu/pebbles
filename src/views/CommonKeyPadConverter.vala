@@ -101,5 +101,89 @@ namespace Pebbles {
         private void send_button_press (string label) {
             button_clicked (label);
         }
+        public void key_pressed (Gdk.EventKey event) {
+            switch (event.keyval) {
+                case KeyboardHandler.KeyMap.BACKSPACE:
+                if (del_button.get_sensitive ()) {
+                    send_button_press ("del");
+                    del_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                }
+                break;
+                case KeyboardHandler.KeyMap.NUMPAD_7: // 7 key numpad
+                case KeyboardHandler.KeyMap.KEYPAD_7:
+                send_button_press ("7");
+                seven_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.NUMPAD_8: // 8 key numpad
+                case KeyboardHandler.KeyMap.KEYPAD_8:
+                send_button_press ("8");
+                eight_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.NUMPAD_9: // 9 key numpad
+                case KeyboardHandler.KeyMap.KEYPAD_9:
+                send_button_press ("9");
+                nine_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.NUMPAD_4: // 4 key numpad
+                case KeyboardHandler.KeyMap.KEYPAD_4:
+                send_button_press ("4");
+                four_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.NUMPAD_5: // 5 key numpad
+                case KeyboardHandler.KeyMap.KEYPAD_5:
+                send_button_press ("5");
+                five_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.NUMPAD_6: // 6 key numpad
+                case KeyboardHandler.KeyMap.KEYPAD_6:
+                send_button_press ("6");
+                six_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.NUMPAD_1: // 1 key numpad
+                case KeyboardHandler.KeyMap.KEYPAD_1:
+                send_button_press ("1");
+                one_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.NUMPAD_2: // 2 key numpad
+                case KeyboardHandler.KeyMap.KEYPAD_2:
+                send_button_press ("2");
+                two_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.NUMPAD_3: // 3 key numpad
+                case KeyboardHandler.KeyMap.KEYPAD_3:
+                send_button_press ("3");
+                three_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.NUMPAD_0: // 0 key numpad
+                case KeyboardHandler.KeyMap.KEYPAD_0:
+                send_button_press ("0");
+                zero_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.NUMPAD_RADIX:
+                case KeyboardHandler.KeyMap.KEYPAD_RADIX:
+                send_button_press (".");
+                decimal_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.DELETE:
+                send_button_press ("C");
+                all_clear_button.get_style_context ().add_class ("Pebbles_Buttons_Destructive_Pressed");
+                break;
+            }
+        }
+        public void key_released () {
+            del_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            seven_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            eight_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            nine_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            four_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            five_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            six_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            one_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            two_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            three_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            zero_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            decimal_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            all_clear_button.get_style_context ().remove_class ("Pebbles_Buttons_Destructive_Pressed");
+        }
     }
 }

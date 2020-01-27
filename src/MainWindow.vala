@@ -651,6 +651,9 @@ namespace Pebbles {
                     case 4:
                         statistics_view.key_released ();
                         break;
+                    case 5:
+                        conv_length_view.key_release_event (event);
+                        break;
                 }
                 if (event.keyval == 65505) {
                     keyboard_shift_status = false;

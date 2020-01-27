@@ -147,6 +147,7 @@ namespace Pebbles {
             });
 
             this.key_press_event.connect ((event) => {
+                keypad.key_pressed (event);
                 switch (from_to) {
                     case 0: 
                         this.from_entry.grab_focus_without_selecting ();
@@ -155,6 +156,10 @@ namespace Pebbles {
                         this.to_entry.grab_focus_without_selecting ();
                         break;
                 }
+                return false;
+            });
+            this.key_release_event.connect (() => {
+                keypad.key_released ();
                 return false;
             });
 
@@ -211,8 +216,7 @@ namespace Pebbles {
                             from_entry.set_text("");
                         }
                         from_entry.grab_focus_without_selecting ();
-                        from_entry.set_text (from_entry.get_text() + val);
-                        from_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                        from_entry.insert_at_cursor (val);
                     }
                 }
                 else {
@@ -229,8 +233,7 @@ namespace Pebbles {
                             to_entry.set_text("");
                         }
                         to_entry.grab_focus_without_selecting ();
-                        to_entry.set_text (to_entry.get_text() + val);
-                        to_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                        to_entry.insert_at_cursor (val);
                     }
                 }
             });
