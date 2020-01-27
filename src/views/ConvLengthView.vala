@@ -148,13 +148,19 @@ namespace Pebbles {
 
             this.key_press_event.connect ((event) => {
                 keypad.key_pressed (event);
-                switch (from_to) {
-                    case 0: 
-                        this.from_entry.grab_focus_without_selecting ();
-                        break;
-                    case 1:
+                grab_focus_on_view_switch ();
+                switch (event.keyval) {
+                    case KeyboardHandler.KeyMap.TAB:
+                    if (this.from_entry.has_focus) {
                         this.to_entry.grab_focus_without_selecting ();
-                        break;
+                        to_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                        from_to = 1;
+                    } else {
+                        this.from_entry.grab_focus_without_selecting ();
+                        from_to = 0;
+                        from_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                    }
+                    break;
                 }
                 return false;
             });
@@ -237,6 +243,18 @@ namespace Pebbles {
                     }
                 }
             });
+        }
+
+        public void grab_focus_on_view_switch () {
+            switch (from_to) {
+                case 0: 
+                    this.from_entry.grab_focus_without_selecting ();
+                    break;
+                case 1:
+                    this.to_entry.grab_focus_without_selecting ();
+                    break;
+            }
+            print("grab\n");
         }
     }
 }
