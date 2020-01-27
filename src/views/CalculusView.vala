@@ -731,8 +731,7 @@ namespace Pebbles {
                     if (int_limit_a.get_text () == "0"){
                         int_limit_a.set_text("");
                     }
-                    int_limit_a.set_text (int_limit_a.get_text() + val);
-                    int_limit_a.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                    int_limit_a.insert_at_cursor (val);
                 }
             });
             keypad_b.button_clicked.connect ((val) => {
@@ -746,8 +745,7 @@ namespace Pebbles {
                     if (int_limit_b.get_text () == "0"){
                         int_limit_b.set_text("");
                     }
-                    int_limit_b.set_text (int_limit_b.get_text() + val);
-                    int_limit_b.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                    int_limit_b.insert_at_cursor (val);
                 }
             });
             keypad_x.button_clicked.connect ((val) => {
@@ -761,8 +759,7 @@ namespace Pebbles {
                     if (int_limit_x.get_text () == "0"){
                         int_limit_x.set_text("");
                     }
-                    int_limit_x.set_text (int_limit_x.get_text() + val);
-                    int_limit_x.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                    int_limit_x.insert_at_cursor (val);
                 }
             });
             keypad_a.closed.connect (() => display_unit.input_entry.grab_focus_without_selecting ());
@@ -1019,10 +1016,65 @@ namespace Pebbles {
                 case KeyboardHandler.KeyMap.W_UPPER:
                 display_unit.insert_text ("e^");
                 break;
+
+                case KeyboardHandler.KeyMap.I_UPPER:
+                case KeyboardHandler.KeyMap.I_LOWER:
+                {
+                    display_unit.display_off ();
+                    string? limit_u = int_limit_a.get_text ();
+                    string? limit_l = int_limit_b.get_text ();
+                    if (limit_u == "" && limit_l == "") {
+                        display_unit.get_answer_evaluate_integral (0, 1);
+                    }
+                    else if (limit_u == "" && limit_l != "") {
+                        display_unit.get_answer_evaluate_integral (double.parse (limit_l), 1);
+                    }
+                    else if (limit_u != "" && limit_l == "") {
+                        display_unit.get_answer_evaluate_integral (0, double.parse (limit_u));
+                    }
+                    else {
+                        display_unit.get_answer_evaluate_integral (double.parse (limit_l), double.parse (limit_u));
+                    }
+                    
+                    if (display_unit.input_entry.get_text ().length == 0 && display_unit.input_entry.get_text () != "0") {
+                        display_unit.input_entry.set_text ("0");
+                    }
+                    display_unit.input_entry.grab_focus_without_selecting ();
+                    if (display_unit.input_entry.cursor_position < display_unit.input_entry.get_text ().length)
+                        display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                }
+                break;
+                case KeyboardHandler.KeyMap.D_UPPER:
+                case KeyboardHandler.KeyMap.D_LOWER:
+                {
+                    display_unit.display_off ();
+                    string? limit = int_limit_x.get_text();
+                    if (limit == "") {
+                        display_unit.get_answer_evaluate_derivative (0.0);
+                    }
+                    else {
+                        display_unit.get_answer_evaluate_derivative (double.parse (limit));
+                    }
+                    
+                    if (display_unit.input_entry.get_text ().length == 0 && display_unit.input_entry.get_text () != "0") {
+                        display_unit.input_entry.set_text ("0");
+                    }
+                    display_unit.input_entry.grab_focus_without_selecting ();
+                    if (display_unit.input_entry.cursor_position < display_unit.input_entry.get_text ().length)
+                        display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                }
+                break;
+                case KeyboardHandler.KeyMap.TAB:
+                cycle_focus (false);
+                break;
+                case KeyboardHandler.KeyMap.SHIFT_TAB:
+                cycle_focus (true);
+                break;
             }
         }
 
         public void key_released () {
+            display_unit.display_on ();
             del_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
             seven_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
             eight_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
@@ -1060,6 +1112,31 @@ namespace Pebbles {
             memory_minus_button.get_style_context ().remove_class ("Pebbles_Buttons_Memory_Pressed");
             memory_recall_button.get_style_context ().remove_class ("Pebbles_Buttons_Memory_Pressed");
             memory_clear_button.get_style_context ().remove_class ("Pebbles_Buttons_Memory_Pressed");
+        }
+
+        private void cycle_focus (bool clockwise) {
+            if (!clockwise) {
+                if (display_unit.input_entry == editable_entry) {
+                    editable_entry = int_limit_a;
+                } else if (int_limit_a == editable_entry) {
+                    editable_entry = int_limit_b;
+                } else if (int_limit_b == editable_entry) {
+                    editable_entry = int_limit_x;
+                } else if (int_limit_x == editable_entry) {
+                    editable_entry = display_unit.input_entry;
+                }
+            } else {
+                if (display_unit.input_entry == editable_entry) {
+                    editable_entry = int_limit_x;
+                } else if (int_limit_x == editable_entry) {
+                    editable_entry = int_limit_b;
+                } else if (int_limit_b == editable_entry) {
+                    editable_entry = int_limit_a;
+                } else if (int_limit_a == editable_entry) {
+                    editable_entry = display_unit.input_entry;
+                }
+            }
+            editable_entry.grab_focus_without_selecting ();
         }
     }
 }

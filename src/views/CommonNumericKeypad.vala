@@ -113,6 +113,7 @@ namespace Pebbles {
             this.show_all ();
             this.set_visible (false);
             this.position = Gtk.PositionType.TOP;
+            this.set_default_widget (this.entry);
         }
         private void send_button_press (string label) {
             button_clicked (label);
