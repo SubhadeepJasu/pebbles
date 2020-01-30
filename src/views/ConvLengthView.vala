@@ -255,7 +255,7 @@ namespace Pebbles {
             });
         }
 
-        void interchange_entries () {
+        private void interchange_entries () {
             allow_change = false;
             int temp = to_unit.active;
             to_unit.active = from_unit.active;

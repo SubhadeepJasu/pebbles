@@ -625,6 +625,9 @@ namespace Pebbles {
                     case 5:
                         conv_length_view.key_press_event (event);
                         break;
+                    case 9:
+                        conv_angle_view.key_press_event (event);
+                        break;
                 }
                 if (event.keyval == 65505) {
                     keyboard_shift_status = true;
@@ -653,6 +656,9 @@ namespace Pebbles {
                         break;
                     case 5:
                         conv_length_view.key_release_event (event);
+                        break;
+                    case 9:
+                        conv_angle_view.key_release_event (event);
                         break;
                 }
                 if (event.keyval == 65505) {
