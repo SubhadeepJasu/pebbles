@@ -288,7 +288,7 @@ namespace Pebbles {
             calc_category.expand_all ();
             calc_category.add (scientific_item);
             calc_category.add (calculus_item);
-            calc_category.add (programmer_item);
+            //calc_category.add (programmer_item); // Will be added in a future update
             calc_category.add (date_item);
             calc_category.add (stats_item);
             //calc_category.add (finance_item);
@@ -611,9 +611,6 @@ namespace Pebbles {
             key_press_event.connect ((event) => {
                 switch (view_index) {
                     case 0: 
-                        //scientific_view.display_unit.input_entry.grab_focus_without_selecting ();
-                        //if (scientific_view.display_unit.input_entry.get_text () == "0" && scientific_view.display_unit.input_entry.cursor_position == 0)
-                        //    scientific_view.display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
                         scientific_view.grab_focus ();
                         scientific_view.key_pressed (event);
                         break;
@@ -621,6 +618,9 @@ namespace Pebbles {
                         calculus_view.grab_focus ();
                         calculus_view.key_pressed (event);
                         break;
+                    case 3:
+                        // TODO: Explicitly handle input in this mode
+                        return false;
                     case 4:
                         statistics_view.grab_focus ();
                         statistics_view.key_pressed (event);
