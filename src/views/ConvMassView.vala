@@ -146,16 +146,45 @@ namespace Pebbles {
             });
 
             this.key_press_event.connect ((event) => {
-                switch (from_to) {
-                    case 0: 
-                        this.from_entry.grab_focus_without_selecting ();
-                        break;
-                    case 1:
+                keypad.key_pressed (event);
+                grab_focus_on_view_switch ();
+                switch (event.keyval) {
+                    case KeyboardHandler.KeyMap.TAB:
+                    case KeyboardHandler.KeyMap.SHIFT_TAB:
+                    if (this.from_entry.has_focus) {
                         this.to_entry.grab_focus_without_selecting ();
-                        break;
+                        to_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                        from_to = 1;
+                    } else {
+                        this.from_entry.grab_focus_without_selecting ();
+                        from_to = 0;
+                        from_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                    }
+                    break;
+                    case KeyboardHandler.KeyMap.NAV_UP:
+                    this.from_entry.grab_focus_without_selecting ();
+                    from_to = 0;
+                    from_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                    break;
+                    case KeyboardHandler.KeyMap.NAV_DOWN:
+                    this.to_entry.grab_focus_without_selecting ();
+                    to_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                    from_to = 1;
+                    break;
+                    case KeyboardHandler.KeyMap.RETURN:
+                    interchange_entries ();
+                    interchange_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                    break;
                 }
                 return false;
             });
+
+            this.key_release_event.connect (() => {
+                keypad.key_released ();
+                interchange_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+                return false;
+            });
+
 
             from_entry.changed.connect (() => {
                 if (from_to == 0 && allow_change) {
@@ -210,8 +239,7 @@ namespace Pebbles {
                             from_entry.set_text("");
                         }
                         from_entry.grab_focus_without_selecting ();
-                        from_entry.set_text (from_entry.get_text() + val);
-                        from_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                        from_entry.insert_at_cursor (val);
                     }
                 }
                 else {
@@ -228,11 +256,31 @@ namespace Pebbles {
                             to_entry.set_text("");
                         }
                         to_entry.grab_focus_without_selecting ();
-                        to_entry.set_text (to_entry.get_text() + val);
-                        to_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                        to_entry.insert_at_cursor (val);
                     }
                 }
             });
+        }
+
+        private void interchange_entries () {
+            allow_change = false;
+            int temp = to_unit.active;
+            to_unit.active = from_unit.active;
+            from_unit.active = temp;
+            string result = conv.convert (double.parse (from_entry.get_text ()), from_unit.active, to_unit.active);
+            to_entry.set_text (result);
+            allow_change = true;
+        }
+
+        public void grab_focus_on_view_switch () {
+            switch (from_to) {
+                case 0: 
+                    this.from_entry.grab_focus_without_selecting ();
+                    break;
+                case 1:
+                    this.to_entry.grab_focus_without_selecting ();
+                    break;
+            }
         }
     }
 }

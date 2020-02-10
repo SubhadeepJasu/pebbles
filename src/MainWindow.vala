@@ -210,7 +210,7 @@ namespace Pebbles {
             update_button.width_request = 10;
             update_button.halign = Gtk.Align.START;
             update_button.margin = 1;
-            update_button.set_tooltip_markup ("<b>Update Currency Data</b>\nUpdates automatically every 10 minutes");
+            update_button.tooltip_markup = Granite.markup_accel_tooltip ({"R"}, "<b>Update Forex Data</b>\nUpdates automatically every 10 minutes");
             
             // Create App Menu
             app_menu = new Gtk.MenuButton ();
@@ -335,8 +335,11 @@ namespace Pebbles {
             conv_curr_view   = new Pebbles.ConvCurrView ();
             
             update_button.clicked.connect (() => {
-                update_button.set_sensitive (false);
                 conv_curr_view.update_currency_data ();
+            });
+            
+            conv_curr_view.start_update.connect (() => {
+                update_button.set_sensitive (false);
             });
             conv_curr_view.update_done_or_failed.connect (() => {
                 update_button.set_sensitive (true);
@@ -625,8 +628,41 @@ namespace Pebbles {
                     case 5:
                         conv_length_view.key_press_event (event);
                         break;
+                    case 6:
+                        conv_area_view.key_press_event (event);
+                        break;
+                    case 7:
+                        conv_volume_view.key_press_event (event);
+                        break;
+                    case 8:
+                        conv_time_view.key_press_event (event);
+                        break;
                     case 9:
                         conv_angle_view.key_press_event (event);
+                        break;
+                    case 10:
+                        conv_speed_view.key_press_event (event);
+                        break;
+                    case 11:
+                        conv_mass_view.key_press_event (event);
+                        break;
+                    case 12:
+                        conv_press_view.key_press_event (event);
+                        break;
+                    case 13:
+                        conv_energy_view.key_press_event (event);
+                        break;
+                    case 14:
+                        conv_power_view.key_press_event (event);
+                        break;
+                    case 15:
+                        conv_temp_view.key_press_event (event);
+                        break;
+                    case 16:
+                        conv_data_view.key_press_event (event);
+                        break;
+                    case 17:
+                        conv_curr_view.key_press_event (event);
                         break;
                 }
                 if (event.keyval == 65505) {
@@ -657,8 +693,41 @@ namespace Pebbles {
                     case 5:
                         conv_length_view.key_release_event (event);
                         break;
+                    case 6:
+                        conv_area_view.key_release_event (event);
+                        break;
+                    case 7:
+                        conv_volume_view.key_release_event (event);
+                        break;
+                    case 8:
+                        conv_time_view.key_release_event (event);
+                        break;
                     case 9:
                         conv_angle_view.key_release_event (event);
+                        break;
+                    case 10:
+                        conv_speed_view.key_release_event (event);
+                        break;
+                    case 11:
+                        conv_mass_view.key_release_event (event);
+                        break;
+                    case 12:
+                        conv_press_view.key_release_event (event);
+                        break;
+                    case 13:
+                        conv_energy_view.key_release_event (event);
+                        break;
+                    case 14:
+                        conv_power_view.key_release_event (event);
+                        break;
+                    case 15:
+                        conv_temp_view.key_release_event (event);
+                        break;
+                    case 16:
+                        conv_data_view.key_release_event (event);
+                        break;
+                    case 17:
+                        conv_curr_view.key_release_event (event);
                         break;
                 }
                 if (event.keyval == 65505) {
