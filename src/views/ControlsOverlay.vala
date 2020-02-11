@@ -26,7 +26,11 @@ namespace Pebbles {
             var main_grid = new Gtk.Grid ();
             main_grid.margin = 8;
 
-            main_grid.attach (new Granite.HeaderLabel (_("Common")), 0, 0, 1, 1);
+            var left_column = new Gtk.Grid ();
+            var right_column = new Gtk.Grid ();
+
+            /// Common section /////////////////////////////////////////
+            left_column.attach (new Granite.HeaderLabel (_("Common")), 0, 0, 1, 1);
 
             var common_grid = new Gtk.Grid ();
             common_grid.margin_start = 8;
@@ -35,9 +39,10 @@ namespace Pebbles {
             for (int i = 0; i < scheme.common.length[0]; i++) {
                 common_grid.attach (new Granite.AccelLabel (scheme.common[i, 0], scheme.common[i, 1]), 0, i, 1, 1);
             }
-            main_grid.attach (common_grid, 0, 1, 1, 1);
+            left_column.attach (common_grid, 0, 1, 1, 1);
 
-            main_grid.attach (new Granite.HeaderLabel (_("Scientific")), 0, 2, 1, 1);
+            /// Scientific Section //////////////////////////////////////
+            right_column.attach (new Granite.HeaderLabel (_("Scientific")), 0, 0, 1, 1);
 
             var scientific_grid = new Gtk.Grid ();
             scientific_grid.margin_start = 8;
@@ -47,9 +52,10 @@ namespace Pebbles {
                 scientific_grid.attach (new Granite.AccelLabel (scheme.scientific[i, 0], scheme.scientific[i, 1]), 0, i, 1, 1);
             }
 
-            main_grid.attach (scientific_grid, 0, 3, 1, 1);
+            right_column.attach (scientific_grid, 0, 1, 1, 1);
 
-            main_grid.attach (new Granite.HeaderLabel (_("Statistics")), 0, 4, 1, 1);
+            /// Statistics Section ///////////////////////////////////////
+            left_column.attach (new Granite.HeaderLabel (_("Statistics")), 0, 2, 1, 1);
 
             var statistics_grid = new Gtk.Grid ();
             statistics_grid.margin_start = 8;
@@ -59,12 +65,40 @@ namespace Pebbles {
                 statistics_grid.attach (new Granite.AccelLabel (scheme.statistics[i, 0], scheme.statistics[i, 1]), 0, i, 1, 1);
             }
 
-            main_grid.attach (statistics_grid, 0, 5, 1, 1);
+            left_column.attach (statistics_grid, 0, 3, 1, 1);
 
+            /// Calculus Section //////////////////////////////////////
+            right_column.attach (new Granite.HeaderLabel (_("Calculus")), 0, 2, 1, 1);
+
+            var calculus_grid = new Gtk.Grid ();
+            calculus_grid.margin_start = 8;
+            calculus_grid.margin_end = 8;
+            calculus_grid.row_spacing = 4;
+            for (int i = 0; i < scheme.calculus.length[0]; i++) {
+                calculus_grid.attach (new Granite.AccelLabel (scheme.calculus[i, 0], scheme.calculus[i, 1]), 0, i, 1, 1);
+            }
+
+            right_column.attach (calculus_grid, 0, 3, 1, 1);
+
+            /// Converters Section //////////////////////////////////////
+            right_column.attach (new Granite.HeaderLabel (_("Unit Converters")), 0, 4, 1, 1);
+
+            var converter_grid = new Gtk.Grid ();
+            converter_grid.margin_start = 8;
+            converter_grid.margin_end = 8;
+            converter_grid.row_spacing = 4;
+            for (int i = 0; i < scheme.converter.length[0]; i++) {
+                converter_grid.attach (new Granite.AccelLabel (scheme.converter[i, 0], scheme.converter[i, 1]), 0, i, 1, 1);
+            }
+
+            right_column.attach (converter_grid, 0, 5, 1, 1);
+
+            main_grid.attach (left_column, 0, 0, 1, 1);
+            main_grid.attach (right_column, 1, 0, 1, 1);
             var scrolled_window = new Gtk.ScrolledWindow (null, null);
             scrolled_window.add (main_grid);
-            scrolled_window.width_request = 300;
-            scrolled_window.height_request = 200;
+            scrolled_window.width_request = 640;
+            scrolled_window.height_request = 480;
 
 
             var headerbar = new Gtk.HeaderBar ();
@@ -78,8 +112,8 @@ namespace Pebbles {
 
             // Set up window attributes
             this.resizable = false;
-            this.set_default_size (300, 200);
-            this.set_size_request (300, 200);
+            this.set_default_size (640, 480);
+            this.set_size_request (640, 480);
 
             this.add (scrolled_window);
 

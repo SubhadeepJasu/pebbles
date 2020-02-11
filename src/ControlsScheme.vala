@@ -3,6 +3,8 @@ namespace Pebbles {
         public string[,] common;
         public string[,] scientific;
         public string[,] statistics;
+        public string[,] calculus;
+        public string[,] converter;
 
         public ControlScheme () {
             common = {
@@ -135,6 +137,25 @@ namespace Pebbles {
                 },
                 {
                     "Population Standard Deviation", "L"
+                }
+            };
+            calculus = {
+                {
+                    "Variable x", "X"
+                },
+                {
+                    "Definite Integral", "I"
+                },
+                {
+                    "Derivative at a point", "D"
+                }
+            };
+            converter = {
+                {
+                    "Interchange unit", "Return"
+                },
+                {
+                    "Update Forex Data (Currency converter)", "R"
                 }
             };
         }
