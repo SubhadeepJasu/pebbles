@@ -1,5 +1,5 @@
 /*-
- * Copyright (c) 2017-2018 Subhadeep Jasu <subhajasu@gmail.com>
+ * Copyright (c) 2017-2019 Subhadeep Jasu <subhajasu@gmail.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public
@@ -32,7 +32,7 @@ namespace Pebbles {
         Gtk.Grid scientific_header_grid;
         Gtk.Label shift_label;
         public Gtk.Switch shift_switch;
-        Gtk.Button angle_unit_button;
+        StyledButton angle_unit_button;
         Gtk.Button history_button;
         
         Gtk.Label date_age_label;
@@ -71,6 +71,8 @@ namespace Pebbles {
         Pebbles.ConvDataView   conv_data_view;
         Pebbles.ConvCurrView   conv_curr_view;
 
+
+        ControlsOverlay controls_modal;
         // Active View Index
         private int view_index = 0;
         
@@ -80,6 +82,10 @@ namespace Pebbles {
         // History
         public List<string> history_stack;
         private bool currency_view_visited = false;
+
+        // Keyboard Events
+        Gdk.Keymap keymap;
+        bool keyboard_shift_status;
 
         public MainWindow () {
             load_settings ();
@@ -96,6 +102,9 @@ namespace Pebbles {
                 save_settings ();
             });
             history_stack = new List<string> ();
+
+            keymap = Gdk.Keymap.get_for_display (Gdk.Display.get_default ());
+            keymap.state_changed.connect (update_caps_status);
         }
         
         public void make_ui () {
@@ -111,8 +120,7 @@ namespace Pebbles {
             
             // Make Scientific / Calculus View Controls ///////////////
             // Create angle unit button
-            angle_unit_button = new Gtk.Button.with_label ("DEG");
-            angle_unit_button.tooltip_text = "Degrees";
+            angle_unit_button = new StyledButton ("DEG", "<b>Degrees</b> \xE2\x86\x92 Radians", {"F7"});
             angle_unit_button.set_margin_end (7);
             angle_unit_button.width_request = 50;
             angle_unit_button.clicked.connect (() => {
@@ -202,7 +210,7 @@ namespace Pebbles {
             update_button.width_request = 10;
             update_button.halign = Gtk.Align.START;
             update_button.margin = 1;
-            update_button.set_tooltip_markup ("<b>Update Currency Data</b>\nUpdates automatically every 10 minutes");
+            update_button.tooltip_markup = Granite.markup_accel_tooltip ({"R"}, "<b>Update Forex Data</b>\nUpdates automatically every 10 minutes");
             
             // Create App Menu
             app_menu = new Gtk.MenuButton ();
@@ -210,10 +218,16 @@ namespace Pebbles {
             app_menu.set_image (new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
             
             var settings_menu = new Gtk.Menu ();
-            var menu_item_constants = new Gtk.MenuItem.with_label ("Configure Constant Button");
+            var menu_item_constants_item = new Gtk.MenuItem.with_label ("Configure Constant Button");
+            var controls_overlay_item = new Gtk.MenuItem.with_label ("Show Controls");
 
-            settings_menu.append (menu_item_constants);
+            settings_menu.append (menu_item_constants_item);
+            settings_menu.append (controls_overlay_item);
             settings_menu.show_all();
+
+            controls_overlay_item.activate.connect (() => {
+                show_controls ();
+            });
             
             app_menu.popup = settings_menu;
             
@@ -274,7 +288,7 @@ namespace Pebbles {
             calc_category.expand_all ();
             calc_category.add (scientific_item);
             calc_category.add (calculus_item);
-            calc_category.add (programmer_item);
+            //calc_category.add (programmer_item); // Will be added in a future update
             calc_category.add (date_item);
             calc_category.add (stats_item);
             //calc_category.add (finance_item);
@@ -321,8 +335,11 @@ namespace Pebbles {
             conv_curr_view   = new Pebbles.ConvCurrView ();
             
             update_button.clicked.connect (() => {
-                update_button.set_sensitive (false);
                 conv_curr_view.update_currency_data ();
+            });
+            
+            conv_curr_view.start_update.connect (() => {
+                update_button.set_sensitive (false);
             });
             conv_curr_view.update_done_or_failed.connect (() => {
                 update_button.set_sensitive (true);
@@ -480,6 +497,25 @@ namespace Pebbles {
             this.add (paned);
             this.set_resizable (false);
             this.show_all ();
+
+            update_caps_status ();
+        }
+
+        private void show_controls () {
+            if (controls_modal == null) {
+                controls_modal = new ControlsOverlay ();
+                controls_modal.application = this.application;
+                this.application.add_window (controls_modal);
+                controls_modal.set_attached_to (this);
+                
+                controls_modal.set_transient_for (this);
+
+                controls_modal.delete_event.connect (() => {
+                    controls_modal = null;
+                    return false;
+                });
+            }
+            controls_modal.present ();
         }
 
         public void answer_notify () {
@@ -509,22 +545,24 @@ namespace Pebbles {
         }
         private void angle_unit_button_label_update () {
             if (settings.global_angle_unit == Pebbles.GlobalAngleUnit.DEG) {
-                angle_unit_button.label = "DEG";
-                angle_unit_button.tooltip_text = "Degrees";
+                angle_unit_button.update_label ("DEG", "<b>Degrees</b> \xE2\x86\x92 Radians", {"F7"});
                 scientific_view.set_angle_mode_display (0);
                 calculus_view.set_angle_mode_display (0);
             }
             else if (settings.global_angle_unit == Pebbles.GlobalAngleUnit.RAD) {
-                angle_unit_button.label = "RAD";
-                angle_unit_button.tooltip_text = "Radians";
+                angle_unit_button.update_label ("RAD", "<b>Radians</b> \xE2\x86\x92 Gradians", {"F7"});
                 scientific_view.set_angle_mode_display (1);
                 calculus_view.set_angle_mode_display (1);
             }
             else if (settings.global_angle_unit == Pebbles.GlobalAngleUnit.GRAD) {
-                angle_unit_button.label = "GRA";
-                angle_unit_button.tooltip_text = "Gradians";
+                angle_unit_button.update_label ("GRD", "<b>Gradians</b> \xE2\x86\x92 Degrees", {"F7"});
                 scientific_view.set_angle_mode_display (2);
                 calculus_view.set_angle_mode_display (2);
+            }
+            if (view_index == 0) {
+                this.scientific_view.display_unit.input_entry.grab_focus_without_selecting ();
+            } else if (view_index == 2) {
+                this.calculus_view.display_unit.input_entry.grab_focus_without_selecting ();
             }
         }
         private void word_length_button_label_update () {
@@ -573,10 +611,16 @@ namespace Pebbles {
             key_press_event.connect ((event) => {
                 switch (view_index) {
                     case 0: 
-                        scientific_view.display_unit.input_entry.grab_focus_without_selecting ();
-                        if (scientific_view.display_unit.input_entry.get_text () == "0" && scientific_view.display_unit.input_entry.cursor_position == 0)
-                            scientific_view.display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                        scientific_view.grab_focus ();
+                        scientific_view.key_pressed (event);
                         break;
+                    case 2:
+                        calculus_view.grab_focus ();
+                        calculus_view.key_pressed (event);
+                        break;
+                    case 3:
+                        // TODO: Explicitly handle input in this mode
+                        return false;
                     case 4:
                         statistics_view.grab_focus ();
                         statistics_view.key_pressed (event);
@@ -584,18 +628,119 @@ namespace Pebbles {
                     case 5:
                         conv_length_view.key_press_event (event);
                         break;
+                    case 6:
+                        conv_area_view.key_press_event (event);
+                        break;
+                    case 7:
+                        conv_volume_view.key_press_event (event);
+                        break;
+                    case 8:
+                        conv_time_view.key_press_event (event);
+                        break;
+                    case 9:
+                        conv_angle_view.key_press_event (event);
+                        break;
+                    case 10:
+                        conv_speed_view.key_press_event (event);
+                        break;
+                    case 11:
+                        conv_mass_view.key_press_event (event);
+                        break;
+                    case 12:
+                        conv_press_view.key_press_event (event);
+                        break;
+                    case 13:
+                        conv_energy_view.key_press_event (event);
+                        break;
+                    case 14:
+                        conv_power_view.key_press_event (event);
+                        break;
+                    case 15:
+                        conv_temp_view.key_press_event (event);
+                        break;
+                    case 16:
+                        conv_data_view.key_press_event (event);
+                        break;
+                    case 17:
+                        conv_curr_view.key_press_event (event);
+                        break;
                 }
-                return false;
+                if (event.keyval == 65505) {
+                    keyboard_shift_status = true;
+                }
+                if (event.keyval == KeyboardHandler.KeyMap.F1) {
+                    show_controls ();
+                }
+                if (event.keyval == KeyboardHandler.KeyMap.F7) {
+                    if (view_index == 0 || view_index == 2) {
+                        settings.switch_angle_unit ();
+                        this.angle_unit_button_label_update ();
+                    }
+                }
+                return true;
             });
             key_release_event.connect ((event) => {
                 switch (view_index) {
+                    case 0:
+                        scientific_view.key_released ();
+                        break;
+                    case 2:
+                        calculus_view.key_released ();
+                        break;
                     case 4:
                         statistics_view.key_released ();
                         break;
+                    case 5:
+                        conv_length_view.key_release_event (event);
+                        break;
+                    case 6:
+                        conv_area_view.key_release_event (event);
+                        break;
+                    case 7:
+                        conv_volume_view.key_release_event (event);
+                        break;
+                    case 8:
+                        conv_time_view.key_release_event (event);
+                        break;
+                    case 9:
+                        conv_angle_view.key_release_event (event);
+                        break;
+                    case 10:
+                        conv_speed_view.key_release_event (event);
+                        break;
+                    case 11:
+                        conv_mass_view.key_release_event (event);
+                        break;
+                    case 12:
+                        conv_press_view.key_release_event (event);
+                        break;
+                    case 13:
+                        conv_energy_view.key_release_event (event);
+                        break;
+                    case 14:
+                        conv_power_view.key_release_event (event);
+                        break;
+                    case 15:
+                        conv_temp_view.key_release_event (event);
+                        break;
+                    case 16:
+                        conv_data_view.key_release_event (event);
+                        break;
+                    case 17:
+                        conv_curr_view.key_release_event (event);
+                        break;
+                }
+                if (event.keyval == 65505) {
+                    keyboard_shift_status = false;
                 }
                 return false;
             });
         }
 
+        void update_caps_status () {
+            bool caps_on = (keyboard_shift_status) ? !(keymap.get_caps_lock_state ()) : (keymap.get_caps_lock_state ());
+            this.shift_switch.state_set (caps_on);
+            this.shift_switch_prog.state_set (caps_on);
+        }
     }
 }

@@ -46,6 +46,8 @@ namespace Pebbles {
         StyledButton result_button;
         StyledButton answer_button;
 
+        string last_answer = "0";
+
         construct {
             settings = Pebbles.Settings.get_default ();
             settings.notify["use-dark-theme"].connect (() => {
@@ -74,7 +76,7 @@ namespace Pebbles {
             clear_button.margin = 3;
             clear_button.margin_right = 0;
 
-            all_clear_button = new StyledButton ("C", "All Clear");
+            all_clear_button = new StyledButton ("AC", "All Clear", {"Delete"});
             all_clear_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
             seven_button = new StyledButton ("7");
             eight_button = new StyledButton ("8");
@@ -95,10 +97,10 @@ namespace Pebbles {
             divide_button.get_style_context ().add_class ("h3");
             multiply_button = new StyledButton ("\xC3\x97", "Multiply");
             multiply_button.get_style_context ().add_class ("h3");
-            result_button = new StyledButton ("=", "Result");
+            result_button = new StyledButton ("=", "Result", {"Return"});
             result_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
             result_button.get_style_context ().add_class ("h3");
-            answer_button = new StyledButton ("Ans", "Last Result");
+            answer_button = new StyledButton ("Ans", "Last Result", {"F1"});
 
             var header_box = new Gtk.HBox (false, 0);
             header_box.pack_start (close_button);
@@ -149,78 +151,89 @@ namespace Pebbles {
         }
 
         void make_events () {
+            this.key_press_event.connect ((event) => {
+                if (event.keyval == KeyboardHandler.KeyMap.NAV_LEFT 
+                || event.keyval == KeyboardHandler.KeyMap.NAV_RIGHT
+                || event.keyval == KeyboardHandler.KeyMap.SPACE_BAR
+                || event.keyval == KeyboardHandler.KeyMap.PARENTHESIS_L
+                || event.keyval == KeyboardHandler.KeyMap.PARENTHESIS_R) {
+                    return false;
+                }
+                this.key_pressed (event);
+                return true;
+            });
+            this.key_release_event.connect ((event) => {
+                this.key_released ();
+                return false;
+            });
             close_button.clicked.connect (() => {
                 this.close ();
             });
 
             divide_button.clicked.connect (() => {
-                char_button_click (" ÷ ");
+                insert_text (" ÷ ");
             });
             seven_button.clicked.connect (() => {
-                char_button_click ("7");
+                insert_text ("7");
             });
             eight_button.clicked.connect (() => {;
-                char_button_click ("8");
+                insert_text ("8");
             });
             nine_button.clicked.connect (() => {;
-                char_button_click ("9");
+                insert_text ("9");
             });
             multiply_button.clicked.connect (() => {;
-                char_button_click (" × ");
+                insert_text (" × ");
             });
             four_button.clicked.connect (() => {;
-                char_button_click ("4");
+                insert_text ("4");
             });
             five_button.clicked.connect (() => {;
-                char_button_click ("5");
+                insert_text ("5");
             });
             six_button.clicked.connect (() => {;
-                char_button_click ("6");
+                insert_text ("6");
             });
             subtract_button.clicked.connect (() => {;
-                char_button_click (" - ");
+                insert_text (" - ");
             });
             one_button.clicked.connect (() => {;
-                char_button_click ("1");
+                insert_text ("1");
             });
             two_button.clicked.connect (() => {;
-                char_button_click ("2");
+                insert_text ("2");
             });
             three_button.clicked.connect (() => {;
-                char_button_click ("3");
+                insert_text ("3");
             });
             add_button.clicked.connect (() => {;
-                char_button_click (" + ");
+                insert_text (" + ");
             });
             zero_button.clicked.connect (() => {;
-                char_button_click ("0");
+                insert_text ("0");
             });
             radix_button.clicked.connect (() => {;
-                char_button_click (".");
+                insert_text (".");
             });
             clear_button.clicked.connect (() => {
-                main_entry.grab_focus_without_selecting ();
                 main_entry.backspace ();
+                if (main_entry.get_text () == "") {
+                    main_entry.set_text ("0");
+                    main_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                }
             });
             all_clear_button.clicked.connect (() => {
-                main_entry.grab_focus_without_selecting ();
                 main_entry.set_text ("0");
                 main_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
             });
+            answer_button.clicked.connect (() => {
+                insert_text ("ans");
+            });
             result_button.clicked.connect (() => {
                 get_answer_evaluate ();
-                main_entry.grab_focus_without_selecting ();
                 if (main_entry.get_text ().length == 0 && main_entry.get_text () != "0") {
                     main_entry.set_text ("0");
                 }
-            });
-
-            main_entry.activate.connect (() => {
-                get_answer_evaluate ();
-                if (main_entry.get_text ().length == 0 && main_entry.get_text () != "0") {
-                    main_entry.set_text ("0");
-                }
-                //input_entry.set_text (Utils.preformat (input_entry.get_text ()));
             });
 
             main_entry.changed.connect (() => {
@@ -229,18 +242,6 @@ namespace Pebbles {
                 else
                     clear_button.sensitive = true;
             });
-        }
-
-        private void char_button_click (string input) {
-            string sample = main_entry.get_text ();
-            main_entry.grab_focus_without_selecting ();
-            if (sample != "0") {
-                main_entry.set_text (sample.concat (input));
-            }
-            else {
-                main_entry.set_text (input);
-            }
-            main_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
         }
 
         private void get_answer_evaluate () {
@@ -252,17 +253,151 @@ namespace Pebbles {
             //    result = sci_calc.get_result (main_entry.get_text ().replace ("ans", "2"), GlobalAngleUnit.DEG, accuracy_settings.decimal_places);
             //}
             //else {
-                result = sci_calc.get_result (main_entry.get_text (), GlobalAngleUnit.DEG, accuracy_settings.decimal_places);
+                result = sci_calc.get_result (main_entry.get_text ().replace ("ans", last_answer).replace (",", ""), GlobalAngleUnit.DEG, accuracy_settings.decimal_places);
             //}
             main_entry.set_text (result);
-            if (result == "E") {
-                //shake ();
-            }
-            else {
-                //this.sci_view.window.history_stack.append (result.replace (",", ""));
-                //this.sci_view.last_answer_button.set_sensitive (true);
+            if (result != "E") {
+                last_answer = result.replace (",", "");
             }
             main_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+        }
+
+        private void key_pressed (Gdk.EventKey event) {
+            switch (event.keyval) {
+                case KeyboardHandler.KeyMap.BACKSPACE:
+                main_entry.backspace ();
+                if (main_entry.get_text () == "") {
+                    main_entry.set_text ("0");
+                    main_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                }
+                break;
+                case KeyboardHandler.KeyMap.NUMPAD_7:
+                case KeyboardHandler.KeyMap.KEYPAD_7:
+                this.insert_text ("7");
+                seven_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.NUMPAD_8:
+                case KeyboardHandler.KeyMap.KEYPAD_8:
+                this.insert_text ("8");
+                eight_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.NUMPAD_9:
+                case KeyboardHandler.KeyMap.KEYPAD_9:
+                this.insert_text ("9");
+                nine_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.NUMPAD_4:
+                case KeyboardHandler.KeyMap.KEYPAD_4:
+                this.insert_text ("4");
+                four_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.NUMPAD_5:
+                case KeyboardHandler.KeyMap.KEYPAD_5:
+                this.insert_text ("5");
+                five_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.NUMPAD_6:
+                case KeyboardHandler.KeyMap.KEYPAD_6:
+                this.insert_text ("6");
+                six_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.NUMPAD_1:
+                case KeyboardHandler.KeyMap.KEYPAD_1:
+                this.insert_text ("1");
+                one_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.NUMPAD_2:
+                case KeyboardHandler.KeyMap.KEYPAD_2:
+                this.insert_text ("2");
+                two_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.NUMPAD_3:
+                case KeyboardHandler.KeyMap.KEYPAD_3:
+                this.insert_text ("3");
+                three_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.NUMPAD_0:
+                case KeyboardHandler.KeyMap.KEYPAD_0:
+                if (main_entry.get_text () != "0") {
+                    this.insert_text ("0");
+                }
+                zero_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.NUMPAD_RADIX:
+                case KeyboardHandler.KeyMap.KEYPAD_RADIX:
+                this.insert_text (".");
+                radix_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+
+                case KeyboardHandler.KeyMap.PLUS_NUMPAD:
+                case KeyboardHandler.KeyMap.PLUS_KEYPAD:
+                this.insert_text (" + ");
+                add_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.MINUS_NUMPAD:
+                case KeyboardHandler.KeyMap.MINUS_KEYPAD:
+                this.insert_text (" - ");
+                subtract_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.SLASH_NUMPAD:
+                case KeyboardHandler.KeyMap.SLASH_KEYPAD:
+                this.insert_text (" ÷ ");
+                divide_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.STAR_NUMPAD:
+                case KeyboardHandler.KeyMap.STAR_KEYPAD:
+                this.insert_text (" × ");
+                multiply_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.RETURN:
+                case KeyboardHandler.KeyMap.RETURN_NUMPAD:
+                get_answer_evaluate ();
+                if (main_entry.get_text ().length == 0 && main_entry.get_text () != "0") {
+                    main_entry.set_text ("0");
+                }
+                result_button.get_style_context ().add_class ("Pebbles_Buttons_Suggested_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.DELETE:
+                main_entry.set_text ("0");
+                main_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                all_clear_button.get_style_context ().add_class ("Pebbles_Buttons_Destructive_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.F6:
+                insert_text ("ans");
+                answer_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+            }
+        }
+
+        private void insert_text (string text) {
+            if (main_entry.get_text () == "0") {
+                main_entry.set_text ("");
+            }
+            main_entry.grab_focus_without_selecting ();
+            main_entry.insert_at_cursor (text);
+        }
+
+        private void key_released () {
+            seven_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            eight_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            nine_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            four_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            five_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            six_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            one_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            two_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            three_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            zero_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            radix_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            answer_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+
+            add_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            subtract_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            divide_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            multiply_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+
+            result_button.get_style_context ().remove_class ("Pebbles_Buttons_Suggested_Pressed");
+            all_clear_button.get_style_context ().remove_class ("Pebbles_Buttons_Destructive_Pressed");
         }
     }
 }

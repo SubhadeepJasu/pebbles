@@ -452,6 +452,7 @@ namespace Pebbles {
         public bool navigate_left () {
             if (sample_index > 0) {
                 sample_index--;
+                navigate_cell (true, true);
                 return true;
             }
             return false;
@@ -464,6 +465,7 @@ namespace Pebbles {
             });
             if (sample_index < n - 1) {
                 sample_index++;
+                navigate_cell (true, false);
                 return true;
             }
             return false;
@@ -551,12 +553,9 @@ namespace Pebbles {
             return editable_cell.get_text ();
         }
 
-        public void char_button_click (string text) {
-            string str = editable_cell.get_text ();
-            str = str.concat ("", text);
-            editable_cell.set_text (str);
+        public void insert_text (string text) {
+            editable_cell.insert_at_cursor (text);
             editable_cell.grab_focus_without_selecting ();
-            editable_cell.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
         }
 
         public void clear_cell () {

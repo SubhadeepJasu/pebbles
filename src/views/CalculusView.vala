@@ -94,6 +94,8 @@ namespace Pebbles {
         
         public int integral_accuracy { get; set; }
 
+        Gtk.Entry editable_entry;
+
         private double _memory_reserve;
         private double memory_reserve {
             get { return _memory_reserve; }
@@ -133,6 +135,12 @@ namespace Pebbles {
             display_container.margin_bottom = 8;
             display_unit = new CalculusDisplay (this);
             display_container.pack_start (display_unit);
+            display_unit.button_release_event.connect (() => {
+                this.editable_entry = display_unit.input_entry;
+                display_unit.input_entry.grab_focus_without_selecting ();
+                return false;
+            });
+            this.editable_entry = display_unit.input_entry;
             
             // Make Input section on the left
             button_container_left = new Gtk.Grid ();
@@ -163,7 +171,7 @@ namespace Pebbles {
                 else
                     del_button.sensitive = true;
             });
-            variable_button = new StyledButton ("<i>x</i>", "Variable for linear expressions");
+            variable_button = new StyledButton ("<i>x</i>", "Variable for linear expressions", {"X"});
             divide_button = new StyledButton ("\xC3\xB7", "Divide");
             divide_button.get_style_context ().add_class ("h3");
             seven_button = new StyledButton ("7");
@@ -211,37 +219,37 @@ namespace Pebbles {
             button_container_left.set_row_homogeneous (true);
 
             // Make buttons on the right
-            pow_root_button = new StyledButton ("x<sup>y</sup>", "x raised to the power y");
+            pow_root_button = new StyledButton ("x<sup>y</sup>", "x raised to the power y", {"Z"});
             pow_root_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            memory_plus_button = new StyledButton ("M+", "Add it to the value in Memory");
+            memory_plus_button = new StyledButton ("M+", "Add it to the value in Memory", {"F2"});
             memory_plus_button.get_style_context ().add_class ("Pebbles_Buttons_Memory");
-            sin_button = new StyledButton ("sin", "Sine");
+            sin_button = new StyledButton ("sin", "Sine", {"S"});
             sin_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            sinh_button = new StyledButton ("sinh", "Hyperbolic Sine");
+            sinh_button = new StyledButton ("sinh", "Hyperbolic Sine", {"H"});
             sinh_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            memory_minus_button = new StyledButton ("M\xE2\x88\x92", "Subtract it from the value in Memory");
+            memory_minus_button = new StyledButton ("M\xE2\x88\x92", "Subtract it from the value in Memory", {"F3"});
             memory_minus_button.get_style_context ().add_class ("Pebbles_Buttons_Memory");
-            cos_button = new StyledButton ("cos", "Cosine");
+            cos_button = new StyledButton ("cos", "Cosine", {"C"});
             cos_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            cosh_button = new StyledButton ("cosh", "Hyperbolic Cosine");
+            cosh_button = new StyledButton ("cosh", "Hyperbolic Cosine", {"O"});
             cosh_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            log_mod_button = new StyledButton ("Mod", "Modulus");
+            log_mod_button = new StyledButton ("Mod", "Modulus", {"M"});
             log_mod_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            memory_recall_button = new StyledButton ("MR", "Recall value from Memory");
+            memory_recall_button = new StyledButton ("MR", "Recall value from Memory", {"F4"});
             memory_recall_button.get_style_context ().add_class ("Pebbles_Buttons_Memory");
-            tan_button = new StyledButton ("tan", "Tangent");
+            tan_button = new StyledButton ("tan", "Tangent", {"T"});
             tan_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            tanh_button = new StyledButton ("tanh", "Hyperbolic Tangent");
+            tanh_button = new StyledButton ("tanh", "Hyperbolic Tangent", {"A"});
             tanh_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            perm_comb_button = new StyledButton ("<sup>n</sup>P\xE1\xB5\xA3", "Permutations");
+            perm_comb_button = new StyledButton ("<sup>n</sup>P\xE1\xB5\xA3", "Permutations", {"P"});
             perm_comb_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            memory_clear_button = new StyledButton ("MC", "Memory Clear");
+            memory_clear_button = new StyledButton ("MC", "Memory Clear", {"F5"});
             memory_clear_button.get_style_context ().add_class ("Pebbles_Buttons_Memory");
-            fact_button = new StyledButton ("!", "Factorial");
+            fact_button = new StyledButton ("!", "Factorial", {"F"});
             fact_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            constant_button = new StyledButton (constant_label_1, constant_desc_1);
+            constant_button = new StyledButton (constant_label_1, constant_desc_1, {"R"});
             constant_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            last_answer_button = new StyledButton ("Ans", "Last answer");
+            last_answer_button = new StyledButton ("Ans", "Last answer", {"F6"});
             last_answer_button.sensitive = false;
             last_answer_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             
@@ -256,6 +264,10 @@ namespace Pebbles {
             integration_button.margin_start = 2;
             
             int_limit_a = new Gtk.Entry ();
+            int_limit_a.button_release_event.connect (() => {
+                this.editable_entry = int_limit_a;
+                return false;
+            });
             int_limit_a.get_style_context ().add_class ("Pebbles_Small_Entry");
             int_limit_a.max_width_chars = 4;
             int_limit_a.width_chars = 4;
@@ -263,6 +275,10 @@ namespace Pebbles {
             int_limit_a.margin_top = 5;
             int_limit_a.placeholder_text = "u";
             int_limit_b = new Gtk.Entry ();
+            int_limit_b.button_release_event.connect (() => {
+                this.editable_entry = int_limit_b;
+                return false;
+            });
             int_limit_b.get_style_context ().add_class ("Pebbles_Small_Entry");
             int_limit_b.max_width_chars = 4;
             int_limit_b.width_chars = 4;
@@ -294,6 +310,10 @@ namespace Pebbles {
             derivation_button.margin_start = 2;
             
             int_limit_x = new Gtk.Entry ();
+            int_limit_x.button_release_event.connect (() => {
+                this.editable_entry = int_limit_x;
+                return false;
+            });
             int_limit_x.get_style_context ().add_class ("Pebbles_Small_Entry");
             int_limit_x.max_width_chars = 6;
             int_limit_x.width_chars = 6;
@@ -343,78 +363,28 @@ namespace Pebbles {
         }
         public void set_alternative_button () {
             if (shift_held) {
-                pow_root_button.update_label ("<sup>n</sup>\xE2\x88\x9A", "nth root over number");
-                pow_root_button.clicked.connect (() => {
-                    shift_held = false;
-                    window.shift_switch.set_active (false);
-                    set_alternative_button ();
-                });
-                sin_button.update_label ("sin<sup>-1</sup>", "Inverse Sine");
-                sin_button.clicked.connect (() => {
-                    shift_held = false;
-                    window.shift_switch.set_active (false);
-                    set_alternative_button ();
-                });
-                sinh_button.update_label ("sinh<sup>-1</sup>", "Inverse Syperbolic Sine");
-                sinh_button.clicked.connect (() => {
-                    shift_held = false;
-                    window.shift_switch.set_active (false);
-                    set_alternative_button ();
-                });
-                cos_button.update_label ("cos<sup>-1</sup>", "Inverse Cosine");
-                cos_button.clicked.connect (() => {
-                    shift_held = false;
-                    window.shift_switch.set_active (false);
-                    set_alternative_button ();
-                });
-                cosh_button.update_label ("cosh<sup>-1</sup>", "Inverse Hyperbolic Cosine");
-                cosh_button.clicked.connect (() => {
-                    shift_held = false;
-                    window.shift_switch.set_active (false);
-                    set_alternative_button ();
-                });
-                log_mod_button.update_label ("log\xE2\x82\x93y", "Log base x");
-                log_mod_button.clicked.connect (() => {
-                    shift_held = false;
-                    window.shift_switch.set_active (false);
-                    set_alternative_button ();
-                });
-                tan_button.update_label ("tan<sup>-1</sup>", "Inverse Tangent");
-                tan_button.clicked.connect (() => {
-                    shift_held = false;
-                    window.shift_switch.set_active (false);
-                    set_alternative_button ();
-                });
-                tanh_button.update_label ("tanh<sup>-1</sup>", "Inverse Hyperbolic Tangent");
-                tanh_button.clicked.connect (() => {
-                    shift_held = false;
-                    window.shift_switch.set_active (false);
-                    set_alternative_button ();
-                });
-                perm_comb_button.update_label ("<sup>n</sup>C\xE1\xB5\xA3", "Combinations");
-                perm_comb_button.clicked.connect (() => {
-                    shift_held = false;
-                    window.shift_switch.set_active (false);
-                    set_alternative_button ();
-                });
-                constant_button.update_label (constant_label_2, constant_desc_2);
-                constant_button.clicked.connect (() => {
-                    shift_held = false;
-                    window.shift_switch.set_active (false);
-                    set_alternative_button ();
-                });
+                pow_root_button.update_label ("<sup>n</sup>\xE2\x88\x9A", "nth root over number", {"Z"});
+                sin_button.update_label ("sin<sup>-1</sup>", "Inverse Sine", {"S"});
+                sinh_button.update_label ("sinh<sup>-1</sup>", "Inverse Hyperbolic Sine", {"H"});
+                cos_button.update_label ("cos<sup>-1</sup>", "Inverse Cosine", {"C"});
+                cosh_button.update_label ("cosh<sup>-1</sup>", "Inverse Hyperbolic Cosine", {"O"});
+                log_mod_button.update_label ("log\xE2\x82\x93y", "Log base x", {"M"});
+                tan_button.update_label ("tan<sup>-1</sup>", "Inverse Tangent", {"T"});
+                tanh_button.update_label ("tanh<sup>-1</sup>", "Inverse Hyperbolic Tangent", {"A"});
+                perm_comb_button.update_label ("<sup>n</sup>C\xE1\xB5\xA3", "Combinations", {"P"});
+                constant_button.update_label (constant_label_2, constant_desc_2, {"R"});
             }
             else {
-                pow_root_button.update_label ("x<sup>y</sup>", "x raised to the power y");
-                sin_button.update_label ("sin", "Sine");
-                sinh_button.update_label ("sinh", "Hyperbolic Sine");
-                cos_button.update_label ("cos", "Cosine");
-                cosh_button.update_label ("cosh", "Hyperbolic Cosine");
-                log_mod_button.update_label ("Mod", "Modulus");
-                tan_button.update_label ("tan", "Tangent");
-                tanh_button.update_label ("tanh", "Hyperbolic Tangent");
-                perm_comb_button.update_label ("<sup>n</sup>P\xE1\xB5\xA3", "Permutations");
-                constant_button.update_label (constant_label_1, constant_desc_1);
+                pow_root_button.update_label ("x<sup>y</sup>", "x raised to the power y", {"Z"});
+                sin_button.update_label ("sin", "Sine", {"S"});
+                sinh_button.update_label ("sinh", "Hyperbolic Sine", {"H"});
+                cos_button.update_label ("cos", "Cosine", {"C"});
+                cosh_button.update_label ("cosh", "Hyperbolic Cosine", {"O"});
+                log_mod_button.update_label ("Mod", "Modulus", {"M"});
+                tan_button.update_label ("tan", "Tangent", {"T"});
+                tanh_button.update_label ("tanh", "Hyperbolic Tangent", {"A"});
+                perm_comb_button.update_label ("<sup>n</sup>P\xE1\xB5\xA3", "Permutations", {"P"});
+                constant_button.update_label (constant_label_1, constant_desc_1, {"R"});
             }
         }
         private void load_constant_button_settings () {
@@ -571,122 +541,122 @@ namespace Pebbles {
                 display_unit.input_entry.backspace ();
             });
             variable_button.clicked.connect (() => {
-                char_button_click ("x");
+                display_unit.insert_text ("x");
             });
             divide_button.clicked.connect (() => {
-                char_button_click (" ÷ ");
+                display_unit.insert_text (" ÷ ");
             });
             seven_button.clicked.connect (() => {
-                char_button_click ("7");
+                display_unit.insert_text ("7");
             });
             eight_button.clicked.connect (() => {;
-                char_button_click ("8");
+                display_unit.insert_text ("8");
             });
             nine_button.clicked.connect (() => {;
-                char_button_click ("9");
+                display_unit.insert_text ("9");
             });
             multiply_button.clicked.connect (() => {;
-                char_button_click (" × ");
+                display_unit.insert_text (" × ");
             });
             four_button.clicked.connect (() => {;
-                char_button_click ("4");
+                display_unit.insert_text ("4");
             });
             five_button.clicked.connect (() => {;
-                char_button_click ("5");
+                display_unit.insert_text ("5");
             });
             six_button.clicked.connect (() => {;
-                char_button_click ("6");
+                display_unit.insert_text ("6");
             });
             subtract_button.clicked.connect (() => {;
-                char_button_click (" - ");
+                display_unit.insert_text (" - ");
             });
             one_button.clicked.connect (() => {;
-                char_button_click ("1");
+                display_unit.insert_text ("1");
             });
             two_button.clicked.connect (() => {;
-                char_button_click ("2");
+                display_unit.insert_text ("2");
             });
             three_button.clicked.connect (() => {;
-                char_button_click ("3");
+                display_unit.insert_text ("3");
             });
             plus_button.clicked.connect (() => {;
-                char_button_click (" + ");
+                display_unit.insert_text (" + ");
             });
             zero_button.clicked.connect (() => {;
-                char_button_click ("0");
+                display_unit.insert_text ("0");
             });
             decimal_button.clicked.connect (() => {;
-                char_button_click (".");
+                display_unit.insert_text (".");
             });
             left_parenthesis_button.clicked.connect (() => {;
-                char_button_click ("( ");
+                display_unit.insert_text ("( ");
             });
             right_parenthesis_button.clicked.connect (() => {;
-                char_button_click (") ");
+                display_unit.insert_text (") ");
             });
             
             pow_root_button.clicked.connect (() => {
                 if (shift_held)
-                    char_button_click ("\xE2\x81\xBF√ ");
+                    display_unit.insert_text ("\xE2\x81\xBF√ ");
                 else
-                    char_button_click ("^ ");
+                    display_unit.insert_text ("^ ");
             });
             sin_button.clicked.connect (() => {
                 if (shift_held)
-                    char_button_click ("isin ");
+                    display_unit.insert_text ("isin ");
                 else
-                    char_button_click ("sin ");
+                    display_unit.insert_text ("sin ");
             });
             sinh_button.clicked.connect (() => {
                 if (shift_held)
-                    char_button_click ("isinh ");
+                    display_unit.insert_text ("isinh ");
                 else
-                    char_button_click ("sinh ");
+                    display_unit.insert_text ("sinh ");
             });
             cos_button.clicked.connect (() => {
                 if (shift_held)
-                    char_button_click ("icos ");
+                    display_unit.insert_text ("icos ");
                 else
-                    char_button_click ("cos ");
+                    display_unit.insert_text ("cos ");
             });
             cosh_button.clicked.connect (() => {
                 if (shift_held)
-                    char_button_click ("icosh ");
+                    display_unit.insert_text ("icosh ");
                 else
-                    char_button_click ("cosh ");
+                    display_unit.insert_text ("cosh ");
             });
             tan_button.clicked.connect (() => {
                 if (shift_held)
-                    char_button_click ("itan ");
+                    display_unit.insert_text ("itan ");
                 else
-                    char_button_click ("tan ");
+                    display_unit.insert_text ("tan ");
             });
             tanh_button.clicked.connect (() => {
                 if (shift_held)
-                    char_button_click ("itanh ");
+                    display_unit.insert_text ("itanh ");
                 else
-                    char_button_click ("tanh ");
+                    display_unit.insert_text ("tanh ");
             });
             perm_comb_button.clicked.connect (() => {
                 if (shift_held)
-                    char_button_click ("C");
+                    display_unit.insert_text ("C");
                 else
-                    char_button_click ("P");
+                    display_unit.insert_text ("P");
             });
             fact_button.clicked.connect (() => {
-                char_button_click ("!");
+                display_unit.insert_text ("!");
             });
             constant_button.clicked.connect (() => {
                 if (shift_held)
-                    char_button_click (constant_label_2);
+                    display_unit.insert_text (constant_label_2);
                 else
-                    char_button_click (constant_label_1);
+                    display_unit.insert_text (constant_label_1);
             });
             log_mod_button.clicked.connect (() => {
                 if (shift_held)
-                    char_button_click ("log ");
+                    display_unit.insert_text ("log ");
                 else
-                    char_button_click ("mod ");
+                    display_unit.insert_text ("mod ");
             });
             
             memory_plus_button.button_press_event.connect ((event) => {
@@ -744,11 +714,11 @@ namespace Pebbles {
             });
             
             memory_recall_button.clicked.connect (() => {
-                char_button_click (memory_reserve.to_string ());
+                display_unit.insert_text (memory_reserve.to_string ());
             });
             
             last_answer_button.clicked.connect (() => {
-                char_button_click ("ans ");
+                display_unit.insert_text ("ans ");
             });
             keypad_a.button_clicked.connect ((val) => {
                 if (val == "C") {
@@ -761,8 +731,7 @@ namespace Pebbles {
                     if (int_limit_a.get_text () == "0"){
                         int_limit_a.set_text("");
                     }
-                    int_limit_a.set_text (int_limit_a.get_text() + val);
-                    int_limit_a.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                    int_limit_a.insert_at_cursor (val);
                 }
             });
             keypad_b.button_clicked.connect ((val) => {
@@ -776,8 +745,7 @@ namespace Pebbles {
                     if (int_limit_b.get_text () == "0"){
                         int_limit_b.set_text("");
                     }
-                    int_limit_b.set_text (int_limit_b.get_text() + val);
-                    int_limit_b.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                    int_limit_b.insert_at_cursor (val);
                 }
             });
             keypad_x.button_clicked.connect ((val) => {
@@ -791,8 +759,7 @@ namespace Pebbles {
                     if (int_limit_x.get_text () == "0"){
                         int_limit_x.set_text("");
                     }
-                    int_limit_x.set_text (int_limit_x.get_text() + val);
-                    int_limit_x.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                    int_limit_x.insert_at_cursor (val);
                 }
             });
             keypad_a.closed.connect (() => display_unit.input_entry.grab_focus_without_selecting ());
@@ -812,6 +779,364 @@ namespace Pebbles {
         }
         public void set_angle_mode_display (int state) {
             display_unit.set_angle_status (state);
+        }
+
+        public void send_backspace () {
+            editable_entry.backspace ();
+            if (editable_entry.get_text () == "") {
+                editable_entry.set_text ("0");
+                editable_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+            }
+        }
+
+        public void insert_text (string text) {
+            if (editable_entry.get_text () == "0") {
+                editable_entry.set_text ("");
+            }
+            editable_entry.grab_focus_without_selecting ();
+            editable_entry.insert_at_cursor (text);
+        }
+        public void insert_text_to_main_entry (string text) {
+            editable_entry = display_unit.input_entry;
+            insert_text (text);
+        }
+
+        public void key_pressed (Gdk.EventKey event) {
+            this.display_unit.input_entry.grab_focus_without_selecting ();
+            switch (event.keyval) {
+                case KeyboardHandler.KeyMap.BACKSPACE:
+                if (del_button.get_sensitive ()) {
+                    this.send_backspace ();
+                    del_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                }
+                break;
+                case KeyboardHandler.KeyMap.NUMPAD_7: // 7 key numpad
+                case KeyboardHandler.KeyMap.KEYPAD_7:
+                this.insert_text ("7");
+                seven_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.NUMPAD_8: // 8 key numpad
+                case KeyboardHandler.KeyMap.KEYPAD_8:
+                this.insert_text ("8");
+                eight_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.NUMPAD_9: // 9 key numpad
+                case KeyboardHandler.KeyMap.KEYPAD_9:
+                this.insert_text ("9");
+                nine_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.NUMPAD_4: // 4 key numpad
+                case KeyboardHandler.KeyMap.KEYPAD_4:
+                this.insert_text ("4");
+                four_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.NUMPAD_5: // 5 key numpad
+                case KeyboardHandler.KeyMap.KEYPAD_5:
+                this.insert_text ("5");
+                five_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.NUMPAD_6: // 6 key numpad
+                case KeyboardHandler.KeyMap.KEYPAD_6:
+                this.insert_text ("6");
+                six_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.NUMPAD_1: // 1 key numpad
+                case KeyboardHandler.KeyMap.KEYPAD_1:
+                this.insert_text ("1");
+                one_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.NUMPAD_2: // 2 key numpad
+                case KeyboardHandler.KeyMap.KEYPAD_2:
+                this.insert_text ("2");
+                two_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.NUMPAD_3: // 3 key numpad
+                case KeyboardHandler.KeyMap.KEYPAD_3:
+                this.insert_text ("3");
+                three_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.NUMPAD_0: // 0 key numpad
+                case KeyboardHandler.KeyMap.KEYPAD_0:
+                this.insert_text ("0");
+                zero_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.NUMPAD_RADIX:
+                case KeyboardHandler.KeyMap.KEYPAD_RADIX:
+                this.insert_text (".");
+                decimal_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.X_LOWER:
+                display_unit.insert_text ("x");
+                variable_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.X_UPPER:
+                display_unit.insert_text ("x");
+                variable_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.DELETE:
+                display_unit.input_entry.grab_focus_without_selecting ();
+                display_unit.input_entry.set_text ("0");
+                display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                all_clear_button.get_style_context ().add_class ("Pebbles_Buttons_Destructive_Pressed");
+                break;
+
+                case KeyboardHandler.KeyMap.PLUS_NUMPAD:
+                case KeyboardHandler.KeyMap.PLUS_KEYPAD:
+                if (editable_entry == display_unit.input_entry)
+                this.insert_text (" + ");
+                plus_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.MINUS_NUMPAD:
+                case KeyboardHandler.KeyMap.MINUS_KEYPAD:
+                if (editable_entry == display_unit.input_entry)
+                this.insert_text (" - ");
+                subtract_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.SLASH_NUMPAD:
+                case KeyboardHandler.KeyMap.SLASH_KEYPAD:
+                if (editable_entry == display_unit.input_entry)
+                this.insert_text (" ÷ ");
+                divide_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.STAR_NUMPAD:
+                case KeyboardHandler.KeyMap.STAR_KEYPAD:
+                if (editable_entry == display_unit.input_entry)
+                this.insert_text (" × ");
+                multiply_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.PARENTHESIS_L:
+                case KeyboardHandler.KeyMap.SQ_BRACKETS_L:
+                case KeyboardHandler.KeyMap.FL_BRACKETS_L:
+                left_parenthesis_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                display_unit.insert_text ("( ");
+                break;
+                case KeyboardHandler.KeyMap.PARENTHESIS_R:
+                case KeyboardHandler.KeyMap.SQ_BRACKETS_R:
+                case KeyboardHandler.KeyMap.FL_BRACKETS_R:
+                right_parenthesis_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                display_unit.insert_text (" ) ");
+                break;
+                case KeyboardHandler.KeyMap.M_LOWER:
+                display_unit.insert_text ("mod ");
+                log_mod_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.M_UPPER:
+                display_unit.insert_text ("log ");
+                log_mod_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.PERCENTAGE:
+                display_unit.insert_text ("%");
+                break;
+                case KeyboardHandler.KeyMap.L_LOWER:
+                display_unit.insert_text ("log\xE2\x82\x81\xE2\x82\x80 ");
+                break;
+                case KeyboardHandler.KeyMap.L_UPPER:
+                display_unit.insert_text ("ln ");
+                break;
+                case KeyboardHandler.KeyMap.S_LOWER:
+                display_unit.insert_text ("sin ");
+                sin_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.C_LOWER:
+                display_unit.insert_text ("cos ");
+                cos_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.T_LOWER:
+                display_unit.insert_text ("tan ");
+                tan_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.H_LOWER:
+                display_unit.insert_text ("sinh ");
+                sinh_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.O_LOWER:
+                display_unit.insert_text ("cosh ");
+                cosh_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.A_LOWER:
+                display_unit.insert_text ("tanh ");
+                tanh_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.S_UPPER:
+                display_unit.insert_text ("isin ");
+                sin_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.C_UPPER:
+                display_unit.insert_text ("icos ");
+                cos_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.T_UPPER:
+                display_unit.insert_text ("itan ");
+                tan_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.H_UPPER:
+                display_unit.insert_text ("isinh ");
+                sinh_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.O_UPPER:
+                display_unit.insert_text ("icosh ");
+                cosh_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.A_UPPER:
+                display_unit.insert_text ("itanh ");
+                tanh_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.Q_LOWER:
+                display_unit.insert_text ("^2 ");
+                break;
+                case KeyboardHandler.KeyMap.Q_UPPER:
+                display_unit.insert_text ("√");
+                break;
+                case KeyboardHandler.KeyMap.P_LOWER:
+                display_unit.insert_text ("P");
+                perm_comb_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.P_UPPER:
+                display_unit.insert_text ("C");
+                perm_comb_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.F_LOWER:
+                case KeyboardHandler.KeyMap.F_UPPER:
+                case KeyboardHandler.KeyMap.EXCLAMATION:
+                display_unit.insert_text ("!");
+                fact_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.R_LOWER:
+                display_unit.insert_text (constant_label_1);
+                break;
+                case KeyboardHandler.KeyMap.R_UPPER:
+                display_unit.insert_text (constant_label_2);
+                break;
+                case KeyboardHandler.KeyMap.Z_UPPER:
+                display_unit.insert_text ("\xE2\x81\xBF√");
+                break;
+                case KeyboardHandler.KeyMap.W_LOWER:
+                display_unit.insert_text ("10^");
+                break;
+                case KeyboardHandler.KeyMap.W_UPPER:
+                display_unit.insert_text ("e^");
+                break;
+
+                case KeyboardHandler.KeyMap.I_UPPER:
+                case KeyboardHandler.KeyMap.I_LOWER:
+                {
+                    display_unit.display_off ();
+                    string? limit_u = int_limit_a.get_text ();
+                    string? limit_l = int_limit_b.get_text ();
+                    if (limit_u == "" && limit_l == "") {
+                        display_unit.get_answer_evaluate_integral (0, 1);
+                    }
+                    else if (limit_u == "" && limit_l != "") {
+                        display_unit.get_answer_evaluate_integral (double.parse (limit_l), 1);
+                    }
+                    else if (limit_u != "" && limit_l == "") {
+                        display_unit.get_answer_evaluate_integral (0, double.parse (limit_u));
+                    }
+                    else {
+                        display_unit.get_answer_evaluate_integral (double.parse (limit_l), double.parse (limit_u));
+                    }
+                    
+                    if (display_unit.input_entry.get_text ().length == 0 && display_unit.input_entry.get_text () != "0") {
+                        display_unit.input_entry.set_text ("0");
+                    }
+                    display_unit.input_entry.grab_focus_without_selecting ();
+                    if (display_unit.input_entry.cursor_position < display_unit.input_entry.get_text ().length)
+                        display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                }
+                break;
+                case KeyboardHandler.KeyMap.D_UPPER:
+                case KeyboardHandler.KeyMap.D_LOWER:
+                {
+                    display_unit.display_off ();
+                    string? limit = int_limit_x.get_text();
+                    if (limit == "") {
+                        display_unit.get_answer_evaluate_derivative (0.0);
+                    }
+                    else {
+                        display_unit.get_answer_evaluate_derivative (double.parse (limit));
+                    }
+                    
+                    if (display_unit.input_entry.get_text ().length == 0 && display_unit.input_entry.get_text () != "0") {
+                        display_unit.input_entry.set_text ("0");
+                    }
+                    display_unit.input_entry.grab_focus_without_selecting ();
+                    if (display_unit.input_entry.cursor_position < display_unit.input_entry.get_text ().length)
+                        display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                }
+                break;
+                case KeyboardHandler.KeyMap.TAB:
+                cycle_focus (false);
+                break;
+                case KeyboardHandler.KeyMap.SHIFT_TAB:
+                cycle_focus (true);
+                break;
+            }
+        }
+
+        public void key_released () {
+            display_unit.display_on ();
+            del_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            seven_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            eight_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            nine_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            four_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            five_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            six_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            one_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            two_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            three_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            zero_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            decimal_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            all_clear_button.get_style_context ().remove_class ("Pebbles_Buttons_Destructive_Pressed");
+
+            plus_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            subtract_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            divide_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            multiply_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+
+            left_parenthesis_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            right_parenthesis_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            fact_button.get_style_context ().remove_class ("Pebbles_Buttons_Function_Pressed");
+
+            pow_root_button.get_style_context ().remove_class ("Pebbles_Buttons_Function_Pressed");
+            log_mod_button.get_style_context ().remove_class ("Pebbles_Buttons_Function_Pressed");
+            sin_button.get_style_context ().remove_class ("Pebbles_Buttons_Function_Pressed");
+            cos_button.get_style_context ().remove_class ("Pebbles_Buttons_Function_Pressed");
+            tan_button.get_style_context ().remove_class ("Pebbles_Buttons_Function_Pressed");
+            sinh_button.get_style_context ().remove_class ("Pebbles_Buttons_Function_Pressed");
+            cosh_button.get_style_context ().remove_class ("Pebbles_Buttons_Function_Pressed");
+            tanh_button.get_style_context ().remove_class ("Pebbles_Buttons_Function_Pressed");
+            perm_comb_button.get_style_context ().remove_class ("Pebbles_Buttons_Function_Pressed");
+
+            memory_plus_button.get_style_context ().remove_class ("Pebbles_Buttons_Memory_Pressed");
+            memory_minus_button.get_style_context ().remove_class ("Pebbles_Buttons_Memory_Pressed");
+            memory_recall_button.get_style_context ().remove_class ("Pebbles_Buttons_Memory_Pressed");
+            memory_clear_button.get_style_context ().remove_class ("Pebbles_Buttons_Memory_Pressed");
+        }
+
+        private void cycle_focus (bool clockwise) {
+            if (!clockwise) {
+                if (display_unit.input_entry == editable_entry) {
+                    editable_entry = int_limit_a;
+                } else if (int_limit_a == editable_entry) {
+                    editable_entry = int_limit_b;
+                } else if (int_limit_b == editable_entry) {
+                    editable_entry = int_limit_x;
+                } else if (int_limit_x == editable_entry) {
+                    editable_entry = display_unit.input_entry;
+                }
+            } else {
+                if (display_unit.input_entry == editable_entry) {
+                    editable_entry = int_limit_x;
+                } else if (int_limit_x == editable_entry) {
+                    editable_entry = int_limit_b;
+                } else if (int_limit_b == editable_entry) {
+                    editable_entry = int_limit_a;
+                } else if (int_limit_a == editable_entry) {
+                    editable_entry = display_unit.input_entry;
+                }
+            }
+            editable_entry.grab_focus_without_selecting ();
         }
     }
 }
