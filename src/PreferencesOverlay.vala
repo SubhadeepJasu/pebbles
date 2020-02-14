@@ -22,6 +22,62 @@
 namespace Pebbles { 
     public class PreferencesOverlay : Gtk.Window {
         public PreferencesOverlay () {
+
+            var main_grid = new Gtk.Grid ();
+            main_grid.halign = Gtk.Align.CENTER;
+            main_grid.row_spacing = 8;
+            
+
+            var precision_label = new Gtk.Label ("Number of decimal places:");
+            precision_label.get_style_context ().add_class ("h4");
+            precision_label.halign = Gtk.Align.START;
+            var precision_entry = new Gtk.SpinButton.with_range (1, 9, 1);
+
+            var constant_button_label = new Gtk.Label ("Scientific constants button:");
+            constant_button_label.get_style_context ().add_class ("h4");
+            constant_button_label.halign = Gtk.Align.START;
+            var constant_label1 = new Gtk.Label ("Constant 1");
+            constant_label1.halign = Gtk.Align.START;
+            var constants_select_1 = new Gtk.ComboBoxText ();
+            constants_select_1.append_text ("Euler's constant (exponential)                e");
+            constants_select_1.append_text ("Archimedes' constant (pi)                        \xCF\x80");
+            constants_select_1.append_text ("Imaginary number                                      i");
+            constants_select_1.append_text ("Golden ratio (phi)                                       \xCF\x86");
+            constants_select_1.append_text ("Euler–Mascheroni constant (gamma)   \xF0\x9D\x9B\xBE");
+            constants_select_1.append_text ("Conway's constant (lamda)                      \xCE\xBB");
+            constants_select_1.append_text ("Khinchin's constant                                    K");
+            constants_select_1.append_text ("The Feigenbaum constant alpha            \xCE\xB1");
+            constants_select_1.append_text ("The Feigenbaum constant delta             \xCE\xB4");
+            constants_select_1.append_text ("Apery's constant                                    \xF0\x9D\x9B\x87(3)");
+
+            var constant_label2 = new Gtk.Label ("Constant 2");
+            constant_label2.halign = Gtk.Align.START;
+            var constants_select_2 = new Gtk.ComboBoxText ();
+            constants_select_2.append_text ("Euler's constant (exponential)                e");
+            constants_select_2.append_text ("Archimedes' constant (pi)                        \xCF\x80");
+            constants_select_2.append_text ("Imaginary number                                      i");
+            constants_select_2.append_text ("Golden ratio (phi)                                       \xCF\x86");
+            constants_select_2.append_text ("Euler–Mascheroni constant (gamma)   \xF0\x9D\x9B\xBE");
+            constants_select_2.append_text ("Conway's constant (lamda)                      \xCE\xBB");
+            constants_select_2.append_text ("Khinchin's constant                                    K");
+            constants_select_2.append_text ("The Feigenbaum constant alpha            \xCE\xB1");
+            constants_select_2.append_text ("The Feigenbaum constant delta             \xCE\xB4");
+            constants_select_2.append_text ("Apery's constant                                    \xF0\x9D\x9B\x87(3)");
+
+            main_grid.attach (precision_label, 0, 0, 1, 1);
+            main_grid.attach (precision_entry, 0, 1, 1, 1);
+            main_grid.attach (constant_button_label, 0, 2, 1, 1);
+            main_grid.attach (constant_label1, 0, 3, 1, 1);
+            main_grid.attach (constants_select_1, 0, 4, 1, 1);
+            main_grid.attach (constant_label2, 0, 5, 1, 1);
+            main_grid.attach (constants_select_2, 0, 6, 1, 1);
+
+            this.add (main_grid);
+
+
+
+
+
             var headerbar = new Gtk.HeaderBar ();
             headerbar.has_subtitle = false;
             headerbar.set_show_close_button (true);
@@ -33,8 +89,8 @@ namespace Pebbles {
 
             // Set up window attributes
             this.resizable = false;
-            this.set_default_size (480, 480);
-            this.set_size_request (480, 480);
+            this.set_default_size (460, 440);
+            this.set_size_request (460, 440);
 
             //this.add (scrolled_window);
 
