@@ -387,7 +387,7 @@ namespace Pebbles {
                 constant_button.update_label (constant_label_1, constant_desc_1, {"R"});
             }
         }
-        private void load_constant_button_settings () {
+        public void load_constant_button_settings () {
             settings = Pebbles.Settings.get_default ();
             switch (settings.constant_key_value1) {
                 case ConstantKeyIndex.ARCHIMEDES:
@@ -473,6 +473,7 @@ namespace Pebbles {
                     constant_desc_2 = "Euler's constant (exponential)";
                     break;
             }
+            set_alternative_button ();
         }
         private void cal_make_events () {
             derivation_button.button_press_event.connect ((event) => {

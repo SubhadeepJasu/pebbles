@@ -7,6 +7,7 @@ executable(
     'StyledButton.vala',
     'KeyboardHandler.vala',
     'ControlsScheme.vala',
+    'PreferencesOverlay.vala',
     'views/MiniCalculator.vala',
     'views/CalculusView.vala',
     'views/ProgrammerView.vala',

@@ -73,6 +73,7 @@ namespace Pebbles {
 
 
         ControlsOverlay controls_modal;
+        PreferencesOverlay preferences_modal;
         // Active View Index
         private int view_index = 0;
         
@@ -218,15 +219,19 @@ namespace Pebbles {
             app_menu.set_image (new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
             
             var settings_menu = new Gtk.Menu ();
-            var menu_item_constants_item = new Gtk.MenuItem.with_label ("Configure Constant Button");
+            var preferences_overlay_item = new Gtk.MenuItem.with_label ("Preferences");
             var controls_overlay_item = new Gtk.MenuItem.with_label ("Show Controls");
 
-            settings_menu.append (menu_item_constants_item);
+            settings_menu.append (preferences_overlay_item);
             settings_menu.append (controls_overlay_item);
             settings_menu.show_all();
 
             controls_overlay_item.activate.connect (() => {
                 show_controls ();
+            });
+
+            preferences_overlay_item.activate.connect (() => {
+                show_preferences ();
             });
             
             app_menu.popup = settings_menu;
@@ -516,6 +521,28 @@ namespace Pebbles {
                 });
             }
             controls_modal.present ();
+        }
+
+        private void show_preferences () {
+            if (preferences_modal == null) {
+                preferences_modal = new PreferencesOverlay ();
+                preferences_modal.application = this.application;
+                this.application.add_window (preferences_modal);
+                preferences_modal.set_attached_to (this);
+
+                preferences_modal.set_transient_for (this);
+
+                preferences_modal.delete_event.connect (() => {
+                    preferences_modal = null;
+                    return false;
+                });
+
+                preferences_modal.update_settings.connect (() => {
+                    scientific_view.load_constant_button_settings ();
+                    calculus_view.load_constant_button_settings ();
+                });
+                preferences_modal.present ();
+            }
         }
 
         public void answer_notify () {
