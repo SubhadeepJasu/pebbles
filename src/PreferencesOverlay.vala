@@ -21,8 +21,18 @@
 
 namespace Pebbles { 
     public class PreferencesOverlay : Gtk.Window {
-        public PreferencesOverlay () {
+        Pebbles.Settings settings;
+        Gtk.SpinButton precision_entry;
+        Gtk.ComboBoxText constants_select_1;
+        Gtk.ComboBoxText constants_select_2;
 
+        public signal void update_settings ();
+
+        construct {
+            settings = Pebbles.Settings.get_default ();
+        }
+
+        public PreferencesOverlay () {
             var main_grid = new Gtk.Grid ();
             main_grid.halign = Gtk.Align.CENTER;
             main_grid.row_spacing = 8;
@@ -31,14 +41,15 @@ namespace Pebbles {
             var precision_label = new Gtk.Label ("Number of decimal places:");
             precision_label.get_style_context ().add_class ("h4");
             precision_label.halign = Gtk.Align.START;
-            var precision_entry = new Gtk.SpinButton.with_range (1, 9, 1);
+            precision_entry = new Gtk.SpinButton.with_range (1, 9, 1);
+            precision_entry.max_length = 1;
 
             var constant_button_label = new Gtk.Label ("Scientific constants button:");
             constant_button_label.get_style_context ().add_class ("h4");
             constant_button_label.halign = Gtk.Align.START;
             var constant_label1 = new Gtk.Label ("Constant 1");
             constant_label1.halign = Gtk.Align.START;
-            var constants_select_1 = new Gtk.ComboBoxText ();
+            constants_select_1 = new Gtk.ComboBoxText ();
             constants_select_1.append_text ("Euler's constant (exponential)                e");
             constants_select_1.append_text ("Archimedes' constant (pi)                        \xCF\x80");
             constants_select_1.append_text ("Imaginary number                                      i");
@@ -50,9 +61,9 @@ namespace Pebbles {
             constants_select_1.append_text ("The Feigenbaum constant delta             \xCE\xB4");
             constants_select_1.append_text ("Apery's constant                                    \xF0\x9D\x9B\x87(3)");
 
-            var constant_label2 = new Gtk.Label ("Constant 2");
+            var constant_label2 = new Gtk.Label ("Constant 2 (Hold Shift)");
             constant_label2.halign = Gtk.Align.START;
-            var constants_select_2 = new Gtk.ComboBoxText ();
+            constants_select_2 = new Gtk.ComboBoxText ();
             constants_select_2.append_text ("Euler's constant (exponential)                e");
             constants_select_2.append_text ("Archimedes' constant (pi)                        \xCF\x80");
             constants_select_2.append_text ("Imaginary number                                      i");
@@ -64,6 +75,11 @@ namespace Pebbles {
             constants_select_2.append_text ("The Feigenbaum constant delta             \xCE\xB4");
             constants_select_2.append_text ("Apery's constant                                    \xF0\x9D\x9B\x87(3)");
 
+            this.delete_event.connect (() => {
+                save_settings ();
+                return false;
+            });
+
             main_grid.attach (precision_label, 0, 0, 1, 1);
             main_grid.attach (precision_entry, 0, 1, 1, 1);
             main_grid.attach (constant_button_label, 0, 2, 1, 1);
@@ -73,10 +89,6 @@ namespace Pebbles {
             main_grid.attach (constants_select_2, 0, 6, 1, 1);
 
             this.add (main_grid);
-
-
-
-
 
             var headerbar = new Gtk.HeaderBar ();
             headerbar.has_subtitle = false;
@@ -97,6 +109,92 @@ namespace Pebbles {
             this.destroy_with_parent = true;
             this.modal = true;
             show_all ();
+
+            load_settings ();
+        }
+
+        private void save_settings () {
+            if (precision_entry.get_value_as_int () != 0) {
+                settings.decimal_places = precision_entry.get_value_as_int ();
+            }
+
+            settings.constant_key_value1 = (ConstantKeyIndex)constants_select_1.get_active ();
+            settings.constant_key_value2 = (ConstantKeyIndex)constants_select_2.get_active ();
+
+            this.update_settings ();
+        }
+
+        private void load_settings () {
+            precision_entry.set_value ((double)settings.decimal_places);
+            load_constant_button_settings ();
+        }
+
+        private void load_constant_button_settings () {
+            settings = Pebbles.Settings.get_default ();
+            switch (settings.constant_key_value1) {
+                case ConstantKeyIndex.ARCHIMEDES:
+                constants_select_1.set_active(1);
+                break;
+                case ConstantKeyIndex.IMAGINARY:
+                constants_select_1.set_active(2);
+                break;
+                case ConstantKeyIndex.GOLDEN_RATIO:
+                constants_select_1.set_active(3);
+                break;
+                case ConstantKeyIndex.EULER_MASCH:
+                constants_select_1.set_active(4);
+                break;
+                case ConstantKeyIndex.CONWAY:
+                constants_select_1.set_active(5);
+                break;
+                case ConstantKeyIndex.KHINCHIN:
+                constants_select_1.set_active(6);
+                break;
+                case ConstantKeyIndex.FEIGEN_ALPHA:
+                constants_select_1.set_active(7);
+                break;
+                case ConstantKeyIndex.FEIGEN_DELTA:
+                constants_select_1.set_active(8);
+                break;
+                case ConstantKeyIndex.APERY:
+                constants_select_1.set_active(9);
+                break;
+                default:
+                constants_select_1.set_active(0);
+                break;
+            }
+            switch (settings.constant_key_value2) {
+                case ConstantKeyIndex.ARCHIMEDES:
+                constants_select_2.set_active(1);
+                break;
+                case ConstantKeyIndex.IMAGINARY:
+                constants_select_2.set_active(2);
+                break;
+                case ConstantKeyIndex.GOLDEN_RATIO:
+                constants_select_2.set_active(3);
+                break;
+                case ConstantKeyIndex.EULER_MASCH:
+                constants_select_2.set_active(4);
+                break;
+                case ConstantKeyIndex.CONWAY:
+                constants_select_2.set_active(5);
+                break;
+                case ConstantKeyIndex.KHINCHIN:
+                constants_select_2.set_active(6);
+                break;
+                case ConstantKeyIndex.FEIGEN_ALPHA:
+                constants_select_2.set_active(7);
+                break;
+                case ConstantKeyIndex.FEIGEN_DELTA:
+                constants_select_2.set_active(8);
+                break;
+                case ConstantKeyIndex.APERY:
+                constants_select_2.set_active(9);
+                break;
+                default:
+                constants_select_2.set_active(0);
+                break;
+            }
         }
     }
 }
