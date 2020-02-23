@@ -24,8 +24,12 @@
 namespace Pebbles
 {
     public class Statistics{
-        public string[] tokens;
-        public double[] x;
+        private string[] tokens;
+        private double[] x;
+        private int decimal_places;
+        public Statistics (int decimal_places) {
+            this.decimal_places = decimal_places;
+        }
         
         private void string_splitter (string input_vals){
             tokens = input_vals.split(",");
@@ -35,6 +39,20 @@ namespace Pebbles
             }
         }
         
+        private string output_to_string (double values) {
+            // Take care of float accuracy of the result
+            string output = Utils.manage_decimal_places (values, decimal_places);
+
+            // Remove trailing 0s and decimals
+            while (output.has_suffix ("0")) {
+                output = output.slice (0, -1);
+            }
+            if (output.has_suffix (".")) {
+                output = output.slice (0, -1);
+            }
+            return output;
+        }
+        
         public string summation_x (string input_vals) {
             double sum_x=0.0;
             string_splitter(input_vals);
@@ -42,7 +60,7 @@ namespace Pebbles
                 sum_x = sum_x + x[i];
             }
             
-            return ("%.9f".printf (sum_x));
+            return output_to_string (sum_x);
         }
         
         public string summation_x_square (string input_vals) {
@@ -52,7 +70,7 @@ namespace Pebbles
                 sum_x_square = sum_x_square + Math.pow(x[i],2);
             }
             
-            return ("%.9f".printf (sum_x_square));
+            return output_to_string (sum_x_square);
         }
         
         public string mean_x (string input_vals) {
@@ -61,7 +79,7 @@ namespace Pebbles
             for(int i = 0; i < x.length; i++) {
                 avg_x = avg_x + x[i];
             }
-            return ("%.9f".printf (avg_x / x.length));
+            return output_to_string (avg_x / x.length);
         }
         
         public string mean_x_square (string input_vals) {
@@ -70,28 +88,17 @@ namespace Pebbles
             for(int i = 0; i < x.length; i++) {
                 avg_x_square = avg_x_square + Math.pow(x[i],2);
             }
-            return ("%.9f".printf (avg_x_square / x.length));
+            return output_to_string (avg_x_square / x.length);
         }
         
-        private void bubble_sort (){
-            for(int i = 0; i < x.length - 1; i++) {
-                for(int j=0; j < x.length - i - 1; i++) {
-                    if(x[j+1] < x[j]){
-                        double temp = x[j];
-                        x[j] = x[j+1];
-                        x[j+1] = temp;
-                    }
-                }
-            }
-        }
         public string median (string input_vals) {
             string_splitter(input_vals);
-            bubble_sort();
+            Gsl.Sort.sort (x, 1, x.length);
             if(x.length % 2 == 0) {
-                return ("%.9f".printf ((x[x.length / 2 - 1] + x[(x.length / 2) ]) / 2));
+                return (output_to_string(x[x.length / 2 - 1]) + ", " + output_to_string(x[(x.length / 2) ]) );
             }
             else {
-                return x[x.length / 2].to_string();
+                return output_to_string (x[x.length / 2]);
             }
         }
 
@@ -125,7 +132,7 @@ namespace Pebbles
                 }
             }
             //element array may contain duplicates entries of the same mode element(s)
-            string mode_elements = ("%.9f".printf (element[0]));
+            string mode_elements = output_to_string (element[0]);
             int flag = 0;
             for(int i =1; i< no_of_elements; i++) {
                 flag = 0;
@@ -136,7 +143,7 @@ namespace Pebbles
                     }
                 }
                 if(flag == 0) {
-                    mode_elements = mode_elements.concat(",%.9f".printf (element[i]));
+                    mode_elements = mode_elements.concat(", ", output_to_string (element[i]));
                 }
             }
             return mode_elements;
@@ -150,7 +157,7 @@ namespace Pebbles
             }
             geo_mean = geo_mean / x.length;
             geo_mean = Math.exp(geo_mean);
-            return ("%.9f".printf (geo_mean));
+            return output_to_string (geo_mean);
         }
 
         private string summation_x_minus_mean_whole_square (string input_vals) {
@@ -159,54 +166,37 @@ namespace Pebbles
             for(int i = 0; i < x.length; i++) {
                 summation = summation + Math.pow((x[i] - mean_of_x),2);
             }
-            return ("%.9f".printf (summation));
+            return output_to_string (summation);
         }
         
         //s^2
         public string sample_variance (string input_vals) {
             double variance = double.parse(summation_x_minus_mean_whole_square(input_vals));
             variance = variance / (x.length - 1);
-            return ("%.9f".printf (variance));
+            return output_to_string (variance);
         }
 
         //s
         public string sample_standard_deviation (string input_vals) {
             double standard_deviation = double.parse(sample_variance(input_vals));
             standard_deviation = Math.sqrt(standard_deviation);
-            return ("%.9f".printf (standard_deviation));
+            return output_to_string (standard_deviation);
         }
 
         //sigma^2
         public string population_variance (string input_vals) {
             double variance = double.parse(summation_x_minus_mean_whole_square(input_vals));
             variance = variance / x.length;
-            return ("%.9f".printf (variance));
+            return output_to_string (variance);
         }
 
         //sigma
         public string population_standard_deviation (string input_vals) {
             double standard_deviation = double.parse(population_variance(input_vals));
             standard_deviation = Math.sqrt(standard_deviation);
-            return ("%.9f".printf (standard_deviation));
+            return output_to_string (standard_deviation);
         }
     }
-/*
-    void main() {
-        stdout.printf("Enter the nos seperated by commas:- ");
-        string input = stdin.read_line();
-        Statistics s1 = new Statistics();
-        stdout.printf("The summation of x is %s \n",s1.summation_x(input));
-        stdout.printf("The summation of x square is %s \n",s1.summation_x_square(input));
-        stdout.printf("The mean of x is %s \n",s1.mean_x(input));
-        stdout.printf("The mean square of x is %s \n",s1.mean_x_square(input));
-        stdout.printf("The median is %s \n",s1.median(input));
-        stdout.printf("The mode element(s) is %s \n",s1.mode(input));
-        stdout.printf("The geometric mean is %s \n",s1.geometric_mean(input));
-        stdout.printf("The sample variance is %s \n",s1.sample_variance(input));
-        stdout.printf("The sample standard deviation is %s \n",s1.sample_standard_deviation(input));
-        stdout.printf("The population variance is %s \n",s1.population_variance(input));
-        stdout.printf("The population standard deviation is %s \n",s1.population_standard_deviation(input));
-    }
-    */
+
 }
 
