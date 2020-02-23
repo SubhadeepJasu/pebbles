@@ -156,9 +156,9 @@ namespace Pebbles {
         
         public void get_answer_evaluate_derivative (double dx) {
             string result = "";
-            if (this.cal_view.window.history_stack.length () > 0) {
-                unowned List<string>? last_answer = this.cal_view.window.history_stack.last ();
-                result = Calculus.get_derivative (input_entry.get_text ().replace ("ans", last_answer.data), angle_mode, dx);
+            if (!this.cal_view.window.history_manager.is_empty ()) {
+                string last_answer = this.cal_view.window.history_manager.get_last_evaluation_result ().result;
+                result = Calculus.get_derivative (input_entry.get_text ().replace ("ans", last_answer), angle_mode, dx);
             }
             else {
                 result = Calculus.get_derivative (input_entry.get_text (), angle_mode, dx);
@@ -168,15 +168,21 @@ namespace Pebbles {
                 shake ();
             }
             else {
-                this.cal_view.window.history_stack.append (result.replace (",", ""));
+                this.cal_view.window.history_manager.append_from_strings (input_entry.get_text (), 
+                                                                        result.replace (",", ""),
+                                                                        angle_mode,
+                                                                        EvaluationResult.CalculusResultMode.DER,
+                                                                        0,
+                                                                        0,
+                                                                        dx);
                 this.cal_view.last_answer_button.set_sensitive (true);
             }
         }
         public void get_answer_evaluate_integral (double l, double u) {
             string result = "";
-            if (this.cal_view.window.history_stack.length () > 0) {
-                unowned List<string>? last_answer = this.cal_view.window.history_stack.last ();
-                result = Calculus.get_definite_integral (input_entry.get_text ().replace ("ans", last_answer.data), angle_mode, l, u);
+            if (!this.cal_view.window.history_manager.is_empty ()) {
+                string last_answer = this.cal_view.window.history_manager.get_last_evaluation_result ().result;
+                result = Calculus.get_definite_integral (input_entry.get_text ().replace ("ans", last_answer), angle_mode, l, u);
             }
             else {
                 result = Calculus.get_definite_integral (input_entry.get_text (), angle_mode, l, u);
@@ -186,7 +192,12 @@ namespace Pebbles {
                 shake ();
             }
             else {
-                this.cal_view.window.history_stack.append (result.replace (",", ""));
+                this.cal_view.window.history_manager.append_from_strings (input_entry.get_text (), 
+                                                                        result.replace (",", ""), 
+                                                                        angle_mode, 
+                                                                        EvaluationResult.CalculusResultMode.INT,
+                                                                        u,
+                                                                        l);
                 this.cal_view.last_answer_button.set_sensitive (true);
             }
         }
