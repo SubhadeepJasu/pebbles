@@ -551,18 +551,6 @@ namespace Pebbles {
             }
         }
 
-        public void answer_notify () {
-            if (desktop_notification == null) {
-                desktop_notification = new Notification ("");
-            }
-            if (history_stack.length () > 0) {
-                unowned List<string>? last_answer = history_stack.last ();
-                desktop_notification.set_title ("Copied to Clipboard");
-                desktop_notification.set_body (last_answer.data);
-                this.application.send_notification (PebblesApp.instance.application_id, desktop_notification);
-
-                stdout.printf ("[STATUS]  Pebbles: Notification sent\n");
-
         private void show_history () {
             if (history_modal == null) {
                 history_modal = new HistoryView (history_manager);
