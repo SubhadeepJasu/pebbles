@@ -20,6 +20,7 @@
 
 namespace Pebbles { 
     public class StatisticsView : Gtk.Grid {
+        private int decimal_places;
         // Display
         StatisticsDisplay display_unit;
 
@@ -78,6 +79,8 @@ namespace Pebbles {
         }
 
         public StatisticsView () {
+            var settings = Pebbles.Settings.get_default ();
+            this.decimal_places = settings.decimal_places;
             stat_make_ui ();
             stat_make_event ();
         }
@@ -310,7 +313,7 @@ namespace Pebbles {
             });
             statistical_mode_button.button_release_event.connect (() => {
                 display_unit.set_result_type (3);
-                Statistics stat_calc = new Statistics();
+                Statistics stat_calc = new Statistics(decimal_places);
                 display_unit.answer_label.set_text (stat_calc.mode (display_unit.get_samples ()));
                 display_unit.set_editable_cell ();
                 display_unit.display_on ();
@@ -322,7 +325,7 @@ namespace Pebbles {
             });
             median_button.button_release_event.connect (() => {
                 display_unit.set_result_type (1);
-                Statistics stat_calc = new Statistics();
+                Statistics stat_calc = new Statistics(decimal_places);
                 display_unit.answer_label.set_text (stat_calc.median (display_unit.get_samples ()));
                 display_unit.set_editable_cell ();
                 display_unit.display_on ();
@@ -334,7 +337,7 @@ namespace Pebbles {
             });
             summation_button.button_release_event.connect (() => {
                 display_unit.set_result_type (4);
-                Statistics stat_calc = new Statistics();
+                Statistics stat_calc = new Statistics(decimal_places);
                 display_unit.answer_label.set_text (stat_calc.summation_x (display_unit.get_samples ()));
                 display_unit.set_editable_cell ();
                 display_unit.display_on ();
@@ -346,7 +349,7 @@ namespace Pebbles {
             });
             summation_sq_button.button_release_event.connect (() => {
                 display_unit.set_result_type (5);
-                Statistics stat_calc = new Statistics();
+                Statistics stat_calc = new Statistics(decimal_places);
                 display_unit.answer_label.set_text (stat_calc.summation_x_square (display_unit.get_samples ()));
                 display_unit.set_editable_cell ();
                 display_unit.display_on ();
@@ -358,7 +361,7 @@ namespace Pebbles {
             });
             sample_variance_button.button_release_event.connect (() => {
                 display_unit.set_result_type (10);
-                Statistics stat_calc = new Statistics();
+                Statistics stat_calc = new Statistics(decimal_places);
                 display_unit.answer_label.set_text (stat_calc.sample_variance (display_unit.get_samples ()));
                 display_unit.set_editable_cell ();
                 display_unit.display_on ();
@@ -370,7 +373,7 @@ namespace Pebbles {
             });
             mean_button.button_release_event.connect (() => {
                 display_unit.set_result_type (6);
-                Statistics stat_calc = new Statistics();
+                Statistics stat_calc = new Statistics(decimal_places);
                 display_unit.answer_label.set_text (stat_calc.mean_x (display_unit.get_samples ()));
                 display_unit.set_editable_cell ();
                 display_unit.display_on ();
@@ -382,7 +385,7 @@ namespace Pebbles {
             });
             mean_sq_button.button_release_event.connect (() => {
                 display_unit.set_result_type (7);
-                Statistics stat_calc = new Statistics();
+                Statistics stat_calc = new Statistics(decimal_places);
                 display_unit.answer_label.set_text (stat_calc.mean_x_square (display_unit.get_samples ()));
                 display_unit.set_editable_cell ();
                 display_unit.display_on ();
@@ -394,7 +397,7 @@ namespace Pebbles {
             });
             sample_std_dev_button.button_release_event.connect (() => {
                 display_unit.set_result_type (11);
-                Statistics stat_calc = new Statistics();
+                Statistics stat_calc = new Statistics(decimal_places);
                 display_unit.answer_label.set_text (stat_calc.sample_standard_deviation (display_unit.get_samples ()));
                 display_unit.set_editable_cell ();
                 display_unit.display_on ();
@@ -406,7 +409,7 @@ namespace Pebbles {
             });
             geometric_mean_button.button_release_event.connect (() => {
                 display_unit.set_result_type (0);
-                Statistics stat_calc = new Statistics();
+                Statistics stat_calc = new Statistics(decimal_places);
                 display_unit.answer_label.set_text (stat_calc.geometric_mean (display_unit.get_samples ()));
                 display_unit.set_editable_cell ();
                 display_unit.display_on ();
@@ -418,7 +421,7 @@ namespace Pebbles {
             });
             pop_variance_button.button_release_event.connect (() => {
                 display_unit.set_result_type (9);
-                Statistics stat_calc = new Statistics();
+                Statistics stat_calc = new Statistics(decimal_places);
                 display_unit.answer_label.set_text (stat_calc.population_variance (display_unit.get_samples ()));
                 display_unit.set_editable_cell ();
                 display_unit.display_on ();
@@ -430,7 +433,7 @@ namespace Pebbles {
             });
             pop_std_dev_button.button_release_event.connect (() => {
                 display_unit.set_result_type (8);
-                Statistics stat_calc = new Statistics();
+                Statistics stat_calc = new Statistics(decimal_places);
                 display_unit.answer_label.set_text (stat_calc.population_standard_deviation (display_unit.get_samples ()));
                 display_unit.set_editable_cell ();
                 display_unit.display_on ();
@@ -694,7 +697,7 @@ namespace Pebbles {
                 case KeyboardHandler.KeyMap.O_LOWER:
                 case KeyboardHandler.KeyMap.O_UPPER:
                 display_unit.set_result_type (3);
-                Statistics stat_calc = new Statistics();
+                Statistics stat_calc = new Statistics(decimal_places);
                 display_unit.answer_label.set_text (stat_calc.mode (display_unit.get_samples ()));
                 display_unit.display_off ();
                 statistical_mode_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
@@ -702,7 +705,7 @@ namespace Pebbles {
                 case KeyboardHandler.KeyMap.E_LOWER:
                 case KeyboardHandler.KeyMap.E_UPPER:
                 display_unit.set_result_type (1);
-                Statistics stat_calc = new Statistics();
+                Statistics stat_calc = new Statistics(decimal_places);
                 display_unit.answer_label.set_text (stat_calc.median (display_unit.get_samples ()));
                 display_unit.display_off ();
                 median_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
@@ -710,7 +713,7 @@ namespace Pebbles {
                 case KeyboardHandler.KeyMap.S_LOWER:
                 case KeyboardHandler.KeyMap.S_UPPER:
                 display_unit.set_result_type (4);
-                Statistics stat_calc = new Statistics();
+                Statistics stat_calc = new Statistics(decimal_places);
                 display_unit.answer_label.set_text (stat_calc.summation_x (display_unit.get_samples ()));
                 display_unit.display_off ();
                 summation_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
@@ -718,7 +721,7 @@ namespace Pebbles {
                 case KeyboardHandler.KeyMap.Q_LOWER:
                 case KeyboardHandler.KeyMap.Q_UPPER:
                 display_unit.set_result_type (5);
-                Statistics stat_calc = new Statistics();
+                Statistics stat_calc = new Statistics(decimal_places);
                 display_unit.answer_label.set_text (stat_calc.summation_x_square (display_unit.get_samples ()));
                 display_unit.display_off ();
                 summation_sq_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
@@ -726,7 +729,7 @@ namespace Pebbles {
                 case KeyboardHandler.KeyMap.V_LOWER:
                 case KeyboardHandler.KeyMap.V_UPPER:
                 display_unit.set_result_type (10);
-                Statistics stat_calc = new Statistics();
+                Statistics stat_calc = new Statistics(decimal_places);
                 display_unit.answer_label.set_text (stat_calc.sample_variance (display_unit.get_samples ()));
                 display_unit.display_off ();
                 sample_variance_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
@@ -734,7 +737,7 @@ namespace Pebbles {
                 case KeyboardHandler.KeyMap.M_LOWER:
                 case KeyboardHandler.KeyMap.M_UPPER:
                 display_unit.set_result_type (6);
-                Statistics stat_calc = new Statistics();
+                Statistics stat_calc = new Statistics(decimal_places);
                 display_unit.answer_label.set_text (stat_calc.mean_x (display_unit.get_samples ()));
                 display_unit.display_off ();
                 mean_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
@@ -742,7 +745,7 @@ namespace Pebbles {
                 case KeyboardHandler.KeyMap.A_LOWER:
                 case KeyboardHandler.KeyMap.A_UPPER:
                 display_unit.set_result_type (7);
-                Statistics stat_calc = new Statistics();
+                Statistics stat_calc = new Statistics(decimal_places);
                 display_unit.answer_label.set_text (stat_calc.mean_x_square (display_unit.get_samples ()));
                 display_unit.display_off ();
                 mean_sq_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
@@ -750,7 +753,7 @@ namespace Pebbles {
                 case KeyboardHandler.KeyMap.D_LOWER:
                 case KeyboardHandler.KeyMap.D_UPPER:
                 display_unit.set_result_type (11);
-                Statistics stat_calc = new Statistics();
+                Statistics stat_calc = new Statistics(decimal_places);
                 display_unit.answer_label.set_text (stat_calc.sample_standard_deviation (display_unit.get_samples ()));
                 display_unit.display_off ();
                 sample_std_dev_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
@@ -758,7 +761,7 @@ namespace Pebbles {
                 case KeyboardHandler.KeyMap.G_LOWER:
                 case KeyboardHandler.KeyMap.G_UPPER:
                 display_unit.set_result_type (0);
-                Statistics stat_calc = new Statistics();
+                Statistics stat_calc = new Statistics(decimal_places);
                 display_unit.answer_label.set_text (stat_calc.geometric_mean (display_unit.get_samples ()));
                 display_unit.display_off ();
                 geometric_mean_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
@@ -766,7 +769,7 @@ namespace Pebbles {
                 case KeyboardHandler.KeyMap.P_LOWER:
                 case KeyboardHandler.KeyMap.P_UPPER:
                 display_unit.set_result_type (9);
-                Statistics stat_calc = new Statistics();
+                Statistics stat_calc = new Statistics(decimal_places);
                 display_unit.answer_label.set_text (stat_calc.population_variance (display_unit.get_samples ()));
                 display_unit.display_off ();
                 pop_variance_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
@@ -774,7 +777,7 @@ namespace Pebbles {
                 case KeyboardHandler.KeyMap.L_LOWER:
                 case KeyboardHandler.KeyMap.L_UPPER:
                 display_unit.set_result_type (8);
-                Statistics stat_calc = new Statistics();
+                Statistics stat_calc = new Statistics(decimal_places);
                 display_unit.answer_label.set_text (stat_calc.population_standard_deviation (display_unit.get_samples ()));
                 display_unit.display_off ();
                 pop_std_dev_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
