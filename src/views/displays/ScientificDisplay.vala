@@ -177,9 +177,9 @@ namespace Pebbles {
             var sci_calc = new ScientificCalculator ();
             string result = "";
             Settings accuracy_settings = Settings.get_default ();
-            if (this.sci_view.window.history_stack.length () > 0) {
-                unowned List<string>? last_answer = this.sci_view.window.history_stack.last ();
-                result = sci_calc.get_result (input_entry.get_text ().replace ("ans", last_answer.data), angle_mode, accuracy_settings.decimal_places);
+            if (!this.sci_view.window.history_manager.is_empty ()) {
+                string last_answer = this.sci_view.window.history_manager.get_last_evaluation_result ().result;
+                result = sci_calc.get_result (input_entry.get_text ().replace ("ans", last_answer), angle_mode, accuracy_settings.decimal_places);
             }
             else {
                 result = sci_calc.get_result (input_entry.get_text (), angle_mode, accuracy_settings.decimal_places);
@@ -189,7 +189,7 @@ namespace Pebbles {
                 shake ();
             }
             else {
-                this.sci_view.window.history_stack.append (result.replace (",", ""));
+                this.sci_view.window.history_manager.append_from_strings (input_entry.get_text (), result.replace (",", ""), angle_mode);
                 this.sci_view.last_answer_button.set_sensitive (true);
             }
         }

@@ -73,6 +73,7 @@ namespace Pebbles {
 
 
         ControlsOverlay controls_modal;
+        HistoryView     history_modal;
         // Active View Index
         private int view_index = 0;
         
@@ -80,7 +81,8 @@ namespace Pebbles {
         Notification desktop_notification;
         
         // History
-        public List<string> history_stack;
+        public HistoryManager history_manager;
+        
         private bool currency_view_visited = false;
 
         // Keyboard Events
@@ -101,7 +103,7 @@ namespace Pebbles {
             this.delete_event.connect (() => {
                 save_settings ();
             });
-            history_stack = new List<string> ();
+            history_manager = new HistoryManager ();
 
             keymap = Gdk.Keymap.get_for_display (Gdk.Display.get_default ());
             keymap.state_changed.connect (update_caps_status);
@@ -236,6 +238,10 @@ namespace Pebbles {
             history_button.valign = Gtk.Align.CENTER;
             history_button.set_image (new Gtk.Image.from_icon_name ("document-open-recent-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
             history_button.set_margin_end (4);
+
+            history_button.clicked.connect (() => {
+                show_history ();
+            });
             
             // Create Header Switcher
             header_switcher = new Gtk.Stack ();
@@ -518,31 +524,23 @@ namespace Pebbles {
             controls_modal.present ();
         }
 
-        public void answer_notify () {
-            if (desktop_notification == null) {
-                desktop_notification = new Notification ("");
-            }
-            if (history_stack.length () > 0) {
-                unowned List<string>? last_answer = history_stack.last ();
-                desktop_notification.set_title ("Copied to Clipboard");
-                desktop_notification.set_body (last_answer.data);
-                this.application.send_notification (PebblesApp.instance.application_id, desktop_notification);
-
-                stdout.printf ("[STATUS]  Pebbles: Notification sent\n");
+        private void show_history () {
+            if (history_modal == null) {
+                history_modal = new HistoryView (history_manager);
+                history_modal.application = this.application;
+                this.application.add_window (history_modal);
+                history_modal.set_attached_to (this);
                 
-                // Manage clipboard
-                Gdk.Display display = this.get_display ();
-                Gtk.Clipboard clipboard = Gtk.Clipboard.get_for_display (display, Gdk.SELECTION_CLIPBOARD);
-                clipboard.set_text (last_answer.data, -1);
-            }
-            else {
-                desktop_notification.set_title ("History Empty!");
-                desktop_notification.set_body ("Nothing has been calculated yet");
-                this.application.send_notification (PebblesApp.instance.application_id, desktop_notification);
+                history_modal.set_transient_for (this);
 
-                stdout.printf ("[WARNING] Pebbles: History is empty\n");
+                history_modal.delete_event.connect (() => {
+                    history_modal = null;
+                    return false;
+                });
             }
+            history_modal.present ();
         }
+
         private void angle_unit_button_label_update () {
             if (settings.global_angle_unit == Pebbles.GlobalAngleUnit.DEG) {
                 angle_unit_button.update_label ("DEG", "<b>Degrees</b> \xE2\x86\x92 Radians", {"F7"});
