@@ -258,7 +258,7 @@ namespace Pebbles {
             var integration_grid = new Gtk.Grid ();
             integration_grid.get_style_context ().add_class ("button");
             integration_grid.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            integration_button = new StyledButton ("\xE2\x88\xAB", "Definite Integral (Upper limit 'u' and Lower limit 'l')");
+            integration_button = new StyledButton ("\xE2\x88\xAB", "Definite Integral (Upper limit 'u' and Lower limit 'l')", {"I"});
             integration_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
             integration_button.get_style_context ().add_class ("suggested-override");
             integration_button.margin_top = 5;
@@ -304,7 +304,7 @@ namespace Pebbles {
             var derivation_grid = new Gtk.Grid ();
             derivation_grid.get_style_context ().add_class ("button");
             derivation_grid.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            derivation_button = new StyledButton ("dy/dx", "Derivative");
+            derivation_button = new StyledButton ("dy/dx", "Derivative (at a point x)", {"D"});
             derivation_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
             derivation_button.get_style_context ().add_class ("suggested-override");
             derivation_button.margin_top = 5;
@@ -868,9 +868,6 @@ namespace Pebbles {
                 decimal_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
                 break;
                 case KeyboardHandler.KeyMap.X_LOWER:
-                display_unit.insert_text ("x");
-                variable_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
-                break;
                 case KeyboardHandler.KeyMap.X_UPPER:
                 display_unit.insert_text ("x");
                 variable_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
@@ -1090,6 +1087,7 @@ namespace Pebbles {
             zero_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
             decimal_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
             all_clear_button.get_style_context ().remove_class ("Pebbles_Buttons_Destructive_Pressed");
+            variable_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
 
             plus_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
             subtract_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
