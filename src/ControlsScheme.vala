@@ -12,19 +12,19 @@ namespace Pebbles {
                     "Show this controls window", "F1"
                 },
                 {
-                    "Add to Memory", "F2"
+                    "Add to Memory", "F3"
                 },
                 {
-                    "Subtract from Memory", "F3"
+                    "Subtract from Memory", "F4"
                 },
                 {
-                    "Recall from Memory", "F4"
+                    "Recall from Memory", "F5"
                 },
                 {
-                    "Clear Memory", "F5"
+                    "Clear Memory", "F6"
                 },
                 {
-                    "Last Answer", "F6"
+                    "Last Answer", "F7"
                 },
                 {
                     "All Clear", "Delete"
