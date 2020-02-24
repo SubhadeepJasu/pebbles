@@ -216,7 +216,7 @@ namespace Pebbles {
             pow_root_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             expo_power_button = new StyledButton ("10<sup>x</sup>", "10 raised to the power x", {"W"});
             expo_power_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            memory_plus_button = new StyledButton ("M+", "Add it to the value in Memory", {"F2"});
+            memory_plus_button = new StyledButton ("M+", "Add it to the value in Memory", {"F3"});
             memory_plus_button.get_style_context ().add_class ("Pebbles_Buttons_Memory");
             sin_button = new StyledButton ("sin", "Sine", {"S"});
             sin_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
@@ -224,7 +224,7 @@ namespace Pebbles {
             sinh_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             log_cont_base_button = new StyledButton ("log x", "Log base 10", {"L"});
             log_cont_base_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            memory_minus_button = new StyledButton ("M\xE2\x88\x92", "Subtract it from the value in Memory", {"F3"});
+            memory_minus_button = new StyledButton ("M\xE2\x88\x92", "Subtract it from the value in Memory", {"F4"});
             memory_minus_button.get_style_context ().add_class ("Pebbles_Buttons_Memory");
             cos_button = new StyledButton ("cos", "Cosine", {"C"});
             cos_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
@@ -232,7 +232,7 @@ namespace Pebbles {
             cosh_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             log_mod_button = new StyledButton ("Mod", "Modulus", {"M"});
             log_mod_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            memory_recall_button = new StyledButton ("MR", "Recall value from Memory", {"F4"});
+            memory_recall_button = new StyledButton ("MR", "Recall value from Memory", {"F5"});
             memory_recall_button.get_style_context ().add_class ("Pebbles_Buttons_Memory");
             tan_button = new StyledButton ("tan", "Tangent", {"T"});
             tan_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
@@ -240,13 +240,13 @@ namespace Pebbles {
             tanh_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             perm_comb_button = new StyledButton ("<sup>n</sup>P\xE1\xB5\xA3", "Permutations", {"P"});
             perm_comb_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            memory_clear_button = new StyledButton ("MC", "Memory Clear", {"F5"});
+            memory_clear_button = new StyledButton ("MC", "Memory Clear", {"F6"});
             memory_clear_button.get_style_context ().add_class ("Pebbles_Buttons_Memory");
             fact_button = new StyledButton ("!", "Factorial", {"F"});
             fact_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             constant_button = new StyledButton (constant_label_1, constant_desc_1, {"R"});
             constant_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            last_answer_button = new StyledButton ("Ans", "Last answer", {"F6"});
+            last_answer_button = new StyledButton ("Ans", "Last answer", {"F7"});
             last_answer_button.sensitive = false;
             last_answer_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             result_button = new StyledButton ("=", "Result", {"Return"});
@@ -868,7 +868,7 @@ namespace Pebbles {
                 break;
 
                 // Memory Buttons
-                case KeyboardHandler.KeyMap.F2:
+                case KeyboardHandler.KeyMap.F3:
                 display_unit.display_off ();
                 display_unit.get_answer_evaluate ();
                 display_unit.input_entry.grab_focus_without_selecting ();
@@ -879,7 +879,7 @@ namespace Pebbles {
                 }
                 memory_plus_button.get_style_context ().add_class ("Pebbles_Buttons_Memory_Pressed");
                 break;
-                case KeyboardHandler.KeyMap.F3:
+                case KeyboardHandler.KeyMap.F4:
                 display_unit.display_off ();
                 display_unit.get_answer_evaluate ();
                 display_unit.input_entry.grab_focus_without_selecting ();
@@ -890,16 +890,16 @@ namespace Pebbles {
                 }
                 memory_minus_button.get_style_context ().add_class ("Pebbles_Buttons_Memory_Pressed");
                 break;
-                case KeyboardHandler.KeyMap.F4:
+                case KeyboardHandler.KeyMap.F5:
                 display_unit.insert_text (memory_reserve.to_string ());
                 memory_recall_button.get_style_context ().add_class ("Pebbles_Buttons_Memory_Pressed");
                 break;
-                case KeyboardHandler.KeyMap.F5:
+                case KeyboardHandler.KeyMap.F6:
                 display_unit.display_off ();
                 memory_reserve = 0.0;
                 memory_clear_button.get_style_context ().add_class ("Pebbles_Buttons_Memory_Pressed");
                 break;
-                case KeyboardHandler.KeyMap.F6:
+                case KeyboardHandler.KeyMap.F7:
                 display_unit.insert_text ("ans ");
                 last_answer_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
                 break;
