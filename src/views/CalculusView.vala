@@ -36,7 +36,7 @@ namespace Pebbles {
 
         // Input section left buttons
         StyledButton all_clear_button;
-        StyledButton del_button;
+        Gtk.Button   del_button;
         StyledButton variable_button;
         StyledButton divide_button;
         StyledButton seven_button;
@@ -161,9 +161,10 @@ namespace Pebbles {
             button_container_right.row_spacing = 8;
             
             // Make buttons on the left
-            all_clear_button = new StyledButton ("C", "Clear entry");
+            all_clear_button = new StyledButton ("AC", "All Clear", {"Delete"});
             all_clear_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
-            del_button = new StyledButton ("Del", "Backspace");
+            del_button = new Gtk.Button.from_icon_name ("edit-clear-symbolic", Gtk.IconSize.BUTTON);
+            del_button.set_tooltip_text ("Backspace");
             del_button.sensitive = false;
             display_unit.input_entry.changed.connect (() => {
                 if (display_unit.input_entry.get_text () == "0" || display_unit.input_entry.get_text () == "")
@@ -534,7 +535,7 @@ namespace Pebbles {
             
             all_clear_button.clicked.connect (() => {
                 display_unit.input_entry.grab_focus_without_selecting ();
-                display_unit.input_entry.set_text ("");
+                display_unit.input_entry.set_text ("0");
                 display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
             });
             del_button.clicked.connect (() => {
