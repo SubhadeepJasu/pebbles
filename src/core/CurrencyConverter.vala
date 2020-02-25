@@ -55,11 +55,7 @@ namespace Pebbles {
             }
             else {
                 try {
-                    /* Without error handling (is not using the try/catch) */
-                    //new Thread.try ("thread", update_currency_thread);
-                    Thread<int> thread_a = new Thread<int>.try ("thread_a", update_currency_thread);
-                    // Wait for threads to finish (this will never happen in our case, but anyway)
-                    // thread.join ();
+                    new Thread<int>.try ("thread_a", update_currency_thread);
 
                 } catch (Error e) {
                     warning ("%s\n", e.message);

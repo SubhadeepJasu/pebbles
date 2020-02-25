@@ -1180,5 +1180,13 @@ namespace Pebbles {
             }
             editable_entry.grab_focus_without_selecting ();
         }
+
+        public void set_evaluation (EvaluationResult result) {
+            this.display_unit.set_evaluation (result);
+            
+            int_limit_a.set_text (result.int_limit_a.to_string ());
+            int_limit_b.set_text (result.int_limit_b.to_string ());
+            int_limit_x.set_text (result.derivative_point.to_string ());
+        }
     }
 }

@@ -28,35 +28,37 @@ namespace Pebbles {
                                         EvaluationResult.CalculusResultMode? calc_mode = null, 
                                         double? int_limit_a = null, 
                                         double? int_limit_b = null, 
-                                        double? derivative_point = null) {
-             _history.append (new EvaluationResult(problem_expression,
+                                        double? derivative_point = null,
+                                        EvaluationResult.ResultSource? result_source = null) {
+            _history.append (new EvaluationResult(problem_expression,
                                                 result, 
                                                 angle_mode, 
                                                 calc_mode, 
                                                 int_limit_a,
                                                 int_limit_b,
-                                                derivative_point));
-         }
+                                                derivative_point,
+                                                result_source));
+        }
 
-         public void append_from_evaluation_result (EvaluationResult eval_res) {
-             _history.append (eval_res);
-         }
+        public void append_from_evaluation_result (EvaluationResult eval_res) {
+            _history.append (eval_res);
+        }
 
-         public EvaluationResult get_nth_evaluation_result (uint n) {
-             return _history.nth_data(n);
-         }
+        public EvaluationResult get_nth_evaluation_result (uint n) {
+            return _history.nth_data(n);
+        }
 
-         public EvaluationResult get_last_evaluation_result () {
-             unowned List<EvaluationResult> last = _history.last ();
-             return last.nth_data (0);
-         }
+        public EvaluationResult get_last_evaluation_result () {
+            unowned List<EvaluationResult> last = _history.last ();
+            return last.nth_data (0);
+        }
 
-         public uint length () {
-             return _history.length ();
-         }
+        public uint length () {
+            return _history.length ();
+        }
 
-         public bool is_empty () {
-             return (_history.length () == 0) ? true : false;
-         }
+        public bool is_empty () {
+            return (_history.length () == 0) ? true : false;
+        }
     }
 }

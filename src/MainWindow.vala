@@ -51,6 +51,8 @@ namespace Pebbles {
         public Gtk.Button update_button;
 
         // VIEWS
+        Granite.Widgets.SourceList item_list;
+        Gtk.Stack common_view;
         Pebbles.ScientificView scientific_view;
         Pebbles.ProgrammerView programmer_view;
         Pebbles.CalculusView   calculus_view;
@@ -71,6 +73,9 @@ namespace Pebbles {
         Pebbles.ConvDataView   conv_data_view;
         Pebbles.ConvCurrView   conv_curr_view;
 
+        // Switchable Items
+        Granite.Widgets.SourceList.Item scientific_item;
+        Granite.Widgets.SourceList.Item calculus_item;
 
         ControlsOverlay controls_modal;
         PreferencesOverlay preferences_modal;
@@ -221,11 +226,13 @@ namespace Pebbles {
             app_menu.set_image (new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
             
             var settings_menu = new Gtk.Menu ();
-            var preferences_overlay_item = new Gtk.MenuItem.with_label ("Preferences");
-            var controls_overlay_item = new Gtk.MenuItem.with_label ("Show Controls");
+            var controls_overlay_item = new Gtk.MenuItem();
+            controls_overlay_item.add (new Granite.AccelLabel ("Show Controls", "F1"));
+            var preferences_overlay_item = new Gtk.MenuItem ();
+            preferences_overlay_item.add (new Granite.AccelLabel ("Preferences", "F2"));
 
-            settings_menu.append (preferences_overlay_item);
             settings_menu.append (controls_overlay_item);
+            settings_menu.append (preferences_overlay_item);
             settings_menu.show_all();
 
             controls_overlay_item.activate.connect (() => {
@@ -266,7 +273,6 @@ namespace Pebbles {
             headerbar.title = ("Pebbles");
             headerbar.get_style_context ().add_class ("default-decoration");
             headerbar.show_close_button = true;
-            //headerbar.pack_start (angle_unit_button);
             headerbar.pack_start (header_switcher);
             headerbar.pack_end (history_button);
             headerbar.pack_end (app_menu);
@@ -274,8 +280,8 @@ namespace Pebbles {
             this.set_titlebar (headerbar);
             
             // Create Item Pane
-            var scientific_item  = new Granite.Widgets.SourceList.Item ("Scientific");
-            var calculus_item    = new Granite.Widgets.SourceList.Item ("Calculus");
+            scientific_item  = new Granite.Widgets.SourceList.Item ("Scientific");
+            calculus_item    = new Granite.Widgets.SourceList.Item ("Calculus");
             var programmer_item  = new Granite.Widgets.SourceList.Item ("Programmer");
             var date_item        = new Granite.Widgets.SourceList.Item ("Date");
             var stats_item       = new Granite.Widgets.SourceList.Item ("Statistics");
@@ -320,7 +326,7 @@ namespace Pebbles {
             conv_category.add (conv_data_item);
             conv_category.add (conv_curr_item);
 
-            var item_list = new Granite.Widgets.SourceList ();
+            item_list = new Granite.Widgets.SourceList ();
             item_list.root.add (calc_category);
             item_list.root.add (conv_category);
             item_list.width_request = 170;
@@ -366,7 +372,7 @@ namespace Pebbles {
             });
 
             // Create Views Pane
-            var common_view = new Gtk.Stack ();
+            common_view = new Gtk.Stack ();
             common_view.valign = Gtk.Align.CENTER;
             common_view.halign = Gtk.Align.CENTER;
             common_view.add_named (scientific_view, "Scientific");
@@ -563,6 +569,31 @@ namespace Pebbles {
                 history_modal.delete_event.connect (() => {
                     history_modal = null;
                     return false;
+                });
+
+                history_modal.select_eval_result.connect ((result) => {
+                    settings = Pebbles.Settings.get_default ();
+                    settings.global_angle_unit = result.angle_mode;
+                    angle_unit_button_label_update ();
+
+                    switch (result.result_source) {
+                        case EvaluationResult.ResultSource.SCIF:
+                        common_view.set_visible_child (scientific_view);
+                        header_switcher.set_visible_child (scientific_header_grid);
+                        scientific_view.set_evaluation (result);
+                        item_list.selected = scientific_item;
+                        view_index = 0;
+                        break;
+                        case EvaluationResult.ResultSource.CALC:
+                        common_view.set_visible_child (calculus_view);
+                        header_switcher.set_visible_child (scientific_header_grid);
+                        item_list.selected = calculus_item;
+                        calculus_view.set_evaluation (result);
+                        view_index = 2;
+                        break;
+                    }
+
+                    scientific_view.set_evaluation (result);
                 });
             }
             history_modal.present ();

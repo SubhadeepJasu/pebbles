@@ -951,5 +951,9 @@ namespace Pebbles {
             memory_recall_button.get_style_context ().remove_class ("Pebbles_Buttons_Memory_Pressed");
             memory_clear_button.get_style_context ().remove_class ("Pebbles_Buttons_Memory_Pressed");
         }
+
+        public void set_evaluation (EvaluationResult result) {
+            this.display_unit.set_evaluation (result);
+        }
     }
 }

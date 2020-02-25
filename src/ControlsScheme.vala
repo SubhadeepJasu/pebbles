@@ -12,6 +12,9 @@ namespace Pebbles {
                     "Show this controls window", "F1"
                 },
                 {
+                    "Show Preferences", "F2"
+                },
+                {
                     "Add to Memory", "F3"
                 },
                 {

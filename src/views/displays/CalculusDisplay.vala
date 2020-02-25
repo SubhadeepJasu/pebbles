@@ -174,7 +174,8 @@ namespace Pebbles {
                                                                         EvaluationResult.CalculusResultMode.DER,
                                                                         0,
                                                                         0,
-                                                                        dx);
+                                                                        dx,
+                                                                        EvaluationResult.ResultSource.CALC);
                 this.cal_view.last_answer_button.set_sensitive (true);
             }
         }
@@ -197,7 +198,9 @@ namespace Pebbles {
                                                                         angle_mode, 
                                                                         EvaluationResult.CalculusResultMode.INT,
                                                                         u,
-                                                                        l);
+                                                                        l,
+                                                                        0,
+                                                                        EvaluationResult.ResultSource.CALC);
                 this.cal_view.last_answer_button.set_sensitive (true);
             }
         }
@@ -235,6 +238,13 @@ namespace Pebbles {
             }
             input_entry.grab_focus_without_selecting ();
             input_entry.insert_at_cursor (text);
+        }
+
+        public void set_evaluation (EvaluationResult result) {
+            input_entry.set_text (result.problem_expression);
+            input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+
+            answer_label.set_text (result.result);
         }
     }
 }

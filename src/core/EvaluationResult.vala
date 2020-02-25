@@ -27,8 +27,16 @@ namespace Pebbles {
         private double _int_limit_a;
         private double _int_limit_b;
         private double _derivative_point;
+        private ResultSource _result_source;
+
+        public enum ResultSource {
+            SCIF,
+            CALC,
+            PROG
+        }
 
         public enum CalculusResultMode {
+            NONE,
             INT,
             DER
         }
@@ -96,7 +104,16 @@ namespace Pebbles {
             }
         }
 
-        public EvaluationResult (string problem_expression, string result, GlobalAngleUnit? angle_mode = null, CalculusResultMode? calc_mode = null, double? int_limit_a = null, double? int_limit_b = null, double? derivative_point = null) {
+        public ResultSource result_source {
+            get {
+                return _result_source;
+            }
+            set {
+                _result_source = value;
+            }
+        }
+
+        public EvaluationResult (string problem_expression, string result, GlobalAngleUnit? angle_mode = null, CalculusResultMode? calc_mode = null, double? int_limit_a = null, double? int_limit_b = null, double? derivative_point = null, ResultSource? result_source = null) {
             this._problem_expression = problem_expression;
             this._result = result;
 
@@ -118,6 +135,10 @@ namespace Pebbles {
 
             if (derivative_point != null) {
                 this._derivative_point = derivative_point;
+            }
+
+            if (result_source != null) {
+                this._result_source = result_source;
             }
         }
     }
