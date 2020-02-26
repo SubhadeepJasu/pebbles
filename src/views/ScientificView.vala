@@ -407,7 +407,9 @@ namespace Pebbles {
                     constant_desc_2 = "Euler's constant (exponential)";
                     break;
             }
-            set_alternative_button ();
+            if (constant_button != null) {
+                set_alternative_button ();
+            }
         }
         private void sci_make_events () {
             result_button.button_press_event.connect ((event) => {

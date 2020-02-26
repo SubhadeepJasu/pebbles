@@ -90,7 +90,7 @@ namespace Pebbles {
                 exp = exp.replace ("c", " b ");
 
                 // Convert to symbolic terms and introduce additional spaces
-                exp = exp.replace ("i", " ( 0 - 1 ^ ( 0.5 ) ) ");
+                exp = exp.replace ("i", " ( ( 0 - 1 ) ^ ( 0.5 ) ) ");
                 exp = exp.replace ("e", " ( 2.718281828 ) ");
                 exp = exp.replace ("[0]", " 0 r ");
                 exp = exp.replace ("[1]", " 0 z ");

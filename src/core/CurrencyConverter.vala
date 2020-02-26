@@ -20,6 +20,9 @@
 // Using Alpha Vantage <https://www.alphavantage.co>
 // API KEY: RXOIDV8ZZ8W29VK9
 
+// For FCSAPI <https://fcsapi.com>
+// API KEY: KV9lazf1j19qahz958FCKc051xvDEc5ZcFw1v7uTbkHa9CBl6D
+
 using Soup;
 using Json;
 
