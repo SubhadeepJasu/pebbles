@@ -225,6 +225,7 @@ namespace Pebbles {
             app_menu = new Gtk.MenuButton ();
             app_menu.valign = Gtk.Align.CENTER;
             app_menu.set_image (new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
+            app_menu.tooltip_text = "Pebbles Menu";
             
             var settings_menu = new Gtk.Menu ();
             var controls_overlay_item = new Gtk.MenuItem();
@@ -251,6 +252,7 @@ namespace Pebbles {
             history_button.valign = Gtk.Align.CENTER;
             history_button.set_image (new Gtk.Image.from_icon_name ("document-open-recent-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
             history_button.set_margin_end (4);
+            history_button.tooltip_text = "Show Calculation History";
 
             history_button.clicked.connect (() => {
                 show_history ();

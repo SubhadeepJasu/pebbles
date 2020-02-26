@@ -44,6 +44,7 @@ namespace Pebbles {
             main_tree = new Gtk.TreeView ();
             setup_treeview (main_tree);
             main_tree.set_hover_selection (true);
+            main_tree.tooltip_text = "Double click to recall";
             var scrolled_window = new Gtk.ScrolledWindow (null, null);
             scrolled_window.add (main_tree);
             scrolled_window.width_request = 880;
