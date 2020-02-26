@@ -1,6 +1,6 @@
 /*-
- * Copyright (c) 2017-2018 Subhadeep Jasu <subhajasu@gmail.com>
- * Copyright (c) 2017-2018 Saunak Biswas <saunakbis97@gmail.com>
+ * Copyright (c) 2017-2020 Subhadeep Jasu <subhajasu@gmail.com>
+ * Copyright (c) 2017-2020 Saunak Biswas <saunakbis97@gmail.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public
@@ -90,7 +90,7 @@ namespace Pebbles {
                 exp = exp.replace ("c", " b ");
 
                 // Convert to symbolic terms and introduce additional spaces
-                exp = exp.replace ("i", " ( 0 - 1 ^ ( 0.5 ) ) ");
+                exp = exp.replace ("i", " ( ( 0 - 1 ) ^ ( 0.5 ) ) ");
                 exp = exp.replace ("e", " ( 2.718281828 ) ");
                 exp = exp.replace ("[0]", " 0 r ");
                 exp = exp.replace ("[1]", " 0 z ");

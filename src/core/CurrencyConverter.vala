@@ -1,5 +1,6 @@
 /*-
- * Copyright (c) 2018-2019 Subhadeep Jasu <subhajasu@gmail.com>
+ * Copyright (c) 2017-2020 Subhadeep Jasu <subhajasu@gmail.com>
+ * Copyright (c) 2017-2020 Saunak Biswas <saunakbis97@gmail.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public
@@ -19,6 +20,9 @@
 
 // Using Alpha Vantage <https://www.alphavantage.co>
 // API KEY: RXOIDV8ZZ8W29VK9
+
+// For FCSAPI <https://fcsapi.com>
+// API KEY: KV9lazf1j19qahz958FCKc051xvDEc5ZcFw1v7uTbkHa9CBl6D
 
 using Soup;
 using Json;
@@ -55,11 +59,7 @@ namespace Pebbles {
             }
             else {
                 try {
-                    /* Without error handling (is not using the try/catch) */
-                    //new Thread.try ("thread", update_currency_thread);
-                    Thread<int> thread_a = new Thread<int>.try ("thread_a", update_currency_thread);
-                    // Wait for threads to finish (this will never happen in our case, but anyway)
-                    // thread.join ();
+                    new Thread<int>.try ("thread_a", update_currency_thread);
 
                 } catch (Error e) {
                     warning ("%s\n", e.message);

@@ -1,6 +1,7 @@
 /*-
- * Copyright (c) 2017-2018 Subhadeep Jasu <subhajasu@gmail.com>
- *
+ * Copyright (c) 2017-2020 Subhadeep Jasu <subhajasu@gmail.com>
+ * Copyright (c) 2017-2020 Saunak Biswas  <saunakbis97@gmail.com>
+ * 
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public
  * License as published by the Free Software Foundation; either
@@ -189,7 +190,7 @@ namespace Pebbles {
                 shake ();
             }
             else {
-                this.sci_view.window.history_manager.append_from_strings (input_entry.get_text (), result.replace (",", ""), angle_mode);
+                this.sci_view.window.history_manager.append_from_strings (input_entry.get_text (), result.replace (",", ""), angle_mode, null, 0, 0, 0, EvaluationResult.ResultSource.SCIF);
                 this.sci_view.last_answer_button.set_sensitive (true);
             }
         }
@@ -228,6 +229,13 @@ namespace Pebbles {
             }
             input_entry.grab_focus_without_selecting ();
             input_entry.insert_at_cursor (text);
+        }
+
+        public void set_evaluation (EvaluationResult result) {
+            input_entry.set_text (result.problem_expression);
+            input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+
+            answer_label.set_text (result.result);
         }
     }
 }

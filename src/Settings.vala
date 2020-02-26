@@ -1,6 +1,6 @@
 /*-
- * Copyright (c) 2018-2019 Subhadeep Jasu <subhajasu@gmail.com>
- * Copyright (c) 2018-2019 Saunak Biswas  <saunakbis97@gmail.com>
+ * Copyright (c) 2017-2020 Subhadeep Jasu <subhajasu@gmail.com>
+ * Copyright (c) 2017-2020 Saunak Biswas <saunakbis97@gmail.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public

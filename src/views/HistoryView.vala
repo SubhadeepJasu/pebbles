@@ -1,5 +1,6 @@
 /*-
- * Copyright (c) 2017-2019 Subhadeep Jasu <subhajasu@gmail.com>
+ * Copyright (c) 2017-2020 Subhadeep Jasu <subhajasu@gmail.com>
+ * Copyright (c) 2017-2020 Saunak Biswas <saunakbis97@gmail.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public
@@ -20,23 +21,34 @@
 
 namespace Pebbles { 
     public class HistoryView : Gtk.Window {
+        Gtk.TreeView main_tree;
         Gtk.ListStore listmodel;
         Gtk.TreeIter iter;
+        HistoryManager history;
+
+        public signal void select_eval_result (EvaluationResult result);
 
         public HistoryView (HistoryManager history) {
             make_ui ();
+            this.history = history;
             
 
             for (int i = 0; i < history.length (); i++) {
                 append_to_view (history.get_nth_evaluation_result (i));
             }
+
+            make_events ();
         }
 
         void make_ui () {
-            var main_grid = new Gtk.Grid ();
-
-            var main_tree = new Gtk.TreeView ();
+            main_tree = new Gtk.TreeView ();
             setup_treeview (main_tree);
+            main_tree.set_hover_selection (true);
+            main_tree.tooltip_text = "Double click to recall";
+            var scrolled_window = new Gtk.ScrolledWindow (null, null);
+            scrolled_window.add (main_tree);
+            scrolled_window.width_request = 880;
+            scrolled_window.height_request = 400;
 
             var headerbar = new Gtk.HeaderBar ();
             headerbar.has_subtitle = false;
@@ -46,11 +58,10 @@ namespace Pebbles {
             set_titlebar (headerbar);
 
             // Set up window attributes
-            this.resizable = false;
-            this.set_default_size (640, 480);
-            this.set_size_request (640, 480);
+            this.set_default_size (880, 400);
+            this.set_size_request (880, 400);
 
-            this.add (main_tree);
+            this.add (scrolled_window);
 
             this.destroy_with_parent = true;
             this.modal = true;
@@ -64,7 +75,7 @@ namespace Pebbles {
             view.set_model (listmodel);
             view.insert_column_with_attributes (-1, "Input Expression", new Gtk.CellRendererText (), "text", 0);
             view.insert_column_with_attributes (-1, "Angle Mode", new Gtk.CellRendererText (), "text", 1);
-            view.insert_column_with_attributes (-1, "Calculus Result Type", new Gtk.CellRendererText (), "text", 2);
+            view.insert_column_with_attributes (-1, "Calculus Mode", new Gtk.CellRendererText (), "text", 2);
             view.insert_column_with_attributes (-1, "Integral Upper Limit", new Gtk.CellRendererText (), "text", 3);
             view.insert_column_with_attributes (-1, "Integral Lower Limit", new Gtk.CellRendererText (), "text", 4);
             view.insert_column_with_attributes (-1, "Derivative At Point", new Gtk.CellRendererText (),  "text", 5);
@@ -110,6 +121,14 @@ namespace Pebbles {
                                  5, result.derivative_point.to_string (),
                                  6, result.result.to_string ());
             show_all ();
+        }
+
+        private void make_events () {
+            main_tree.row_activated.connect ((path, column) => {
+                //stdout.printf ("%d \n", path.get_indices()[0]);
+                var result = history.get_nth_evaluation_result (path.get_indices ()[0]);
+                select_eval_result (result);
+            });
         }
     }
 }
