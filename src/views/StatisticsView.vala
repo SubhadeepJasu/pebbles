@@ -117,12 +117,12 @@ namespace Pebbles {
             button_container_right.row_spacing = 8;
 
             // Make buttons on the left
-            all_clear_button = new StyledButton ("AC", "All Clear", {"Delete"});
+            all_clear_button = new StyledButton ("AC", (_("All Clear")), {"Delete"});
             all_clear_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
             del_button = new Gtk.Button.from_icon_name ("edit-clear-symbolic", Gtk.IconSize.BUTTON);
-            del_button.set_tooltip_text ("Backspace");
+            del_button.set_tooltip_text (_("Backspace"));
             del_button.sensitive = false;
-            reset_button = new StyledButton ("Reset", "Clear sample", {"End"});
+            reset_button = new StyledButton (_("Reset"), _("Clear sample"), {"End"});
             seven_button = new StyledButton ("7");
             eight_button = new StyledButton ("8");
             nine_button = new StyledButton ("9");
@@ -134,7 +134,7 @@ namespace Pebbles {
             three_button = new StyledButton ("3");
             zero_button = new StyledButton ("0");
             decimal_button = new StyledButton (".");
-            negative_button = new StyledButton ("+/-", "Negative");
+            negative_button = new StyledButton ("+/-", _("Negative"));
 
             button_container_left.attach (all_clear_button, 0, 0, 1, 1);
             button_container_left.attach (del_button, 1, 0, 1, 1);
@@ -156,44 +156,44 @@ namespace Pebbles {
             button_container_left.set_row_homogeneous (true);
 
             // Make buttons on the right
-            nav_left_button = new StyledButton ("❰", "Navigate to the cell on the left", {"Left"});
-            nav_right_button = new StyledButton ("❱", "Navigate to the cell on the right", {"Right"});
-            add_cell_button = new StyledButton ("▭⁺", "Left click: Add cell, Right click: Insert cell", {"Page_Up", "Page_Down"});
+            nav_left_button = new StyledButton ("❰", _("Navigate to the cell on the left"), {"Left"});
+            nav_right_button = new StyledButton ("❱", _("Navigate to the cell on the right"), {"Right"});
+            add_cell_button = new StyledButton ("▭⁺", _("Left click: Add cell, Right click: Insert cell"), {"Page_Up", "Page_Down"});
             add_cell_button.get_style_context ().add_class ("h3");
             add_cell_button.get_style_context ().add_class ("pebbles_button_prompt");
-            remove_cell_button = new StyledButton ("▭⁻", "Remove current cell", {"Home"});
+            remove_cell_button = new StyledButton ("▭⁻", _("Remove current cell"), {"Home"});
             remove_cell_button.get_style_context ().add_class ("h3");
-            cardinality_button = new StyledButton ("n", "Sample size", {"N"});
+            cardinality_button = new StyledButton ("n", _("Sample size"), {"N"});
             cardinality_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            statistical_mode_button = new StyledButton ("mode", "Mode of the sample data", {"O"});
+            statistical_mode_button = new StyledButton ("mode", _("Mode of the sample data"), {"O"});
             statistical_mode_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            median_button = new StyledButton ("M", "Median", {"E"});
+            median_button = new StyledButton ("M", _("Median"), {"E"});
             median_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            memory_plus_button = new StyledButton ("M+", "Add to Memory", {"F2"});
+            memory_plus_button = new StyledButton ("M+", _("Add to Memory"), {"F2"});
             memory_plus_button.get_style_context ().add_class ("Pebbles_Buttons_Memory");
-            summation_button = new StyledButton ("Σx", "Summation of all data values", {"S"});
+            summation_button = new StyledButton ("Σx", _("Summation of all data values"), {"S"});
             summation_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            summation_sq_button = new StyledButton ("Σx<sup>2</sup>", "Summation of all data values squared", {"Q"});
+            summation_sq_button = new StyledButton ("Σx<sup>2</sup>", _("Summation of all data values squared"), {"Q"});
             summation_sq_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            sample_variance_button = new StyledButton ("SV", "Sample variance", {"V"});
+            sample_variance_button = new StyledButton ("SV", _("Sample variance"), {"V"});
             sample_variance_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            memory_minus_button = new StyledButton ("M-", "Subtract from Memory", {"F3"});
+            memory_minus_button = new StyledButton ("M-", _("Subtract from Memory"), {"F3"});
             memory_minus_button.get_style_context ().add_class ("Pebbles_Buttons_Memory");
-            mean_button = new StyledButton ("x̄", "Mean", {"M"});
+            mean_button = new StyledButton ("x̄", _("Mean"), {"M"});
             mean_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            mean_sq_button = new StyledButton ("x̄<sup>2</sup>", "Mean of squared data values", {"A"});
+            mean_sq_button = new StyledButton ("x̄<sup>2</sup>", _("Mean of squared data values"), {"A"});
             mean_sq_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            sample_std_dev_button = new StyledButton ("SD", "Standard deviation", {"D"});
+            sample_std_dev_button = new StyledButton ("SD", _("Standard deviation"), {"D"});
             sample_std_dev_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            memory_recall_button = new StyledButton ("MR", "Memory Recall", {"F4"});
+            memory_recall_button = new StyledButton ("MR", _("Memory Recall"), {"F4"});
             memory_recall_button.get_style_context ().add_class ("Pebbles_Buttons_Memory");
-            geometric_mean_button = new StyledButton ("GM", "Geometric mean", {"G"});
+            geometric_mean_button = new StyledButton ("GM", _("Geometric mean"), {"G"});
             geometric_mean_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            pop_variance_button = new StyledButton ("σ<sup>2</sup>", "Population Variance", {"P"});
+            pop_variance_button = new StyledButton ("σ<sup>2</sup>", _("Population Variance"), {"P"});
             pop_variance_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            pop_std_dev_button = new StyledButton ("σ", "Population standard deviation", {"L"});
+            pop_std_dev_button = new StyledButton ("σ", _("Population standard deviation"), {"L"});
             pop_std_dev_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            memory_clear_button = new StyledButton ("MC", "Memory Clear", {"F5"});
+            memory_clear_button = new StyledButton ("MC", _("Memory Clear"), {"F5"});
             memory_clear_button.get_style_context ().add_class ("Pebbles_Buttons_Memory");
 
 

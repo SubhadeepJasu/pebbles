@@ -69,11 +69,11 @@ namespace Pebbles {
             });
             this.add_mode_switch.state_set.connect ((event) => {
                 if (add_mode_switch.get_active ()) {
-                    add_label.set_text ("Subtract");
+                    add_label.set_text (_("Subtract"));
                     find_date (true);
                 }
                 else {
-                    add_label.set_text ("Add");
+                    add_label.set_text (_("Add"));
                     find_date (false);
                 }
                 return false;
@@ -83,19 +83,19 @@ namespace Pebbles {
         private void build_ui () {
             // Make Date Mode Switcher ////////////////////////////////////////////////////
             date_mode = new Granite.Widgets.ModeButton ();
-            date_mode.append_text ("Difference Between Dates");
-            date_mode.append_text ("Add or Subtract Dates");
+            date_mode.append_text (_("Difference Between Dates"));
+            date_mode.append_text (_("Add or Subtract Dates"));
             date_mode.margin_start = 100;
             date_mode.margin_end = 100;
             
             // Make Date Difference View
             // ---------------------------------------------------------------------------
             date_difference_view = new Gtk.Grid ();
-            var from_label = new Gtk.Label ("From");
+            var from_label = new Gtk.Label (_("From"));
             from_label.xalign = 0;
             from_label.get_style_context ().add_class (Granite.STYLE_CLASS_H4_LABEL);
             datepicker_diff_from = new Granite.Widgets.DatePicker ();
-            var to_label  = new Gtk.Label ("To");
+            var to_label  = new Gtk.Label (_("To"));
             to_label.margin_top = 4;
             to_label.xalign = 0;
             to_label.get_style_context ().add_class (Granite.STYLE_CLASS_H4_LABEL);
@@ -105,11 +105,11 @@ namespace Pebbles {
             date_difference_view.attach (to_label, 0, 2, 1, 1);
             date_difference_view.attach (datepicker_diff_to, 0, 3, 1, 1);
             
-            var diff_header = new Gtk.Label ("Difference");
+            var diff_header = new Gtk.Label (_("Difference"));
             diff_header.xalign = 0;
             diff_header.get_style_context ().add_class (Granite.STYLE_CLASS_H4_LABEL);
             
-            date_diff_label = new Gtk.Label ("Hey, it's the same date \n ");
+            date_diff_label = new Gtk.Label (_("Hey, it's the same date \n "));
             date_diff_label.xalign = 0;
             date_diff_label.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
             days_diff_label = new Gtk.Label ("");
@@ -140,17 +140,17 @@ namespace Pebbles {
             // Make Add Date View
             // ----------------------------------------------------------------------------
             date_add_view = new Gtk.Grid ();
-            var start_label = new Gtk.Label ("Starting from");
+            var start_label = new Gtk.Label (_("Starting from"));
             start_label.xalign = 0;
             start_label.get_style_context ().add_class (Granite.STYLE_CLASS_H4_LABEL);
-            add_label = new Gtk.Label ("Add");
+            add_label = new Gtk.Label (_("Add"));
             add_label.xalign = 0;
             add_label.get_style_context ().add_class (Granite.STYLE_CLASS_H4_LABEL);
             
             var date_input_grid = new Gtk.Grid ();
             
             add_entry_day   = new Gtk.Entry ();
-            add_entry_day.placeholder_text = "Day";
+            add_entry_day.placeholder_text = _("Day");
             add_entry_day.max_length  = 3;
             add_entry_day.width_chars = 6;
             add_entry_day.set_icon_from_icon_name (Gtk.EntryIconPosition.SECONDARY,"view-more-symbolic");
@@ -164,7 +164,7 @@ namespace Pebbles {
             });
             
             add_entry_month = new Gtk.Entry ();
-            add_entry_month.placeholder_text = "Month";
+            add_entry_month.placeholder_text = _("Month");
             add_entry_month.max_length  = 3;
             add_entry_month.width_chars = 6;
             add_entry_month.set_icon_from_icon_name (Gtk.EntryIconPosition.SECONDARY,"view-more-symbolic");
@@ -178,7 +178,7 @@ namespace Pebbles {
             });
             
             add_entry_year  = new Gtk.Entry ();
-            add_entry_year.placeholder_text = "Year";
+            add_entry_year.placeholder_text = _("Year");
             add_entry_year.max_length  = 3;
             add_entry_year.width_chars = 6;
             add_entry_year.set_icon_from_icon_name (Gtk.EntryIconPosition.SECONDARY,"view-more-symbolic");
@@ -209,18 +209,18 @@ namespace Pebbles {
             date_add_view.column_spacing = 8;
             date_add_view.row_spacing = 4;
             
-            var add_header = new Gtk.Label ("The Date will be");
+            var add_header = new Gtk.Label (_("The Date will be"));
             add_header.xalign = 0;
             add_header.valign = Gtk.Align.START;
             add_header.width_request = 160;
             add_header.get_style_context ().add_class (Granite.STYLE_CLASS_H4_LABEL);
             
-            week_day_label = new Gtk.Label ("Wednesday");
+            week_day_label = new Gtk.Label (_("Set a duration"));
             //week_day_label.xalign = 0;
             week_day_label.valign = Gtk.Align.END;
             week_day_label.halign = Gtk.Align.START;
             week_day_label.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
-            date_dmy_label = new Gtk.Label ("January 31, 2019");
+            date_dmy_label = new Gtk.Label (_("Days, months or year"));
             //date_dmy_label.xalign = 0;
             date_dmy_label.halign = Gtk.Align.START;
             date_dmy_label.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
@@ -244,8 +244,8 @@ namespace Pebbles {
             date_add_view.attach (add_grid, 2, 0, 1, 4);            
             
             var date_calc_holder = new Gtk.Stack ();
-            date_calc_holder.add_named (date_difference_view, "Difference Between Dates");
-            date_calc_holder.add_named (date_add_view, "Add or Subtract Dates");
+            date_calc_holder.add_named (date_difference_view, _("Difference Between Dates"));
+            date_calc_holder.add_named (date_add_view, _("Add or Subtract Dates"));
             date_calc_holder.set_transition_type (Gtk.StackTransitionType.SLIDE_LEFT_RIGHT);
             
             // Add events to Mode Button
@@ -287,8 +287,8 @@ namespace Pebbles {
                 datetime_diff_to = datetime_diff_to.add_days (1);
             }
             string result_days = date_calculator_object.date_difference( datetime_diff_from , datetime_diff_to );
-            result_days += (result_days == "1") ? " day" : " days";
-            days_diff_label.set_text ("A total of " + result_days);
+            result_days += (result_days == "1") ? (_(" day")) : (_(" days"));
+            days_diff_label.set_text (_("A total of %s").printf (result_days));
             
             DateFormatted formatted_date_difference = date_calculator_object.difference_formatter(datetime_diff_from , datetime_diff_to);
             string res_day = (formatted_date_difference.day).to_string ();
@@ -300,27 +300,27 @@ namespace Pebbles {
             string result_date = "";
             int part = 0;
             if (res_yar == "0" && res_mon == "0" && res_wek == "0" && res_day == "0") {
-                result_date = "Hey, it's the same date \n ";
+                result_date = _("Hey, it's the same date \n ");
                 days_diff_label.set_text ("");
             } else {
                 if (res_yar != "0") {
-                    result_date += (res_yar == "1") ? (((part == 0) ? "A" : "a") + " year") : (res_yar + " years");
+                    result_date += (res_yar == "1") ? (((part == 0) ? (_("A")) : (_("a"))) + (_(" year"))) : (res_yar + (_(" years")));
                     part++;
                 }
                 if (res_mon != "0") {
                     if (res_day == "0" && res_wek == "0" && part > 0)
-                        result_date += " and ";
+                        result_date += (_(" and "));
                     else if (part > 0)
                         result_date += ", ";
-                    result_date += (res_mon == "1") ? (((part == 0) ? "A" : "a") + " month") : (res_mon + " months");
+                    result_date += (res_mon == "1") ? (((part == 0) ? (_("A")) : (_("a"))) + (_(" month"))) : (res_mon + (_(" months")));
                     part++;
                 }
                 if (res_wek != "0") {
                     if (res_day == "0" && part > 0)
-                        result_date += " and ";
+                        result_date += (_(" and "));
                     else if (part > 0)
                         result_date += ", ";
-                    result_date += (res_wek == "1") ? (((part == 0) ? "1" : "a") + " week") : (res_wek + " weeks");
+                    result_date += (res_wek == "1") ? (((part == 0) ? "1" : (_("a"))) + (_(" week"))) : (res_wek + (_(" weeks")));
                     part++;
                 }
                 if (res_day != "0") {
@@ -329,10 +329,10 @@ namespace Pebbles {
                     else if (part != 0)
                         result_date += " ";
                     if (part > 0)
-                        result_date += "and ";
+                        result_date += (_("and "));
                     else
                         days_diff_label.set_text ("");
-                    result_date += (res_day == "1") ? (((part == 0) ? "A" : "a") + " day") : (res_day + " days");
+                    result_date += (res_day == "1") ? (((part == 0) ? (_("A")) : (_("a"))) + (_(" day"))) : (res_day + (_(" days")));
                 }
             }
             date_diff_label.set_text (result_date);
@@ -350,34 +350,43 @@ namespace Pebbles {
                 given_date = given_date.add_years (0 - int.parse (add_entry_year.get_text ()));
             }
             string formatted_date = given_date.format ("%x");
+            string[] week_day = {
+                (_("Monday")),
+                (_("Tuesday")),
+                (_("Wednesday")),
+                (_("Thursday")),
+                (_("Friday")),
+                (_("Saturday")),
+                (_("Sunday"))
+            };
             switch (given_date.get_day_of_week ()) {
                 case 1:
-                    week_day_label.set_text ("Monday");
-                    formatted_date = formatted_date.replace ("Monday ", "");
+                    week_day_label.set_text (week_day[0]);
+                    formatted_date = formatted_date.replace (week_day[0] + " ", "");
                     break;
                 case 2:
-                    week_day_label.set_text ("Tuesday");
-                    formatted_date = formatted_date.replace ("Tuesday ", "");
+                    week_day_label.set_text (week_day[1]);
+                    formatted_date = formatted_date.replace (week_day[1] + " ", "");
                     break;
                 case 3:
-                    week_day_label.set_text ("Wednesday");
-                    formatted_date = formatted_date.replace ("Wednesday ", "");
+                    week_day_label.set_text (week_day[2]);
+                    formatted_date = formatted_date.replace (week_day[2] + " ", "");
                     break;
                 case 4:
-                    week_day_label.set_text ("Thursday");
-                    formatted_date = formatted_date.replace ("Thursday ", "");
+                    week_day_label.set_text (week_day[3]);
+                    formatted_date = formatted_date.replace (week_day[3] + " ", "");
                     break;
                 case 5:
-                    week_day_label.set_text ("Friday");
-                    formatted_date = formatted_date.replace ("Friday ", "");
+                    week_day_label.set_text (week_day[4]);
+                    formatted_date = formatted_date.replace (week_day[4] + " ", "");
                     break;
                 case 6:
-                    week_day_label.set_text ("Saturday");
-                    formatted_date = formatted_date.replace ("Saturday ", "");
+                    week_day_label.set_text (week_day[5]);
+                    formatted_date = formatted_date.replace (week_day[5] + " ", "");
                     break;
                 case 7:
-                    week_day_label.set_text ("Sunday");
-                    formatted_date = formatted_date.replace ("Sunday ", "");
+                    week_day_label.set_text (week_day[6]);
+                    formatted_date = formatted_date.replace (week_day[6] + " ", "");
                     break;
                 default:
                     week_day_label.set_text ("");
@@ -386,87 +395,6 @@ namespace Pebbles {
             main_calendar.select_month (given_date.get_month () - 1, given_date.get_year ());
             main_calendar.select_day (given_date.get_day_of_month ());
             date_dmy_label.set_text (formatted_date);
-        }
-    }
-    public class BottomPopper : Gtk.Popover {
-        Gtk.Grid main_grid;
-        Gtk.Button plus_button;
-        Gtk.Button plus_10_button;
-        Gtk.Button minus_button;
-        Gtk.Button minus_10_button;
-        Gtk.Button reset;
-        Gtk.Entry entry;
-        construct {
-            main_grid = new Gtk.Grid ();
-            plus_button  = new Gtk.Button.with_label (" + ");
-            minus_button = new Gtk.Button.with_label (" − ");
-            plus_10_button  = new Gtk.Button.with_label ("+10");
-            plus_10_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            minus_10_button = new Gtk.Button.with_label ("−10");
-            minus_10_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            
-            reset = new Gtk.Button.with_label ("Reset");
-            reset.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
-            
-            reset.clicked.connect (() => {
-                entry.set_text ("");
-            });
-            
-            plus_button.clicked.connect (() => {
-                int i = int.parse (entry.get_text ());
-                i++;
-                entry.set_text (i.to_string ());
-            });
-            
-            minus_button.clicked.connect (() => {
-                int i = int.parse (entry.get_text ());
-                if (i > 0)
-                    i--;
-                else if (i <= 0) {
-                    i = 0;
-                }
-                if (i == 0) 
-                    entry.set_text ("");
-                else 
-                    entry.set_text (i.to_string ());
-            });
-            
-            plus_10_button.clicked.connect (() => {
-                int i = int.parse (entry.get_text ());
-                i+=10;
-                entry.set_text (i.to_string ());
-            });
-            
-            minus_10_button.clicked.connect (() => {
-                int i = int.parse (entry.get_text ());
-                if (i > 10)
-                    i-=10;
-                else if (i <= 10) {
-                    i = 0;
-                }
-                if (i == 0) 
-                    entry.set_text ("");
-                else 
-                    entry.set_text (i.to_string ());
-            });
-            var seperator = new Gtk.Separator (Gtk.Orientation.VERTICAL);
-            main_grid.attach (plus_10_button,  0, 0, 1, 1);
-            main_grid.attach (plus_button,     1, 0, 1, 1);
-            main_grid.attach (minus_button,    2, 0, 1, 1);
-            main_grid.attach (minus_10_button, 3, 0, 1, 1);
-            main_grid.attach (seperator,       4, 0, 1, 1);
-            main_grid.attach (reset,           5, 0, 1, 1);
-            main_grid.column_spacing = 4;
-            main_grid.margin = 4;
-
-            this.add (main_grid);
-        }
-        public BottomPopper (Gtk.Entry entry) {
-            this.entry = entry;
-            this.set_relative_to (entry);
-            this.show_all ();
-            this.set_visible (false);
-            this.position = Gtk.PositionType.BOTTOM;
         }
     }
 }

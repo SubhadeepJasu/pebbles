@@ -76,7 +76,7 @@ namespace Pebbles {
             clear_button.margin = 3;
             clear_button.margin_right = 0;
 
-            all_clear_button = new StyledButton ("AC", "All Clear", {"Delete"});
+            all_clear_button = new StyledButton ("AC", (_("All Clear")), {"Delete"});
             all_clear_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
             seven_button = new StyledButton ("7");
             eight_button = new StyledButton ("8");
@@ -91,16 +91,16 @@ namespace Pebbles {
             radix_button = new StyledButton (".");
             add_button = new StyledButton ("+", "Add");
             add_button.get_style_context ().add_class ("h3");
-            subtract_button = new StyledButton ("\xE2\x88\x92", "Subtract");
+            subtract_button = new StyledButton ("\xE2\x88\x92", (_("Subtract")));
             subtract_button.get_style_context ().add_class ("h3");
-            divide_button = new StyledButton ("\xC3\xB7", "Divide");
+            divide_button = new StyledButton ("\xC3\xB7", (_("Divide")));
             divide_button.get_style_context ().add_class ("h3");
-            multiply_button = new StyledButton ("\xC3\x97", "Multiply");
+            multiply_button = new StyledButton ("\xC3\x97", (_("Multiply")));
             multiply_button.get_style_context ().add_class ("h3");
-            result_button = new StyledButton ("=", "Result", {"Return"});
+            result_button = new StyledButton ("=", (_("Result")), {"Return"});
             result_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
             result_button.get_style_context ().add_class ("h3");
-            answer_button = new StyledButton ("Ans", "Last Result", {"F1"});
+            answer_button = new StyledButton ("Ans", (_("Last Result")), {"F1"});
 
             var header_box = new Gtk.HBox (false, 0);
             header_box.pack_start (close_button);
@@ -134,7 +134,7 @@ namespace Pebbles {
 
             this.resizable = false;
             this.set_titlebar (header_box);
-            this.title = "Pebbles Mini Mode";
+            this.title = _("Pebbles Mini Mode");
 
             // Set up window attributes
             this.set_default_size (300, 200);

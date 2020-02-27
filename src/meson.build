@@ -32,6 +32,7 @@ executable(
     'views/BitToggleGrid.vala',
     'views/ControlsOverlay.vala',
     'views/HistoryView.vala',
+    'views/BottomPopper.vala',
     'views/displays/ScientificDisplay.vala',
     'views/displays/CalculusDisplay.vala',
     'views/displays/ProgrammerDisplay.vala',

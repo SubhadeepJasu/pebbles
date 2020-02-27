@@ -56,29 +56,29 @@ namespace Pebbles {
             (1/1126000000),
         };
 
-        private const string[] units = {
-            "Bit",
-            "Kilobit",
-            "Kibibit",
-            "Megabit",
-            "Mebibit",
-            "Gigabit",
-            "Gibibit",
-            "Terabit",
-            "Tebibit",
-            "Petabit",
-            "Pebibit",
-            "Byte",
-            "Kilobyte",
-            "Kibibyte",
-            "Megabyte",
-            "Mebibyte",
-            "Gigabyte",
-            "Gibibyte",
-            "Terabyte",
-            "Tebibyte",
-            "Petabyte",
-            "Pebibyte",
+        private string[] units = {
+            (_("Bit")),
+            (_("Kilobit")),
+            (_("Kibibit")),
+            (_("Megabit")),
+            (_("Mebibit")),
+            (_("Gigabit")),
+            (_("Gibibit")),
+            (_("Terabit")),
+            (_("Tebibit")),
+            (_("Petabit")),
+            (_("Pebibit")),
+            (_("Byte")),
+            (_("Kilobyte")),
+            (_("Kibibyte")),
+            (_("Megabyte")),
+            (_("Mebibyte")),
+            (_("Gigabyte")),
+            (_("Gibibyte")),
+            (_("Terabyte")),
+            (_("Tebibyte")),
+            (_("Petabyte")),
+            (_("Pebibyte")),
         };
 
         construct {
@@ -86,7 +86,7 @@ namespace Pebbles {
             keypad = new CommonKeyPadConverter ();
             
             // Make Header Label
-            var header_title = new Gtk.Label ("Data");
+            var header_title = new Gtk.Label (_("Data"));
             header_title.get_style_context ().add_class ("h1");
             header_title.set_justify (Gtk.Justification.LEFT);
             header_title.halign = Gtk.Align.START;

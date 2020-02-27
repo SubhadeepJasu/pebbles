@@ -1,0 +1,104 @@
+# Czech translations for com.github.SubhadeepJasu.pebbles package.
+# Copyright (C) 2020 THE com.github.SubhadeepJasu.pebbles'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the com.github.SubhadeepJasu.pebbles package.
+# Automatically generated, 2020.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: com.github.SubhadeepJasu.pebbles\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-02-27 20:40+0530\n"
+"PO-Revision-Date: 2020-02-27 20:40+0530\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: cs\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ASCII\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+#: src/Application.vala:67
+msgid "Open In Mini Mode"
+msgstr ""
+
+#: src/Application.vala:68
+msgid "Open A New Window"
+msgstr ""
+
+#: src/Application.vala:69
+msgid "Enable test mode"
+msgstr ""
+
+#: data/com.github.SubhadeepJasu.pebbles.desktop.in:3
+#: data/com.github.SubhadeepJasu.pebbles.appdata.xml.in:6
+msgid "Pebbles"
+msgstr ""
+
+#: data/com.github.SubhadeepJasu.pebbles.desktop.in:4
+msgid "Pebbles Calculator App"
+msgstr ""
+
+#: data/com.github.SubhadeepJasu.pebbles.desktop.in:5
+#: data/com.github.SubhadeepJasu.pebbles.appdata.xml.in:7
+msgid "Perform advanced calculations with ease"
+msgstr ""
+
+#: data/com.github.SubhadeepJasu.pebbles.desktop.in:8
+msgid "com.github.SubhadeepJasu.pebbles"
+msgstr ""
+
+#: data/com.github.SubhadeepJasu.pebbles.desktop.in:11
+msgid ""
+"calculator;scientific;programmer;statistics;converter;convert;calculate;"
+"boolean"
+msgstr ""
+
+#: data/com.github.SubhadeepJasu.pebbles.desktop.in:17
+msgid "Open in Mini Mode"
+msgstr ""
+
+#: data/com.github.SubhadeepJasu.pebbles.desktop.in:19
+msgid "accessories-calculator-symbolic"
+msgstr ""
+
+#: data/com.github.SubhadeepJasu.pebbles.desktop.in:22
+msgid "Open a New Window"
+msgstr ""
+
+#: data/com.github.SubhadeepJasu.pebbles.desktop.in:23
+msgid "window-new-symbolic"
+msgstr ""
+
+#: data/com.github.SubhadeepJasu.pebbles.appdata.xml.in:9
+msgid ""
+"An advanced calculator that helps you with complicated calculations in your "
+"homework"
+msgstr ""
+
+#: data/com.github.SubhadeepJasu.pebbles.appdata.xml.in:10
+msgid "Features"
+msgstr ""
+
+#: data/com.github.SubhadeepJasu.pebbles.appdata.xml.in:12
+msgid "Scientific mode"
+msgstr ""
+
+#: data/com.github.SubhadeepJasu.pebbles.appdata.xml.in:13
+msgid "Programmer mode"
+msgstr ""
+
+#: data/com.github.SubhadeepJasu.pebbles.appdata.xml.in:14
+msgid "Calculus mode"
+msgstr ""
+
+#: data/com.github.SubhadeepJasu.pebbles.appdata.xml.in:15
+msgid "Statistics with standard deviation and probability"
+msgstr ""
+
+#: data/com.github.SubhadeepJasu.pebbles.appdata.xml.in:16
+msgid "Some common unit converters"
+msgstr ""
+
+#: data/com.github.SubhadeepJasu.pebbles.appdata.xml.in:24
+msgid "Subhadeep Jasu"
+msgstr ""

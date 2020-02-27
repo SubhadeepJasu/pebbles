@@ -44,7 +44,7 @@ namespace Pebbles {
             main_tree = new Gtk.TreeView ();
             setup_treeview (main_tree);
             main_tree.set_hover_selection (true);
-            main_tree.tooltip_text = "Double click to recall";
+            main_tree.tooltip_text = _("Double click to recall");
             var scrolled_window = new Gtk.ScrolledWindow (null, null);
             scrolled_window.add (main_tree);
             scrolled_window.width_request = 880;
@@ -53,7 +53,7 @@ namespace Pebbles {
             var headerbar = new Gtk.HeaderBar ();
             headerbar.has_subtitle = false;
             headerbar.set_show_close_button (true);
-            headerbar.title = "History";
+            headerbar.title = _("History");
 
             set_titlebar (headerbar);
 
@@ -73,13 +73,13 @@ namespace Pebbles {
                                             typeof (string), typeof (string),
                                             typeof (string), typeof (string));
             view.set_model (listmodel);
-            view.insert_column_with_attributes (-1, "Input Expression", new Gtk.CellRendererText (), "text", 0);
-            view.insert_column_with_attributes (-1, "Angle Mode", new Gtk.CellRendererText (), "text", 1);
-            view.insert_column_with_attributes (-1, "Calculus Mode", new Gtk.CellRendererText (), "text", 2);
-            view.insert_column_with_attributes (-1, "Integral Upper Limit", new Gtk.CellRendererText (), "text", 3);
-            view.insert_column_with_attributes (-1, "Integral Lower Limit", new Gtk.CellRendererText (), "text", 4);
-            view.insert_column_with_attributes (-1, "Derivative At Point", new Gtk.CellRendererText (),  "text", 5);
-            view.insert_column_with_attributes (-1, "Result", new Gtk.CellRendererText (), "text", 6);
+            view.insert_column_with_attributes (-1, (_("Input Expression")), new Gtk.CellRendererText (), "text", 0);
+            view.insert_column_with_attributes (-1, (_("Angle Mode")), new Gtk.CellRendererText (), "text", 1);
+            view.insert_column_with_attributes (-1, (_("Calculus Mode")), new Gtk.CellRendererText (), "text", 2);
+            view.insert_column_with_attributes (-1, (_("Integral Upper Limit")), new Gtk.CellRendererText (), "text", 3);
+            view.insert_column_with_attributes (-1, (_("Integral Lower Limit")), new Gtk.CellRendererText (), "text", 4);
+            view.insert_column_with_attributes (-1, (_("Derivative At Point")), new Gtk.CellRendererText (),  "text", 5);
+            view.insert_column_with_attributes (-1, (_("Result")), new Gtk.CellRendererText (), "text", 6);
         }
 
         private void append_to_view (EvaluationResult result) {
@@ -88,13 +88,13 @@ namespace Pebbles {
             string angle_mode = "";
             switch (result.angle_mode) {
                 case GlobalAngleUnit.DEG:
-                angle_mode = "Degree";
+                angle_mode = _("Degree");
                 break;
                 case GlobalAngleUnit.RAD:
-                angle_mode = "Radian";
+                angle_mode = _("Radian");
                 break;
                 case GlobalAngleUnit.GRAD:
-                angle_mode = "Gradian";
+                angle_mode = _("Gradian");
                 break;
                 default:
                 angle_mode = "N / A";
@@ -104,10 +104,10 @@ namespace Pebbles {
             string calc_result_type = "";
             switch (result.calc_mode) {
                 case EvaluationResult.CalculusResultMode.INT:
-                calc_result_type = "Integral";
+                calc_result_type = _("Integral");
                 break;
                 case EvaluationResult.CalculusResultMode.DER:
-                calc_result_type = "Derivative";
+                calc_result_type = _("Derivative");
                 break;
                 default:
                 calc_result_type = "N / A";
@@ -125,7 +125,6 @@ namespace Pebbles {
 
         private void make_events () {
             main_tree.row_activated.connect ((path, column) => {
-                //stdout.printf ("%d \n", path.get_indices()[0]);
                 var result = history.get_nth_evaluation_result (path.get_indices ()[0]);
                 select_eval_result (result);
             });

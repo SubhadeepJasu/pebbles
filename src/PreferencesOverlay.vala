@@ -39,42 +39,42 @@ namespace Pebbles {
             main_grid.row_spacing = 8;
             
 
-            var precision_label = new Gtk.Label ("Number of decimal places:");
+            var precision_label = new Gtk.Label (_("Number of decimal places:"));
             precision_label.get_style_context ().add_class ("h4");
             precision_label.halign = Gtk.Align.START;
             precision_entry = new Gtk.SpinButton.with_range (1, 9, 1);
             precision_entry.max_length = 1;
 
-            var constant_button_label = new Gtk.Label ("Scientific constants button:");
+            var constant_button_label = new Gtk.Label (_("Scientific constants button:"));
             constant_button_label.get_style_context ().add_class ("h4");
             constant_button_label.halign = Gtk.Align.START;
-            var constant_label1 = new Gtk.Label ("Constant 1");
+            var constant_label1 = new Gtk.Label (_("Constant 1"));
             constant_label1.halign = Gtk.Align.START;
             constants_select_1 = new Gtk.ComboBoxText ();
-            constants_select_1.append_text ("Euler's constant (exponential)                e");
-            constants_select_1.append_text ("Archimedes' constant (pi)                        \xCF\x80");
-            constants_select_1.append_text ("Imaginary number                                      i");
-            constants_select_1.append_text ("Golden ratio (phi)                                       \xCF\x86");
-            constants_select_1.append_text ("Euler–Mascheroni constant (gamma)   \xF0\x9D\x9B\xBE");
-            constants_select_1.append_text ("Conway's constant (lamda)                      \xCE\xBB");
-            constants_select_1.append_text ("Khinchin's constant                                    K");
-            constants_select_1.append_text ("The Feigenbaum constant alpha            \xCE\xB1");
-            constants_select_1.append_text ("The Feigenbaum constant delta             \xCE\xB4");
-            constants_select_1.append_text ("Apery's constant                                    \xF0\x9D\x9B\x87(3)");
+            constants_select_1.append_text (_("Euler's constant (exponential)                e"));
+            constants_select_1.append_text (_("Archimedes' constant (pi)                        \xCF\x80"));
+            constants_select_1.append_text (_("Imaginary number                                      i"));
+            constants_select_1.append_text (_("Golden ratio (phi)                                       \xCF\x86"));
+            constants_select_1.append_text (_("Euler–Mascheroni constant (gamma)   \xF0\x9D\x9B\xBE"));
+            constants_select_1.append_text (_("Conway's constant (lamda)                      \xCE\xBB"));
+            constants_select_1.append_text (_("Khinchin's constant                                    K"));
+            constants_select_1.append_text (_("The Feigenbaum constant alpha            \xCE\xB1"));
+            constants_select_1.append_text (_("The Feigenbaum constant delta             \xCE\xB4"));
+            constants_select_1.append_text (_("Apery's constant                                    \xF0\x9D\x9B\x87(3)"));
 
-            var constant_label2 = new Gtk.Label ("Constant 2 (Hold Shift)");
+            var constant_label2 = new Gtk.Label (_("Constant 2 (Hold Shift)"));
             constant_label2.halign = Gtk.Align.START;
             constants_select_2 = new Gtk.ComboBoxText ();
-            constants_select_2.append_text ("Euler's constant (exponential)                e");
-            constants_select_2.append_text ("Archimedes' constant (pi)                        \xCF\x80");
-            constants_select_2.append_text ("Imaginary number                                      i");
-            constants_select_2.append_text ("Golden ratio (phi)                                       \xCF\x86");
-            constants_select_2.append_text ("Euler–Mascheroni constant (gamma)   \xF0\x9D\x9B\xBE");
-            constants_select_2.append_text ("Conway's constant (lamda)                      \xCE\xBB");
-            constants_select_2.append_text ("Khinchin's constant                                    K");
-            constants_select_2.append_text ("The Feigenbaum constant alpha            \xCE\xB1");
-            constants_select_2.append_text ("The Feigenbaum constant delta             \xCE\xB4");
-            constants_select_2.append_text ("Apery's constant                                    \xF0\x9D\x9B\x87(3)");
+            constants_select_2.append_text (_("Euler's constant (exponential)                e"));
+            constants_select_2.append_text (_("Archimedes' constant (pi)                        \xCF\x80"));
+            constants_select_2.append_text (_("Imaginary number                                      i"));
+            constants_select_2.append_text (_("Golden ratio (phi)                                       \xCF\x86"));
+            constants_select_2.append_text (_("Euler–Mascheroni constant (gamma)   \xF0\x9D\x9B\xBE"));
+            constants_select_2.append_text (_("Conway's constant (lamda)                      \xCE\xBB"));
+            constants_select_2.append_text (_("Khinchin's constant                                    K"));
+            constants_select_2.append_text (_("The Feigenbaum constant alpha            \xCE\xB1"));
+            constants_select_2.append_text (_("The Feigenbaum constant delta             \xCE\xB4"));
+            constants_select_2.append_text (_("Apery's constant                                    \xF0\x9D\x9B\x87(3)"));
 
             this.delete_event.connect (() => {
                 save_settings ();
@@ -94,7 +94,7 @@ namespace Pebbles {
             var headerbar = new Gtk.HeaderBar ();
             headerbar.has_subtitle = false;
             headerbar.set_show_close_button (true);
-            headerbar.title = "Preferences";
+            headerbar.title = _("Preferences");
 
             headerbar.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
             set_titlebar (headerbar);

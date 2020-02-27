@@ -44,18 +44,18 @@ namespace Pebbles {
             0.000539957,// Nautical
         };
 
-        private const string[] units = {
-            "Nanometre",
-            "Micron",
-            "Millimetre",
-            "Centimetre",
-            "Metre",
-            "Kilometre",
-            "Inch",
-            "Foot",
-            "Yard",
-            "Mile",
-            "Nautical Mile",
+        private string[] units = {
+            (_("Nanometre")),
+            (_("Micron")),
+            (_("Millimetre")),
+            (_("Centimetre")),
+            (_("Metre")),
+            (_("Kilometre")),
+            (_("Inch")),
+            (_("Foot")),
+            (_("Yard")),
+            (_("Mile")),
+            (_("Nautical Mile")),
         };
 
         construct {
@@ -63,7 +63,7 @@ namespace Pebbles {
             keypad = new CommonKeyPadConverter ();
 
             // Make Header Label
-            var header_title = new Gtk.Label ("Length");
+            var header_title = new Gtk.Label (_("Length"));
             header_title.get_style_context ().add_class ("h1");
             header_title.set_justify (Gtk.Justification.LEFT);
             header_title.halign = Gtk.Align.START;

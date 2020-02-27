@@ -44,8 +44,8 @@ namespace Pebbles {
     
         construct {
             // Make the buttons
-            del_button = new StyledButton ("Del", "Backspace");
-            all_clear_button = new StyledButton ("C", "Clear Entry");
+            del_button = new StyledButton ("Del", (_("Backspace")));
+            all_clear_button = new StyledButton ("AC", (_("Clear Entry")));
             all_clear_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
             seven_button = new StyledButton ("7");
             eight_button = new StyledButton ("8");

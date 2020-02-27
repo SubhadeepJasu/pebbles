@@ -40,13 +40,13 @@ namespace Pebbles {
             3.412142,
         };
 
-        private const string[] units = {
-            "Watt",
-            "Kilowatt",
-            "Metric horsepower",
-            "Mechanical horsepower",
-            "Foot-pound / minute",
-            "BTU / hour",
+        private string[] units = {
+            (_("Watt")),
+            (_("Kilowatt")),
+            (_("Metric horsepower")),
+            (_("Mechanical horsepower")),
+            (_("Foot-pound / minute")),
+            (_("BTU / hour")),
         };
 
         construct {
@@ -54,7 +54,7 @@ namespace Pebbles {
             keypad = new CommonKeyPadConverter ();
             
             // Make Header Label
-            var header_title = new Gtk.Label ("Power");
+            var header_title = new Gtk.Label (_("Power"));
             header_title.get_style_context ().add_class ("h1");
             header_title.set_justify (Gtk.Justification.LEFT);
             header_title.halign = Gtk.Align.START;
