@@ -44,17 +44,17 @@ namespace Pebbles {
             0.737562,
         };
 
-        private const string[] units = {
-            "Joule",
-            "Kilojoule",
-            "Gram calorie",
-            "Kilocalorie",
-            "Watt hour",
-            "Kilowatt hour",
+        private string[] units = {
+            (_("Joule")),
+            (_("Kilojoule")),
+            (_("Gram calorie")),
+            (_("Kilocalorie")),
+            (_("Watt hour")),
+            (_("Kilowatt hour")),
             //"Electronvolt",       Future Support
-            "British thermal unit",
-            "US therm",
-            "Foot-pound",
+            (_("British thermal unit")),
+            (_("US therm")),
+            (_("Foot-pound")),
         };
 
         construct {
@@ -62,7 +62,7 @@ namespace Pebbles {
             keypad = new CommonKeyPadConverter ();
             
             // Make Header Label
-            var header_title = new Gtk.Label ("Energy");
+            var header_title = new Gtk.Label (_("Energy"));
             header_title.get_style_context ().add_class ("h1");
             header_title.set_justify (Gtk.Justification.LEFT);
             header_title.halign = Gtk.Align.START;

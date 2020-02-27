@@ -150,10 +150,10 @@ namespace Pebbles {
             button_container_right.row_spacing = 8;
 
             // Make buttons on the left
-            all_clear_button = new StyledButton ("AC", "All Clear", {"Delete"});
+            all_clear_button = new StyledButton ("AC", _("All Clear"), {"Delete"});
             all_clear_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
             del_button = new Gtk.Button.from_icon_name ("edit-clear-symbolic", Gtk.IconSize.BUTTON);
-            del_button.set_tooltip_text ("Backspace");
+            del_button.set_tooltip_text (_("Backspace"));
             del_button.sensitive = false;
             display_unit.input_entry.changed.connect (() => {
                 if (display_unit.input_entry.get_text () == "0" || display_unit.input_entry.get_text () == "")
@@ -161,24 +161,24 @@ namespace Pebbles {
                 else
                     del_button.sensitive = true;
             });
-            percent_button = new StyledButton ("%", "Percentage");
+            percent_button = new StyledButton ("%", _("Percentage"));
             percent_button.get_style_context ().add_class ("h3");
-            divide_button = new StyledButton ("\xC3\xB7", "Divide");
+            divide_button = new StyledButton ("\xC3\xB7", _("Divide"));
             divide_button.get_style_context ().add_class ("h3");
             seven_button = new StyledButton ("7");
             eight_button = new StyledButton ("8");
             nine_button = new StyledButton ("9");
-            multiply_button = new StyledButton ("\xC3\x97", "Multiply");
+            multiply_button = new StyledButton ("\xC3\x97", _("Multiply"));
             multiply_button.get_style_context ().add_class ("h3");
             four_button = new StyledButton ("4");
             five_button = new StyledButton ("5");
             six_button = new StyledButton ("6");
-            subtract_button = new StyledButton ("\xE2\x88\x92", "Subtract");
+            subtract_button = new StyledButton ("\xE2\x88\x92", _("Subtract"));
             subtract_button.get_style_context ().add_class ("h3");
             one_button = new StyledButton ("1");
             two_button = new StyledButton ("2");
             three_button = new StyledButton ("3");
-            plus_button = new StyledButton ("+", "Add");
+            plus_button = new StyledButton ("+", _("Add"));
             plus_button.get_style_context ().add_class ("h3");
             zero_button = new StyledButton ("0");
             decimal_button = new StyledButton (".");
@@ -210,46 +210,46 @@ namespace Pebbles {
             button_container_left.set_row_homogeneous (true);
 
             // Make buttons on the right
-            sqr_button = new StyledButton ("x<sup>2</sup>", "Square a number", {"Q"});
+            sqr_button = new StyledButton ("x<sup>2</sup>", _("Square a number"), {"Q"});
             sqr_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            pow_root_button = new StyledButton ("x<sup>y</sup>", "x raised to the power y", {"Z"});
+            pow_root_button = new StyledButton ("x<sup>y</sup>", _("x raised to the power y"), {"Z"});
             pow_root_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            expo_power_button = new StyledButton ("10<sup>x</sup>", "10 raised to the power x", {"W"});
+            expo_power_button = new StyledButton ("10<sup>x</sup>", _("10 raised to the power x"), {"W"});
             expo_power_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            memory_plus_button = new StyledButton ("M+", "Add it to the value in Memory", {"F3"});
+            memory_plus_button = new StyledButton ("M+", _("Add it to the value in Memory"), {"F3"});
             memory_plus_button.get_style_context ().add_class ("Pebbles_Buttons_Memory");
-            sin_button = new StyledButton ("sin", "Sine", {"S"});
+            sin_button = new StyledButton ("sin", _("Sine"), {"S"});
             sin_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            sinh_button = new StyledButton ("sinh", "Hyperbolic Sine", {"H"});
+            sinh_button = new StyledButton ("sinh", _("Hyperbolic Sine"), {"H"});
             sinh_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            log_cont_base_button = new StyledButton ("log x", "Log base 10", {"L"});
+            log_cont_base_button = new StyledButton ("log x", _("Log base 10"), {"L"});
             log_cont_base_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            memory_minus_button = new StyledButton ("M\xE2\x88\x92", "Subtract it from the value in Memory", {"F4"});
+            memory_minus_button = new StyledButton ("M\xE2\x88\x92", _("Subtract it from the value in Memory"), {"F4"});
             memory_minus_button.get_style_context ().add_class ("Pebbles_Buttons_Memory");
-            cos_button = new StyledButton ("cos", "Cosine", {"C"});
+            cos_button = new StyledButton ("cos", _("Cosine"), {"C"});
             cos_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            cosh_button = new StyledButton ("cosh", "Hyperbolic Cosine", {"O"});
+            cosh_button = new StyledButton ("cosh", _("Hyperbolic Cosine"), {"O"});
             cosh_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            log_mod_button = new StyledButton ("Mod", "Modulus", {"M"});
+            log_mod_button = new StyledButton ("Mod", _("Modulus"), {"M"});
             log_mod_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            memory_recall_button = new StyledButton ("MR", "Recall value from Memory", {"F5"});
+            memory_recall_button = new StyledButton ("MR", _("Recall value from Memory"), {"F5"});
             memory_recall_button.get_style_context ().add_class ("Pebbles_Buttons_Memory");
-            tan_button = new StyledButton ("tan", "Tangent", {"T"});
+            tan_button = new StyledButton ("tan", _("Tangent"), {"T"});
             tan_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            tanh_button = new StyledButton ("tanh", "Hyperbolic Tangent", {"A"});
+            tanh_button = new StyledButton ("tanh", _("Hyperbolic Tangent"), {"A"});
             tanh_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            perm_comb_button = new StyledButton ("<sup>n</sup>P\xE1\xB5\xA3", "Permutations", {"P"});
+            perm_comb_button = new StyledButton ("<sup>n</sup>P\xE1\xB5\xA3", _("Permutations"), {"P"});
             perm_comb_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            memory_clear_button = new StyledButton ("MC", "Memory Clear", {"F6"});
+            memory_clear_button = new StyledButton ("MC", _("Memory Clear"), {"F6"});
             memory_clear_button.get_style_context ().add_class ("Pebbles_Buttons_Memory");
-            fact_button = new StyledButton ("!", "Factorial", {"F"});
+            fact_button = new StyledButton ("!", _("Factorial"), {"F"});
             fact_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             constant_button = new StyledButton (constant_label_1, constant_desc_1, {"R"});
             constant_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            last_answer_button = new StyledButton ("Ans", "Last answer", {"F7"});
+            last_answer_button = new StyledButton ("Ans", _("Last answer"), {"F7"});
             last_answer_button.sensitive = false;
             last_answer_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            result_button = new StyledButton ("=", "Result", {"Return"});
+            result_button = new StyledButton ("=", _("Result"), {"Return"});
             result_button.get_style_context ().add_class ("h2");
             result_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
 
@@ -291,32 +291,32 @@ namespace Pebbles {
         
         public void set_alternative_button () {
             if (shift_held) {
-                sqr_button.update_label ("\xE2\x88\x9A", "Square root over number", {"Q"});
-                pow_root_button.update_label ("<sup>n</sup>\xE2\x88\x9A", "nth root over number", {"Z"});
-                expo_power_button.update_label ("e<sup>x</sup>", "e raised to the power x", {"W"});
-                sin_button.update_label ("sin<sup>-1</sup>", "Sine Inverse", {"S"});
-                cos_button.update_label ("cos<sup>-1</sup>", "Cosine Inverse", {"C"});
-                tan_button.update_label ("tan<sup>-1</sup>", "Tangent Inverse", {"T"});
-                sinh_button.update_label ("sinh<sup>-1</sup>", "Hyperbolic Sine Inverse", {"H"});
-                cosh_button.update_label ("cosh<sup>-1</sup>", "Hyperbolic Cosine Inverse", {"O"});
-                tanh_button.update_label ("tanh<sup>-1</sup>", "Hyperbolic Tangent Inverse", {"A"});
-                log_mod_button.update_label ("log\xE2\x82\x93y", "Log base x", {"M"});
-                log_cont_base_button.update_label ("ln x", "Natural Logarithm", {"L"});
-                perm_comb_button.update_label ("<sup>n</sup>C\xE1\xB5\xA3", "Combinations", {"P"});
+                sqr_button.update_label ("\xE2\x88\x9A", _("Square root over number"), {"Q"});
+                pow_root_button.update_label ("<sup>n</sup>\xE2\x88\x9A", _("nth root over number"), {"Z"});
+                expo_power_button.update_label ("e<sup>x</sup>", _("e raised to the power x"), {"W"});
+                sin_button.update_label ("sin<sup>-1</sup>", _("Sine Inverse"), {"S"});
+                cos_button.update_label ("cos<sup>-1</sup>", _("Cosine Inverse"), {"C"});
+                tan_button.update_label ("tan<sup>-1</sup>", _("Tangent Inverse"), {"T"});
+                sinh_button.update_label ("sinh<sup>-1</sup>", _("Hyperbolic Sine Inverse"), {"H"});
+                cosh_button.update_label ("cosh<sup>-1</sup>", _("Hyperbolic Cosine Inverse"), {"O"});
+                tanh_button.update_label ("tanh<sup>-1</sup>", _("Hyperbolic Tangent Inverse"), {"A"});
+                log_mod_button.update_label ("log\xE2\x82\x93y", _("Log base x"), {"M"});
+                log_cont_base_button.update_label ("ln x", _("Natural Logarithm"), {"L"});
+                perm_comb_button.update_label ("<sup>n</sup>C\xE1\xB5\xA3", _("Combinations"), {"P"});
                 constant_button.update_label (constant_label_2, constant_desc_2, {"R"});
             } else {
-                sqr_button.update_label ("x<sup>2</sup>", "Square a number", {"Q"});
-                pow_root_button.update_label ("x<sup>y</sup>", "x raised to the power y", {"Z"});
-                expo_power_button.update_label ("10<sup>x</sup>", "10 raised to the power x", {"W"});
-                sin_button.update_label ("sin", "Sine", {"S"});
-                cos_button.update_label ("cos", "Cosine", {"C"});
-                tan_button.update_label ("tan", "Tangent", {"T"});
-                sinh_button.update_label ("sinh", "Hyperbolic Sine", {"H"});
-                cosh_button.update_label ("cosh", "Hyperbolic Cosine", {"O"});
-                tanh_button.update_label ("tanh", "Hyperbolic Tangent", {"A"});
-                log_mod_button.update_label ("Mod", "Modulus", {"M"});
-                log_cont_base_button.update_label ("log x", "Log base 10", {"L"});
-                perm_comb_button.update_label ("<sup>n</sup>P\xE1\xB5\xA3", "Permutations", {"P"});
+                sqr_button.update_label ("x<sup>2</sup>", _("Square a number"), {"Q"});
+                pow_root_button.update_label ("x<sup>y</sup>", _("x raised to the power y"), {"Z"});
+                expo_power_button.update_label ("10<sup>x</sup>", _("10 raised to the power x"), {"W"});
+                sin_button.update_label ("sin", _("Sine"), {"S"});
+                cos_button.update_label ("cos", _("Cosine"), {"C"});
+                tan_button.update_label ("tan", _("Tangent"), {"T"});
+                sinh_button.update_label ("sinh", _("Hyperbolic Sine"), {"H"});
+                cosh_button.update_label ("cosh", _("Hyperbolic Cosine"), {"O"});
+                tanh_button.update_label ("tanh", _("Hyperbolic Tangent"), {"A"});
+                log_mod_button.update_label ("Mod", _("Modulus"), {"M"});
+                log_cont_base_button.update_label ("log x", _("Log base 10"), {"L"});
+                perm_comb_button.update_label ("<sup>n</sup>P\xE1\xB5\xA3", _("Permutations"), {"P"});
                 constant_button.update_label (constant_label_1, constant_desc_1, {"R"});
             }
         }
@@ -326,85 +326,85 @@ namespace Pebbles {
             switch (settings.constant_key_value1) {
                 case ConstantKeyIndex.ARCHIMEDES:
                     constant_label_1 = "\xCF\x80";
-                    constant_desc_1 = "Archimedes' constant (pi)";
+                    constant_desc_1 = _("Archimedes' constant (pi)");
                     break;
                 case ConstantKeyIndex.IMAGINARY:
                     constant_label_1 = "i";
-                    constant_desc_1 = "Imaginary number (\xE2\x88\x9A-1)";
+                    constant_desc_1 = _("Imaginary number (\xE2\x88\x9A-1)");
                     break;
                 case ConstantKeyIndex.GOLDEN_RATIO:
                     constant_label_1 = "\xCF\x86";
-                    constant_desc_1 = "Golden ratio (phi)";
+                    constant_desc_1 = _("Golden ratio (phi)");
                     break;
                 case ConstantKeyIndex.EULER_MASCH:
                     constant_label_1 = "\xF0\x9D\x9B\xBE";
-                    constant_desc_1 = "Euler–Mascheroni constant (gamma)";
+                    constant_desc_1 = _("Euler–Mascheroni constant (gamma)");
                     break;
                 case ConstantKeyIndex.CONWAY:
                     constant_label_1 = "\xCE\xBB";
-                    constant_desc_1 = "Conway's constant (lamda)";
+                    constant_desc_1 = _("Conway's constant (lamda)");
                     break;
                 case ConstantKeyIndex.KHINCHIN:
                     constant_label_1 = "K";
-                    constant_desc_1 = "Khinchin's constant";
+                    constant_desc_1 = _("Khinchin's constant");
                     break;
                 case ConstantKeyIndex.FEIGEN_ALPHA:
                     constant_label_1 = "\xCE\xB1";
-                    constant_desc_1 = "The Feigenbaum constant alpha";
+                    constant_desc_1 = _("The Feigenbaum constant alpha");
                     break;
                 case ConstantKeyIndex.FEIGEN_DELTA:
                     constant_label_1 = "\xCE\xB4";
-                    constant_desc_1 = "The Feigenbaum constant delta";
+                    constant_desc_1 = _("The Feigenbaum constant delta");
                     break;
                 case ConstantKeyIndex.APERY:
                     constant_label_1 = "\xF0\x9D\x9B\x87(3)";
-                    constant_desc_1 = "Apery's constant";
+                    constant_desc_1 = _("Apery's constant");
                     break;
                 default:
                     constant_label_1 = "e";
-                    constant_desc_1 = "Euler's constant (exponential)";
+                    constant_desc_1 = _("Euler's constant (exponential)");
                     break;
             }
             switch (settings.constant_key_value2) {
                 case ConstantKeyIndex.ARCHIMEDES:
                     constant_label_2 = "\xCF\x80";
-                    constant_desc_2 = "Archimedes' constant (pi)";
+                    constant_desc_2 = _("Archimedes' constant (pi)");
                     break;
                 case ConstantKeyIndex.IMAGINARY:
                     constant_label_2 = "i";
-                    constant_desc_2 = "Imaginary number (\xE2\x88\x9A-1)";
+                    constant_desc_2 = _("Imaginary number (\xE2\x88\x9A-1)");
                     break;
                 case ConstantKeyIndex.GOLDEN_RATIO:
                     constant_label_2 = "\xCF\x86";
-                    constant_desc_2 = "Golden ratio (phi)";
+                    constant_desc_2 = _("Golden ratio (phi)");
                     break;
                 case ConstantKeyIndex.EULER_MASCH:
                     constant_label_2 = "\xF0\x9D\x9B\xBE";
-                    constant_desc_2 = "Euler–Mascheroni constant (gamma)";
+                    constant_desc_2 = _("Euler–Mascheroni constant (gamma)");
                     break;
                 case ConstantKeyIndex.CONWAY:
                     constant_label_2 = "\xCE\xBB";
-                    constant_desc_2 = "Conway's constant (lamda)";
+                    constant_desc_2 = _("Conway's constant (lamda)");
                     break;
                 case ConstantKeyIndex.KHINCHIN:
                     constant_label_2 = "K";
-                    constant_desc_2 = "Khinchin's constant";
+                    constant_desc_2 = _("Khinchin's constant");
                     break;
                 case ConstantKeyIndex.FEIGEN_ALPHA:
                     constant_label_2 = "\xCE\xB1";
-                    constant_desc_2 = "The Feigenbaum constant alpha";
+                    constant_desc_2 = _("The Feigenbaum constant alpha");
                     break;
                 case ConstantKeyIndex.FEIGEN_DELTA:
                     constant_label_2 = "\xCE\xB4";
-                    constant_desc_2 = "The Feigenbaum constant delta";
+                    constant_desc_2 = _("The Feigenbaum constant delta");
                     break;
                 case ConstantKeyIndex.APERY:
                     constant_label_2 = "\xF0\x9D\x9B\x87(3)";
-                    constant_desc_2 = "Apery's constant";
+                    constant_desc_2 = _("Apery's constant");
                     break;
                 default:
                     constant_label_2 = "e";
-                    constant_desc_2 = "Euler's constant (exponential)";
+                    constant_desc_2 = _("Euler's constant (exponential)");
                     break;
             }
             if (constant_button != null) {

@@ -119,8 +119,8 @@ namespace Pebbles {
         public void make_ui () {
             // Create dark mode switcher
             dark_mode_switch = new Granite.ModeSwitch.from_icon_name ("display-brightness-symbolic", "weather-clear-night-symbolic");
-            dark_mode_switch.primary_icon_tooltip_text = ("Light background");
-            dark_mode_switch.secondary_icon_tooltip_text = ("Dark background");
+            dark_mode_switch.primary_icon_tooltip_text = _("Light background");
+            dark_mode_switch.secondary_icon_tooltip_text = _("Dark background");
             dark_mode_switch.valign = Gtk.Align.CENTER;
             dark_mode_switch.active = settings.use_dark_theme;
             dark_mode_switch.notify["active"].connect (() => {
@@ -139,7 +139,7 @@ namespace Pebbles {
             
             // Create shift switcher
             scientific_header_grid = new Gtk.Grid ();
-            shift_label = new Gtk.Label ("Shift ");
+            shift_label = new Gtk.Label (_("Shift "));
             shift_label.set_margin_start (2);
             shift_switch = new Gtk.Switch ();
             shift_switch.set_margin_top (4);
@@ -195,7 +195,7 @@ namespace Pebbles {
             });
             // Create shift switcher for programmer view
             var programmer_header_grid = new Gtk.Grid ();
-            var shift_label_prog = new Gtk.Label ("Shift ");
+            var shift_label_prog = new Gtk.Label (_("Shift "));
             shift_label_prog.set_margin_start (2);
             shift_switch_prog = new Gtk.Switch ();
             shift_switch_prog.set_margin_top (4);
@@ -219,7 +219,7 @@ namespace Pebbles {
             update_button.width_request = 10;
             update_button.halign = Gtk.Align.START;
             update_button.margin = 1;
-            update_button.tooltip_markup = Granite.markup_accel_tooltip ({"R"}, "<b>Update Forex Data</b>\nUpdates automatically every 10 minutes");
+            update_button.tooltip_markup = Granite.markup_accel_tooltip ({"R"}, _("<b>Update Forex Data</b>\nUpdates automatically every 10 minutes"));
             
             // Create App Menu
             app_menu = new Gtk.MenuButton ();
@@ -229,9 +229,9 @@ namespace Pebbles {
             
             var settings_menu = new Gtk.Menu ();
             var controls_overlay_item = new Gtk.MenuItem();
-            controls_overlay_item.add (new Granite.AccelLabel ("Show Controls", "F1"));
+            controls_overlay_item.add (new Granite.AccelLabel (_("Show Controls"), "F1"));
             var preferences_overlay_item = new Gtk.MenuItem ();
-            preferences_overlay_item.add (new Granite.AccelLabel ("Preferences", "F2"));
+            preferences_overlay_item.add (new Granite.AccelLabel (_("Preferences"), "F2"));
 
             settings_menu.append (controls_overlay_item);
             settings_menu.append (preferences_overlay_item);
@@ -252,7 +252,7 @@ namespace Pebbles {
             history_button.valign = Gtk.Align.CENTER;
             history_button.set_image (new Gtk.Image.from_icon_name ("document-open-recent-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
             history_button.set_margin_end (4);
-            history_button.tooltip_text = "Show Calculation History";
+            history_button.tooltip_text = _("Show Calculation History");
 
             history_button.clicked.connect (() => {
                 show_history ();
@@ -283,28 +283,28 @@ namespace Pebbles {
             this.set_titlebar (headerbar);
             
             // Create Item Pane
-            scientific_item  = new Granite.Widgets.SourceList.Item ("Scientific");
-            calculus_item    = new Granite.Widgets.SourceList.Item ("Calculus");
-            var programmer_item  = new Granite.Widgets.SourceList.Item ("Programmer");
-            var date_item        = new Granite.Widgets.SourceList.Item ("Date");
-            var stats_item       = new Granite.Widgets.SourceList.Item ("Statistics");
-            var finance_item     = new Granite.Widgets.SourceList.Item ("Financial");
-            var conv_length_item = new Granite.Widgets.SourceList.Item ("Length");
-            var conv_area_item   = new Granite.Widgets.SourceList.Item ("Area");
-            var conv_volume_item = new Granite.Widgets.SourceList.Item ("Volume");
-            var conv_time_item   = new Granite.Widgets.SourceList.Item ("Time");
-            var conv_angle_item  = new Granite.Widgets.SourceList.Item ("Angle");
-            var conv_speed_item  = new Granite.Widgets.SourceList.Item ("Speed");
-            var conv_mass_item   = new Granite.Widgets.SourceList.Item ("Mass");
-            var conv_press_item  = new Granite.Widgets.SourceList.Item ("Pressure");
-            var conv_energy_item = new Granite.Widgets.SourceList.Item ("Energy");
-            var conv_power_item  = new Granite.Widgets.SourceList.Item ("Power");
-            var conv_temp_item   = new Granite.Widgets.SourceList.Item ("Temperature");
-            var conv_data_item   = new Granite.Widgets.SourceList.Item ("Data");
-            var conv_curr_item   = new Granite.Widgets.SourceList.Item ("Currency");
+            scientific_item  = new Granite.Widgets.SourceList.Item (_("Scientific"));
+            calculus_item    = new Granite.Widgets.SourceList.Item (_("Calculus"));
+            var programmer_item  = new Granite.Widgets.SourceList.Item (_("Programmer"));
+            var date_item        = new Granite.Widgets.SourceList.Item (_("Date"));
+            var stats_item       = new Granite.Widgets.SourceList.Item (_("Statistics"));
+            var finance_item     = new Granite.Widgets.SourceList.Item (_("Financial"));
+            var conv_length_item = new Granite.Widgets.SourceList.Item (_("Length"));
+            var conv_area_item   = new Granite.Widgets.SourceList.Item (_("Area"));
+            var conv_volume_item = new Granite.Widgets.SourceList.Item (_("Volume"));
+            var conv_time_item   = new Granite.Widgets.SourceList.Item (_("Time"));
+            var conv_angle_item  = new Granite.Widgets.SourceList.Item (_("Angle"));
+            var conv_speed_item  = new Granite.Widgets.SourceList.Item (_("Speed"));
+            var conv_mass_item   = new Granite.Widgets.SourceList.Item (_("Mass"));
+            var conv_press_item  = new Granite.Widgets.SourceList.Item (_("Pressure"));
+            var conv_energy_item = new Granite.Widgets.SourceList.Item (_("Energy"));
+            var conv_power_item  = new Granite.Widgets.SourceList.Item (_("Power"));
+            var conv_temp_item   = new Granite.Widgets.SourceList.Item (_("Temperature"));
+            var conv_data_item   = new Granite.Widgets.SourceList.Item (_("Data"));
+            var conv_curr_item   = new Granite.Widgets.SourceList.Item (_("Currency"));
             
             // Calculators
-            var calc_category = new Granite.Widgets.SourceList.ExpandableItem ("Calculator");
+            var calc_category = new Granite.Widgets.SourceList.ExpandableItem (_("Calculator"));
             calc_category.expand_all ();
             calc_category.add (scientific_item);
             calc_category.add (calculus_item);
@@ -313,7 +313,7 @@ namespace Pebbles {
             calc_category.add (stats_item);
             //calc_category.add (finance_item);
             // Converters
-            var conv_category = new Granite.Widgets.SourceList.ExpandableItem ("Converter");
+            var conv_category = new Granite.Widgets.SourceList.ExpandableItem (_("Converter"));
             //conv_category.expand_all ();
             conv_category.add (conv_length_item);
             conv_category.add (conv_area_item);

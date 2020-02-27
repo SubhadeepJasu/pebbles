@@ -40,13 +40,13 @@ namespace Pebbles {
             0.00750062,
         };
 
-        private const string[] units = {
-            "Atmosphere",
-            "Bar",
-            "Millimetre of mercury",
-            "Pascal",
-            "Pound-force / sq-inch",
-            "Torr",
+        private string[] units = {
+            (_("Atmosphere")),
+            (_("Bar")),
+            (_("Millimetre of mercury")),
+            (_("Pascal")),
+            (_("Pound-force / sq-inch")),
+            (_("Torr")),
         };
 
         construct {
@@ -54,7 +54,7 @@ namespace Pebbles {
             keypad = new CommonKeyPadConverter ();
             
             // Make Header Label
-            var header_title = new Gtk.Label ("Pressure");
+            var header_title = new Gtk.Label (_("Pressure"));
             header_title.get_style_context ().add_class ("h1");
             header_title.set_justify (Gtk.Justification.LEFT);
             header_title.halign = Gtk.Align.START;

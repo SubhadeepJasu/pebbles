@@ -41,14 +41,14 @@ namespace Pebbles {
             (1/343),
         };
 
-        private const string[] units = {
-            "Centimetre per second",
-            "Metre per second",
-            "Kilometre per hour",
-            "Foot per second",
-            "Miles per hour",
-            "Knot",
-            "Mach",
+        private string[] units = {
+            (_("Centimetre per second")),
+            (_("Metre per second")),
+            (_("Kilometre per hour")),
+            (_("Foot per second")),
+            (_("Miles per hour")),
+            (_("Knot")),
+            (_("Mach")),
         };
 
         construct {
@@ -56,7 +56,7 @@ namespace Pebbles {
             keypad = new CommonKeyPadConverter ();
             
             // Make Header Label
-            var header_title = new Gtk.Label ("Speed");
+            var header_title = new Gtk.Label (_("Speed"));
             header_title.get_style_context ().add_class ("h1");
             header_title.set_justify (Gtk.Justification.LEFT);
             header_title.halign = Gtk.Align.START;

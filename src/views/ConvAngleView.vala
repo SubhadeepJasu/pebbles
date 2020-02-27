@@ -40,13 +40,13 @@ namespace Pebbles {
             60,
         };
 
-        private const string[] units = {
-            "Degree",
-            "Radian",
-            "Gradian",
-            "Milliradian",
-            "Second of arc",
-            "Minute of arc",
+        private string[] units = {
+            (_("Degree")),
+            (_("Radian")),
+            (_("Gradian")),
+            (_("Milliradian")),
+            (_("Second of arc")),
+            (_("Minute of arc")),
         };
 
         construct {
@@ -54,7 +54,7 @@ namespace Pebbles {
             keypad = new CommonKeyPadConverter ();
             
             // Make Header Label
-            var header_title = new Gtk.Label ("Angle");
+            var header_title = new Gtk.Label (_("Angle"));
             header_title.get_style_context ().add_class ("h1");
             header_title.set_justify (Gtk.Justification.LEFT);
             header_title.halign = Gtk.Align.START;

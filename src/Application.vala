@@ -64,9 +64,9 @@ namespace Pebbles {
             bool new_window = false, mini_mode = false;
             
             GLib.OptionEntry [] option = new OptionEntry [4];
-            option [0] = { "mini_mode", 0, 0, OptionArg.NONE, ref mini_mode, "Open In Mini Mode", null };
-            option [1] = { "new_window", 0, 0, OptionArg.NONE, ref new_window, "Open A New Window", null };
-            option [2] = { "test", 0, 0, OptionArg.NONE, ref test_mode, "Enable test mode", null };
+            option [0] = { "mini_mode", 0, 0, OptionArg.NONE, ref mini_mode, _("Open In Mini Mode"), null };
+            option [1] = { "new_window", 0, 0, OptionArg.NONE, ref new_window, _("Open A New Window"), null };
+            option [2] = { "test", 0, 0, OptionArg.NONE, ref test_mode, _("Enable test mode"), null };
             option [3] = { null };
             
             var option_context = new OptionContext ("actions");

@@ -44,17 +44,17 @@ namespace Pebbles {
             0.000000386,// Square mile
         };
 
-        private const string[] units = {
-            "Square millimetre",
-            "Square centimetre",
-            "Square metre",
-            "Square kilometre",
-            "Square inch",
-            "Square foot",
-            "Square yard",
-            "Hectare",
-            "Acre",
-            "Square mile",
+        private string[] units = {
+            (_("Square millimetre")),
+            (_("Square centimetre")),
+            (_("Square metre")),
+            (_("Square kilometre")),
+            (_("Square inch")),
+            (_("Square foot")),
+            (_("Square yard")),
+            (_("Hectare")),
+            (_("Acre")),
+            (_("Square mile")),
         };
 
         construct {
@@ -62,7 +62,7 @@ namespace Pebbles {
             keypad = new CommonKeyPadConverter ();
             
             // Make Header Label
-            var header_title = new Gtk.Label ("Area");
+            var header_title = new Gtk.Label (_("Area"));
             header_title.get_style_context ().add_class ("h1");
             header_title.set_justify (Gtk.Justification.LEFT);
             header_title.halign = Gtk.Align.START;

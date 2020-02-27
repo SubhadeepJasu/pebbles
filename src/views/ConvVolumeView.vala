@@ -31,28 +31,28 @@ namespace Pebbles {
         private Gtk.ComboBoxText to_unit;
         private Gtk.Button interchange_button;
 
-        private const string[] units = {
-            "Millilitre",
-            "Cubic centimetre",
-            "Litre",
-            "Cubic metre",
-            "US teaspoon",
-            "US tablespoon",
-            "US fluid ounce",
-            "US legal cup",
-            "US pint",
-            "US quart",
-            "US gallon",
-            "Imperial teaspoon",
-            "Imperial tablespoon",
-            "Imperial fluid ounce",
-            "Imperial cup",
-            "Imperial pint",
-            "Imperial quart",
-            "Imperial gallon",
-            "Cubic inch",
-            "Cubic foot",
-            "Cubic yard",
+        private string[] units = {
+            (_("Millilitre")),
+            (_("Cubic centimetre")),
+            (_("Litre")),
+            (_("Cubic metre")),
+            (_("US teaspoon")),
+            (_("US tablespoon")),
+            (_("US fluid ounce")),
+            (_("US legal cup")),
+            (_("US pint")),
+            (_("US quart")),
+            (_("US gallon")),
+            (_("Imperial teaspoon")),
+            (_("Imperial tablespoon")),
+            (_("Imperial fluid ounce")),
+            (_("Imperial cup")),
+            (_("Imperial pint")),
+            (_("Imperial quart")),
+            (_("Imperial gallon")),
+            (_("Cubic inch")),
+            (_("Cubic foot")),
+            (_("Cubic yard")),
         };
 
         private const double[] multipliers = {
@@ -84,7 +84,7 @@ namespace Pebbles {
             keypad = new CommonKeyPadConverter ();
             
             // Make Header Label
-            var header_title = new Gtk.Label ("Volume");
+            var header_title = new Gtk.Label (_("Volume"));
             header_title.get_style_context ().add_class ("h1");
             header_title.set_justify (Gtk.Justification.LEFT);
             header_title.halign = Gtk.Align.START;

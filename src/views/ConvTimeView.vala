@@ -45,18 +45,18 @@ namespace Pebbles {
             0.000001142,
         };
 
-        private const string[] units = {
-            "Microsecond",
-            "Millisecond",
-            "Second",
-            "Minute",
-            "Hour",
-            "Day",
-            "Week",
-            "Month",
-            "Year",
-            "Decade",
-            "Century",
+        private string[] units = {
+            (_("Microsecond")),
+            (_("Millisecond")),
+            (_("Second")),
+            (_("Minute")),
+            (_("Hour")),
+            (_("Day")),
+            (_("Week")),
+            (_("Month")),
+            (_("Year")),
+            (_("Decade")),
+            (_("Century")),
         };
 
         construct {
@@ -64,7 +64,7 @@ namespace Pebbles {
             keypad = new CommonKeyPadConverter ();
             
             // Make Header Label
-            var header_title = new Gtk.Label ("Time");
+            var header_title = new Gtk.Label (_("Time"));
             header_title.get_style_context ().add_class ("h1");
             header_title.set_justify (Gtk.Justification.LEFT);
             header_title.halign = Gtk.Align.START;

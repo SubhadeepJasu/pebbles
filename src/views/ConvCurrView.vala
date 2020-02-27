@@ -51,18 +51,18 @@ namespace Pebbles {
             0,
         };
 
-        private const string[] units = {
-            "US Dollar                                                $",
-            "Euro                                                         €",
-            "British Pounds                                       £",
-            "Australian Dollar                                   $",
-            "Brazilian Real                                       R$",
-            "Canadian Dollar                                    $",
-            "Chinese Yuan                                         ¥",
-            "Indian Rupee                                          ₹",
-            "Japanese Yen                                         ¥",
-            "Russian Ruble                                        руб",
-            "South African Rand                               R",
+        private string[] units = {
+            (_("US Dollar                                                $")),
+            (_("Euro                                                         €")),
+            (_("British Pounds                                       £")),
+            (_("Australian Dollar                                   $")),
+            (_("Brazilian Real                                       R$")),
+            (_("Canadian Dollar                                    $")),
+            (_("Chinese Yuan                                         ¥")),
+            (_("Indian Rupee                                          ₹")),
+            (_("Japanese Yen                                         ¥")),
+            (_("Russian Ruble                                        руб")),
+            (_("South African Rand                               R")),
         };
 
         construct {
@@ -80,7 +80,7 @@ namespace Pebbles {
             keypad = new CommonKeyPadConverter ();
             
             // Make Header Label
-            var header_title = new Gtk.Label ("Currency");
+            var header_title = new Gtk.Label (_("Currency"));
             header_title.get_style_context ().add_class ("h1");
             header_title.set_justify (Gtk.Justification.LEFT);
             header_title.halign = Gtk.Align.START;

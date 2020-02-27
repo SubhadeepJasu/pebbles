@@ -44,17 +44,17 @@ namespace Pebbles {
             (1 / 6350.293),
         };
 
-        private const string[] units = {
-            "Microgram",
-            "Milligram",
-            "Gram",
-            "Kilogram",
-            "Tonne",
-            "US ton",
-            "Imperial Ton",
-            "Ounce",
-            "Pound",
-            "Stone",
+        private string[] units = {
+            (_("Microgram")),
+            (_("Milligram")),
+            (_("Gram")),
+            (_("Kilogram")),
+            (_("Tonne")),
+            (_("US ton")),
+            (_("Imperial Ton")),
+            (_("Ounce")),
+            (_("Pound")),
+            (_("Stone")),
         };
 
         construct {
@@ -62,7 +62,7 @@ namespace Pebbles {
             keypad = new CommonKeyPadConverter ();
             
             // Make Header Label
-            var header_title = new Gtk.Label ("Mass");
+            var header_title = new Gtk.Label (_("Mass"));
             header_title.get_style_context ().add_class ("h1");
             header_title.set_justify (Gtk.Justification.LEFT);
             header_title.halign = Gtk.Align.START;

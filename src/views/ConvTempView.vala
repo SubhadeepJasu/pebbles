@@ -30,17 +30,17 @@ namespace Pebbles {
         private Gtk.ComboBoxText to_unit;
         private Gtk.Button interchange_button;
 
-        private const string[] units = {
-            "Celsius",
-            "Fahrenheit",
-            "Kelvin",
+        private string[] units = {
+            (_("Celsius")),
+            (_("Fahrenheit")),
+            (_("Kelvin")),
         };
 
         construct {
             keypad = new CommonKeyPadConverter ();
             
             // Make Header Label
-            var header_title = new Gtk.Label ("Temperature");
+            var header_title = new Gtk.Label (_("Temperature"));
             header_title.get_style_context ().add_class ("h1");
             header_title.set_justify (Gtk.Justification.LEFT);
             header_title.halign = Gtk.Align.START;

@@ -104,7 +104,7 @@ namespace Pebbles {
             var headerbar = new Gtk.HeaderBar ();
             headerbar.has_subtitle = false;
             headerbar.set_show_close_button (true);
-            headerbar.title = "Pebbles Controls";
+            headerbar.title = _("Pebbles Controls");
 
             headerbar.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
             set_titlebar (headerbar);

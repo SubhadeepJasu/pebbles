@@ -29,156 +29,156 @@ namespace Pebbles {
         public ControlScheme () {
             common = {
                 {
-                    "Show this controls window", "F1"
+                    _("Show this controls window"), "F1"
                 },
                 {
-                    "Show Preferences", "F2"
+                    _("Show Preferences"), "F2"
                 },
                 {
-                    "Add to Memory", "F3"
+                    _("Add to Memory"), "F3"
                 },
                 {
-                    "Subtract from Memory", "F4"
+                    _("Subtract from Memory"), "F4"
                 },
                 {
-                    "Recall from Memory", "F5"
+                    _("Recall from Memory"), "F5"
                 },
                 {
-                    "Clear Memory", "F6"
+                    _("Clear Memory"), "F6"
                 },
                 {
-                    "Last Answer", "F7"
+                    _("Last Answer"), "F7"
                 },
                 {
-                    "All Clear", "Delete"
+                    _("All Clear"), "Delete"
                 }
             };
             scientific = {
                 {
-                    "Square (root) a Number", "Q"
+                    _("Square (root) a Number"), "Q"
                 },
                 {
-                    "Raise to the power (or nth root over)", "Z"
+                    _("Raise to the power (or nth root over)"), "Z"
                 },
                 {
-                    "10 (or e) raised to the power", "W"
+                    _("10 (or e) raised to the power"), "W"
                 },
                 {
-                    "Log base 10 (or e)", "L"
+                    _("Log base 10 (or e)"), "L"
                 },
                 {
-                    "(Inverse) Sine", "S"
+                    _("(Inverse) Sine"), "S"
                 },
                 {
-                    "(Inverse) Cosine", "C"
+                    _("(Inverse) Cosine"), "C"
                 },
                 {
-                    "(Inverse) Tangent", "T"
+                    _("(Inverse) Tangent"), "T"
                 },
                 {
-                    "(Inverse) Hyperbolic Sine", "H"
+                    _("(Inverse) Hyperbolic Sine"), "H"
                 },
                 {
-                    "(Inverse) Hyperbolic Cosine", "O"
+                    _("(Inverse) Hyperbolic Cosine"), "O"
                 },
                 {
-                    "(Inverse) Hyperbolic Tangent", "A"
+                    _("(Inverse) Hyperbolic Tangent"), "A"
                 },
                 {
-                    "Modulus or Log base x", "M"
+                    _("Modulus or Log base x"), "M"
                 },
                 {
-                    "Permutation or Combination", "P"
+                    _("Permutation or Combination"), "P"
                 },
                 {
-                    "Factorial", "F"
+                    _("Factorial"), "F"
                 },
                 {
-                    "Constants", "R"
+                    _("Constants"), "R"
                 },
                 {
-                    "Result", "Return"
+                    _("Result"), "Return"
                 }
             };
             statistics = {
                 {
-                    "Add Cell", "Page_Up"
+                    _("Add Cell"), "Page_Up"
                 },
                 {
-                    "Insert Cell", "Page_Down"
+                    _("Insert Cell"), "Page_Down"
                 },
                 {
-                    "Next Cell or Add Right", "Tab"
+                    _("Next Cell or Add Right"), "Tab"
                 },
                 {
-                    "Previous Cell or Add Left", "<Shift>Tab"
+                    _("Previous Cell or Add Left"), "<Shift>Tab"
                 },
                 {
-                    "Navigate Left", "Left"
+                    _("Navigate Left"), "Left"
                 },
                 {
-                    "Navigate Right", "Right"
+                    _("Navigate Right"), "Right"
                 },
                 {
-                    "Remove Cell", "Home"
+                    _("Remove Cell"), "Home"
                 },
                 {
-                    "Remove All Cells (Reset)", "End"
+                    _("Remove All Cells (Reset)"), "End"
                 },
                 {
-                    "Cardinality", "N"
+                    _("Cardinality"), "N"
                 },
                 {
-                    "Mode", "O"
+                    _("Mode"), "O"
                 },
                 {
-                    "Median", "E"
+                    _("Median"), "E"
                 },
                 {
-                    "Summation", "S"
+                    _("Summation"), "S"
                 },
                 {
-                    "Summation Squared", "Q"
+                    _("Summation Squared"), "Q"
                 },
                 {
-                    "Sample Variance", "V"
+                    _("Sample Variance"), "V"
                 },
                 {
-                    "Mean", "M"
+                    _("Mean"), "M"
                 },
                 {
-                    "Mean Squared", "A"
+                    _("Mean Squared"), "A"
                 },
                 {
-                    "Geometric Mean", "G"
+                    _("Geometric Mean"), "G"
                 },
                 {
-                    "Sample Standard Deviation", "D"
+                    _("Sample Standard Deviation"), "D"
                 },
                 {
-                    "Population Variance", "P"
+                    _("Population Variance"), "P"
                 },
                 {
-                    "Population Standard Deviation", "L"
+                    _("Population Standard Deviation"), "L"
                 }
             };
             calculus = {
                 {
-                    "Variable x", "X"
+                    _("Variable x"), "X"
                 },
                 {
-                    "Definite Integral", "I"
+                    _("Definite Integral"), "I"
                 },
                 {
-                    "Derivative at a point", "D"
+                    _("Derivative at a point"), "D"
                 }
             };
             converter = {
                 {
-                    "Interchange unit", "Return"
+                    _("Interchange unit"), "Return"
                 },
                 {
-                    "Update Forex Data (Currency converter)", "R"
+                    _("Update Forex Data (Currency converter)"), "R"
                 }
             };
         }
