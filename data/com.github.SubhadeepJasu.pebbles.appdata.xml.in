@@ -1,29 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright 2018 Subhadeep Jasu <subhajasu@gmail.com> -->
-<component type="desktop">
-  <id>com.github.SubhadeepJasu.Pebbles</id>
-  <metadata_license>CC0</metadata_license>
+<component type="desktop-application">
+  <id>com.github.SubhadeepJasu.pebbles</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0+</project_license>
   <name>Pebbles</name>
   <summary>Perform advanced calculations with ease</summary>
   <description>
     <p>An advanced calculator that helps you with complicated calculations in your homework</p>
-    <p>Features</p>
+    <p>Features:</p>
     <ul>
         <li>Scientific mode</li>
-        <li>Programmer mode</li>
+        <li>Programmer mode (Coming Soon)</li>
         <li>Calculus mode</li>
-        <li>Statistics with standard deviation and probability</li>
+        <li>Statistics mode</li>
+        <li>Date Calculation mode</li>
         <li>Some common unit converters</li>
     </ul>
   </description>
+  <categories>
+    <category>Accessories</category>
+  </categories>
   <custom>
-    <value key="x-appcenter-color-primary">#d1ff82</value>
-    <value key="x-appcenter-color-primary-text">rgb(0,0,0)</value>
+    <value key="x-appcenter-color-primary">#84AEAA</value>
+    <value key="x-appcenter-color-primary-text">rgb(39,40,99)</value>
     <value key="x-appcenter-suggested-price">0</value>
   </custom>
+  <translation type="gettext">com.github.SubhadeepJasu.pebbles</translation>
   <developer_name>Subhadeep Jasu</developer_name>
   <url type="homepage">https://github.com/SubhadeepJasu/pebbles</url>
   <url type="bugtracker">https://github.com/SubhadeepJasu/pebbles/issues</url>
   <url type="help">https://github.com/SubhadeepJasu/pebbles/issues</url>
   <update_contact>subhajasu@gmail.com</update_contact>
+  <launchable type="desktop-id">com.github.SubhadeepJasu.pebbles.desktop</launchable>
+  <screenshots>
+    <screenshot type="default">
+      <caption>Scientific Mode</caption>
+      <image>https://raw.githubusercontent.com/SubhadeepJasu/pebbles/master/screenshots/Screenshot-Scientific.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Calculus Mode</caption>
+      <image>https://raw.githubusercontent.com/SubhadeepJasu/pebbles/master/screenshots/Screenshot-Calculus.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Statistics Mode</caption>
+      <image>https://raw.githubusercontent.com/SubhadeepJasu/pebbles/master/screenshots/Screenshot-Statistics.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Date Mode</caption>
+      <image>https://raw.githubusercontent.com/SubhadeepJasu/pebbles/master/screenshots/Screenshot-Date.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Speed Unit Converter Mode</caption>
+      <image>https://raw.githubusercontent.com/SubhadeepJasu/pebbles/master/screenshots/Screenshot-Converter-Speed.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Currency Unit Converter Mode</caption>
+      <image>https://raw.githubusercontent.com/SubhadeepJasu/pebbles/master/screenshots/Screenshot-Converter-Currency.png</image>
+    </screenshot>
+  </screenshots>
+  <releases>
+    <release date="2020-02-28" version="1.0.0">
+      <description>
+        <p>Initial Release</p>
+      </description>
+    </release>
+  </releases>
 </component>
