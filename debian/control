@@ -1,4 +1,4 @@
-Source: com.github.SubhadeepJasu.pebbles
+Source: com.github.subhadeepjasu.pebbles
 Section: x11
 Priority: optional
 Maintainer: Subhadeep Jasu <subhajasu@gmail.com>
@@ -14,7 +14,7 @@ Build-Depends: cmake (>= 2.8),
                valac (>= 0.40.0)
 Standards-Version: 4.1.1
 
-Package: com.github.SubhadeepJasu.pebbles
+Package: com.github.subhadeepjasu.pebbles
 Architecture: any
 Depends: ${misc:Depends}, ${shlibs:Depends}
 Description: An easy to use yet powerful calculator app
