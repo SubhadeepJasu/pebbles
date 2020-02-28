@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright 2018 Subhadeep Jasu <subhajasu@gmail.com> -->
 <component type="desktop-application">
-  <id>com.github.SubhadeepJasu.pebbles</id>
+  <id>com.github.subhadeepjasu.pebbles</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-3.0+</project_license>
   <name>Pebbles</name>
@@ -18,21 +18,18 @@
         <li>Some common unit converters</li>
     </ul>
   </description>
-  <categories>
-    <category>Accessories</category>
-  </categories>
   <custom>
     <value key="x-appcenter-color-primary">#84AEAA</value>
     <value key="x-appcenter-color-primary-text">rgb(39,40,99)</value>
     <value key="x-appcenter-suggested-price">0</value>
   </custom>
-  <translation type="gettext">com.github.SubhadeepJasu.pebbles</translation>
+  <translation type="gettext">com.github.subhadeepjasu.pebbles</translation>
   <developer_name>Subhadeep Jasu</developer_name>
   <url type="homepage">https://github.com/SubhadeepJasu/pebbles</url>
   <url type="bugtracker">https://github.com/SubhadeepJasu/pebbles/issues</url>
   <url type="help">https://github.com/SubhadeepJasu/pebbles/issues</url>
   <update_contact>subhajasu@gmail.com</update_contact>
-  <launchable type="desktop-id">com.github.SubhadeepJasu.pebbles.desktop</launchable>
+  <launchable type="desktop-id">com.github.subhadeepjasu.pebbles.desktop</launchable>
   <screenshots>
     <screenshot type="default">
       <caption>Scientific Mode</caption>
