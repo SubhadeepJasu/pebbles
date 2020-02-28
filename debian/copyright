@@ -1,5 +1,5 @@
 Format: https://dep.debian.net/deps/dep5
-Upstream-Name: com.github.SubhadeepJasu.pebbles
+Upstream-Name: com.github.subhadeepjasu.pebbles
 Source: https://github.com/SubhadeepJasu/Pebbles
 
 Files: *

@@ -38,7 +38,7 @@ namespace Pebbles {
 
         public PebblesApp () {
             Object (
-                application_id: "com.github.SubhadeepJasu.pebbles",
+                application_id: "com.github.subhadeepjasu.pebbles",
                 flags: ApplicationFlags.HANDLES_COMMAND_LINE
             );
             X.init_threads ();
@@ -81,7 +81,7 @@ namespace Pebbles {
             if (css_provider == null) {
                 css_provider = new Gtk.CssProvider();
                 try {
-                    css_provider.load_from_resource ("/com/github/SubhadeepJasu/pebbles/Application.css");
+                    css_provider.load_from_resource ("/com/github/subhadeepjasu/pebbles/Application.css");
                 }
                 catch (Error e) {
                     warning("%s", e.message);

@@ -1,5 +1,5 @@
 project(
-    'com.github.SubhadeepJasu.pebbles', 'vala', 'c',
+    'com.github.subhadeepjasu.pebbles', 'vala', 'c',
     meson_version : '>= 0.43',
     version: '0.0.1',
     license : 'GPLv3'
@@ -7,7 +7,7 @@ project(
 gnome = import('gnome')
 i18n = import('i18n')
 
-add_global_arguments('-DGETTEXT_PACKAGE="com.github.SubhadeepJasu.pebbles"', language:'c')
+add_global_arguments('-DGETTEXT_PACKAGE="com.github.subhadeepjasu.pebbles"', language:'c')
 
 asresources = gnome.compile_resources(
     'as-resources', 'data/gresource.xml',

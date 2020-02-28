@@ -26,7 +26,7 @@ namespace Pebbles {
             set {send_button_press (val);}
         }
 
-        StyledButton del_button;
+        Gtk.Button   del_button;
         StyledButton all_clear_button;
         StyledButton seven_button;
         StyledButton eight_button;
@@ -44,7 +44,8 @@ namespace Pebbles {
     
         construct {
             // Make the buttons
-            del_button = new StyledButton ("Del", (_("Backspace")));
+            del_button = new Gtk.Button.from_icon_name ("edit-clear-symbolic", Gtk.IconSize.BUTTON);
+            del_button.set_tooltip_text (_("Backspace"));
             all_clear_button = new StyledButton ("AC", (_("Clear Entry")));
             all_clear_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
             seven_button = new StyledButton ("7");
