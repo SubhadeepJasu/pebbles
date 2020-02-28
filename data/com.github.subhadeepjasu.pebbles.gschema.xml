@@ -1,16 +1,16 @@
 <schemalist>
-    <enum id="com.github.SubhadeepJasu.pebbles.global-angle-unit">
+    <enum id="com.github.subhadeepjasu.pebbles.global-angle-unit">
 		<value nick="deg"  value="0" />
 		<value nick="rad"  value="1" />
 		<value nick="grad" value="2" />
     </enum>
-    <enum id="com.github.SubhadeepJasu.pebbles.global-word-length">
+    <enum id="com.github.subhadeepjasu.pebbles.global-word-length">
 		<value nick="qwd"  value="0" />
 		<value nick="dwd"  value="1" />
 		<value nick="wrd"  value="2" />
 		<value nick="byt"  value="3" />
     </enum>
-    <enum id="com.github.SubhadeepJasu.pebbles.constant-key-index">
+    <enum id="com.github.subhadeepjasu.pebbles.constant-key-index">
 		<value nick="euler"  		value="0" />
 		<value nick="archimedes"  	value="1" />
 		<value nick="imaginary" 	value="2" />
@@ -22,7 +22,7 @@
 		<value nick="feigen_delta"	value="8" />
 		<value nick="apery"			value="9" />
     </enum>
-    <schema path="/com/github/SubhadeepJasu/pebbles/" id="com.github.SubhadeepJasu.pebbles" gettext-domain="com.github.SubhadeepJasu.pebbles">
+    <schema path="/com/github/SubhadeepJasu/pebbles/" id="com.github.subhadeepjasu.pebbles" gettext-domain="com.github.subhadeepjasu.pebbles">
 		<key name="window-x" type="i">
 			<default>-1</default>
 			<summary>The saved x-position of the window.</summary>
@@ -38,12 +38,12 @@
 			<summary>Use Alternative Functions</summary>
 			<description>Use alternative functions and values for buttons.</description>
 		</key>
-		<key name="global-angle-unit" enum="com.github.SubhadeepJasu.pebbles.global-angle-unit">
+		<key name="global-angle-unit" enum="com.github.subhadeepjasu.pebbles.global-angle-unit">
 			<default>"deg"</default>
 			<summary>Choose the Global Angle Unit</summary>
 			<description>Select the angle unit to use in all modes of this app.</description>
 		</key>
-		<key name="global-word-length" enum="com.github.SubhadeepJasu.pebbles.global-word-length">
+		<key name="global-word-length" enum="com.github.subhadeepjasu.pebbles.global-word-length">
 			<default>"qwd"</default>
 			<summary>Choose the Word Length</summary>
 			<description>Select the word length.</description>
@@ -53,12 +53,12 @@
 			<summary>Use Dark Theme</summary>
 			<description>Use dark theme.</description>
 		</key>
-		<key name="constant-key-value1" enum="com.github.SubhadeepJasu.pebbles.constant-key-index">
+		<key name="constant-key-value1" enum="com.github.subhadeepjasu.pebbles.constant-key-index">
 			<default>"euler"</default>
 			<summary>Choose Constant 1</summary>
 			<description>Choose constant value for the button.</description>
 		</key>
-		<key name="constant-key-value2" enum="com.github.SubhadeepJasu.pebbles.constant-key-index">
+		<key name="constant-key-value2" enum="com.github.subhadeepjasu.pebbles.constant-key-index">
 			<default>"archimedes"</default>
 			<summary>Choose Constant 2</summary>
 			<description>Choose constant value for the button when shift is ON.</description>

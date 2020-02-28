@@ -1,14 +1,14 @@
-# Zhuang translations for com.github.SubhadeepJasu.pebbles package.
-# Copyright (C) 2020 THE com.github.SubhadeepJasu.pebbles'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the com.github.SubhadeepJasu.pebbles package.
+# Zhuang translations for com.github.subhadeepjasu.pebbles package.
+# Copyright (C) 2020 THE com.github.subhadeepjasu.pebbles'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the com.github.subhadeepjasu.pebbles package.
 # Automatically generated, 2020.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: com.github.SubhadeepJasu.pebbles\n"
+"Project-Id-Version: com.github.subhadeepjasu.pebbles\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-27 20:40+0530\n"
-"PO-Revision-Date: 2020-02-27 20:40+0530\n"
+"POT-Creation-Date: 2020-02-28 21:18+0530\n"
+"PO-Revision-Date: 2020-02-28 21:18+0530\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: za\n"
@@ -28,76 +28,108 @@ msgstr ""
 msgid "Enable test mode"
 msgstr ""
 
-#: data/com.github.SubhadeepJasu.pebbles.desktop.in:3
-#: data/com.github.SubhadeepJasu.pebbles.appdata.xml.in:6
+#: data/com.github.subhadeepjasu.pebbles.desktop.in:3
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:7
 msgid "Pebbles"
 msgstr ""
 
-#: data/com.github.SubhadeepJasu.pebbles.desktop.in:4
+#: data/com.github.subhadeepjasu.pebbles.desktop.in:4
 msgid "Pebbles Calculator App"
 msgstr ""
 
-#: data/com.github.SubhadeepJasu.pebbles.desktop.in:5
-#: data/com.github.SubhadeepJasu.pebbles.appdata.xml.in:7
+#: data/com.github.subhadeepjasu.pebbles.desktop.in:5
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:8
 msgid "Perform advanced calculations with ease"
 msgstr ""
 
-#: data/com.github.SubhadeepJasu.pebbles.desktop.in:8
+#: data/com.github.subhadeepjasu.pebbles.desktop.in:8
 msgid "com.github.SubhadeepJasu.pebbles"
 msgstr ""
 
-#: data/com.github.SubhadeepJasu.pebbles.desktop.in:11
+#: data/com.github.subhadeepjasu.pebbles.desktop.in:11
 msgid ""
 "calculator;scientific;programmer;statistics;converter;convert;calculate;"
 "boolean"
 msgstr ""
 
-#: data/com.github.SubhadeepJasu.pebbles.desktop.in:17
+#: data/com.github.subhadeepjasu.pebbles.desktop.in:17
 msgid "Open in Mini Mode"
 msgstr ""
 
-#: data/com.github.SubhadeepJasu.pebbles.desktop.in:19
+#: data/com.github.subhadeepjasu.pebbles.desktop.in:19
 msgid "accessories-calculator-symbolic"
 msgstr ""
 
-#: data/com.github.SubhadeepJasu.pebbles.desktop.in:22
+#: data/com.github.subhadeepjasu.pebbles.desktop.in:22
 msgid "Open a New Window"
 msgstr ""
 
-#: data/com.github.SubhadeepJasu.pebbles.desktop.in:23
+#: data/com.github.subhadeepjasu.pebbles.desktop.in:23
 msgid "window-new-symbolic"
 msgstr ""
 
-#: data/com.github.SubhadeepJasu.pebbles.appdata.xml.in:9
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:10
 msgid ""
 "An advanced calculator that helps you with complicated calculations in your "
 "homework"
 msgstr ""
 
-#: data/com.github.SubhadeepJasu.pebbles.appdata.xml.in:10
-msgid "Features"
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:11
+msgid "Features:"
 msgstr ""
 
-#: data/com.github.SubhadeepJasu.pebbles.appdata.xml.in:12
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:13
 msgid "Scientific mode"
 msgstr ""
 
-#: data/com.github.SubhadeepJasu.pebbles.appdata.xml.in:13
-msgid "Programmer mode"
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:14
+msgid "Programmer mode (Coming Soon)"
 msgstr ""
 
-#: data/com.github.SubhadeepJasu.pebbles.appdata.xml.in:14
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:15
 msgid "Calculus mode"
 msgstr ""
 
-#: data/com.github.SubhadeepJasu.pebbles.appdata.xml.in:15
-msgid "Statistics with standard deviation and probability"
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:16
+msgid "Statistics mode"
 msgstr ""
 
-#: data/com.github.SubhadeepJasu.pebbles.appdata.xml.in:16
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:17
+msgid "Date Calculation mode"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:18
 msgid "Some common unit converters"
 msgstr ""
 
-#: data/com.github.SubhadeepJasu.pebbles.appdata.xml.in:24
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:30
 msgid "Subhadeep Jasu"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:38
+msgid "Scientific Mode"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:42
+msgid "Calculus Mode"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:46
+msgid "Statistics Mode"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:50
+msgid "Date Mode"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:54
+msgid "Speed Unit Converter Mode"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:58
+msgid "Currency Unit Converter Mode"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:65
+msgid "Initial Release"
 msgstr ""

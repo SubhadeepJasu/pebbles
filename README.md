@@ -33,12 +33,12 @@ Compile, install and start Pebbles on your system
 meson build --prefix=/usr
 cd build
 sudo ninja install
-com.github.SubhadeepJasu.pebbles
+com.github.subhadeepjasu.pebbles
 ```
 
 To run pebbles in testing mode
 ```
-com.github.SubhadeepJasu.pebbles --test
+com.github.subhadeepjasu.pebbles --test
 ```
 
 <sup>**License**: GNU GPLv3</sup>

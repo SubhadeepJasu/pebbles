@@ -71,7 +71,7 @@ namespace Pebbles {
         public int decimal_places {get; set;}
         
         private Settings () {
-            base ("com.github.SubhadeepJasu.pebbles");
+            base ("com.github.subhadeepjasu.pebbles");
         }
         
         public void switch_angle_unit () {
