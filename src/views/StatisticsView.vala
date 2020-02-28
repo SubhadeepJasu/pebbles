@@ -556,6 +556,12 @@ namespace Pebbles {
                     add_cell_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
                 }
             });
+
+            this.button_release_event.connect ((event) => {
+                nav_left_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+                nav_right_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+                return false;
+            });
         }
 
         public void key_pressed (Gdk.EventKey event) {
