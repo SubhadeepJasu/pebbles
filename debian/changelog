@@ -1,3 +1,15 @@
+com.github.SubhadeepJasu.pebbles (1.0.1) bionic; urgency=low
+
+  [FIXED]
+  * Use F7 for last answer and F8 for changing angle mode
+  * UI: Change 'GRD' to 'GRA'
+  * Enable counting date backwards
+  [IMPROVED]
+  * Add more translatable strings
+
+ -- Subhadeep Jasu <subhadeep@gmail.com>  Thu, 29 Feb 2020 23:47:47 +0530
+
+
 com.github.SubhadeepJasu.pebbles (1.0.0) bionic; urgency=low
 
   * Initial Release.  * 

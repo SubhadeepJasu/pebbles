@@ -123,30 +123,5 @@ namespace Pebbles
             return month;
         }
     }
-    /*
-    void main() {
-        stdout.printf("End date in calculation is not included which is 1 day.\n");
-        stdout.printf("This code assumes that given start date is always less then end date.\n");
-        DateTime start_date_time = new DateTime( new TimeZone.local() , 2020 , 1 , 20 , 0 , 0 , 0 );
-        //DIFFERENCE CALCULATION PART
-        DateTime end_date_time = new DateTime( new TimeZone.local() , 2020 , 11 , 15 , 0 , 0 , 0 );
-        DateCalculator date_calculator_object = new DateCalculator();
-        stdout.printf("The difference in days is %s \n",date_calculator_object.date_difference( start_date_time , end_date_time ));
-
-        //edited version of difference calculation output
-        DateFormatted formatted_date_difference = date_calculator_object.difference_formatter(start_date_time , end_date_time );
-        stdout.printf("The difference after formatting is Days=%s  Weeks=%s  Months=%s Years=%s \n",(formatted_date_difference.day).to_string(),(formatted_date_difference.week).to_string(),(formatted_date_difference.month).to_string(),(formatted_date_difference.year).to_string());
-        //ADDER AND SUBTRACTER
-        Date calculated_date;
-        int days_to_add_or_subtract = 1, months_to_add_or_subtract = 1, years_to_add_or_subtract = 1;
-
-        //ADDITION PART
-        calculated_date = date_calculator_object.add_to_date(start_date_time,days_to_add_or_subtract,months_to_add_or_subtract,years_to_add_or_subtract);
-        stdout.printf("After adding days,months,years the obtained Date is %s / %s / %s \n",calculated_date.get_day().to_string(),date_calculator_object.format_month_value(calculated_date),calculated_date.get_year().to_string());
-
-        //SUBTRACTION PART
-        calculated_date = date_calculator_object.subtract_from_date(start_date_time,days_to_add_or_subtract,months_to_add_or_subtract,years_to_add_or_subtract);
-        stdout.printf("After subtracting days,months,years the obtained Date is %s / %s / %s \n",calculated_date.get_day().to_string(),date_calculator_object.format_month_value(calculated_date),calculated_date.get_year().to_string());
-    }*/
 }
 

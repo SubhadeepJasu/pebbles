@@ -53,7 +53,7 @@ namespace Pebbles {
 
         public bool request_update () {
             if (!Thread.supported ()) {
-                warning ("Thread support missing. Please wait for web API access...\n");
+                warning (_("Thread support missing. Please wait for web API access...\n"));
                 update_currency_thread ();
                 return true;
             }
@@ -79,7 +79,7 @@ namespace Pebbles {
                 }
             }
             if (cnt < 11) {
-                warning ("Failed to connect to currency exchange service");
+                warning (_("Failed to connect to currency exchange service"));
                 update_failed ();
             }
             else {
@@ -106,7 +106,7 @@ namespace Pebbles {
                 muliplier_info [index] = avg;
                 //stdout.printf ("DEBUG_CURRENCY => %s -> %s: %lf\n", coin_iso_a, coin_iso_b, muliplier_info [index]);
             } catch (Error e) {
-                warning ("Failed to connect to service: %s", e.message);
+                warning (_("Failed to connect to service: %s"), e.message);
                 return false;
             }
             return true;

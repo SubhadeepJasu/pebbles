@@ -273,6 +273,7 @@ namespace Pebbles {
             datepicker_add_sub.changed.connect (() => {
                 find_date (add_mode_switch.get_active ());
             });
+            
             attach (date_mode, 0, 0, 2, 1);
             attach (date_calc_holder, 0, 1, 1, 1);
             row_spacing = 54;
@@ -283,6 +284,14 @@ namespace Pebbles {
         private void do_calculations () {
             datetime_diff_from = datepicker_diff_from.date;
             datetime_diff_to = datepicker_diff_to.date;
+
+            int order = datetime_diff_from.compare (datetime_diff_to);
+            if (order >= 1) {
+                var temp = datetime_diff_from;
+                datetime_diff_from = datetime_diff_to;
+                datetime_diff_to = temp;
+            }
+
             if (diff_mode_switch.get_active()) {
                 datetime_diff_to = datetime_diff_to.add_days (1);
             }
@@ -334,6 +343,9 @@ namespace Pebbles {
                         days_diff_label.set_text ("");
                     result_date += (res_day == "1") ? (((part == 0) ? (_("A")) : (_("a"))) + (_(" day"))) : (res_day + (_(" days")));
                 }
+            }
+            if (order >= 1) {
+                days_diff_label.set_text (days_diff_label.get_text () + _(", counting backwards"));
             }
             date_diff_label.set_text (result_date);
         }
