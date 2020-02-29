@@ -129,7 +129,7 @@ namespace Pebbles {
             
             // Make Scientific / Calculus View Controls ///////////////
             // Create angle unit button
-            angle_unit_button = new StyledButton ("DEG", "<b>Degrees</b> \xE2\x86\x92 Radians", {"F7"});
+            angle_unit_button = new StyledButton ("DEG", "<b>Degrees</b> \xE2\x86\x92 Radians", {"F8"});
             angle_unit_button.set_margin_end (7);
             angle_unit_button.width_request = 50;
             angle_unit_button.clicked.connect (() => {
@@ -604,17 +604,17 @@ namespace Pebbles {
 
         private void angle_unit_button_label_update () {
             if (settings.global_angle_unit == Pebbles.GlobalAngleUnit.DEG) {
-                angle_unit_button.update_label ("DEG", "<b>Degrees</b> \xE2\x86\x92 Radians", {"F7"});
+                angle_unit_button.update_label ("DEG", "<b>Degrees</b> \xE2\x86\x92 Radians", {"F8"});
                 scientific_view.set_angle_mode_display (0);
                 calculus_view.set_angle_mode_display (0);
             }
             else if (settings.global_angle_unit == Pebbles.GlobalAngleUnit.RAD) {
-                angle_unit_button.update_label ("RAD", "<b>Radians</b> \xE2\x86\x92 Gradians", {"F7"});
+                angle_unit_button.update_label ("RAD", "<b>Radians</b> \xE2\x86\x92 Gradians", {"F8"});
                 scientific_view.set_angle_mode_display (1);
                 calculus_view.set_angle_mode_display (1);
             }
             else if (settings.global_angle_unit == Pebbles.GlobalAngleUnit.GRAD) {
-                angle_unit_button.update_label ("GRD", "<b>Gradians</b> \xE2\x86\x92 Degrees", {"F7"});
+                angle_unit_button.update_label ("GRD", "<b>Gradians</b> \xE2\x86\x92 Degrees", {"F8"});
                 scientific_view.set_angle_mode_display (2);
                 calculus_view.set_angle_mode_display (2);
             }
@@ -730,7 +730,7 @@ namespace Pebbles {
                 if (event.keyval == KeyboardHandler.KeyMap.F1) {
                     show_controls ();
                 }
-                if (event.keyval == KeyboardHandler.KeyMap.F7) {
+                if (event.keyval == KeyboardHandler.KeyMap.F8) {
                     if (view_index == 0 || view_index == 2) {
                         settings.switch_angle_unit ();
                         this.angle_unit_button_label_update ();
