@@ -9,7 +9,7 @@
 Pebbles is an advanced calculator application based in Vala and Gtk.
 
 ## Get it on elementary OS Appcenter
-To be declared
+[![Get it on AppCenter](https://appcenter.elementary.io/com.github.subhadeepjasu.pebbles)
 
 ## Install from source
 You can install Pebbles by compiling it from source, here's a list of required dependencies:
