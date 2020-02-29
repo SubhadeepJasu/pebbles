@@ -60,11 +60,6 @@
     </screenshot>
   </screenshots>
   <releases>
-    <release date="2020-02-28" version="1.0.0">
-      <description>
-        <p>Initial Release</p>
-      </description>
-    </release>
     <release date="2020-02-29" version="1.0.1">
       <description>
         <p>Fixed:</p>
@@ -77,6 +72,11 @@
         <ul>
           <li>[Translations]  Add more translatable strings</li>
         </ul>
+      </description>
+    </release>
+    <release date="2020-02-28" version="1.0.0">
+      <description>
+        <p>Initial Release</p>
       </description>
     </release>
   </releases>
