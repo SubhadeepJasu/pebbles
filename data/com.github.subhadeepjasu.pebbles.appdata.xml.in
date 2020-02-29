@@ -65,5 +65,19 @@
         <p>Initial Release</p>
       </description>
     </release>
+    <release date="2020-02-29" version="1.0.1">
+      <description>
+        <p>Fixed:</p>
+        <ul>
+          <li>[Controls]  Use F7 for last answer and F8 for changing angle mode</li>
+          <li>[HeaderBar] Change 'GRD' to 'GRA'</li>
+          <li>[Date View] Enable counting date backwards</li>
+        </ul>
+        <p>Improved:</p>
+        <ul>
+          <li>[Translations]  Add more translatable strings</li>
+        </ul>
+      </description>
+    </release>
   </releases>
 </component>

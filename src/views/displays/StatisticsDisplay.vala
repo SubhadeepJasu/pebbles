@@ -142,7 +142,7 @@ namespace Pebbles {
             var input_table_scrollable = new Gtk.ScrolledWindow (null, null);
             input_table_scrollable.add (input_table);
 
-            add_cell_warning = new Gtk.Label ("▭+  Enter data by adding new cell");
+            add_cell_warning = new Gtk.Label (_("▭+  Enter data by adding new cell"));
             add_cell_warning.get_style_context ().add_class ("pebbles_h3");
 
             Gtk.Overlay display_overlay = new Gtk.Overlay ();
