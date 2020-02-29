@@ -614,7 +614,7 @@ namespace Pebbles {
                 calculus_view.set_angle_mode_display (1);
             }
             else if (settings.global_angle_unit == Pebbles.GlobalAngleUnit.GRAD) {
-                angle_unit_button.update_label ("GRD", "<b>Gradians</b> \xE2\x86\x92 Degrees", {"F8"});
+                angle_unit_button.update_label ("GRA", "<b>Gradians</b> \xE2\x86\x92 Degrees", {"F8"});
                 scientific_view.set_angle_mode_display (2);
                 calculus_view.set_angle_mode_display (2);
             }
