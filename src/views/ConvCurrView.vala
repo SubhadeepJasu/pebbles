@@ -65,6 +65,20 @@ namespace Pebbles {
             (_("South African Rand                               R")),
         };
 
+        private const int[] precision_override_structure = {
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            3,
+            2,
+            2
+        };
+
         construct {
             /* Initialize Currency Converter API 
              *
@@ -76,7 +90,7 @@ namespace Pebbles {
 
             var main_grid = new Gtk.Grid ();
 
-            conv = new Converter (unit_multipliers);
+            conv = new Converter (unit_multipliers, true, precision_override_structure);
             keypad = new CommonKeyPadConverter ();
             
             // Make Header Label
