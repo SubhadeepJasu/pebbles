@@ -60,6 +60,14 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release date="2020-03-01" version="1.0.2">
+      <description>
+        <p>Fixed:</p>
+        <ul>
+          <li>[Converter] Override conversion precision based on unit for Currency and Data converter
+        </ul>
+      </description>
+    </release>
     <release date="2020-02-29" version="1.0.1">
       <description>
         <p>Fixed:</p>

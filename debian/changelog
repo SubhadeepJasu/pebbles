@@ -1,3 +1,10 @@
+com.github.SubhadeepJasu.pebbles (1.0.2) bionic; urgency=low
+
+  [FIXED]
+  * Override unit conversion precision based on unit for Currency and Data converter
+
+ -- Subhadeep Jasu <subhadeep@gmail.com>  Thu, 1 Mar 2020 11:16:47 +0530
+
 com.github.SubhadeepJasu.pebbles (1.0.1) bionic; urgency=low
 
   [FIXED]
@@ -8,7 +15,6 @@ com.github.SubhadeepJasu.pebbles (1.0.1) bionic; urgency=low
   * Add more translatable strings
 
  -- Subhadeep Jasu <subhadeep@gmail.com>  Thu, 29 Feb 2020 23:47:47 +0530
-
 
 com.github.SubhadeepJasu.pebbles (1.0.0) bionic; urgency=low
 
