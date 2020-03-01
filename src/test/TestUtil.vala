@@ -234,6 +234,8 @@ namespace Pebbles {
             test_scientific ("e^5.25 / exp(5.25)", "1");
             test_scientific ("pi * pi", "9.869604401");
             test_scientific ("10 + 5 - 10%", "14.9");
+            test_scientific ("100 + 20%", "120");
+            test_scientific ("20% + 100", "100.2");
             
             stdout.printf ("\nTesting Date Difference Calculator\n");
             stdout.printf ("-------------------------------------------------------------\n");

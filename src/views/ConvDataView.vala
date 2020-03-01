@@ -81,8 +81,33 @@ namespace Pebbles {
             (_("Pebibyte")),
         };
 
+        private const int[] precision_override_structure = {
+            0,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9,
+            9
+        };
+
         construct {
-            conv = new Converter (unit_multipliers);
+            conv = new Converter (unit_multipliers, true, precision_override_structure);
             keypad = new CommonKeyPadConverter ();
             
             // Make Header Label

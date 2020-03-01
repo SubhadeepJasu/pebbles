@@ -60,9 +60,12 @@
     </screenshot>
   </screenshots>
   <releases>
-    <release date="2020-02-28" version="1.0.0">
+    <release date="2020-03-01" version="1.0.2">
       <description>
-        <p>Initial Release</p>
+        <p>Fixed:</p>
+        <ul>
+          <li>[Converter] Override conversion precision based on unit for Currency and Data converter
+        </ul>
       </description>
     </release>
     <release date="2020-02-29" version="1.0.1">
@@ -77,6 +80,11 @@
         <ul>
           <li>[Translations]  Add more translatable strings</li>
         </ul>
+      </description>
+    </release>
+    <release date="2020-02-28" version="1.0.0">
+      <description>
+        <p>Initial Release</p>
       </description>
     </release>
   </releases>

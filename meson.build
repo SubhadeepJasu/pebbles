@@ -1,7 +1,7 @@
 project(
     'com.github.subhadeepjasu.pebbles', 'vala', 'c',
     meson_version : '>= 0.43',
-    version: '1.0.1',
+    version: '1.0.2',
     license : 'GPLv3'
 )
 gnome = import('gnome')

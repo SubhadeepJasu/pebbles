@@ -223,6 +223,9 @@ namespace Pebbles {
                 case 1:
                     output = ("%.1f".printf (result));
                     break;
+                case 0:
+                    output = ("%.0f".printf (result));
+                    break;
                 default:
                     output = result.to_string ();
                     break;

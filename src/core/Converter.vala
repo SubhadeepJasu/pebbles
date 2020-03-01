@@ -21,16 +21,27 @@
 namespace Pebbles {
     public class Converter {
         private double[] unit_multipliers_list;
+        public bool precision_override { get; set; }
+        public int[] precision_structure;
 
-        public Converter (double[] multipliers) {
+        public Converter (double[] multipliers, bool? _precision_override = false, int[]? _precision_structure = null) {
             unit_multipliers_list = multipliers;
+            this.precision_override = _precision_override;
+            if (precision_override) {
+                precision_structure = _precision_structure;
+            }
         }
         Settings settings;
         public string convert (double input, int unit_a, int unit_b) {
             settings = Settings.get_default ();
             double result = input * (unit_multipliers_list [unit_b] / unit_multipliers_list [unit_a]);
-            string output = Utils.manage_decimal_places (result, settings.decimal_places);
+            string output = "";
 
+            if (precision_override && precision_structure != null) {
+                output = Utils.manage_decimal_places (result, get_min(precision_structure[unit_b], settings.decimal_places));
+            } else {
+                output = Utils.manage_decimal_places (result, settings.decimal_places);
+            }
             // Remove trailing 0s and decimals
             while (output.has_suffix ("0")) {
                 output = output.slice (0, -1);
@@ -43,6 +54,14 @@ namespace Pebbles {
         }
         public void update_multipliers (double[] multipliers) {
             unit_multipliers_list = multipliers;
+        }
+
+        private int get_min (int a, int b) {
+            if (a > b) {
+                return b;
+            } else {
+                return a;
+            }
         }
     }
 }
