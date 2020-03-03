@@ -60,6 +60,14 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release date="2020-03-03" version="1.0.3">
+      <description>
+        <p>New:</p>
+        <ul>
+          <li>[UI] Auto switch to view that was used last time</li>
+        </ul>
+      </description>
+    </release>
     <release date="2020-03-01" version="1.0.2">
       <description>
         <p>Fixed:</p>

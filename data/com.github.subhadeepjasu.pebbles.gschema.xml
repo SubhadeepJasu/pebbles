@@ -33,6 +33,11 @@
 			<summary>The saved y-position of the window.</summary>
 			<description>The saved y-position of the window.</description>
 		</key>
+		<key name="view-index" type="i">
+			<default>0</default>
+			<summary>The saved view index of main stack</summary>
+			<description>The saved view index of main stack</description>
+		</key>
 		<key name="shift-alternative-function" type="b">
 			<default>false</default>
 			<summary>Use Alternative Functions</summary>

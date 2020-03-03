@@ -30,7 +30,10 @@ namespace Pebbles {
         // Switchable Controls
         public Gtk.Stack header_switcher;
         
+        // Header Widgets
+        Gtk.Grid programmer_header_grid;
         Gtk.Grid scientific_header_grid;
+        Gtk.Label null_switcher;
         Gtk.Label shift_label;
         public Gtk.Switch shift_switch;
         StyledButton angle_unit_button;
@@ -74,6 +77,25 @@ namespace Pebbles {
         Pebbles.ConvDataView   conv_data_view;
         Pebbles.ConvCurrView   conv_curr_view;
 
+        // ITEMS
+        Granite.Widgets.SourceList.Item programmer_item;
+        Granite.Widgets.SourceList.Item date_item;
+        Granite.Widgets.SourceList.Item stats_item;
+        Granite.Widgets.SourceList.Item finance_item;
+        Granite.Widgets.SourceList.Item conv_length_item;
+        Granite.Widgets.SourceList.Item conv_area_item;
+        Granite.Widgets.SourceList.Item conv_volume_item;
+        Granite.Widgets.SourceList.Item conv_time_item;
+        Granite.Widgets.SourceList.Item conv_angle_item;
+        Granite.Widgets.SourceList.Item conv_speed_item;
+        Granite.Widgets.SourceList.Item conv_mass_item;
+        Granite.Widgets.SourceList.Item conv_press_item;
+        Granite.Widgets.SourceList.Item conv_energy_item;
+        Granite.Widgets.SourceList.Item conv_power_item;
+        Granite.Widgets.SourceList.Item conv_temp_item;
+        Granite.Widgets.SourceList.Item conv_data_item;
+        Granite.Widgets.SourceList.Item conv_curr_item;
+
         // Switchable Items
         Granite.Widgets.SourceList.Item scientific_item;
         Granite.Widgets.SourceList.Item calculus_item;
@@ -81,8 +103,6 @@ namespace Pebbles {
         ControlsOverlay controls_modal;
         PreferencesOverlay preferences_modal;
         HistoryView     history_modal;
-        // Active View Index
-        private int view_index = 0;
         
         // NOTIFICATION
         Notification desktop_notification;
@@ -194,7 +214,7 @@ namespace Pebbles {
                 word_length_button_label_update ();
             });
             // Create shift switcher for programmer view
-            var programmer_header_grid = new Gtk.Grid ();
+            programmer_header_grid = new Gtk.Grid ();
             var shift_label_prog = new Gtk.Label (_("Shift "));
             shift_label_prog.set_margin_start (2);
             shift_switch_prog = new Gtk.Switch ();
@@ -212,7 +232,7 @@ namespace Pebbles {
 
             
             // Make Conversion Switcher null
-            var null_switcher = new Gtk.Label ("");
+            null_switcher = new Gtk.Label ("");
             
             // Make currency update switcher
             update_button = new Gtk.Button.from_icon_name ("view-refresh-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
@@ -285,23 +305,23 @@ namespace Pebbles {
             // Create Item Pane
             scientific_item  = new Granite.Widgets.SourceList.Item (_("Scientific"));
             calculus_item    = new Granite.Widgets.SourceList.Item (_("Calculus"));
-            var programmer_item  = new Granite.Widgets.SourceList.Item (_("Programmer"));
-            var date_item        = new Granite.Widgets.SourceList.Item (_("Date"));
-            var stats_item       = new Granite.Widgets.SourceList.Item (_("Statistics"));
+            programmer_item  = new Granite.Widgets.SourceList.Item (_("Programmer"));
+            date_item        = new Granite.Widgets.SourceList.Item (_("Date"));
+            stats_item       = new Granite.Widgets.SourceList.Item (_("Statistics"));
             var finance_item     = new Granite.Widgets.SourceList.Item (_("Financial"));
-            var conv_length_item = new Granite.Widgets.SourceList.Item (_("Length"));
-            var conv_area_item   = new Granite.Widgets.SourceList.Item (_("Area"));
-            var conv_volume_item = new Granite.Widgets.SourceList.Item (_("Volume"));
-            var conv_time_item   = new Granite.Widgets.SourceList.Item (_("Time"));
-            var conv_angle_item  = new Granite.Widgets.SourceList.Item (_("Angle"));
-            var conv_speed_item  = new Granite.Widgets.SourceList.Item (_("Speed"));
-            var conv_mass_item   = new Granite.Widgets.SourceList.Item (_("Mass"));
-            var conv_press_item  = new Granite.Widgets.SourceList.Item (_("Pressure"));
-            var conv_energy_item = new Granite.Widgets.SourceList.Item (_("Energy"));
-            var conv_power_item  = new Granite.Widgets.SourceList.Item (_("Power"));
-            var conv_temp_item   = new Granite.Widgets.SourceList.Item (_("Temperature"));
-            var conv_data_item   = new Granite.Widgets.SourceList.Item (_("Data"));
-            var conv_curr_item   = new Granite.Widgets.SourceList.Item (_("Currency"));
+            conv_length_item = new Granite.Widgets.SourceList.Item (_("Length"));
+            conv_area_item   = new Granite.Widgets.SourceList.Item (_("Area"));
+            conv_volume_item = new Granite.Widgets.SourceList.Item (_("Volume"));
+            conv_time_item   = new Granite.Widgets.SourceList.Item (_("Time"));
+            conv_angle_item  = new Granite.Widgets.SourceList.Item (_("Angle"));
+            conv_speed_item  = new Granite.Widgets.SourceList.Item (_("Speed"));
+            conv_mass_item   = new Granite.Widgets.SourceList.Item (_("Mass"));
+            conv_press_item  = new Granite.Widgets.SourceList.Item (_("Pressure"));
+            conv_energy_item = new Granite.Widgets.SourceList.Item (_("Energy"));
+            conv_power_item  = new Granite.Widgets.SourceList.Item (_("Power"));
+            conv_temp_item   = new Granite.Widgets.SourceList.Item (_("Temperature"));
+            conv_data_item   = new Granite.Widgets.SourceList.Item (_("Data"));
+            conv_curr_item   = new Granite.Widgets.SourceList.Item (_("Currency"));
             
             // Calculators
             var calc_category = new Granite.Widgets.SourceList.ExpandableItem (_("Calculator"));
@@ -397,8 +417,6 @@ namespace Pebbles {
             common_view.add_named (conv_data_view, "Data");
             common_view.add_named (conv_curr_view, "Currency");
             
-            common_view.set_transition_type (Gtk.StackTransitionType.SLIDE_UP_DOWN);
-            
             //Create Panes
             var paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
             paned.position = 200;
@@ -409,105 +427,63 @@ namespace Pebbles {
             // Create View Events
             item_list.item_selected.connect ((item) => {
                 if (item == scientific_item) {
-                    common_view.set_visible_child (scientific_view);
-                    header_switcher.set_visible_child (scientific_header_grid);
-                    view_index = 0;
+                    settings.view_index = 0;
                 }
                 else if (item == programmer_item) {
-                    common_view.set_visible_child (programmer_view);
-                    header_switcher.set_visible_child (programmer_header_grid);
-                    view_index = 1;
+                    settings.view_index = 1;
                 }
                 else if (item == calculus_item) {
-                    common_view.set_visible_child (calculus_view);
-                    header_switcher.set_visible_child (scientific_header_grid);
-                    view_index = 2;
+                    settings.view_index = 2;
                 }
                 else if (item == date_item) {
-                    common_view.set_visible_child (date_view);
-                    header_switcher.set_visible_child (date_mode_stack);
-                    view_index = 3;
+                    settings.view_index = 3;
                 }
                 else if (item == stats_item) {
-                    common_view.set_visible_child (statistics_view);
-                    header_switcher.set_visible_child (null_switcher);
-                    view_index = 4;
+                    settings.view_index = 4;
                 }
                 else if (item == conv_length_item) {
-                    common_view.set_visible_child (conv_length_view);
-                    header_switcher.set_visible_child (null_switcher);
-                    view_index = 5;
+                    settings.view_index = 5;
                 }
                 else if (item == conv_area_item) {
-                    common_view.set_visible_child (conv_area_view);
-                    header_switcher.set_visible_child (null_switcher);
-                    view_index = 6;
+                    settings.view_index = 6;
                 }
                 else if (item == conv_volume_item) {
-                    common_view.set_visible_child (conv_volume_view);
-                    header_switcher.set_visible_child (null_switcher);
-                    view_index = 7;
+                    settings.view_index = 7;
                 }
                 else if (item == conv_time_item) {
-                    common_view.set_visible_child (conv_time_view);
-                    header_switcher.set_visible_child (null_switcher);
-                    view_index = 8;
+                    settings.view_index = 8;
                 }
                 else if (item == conv_angle_item) {
-                    common_view.set_visible_child (conv_angle_view);
-                    header_switcher.set_visible_child (null_switcher);
-                    view_index = 9;
+                    settings.view_index = 9;
                 }
                 else if (item == conv_speed_item) {
-                    common_view.set_visible_child (conv_speed_view);
-                    header_switcher.set_visible_child (null_switcher);
-                    view_index = 10;
+                    settings.view_index = 10;
                 }
                 else if (item == conv_mass_item) {
-                    common_view.set_visible_child (conv_mass_view);
-                    header_switcher.set_visible_child (null_switcher);
-                    view_index = 11;
+                    settings.view_index = 11;
                 }
                 else if (item == conv_press_item) {
-                    common_view.set_visible_child (conv_press_view);
-                    header_switcher.set_visible_child (null_switcher);
-                    view_index = 12;
+                    settings.view_index = 12;
                 }
                 else if (item == conv_energy_item) {
-                    common_view.set_visible_child (conv_energy_view);
-                    header_switcher.set_visible_child (null_switcher);
-                    view_index = 13;
+                    settings.view_index = 13;
                 }
                 else if (item == conv_power_item) {
-                    common_view.set_visible_child (conv_power_view);
-                    header_switcher.set_visible_child (null_switcher);
-                    view_index = 14;
+                    settings.view_index = 14;
                 }
                 else if (item == conv_temp_item) {
-                    common_view.set_visible_child (conv_temp_view);
-                    header_switcher.set_visible_child (null_switcher);
-                    view_index = 15;
+                    settings.view_index = 15;
                 }
                 else if (item == conv_data_item) {
-                    common_view.set_visible_child (conv_data_view);
-                    header_switcher.set_visible_child (null_switcher);
-                    view_index = 16;
+                    settings.view_index = 16;
                 }
                 else if (item == conv_curr_item) {
-                    common_view.set_visible_child (conv_curr_view);
-                    header_switcher.set_visible_child (update_button);
-                    view_index = 17;
-                    if (!currency_view_visited) {
-                        update_button.set_sensitive (false);
-                        conv_curr_view.update_currency_data ();
-                        currency_view_visited = true;
-                    }
+                    settings.view_index = 17;
                 }
-                this.show_all ();
+                set_view ();
             });
             angle_unit_button_label_update ();
             word_length_button_label_update ();
-            item_list.selected = scientific_item;
 
             // Set up window attributes
             this.set_default_size (900, 600);
@@ -519,7 +495,147 @@ namespace Pebbles {
             this.show_all ();
 
             update_caps_status ();
+            set_view ();
+            common_view.set_transition_type (Gtk.StackTransitionType.SLIDE_UP_DOWN);
         }
+
+        private void set_view () {
+            switch (settings.view_index) {
+                case 0:
+                common_view.set_visible_child (scientific_view);
+                header_switcher.set_visible_child (scientific_header_grid);
+                if (item_list.selected != scientific_item) {
+                    item_list.selected = scientific_item;
+                }
+                break;
+                case 1:
+                common_view.set_visible_child (programmer_view);
+                header_switcher.set_visible_child (programmer_header_grid);
+                if (item_list.selected != programmer_item) {
+                    item_list.selected = programmer_item;
+                }
+                break;
+                case 2:
+                common_view.set_visible_child (calculus_view);
+                header_switcher.set_visible_child (scientific_header_grid);
+                if (item_list.selected != calculus_item) {
+                    item_list.selected = calculus_item;
+                }
+                break;
+                case 3:
+                common_view.set_visible_child (date_view);
+                header_switcher.set_visible_child (date_mode_stack);
+                if (item_list.selected != date_item) {
+                    item_list.selected = date_item;
+                }
+                break;
+                case 4:
+                common_view.set_visible_child (statistics_view);
+                header_switcher.set_visible_child (null_switcher);
+                if (item_list.selected != stats_item) {
+                    item_list.selected = stats_item;
+                }
+                break;
+                case 5:
+                common_view.set_visible_child (conv_length_view);
+                header_switcher.set_visible_child (null_switcher);
+                if (item_list.selected != conv_length_item) {
+                    item_list.selected = conv_length_item;
+                }
+                break;
+                case 6:
+                common_view.set_visible_child (conv_area_view);
+                header_switcher.set_visible_child (null_switcher);
+                if (item_list.selected != conv_area_item) {
+                    item_list.selected = conv_area_item;
+                }
+                break;
+                case 7:
+                common_view.set_visible_child (conv_volume_view);
+                header_switcher.set_visible_child (null_switcher);
+                if (item_list.selected != conv_volume_item) {
+                    item_list.selected = conv_volume_item;
+                }
+                break;
+                case 8:
+                common_view.set_visible_child (conv_time_view);
+                header_switcher.set_visible_child (null_switcher);
+                if (item_list.selected != conv_time_item) {
+                    item_list.selected = conv_time_item;
+                }
+                break;
+                case 9:
+                common_view.set_visible_child (conv_angle_view);
+                header_switcher.set_visible_child (null_switcher);
+                if (item_list.selected != conv_angle_item) {
+                    item_list.selected = conv_angle_item;
+                }
+                break;
+                case 10:
+                common_view.set_visible_child (conv_speed_view);
+                header_switcher.set_visible_child (null_switcher);
+                if (item_list.selected != conv_speed_item) {
+                    item_list.selected = conv_speed_item;
+                }
+                break;
+                case 11:
+                common_view.set_visible_child (conv_mass_view);
+                header_switcher.set_visible_child (null_switcher);
+                if (item_list.selected != conv_mass_item) {
+                    item_list.selected = conv_mass_item;
+                }
+                break;
+                case 12:
+                common_view.set_visible_child (conv_press_view);
+                header_switcher.set_visible_child (null_switcher);
+                if (item_list.selected != conv_press_item) {
+                    item_list.selected = conv_press_item;
+                }
+                break;
+                case 13:
+                common_view.set_visible_child (conv_energy_view);
+                header_switcher.set_visible_child (null_switcher);
+                if (item_list.selected != conv_energy_item) {
+                    item_list.selected = conv_energy_item;
+                }
+                break;
+                case 14:
+                common_view.set_visible_child (conv_power_view);
+                header_switcher.set_visible_child (null_switcher);
+                if (item_list.selected != conv_power_item) {
+                    item_list.selected = conv_power_item;
+                }
+                break;
+                case 15:
+                common_view.set_visible_child (conv_temp_view);
+                header_switcher.set_visible_child (null_switcher);
+                if (item_list.selected != conv_temp_item) {
+                    item_list.selected = conv_temp_item;
+                }
+                break;
+                case 16:
+                common_view.set_visible_child (conv_data_view);
+                header_switcher.set_visible_child (null_switcher);
+                if (item_list.selected != conv_data_item) {
+                    item_list.selected = conv_data_item;
+                }
+                break;
+                case 17:
+                common_view.set_visible_child (conv_curr_view);
+                header_switcher.set_visible_child (update_button);
+                if (!currency_view_visited) {
+                    update_button.set_sensitive (false);
+                    conv_curr_view.update_currency_data ();
+                    currency_view_visited = true;
+                }
+                if (item_list.selected != conv_curr_item) {
+                    item_list.selected = conv_curr_item;
+                }
+                break;
+            }
+            
+            this.show_all ();
+        } 
 
         private void show_controls () {
             if (controls_modal == null) {
@@ -585,14 +701,14 @@ namespace Pebbles {
                         header_switcher.set_visible_child (scientific_header_grid);
                         scientific_view.set_evaluation (result);
                         item_list.selected = scientific_item;
-                        view_index = 0;
+                        settings.view_index = 0;
                         break;
                         case EvaluationResult.ResultSource.CALC:
                         common_view.set_visible_child (calculus_view);
                         header_switcher.set_visible_child (scientific_header_grid);
                         item_list.selected = calculus_item;
                         calculus_view.set_evaluation (result);
-                        view_index = 2;
+                        settings.view_index = 2;
                         break;
                     }
 
@@ -618,9 +734,9 @@ namespace Pebbles {
                 scientific_view.set_angle_mode_display (2);
                 calculus_view.set_angle_mode_display (2);
             }
-            if (view_index == 0) {
+            if (settings.view_index == 0) {
                 this.scientific_view.display_unit.input_entry.grab_focus_without_selecting ();
-            } else if (view_index == 2) {
+            } else if (settings.view_index == 2) {
                 this.calculus_view.display_unit.input_entry.grab_focus_without_selecting ();
             }
         }
@@ -668,20 +784,17 @@ namespace Pebbles {
 
         private void handle_focus () {
             key_press_event.connect ((event) => {
-                switch (view_index) {
+                switch (settings.view_index) {
                     case 0: 
-                        scientific_view.grab_focus ();
                         scientific_view.key_pressed (event);
                         break;
                     case 2:
-                        calculus_view.grab_focus ();
                         calculus_view.key_pressed (event);
                         break;
                     case 3:
                         // TODO: Explicitly handle input in this mode
                         return false;
                     case 4:
-                        statistics_view.grab_focus ();
                         statistics_view.key_pressed (event);
                         break;
                     case 5:
@@ -731,7 +844,7 @@ namespace Pebbles {
                     show_controls ();
                 }
                 if (event.keyval == KeyboardHandler.KeyMap.F8) {
-                    if (view_index == 0 || view_index == 2) {
+                    if (settings.view_index == 0 || settings.view_index == 2) {
                         settings.switch_angle_unit ();
                         this.angle_unit_button_label_update ();
                     }
@@ -739,7 +852,7 @@ namespace Pebbles {
                 return true;
             });
             key_release_event.connect ((event) => {
-                switch (view_index) {
+                switch (settings.view_index) {
                     case 0:
                         scientific_view.key_released ();
                         break;
