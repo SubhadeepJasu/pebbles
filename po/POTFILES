@@ -27,5 +27,3 @@ src/views/HistoryView.vala
 src/views/BottomPopper.vala
 src/views/displays/StatisticsDisplay.vala
 src/core/CurrencyConverter.vala
-data/com.github.subhadeepjasu.pebbles.desktop.in
-data/com.github.subhadeepjasu.pebbles.appdata.xml.in

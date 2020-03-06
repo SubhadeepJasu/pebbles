@@ -52,17 +52,17 @@ namespace Pebbles {
         };
 
         private string[] units = {
-            (_("US Dollar                                                $")),
-            (_("Euro                                                         €")),
-            (_("British Pounds                                       £")),
-            (_("Australian Dollar                                   $")),
-            (_("Brazilian Real                                       R$")),
-            (_("Canadian Dollar                                    $")),
-            (_("Chinese Yuan                                         ¥")),
-            (_("Indian Rupee                                          ₹")),
-            (_("Japanese Yen                                         ¥")),
-            (_("Russian Ruble                                        руб")),
-            (_("South African Rand                               R")),
+            (_("US Dollar") + "                                                $"),
+            (_("Euro") + "                                                         €"),
+            (_("British Pounds") + "                                       £"),
+            (_("Australian Dollar") + "                                   $"),
+            (_("Brazilian Real") + "                                       R$"),
+            (_("Canadian Dollar") + "                                    $"),
+            (_("Chinese Yuan") + "                                         ¥"),
+            (_("Indian Rupee") + "                                          ₹"),
+            (_("Japanese Yen") + "                                         ¥"),
+            (_("Russian Ruble") + "                                        руб"),
+            (_("South African Rand") + "                               R"),
         };
 
         private const int[] precision_override_structure = {

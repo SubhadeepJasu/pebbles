@@ -109,7 +109,7 @@ namespace Pebbles {
             diff_header.xalign = 0;
             diff_header.get_style_context ().add_class (Granite.STYLE_CLASS_H4_LABEL);
             
-            date_diff_label = new Gtk.Label (_("Hey, it's the same date \n "));
+            date_diff_label = new Gtk.Label (_("Hey, it's the same date") + "\n");
             date_diff_label.xalign = 0;
             date_diff_label.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
             days_diff_label = new Gtk.Label ("");
@@ -296,7 +296,7 @@ namespace Pebbles {
                 datetime_diff_to = datetime_diff_to.add_days (1);
             }
             string result_days = date_calculator_object.date_difference( datetime_diff_from , datetime_diff_to );
-            result_days += (result_days == "1") ? (_(" day")) : (_(" days"));
+            result_days += (result_days == "1") ? (" " + _("day")) : (" " + _("days"));
             days_diff_label.set_text (_("A total of %s").printf (result_days));
             
             DateFormatted formatted_date_difference = date_calculator_object.difference_formatter(datetime_diff_from , datetime_diff_to);
@@ -309,27 +309,27 @@ namespace Pebbles {
             string result_date = "";
             int part = 0;
             if (res_yar == "0" && res_mon == "0" && res_wek == "0" && res_day == "0") {
-                result_date = _("Hey, it's the same date \n ");
+                result_date = _("Hey, it's the same date") + "\n";
                 days_diff_label.set_text ("");
             } else {
                 if (res_yar != "0") {
-                    result_date += (res_yar == "1") ? (((part == 0) ? (_("A")) : (_("a"))) + (_(" year"))) : (res_yar + (_(" years")));
+                    result_date += (res_yar == "1") ? (((part == 0) ? (_("A")) : (_("a"))) + (" " + _("year"))) : (res_yar + (" " + _("years")));
                     part++;
                 }
                 if (res_mon != "0") {
                     if (res_day == "0" && res_wek == "0" && part > 0)
-                        result_date += (_(" and "));
+                        result_date += (" " + _("and") + " ");
                     else if (part > 0)
                         result_date += ", ";
-                    result_date += (res_mon == "1") ? (((part == 0) ? (_("A")) : (_("a"))) + (_(" month"))) : (res_mon + (_(" months")));
+                    result_date += (res_mon == "1") ? (((part == 0) ? (_("A")) : (_("a"))) + (" " + _("month"))) : (res_mon + (" " + _("months")));
                     part++;
                 }
                 if (res_wek != "0") {
                     if (res_day == "0" && part > 0)
-                        result_date += (_(" and "));
+                        result_date += (" " + _("and") + " ");
                     else if (part > 0)
                         result_date += ", ";
-                    result_date += (res_wek == "1") ? (((part == 0) ? "1" : (_("a"))) + (_(" week"))) : (res_wek + (_(" weeks")));
+                    result_date += (res_wek == "1") ? (((part == 0) ? "1" : (_("a"))) + (" " + _("week"))) : (res_wek + (" " + _("weeks")));
                     part++;
                 }
                 if (res_day != "0") {
@@ -338,14 +338,14 @@ namespace Pebbles {
                     else if (part != 0)
                         result_date += " ";
                     if (part > 0)
-                        result_date += (_("and "));
+                        result_date += (_("and") + " ");
                     else
                         days_diff_label.set_text ("");
-                    result_date += (res_day == "1") ? (((part == 0) ? (_("A")) : (_("a"))) + (_(" day"))) : (res_day + (_(" days")));
+                    result_date += (res_day == "1") ? (((part == 0) ? (_("A")) : (_("a"))) + (" " + _("day"))) : (res_day + (" " + _("days")));
                 }
             }
             if (order >= 1) {
-                days_diff_label.set_text (days_diff_label.get_text () + _(", counting backwards"));
+                days_diff_label.set_text (days_diff_label.get_text () + ", " + _("counting backwards"));
             }
             date_diff_label.set_text (result_date);
         }
