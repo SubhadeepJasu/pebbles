@@ -53,7 +53,7 @@ namespace Pebbles {
 
         public bool request_update () {
             if (!Thread.supported ()) {
-                warning (_("Thread support missing. Please wait for web API access...\n"));
+                warning (_("Thread support missing. Please wait for web API access…") + "\n");
                 update_currency_thread ();
                 return true;
             }

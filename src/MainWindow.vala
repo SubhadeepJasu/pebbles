@@ -219,7 +219,7 @@ namespace Pebbles {
             update_button.width_request = 10;
             update_button.halign = Gtk.Align.START;
             update_button.margin = 1;
-            update_button.tooltip_markup = Granite.markup_accel_tooltip ({"R"}, _("<b>Update Forex Data</b>\nUpdates automatically every 10 minutes"));
+            update_button.tooltip_markup = Granite.markup_accel_tooltip ({"R"}, "<b>" + _("Update Forex Data") + "</b>\n" + _("Updates automatically every 10 minutes"));
             
             // Create App Menu
             app_menu = new Gtk.MenuButton ();

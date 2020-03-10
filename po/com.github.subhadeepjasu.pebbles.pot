@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.subhadeepjasu.pebbles\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-29 23:35+0530\n"
+"POT-Creation-Date: 2020-03-06 10:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,9 +42,11 @@ msgid "Shift "
 msgstr ""
 
 #: src/MainWindow.vala:222
-msgid ""
-"<b>Update Forex Data</b>\n"
-"Updates automatically every 10 minutes"
+msgid "Update Forex Data"
+msgstr ""
+
+#: src/MainWindow.vala:222
+msgid "Updates automatically every 10 minutes"
 msgstr ""
 
 #: src/MainWindow.vala:232
@@ -127,11 +129,11 @@ msgstr ""
 msgid "Temperature"
 msgstr ""
 
-#: src/MainWindow.vala:303 src/views/ConvDataView.vala:89
+#: src/MainWindow.vala:303 src/views/ConvDataView.vala:114
 msgid "Data"
 msgstr ""
 
-#: src/MainWindow.vala:304 src/views/ConvCurrView.vala:83
+#: src/MainWindow.vala:304 src/views/ConvCurrView.vala:97
 msgid "Currency"
 msgstr ""
 
@@ -352,43 +354,61 @@ msgid "Constant 1"
 msgstr ""
 
 #: src/PreferencesOverlay.vala:54 src/PreferencesOverlay.vala:68
-msgid "Euler's constant (exponential)                e"
+#: src/views/CalculusView.vala:432 src/views/CalculusView.vala:474
+#: src/views/ScientificView.vala:365 src/views/ScientificView.vala:407
+msgid "Euler's constant (exponential)"
 msgstr ""
 
 #: src/PreferencesOverlay.vala:55 src/PreferencesOverlay.vala:69
-msgid "Archimedes' constant (pi)                        π"
+#: src/views/CalculusView.vala:396 src/views/CalculusView.vala:438
+#: src/views/ScientificView.vala:329 src/views/ScientificView.vala:371
+msgid "Archimedes' constant (pi)"
 msgstr ""
 
 #: src/PreferencesOverlay.vala:56 src/PreferencesOverlay.vala:70
-msgid "Imaginary number                                      i"
+msgid "Imaginary number"
 msgstr ""
 
 #: src/PreferencesOverlay.vala:57 src/PreferencesOverlay.vala:71
-msgid "Golden ratio (phi)                                       φ"
+#: src/views/CalculusView.vala:404 src/views/CalculusView.vala:446
+#: src/views/ScientificView.vala:337 src/views/ScientificView.vala:379
+msgid "Golden ratio (phi)"
 msgstr ""
 
 #: src/PreferencesOverlay.vala:58 src/PreferencesOverlay.vala:72
-msgid "Euler–Mascheroni constant (gamma)   𝛾"
+#: src/views/CalculusView.vala:408 src/views/CalculusView.vala:450
+#: src/views/ScientificView.vala:341 src/views/ScientificView.vala:383
+msgid "Euler–Mascheroni constant (gamma)"
 msgstr ""
 
 #: src/PreferencesOverlay.vala:59 src/PreferencesOverlay.vala:73
-msgid "Conway's constant (lamda)                      λ"
+#: src/views/CalculusView.vala:412 src/views/CalculusView.vala:454
+#: src/views/ScientificView.vala:345 src/views/ScientificView.vala:387
+msgid "Conway's constant (lamda)"
 msgstr ""
 
 #: src/PreferencesOverlay.vala:60 src/PreferencesOverlay.vala:74
-msgid "Khinchin's constant                                    K"
+#: src/views/CalculusView.vala:416 src/views/CalculusView.vala:458
+#: src/views/ScientificView.vala:349 src/views/ScientificView.vala:391
+msgid "Khinchin's constant"
 msgstr ""
 
 #: src/PreferencesOverlay.vala:61 src/PreferencesOverlay.vala:75
-msgid "The Feigenbaum constant alpha            α"
+#: src/views/CalculusView.vala:420 src/views/CalculusView.vala:462
+#: src/views/ScientificView.vala:353 src/views/ScientificView.vala:395
+msgid "The Feigenbaum constant alpha"
 msgstr ""
 
 #: src/PreferencesOverlay.vala:62 src/PreferencesOverlay.vala:76
-msgid "The Feigenbaum constant delta             δ"
+#: src/views/CalculusView.vala:424 src/views/CalculusView.vala:466
+#: src/views/ScientificView.vala:357 src/views/ScientificView.vala:399
+msgid "The Feigenbaum constant delta"
 msgstr ""
 
 #: src/PreferencesOverlay.vala:63 src/PreferencesOverlay.vala:77
-msgid "Apery's constant                                    𝛇(3)"
+#: src/views/CalculusView.vala:428 src/views/CalculusView.vala:470
+#: src/views/ScientificView.vala:361 src/views/ScientificView.vala:403
+msgid "Apery's constant"
 msgstr ""
 
 #: src/PreferencesOverlay.vala:65
@@ -543,54 +563,9 @@ msgstr ""
 msgid "Combinations"
 msgstr ""
 
-#: src/views/CalculusView.vala:396 src/views/CalculusView.vala:438
-#: src/views/ScientificView.vala:329 src/views/ScientificView.vala:371
-msgid "Archimedes' constant (pi)"
-msgstr ""
-
 #: src/views/CalculusView.vala:400 src/views/CalculusView.vala:442
 #: src/views/ScientificView.vala:333 src/views/ScientificView.vala:375
 msgid "Imaginary number (√-1)"
-msgstr ""
-
-#: src/views/CalculusView.vala:404 src/views/CalculusView.vala:446
-#: src/views/ScientificView.vala:337 src/views/ScientificView.vala:379
-msgid "Golden ratio (phi)"
-msgstr ""
-
-#: src/views/CalculusView.vala:408 src/views/CalculusView.vala:450
-#: src/views/ScientificView.vala:341 src/views/ScientificView.vala:383
-msgid "Euler–Mascheroni constant (gamma)"
-msgstr ""
-
-#: src/views/CalculusView.vala:412 src/views/CalculusView.vala:454
-#: src/views/ScientificView.vala:345 src/views/ScientificView.vala:387
-msgid "Conway's constant (lamda)"
-msgstr ""
-
-#: src/views/CalculusView.vala:416 src/views/CalculusView.vala:458
-#: src/views/ScientificView.vala:349 src/views/ScientificView.vala:391
-msgid "Khinchin's constant"
-msgstr ""
-
-#: src/views/CalculusView.vala:420 src/views/CalculusView.vala:462
-#: src/views/ScientificView.vala:353 src/views/ScientificView.vala:395
-msgid "The Feigenbaum constant alpha"
-msgstr ""
-
-#: src/views/CalculusView.vala:424 src/views/CalculusView.vala:466
-#: src/views/ScientificView.vala:357 src/views/ScientificView.vala:399
-msgid "The Feigenbaum constant delta"
-msgstr ""
-
-#: src/views/CalculusView.vala:428 src/views/CalculusView.vala:470
-#: src/views/ScientificView.vala:361 src/views/ScientificView.vala:403
-msgid "Apery's constant"
-msgstr ""
-
-#: src/views/CalculusView.vala:432 src/views/CalculusView.vala:474
-#: src/views/ScientificView.vala:365 src/views/ScientificView.vala:407
-msgid "Euler's constant (exponential)"
 msgstr ""
 
 #: src/views/ScientificView.vala:164
@@ -666,9 +641,7 @@ msgid "Difference"
 msgstr ""
 
 #: src/views/DateView.vala:112 src/views/DateView.vala:312
-msgid ""
-"Hey, it's the same date \n"
-" "
+msgid "Hey, it's the same date"
 msgstr ""
 
 #: src/views/DateView.vala:143
@@ -700,11 +673,11 @@ msgid "Days, months or year"
 msgstr ""
 
 #: src/views/DateView.vala:299 src/views/DateView.vala:344
-msgid " day"
+msgid "day"
 msgstr ""
 
 #: src/views/DateView.vala:299 src/views/DateView.vala:344
-msgid " days"
+msgid "days"
 msgstr ""
 
 #: src/views/DateView.vala:300
@@ -723,39 +696,36 @@ msgid "a"
 msgstr ""
 
 #: src/views/DateView.vala:316
-msgid " year"
+msgid "year"
 msgstr ""
 
 #: src/views/DateView.vala:316
-msgid " years"
+msgid "years"
 msgstr ""
 
 #: src/views/DateView.vala:321 src/views/DateView.vala:329
-msgid " and "
-msgstr ""
-
-#: src/views/DateView.vala:324
-msgid " month"
-msgstr ""
-
-#: src/views/DateView.vala:324
-msgid " months"
-msgstr ""
-
-#: src/views/DateView.vala:332
-msgid " week"
-msgstr ""
-
-#: src/views/DateView.vala:332
-msgid " weeks"
-msgstr ""
-
 #: src/views/DateView.vala:341
-msgid "and "
+msgid "and"
+msgstr ""
+
+#: src/views/DateView.vala:324
+msgid "month"
+msgstr ""
+
+#: src/views/DateView.vala:324
+msgid "months"
+msgstr ""
+
+#: src/views/DateView.vala:332
+msgid "week"
+msgstr ""
+
+#: src/views/DateView.vala:332
+msgid "weeks"
 msgstr ""
 
 #: src/views/DateView.vala:348
-msgid ", counting backwards"
+msgid "counting backwards"
 msgstr ""
 
 #: src/views/DateView.vala:366
@@ -1335,47 +1305,47 @@ msgid "Pebibyte"
 msgstr ""
 
 #: src/views/ConvCurrView.vala:55
-msgid "US Dollar                                                $"
+msgid "US Dollar"
 msgstr ""
 
 #: src/views/ConvCurrView.vala:56
-msgid "Euro                                                         €"
+msgid "Euro"
 msgstr ""
 
 #: src/views/ConvCurrView.vala:57
-msgid "British Pounds                                       £"
+msgid "British Pounds"
 msgstr ""
 
 #: src/views/ConvCurrView.vala:58
-msgid "Australian Dollar                                   $"
+msgid "Australian Dollar"
 msgstr ""
 
 #: src/views/ConvCurrView.vala:59
-msgid "Brazilian Real                                       R$"
+msgid "Brazilian Real"
 msgstr ""
 
 #: src/views/ConvCurrView.vala:60
-msgid "Canadian Dollar                                    $"
+msgid "Canadian Dollar"
 msgstr ""
 
 #: src/views/ConvCurrView.vala:61
-msgid "Chinese Yuan                                         ¥"
+msgid "Chinese Yuan"
 msgstr ""
 
 #: src/views/ConvCurrView.vala:62
-msgid "Indian Rupee                                          ₹"
+msgid "Indian Rupee"
 msgstr ""
 
 #: src/views/ConvCurrView.vala:63
-msgid "Japanese Yen                                         ¥"
+msgid "Japanese Yen"
 msgstr ""
 
 #: src/views/ConvCurrView.vala:64
-msgid "Russian Ruble                                        руб"
+msgid "Russian Ruble"
 msgstr ""
 
 #: src/views/ConvCurrView.vala:65
-msgid "South African Rand                               R"
+msgid "South African Rand"
 msgstr ""
 
 #: src/views/ControlsOverlay.vala:33
@@ -1407,7 +1377,6 @@ msgid "Angle Mode"
 msgstr ""
 
 #: src/views/HistoryView.vala:78
-#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:42
 msgid "Calculus Mode"
 msgstr ""
 
@@ -1432,11 +1401,11 @@ msgid "Derivative"
 msgstr ""
 
 #: src/views/displays/StatisticsDisplay.vala:145
-msgid "▭+  Enter data by adding new cell"
+msgid "Enter data by adding new cell"
 msgstr ""
 
 #: src/core/CurrencyConverter.vala:56
-msgid "Thread support missing. Please wait for web API access...\n"
+msgid "Thread support missing. Please wait for web API access…"
 msgstr ""
 
 #: src/core/CurrencyConverter.vala:82
@@ -1446,106 +1415,4 @@ msgstr ""
 #: src/core/CurrencyConverter.vala:109
 #, c-format
 msgid "Failed to connect to service: %s"
-msgstr ""
-
-#: data/com.github.subhadeepjasu.pebbles.desktop.in:3
-#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:7
-msgid "Pebbles"
-msgstr ""
-
-#: data/com.github.subhadeepjasu.pebbles.desktop.in:4
-msgid "Pebbles Calculator App"
-msgstr ""
-
-#: data/com.github.subhadeepjasu.pebbles.desktop.in:5
-#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:8
-msgid "Perform advanced calculations with ease"
-msgstr ""
-
-#: data/com.github.subhadeepjasu.pebbles.desktop.in:8
-msgid "com.github.subhadeepjasu.pebbles"
-msgstr ""
-
-#: data/com.github.subhadeepjasu.pebbles.desktop.in:11
-msgid ""
-"calculator;scientific;programmer;statistics;converter;convert;calculate;"
-"boolean;"
-msgstr ""
-
-#: data/com.github.subhadeepjasu.pebbles.desktop.in:17
-msgid "Open in Mini Mode"
-msgstr ""
-
-#: data/com.github.subhadeepjasu.pebbles.desktop.in:19
-msgid "accessories-calculator-symbolic"
-msgstr ""
-
-#: data/com.github.subhadeepjasu.pebbles.desktop.in:22
-msgid "Open a New Window"
-msgstr ""
-
-#: data/com.github.subhadeepjasu.pebbles.desktop.in:23
-msgid "window-new-symbolic"
-msgstr ""
-
-#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:10
-msgid ""
-"An advanced calculator that helps you with complicated calculations in your "
-"homework"
-msgstr ""
-
-#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:11
-msgid "Features:"
-msgstr ""
-
-#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:13
-msgid "Scientific mode"
-msgstr ""
-
-#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:14
-msgid "Programmer mode (Coming Soon)"
-msgstr ""
-
-#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:15
-msgid "Calculus mode"
-msgstr ""
-
-#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:16
-msgid "Statistics mode"
-msgstr ""
-
-#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:17
-msgid "Date Calculation mode"
-msgstr ""
-
-#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:18
-msgid "Some common unit converters"
-msgstr ""
-
-#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:30
-msgid "Subhadeep Jasu"
-msgstr ""
-
-#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:38
-msgid "Scientific Mode"
-msgstr ""
-
-#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:46
-msgid "Statistics Mode"
-msgstr ""
-
-#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:50
-msgid "Date Mode"
-msgstr ""
-
-#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:54
-msgid "Speed Unit Converter Mode"
-msgstr ""
-
-#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:58
-msgid "Currency Unit Converter Mode"
-msgstr ""
-
-#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:65
-msgid "Initial Release"
 msgstr ""
