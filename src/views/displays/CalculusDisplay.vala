@@ -47,6 +47,8 @@ namespace Pebbles {
         }
 
         void calc_make_display_ui () {
+            var settings = Settings.get_default ();
+
             // Stylize background;
             get_style_context ().add_class ("Pebbles_Display_Unit_Bg");
             
@@ -79,7 +81,7 @@ namespace Pebbles {
             lcd_status_bar.set_halign (Gtk.Align.END);
 
             // Make LCD Answer label
-            answer_label = new Gtk.Label ("0");
+            answer_label = new Gtk.Label (settings.cal_output_text);
             answer_label.set_halign (Gtk.Align.END);
             answer_label.get_style_context ().add_class ("pebbles_h1");
             var scrollable = new Gtk.ScrolledWindow (null, null);
@@ -92,7 +94,7 @@ namespace Pebbles {
             input_entry = new Gtk.Entry ();
 
             input_entry.set_has_frame (false);
-            input_entry.set_text ("0");
+            input_entry.set_text (settings.cal_input_text);
             input_entry.get_style_context ().add_class ("pebbles_h2");
             input_entry.set_halign (Gtk.Align.START);
             input_entry.width_request = 530;
@@ -164,6 +166,8 @@ namespace Pebbles {
                 result = Calculus.get_derivative (input_entry.get_text (), angle_mode, dx);
             }
             answer_label.set_text (result);
+            var settings = Settings.get_default ();
+            settings.cal_output_text = result;
             if (result == "E") {
                 shake ();
             }
@@ -189,6 +193,8 @@ namespace Pebbles {
                 result = Calculus.get_definite_integral (input_entry.get_text (), angle_mode, l, u);
             }
             answer_label.set_text (result);
+            var settings = Settings.get_default ();
+            settings.cal_output_text = result;
             if (result == "E") {
                 shake ();
             }
