@@ -74,5 +74,25 @@
 			<summary>Number of decimal places after radix</summary>
 			<description>Number of decimal places after radix point.</description>
 		</key>
+		<key name="sci-input-text" type="s">
+			<default>"0"</default>
+			<summary>Input Text from Scientific mode</summary>
+			<description>Input Text from Scientific mode</description>
+		</key>
+		<key name="sci-output-text" type="s">
+			<default>"0"</default>
+			<summary>Output Text from Scientific mode</summary>
+			<description>Output Text from Scientific mode</description>
+		</key>
+		<key name="cal-input-text" type="s">
+			<default>"0"</default>
+			<summary>Input Text from Calculus mode</summary>
+			<description>Input Text from Calculus mode</description>
+		</key>
+		<key name="cal-output-text" type="s">
+			<default>"0"</default>
+			<summary>Output Text from Calculus mode</summary>
+			<description>Output Text from Calculus mode</description>
+		</key>
 		</schema>
 </schemalist>

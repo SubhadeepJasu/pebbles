@@ -46,6 +46,8 @@ namespace Pebbles {
             this.sci_view = view;
         }
         private void sci_display_make_ui () {
+            var settings = Settings.get_default ();
+
             // Stylize background;
             get_style_context ().add_class ("Pebbles_Display_Unit_Bg");
 
@@ -78,7 +80,7 @@ namespace Pebbles {
             lcd_status_bar.set_halign (Gtk.Align.END);
 
             // Make LCD Answer label
-            answer_label = new Gtk.Label ("0");
+            answer_label = new Gtk.Label (settings.sci_output_text);
             answer_label.set_halign (Gtk.Align.END);
             answer_label.get_style_context ().add_class ("pebbles_h1");
             var scrollable = new Gtk.ScrolledWindow (null, null);
@@ -91,7 +93,7 @@ namespace Pebbles {
             input_entry = new Gtk.Entry ();
             
             input_entry.set_has_frame (false);
-            input_entry.set_text ("0");
+            input_entry.set_text (settings.sci_input_text);
             input_entry.get_style_context ().add_class ("pebbles_h2");
             input_entry.set_halign (Gtk.Align.START);
             input_entry.width_request = 530;
@@ -109,6 +111,8 @@ namespace Pebbles {
                             input_entry.set_text (input_entry.get_text ().slice (1, 2));
                         }
                     }
+
+                    settings.sci_input_text = input_entry.get_text ();
             });
             input_entry.key_release_event.connect (() => {
                 display_on ();
@@ -172,15 +176,16 @@ namespace Pebbles {
         public void get_answer_evaluate () {
             var sci_calc = new ScientificCalculator ();
             string result = "";
-            Settings accuracy_settings = Settings.get_default ();
+            Settings settings = Settings.get_default ();
             if (!this.sci_view.window.history_manager.is_empty ()) {
                 string last_answer = this.sci_view.window.history_manager.get_last_evaluation_result ().result;
-                result = sci_calc.get_result (input_entry.get_text ().replace ("ans", last_answer), angle_mode, accuracy_settings.decimal_places);
+                result = sci_calc.get_result (input_entry.get_text ().replace ("ans", last_answer), angle_mode, settings.decimal_places);
             }
             else {
-                result = sci_calc.get_result (input_entry.get_text (), angle_mode, accuracy_settings.decimal_places);
+                result = sci_calc.get_result (input_entry.get_text (), angle_mode, settings.decimal_places);
             }
             answer_label.set_text (result);
+            settings.sci_output_text = answer_label.get_text ();
             if (result == "E") {
                 shake ();
             }

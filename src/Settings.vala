@@ -70,10 +70,10 @@ namespace Pebbles {
         public ConstantKeyIndex constant_key_value1 {get; set;}
         public ConstantKeyIndex constant_key_value2 {get; set;}
         public int decimal_places {get; set;}
-        //  public string sci_input_text {get; set;}
-        //  public string sci_output_text {get; set;}
-        //  public string cal_input_text {get; set;}
-        //  public string cal_output_text {get; set;}
+        public string sci_input_text {get; set;}
+        public string sci_output_text {get; set;}
+        public string cal_input_text {get; set;}
+        public string cal_output_text {get; set;}
         //  public string stat_input_array {get; set;}
         //  public int stat_mode_previous {get; set;}
         //  public string stat_output_text {get; set;}
