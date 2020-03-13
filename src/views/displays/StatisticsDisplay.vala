@@ -58,6 +58,7 @@ namespace Pebbles {
         construct {
             stats_display_make_ui ();
             set_result_type (-1);
+            load_saved_sample ();
         }
 
         StatisticsView stats_view;
@@ -377,12 +378,15 @@ namespace Pebbles {
             bar_graph.queue_draw ();
         }
 
-        public void insert_cell (bool add_cell) {
+        public void insert_cell (bool add_cell, string? data = null) {
             var cell = new Gtk.Entry ();
             cell.get_style_context ().add_class ("stat_cell");
             cell.has_frame = false;
             cell.width_chars = 16;
             this.input_table.pack_start (cell, false, false, 0);
+            if (data != null) {
+                cell.set_text (data);
+            }
             this.show_all ();
             if (!add_cell) {
                 if (sample_index == -1){
@@ -424,6 +428,8 @@ namespace Pebbles {
             });
             if (i == 0) {
                 add_cell_warning.set_opacity (1.0);
+                var settings = Settings.get_default ();
+                settings.stat_input_array = "";
             }
             //  foreach (Gtk.Entry cell in input_table) {
             //      if (i == sample_index) {
@@ -448,6 +454,7 @@ namespace Pebbles {
             });
             cell_content_changed (editable_cell.get_text ());
             update_graph ();
+            save_sample ();
         }
 
         public bool navigate_left () {
@@ -507,6 +514,8 @@ namespace Pebbles {
                 sample_index = -1;
             });
             add_cell_warning.set_opacity (1.0);
+            var settings = Settings.get_default ();
+            settings.stat_input_array = "";
             return true;
         }
 
@@ -533,6 +542,21 @@ namespace Pebbles {
             });
             sample_text = sample_text.slice (0, sample_text.len () - 1);
             return sample_text;
+        }
+
+        private void load_saved_sample () {
+            var settings = Settings.get_default ();
+
+            string tokens = settings.stat_input_array;
+            string[] data = tokens.split (",");
+            for (int i = 0; i < data.length; i++) {
+                insert_cell (true, data[i]);
+            }
+        }
+
+        private void save_sample () {
+            var settings = Settings.get_default ();
+            settings.stat_input_array = get_samples ();
         }
 
         // Just eye-candy

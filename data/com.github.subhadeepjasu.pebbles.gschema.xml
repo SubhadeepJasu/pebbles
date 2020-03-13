@@ -94,5 +94,10 @@
 			<summary>Output Text from Calculus mode</summary>
 			<description>Output Text from Calculus mode</description>
 		</key>
+		<key name="stat-input-array" type="s">
+			<default>""</default>
+			<summary>Input Data from Statistics mode</summary>
+			<description>Input Text from Statistics mode</description>
+		</key>
 		</schema>
 </schemalist>
