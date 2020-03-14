@@ -1,163 +1,166 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# French translations for extra package.
+# Copyright (C) 2020 THE extra'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the extra package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Nathan Bonnemains (@NathanBnm), 2020.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: extra\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-03-14 09:16+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2020-03-14 09:16+0100\n"
+"Last-Translator: Nathan Bonnemains (@NathanBnm)\n"
+"Language-Team: none\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: data/com.github.subhadeepjasu.pebbles.desktop.in:3
 #: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:7
 msgid "Pebbles"
-msgstr ""
+msgstr "Pebbles"
 
 #: data/com.github.subhadeepjasu.pebbles.desktop.in:4
 msgid "Pebbles Calculator App"
-msgstr ""
+msgstr "Calculatrice Pebbles"
 
 #: data/com.github.subhadeepjasu.pebbles.desktop.in:5
 #: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:8
 msgid "Perform advanced calculations with ease"
-msgstr ""
+msgstr "Effectuez des calculs avancés facilement"
 
 #: data/com.github.subhadeepjasu.pebbles.desktop.in:8
 msgid "com.github.subhadeepjasu.pebbles"
-msgstr ""
+msgstr "com.github.subhadeepjasu.pebbles"
 
 #: data/com.github.subhadeepjasu.pebbles.desktop.in:11
 msgid ""
 "calculator;scientific;programmer;statistics;converter;convert;calculate;"
 "boolean;"
 msgstr ""
+"calculatrice;scientifique;programmeur;statistiques;convertisseur;convertir;calculer;booléen; "
 
 #: data/com.github.subhadeepjasu.pebbles.desktop.in:17
 msgid "Open in Mini Mode"
-msgstr ""
+msgstr "Ouvrir en mode réduit"
 
 #: data/com.github.subhadeepjasu.pebbles.desktop.in:19
 msgid "accessories-calculator-symbolic"
-msgstr ""
+msgstr "accessories-calculator-symbolic"
 
 #: data/com.github.subhadeepjasu.pebbles.desktop.in:22
 msgid "Open a New Window"
-msgstr ""
+msgstr "Ouvrir une nouvelle fenêtre"
 
 #: data/com.github.subhadeepjasu.pebbles.desktop.in:23
 msgid "window-new-symbolic"
-msgstr ""
+msgstr "window-new-symbolic"
 
 #: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:10
 msgid ""
 "An advanced calculator that helps you with complicated calculations in your "
 "homework"
 msgstr ""
+"Une calculatrice avancée pour vous aider avec les calculs compliqués dans vos devoirs"
 
 #: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:11
 msgid "Features:"
-msgstr ""
+msgstr "Fonctionnalités :"
 
 #: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:13
 msgid "Scientific mode"
-msgstr ""
+msgstr "Mode scientifique"
 
 #: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:14
 msgid "Programmer mode (Coming Soon)"
-msgstr ""
+msgstr "Mode programmeur (Bientôt disponible)"
 
 #: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:15
 msgid "Calculus mode"
-msgstr ""
+msgstr "Mode calcul"
 
 #: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:16
 msgid "Statistics mode"
-msgstr ""
+msgstr "Mode statistiques"
 
 #: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:17
 msgid "Date Calculation mode"
-msgstr ""
+msgstr "Mode calcul de dates"
 
 #: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:18
 msgid "Some common unit converters"
-msgstr ""
+msgstr "Convertisseurs d'unités usuelles"
 
 #: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:30
 msgid "Subhadeep Jasu"
-msgstr ""
+msgstr "Subhadeep Jasu"
 
 #: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:38
 msgid "Scientific Mode"
-msgstr ""
+msgstr "Mode scientifique"
 
 #: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:42
 msgid "Calculus Mode"
-msgstr ""
+msgstr "Mode calcul"
 
 #: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:46
 msgid "Statistics Mode"
-msgstr ""
+msgstr "Mode statistiques"
 
 #: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:50
 msgid "Date Mode"
-msgstr ""
+msgstr "Mode date"
 
 #: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:54
 msgid "Speed Unit Converter Mode"
-msgstr ""
+msgstr "Mode convertisseur d'unités de vitesse"
 
 #: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:58
 msgid "Currency Unit Converter Mode"
-msgstr ""
+msgstr "Mode convertisseur de devises"
 
 #: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:65
 msgid "New:"
-msgstr ""
+msgstr "Nouveau :"
 
 #: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:67
 msgid "[UI] Auto switch to view that was used last time"
-msgstr ""
+msgstr "[Interface] Passage automatique à la vue qui a été utilisée pour la dernière fois"
 
 #: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:73
 #: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:81
 msgid "Fixed:"
-msgstr ""
+msgstr "Corrigé :"
 
 #: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:75
 msgid ""
 "[Converter] Override conversion precision based on unit for Currency and "
 "Data converter"
 msgstr ""
+"[Convertisseur] Conversions unitaires plus précises pour les convertisseurs de devises et de données"
 
 #: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:83
 msgid "[Controls] Use F7 for last answer and F8 for changing angle mode"
-msgstr ""
+msgstr "[Contrôles] Utilisez F7 pour récupérer la dernière réponse et F8 pour modifier le mode d'angle"
 
 #: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:84
 msgid "[HeaderBar] Change 'GRD' to 'GRA'"
-msgstr ""
+msgstr "[Barre de titre] Modification de « GRD » en « GRA »"
 
 #: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:85
 msgid "[Date View] Enable counting date backwards"
-msgstr ""
+msgstr "[Vue date] Possibilité de calculer la date à rebours"
 
 #: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:87
 msgid "Improved:"
-msgstr ""
+msgstr "Amélioré :"
 
 #: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:89
 msgid "[Translations] Add more translatable strings"
-msgstr ""
+msgstr "[Traduction] Plus de chaînes sont désormais disponibles pour la traduction"
 
 #: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:95
 msgid "Initial Release"
-msgstr ""
+msgstr "Version initiale"
