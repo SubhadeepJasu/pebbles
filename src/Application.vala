@@ -80,12 +80,7 @@ namespace Pebbles {
 
             if (css_provider == null) {
                 css_provider = new Gtk.CssProvider();
-                try {
-                    css_provider.load_from_resource ("/com/github/subhadeepjasu/pebbles/Application.css");
-                }
-                catch (Error e) {
-                    warning("%s", e.message);
-                }
+                css_provider.load_from_resource ("/com/github/subhadeepjasu/pebbles/Application.css");
                 // CSS Provider
                 Gtk.StyleContext.add_provider_for_screen (
                     Gdk.Screen.get_default(),
