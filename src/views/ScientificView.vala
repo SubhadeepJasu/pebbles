@@ -97,6 +97,7 @@ namespace Pebbles {
                 else {
                     display_unit.set_memory_status (true);
                 }
+                settings.sci_memory_value = _memory_reserve.to_string ();
             }
         }
 
@@ -412,6 +413,7 @@ namespace Pebbles {
             }
         }
         private void sci_make_events () {
+            memory_reserve = double.parse (settings.sci_memory_value);
             result_button.button_press_event.connect ((event) => {
                 display_unit.display_off ();
                 return false;

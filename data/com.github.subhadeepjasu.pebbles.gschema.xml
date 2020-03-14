@@ -84,6 +84,11 @@
 			<summary>Output Text from Scientific mode</summary>
 			<description>Output Text from Scientific mode</description>
 		</key>
+		<key name="sci-memory-value" type="s">
+			<default>"0"</default>
+			<summary>Memory Value in Scientific Mode</summary>
+			<description>Memory Value in Scientific Mode</description>
+		</key>
 		<key name="cal-input-text" type="s">
 			<default>"0"</default>
 			<summary>Input Text from Calculus mode</summary>
@@ -93,6 +98,22 @@
 			<default>"0"</default>
 			<summary>Output Text from Calculus mode</summary>
 			<description>Output Text from Calculus mode</description>
+		</key>
+		<key name="stat-input-array" type="s">
+			<default>""</default>
+			<summary>Input Data from Statistics mode</summary>
+			<description>Input Data from Statistics mode</description>
+		</key>
+		<key name="stat-mode-previous" type="i">
+			<range min="-1" max="11"/>
+			<default>-1</default>
+			<summary>Previous mode of Statistics mode</summary>
+			<description>Previous mode of Statistics mode</description>
+		</key>
+		<key name="stat-output-text" type="s">
+			<default>"0"</default>
+			<summary>Output Text from Statistics mode</summary>
+			<description>Ouput Text from Statistics mode</description>
 		</key>
 		</schema>
 </schemalist>
