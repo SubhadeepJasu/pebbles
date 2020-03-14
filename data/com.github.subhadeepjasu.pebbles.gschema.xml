@@ -84,6 +84,11 @@
 			<summary>Output Text from Scientific mode</summary>
 			<description>Output Text from Scientific mode</description>
 		</key>
+		<key name="sci-memory-value" type="s">
+			<default>"0"</default>
+			<summary>Memory Value in Scientific Mode</summary>
+			<description>Memory Value in Scientific Mode</description>
+		</key>
 		<key name="cal-input-text" type="s">
 			<default>"0"</default>
 			<summary>Input Text from Calculus mode</summary>
