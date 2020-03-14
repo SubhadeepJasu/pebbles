@@ -1,1396 +1,1399 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# French translations for com.github.subhadeepjasu.pebbles package.
+# Copyright (C) 2020 THE com.github.subhadeepjasu.pebbles'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the com.github.subhadeepjasu.pebbles package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Nathan Bonnemains (@NathanBnm), 2020.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.subhadeepjasu.pebbles\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-03-14 11:30+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2020-03-14 09:16+0100\n"
+"Last-Translator: Nathan Bonnemains (@NathanBnm)\n"
+"Language-Team: none\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: src/Application.vala:67
 msgid "Open In Mini Mode"
-msgstr ""
+msgstr "Ouvrir en mode réduit"
 
 #: src/Application.vala:68
 msgid "Open A New Window"
-msgstr ""
+msgstr "Ouvrir une nouvelle fenêtre"
 
 #: src/Application.vala:69
 msgid "Enable test mode"
-msgstr ""
+msgstr "Activer le mode test"
 
 #: src/MainWindow.vala:142
 msgid "Light background"
-msgstr ""
+msgstr "Thème clair"
 
 #: src/MainWindow.vala:143
 msgid "Dark background"
-msgstr ""
+msgstr "Thème sombre"
 
 #: src/MainWindow.vala:152 src/MainWindow.vala:723 src/MainWindow.vala:733
 msgid "Degrees"
-msgstr ""
+msgstr "Degrés"
 
 #: src/MainWindow.vala:152 src/MainWindow.vala:723 src/MainWindow.vala:728
 msgid "Radians"
-msgstr ""
+msgstr "Radians"
 
 #: src/MainWindow.vala:162 src/MainWindow.vala:218
 msgid "Shift"
-msgstr ""
+msgstr "Maj"
 
 #: src/MainWindow.vala:242
 msgid "Update Forex Data"
-msgstr ""
+msgstr "Mettre à jour les données Forex"
 
 #: src/MainWindow.vala:242
 msgid "Updates automatically every 10 minutes"
-msgstr ""
+msgstr "Mis à jour automatiquement toutes les 10 minutes"
 
 #: src/MainWindow.vala:252
 msgid "Show Controls"
-msgstr ""
+msgstr "Afficher les contrôles"
 
 #: src/MainWindow.vala:254 src/PreferencesOverlay.vala:97
 msgid "Preferences"
-msgstr ""
+msgstr "Préférences"
 
 #: src/MainWindow.vala:275
 msgid "Show Calculation History"
-msgstr ""
+msgstr "Afficher l'historique des calculs"
 
 #: src/MainWindow.vala:306 src/views/ControlsOverlay.vala:45
 msgid "Scientific"
-msgstr ""
+msgstr "Scientifique"
 
 #: src/MainWindow.vala:307 src/views/ControlsOverlay.vala:71
 msgid "Calculus"
-msgstr ""
+msgstr "Calcul"
 
 #: src/MainWindow.vala:308
 msgid "Programmer"
-msgstr ""
+msgstr "Programmeur"
 
 #: src/MainWindow.vala:309
 msgid "Date"
-msgstr ""
+msgstr "Date"
 
 #: src/MainWindow.vala:310 src/views/ControlsOverlay.vala:58
 msgid "Statistics"
-msgstr ""
+msgstr "Statistiques"
 
 #: src/MainWindow.vala:311
 msgid "Financial"
-msgstr ""
+msgstr "Finances"
 
 #: src/MainWindow.vala:312 src/views/ConvLengthView.vala:66
 msgid "Length"
-msgstr ""
+msgstr "Longueur"
 
 #: src/MainWindow.vala:313 src/views/ConvAreaView.vala:65
 msgid "Area"
-msgstr ""
+msgstr "Aire"
 
 #: src/MainWindow.vala:314 src/views/ConvVolumeView.vala:87
 msgid "Volume"
-msgstr ""
+msgstr "Volume"
 
 #: src/MainWindow.vala:315 src/views/ConvTimeView.vala:67
 msgid "Time"
-msgstr ""
+msgstr "Temps"
 
 #: src/MainWindow.vala:316 src/views/ConvAngleView.vala:57
 msgid "Angle"
-msgstr ""
+msgstr "Angle"
 
 #: src/MainWindow.vala:317 src/views/ConvSpeedView.vala:59
 msgid "Speed"
-msgstr ""
+msgstr "Vitesse"
 
 #: src/MainWindow.vala:318 src/views/ConvMassView.vala:65
 msgid "Mass"
-msgstr ""
+msgstr "Masse"
 
 #: src/MainWindow.vala:319 src/views/ConvPressView.vala:57
 msgid "Pressure"
-msgstr ""
+msgstr "Pression"
 
 #: src/MainWindow.vala:320 src/views/ConvEnergyView.vala:65
 msgid "Energy"
-msgstr ""
+msgstr "Énergie"
 
 #: src/MainWindow.vala:321 src/views/ConvPowerView.vala:57
 msgid "Power"
-msgstr ""
+msgstr "Puissance"
 
 #: src/MainWindow.vala:322 src/views/ConvTempView.vala:43
 msgid "Temperature"
-msgstr ""
+msgstr "Température"
 
 #: src/MainWindow.vala:323 src/views/ConvDataView.vala:114
 msgid "Data"
-msgstr ""
+msgstr "Données"
 
 #: src/MainWindow.vala:324 src/views/ConvCurrView.vala:97
 msgid "Currency"
-msgstr ""
+msgstr "Devises"
 
 #: src/MainWindow.vala:327
 msgid "Calculator"
-msgstr ""
+msgstr "Calculatrice"
 
 #: src/MainWindow.vala:336
 msgid "Converter"
-msgstr ""
+msgstr "Convertisseur"
 
 #: src/MainWindow.vala:728 src/MainWindow.vala:733
 msgid "Gradians"
-msgstr ""
+msgstr "Gradians"
 
 #: src/ControlsScheme.vala:32
 msgid "Show this controls window"
-msgstr ""
+msgstr "Afficher cette fenêtre de contrôles"
 
 #: src/ControlsScheme.vala:35
 msgid "Show Preferences"
-msgstr ""
+msgstr "Afficher les préférences"
 
 #: src/ControlsScheme.vala:38 src/views/StatisticsView.vala:172
 msgid "Add to Memory"
-msgstr ""
+msgstr "Additionner à la valeur en mémoire"
 
 #: src/ControlsScheme.vala:41 src/views/StatisticsView.vala:180
 msgid "Subtract from Memory"
-msgstr ""
+msgstr "Soustraire à la valeur en mémoire"
 
 #: src/ControlsScheme.vala:44
 msgid "Recall from Memory"
-msgstr ""
+msgstr "Récupérer la valeur de la mémoire"
 
 #: src/ControlsScheme.vala:47
 msgid "Clear Memory"
-msgstr ""
+msgstr "Effacer la mémoire"
 
 #: src/ControlsScheme.vala:50
 msgid "Last Answer"
-msgstr ""
+msgstr "Dernier résultat"
 
 #: src/ControlsScheme.vala:53 src/views/MiniCalculator.vala:79
 #: src/views/CalculusView.vala:164 src/views/ScientificView.vala:153
 #: src/views/StatisticsView.vala:120 src/views/CommonNumericKeypad.vala:53
 msgid "All Clear"
-msgstr ""
+msgstr "Tout effacer"
 
 #: src/ControlsScheme.vala:58
 msgid "Square (root) a Number"
-msgstr ""
+msgstr "Mettre un nombre au carré (ou à la racine)"
 
 #: src/ControlsScheme.vala:61
 msgid "Raise to the power (or nth root over)"
-msgstr ""
+msgstr "Mettre à la puissance (où énième racine)"
 
 #: src/ControlsScheme.vala:64
 msgid "10 (or e) raised to the power"
-msgstr ""
+msgstr "Mettre à la puissance 10 (ou e)"
 
 #: src/ControlsScheme.vala:67
 msgid "Log base 10 (or e)"
-msgstr ""
+msgstr "Log base 10 (ou e)"
 
 #: src/ControlsScheme.vala:70
 msgid "(Inverse) Sine"
-msgstr ""
+msgstr "Sinus (inverse)"
 
 #: src/ControlsScheme.vala:73
 msgid "(Inverse) Cosine"
-msgstr ""
+msgstr "Cosinus (inverse)"
 
 #: src/ControlsScheme.vala:76
 msgid "(Inverse) Tangent"
-msgstr ""
+msgstr "Tangente (inverse)"
 
 #: src/ControlsScheme.vala:79
 msgid "(Inverse) Hyperbolic Sine"
-msgstr ""
+msgstr "Sinus hyperbolique (inverse)"
 
 #: src/ControlsScheme.vala:82
 msgid "(Inverse) Hyperbolic Cosine"
-msgstr ""
+msgstr "Cosinus hyperbolique (inverse)"
 
 #: src/ControlsScheme.vala:85
 msgid "(Inverse) Hyperbolic Tangent"
-msgstr ""
+msgstr "Tangente hyperbolique (inverse)"
 
 #: src/ControlsScheme.vala:88
 msgid "Modulus or Log base x"
-msgstr ""
+msgstr "Modulo ou Log base x"
 
 #: src/ControlsScheme.vala:91
 msgid "Permutation or Combination"
-msgstr ""
+msgstr "Permutation ou Combinaison"
 
 #: src/ControlsScheme.vala:94 src/views/CalculusView.vala:249
 #: src/views/ScientificView.vala:245
 msgid "Factorial"
-msgstr ""
+msgstr "Factorielle"
 
 #: src/ControlsScheme.vala:97
 msgid "Constants"
-msgstr ""
+msgstr "Constantes"
 
 #: src/ControlsScheme.vala:100 src/views/MiniCalculator.vala:100
 #: src/views/ScientificView.vala:252 src/views/HistoryView.vala:82
 msgid "Result"
-msgstr ""
+msgstr "Résultat"
 
 #: src/ControlsScheme.vala:105
 msgid "Add Cell"
-msgstr ""
+msgstr "Ajouter une cellule"
 
 #: src/ControlsScheme.vala:108
 msgid "Insert Cell"
-msgstr ""
+msgstr "Insérer une cellule"
 
 #: src/ControlsScheme.vala:111
 msgid "Next Cell or Add Right"
-msgstr ""
+msgstr "Cellule suivante ou Insérer à droite"
 
 #: src/ControlsScheme.vala:114
 msgid "Previous Cell or Add Left"
-msgstr ""
+msgstr "Cellule précédente ou Insérer à gauche"
 
 #: src/ControlsScheme.vala:117
 msgid "Navigate Left"
-msgstr ""
+msgstr "Aller vers la gauche"
 
 #: src/ControlsScheme.vala:120
 msgid "Navigate Right"
-msgstr ""
+msgstr "Aller vers la droite"
 
 #: src/ControlsScheme.vala:123
 msgid "Remove Cell"
-msgstr ""
+msgstr "Supprimer la cellule"
 
 #: src/ControlsScheme.vala:126
 msgid "Remove All Cells (Reset)"
-msgstr ""
+msgstr "Supprimer toutes les cellules (Réinitialiser)"
 
 #: src/ControlsScheme.vala:129
 msgid "Cardinality"
-msgstr ""
+msgstr "Cardinalité"
 
 #: src/ControlsScheme.vala:132
 msgid "Mode"
-msgstr ""
+msgstr "Mode"
 
 #: src/ControlsScheme.vala:135 src/views/StatisticsView.vala:170
 msgid "Median"
-msgstr ""
+msgstr "Médiane"
 
 #: src/ControlsScheme.vala:138
 msgid "Summation"
-msgstr ""
+msgstr "Somme"
 
 #: src/ControlsScheme.vala:141
 msgid "Summation Squared"
-msgstr ""
+msgstr "Somme des carrés"
 
 #: src/ControlsScheme.vala:144
 msgid "Sample Variance"
-msgstr ""
+msgstr "Variance de l'échantillon"
 
 #: src/ControlsScheme.vala:147 src/views/StatisticsView.vala:182
 msgid "Mean"
-msgstr ""
+msgstr "Moyenne"
 
 #: src/ControlsScheme.vala:150
 msgid "Mean Squared"
-msgstr ""
+msgstr "Moyenne des carrés"
 
 #: src/ControlsScheme.vala:153
 msgid "Geometric Mean"
-msgstr ""
+msgstr "Moyenne géometrique"
 
 #: src/ControlsScheme.vala:156
 msgid "Sample Standard Deviation"
-msgstr ""
+msgstr "Écart-type de l'échantillon"
 
 #: src/ControlsScheme.vala:159 src/views/StatisticsView.vala:192
 msgid "Population Variance"
-msgstr ""
+msgstr "Variance de la population"
 
 #: src/ControlsScheme.vala:162
 msgid "Population Standard Deviation"
-msgstr ""
+msgstr "Écart-type de la population"
 
 #: src/ControlsScheme.vala:167
 msgid "Variable x"
-msgstr ""
+msgstr "Variable x"
 
 #: src/ControlsScheme.vala:170
 msgid "Definite Integral"
-msgstr ""
+msgstr "Définir l'intégrale"
 
 #: src/ControlsScheme.vala:173
 msgid "Derivative at a point"
-msgstr ""
+msgstr "Dérivée en un point"
 
 #: src/ControlsScheme.vala:178
 msgid "Interchange unit"
-msgstr ""
+msgstr "Inverser les unités"
 
 #: src/ControlsScheme.vala:181
 msgid "Update Forex Data (Currency converter)"
-msgstr ""
+msgstr "Mettre à jour les données Forex (Convertisseur de devises)"
 
 #: src/PreferencesOverlay.vala:42
 msgid "Number of decimal places:"
-msgstr ""
+msgstr "Nombre de décimales :"
 
 #: src/PreferencesOverlay.vala:48
 msgid "Scientific constants button:"
-msgstr ""
+msgstr "Bouton de constante scientifique"
 
 #: src/PreferencesOverlay.vala:51
 msgid "Constant 1"
-msgstr ""
+msgstr "Constante 1"
 
 #: src/PreferencesOverlay.vala:54 src/PreferencesOverlay.vala:68
 #: src/views/CalculusView.vala:432 src/views/CalculusView.vala:474
 #: src/views/ScientificView.vala:365 src/views/ScientificView.vala:407
 msgid "Euler's constant (exponential)"
-msgstr ""
+msgstr "Constante d'Euler (exponentielle)"
 
 #: src/PreferencesOverlay.vala:55 src/PreferencesOverlay.vala:69
 #: src/views/CalculusView.vala:396 src/views/CalculusView.vala:438
 #: src/views/ScientificView.vala:329 src/views/ScientificView.vala:371
 msgid "Archimedes' constant (pi)"
-msgstr ""
+msgstr "Constante d'Archimède (pi)"
 
 #: src/PreferencesOverlay.vala:56 src/PreferencesOverlay.vala:70
 msgid "Imaginary number"
-msgstr ""
+msgstr "Nombre imaginaire"
 
 #: src/PreferencesOverlay.vala:57 src/PreferencesOverlay.vala:71
 #: src/views/CalculusView.vala:404 src/views/CalculusView.vala:446
 #: src/views/ScientificView.vala:337 src/views/ScientificView.vala:379
 msgid "Golden ratio (phi)"
-msgstr ""
+msgstr "Nombre d'or (phi)"
 
 #: src/PreferencesOverlay.vala:58 src/PreferencesOverlay.vala:72
 #: src/views/CalculusView.vala:408 src/views/CalculusView.vala:450
 #: src/views/ScientificView.vala:341 src/views/ScientificView.vala:383
 msgid "Euler–Mascheroni constant (gamma)"
-msgstr ""
+msgstr "Constante d'Euler–Mascheroni (gamma)"
 
 #: src/PreferencesOverlay.vala:59 src/PreferencesOverlay.vala:73
 #: src/views/CalculusView.vala:412 src/views/CalculusView.vala:454
 #: src/views/ScientificView.vala:345 src/views/ScientificView.vala:387
 msgid "Conway's constant (lambda)"
-msgstr ""
+msgstr "Constante de Conway (lambda)"
 
 #: src/PreferencesOverlay.vala:60 src/PreferencesOverlay.vala:74
 #: src/views/CalculusView.vala:416 src/views/CalculusView.vala:458
 #: src/views/ScientificView.vala:349 src/views/ScientificView.vala:391
 msgid "Khinchin's constant"
-msgstr ""
+msgstr "Constante de Khintchine"
 
 #: src/PreferencesOverlay.vala:61 src/PreferencesOverlay.vala:75
 #: src/views/CalculusView.vala:420 src/views/CalculusView.vala:462
 #: src/views/ScientificView.vala:353 src/views/ScientificView.vala:395
 msgid "The Feigenbaum constant alpha"
-msgstr ""
+msgstr "Constante alpha de Feigenbaum"
 
 #: src/PreferencesOverlay.vala:62 src/PreferencesOverlay.vala:76
 #: src/views/CalculusView.vala:424 src/views/CalculusView.vala:466
 #: src/views/ScientificView.vala:357 src/views/ScientificView.vala:399
 msgid "The Feigenbaum constant delta"
-msgstr ""
+msgstr "Constante delta de Feigenbaum"
 
 #: src/PreferencesOverlay.vala:63 src/PreferencesOverlay.vala:77
 #: src/views/CalculusView.vala:428 src/views/CalculusView.vala:470
 #: src/views/ScientificView.vala:361 src/views/ScientificView.vala:403
 msgid "Apery's constant"
-msgstr ""
+msgstr "Constante d'Apéry"
 
 #: src/PreferencesOverlay.vala:65
 msgid "Constant 2 (Hold Shift)"
-msgstr ""
+msgstr "Constante 2 (Maintenir Maj)"
 
 #: src/views/MiniCalculator.vala:94 src/views/CalculusView.vala:186
 #: src/views/ScientificView.vala:176 src/views/DateView.vala:72
 msgid "Subtract"
-msgstr ""
+msgstr "Soustraire"
 
 #: src/views/MiniCalculator.vala:96 src/views/CalculusView.vala:176
 #: src/views/ScientificView.vala:166
 msgid "Divide"
-msgstr ""
+msgstr "Diviser"
 
 #: src/views/MiniCalculator.vala:98 src/views/CalculusView.vala:181
 #: src/views/ScientificView.vala:171
 msgid "Multiply"
-msgstr ""
+msgstr "Multiplier"
 
 #: src/views/MiniCalculator.vala:103
 msgid "Last Result"
-msgstr ""
+msgstr "Dernier résultat"
 
 #: src/views/MiniCalculator.vala:137
 msgid "Pebbles Mini Mode"
-msgstr ""
+msgstr "Pebbles en mode réduit"
 
 #: src/views/CalculusView.vala:167 src/views/ScientificView.vala:156
 #: src/views/StatisticsView.vala:123 src/views/CommonNumericKeypad.vala:52
 #: src/views/CommonKeyPadConverter.vala:48
 msgid "Backspace"
-msgstr ""
+msgstr "Effacer"
 
 #: src/views/CalculusView.vala:175
 msgid "Variable for linear expressions"
-msgstr ""
+msgstr "Variable pour les expressions linéaires"
 
 #: src/views/CalculusView.vala:191 src/views/ScientificView.vala:181
 #: src/views/DateView.vala:76 src/views/DateView.vala:146
 msgid "Add"
-msgstr ""
+msgstr "Ajouter"
 
 #: src/views/CalculusView.vala:223 src/views/CalculusView.vala:379
 #: src/views/ScientificView.vala:215 src/views/ScientificView.vala:309
 msgid "x raised to the power y"
-msgstr ""
+msgstr "x élevé à la puissance y"
 
 #: src/views/CalculusView.vala:225 src/views/ScientificView.vala:219
 msgid "Add it to the value in Memory"
-msgstr ""
+msgstr "Additionner à la valeur en mémoire"
 
 #: src/views/CalculusView.vala:227 src/views/CalculusView.vala:380
 #: src/views/ScientificView.vala:221 src/views/ScientificView.vala:311
 msgid "Sine"
-msgstr ""
+msgstr "Sinus"
 
 #: src/views/CalculusView.vala:229 src/views/CalculusView.vala:381
 #: src/views/ScientificView.vala:223 src/views/ScientificView.vala:314
 msgid "Hyperbolic Sine"
-msgstr ""
+msgstr "Sinus hyperbolique"
 
 #: src/views/CalculusView.vala:231 src/views/ScientificView.vala:227
 msgid "Subtract it from the value in Memory"
-msgstr ""
+msgstr "Soustraire à la valeur en mémoire"
 
 #: src/views/CalculusView.vala:233 src/views/CalculusView.vala:382
 #: src/views/ScientificView.vala:229 src/views/ScientificView.vala:312
 msgid "Cosine"
-msgstr ""
+msgstr "Cosinus"
 
 #: src/views/CalculusView.vala:235 src/views/CalculusView.vala:383
 #: src/views/ScientificView.vala:231 src/views/ScientificView.vala:315
 msgid "Hyperbolic Cosine"
-msgstr ""
+msgstr "Cosinus hyperbolique"
 
 #: src/views/CalculusView.vala:237 src/views/CalculusView.vala:384
 #: src/views/ScientificView.vala:233 src/views/ScientificView.vala:317
 msgid "Modulus"
-msgstr ""
+msgstr "Modulo"
 
 #: src/views/CalculusView.vala:239 src/views/ScientificView.vala:235
 msgid "Recall value from Memory"
-msgstr ""
+msgstr "Récupérer la valeur de la mémoire"
 
 #: src/views/CalculusView.vala:241 src/views/CalculusView.vala:385
 #: src/views/ScientificView.vala:237 src/views/ScientificView.vala:313
 msgid "Tangent"
-msgstr ""
+msgstr "Tangente"
 
 #: src/views/CalculusView.vala:243 src/views/CalculusView.vala:386
 #: src/views/ScientificView.vala:239 src/views/ScientificView.vala:316
 msgid "Hyperbolic Tangent"
-msgstr ""
+msgstr "Tangente hyperbolique"
 
 #: src/views/CalculusView.vala:245 src/views/CalculusView.vala:387
 #: src/views/ScientificView.vala:241 src/views/ScientificView.vala:319
 msgid "Permutations"
-msgstr ""
+msgstr "Permutations"
 
 #: src/views/CalculusView.vala:247 src/views/ScientificView.vala:243
 #: src/views/StatisticsView.vala:196
 msgid "Memory Clear"
-msgstr ""
+msgstr "Effacer la mémoire"
 
 #: src/views/CalculusView.vala:253 src/views/ScientificView.vala:249
 msgid "Last answer"
-msgstr ""
+msgstr "Dernier résultat"
 
 #: src/views/CalculusView.vala:261
 msgid "Definite Integral (Upper limit 'u' and Lower limit 'l')"
 msgstr ""
+"Définir l'intégrale (limite supérieure « u » et limite inférieure « l »)"
 
 #: src/views/CalculusView.vala:307
 msgid "Derivative (at a point x)"
-msgstr ""
+msgstr "Dérivée (en un point x)"
 
 #: src/views/CalculusView.vala:367 src/views/ScientificView.vala:295
 msgid "nth root over number"
-msgstr ""
+msgstr "énième racine sur le nombre"
 
 #: src/views/CalculusView.vala:368 src/views/ScientificView.vala:297
 msgid "Inverse Sine"
-msgstr ""
+msgstr "Sinus inverse"
 
 #: src/views/CalculusView.vala:369 src/views/ScientificView.vala:300
 msgid "Inverse Hyperbolic Sine"
-msgstr ""
+msgstr "Sinus hyperbolique inverse"
 
 #: src/views/CalculusView.vala:370 src/views/ScientificView.vala:298
 msgid "Inverse Cosine"
-msgstr ""
+msgstr "Cosinus inverse"
 
 #: src/views/CalculusView.vala:371 src/views/ScientificView.vala:301
 msgid "Inverse Hyperbolic Cosine"
-msgstr ""
+msgstr "Cosinus hyperbolique inverse"
 
 #: src/views/CalculusView.vala:372 src/views/ScientificView.vala:303
 msgid "Log base x"
-msgstr ""
+msgstr "Log base x"
 
 #: src/views/CalculusView.vala:373 src/views/ScientificView.vala:299
 msgid "Inverse Tangent"
-msgstr ""
+msgstr "Tangente inverse"
 
 #: src/views/CalculusView.vala:374 src/views/ScientificView.vala:302
 msgid "Inverse Hyperbolic Tangent"
-msgstr ""
+msgstr "Tangente hyperbolique inverse"
 
 #: src/views/CalculusView.vala:375 src/views/ScientificView.vala:305
 msgid "Combinations"
-msgstr ""
+msgstr "Combinaisons"
 
 #: src/views/CalculusView.vala:400 src/views/CalculusView.vala:442
 #: src/views/ScientificView.vala:333 src/views/ScientificView.vala:375
 msgid "Imaginary number (√-1)"
-msgstr ""
+msgstr "Nombre imaginaire (√-1)"
 
 #: src/views/ScientificView.vala:164
 msgid "Percentage"
-msgstr ""
+msgstr "Pourcentage"
 
 #: src/views/ScientificView.vala:213 src/views/ScientificView.vala:308
 msgid "Square a number"
-msgstr ""
+msgstr "Mettre un nombre au carré"
 
 #: src/views/ScientificView.vala:217 src/views/ScientificView.vala:310
 msgid "10 raised to the power x"
-msgstr ""
+msgstr "10 élevé à la puisssance x"
 
 #: src/views/ScientificView.vala:225 src/views/ScientificView.vala:318
 msgid "Log base 10"
-msgstr ""
+msgstr "Log base 10"
 
 #: src/views/ScientificView.vala:294
 msgid "Square root over number"
-msgstr ""
+msgstr "Racine carrée sur le nombre"
 
 #: src/views/ScientificView.vala:296
 msgid "e raised to the power x"
-msgstr ""
+msgstr "e élevé à la puissance x"
 
 #: src/views/ScientificView.vala:304
 msgid "Natural Logarithm"
-msgstr ""
+msgstr "Logarithme naturel"
 
 #: src/views/DateView.vala:86 src/views/DateView.vala:247
 msgid "Difference Between Dates"
-msgstr ""
+msgstr "Différence entre deux dates"
 
 #: src/views/DateView.vala:87 src/views/DateView.vala:248
 msgid "Add or Subtract Dates"
-msgstr ""
+msgstr "Additionner ou soustraire des dates"
 
 #: src/views/DateView.vala:94
 msgid "From"
-msgstr ""
+msgstr "Entre"
 
 #: src/views/DateView.vala:98
 msgid "To"
-msgstr ""
+msgstr "Et"
 
 #: src/views/DateView.vala:108
 msgid "Difference"
-msgstr ""
+msgstr "Différence"
 
 #: src/views/DateView.vala:112 src/views/DateView.vala:312
 msgid "Hey, it's the same date"
-msgstr ""
+msgstr "C'est la même date"
 
 #: src/views/DateView.vala:143
 msgid "Starting from"
-msgstr ""
+msgstr "À partir du"
 
 #: src/views/DateView.vala:153 src/views/ConvTimeView.vala:54
 msgid "Day"
-msgstr ""
+msgstr "Jour"
 
 #: src/views/DateView.vala:167 src/views/ConvTimeView.vala:56
 msgid "Month"
-msgstr ""
+msgstr "Mois"
 
 #: src/views/DateView.vala:181 src/views/ConvTimeView.vala:57
 msgid "Year"
-msgstr ""
+msgstr "Année"
 
 #: src/views/DateView.vala:212
 msgid "The Date will be"
-msgstr ""
+msgstr "La date sera"
 
 #: src/views/DateView.vala:218
 msgid "Set a duration"
-msgstr ""
+msgstr "Définissez une durée"
 
 #: src/views/DateView.vala:223
 msgid "Days, months or year"
-msgstr ""
+msgstr "Jours, mois ou années"
 
 #: src/views/DateView.vala:299 src/views/DateView.vala:344
 msgid "day"
-msgstr ""
+msgstr "jour"
 
 #: src/views/DateView.vala:299 src/views/DateView.vala:344
 msgid "days"
-msgstr ""
+msgstr "jours"
 
 #: src/views/DateView.vala:300
 #, c-format
 msgid "A total of %s"
-msgstr ""
+msgstr "Un total de %s"
 
 #: src/views/DateView.vala:316
 msgid "year"
-msgstr ""
+msgstr "an"
 
 #: src/views/DateView.vala:316
 msgid "years"
-msgstr ""
+msgstr "ans"
 
 #: src/views/DateView.vala:321 src/views/DateView.vala:329
 #: src/views/DateView.vala:341
 msgid "and"
-msgstr ""
+msgstr "et"
 
 #: src/views/DateView.vala:324
 msgid "month"
-msgstr ""
+msgstr "mois"
 
 #: src/views/DateView.vala:324
 msgid "months"
-msgstr ""
+msgstr "mois"
 
 #: src/views/DateView.vala:332
 msgid "week"
-msgstr ""
+msgstr "semaine"
 
 #: src/views/DateView.vala:332
 msgid "weeks"
-msgstr ""
+msgstr "semaines"
 
 #: src/views/DateView.vala:348
 msgid "counting backwards"
-msgstr ""
+msgstr "en arrière"
 
 #: src/views/DateView.vala:366
 msgid "Monday"
-msgstr ""
+msgstr "Lundi"
 
 #: src/views/DateView.vala:367
 msgid "Tuesday"
-msgstr ""
+msgstr "Mardi"
 
 #: src/views/DateView.vala:368
 msgid "Wednesday"
-msgstr ""
+msgstr "Mercredi"
 
 #: src/views/DateView.vala:369
 msgid "Thursday"
-msgstr ""
+msgstr "Jeudi"
 
 #: src/views/DateView.vala:370
 msgid "Friday"
-msgstr ""
+msgstr "Vendredi"
 
 #: src/views/DateView.vala:371
 msgid "Saturday"
-msgstr ""
+msgstr "Samedi"
 
 #: src/views/DateView.vala:372
 msgid "Sunday"
-msgstr ""
+msgstr "Dimanche"
 
 #: src/views/StatisticsView.vala:125 src/views/BottomPopper.vala:40
 msgid "Reset"
-msgstr ""
+msgstr "Réinitialiser"
 
 #: src/views/StatisticsView.vala:125
 msgid "Clear sample"
-msgstr ""
+msgstr "Effacer l'échantillon"
 
 #: src/views/StatisticsView.vala:137
 msgid "Negative"
-msgstr ""
+msgstr "Négatif"
 
 #: src/views/StatisticsView.vala:159
 msgid "Navigate to the cell on the left"
-msgstr ""
+msgstr "Aller sur la cellule à gauche"
 
 #: src/views/StatisticsView.vala:160
 msgid "Navigate to the cell on the right"
-msgstr ""
+msgstr "Aller sur la cellule à droite"
 
 #: src/views/StatisticsView.vala:161
 msgid "Left click: Add cell, Right click: Insert cell"
-msgstr ""
+msgstr "Click gauche : Ajouter une cellule, Clic droit : Insérer une cellule"
 
 #: src/views/StatisticsView.vala:164
 msgid "Remove current cell"
-msgstr ""
+msgstr "Supprimer la cellule courante"
 
 #: src/views/StatisticsView.vala:166
 msgid "Sample size"
-msgstr ""
+msgstr "Taille de l'échantillon"
 
 #: src/views/StatisticsView.vala:168
 msgid "Mode of the sample data"
-msgstr ""
+msgstr "Mode des données en échantillon"
 
 #: src/views/StatisticsView.vala:174
 msgid "Summation of all data values"
-msgstr ""
+msgstr "Somme de toutes les valeurs"
 
 #: src/views/StatisticsView.vala:176
 msgid "Summation of all data values squared"
-msgstr ""
+msgstr "Somme de tous les carrés des valeurs"
 
 #: src/views/StatisticsView.vala:178
 msgid "Sample variance"
-msgstr ""
+msgstr "Variance de l'échantillon"
 
 #: src/views/StatisticsView.vala:184
 msgid "Mean of squared data values"
-msgstr ""
+msgstr "Moyenne des carrés des valeurs"
 
 #: src/views/StatisticsView.vala:186
 msgid "Standard deviation"
-msgstr ""
+msgstr "Écart-type standard"
 
 #: src/views/StatisticsView.vala:188
 msgid "Memory Recall"
-msgstr ""
+msgstr "Rappel mémoire"
 
 #: src/views/StatisticsView.vala:190
 msgid "Geometric mean"
-msgstr ""
+msgstr "Moyenne géometrique"
 
 #: src/views/StatisticsView.vala:194
 msgid "Population standard deviation"
-msgstr ""
+msgstr "Écart-type standard de la population"
 
 #: src/views/CommonKeyPadConverter.vala:49
 msgid "Clear Entry"
-msgstr ""
+msgstr "Effacer l'entrée"
 
 #: src/views/ConvLengthView.vala:48
 msgid "Nanometre"
-msgstr ""
+msgstr "Nanomètre"
 
 #: src/views/ConvLengthView.vala:49
 msgid "Micron"
-msgstr ""
+msgstr "Micron"
 
 #: src/views/ConvLengthView.vala:50
 msgid "Millimetre"
-msgstr ""
+msgstr "Millimètre"
 
 #: src/views/ConvLengthView.vala:51
 msgid "Centimetre"
-msgstr ""
+msgstr "Centimètre"
 
 #: src/views/ConvLengthView.vala:52
 msgid "Metre"
-msgstr ""
+msgstr "Mètre"
 
 #: src/views/ConvLengthView.vala:53
 msgid "Kilometre"
-msgstr ""
+msgstr "Kilomètre"
 
 #: src/views/ConvLengthView.vala:54
 msgid "Inch"
-msgstr ""
+msgstr "Pouce"
 
 #: src/views/ConvLengthView.vala:55
 msgid "Foot"
-msgstr ""
+msgstr "Pied"
 
 #: src/views/ConvLengthView.vala:56
 msgid "Yard"
-msgstr ""
+msgstr "Yard"
 
 #: src/views/ConvLengthView.vala:57
 msgid "Mile"
-msgstr ""
+msgstr "Mile"
 
 #: src/views/ConvLengthView.vala:58
 msgid "Nautical Mile"
-msgstr ""
+msgstr "Mille nautique"
 
 #: src/views/ConvAreaView.vala:48
 msgid "Square millimetre"
-msgstr ""
+msgstr "Millimètre carré"
 
 #: src/views/ConvAreaView.vala:49
 msgid "Square centimetre"
-msgstr ""
+msgstr "Centimètre carré"
 
 #: src/views/ConvAreaView.vala:50
 msgid "Square metre"
-msgstr ""
+msgstr "Mètre carré"
 
 #: src/views/ConvAreaView.vala:51
 msgid "Square kilometre"
-msgstr ""
+msgstr "Kilomètre carré"
 
 #: src/views/ConvAreaView.vala:52
 msgid "Square inch"
-msgstr ""
+msgstr "Pouce carré"
 
 #: src/views/ConvAreaView.vala:53
 msgid "Square foot"
-msgstr ""
+msgstr "Pied carré"
 
 #: src/views/ConvAreaView.vala:54
 msgid "Square yard"
-msgstr ""
+msgstr "Yard carré"
 
 #: src/views/ConvAreaView.vala:55
 msgid "Hectare"
-msgstr ""
+msgstr "Hectare"
 
 #: src/views/ConvAreaView.vala:56
 msgid "Acre"
-msgstr ""
+msgstr "Demi-hectare"
 
 #: src/views/ConvAreaView.vala:57
 msgid "Square mile"
-msgstr ""
+msgstr "Mile carré"
 
 #: src/views/ConvVolumeView.vala:35
 msgid "Millilitre"
-msgstr ""
+msgstr "Millilitre"
 
 #: src/views/ConvVolumeView.vala:36
 msgid "Cubic centimetre"
-msgstr ""
+msgstr "Centimètre cube"
 
 #: src/views/ConvVolumeView.vala:37
 msgid "Litre"
-msgstr ""
+msgstr "Litre"
 
 #: src/views/ConvVolumeView.vala:38
 msgid "Cubic metre"
-msgstr ""
+msgstr "Mètre cube"
 
 #: src/views/ConvVolumeView.vala:39
 msgid "US teaspoon"
-msgstr ""
+msgstr "Cuillère à café américaine"
 
 #: src/views/ConvVolumeView.vala:40
 msgid "US tablespoon"
-msgstr ""
+msgstr "Cuillère à soupe américaine"
 
 #: src/views/ConvVolumeView.vala:41
 msgid "US fluid ounce"
-msgstr ""
+msgstr "Once liquide américaine"
 
 #: src/views/ConvVolumeView.vala:42
 msgid "US legal cup"
-msgstr ""
+msgstr "Tasse américaine"
 
 #: src/views/ConvVolumeView.vala:43
 msgid "US pint"
-msgstr ""
+msgstr "Pinte américaine"
 
 #: src/views/ConvVolumeView.vala:44
 msgid "US quart"
-msgstr ""
+msgstr "Quinte américaine"
 
 #: src/views/ConvVolumeView.vala:45
 msgid "US gallon"
-msgstr ""
+msgstr "Gallon américain"
 
 #: src/views/ConvVolumeView.vala:46
 msgid "Imperial teaspoon"
-msgstr ""
+msgstr "Cuillère à café impériale"
 
 #: src/views/ConvVolumeView.vala:47
 msgid "Imperial tablespoon"
-msgstr ""
+msgstr "Cuillère à soupe impériale"
 
 #: src/views/ConvVolumeView.vala:48
 msgid "Imperial fluid ounce"
-msgstr ""
+msgstr "Once liquide impériale"
 
 #: src/views/ConvVolumeView.vala:49
 msgid "Imperial cup"
-msgstr ""
+msgstr "Tasse impériale"
 
 #: src/views/ConvVolumeView.vala:50
 msgid "Imperial pint"
-msgstr ""
+msgstr "Pinte impériale"
 
 #: src/views/ConvVolumeView.vala:51
 msgid "Imperial quart"
-msgstr ""
+msgstr "Quinte impériale"
 
 #: src/views/ConvVolumeView.vala:52
 msgid "Imperial gallon"
-msgstr ""
+msgstr "Gallon impérial"
 
 #: src/views/ConvVolumeView.vala:53
 msgid "Cubic inch"
-msgstr ""
+msgstr "Pouce cube"
 
 #: src/views/ConvVolumeView.vala:54
 msgid "Cubic foot"
-msgstr ""
+msgstr "Pied cube"
 
 #: src/views/ConvVolumeView.vala:55
 msgid "Cubic yard"
-msgstr ""
+msgstr "Yard cube"
 
 #: src/views/ConvTimeView.vala:49
 msgid "Microsecond"
-msgstr ""
+msgstr "Microseconde"
 
 #: src/views/ConvTimeView.vala:50
 msgid "Millisecond"
-msgstr ""
+msgstr "Milliseconde"
 
 #: src/views/ConvTimeView.vala:51
 msgid "Second"
-msgstr ""
+msgstr "Seconde"
 
 #: src/views/ConvTimeView.vala:52
 msgid "Minute"
-msgstr ""
+msgstr "Minute"
 
 #: src/views/ConvTimeView.vala:53
 msgid "Hour"
-msgstr ""
+msgstr "Heure"
 
 #: src/views/ConvTimeView.vala:55
 msgid "Week"
-msgstr ""
+msgstr "Semaine"
 
 #: src/views/ConvTimeView.vala:58
 msgid "Decade"
-msgstr ""
+msgstr "Décennie"
 
 #: src/views/ConvTimeView.vala:59
 msgid "Century"
-msgstr ""
+msgstr "Siècle"
 
 #: src/views/ConvAngleView.vala:44 src/views/HistoryView.vala:91
 msgid "Degree"
-msgstr ""
+msgstr "Degré"
 
 #: src/views/ConvAngleView.vala:45 src/views/HistoryView.vala:94
 msgid "Radian"
-msgstr ""
+msgstr "Radian"
 
 #: src/views/ConvAngleView.vala:46 src/views/HistoryView.vala:97
 msgid "Gradian"
-msgstr ""
+msgstr "Gradian"
 
 #: src/views/ConvAngleView.vala:47
 msgid "Milliradian"
-msgstr ""
+msgstr "Milliradian"
 
 #: src/views/ConvAngleView.vala:48
 msgid "Second of arc"
-msgstr ""
+msgstr "Degré seconde"
 
 #: src/views/ConvAngleView.vala:49
 msgid "Minute of arc"
-msgstr ""
+msgstr "Degré minute"
 
 #: src/views/ConvSpeedView.vala:45
 msgid "Centimetre per second"
-msgstr ""
+msgstr "Centimètres par seconde"
 
 #: src/views/ConvSpeedView.vala:46
 msgid "Metre per second"
-msgstr ""
+msgstr "Mètres par seconde"
 
 #: src/views/ConvSpeedView.vala:47
 msgid "Kilometre per hour"
-msgstr ""
+msgstr "Kilomètres par heure"
 
 #: src/views/ConvSpeedView.vala:48
 msgid "Foot per second"
-msgstr ""
+msgstr "Pieds par seconde"
 
 #: src/views/ConvSpeedView.vala:49
 msgid "Miles per hour"
-msgstr ""
+msgstr "Miles par heure"
 
 #: src/views/ConvSpeedView.vala:50
 msgid "Knot"
-msgstr ""
+msgstr "Nœud"
 
 #: src/views/ConvSpeedView.vala:51
 msgid "Mach"
-msgstr ""
+msgstr "Mach"
 
 #: src/views/ConvPressView.vala:44
 msgid "Atmosphere"
-msgstr ""
+msgstr "Atmosphère"
 
 #: src/views/ConvPressView.vala:45
 msgid "Bar"
-msgstr ""
+msgstr "Bar"
 
 #: src/views/ConvPressView.vala:46
 msgid "Millimetre of mercury"
-msgstr ""
+msgstr "Millimètre de mercure"
 
 #: src/views/ConvPressView.vala:47
 msgid "Pascal"
-msgstr ""
+msgstr "Pascal"
 
 #: src/views/ConvPressView.vala:48
 msgid "Pound-force / sq-inch"
-msgstr ""
+msgstr "Force de frappe / pouce carré"
 
 #: src/views/ConvPressView.vala:49
 msgid "Torr"
-msgstr ""
+msgstr "Torr"
 
 #: src/views/ConvMassView.vala:48
 msgid "Microgram"
-msgstr ""
+msgstr "Microgramme"
 
 #: src/views/ConvMassView.vala:49
 msgid "Milligram"
-msgstr ""
+msgstr "Milligramme"
 
 #: src/views/ConvMassView.vala:50
 msgid "Gram"
-msgstr ""
+msgstr "Gramme"
 
 #: src/views/ConvMassView.vala:51
 msgid "Kilogram"
-msgstr ""
+msgstr "Kilogramme"
 
 #: src/views/ConvMassView.vala:52
 msgid "Tonne"
-msgstr ""
+msgstr "Tonne"
 
 #: src/views/ConvMassView.vala:53
 msgid "US ton"
-msgstr ""
+msgstr "Tonne américaine"
 
 #: src/views/ConvMassView.vala:54
 msgid "Imperial Ton"
-msgstr ""
+msgstr "Tonne impériale"
 
 #: src/views/ConvMassView.vala:55
 msgid "Ounce"
-msgstr ""
+msgstr "Once"
 
 #: src/views/ConvMassView.vala:56
 msgid "Pound"
-msgstr ""
+msgstr "Livre"
 
 #: src/views/ConvMassView.vala:57
 msgid "Stone"
-msgstr ""
+msgstr "Stone"
 
 #: src/views/ConvEnergyView.vala:48
 msgid "Joule"
-msgstr ""
+msgstr "Joule"
 
 #: src/views/ConvEnergyView.vala:49
 msgid "Kilojoule"
-msgstr ""
+msgstr "Kilojoule"
 
 #: src/views/ConvEnergyView.vala:50
 msgid "Gram calorie"
-msgstr ""
+msgstr "Calorie"
 
 #: src/views/ConvEnergyView.vala:51
 msgid "Kilocalorie"
-msgstr ""
+msgstr "Kilocalorie"
 
 #: src/views/ConvEnergyView.vala:52
 msgid "Watt hour"
-msgstr ""
+msgstr "Watt-heure"
 
 #: src/views/ConvEnergyView.vala:53
 msgid "Kilowatt hour"
-msgstr ""
+msgstr "Kilowatt-heure"
 
 #: src/views/ConvEnergyView.vala:55
 msgid "British thermal unit"
-msgstr ""
+msgstr "British thermal unit"
 
 #: src/views/ConvEnergyView.vala:56
 msgid "US therm"
-msgstr ""
+msgstr "Unité de température américaine"
 
 #: src/views/ConvEnergyView.vala:57
 msgid "Foot-pound"
-msgstr ""
+msgstr "Pied-livre"
 
 #: src/views/ConvPowerView.vala:44
 msgid "Watt"
-msgstr ""
+msgstr "Watt"
 
 #: src/views/ConvPowerView.vala:45
 msgid "Kilowatt"
-msgstr ""
+msgstr "Kilowatt"
 
 #: src/views/ConvPowerView.vala:46
 msgid "Metric horsepower"
-msgstr ""
+msgstr "Cheval-vapeur"
 
 #: src/views/ConvPowerView.vala:47
 msgid "Mechanical horsepower"
-msgstr ""
+msgstr "Cheval-vapeur mécanique"
 
 #: src/views/ConvPowerView.vala:48
 msgid "Foot-pound / minute"
-msgstr ""
+msgstr "Pied-livre / minute"
 
 #: src/views/ConvPowerView.vala:49
 msgid "BTU / hour"
-msgstr ""
+msgstr "BTU / heure"
 
 #: src/views/ConvTempView.vala:34
 msgid "Celsius"
-msgstr ""
+msgstr "Celsius"
 
 #: src/views/ConvTempView.vala:35
 msgid "Fahrenheit"
-msgstr ""
+msgstr "Fahrenheit"
 
 #: src/views/ConvTempView.vala:36
 msgid "Kelvin"
-msgstr ""
+msgstr "Kelvin"
 
 #: src/views/ConvDataView.vala:60
 msgid "Bit"
-msgstr ""
+msgstr "Bit"
 
 #: src/views/ConvDataView.vala:61
 msgid "Kilobit"
-msgstr ""
+msgstr "Kilobit"
 
 #: src/views/ConvDataView.vala:62
 msgid "Kibibit"
-msgstr ""
+msgstr "Kibibit"
 
 #: src/views/ConvDataView.vala:63
 msgid "Megabit"
-msgstr ""
+msgstr "Mégabit"
 
 #: src/views/ConvDataView.vala:64
 msgid "Mebibit"
-msgstr ""
+msgstr "Mebibit"
 
 #: src/views/ConvDataView.vala:65
 msgid "Gigabit"
-msgstr ""
+msgstr "Gigabit"
 
 #: src/views/ConvDataView.vala:66
 msgid "Gibibit"
-msgstr ""
+msgstr "Gibibit"
 
 #: src/views/ConvDataView.vala:67
 msgid "Terabit"
-msgstr ""
+msgstr "Térabit"
 
 #: src/views/ConvDataView.vala:68
 msgid "Tebibit"
-msgstr ""
+msgstr "Tebibit"
 
 #: src/views/ConvDataView.vala:69
 msgid "Petabit"
-msgstr ""
+msgstr "Pétabit"
 
 #: src/views/ConvDataView.vala:70
 msgid "Pebibit"
-msgstr ""
+msgstr "Pebibit"
 
 #: src/views/ConvDataView.vala:71
 msgid "Byte"
-msgstr ""
+msgstr "Octet"
 
 #: src/views/ConvDataView.vala:72
 msgid "Kilobyte"
-msgstr ""
+msgstr "Kilooctet"
 
 #: src/views/ConvDataView.vala:73
 msgid "Kibibyte"
-msgstr ""
+msgstr "Kibioctet"
 
 #: src/views/ConvDataView.vala:74
 msgid "Megabyte"
-msgstr ""
+msgstr "Mégaoctet"
 
 #: src/views/ConvDataView.vala:75
 msgid "Mebibyte"
-msgstr ""
+msgstr "Mebioctet"
 
 #: src/views/ConvDataView.vala:76
 msgid "Gigabyte"
-msgstr ""
+msgstr "Gigaoctet"
 
 #: src/views/ConvDataView.vala:77
 msgid "Gibibyte"
-msgstr ""
+msgstr "Gibioctet"
 
 #: src/views/ConvDataView.vala:78
 msgid "Terabyte"
-msgstr ""
+msgstr "Téraoctet"
 
 #: src/views/ConvDataView.vala:79
 msgid "Tebibyte"
-msgstr ""
+msgstr "Tebioctet"
 
 #: src/views/ConvDataView.vala:80
 msgid "Petabyte"
-msgstr ""
+msgstr "Pétaoctet"
 
 #: src/views/ConvDataView.vala:81
 msgid "Pebibyte"
-msgstr ""
+msgstr "Pebioctet"
 
 #: src/views/ConvCurrView.vala:55
 msgid "US Dollar"
-msgstr ""
+msgstr "Dollar américain"
 
 #: src/views/ConvCurrView.vala:56
 msgid "Euro"
-msgstr ""
+msgstr "Euro"
 
 #: src/views/ConvCurrView.vala:57
 msgid "British Pounds"
-msgstr ""
+msgstr "Livre Sterling"
 
 #: src/views/ConvCurrView.vala:58
 msgid "Australian Dollar"
-msgstr ""
+msgstr "Dollar australien"
 
 #: src/views/ConvCurrView.vala:59
 msgid "Brazilian Real"
-msgstr ""
+msgstr "Real brésilien"
 
 #: src/views/ConvCurrView.vala:60
 msgid "Canadian Dollar"
-msgstr ""
+msgstr "Dollar canadien"
 
 #: src/views/ConvCurrView.vala:61
 msgid "Chinese Yuan"
-msgstr ""
+msgstr "Yuan chinois"
 
 #: src/views/ConvCurrView.vala:62
 msgid "Indian Rupee"
-msgstr ""
+msgstr "Roupie indienne"
 
 #: src/views/ConvCurrView.vala:63
 msgid "Japanese Yen"
-msgstr ""
+msgstr "Yen japonais"
 
 #: src/views/ConvCurrView.vala:64
 msgid "Russian Ruble"
-msgstr ""
+msgstr "Rouble russe"
 
 #: src/views/ConvCurrView.vala:65
 msgid "South African Rand"
-msgstr ""
+msgstr "Rand sud-africain"
 
 #: src/views/ControlsOverlay.vala:33
 msgid "Common"
-msgstr ""
+msgstr "Commun"
 
 #: src/views/ControlsOverlay.vala:84
 msgid "Unit Converters"
-msgstr ""
+msgstr "Convertisseurs d'unité"
 
 #: src/views/ControlsOverlay.vala:107
 msgid "Pebbles Controls"
-msgstr ""
+msgstr "Contrôles de Pebbles"
 
 #: src/views/HistoryView.vala:47
 msgid "Double click to recall"
-msgstr ""
+msgstr "Double-cliquer pour rappeler"
 
 #: src/views/HistoryView.vala:56
 msgid "History"
-msgstr ""
+msgstr "Historique"
 
 #: src/views/HistoryView.vala:76
 msgid "Input Expression"
-msgstr ""
+msgstr "Expression saisie"
 
 #: src/views/HistoryView.vala:77
 msgid "Angle Mode"
-msgstr ""
+msgstr "Mode angulaire"
 
 #: src/views/HistoryView.vala:78
 msgid "Calculus Mode"
-msgstr ""
+msgstr "Mode de calcul"
 
 #: src/views/HistoryView.vala:79
 msgid "Integral Upper Limit"
-msgstr ""
+msgstr "Limite supérieure de l'intégrale"
 
 #: src/views/HistoryView.vala:80
 msgid "Integral Lower Limit"
-msgstr ""
+msgstr "Limite inférieure de l'intégrale"
 
 #: src/views/HistoryView.vala:81
 msgid "Derivative At Point"
-msgstr ""
+msgstr "Dérivation en un point"
 
 #: src/views/HistoryView.vala:107
 msgid "Integral"
-msgstr ""
+msgstr "Intégrale"
 
 #: src/views/HistoryView.vala:110
 msgid "Derivative"
-msgstr ""
+msgstr "Dérivée"
 
 #: src/views/displays/StatisticsDisplay.vala:145
 msgid "Enter data by adding new cell"
-msgstr ""
+msgstr "Entrez des données en ajoutant une nouvelle cellule"
 
 #: src/core/CurrencyConverter.vala:56
 msgid "Thread support missing. Please wait for web API access…"
 msgstr ""
+"La prise en charge des Thread est manquante. Veuillez patienter pendant "
+"l'accès à l'API Web…"
 
 #: src/core/CurrencyConverter.vala:82
 msgid "Failed to connect to currency exchange service"
-msgstr ""
+msgstr "Échec de la connexion au service de change de devises"
 
 #: src/core/CurrencyConverter.vala:109
 #, c-format
 msgid "Failed to connect to service: %s"
-msgstr ""
+msgstr "Échec de la connexion au service : %s"

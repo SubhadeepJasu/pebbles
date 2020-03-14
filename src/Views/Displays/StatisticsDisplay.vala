@@ -55,9 +55,14 @@ namespace Pebbles {
         public signal void cell_content_changed (string content);
         public signal void navigate_cell (bool navigate_add, bool navigate_left);
 
+        // Settings
+        Pebbles.Settings settings;
+
         construct {
+            settings = Pebbles.Settings.get_default ();
             stats_display_make_ui ();
-            set_result_type (-1);
+            set_result_type (settings.stat_mode_previous);
+            load_saved_sample ();
         }
 
         StatisticsView stats_view;
@@ -125,7 +130,7 @@ namespace Pebbles {
             lcd_status_bar.set_halign (Gtk.Align.END);
 
 
-            answer_label = new Gtk.Label ("0");
+            answer_label = new Gtk.Label (settings.stat_output_text);
             answer_label.set_halign (Gtk.Align.END);
             answer_label.get_style_context ().add_class ("pebbles_h1");
             var answer_scrollable = new Gtk.ScrolledWindow (null, null);
@@ -171,6 +176,7 @@ namespace Pebbles {
         }
 
         public void set_result_type (int type) {
+            settings.stat_mode_previous = type;
             switch (type) {
                 case 0:
                     result_type_label_g.set_opacity (1);
@@ -377,12 +383,15 @@ namespace Pebbles {
             bar_graph.queue_draw ();
         }
 
-        public void insert_cell (bool add_cell) {
+        public void insert_cell (bool add_cell, string? data = null) {
             var cell = new Gtk.Entry ();
             cell.get_style_context ().add_class ("stat_cell");
             cell.has_frame = false;
             cell.width_chars = 16;
             this.input_table.pack_start (cell, false, false, 0);
+            if (data != null) {
+                cell.set_text (data);
+            }
             this.show_all ();
             if (!add_cell) {
                 if (sample_index == -1){
@@ -424,6 +433,7 @@ namespace Pebbles {
             });
             if (i == 0) {
                 add_cell_warning.set_opacity (1.0);
+                settings.stat_input_array = "";
             }
             //  foreach (Gtk.Entry cell in input_table) {
             //      if (i == sample_index) {
@@ -448,6 +458,7 @@ namespace Pebbles {
             });
             cell_content_changed (editable_cell.get_text ());
             update_graph ();
+            save_sample ();
         }
 
         public bool navigate_left () {
@@ -507,6 +518,7 @@ namespace Pebbles {
                 sample_index = -1;
             });
             add_cell_warning.set_opacity (1.0);
+            settings.stat_input_array = "";
             return true;
         }
 
@@ -531,8 +543,21 @@ namespace Pebbles {
             samples.foreach ((cell_data) => {
                 sample_text = sample_text.concat (cell_data, ",");
             });
-            sample_text = sample_text.slice (0, sample_text.len () - 1);
+            sample_text = sample_text.slice (0, sample_text.length - 1);
             return sample_text;
+        }
+
+        private void load_saved_sample () {
+            string tokens = settings.stat_input_array;
+            string[] data = tokens.split (",");
+            for (int i = 0; i < data.length; i++) {
+                insert_cell (true, data[i]);
+            }
+            update_graph ();
+        }
+
+        private void save_sample () {
+            settings.stat_input_array = get_samples ();
         }
 
         // Just eye-candy
@@ -574,8 +599,12 @@ namespace Pebbles {
                 memory_label.set_opacity (1.0);
             } else {
                 memory_label.set_opacity (0.2);
-            }
-            
+            } 
+        }
+
+        public void set_answer_label (string text) {
+            answer_label.set_text (text);
+            settings.stat_output_text = text;
         }
     }
 }

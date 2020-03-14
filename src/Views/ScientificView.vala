@@ -97,6 +97,7 @@ namespace Pebbles {
                 else {
                     display_unit.set_memory_status (true);
                 }
+                settings.sci_memory_value = _memory_reserve.to_string ();
             }
         }
 
@@ -294,12 +295,12 @@ namespace Pebbles {
                 sqr_button.update_label ("\xE2\x88\x9A", _("Square root over number"), {"Q"});
                 pow_root_button.update_label ("<sup>n</sup>\xE2\x88\x9A", _("nth root over number"), {"Z"});
                 expo_power_button.update_label ("e<sup>x</sup>", _("e raised to the power x"), {"W"});
-                sin_button.update_label ("sin<sup>-1</sup>", _("Sine Inverse"), {"S"});
-                cos_button.update_label ("cos<sup>-1</sup>", _("Cosine Inverse"), {"C"});
-                tan_button.update_label ("tan<sup>-1</sup>", _("Tangent Inverse"), {"T"});
-                sinh_button.update_label ("sinh<sup>-1</sup>", _("Hyperbolic Sine Inverse"), {"H"});
-                cosh_button.update_label ("cosh<sup>-1</sup>", _("Hyperbolic Cosine Inverse"), {"O"});
-                tanh_button.update_label ("tanh<sup>-1</sup>", _("Hyperbolic Tangent Inverse"), {"A"});
+                sin_button.update_label ("sin<sup>-1</sup>", _("Inverse Sine"), {"S"});
+                cos_button.update_label ("cos<sup>-1</sup>", _("Inverse Cosine"), {"C"});
+                tan_button.update_label ("tan<sup>-1</sup>", _("Inverse Tangent"), {"T"});
+                sinh_button.update_label ("sinh<sup>-1</sup>", _("Inverse Hyperbolic Sine"), {"H"});
+                cosh_button.update_label ("cosh<sup>-1</sup>", _("Inverse Hyperbolic Cosine"), {"O"});
+                tanh_button.update_label ("tanh<sup>-1</sup>", _("Inverse Hyperbolic Tangent"), {"A"});
                 log_mod_button.update_label ("log\xE2\x82\x93y", _("Log base x"), {"M"});
                 log_cont_base_button.update_label ("ln x", _("Natural Logarithm"), {"L"});
                 perm_comb_button.update_label ("<sup>n</sup>C\xE1\xB5\xA3", _("Combinations"), {"P"});
@@ -342,7 +343,7 @@ namespace Pebbles {
                     break;
                 case ConstantKeyIndex.CONWAY:
                     constant_label_1 = "\xCE\xBB";
-                    constant_desc_1 = _("Conway's constant (lamda)");
+                    constant_desc_1 = _("Conway's constant (lambda)");
                     break;
                 case ConstantKeyIndex.KHINCHIN:
                     constant_label_1 = "K";
@@ -384,7 +385,7 @@ namespace Pebbles {
                     break;
                 case ConstantKeyIndex.CONWAY:
                     constant_label_2 = "\xCE\xBB";
-                    constant_desc_2 = _("Conway's constant (lamda)");
+                    constant_desc_2 = _("Conway's constant (lambda)");
                     break;
                 case ConstantKeyIndex.KHINCHIN:
                     constant_label_2 = "K";
@@ -412,6 +413,7 @@ namespace Pebbles {
             }
         }
         private void sci_make_events () {
+            memory_reserve = double.parse (settings.sci_memory_value);
             result_button.button_press_event.connect ((event) => {
                 display_unit.display_off ();
                 return false;
