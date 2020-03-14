@@ -42,13 +42,9 @@ namespace Pebbles {
         private static void test_scientific (string exp, string what_i_should_get, GlobalAngleUnit? angle_type = GlobalAngleUnit.DEG) {
             ScientificCalculator sci_calc = new ScientificCalculator ();
             var what_i_got = sci_calc.get_result (exp, angle_type);
-            try {
-                if (what_i_got != what_i_should_get) {
-                    stdout.printf ("[ERROR] Given '%s':,\n", exp);
-                    stdout.printf ("        I should get '%s', but I got '%s'!\n", what_i_should_get, what_i_got);
-                }
-            } catch (Error e) {
-                stdout.printf ("[WARNING] Input error\n");
+            if (what_i_got != what_i_should_get) {
+                stdout.printf ("[ERROR] Given '%s':,\n", exp);
+                stdout.printf ("        I should get '%s', but I got '%s'!\n", what_i_should_get, what_i_got);
             }
         }
         private static void test_date_difference (int d1, int m1, int y1, int d2, int m2, int y2, string days, string year, string month, string week, string day) {
