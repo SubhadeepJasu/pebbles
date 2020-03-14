@@ -149,7 +149,7 @@ namespace Pebbles {
             
             // Make Scientific / Calculus View Controls ///////////////
             // Create angle unit button
-            angle_unit_button = new StyledButton ("DEG", "<b>Degrees</b> \xE2\x86\x92 Radians", {"F8"});
+            angle_unit_button = new StyledButton ("DEG", "<b>" + _("Degrees") + "</b> \xE2\x86\x92" + _("Radians"), {"F8"});
             angle_unit_button.set_margin_end (7);
             angle_unit_button.width_request = 50;
             angle_unit_button.clicked.connect (() => {
@@ -159,7 +159,7 @@ namespace Pebbles {
             
             // Create shift switcher
             scientific_header_grid = new Gtk.Grid ();
-            shift_label = new Gtk.Label (_("Shift "));
+            shift_label = new Gtk.Label (_("Shift") + " ");
             shift_label.set_margin_start (2);
             shift_switch = new Gtk.Switch ();
             shift_switch.set_margin_top (4);
@@ -215,7 +215,7 @@ namespace Pebbles {
             });
             // Create shift switcher for programmer view
             programmer_header_grid = new Gtk.Grid ();
-            var shift_label_prog = new Gtk.Label (_("Shift "));
+            var shift_label_prog = new Gtk.Label (_("Shift") + " ");
             shift_label_prog.set_margin_start (2);
             shift_switch_prog = new Gtk.Switch ();
             shift_switch_prog.set_margin_top (4);
@@ -720,17 +720,17 @@ namespace Pebbles {
 
         private void angle_unit_button_label_update () {
             if (settings.global_angle_unit == Pebbles.GlobalAngleUnit.DEG) {
-                angle_unit_button.update_label ("DEG", "<b>Degrees</b> \xE2\x86\x92 Radians", {"F8"});
+                angle_unit_button.update_label ("DEG", "<b>" + _("Degrees") + "</b> \xE2\x86\x92 " + _("Radians"), {"F8"});
                 scientific_view.set_angle_mode_display (0);
                 calculus_view.set_angle_mode_display (0);
             }
             else if (settings.global_angle_unit == Pebbles.GlobalAngleUnit.RAD) {
-                angle_unit_button.update_label ("RAD", "<b>Radians</b> \xE2\x86\x92 Gradians", {"F8"});
+                angle_unit_button.update_label ("RAD", "<b>" + _("Radians") + "</b> \xE2\x86\x92 " + _("Gradians"), {"F8"});
                 scientific_view.set_angle_mode_display (1);
                 calculus_view.set_angle_mode_display (1);
             }
             else if (settings.global_angle_unit == Pebbles.GlobalAngleUnit.GRAD) {
-                angle_unit_button.update_label ("GRA", "<b>Gradians</b> \xE2\x86\x92 Degrees", {"F8"});
+                angle_unit_button.update_label ("GRA", "<b>" + _("Gradians") + "</b> \xE2\x86\x92 " + _("Degrees"), {"F8"});
                 scientific_view.set_angle_mode_display (2);
                 calculus_view.set_angle_mode_display (2);
             }
