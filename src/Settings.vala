@@ -75,8 +75,8 @@ namespace Pebbles {
         public string cal_input_text {get; set;}
         public string cal_output_text {get; set;}
         public string stat_input_array {get; set;}
-        //  public int stat_mode_previous {get; set;}
-        //  public string stat_output_text {get; set;}
+        public int stat_mode_previous {get; set;}
+        public string stat_output_text {get; set;}
         //  public string currency_multipliers {get; set;}
         
         private Settings () {
