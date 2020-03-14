@@ -313,7 +313,7 @@ namespace Pebbles {
                 days_diff_label.set_text ("");
             } else {
                 if (res_yar != "0") {
-                    result_date += (res_yar == "1") ? (((part == 0) ? (_("A")) : (_("a"))) + (" " + _("year"))) : (res_yar + (" " + _("years")));
+                    result_date += res_yar + " " + ((res_yar == "1") ? (_("year")) : (_("years")));
                     part++;
                 }
                 if (res_mon != "0") {
@@ -321,7 +321,7 @@ namespace Pebbles {
                         result_date += (" " + _("and") + " ");
                     else if (part > 0)
                         result_date += ", ";
-                    result_date += (res_mon == "1") ? (((part == 0) ? (_("A")) : (_("a"))) + (" " + _("month"))) : (res_mon + (" " + _("months")));
+                        result_date += res_mon + " " + ((res_mon == "1") ? (_("month")) : (_("months")));
                     part++;
                 }
                 if (res_wek != "0") {
@@ -329,8 +329,8 @@ namespace Pebbles {
                         result_date += (" " + _("and") + " ");
                     else if (part > 0)
                         result_date += ", ";
-                    result_date += (res_wek == "1") ? (((part == 0) ? "1" : (_("a"))) + (" " + _("week"))) : (res_wek + (" " + _("weeks")));
-                    part++;
+                        result_date += res_wek + " " + ((res_wek == "1") ? (_("week")) : (_("weeks")));
+                        part++;
                 }
                 if (res_day != "0") {
                     if (part > 2)
@@ -341,7 +341,7 @@ namespace Pebbles {
                         result_date += (_("and") + " ");
                     else
                         days_diff_label.set_text ("");
-                    result_date += (res_day == "1") ? (((part == 0) ? (_("A")) : (_("a"))) + (" " + _("day"))) : (res_day + (" " + _("days")));
+                        result_date += res_day + " " + ((res_day == "1") ? (_("day")) : (_("days")));
                 }
             }
             if (order >= 1) {
