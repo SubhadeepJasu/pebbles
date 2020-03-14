@@ -409,7 +409,7 @@ namespace Pebbles {
                     break;
                 case ConstantKeyIndex.CONWAY:
                     constant_label_1 = "\xCE\xBB";
-                    constant_desc_1 = _("Conway's constant (lamda)");
+                    constant_desc_1 = _("Conway's constant (lambda)");
                     break;
                 case ConstantKeyIndex.KHINCHIN:
                     constant_label_1 = "K";
@@ -451,7 +451,7 @@ namespace Pebbles {
                     break;
                 case ConstantKeyIndex.CONWAY:
                     constant_label_2 = "\xCE\xBB";
-                    constant_desc_2 = _("Conway's constant (lamda)");
+                    constant_desc_2 = _("Conway's constant (lambda)");
                     break;
                 case ConstantKeyIndex.KHINCHIN:
                     constant_label_2 = "K";

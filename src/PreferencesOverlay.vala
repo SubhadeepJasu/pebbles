@@ -56,7 +56,7 @@ namespace Pebbles {
             constants_select_1.append_text (_("Imaginary number") + "                                      i");
             constants_select_1.append_text (_("Golden ratio (phi)") + "                                       \xCF\x86");
             constants_select_1.append_text (_("Euler–Mascheroni constant (gamma)") + "   \xF0\x9D\x9B\xBE");
-            constants_select_1.append_text (_("Conway's constant (lamda)") + "                      \xCE\xBB");
+            constants_select_1.append_text (_("Conway's constant (lambda)") + "                      \xCE\xBB");
             constants_select_1.append_text (_("Khinchin's constant") + "                                    K");
             constants_select_1.append_text (_("The Feigenbaum constant alpha") + "            \xCE\xB1");
             constants_select_1.append_text (_("The Feigenbaum constant delta") + "             \xCE\xB4");
@@ -70,7 +70,7 @@ namespace Pebbles {
             constants_select_2.append_text (_("Imaginary number") + "                                      i");
             constants_select_2.append_text (_("Golden ratio (phi)") + "                                       \xCF\x86");
             constants_select_2.append_text (_("Euler–Mascheroni constant (gamma)") + "   \xF0\x9D\x9B\xBE");
-            constants_select_2.append_text (_("Conway's constant (lamda)") + "                      \xCE\xBB");
+            constants_select_2.append_text (_("Conway's constant (lambda)") + "                      \xCE\xBB");
             constants_select_2.append_text (_("Khinchin's constant") + "                                    K");
             constants_select_2.append_text (_("The Feigenbaum constant alpha") + "            \xCE\xB1");
             constants_select_2.append_text (_("The Feigenbaum constant delta") + "             \xCE\xB4");
