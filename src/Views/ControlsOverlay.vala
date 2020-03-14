@@ -120,6 +120,16 @@ namespace Pebbles {
             this.destroy_with_parent = true;
             this.modal = true;
             show_all ();
+            make_events ();
+        }
+
+        private void make_events () {
+            this.key_release_event.connect ((event) => {
+                if (event.keyval == KeyboardHandler.KeyMap.ESCAPE) {
+                    this.hide ();
+                }
+                return false;
+            });
         }
     }
 }

@@ -843,6 +843,9 @@ namespace Pebbles {
                 if (event.keyval == KeyboardHandler.KeyMap.F1) {
                     show_controls ();
                 }
+                if (event.keyval == KeyboardHandler.KeyMap.F2) {
+                    show_preferences ();
+                }
                 if (event.keyval == KeyboardHandler.KeyMap.F8) {
                     if (settings.view_index == 0 || settings.view_index == 2) {
                         settings.switch_angle_unit ();
