@@ -29,7 +29,7 @@ namespace Pebbles {
         public void set_data_set (string[] data_points) {
             data_set = new double[data_points.length];
             for (int i = 0; i < data_points.length; i++) {
-                data_set[i] = data_points[i].to_double ();
+                data_set[i] = double.parse(data_points[i]);
             }
             this.cardinality = data_points.length;
         }
