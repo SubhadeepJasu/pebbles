@@ -61,7 +61,7 @@ namespace Pebbles {
             close_button.get_style_context ().add_class ("close");
             close_button.get_style_context ().remove_class ("image-button");
             close_button.margin = 3;
-            close_button.margin_left = 0;
+            close_button.margin_start = 0;
 
             main_entry = new Gtk.Entry ();
             main_entry.margin = 3;
@@ -74,7 +74,7 @@ namespace Pebbles {
             clear_button.get_style_context ().add_class ("close");
             clear_button.get_style_context ().remove_class ("image-button");
             clear_button.margin = 3;
-            clear_button.margin_right = 0;
+            clear_button.margin_end = 0;
 
             all_clear_button = new StyledButton ("AC", (_("All Clear")), {"Delete"});
             all_clear_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
