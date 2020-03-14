@@ -1,6 +1,7 @@
-i18n.gettext('extra',
+# Install metadata translations
+i18n.gettext ('extra',
   args: [
-    '--directory=' + meson.source_root(),
+    '--directory=' + meson.source_root (),
     '--from-code=UTF-8'
   ],
   install: false
