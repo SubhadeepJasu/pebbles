@@ -531,7 +531,7 @@ namespace Pebbles {
             samples.foreach ((cell_data) => {
                 sample_text = sample_text.concat (cell_data, ",");
             });
-            sample_text = sample_text.slice (0, sample_text.len () - 1);
+            sample_text = sample_text.slice (0, sample_text.length - 1);
             return sample_text;
         }
 
