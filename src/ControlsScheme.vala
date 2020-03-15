@@ -50,6 +50,9 @@ namespace Pebbles {
                     _("Last Answer"), "F7"
                 },
                 {
+                    _("Close Dialog"), "Escape"
+                },
+                {
                     _("All Clear"), "Delete"
                 }
             };

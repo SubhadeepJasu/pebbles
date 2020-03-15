@@ -668,6 +668,10 @@ namespace Pebbles {
                     return false;
                 });
 
+                preferences_modal.hide.connect (() => {
+                    preferences_modal = null;
+                });
+
                 preferences_modal.update_settings.connect (() => {
                     scientific_view.load_constant_button_settings ();
                     calculus_view.load_constant_button_settings ();
@@ -842,6 +846,9 @@ namespace Pebbles {
                 }
                 if (event.keyval == KeyboardHandler.KeyMap.F1) {
                     show_controls ();
+                }
+                if (event.keyval == KeyboardHandler.KeyMap.F2) {
+                    show_preferences ();
                 }
                 if (event.keyval == KeyboardHandler.KeyMap.F8) {
                     if (settings.view_index == 0 || settings.view_index == 2) {

@@ -143,7 +143,7 @@ namespace Pebbles {
 
             RETURN       = 65293,
             RETURN_NUMPAD= 65421,
-            ESCAPE       = 27,
+            ESCAPE       = 65307,
             SPACE_BAR    = 32
         }
         public static bool key_is_number (uint key) {

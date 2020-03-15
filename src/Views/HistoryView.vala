@@ -128,6 +128,13 @@ namespace Pebbles {
                 var result = history.get_nth_evaluation_result (path.get_indices ()[0]);
                 select_eval_result (result);
             });
+
+            this.key_release_event.connect ((event) => {
+                if (event.keyval == KeyboardHandler.KeyMap.ESCAPE) {
+                    this.hide ();
+                }
+                return false;
+            });
         }
     }
 }

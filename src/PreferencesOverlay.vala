@@ -110,7 +110,7 @@ namespace Pebbles {
             this.destroy_with_parent = true;
             this.modal = true;
             show_all ();
-
+            make_events ();
             load_settings ();
         }
 
@@ -196,6 +196,15 @@ namespace Pebbles {
                 constants_select_2.set_active(0);
                 break;
             }
+        }
+        
+        private void make_events () {
+            this.key_release_event.connect ((event) => {
+                if (event.keyval == KeyboardHandler.KeyMap.ESCAPE) {
+                    this.hide ();
+                }
+                return false;
+            });
         }
     }
 }
