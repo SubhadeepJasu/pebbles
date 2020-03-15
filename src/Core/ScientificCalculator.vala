@@ -29,7 +29,7 @@ namespace Pebbles {
         private const double INV_GRAD_VAL = 200 / Math.PI;
         private const double INV_DEG_VAL  = 180 / Math.PI;
 
-        public string get_result (string exp, GlobalAngleUnit angle_mode_in, int? float_accuracy = 0, bool? tokenize = true) {
+        public string get_result (string exp, GlobalAngleUnit angle_mode_in, int? float_accuracy = -1, bool? tokenize = true) {
             var result = exp;
             if (tokenize) {
                 result = Utils.st_tokenize (exp);
