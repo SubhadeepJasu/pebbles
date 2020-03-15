@@ -40,7 +40,7 @@ msgid ""
 "calculator;scientific;programmer;statistics;converter;convert;calculate;"
 "boolean;"
 msgstr ""
-"calculatrice;scientifique;programmeur;statistiques;convertisseur;convertir;calculer;booléen; "
+"calculatrice;scientifique;programmeur;statistiques;convertisseur;convertir;calculer;booléen;"
 
 #: data/com.github.subhadeepjasu.pebbles.desktop.in:17
 msgid "Open in Mini Mode"
