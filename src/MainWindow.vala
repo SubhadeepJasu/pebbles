@@ -668,6 +668,10 @@ namespace Pebbles {
                     return false;
                 });
 
+                preferences_modal.hide.connect (() => {
+                    preferences_modal = null;
+                });
+
                 preferences_modal.update_settings.connect (() => {
                     scientific_view.load_constant_button_settings ();
                     calculus_view.load_constant_button_settings ();

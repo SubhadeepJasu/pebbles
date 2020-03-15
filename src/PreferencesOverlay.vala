@@ -199,7 +199,7 @@ namespace Pebbles {
         }
         
         private void make_events () {
-            this.key_press_event.connect ((event) => {
+            this.key_release_event.connect ((event) => {
                 if (event.keyval == KeyboardHandler.KeyMap.ESCAPE) {
                     this.hide ();
                 }
