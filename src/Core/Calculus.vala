@@ -28,7 +28,7 @@ namespace Pebbles {
             string exp = (string) params;
             Settings settings = Settings.get_default ();
             ScientificCalculator sci_calc = new ScientificCalculator ();
-            string res = sci_calc.get_result (exp.replace ("x", x.to_string ()), settings.global_angle_unit, 0, false).replace (",", "");
+            string res = sci_calc.get_result (exp.replace ("x", x.to_string ()), settings.global_angle_unit, -1, false).replace (",", "");
             return double.parse (res);
         }
 
