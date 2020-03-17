@@ -75,6 +75,9 @@ namespace Pebbles {
         public string sci_memory_value {get; set;} 
         public string cal_input_text {get; set;}
         public string cal_output_text {get; set;}
+        public string cal_integration_upper_limit {get; set;}
+        public string cal_integration_lower_limit {get; set;}
+        public string cal_derivation_limit {get; set;}
         public string stat_input_array {get; set;}
         public int stat_mode_previous {get; set;}
         public string stat_output_text {get; set;}
