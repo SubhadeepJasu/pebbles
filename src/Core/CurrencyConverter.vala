@@ -84,6 +84,7 @@ namespace Pebbles {
             }
             else {
                 currency_updated (muliplier_info);
+                save (muliplier_info);
             }
             return 0;
         }
@@ -110,6 +111,36 @@ namespace Pebbles {
                 return false;
             }
             return true;
+        }
+
+        public double[] load_from_save () {
+            var settings = Settings.get_default ();
+            string data_set = settings.currency_multipliers;
+            double[] multipliers;
+            if (data_set != "") {
+                string[] token = data_set.split (",");
+                multipliers = new double[token.length];
+                for (int i = 0; i < token.length; i++) {
+                    multipliers [i] = double.parse (token [i]);
+                }
+                return multipliers;
+            }
+            return null;
+        }
+
+
+        private void save (double[] multipliers) {
+            string save_data = "";
+            for (int i = 0; i < multipliers.length; i++) {
+                save_data = (save_data + multipliers[i].to_string ());
+                if (i < multipliers.length - 1) {
+                    save_data += ",";
+                }
+            }
+            var date_time = new DateTime.now_local ();
+            var settings = Settings.get_default ();
+            settings.currency_multipliers = save_data;
+            settings.currency_update_date = date_time.format ("%x");
         }
     }
 }

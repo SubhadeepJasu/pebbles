@@ -130,5 +130,15 @@
 			<summary>Output Text from Statistics mode</summary>
 			<description>Ouput Text from Statistics mode</description>
 		</key>
+		<key name="currency-multipliers" type="s">
+			<default>""</default>
+			<summary>Saved forex data</summary>
+			<description>Saved forex data</description>
+		</key>
+		<key name="currency-update-date" type="s">
+			<default>"Never"</default>
+			<summary>Date when currency was last updated</summary>
+			<description>Date when currency was last updated</description>
+		</key>
 		</schema>
 </schemalist>

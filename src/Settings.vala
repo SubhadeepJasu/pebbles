@@ -81,7 +81,8 @@ namespace Pebbles {
         public string stat_input_array {get; set;}
         public int stat_mode_previous {get; set;}
         public string stat_output_text {get; set;}
-        //  public string currency_multipliers {get; set;}
+        public string currency_multipliers {get; set;}
+        public string currency_update_date {get; set;}
         
         private Settings () {
             base ("com.github.subhadeepjasu.pebbles");
