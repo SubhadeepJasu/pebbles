@@ -140,5 +140,135 @@
 			<summary>Date when currency was last updated</summary>
 			<description>Date when currency was last updated</description>
 		</key>
+		<key name="conv-length-from-entry" type="s">
+			<default>"0"</default>
+			<summary>Length converter entries</summary>
+			<description>Length converter entries</description>
+		</key>
+		<key name="conv-length-to-entry" type="s">
+			<default>"0"</default>
+			<summary>Length converter entries</summary>
+			<description>Length converter entries</description>
+		</key>
+		<key name="conv-area-from-entry" type="s">
+			<default>"0"</default>
+			<summary>Area converter entries</summary>
+			<description>Area converter entries</description>
+		</key>
+		<key name="conv-area-to-entry" type="s">
+			<default>"0"</default>
+			<summary>Area converter entries</summary>
+			<description>Area converter entries</description>
+		</key>
+		<key name="conv-angle-from-entry" type="s">
+			<default>"0"</default>
+			<summary>Angle converter entries</summary>
+			<description>Angle converter entries</description>
+		</key>
+		<key name="conv-angle-to-entry" type="s">
+			<default>"0"</default>
+			<summary>Angle converter entries</summary>
+			<description>Angle converter entries</description>
+		</key>
+		<key name="conv-volume-from-entry" type="s">
+			<default>"0"</default>
+			<summary>Volume converter entries</summary>
+			<description>Volume converter entries</description>
+		</key>
+		<key name="conv-volume-to-entry" type="s">
+			<default>"0"</default>
+			<summary>Volume converter entries</summary>
+			<description>Volume converter entries</description>
+		</key>
+		<key name="conv-time-from-entry" type="s">
+			<default>"0"</default>
+			<summary>Time converter entries</summary>
+			<description>Time converter entries</description>
+		</key>
+		<key name="conv-time-to-entry" type="s">
+			<default>"0"</default>
+			<summary>Time converter entries</summary>
+			<description>Time converter entries</description>
+		</key>
+		<key name="conv-speed-from-entry" type="s">
+			<default>"0"</default>
+			<summary>Speed converter entries</summary>
+			<description>Speed converter entries</description>
+		</key>
+		<key name="conv-speed-to-entry" type="s">
+			<default>"0"</default>
+			<summary>Speed converter entries</summary>
+			<description>Speed converter entries</description>
+		</key>
+		<key name="conv-mass-from-entry" type="s">
+			<default>"0"</default>
+			<summary>Mass converter entries</summary>
+			<description>Mass converter entries</description>
+		</key>
+		<key name="conv-mass-to-entry" type="s">
+			<default>"0"</default>
+			<summary>Mass converter entries</summary>
+			<description>Mass converter entries</description>
+		</key>
+		<key name="conv-pressure-from-entry" type="s">
+			<default>"0"</default>
+			<summary>Pressure converter entries</summary>
+			<description>Pressure converter entries</description>
+		</key>
+		<key name="conv-pressure-to-entry" type="s">
+			<default>"0"</default>
+			<summary>Pressure converter entries</summary>
+			<description>Pressure converter entries</description>
+		</key>
+		<key name="conv-energy-from-entry" type="s">
+			<default>"0"</default>
+			<summary>Energy converter entries</summary>
+			<description>Energy converter entries</description>
+		</key>
+		<key name="conv-energy-to-entry" type="s">
+			<default>"0"</default>
+			<summary>Energy converter entries</summary>
+			<description>Energy converter entries</description>
+		</key>
+		<key name="conv-power-from-entry" type="s">
+			<default>"0"</default>
+			<summary>Power converter entries</summary>
+			<description>Power converter entries</description>
+		</key>
+		<key name="conv-power-to-entry" type="s">
+			<default>"0"</default>
+			<summary>Power converter entries</summary>
+			<description>Power converter entries</description>
+		</key>
+		<key name="conv-temp-from-entry" type="s">
+			<default>"0"</default>
+			<summary>Temperature converter entries</summary>
+			<description>Temperature converter entries</description>
+		</key>
+		<key name="conv-temp-to-entry" type="s">
+			<default>"32"</default>
+			<summary>Temperature converter entries</summary>
+			<description>Temperature converter entries</description>
+		</key>
+		<key name="conv-data-from-entry" type="s">
+			<default>"0"</default>
+			<summary>Data converter entries</summary>
+			<description>Data converter entries</description>
+		</key>
+		<key name="conv-data-to-entry" type="s">
+			<default>"0"</default>
+			<summary>Data converter entries</summary>
+			<description>Data converter entries</description>
+		</key>
+		<key name="conv-curr-from-entry" type="s">
+			<default>"0"</default>
+			<summary>Currency converter entries</summary>
+			<description>Currency converter entries</description>
+		</key>
+		<key name="conv-curr-to-entry" type="s">
+			<default>"0"</default>
+			<summary>Currency converter entries</summary>
+			<description>Currency converter entries</description>
+		</key>
 		</schema>
 </schemalist>

@@ -30,6 +30,7 @@ namespace Pebbles {
         private Gtk.ComboBoxText from_unit;
         private Gtk.ComboBoxText to_unit;
         private Gtk.Button interchange_button;
+        private Settings settings;
 
         private const double[] unit_multipliers = {
             0.000009869,
@@ -50,6 +51,8 @@ namespace Pebbles {
         };
 
         construct {
+            settings = Settings.get_default ();
+
             conv = new Converter (unit_multipliers);
             keypad = new CommonKeyPadConverter ();
             
@@ -62,7 +65,7 @@ namespace Pebbles {
             
             // Make Upper Unit Box
             from_entry = new Gtk.Entry ();
-            from_entry.set_text ("0");
+            from_entry.set_text (settings.conv_pressure_from_entry);
             from_entry.get_style_context ().add_class ("Pebbles_Conversion_Text_Box");
             from_entry.max_width_chars = 35;
             from_unit = new Gtk.ComboBoxText ();
@@ -73,7 +76,7 @@ namespace Pebbles {
 
             // Make Lower Unit Box
             to_entry = new Gtk.Entry ();
-            to_entry.set_text ("0");
+            to_entry.set_text (settings.conv_pressure_from_entry);
             to_entry.get_style_context ().add_class ("Pebbles_Conversion_Text_Box");
             to_entry.max_width_chars = 35;
             to_unit = new Gtk.ComboBoxText ();
@@ -183,6 +186,7 @@ namespace Pebbles {
                     string result = conv.convert (double.parse (from_entry.get_text ()), from_unit.active, to_unit.active);
                     to_entry.set_text (result);
                 }
+                save_state ();
             });
 
             to_entry.changed.connect (() => {
@@ -190,6 +194,7 @@ namespace Pebbles {
                     string result = conv.convert (double.parse (to_entry.get_text ()), to_unit.active, from_unit.active);
                     from_entry.set_text (result);
                 }
+                save_state ();
             });
 
             from_unit.changed.connect (() => {
@@ -197,6 +202,7 @@ namespace Pebbles {
                     string result = conv.convert (double.parse (to_entry.get_text ()), to_unit.active, from_unit.active);
                     from_entry.set_text (result);
                 }
+                save_state ();
             });
 
             to_unit.changed.connect (() => {
@@ -204,6 +210,7 @@ namespace Pebbles {
                     string result = conv.convert (double.parse (from_entry.get_text ()), from_unit.active, to_unit.active);
                     to_entry.set_text (result);
                 }
+                save_state ();
             });
 
             interchange_button.clicked.connect (() => {
@@ -273,6 +280,11 @@ namespace Pebbles {
                     this.to_entry.grab_focus_without_selecting ();
                     break;
             }
+        }
+
+        private void save_state () {
+            settings.conv_pressure_from_entry = from_entry.get_text ();
+            settings.conv_pressure_to_entry = to_entry.get_text ();
         }
     }
 }

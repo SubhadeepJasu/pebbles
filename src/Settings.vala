@@ -83,6 +83,32 @@ namespace Pebbles {
         public string stat_output_text {get; set;}
         public string currency_multipliers {get; set;}
         public string currency_update_date {get; set;}
+        public string conv_length_from_entry {get; set;}
+        public string conv_length_to_entry {get; set;}
+        public string conv_area_from_entry {get; set;}
+        public string conv_area_to_entry {get; set;}
+        public string conv_angle_from_entry {get; set;}
+        public string conv_angle_to_entry {get; set;}
+        public string conv_volume_from_entry {get; set;}
+        public string conv_volume_to_entry {get; set;}
+        public string conv_time_from_entry {get; set;}
+        public string conv_time_to_entry {get; set;}
+        public string conv_speed_from_entry {get; set;}
+        public string conv_speed_to_entry {get; set;}
+        public string conv_mass_from_entry {get; set;}
+        public string conv_mass_to_entry {get; set;}
+        public string conv_pressure_from_entry {get; set;}
+        public string conv_pressure_to_entry {get; set;}
+        public string conv_energy_from_entry {get; set;}
+        public string conv_energy_to_entry {get; set;}
+        public string conv_power_from_entry {get; set;}
+        public string conv_power_to_entry {get; set;}
+        public string conv_temp_from_entry {get; set;}
+        public string conv_temp_to_entry {get; set;}
+        public string conv_data_from_entry {get; set;}
+        public string conv_data_to_entry {get; set;}
+        public string conv_curr_from_entry {get; set;}
+        public string conv_curr_to_entry {get; set;}
         
         private Settings () {
             base ("com.github.subhadeepjasu.pebbles");
