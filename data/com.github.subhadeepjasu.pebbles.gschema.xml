@@ -270,5 +270,35 @@
 			<summary>Currency converter entries</summary>
 			<description>Currency converter entries</description>
 		</key>
+		<key name="date-diff-from" type="s">
+			<default>""</default>
+			<summary>Date value from where to count</summary>
+			<description>Date value from where to count</description>
+		</key>
+		<key name="date-diff-to" type="s">
+			<default>""</default>
+			<summary>Date value to where to count</summary>
+			<description>Date value to where to count</description>
+		</key>
+		<key name="date-add-sub" type="s">
+			<default>""</default>
+			<summary>Date value for addition and subtraction</summary>
+			<description>Date value for addition and subtraction</description>
+		</key>
+		<key name="date-day-entry" type="s">
+			<default>""</default>
+			<summary>Day value for counting date</summary>
+			<description>Day value for counting date</description>
+		</key>
+		<key name="date-month-entry" type="s">
+			<default>""</default>
+			<summary>Month value for counting date</summary>
+			<description>Month value for counting date</description>
+		</key>
+		<key name="date-year-entry" type="s">
+			<default>""</default>
+			<summary>Year value for counting date</summary>
+			<description>Year value for counting date</description>
+		</key>
 		</schema>
 </schemalist>

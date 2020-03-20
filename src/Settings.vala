@@ -109,6 +109,12 @@ namespace Pebbles {
         public string conv_data_to_entry {get; set;}
         public string conv_curr_from_entry {get; set;}
         public string conv_curr_to_entry {get; set;}
+        public string date_diff_from {get; set;}
+        public string date_diff_to {get; set;}
+        public string date_add_sub {get; set;}
+        public string date_day_entry {get; set;}
+        public string date_month_entry {get; set;}
+        public string date_year_entry {get; set;}
         
         private Settings () {
             base ("com.github.subhadeepjasu.pebbles");
