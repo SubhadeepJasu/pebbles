@@ -275,6 +275,11 @@ namespace Pebbles {
             int_limit_a.margin_start = 5;
             int_limit_a.margin_top = 5;
             int_limit_a.placeholder_text = "u";
+            int_limit_a.set_text (settings.cal_integration_upper_limit);
+            int_limit_a.changed.connect (() => {
+                settings.cal_integration_upper_limit = int_limit_a.get_text ();
+            });
+            
             int_limit_b = new Gtk.Entry ();
             int_limit_b.button_release_event.connect (() => {
                 this.editable_entry = int_limit_b;
@@ -286,6 +291,11 @@ namespace Pebbles {
             int_limit_b.margin_start = 5;
             int_limit_b.margin_top = 5;
             int_limit_b.placeholder_text = "l";
+            int_limit_b.set_text (settings.cal_integration_lower_limit);
+            int_limit_b.changed.connect (() => {
+                settings.cal_integration_lower_limit = int_limit_b.get_text ();
+            });
+
             integration_grid.attach (integration_button,            0, 0, 1, 1);
             integration_grid.attach (int_limit_a,                   1, 0, 1, 1);
             integration_grid.attach (int_limit_b,                   2, 0, 1, 1);
@@ -321,6 +331,11 @@ namespace Pebbles {
             int_limit_x.margin_start = 7;
             int_limit_x.margin_top = 5;
             int_limit_x.placeholder_text = "at x";
+            int_limit_x.set_text (settings.cal_derivation_limit);
+            int_limit_x.changed.connect (() => {
+                settings.cal_derivation_limit = int_limit_x.get_text ();
+            });
+
             derivation_grid.attach (derivation_button,              0, 0, 1, 1);
             derivation_grid.attach (int_limit_x,                    1, 0, 1, 1);
             int_limit_x.set_icon_from_icon_name (Gtk.EntryIconPosition.SECONDARY,"view-more-symbolic");

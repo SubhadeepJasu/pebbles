@@ -51,13 +51,14 @@ namespace Pebbles {
         
         Gtk.Grid date_diff_grid;
         Gtk.Grid date_add_grid;
+
+        Pebbles.Settings settings;
         
         DateCalculator date_calculator_object;
-        construct {
-            build_ui ();
-        }
         
         public DateView (MainWindow window) {
+            settings = Settings.get_default ();
+            build_ui ();
             this.diff_mode_switch = window.diff_mode_switch;
             this.add_mode_switch = window.add_mode_switch;
             this.date_mode_stack = window.date_mode_stack;
@@ -78,6 +79,7 @@ namespace Pebbles {
                 }
                 return false;
             });
+            load_date ();
         }
         
         private void build_ui () {
@@ -151,6 +153,7 @@ namespace Pebbles {
             
             add_entry_day   = new Gtk.Entry ();
             add_entry_day.placeholder_text = _("Day");
+            add_entry_day.set_text (settings.date_day_entry);
             add_entry_day.max_length  = 3;
             add_entry_day.width_chars = 6;
             add_entry_day.set_icon_from_icon_name (Gtk.EntryIconPosition.SECONDARY,"view-more-symbolic");
@@ -161,10 +164,12 @@ namespace Pebbles {
             add_entry_day.set_input_purpose (Gtk.InputPurpose.NUMBER);
             add_entry_day.changed.connect (() => {
                 find_date (add_mode_switch.get_active ());
+                settings.date_day_entry = add_entry_day.get_text ();
             });
             
             add_entry_month = new Gtk.Entry ();
             add_entry_month.placeholder_text = _("Month");
+            add_entry_month.set_text (settings.date_month_entry);
             add_entry_month.max_length  = 3;
             add_entry_month.width_chars = 6;
             add_entry_month.set_icon_from_icon_name (Gtk.EntryIconPosition.SECONDARY,"view-more-symbolic");
@@ -175,10 +180,12 @@ namespace Pebbles {
             add_entry_month.set_input_purpose (Gtk.InputPurpose.NUMBER);
             add_entry_month.changed.connect (() => {
                 find_date (add_mode_switch.get_active ());
+                settings.date_month_entry = add_entry_month.get_text ();
             });
             
             add_entry_year  = new Gtk.Entry ();
             add_entry_year.placeholder_text = _("Year");
+            add_entry_year.set_text (settings.date_year_entry);
             add_entry_year.max_length  = 3;
             add_entry_year.width_chars = 6;
             add_entry_year.set_icon_from_icon_name (Gtk.EntryIconPosition.SECONDARY,"view-more-symbolic");
@@ -189,6 +196,7 @@ namespace Pebbles {
             add_entry_year.set_input_purpose (Gtk.InputPurpose.NUMBER);
             add_entry_year.changed.connect (() => {
                 find_date (add_mode_switch.get_active ());
+                settings.date_year_entry = add_entry_year.get_text ();
             });
             date_input_grid.attach (add_entry_day, 0, 0, 1, 1);
             date_input_grid.attach (add_entry_month, 1, 0, 1, 1);
@@ -266,12 +274,15 @@ namespace Pebbles {
             
             datepicker_diff_from.changed.connect (() => {
                 do_calculations ();
+                settings.date_diff_from = datepicker_diff_from.date.format ("%FT%T");
             });
             datepicker_diff_to.changed.connect (() => {
                 do_calculations ();
+                settings.date_diff_to = datepicker_diff_to.date.format ("%FT%T");
             });
             datepicker_add_sub.changed.connect (() => {
                 find_date (add_mode_switch.get_active ());
+                settings.date_add_sub = datepicker_add_sub.date.format ("%FT%T");
             });
             
             attach (date_mode, 0, 0, 2, 1);
@@ -407,6 +418,23 @@ namespace Pebbles {
             main_calendar.select_month (given_date.get_month () - 1, given_date.get_year ());
             main_calendar.select_day (given_date.get_day_of_month ());
             date_dmy_label.set_text (formatted_date);
+        }
+
+        private DateTime get_date_from_string (string date_string) {
+            DateTime date;
+            if (date_string != "") {
+                date = new DateTime.from_iso8601 (date_string, new TimeZone.local ());
+            } else {
+                date = new DateTime.now_local ();
+            }
+            
+            return date;
+        }
+
+        private void load_date () {
+            datepicker_diff_from.date = get_date_from_string (settings.date_diff_from);
+            datepicker_diff_to.date = get_date_from_string (settings.date_diff_to);
+            datepicker_add_sub.date = get_date_from_string (settings.date_add_sub);
         }
     }
 }

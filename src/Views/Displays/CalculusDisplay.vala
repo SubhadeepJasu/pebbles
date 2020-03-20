@@ -99,6 +99,17 @@ namespace Pebbles {
             input_entry.set_halign (Gtk.Align.START);
             input_entry.width_request = 530;
             input_entry.max_width_chars = 39;
+
+
+            input_entry.changed.connect (() => {
+                if (input_entry.get_text ().has_prefix ("0") && input_entry.get_text () != null) {
+                    if (input_entry.get_text ().length != 1) {
+                        input_entry.set_text (input_entry.get_text ().slice (1, 2));
+                    }
+                }
+
+                settings.cal_input_text = input_entry.get_text ();
+            });
             
             // Make seperator
             Gtk.Separator lcd_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
