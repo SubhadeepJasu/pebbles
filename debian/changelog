@@ -1,9 +1,18 @@
-com.github.subhadeepjasu.pebbles (1.0.3) UNRELEASED; urgency=medium
+com.github.subhadeepjasu.pebbles (1.0.3) bionic; urgency=medium
 
   [NEW]
-  * Auto-switch to view that was used last time
+  * Save and restore calculator state across invocations
+  * Save currency converter forex data after update
+  * Fix derivative accuracy bug which caused it to output zero everytime
+  [TRANSLATIONS]
+  * French (by Nathan Bonnemains)
+  [FIXED]
+  * Code structure fixed and improved by Nathan Bonnemains
+  * Make Calculus button labels consistent with Scientific view
+  [IMPROVED]
+  * Use Escape Key to close dialogues
 
- -- Subhadeep Jasu <subhadeep@gmail.com>  Tue, 03 Mar 2020 23:01:31 +0530
+ -- Subhadeep Jasu <subhadeep@gmail.com>  Fri, 20 Mar 2020 22:16:01 +0530
 
 com.github.subhadeepjasu.pebbles (1.0.2) bionic; urgency=low
 
