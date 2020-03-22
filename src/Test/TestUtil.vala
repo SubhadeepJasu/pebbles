@@ -47,6 +47,43 @@ namespace Pebbles {
                 stdout.printf ("        I should get '%s', but I got '%s'!\n", what_i_should_get, what_i_got);
             }
         }
+        private static void test_programmer(string input1, string input2) {
+            Programmer prog_calc = new Programmer();
+            string[] input1_arr = input1.split(" ");
+            string[] input2_arr = input2.split(" ");
+            bool[] output;
+            for (int i = 0; i< 64; i++) {
+                if(input1_arr[i] == "0") {
+                    prog_calc.input_a[i] = false;
+                }
+                else {
+                    prog_calc.input_a[i] = true;
+                }
+                
+                if(input2_arr[i] == "0") {
+                    prog_calc.input_b[i] = false;
+                }
+                else {
+                    prog_calc.input_b[i] = true;
+                }
+            }
+            prog_calc.word_size = WordSize.BYTE;
+            print("Binary Addition operation:");
+            prog_calc.add();
+            output = prog_calc.output;
+            for(int i =0; i<64; i++) {
+                print("%s",output[i]?"1":"0");
+            }
+            print("\n");
+            
+            print("Binary Subtraction operation:");
+            prog_calc.subtract();
+            output = prog_calc.output;
+            for(int i =0; i<64; i++) {
+                print("%s",output[i]?"1":"0");
+            }
+            print("\n");
+        }
         private static void test_date_difference (int d1, int m1, int y1, int d2, int m2, int y2, string days, string year, string month, string week, string day) {
             DateTime start_date_time = new DateTime( new TimeZone.local() , y1 , m1 , d1 , 0 , 0 , 0 );
             DateTime end_date_time = new DateTime( new TimeZone.local() , y2 , m2 , d2 , 0 , 0 , 0 );
@@ -232,6 +269,12 @@ namespace Pebbles {
             test_scientific ("10 + 5 - 10%", "14.9");
             test_scientific ("100 + 20%", "120");
             test_scientific ("20% + 100", "100.2");
+            
+            stdout.printf ("\nTesting Programmer New Calculator\n");
+            stdout.printf ("-------------------------------------------------------------\n");
+            
+            test_programmer("0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0", "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1");
+            test_programmer("0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0", "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1");
             
             stdout.printf ("\nTesting Date Difference Calculator\n");
             stdout.printf ("-------------------------------------------------------------\n");
