@@ -60,16 +60,18 @@ namespace Pebbles {
             }
         }
         public bool[] twos_complement(bool[] input) {
-        bool[] result = new bool[64];
+            bool[] result = new bool[64];
             for(int i=0;i<63;i++) {
                 result[i] = !input[i];  //always set carry to false on first iteration
             }
+            //for adding 1 to 1's complement result
             Programmer prog= new Programmer();
             prog.input_a = result;
             for(int i = 0; i<63; i++) {
                 prog.input_b[i] = false;
             }
             prog.input_b[63] = true;
+            prog.word_size = this.word_size;
             prog.add();
             return prog.output;
         }
