@@ -59,14 +59,17 @@ namespace Pebbles {
                 output[i] = full_add(input_a[i], input_b[i]);  //always set carry to false on first iteration
             }
         }
-        public bool[] twos_complement(bool[] input) {
+        public bool[] ones_complement(bool[] input) {
             bool[] result = new bool[64];
             for(int i=0;i<63;i++) {
                 result[i] = !input[i];  //always set carry to false on first iteration
             }
-            //for adding 1 to 1's complement result
+            return result;
+        }
+        public bool[] twos_complement(bool[] input) {
             Programmer prog= new Programmer();
-            prog.input_a = result;
+            prog.input_a = ones_complement(input);
+            //for adding 1 to 1's complement result
             for(int i = 0; i<63; i++) {
                 prog.input_b[i] = false;
             }
