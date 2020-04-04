@@ -183,35 +183,35 @@ namespace Pebbles {
         }
 
         public static string decimal_to_hexadecimal (string dec) {
-	    string hex_num = "";
-	    int64 n = int64.parse (dec);
-        if (n == 0) {
-            return "0";
-        }
-	    while (n != 0) {
-	        int64 temp  = n % 16;
-	        if ( temp < 10 ) {
-		    hex_num = hex_num.concat(temp.to_string());
+	        string hex_num = "";
+	        int64 n = int64.parse (dec);
+            if (n == 0) {
+                return "0";
+            }
+	        while (n != 0) {
+	            int64 temp  = n % 16;
+	            if ( temp < 10 ) {
+		            hex_num = hex_num.concat(temp.to_string());
+	            }
+	            else {
+		            switch (temp) {
+		            case 10 : hex_num = hex_num.concat ("a");
+			            break;
+		            case 11 : hex_num = hex_num.concat ("b");
+			            break;
+		            case 12 : hex_num = hex_num.concat ("c");
+			            break;
+		            case 13 : hex_num = hex_num.concat ("d");
+			            break;
+		            case 14 : hex_num = hex_num.concat ("e");
+			            break;
+		            case 15 : hex_num = hex_num.concat ("f");
+			            break;
+		            }
+	            }
+	            n = n / 16;
 	        }
-	        else {
-		    switch (temp) {
-		        case 10 : hex_num = hex_num.concat ("a");
-			          break;
-		        case 11 : hex_num = hex_num.concat ("b");
-			          break;
-		        case 12 : hex_num = hex_num.concat ("c");
-			          break;
-		        case 13 : hex_num = hex_num.concat ("d");
-			          break;
-		        case 14 : hex_num = hex_num.concat ("e");
-			          break;
-		        case 15 : hex_num = hex_num.concat ("f");
-			          break;
-		    }
-	        }
-	        n = n / 16;
-	    }
-	    return hex_num.reverse ();
+	        return hex_num.reverse ();
         }
 
         public static string decimal_to_octal (string dec) {
