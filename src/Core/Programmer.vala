@@ -77,6 +77,40 @@ namespace Pebbles {
             add(input_a, input_b_copy);
             return output;
         }
+        public bool multiply_two_bits (bool a, bool b) {
+            if(a == true && b == true) {
+                return true;
+            }
+            return false;
+        }
+        public bool[] multiply (bool[] input_a, bool[] input_b) {
+            bool[] input_a_copy =new bool[64];
+            bool[] input_b_copy =new bool[64];
+            for(int i=0; i<64-word_size;i++) {
+                input_a_copy[i] = false;
+                input_b_copy[i] = false;
+            }
+            for(int i=64-word_size; i<64;i++) {
+                input_a_copy[i] = input_a[i];
+                input_b_copy[i] = input_b[i];
+            }
+            //bool[,] each_bit_product = new bool[64,64];
+            bool[] bit_product = new bool[64];
+            bool[] sum_of_products = new bool[64];
+            int k=0;
+            for (int i=63;i>=64-word_size;i--) {
+                for (int j=63-k; j>=64-word_size; j--) {
+                    //each_bit_product[i,j] = multiply_two_bits(input_a_copy[j+k], input_b_copy[i]);
+                    bit_product[j] = multiply_two_bits(input_a_copy[j+k], input_b_copy[i]);
+                    
+                }
+                k++;
+                carry = false;
+                sum_of_products = add(sum_of_products,bit_product);
+            }
+            output = sum_of_products;
+            return output;
+        }
         public bool[] and(bool[] input_a, bool[] input_b) {
             for(int i=64-word_size; i<64;i++) {
                 output[i] = input_a[i] && input_b[i];
