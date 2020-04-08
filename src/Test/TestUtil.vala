@@ -29,7 +29,7 @@ namespace Pebbles {
 |__|  |___|___|___|_|___|___|
                              \n");
             stdout.printf ("=============================================================\n\n");
-            stdout.printf ("Copyright (c) 2017-2018 Subhadeep Jasu <subhajasu@gmail.com>\n");
+            stdout.printf ("Copyright (c) 2017-2020 Subhadeep Jasu <subhajasu@gmail.com>\n");
             stdout.printf ("\n=============================================================\n\n");
             stdout.printf ("Running Automatic Tests...\n");
         }

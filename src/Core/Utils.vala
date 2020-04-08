@@ -136,6 +136,46 @@ namespace Pebbles {
                 return "E";
             }
         }
+
+        public string pg_tokenize (string input) {
+            if (check_parenthesis (input)) {
+                var exp = input;
+                exp = exp.replace ("lsh", " [0] ");
+                exp = exp.replace ("rsh", " [1] ");
+                exp = exp.replace ("lr", " [2] ");
+                exp = exp.replace ("rr", " [3] ");
+                exp = exp.replace ("and", " [4] ");
+                exp = exp.replace ("or", " [5] ");
+                exp = exp.replace ("not", " [6] ");
+                exp = exp.replace ("nand", " [7] ");
+                exp = exp.replace ("nor", " [8] ");
+                exp = exp.replace ("xor", " [9] ");
+                exp = exp.replace ("xnor", " [10] ");
+                exp = exp.replace ("mod", " [11] ");
+
+                exp = exp.replace ("[0]", " 0 l ");
+                exp = exp.replace ("[1]", " 0 r ");
+                exp = exp.replace ("[2]", " 0 k ");
+                exp = exp.replace ("[3]", " 0 q ");
+                exp = exp.replace ("[4]", " n ");
+                exp = exp.replace ("[5]", " r ");
+                exp = exp.replace ("[6]", " 0 t ");
+                exp = exp.replace ("[7]", " y ");
+                exp = exp.replace ("[8]", " w ");
+                exp = exp.replace ("[9]", " x ");
+                exp = exp.replace ("[10]", " z ");
+                exp = exp.replace ("[11]", " m ");
+
+                exp = exp.strip ();
+                exp = space_removal (exp);
+
+                exp = uniminus_convert (exp);
+
+                return exp;
+            }
+
+            return "E";
+        }
         private static string space_removal(string original) {
             int i = 0,j = 0;
             string result = "";

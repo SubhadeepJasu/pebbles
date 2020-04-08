@@ -328,7 +328,7 @@ namespace Pebbles {
             calc_category.expand_all ();
             calc_category.add (scientific_item);
             calc_category.add (calculus_item);
-            //calc_category.add (programmer_item); // Will be added in a future update
+            calc_category.add (programmer_item); // Will be added in a future update
             calc_category.add (date_item);
             calc_category.add (stats_item);
             //calc_category.add (finance_item);
