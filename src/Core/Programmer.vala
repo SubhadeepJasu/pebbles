@@ -95,18 +95,21 @@ namespace Pebbles {
                 input_b_copy[i] = input_b[i];
             }
             //bool[,] each_bit_product = new bool[64,64];
-            bool[] bit_product = new bool[64];
+            bool[] bit_product;
             bool[] sum_of_products = new bool[64];
             int k=0;
             for (int i=63;i>=64-word_size;i--) {
-                for (int j=63-k; j>=64-word_size; j--) {
-                    //each_bit_product[i,j] = multiply_two_bits(input_a_copy[j+k], input_b_copy[i]);
-                    bit_product[j] = multiply_two_bits(input_a_copy[j+k], input_b_copy[i]);
+                bit_product = new bool[64];
+                if(input_b_copy[i]==true) {
+                    for (int j=63-k; j>=64-word_size; j--) {
+                        //each_bit_product[i,j] = multiply_two_bits(input_a_copy[j+k], input_b_copy[i]);
+                        bit_product[j] = multiply_two_bits(input_a_copy[j+k], input_b_copy[i]);
                     
+                    }
+                    carry = false;
+                    sum_of_products = add(sum_of_products,bit_product);
                 }
                 k++;
-                carry = false;
-                sum_of_products = add(sum_of_products,bit_product);
             }
             output = sum_of_products;
             return output;
