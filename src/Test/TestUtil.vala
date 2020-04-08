@@ -69,6 +69,25 @@ namespace Pebbles {
                     input_b[i] = true;
                 }
             }
+
+            prog_calc.word_size = WordSize.BYTE;
+            print("Binary 1's complement operation:");
+            prog_calc.ones_complement(input_a);
+            output = prog_calc.output;
+            for(int i =0; i<64; i++) {
+                print("%s",output[i]?"1":"0");
+            }
+            print("\n");
+            
+            prog_calc.word_size = WordSize.BYTE;
+            print("Binary 2's complement operation:");
+            prog_calc.twos_complement(input_a);
+            output = prog_calc.output;
+            for(int i =0; i<64; i++) {
+                print("%s",output[i]?"1":"0");
+            }
+            print("\n");
+
             prog_calc.word_size = WordSize.BYTE;
             print("Binary Addition operation:");
             prog_calc.add(input_a, input_b);
@@ -104,6 +123,15 @@ namespace Pebbles {
             print("\n");
 
             prog_calc.word_size = WordSize.BYTE;
+            print("Binary Nand operation:");
+            prog_calc.nand(input_a, input_b);
+            output = prog_calc.output;
+            for(int i =0; i<64; i++) {
+                print("%s",output[i]?"1":"0");
+            }
+            print("\n");
+
+            prog_calc.word_size = WordSize.BYTE;
             print("Binary Or operation:");
             prog_calc.or(input_a, input_b);
             output = prog_calc.output;
@@ -113,8 +141,35 @@ namespace Pebbles {
             print("\n");
 
             prog_calc.word_size = WordSize.BYTE;
+            print("Binary Nor operation:");
+            prog_calc.nor(input_a, input_b);
+            output = prog_calc.output;
+            for(int i =0; i<64; i++) {
+                print("%s",output[i]?"1":"0");
+            }
+            print("\n");
+
+            prog_calc.word_size = WordSize.BYTE;
             print("Binary Xor operation:");
             prog_calc.xor(input_a, input_b);
+            output = prog_calc.output;
+            for(int i =0; i<64; i++) {
+                print("%s",output[i]?"1":"0");
+            }
+            print("\n");
+
+            prog_calc.word_size = WordSize.BYTE;
+            print("Binary Xnor operation:");
+            prog_calc.xnor(input_a, input_b);
+            output = prog_calc.output;
+            for(int i =0; i<64; i++) {
+                print("%s",output[i]?"1":"0");
+            }
+            print("\n");
+
+            prog_calc.word_size = WordSize.BYTE;
+            print("Binary Not operation:");
+            prog_calc.not(input_a);
             output = prog_calc.output;
             for(int i =0; i<64; i++) {
                 print("%s",output[i]?"1":"0");
