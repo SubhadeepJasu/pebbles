@@ -21,6 +21,14 @@
 
 namespace Pebbles {
     public class Utils {
+        public static string get_local_radix_symbol () {
+            return Posix.nl_langinfo (Posix.NLItem.RADIXCHAR);
+        }
+
+        public static string get_local_separator_symbol () {
+            return Posix.nl_langinfo (Posix.NLItem.THOUSEP);
+        }
+
         public static bool check_parenthesis (string exp) {
             int bracket_balance = 0;
             for (int i = 0; i < exp.length; i++) {
@@ -156,20 +164,24 @@ namespace Pebbles {
             return result;
         }
         private static string uniminus_convert (string exp) {
+            print(">%s<\n", exp);
             string uniminus_converted = "";
             string[] tokens = exp.split (" ");
-            for (int i = 1; i < tokens.length; i++) {
+            for (int i = 0; i < tokens.length; i++) {
                 if (tokens[i] == "-") {
-                    if (tokens [i - 1] == ")" || tokens [i - 1] == "x" || is_number (tokens [i - 1]) ) {
+                    print("token: %d\n", i);
+                    if (i == 0) {
+                        tokens [i] = "u";
+                    } else if (tokens [i - 1] == ")" || tokens [i - 1] == "x" || is_number (tokens [i - 1]) ) {
                         tokens [i] = "-";
-                    }
-                    else {
+                    } else {
                         tokens [i] = "u";
                     }
                 }
             }
             uniminus_converted = string.joinv (" ", tokens);
             uniminus_converted = uniminus_converted.replace ("u", "0 u");
+            print("converted: %s\n", uniminus_converted);
             return uniminus_converted;
         }
         

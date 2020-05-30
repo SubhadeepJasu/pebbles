@@ -311,6 +311,7 @@ namespace Pebbles {
 
             // Take care of float accuracy of the result
             string output = Utils.manage_decimal_places (values.pop (), float_accuracy);
+            output = output.replace (".", Utils.get_local_radix_symbol ());
 
             // Remove trailing 0s and decimals
             while (output.has_suffix ("0")) {
@@ -322,7 +323,7 @@ namespace Pebbles {
 
             // Insert separator symbol in large numbers
             StringBuilder output_builder = new StringBuilder (output);
-            var decimalPos = output.last_index_of (".");
+            var decimalPos = output.last_index_of (Utils.get_local_radix_symbol ());
             if (decimalPos == -1) {
                 decimalPos = output.length;
             }
@@ -333,7 +334,7 @@ namespace Pebbles {
                 end_position = 1;
             }
             for (int i = decimalPos - 3; i > end_position; i -= 3) {
-                output_builder.insert (i, ",");
+                output_builder.insert (i, Utils.get_local_separator_symbol ());
             }
             
             if (output_builder.str == "-0") {
