@@ -183,7 +183,7 @@ namespace Pebbles {
 
             from_entry.changed.connect (() => {
                 if (from_to == 0 && allow_change) {
-                    string result = conv.convert (double.parse (from_entry.get_text ()), from_unit.active, to_unit.active);
+                    string result = conv.convert ((from_entry.get_text ()), from_unit.active, to_unit.active);
                     to_entry.set_text (result);
                 }
                 save_state ();
@@ -191,7 +191,7 @@ namespace Pebbles {
 
             to_entry.changed.connect (() => {
                 if (from_to == 1 && allow_change) {
-                    string result = conv.convert (double.parse (to_entry.get_text ()), to_unit.active, from_unit.active);
+                    string result = conv.convert ((to_entry.get_text ()), to_unit.active, from_unit.active);
                     from_entry.set_text (result);
                 }
                 save_state ();
@@ -199,7 +199,7 @@ namespace Pebbles {
 
             from_unit.changed.connect (() => {
                 if (allow_change) {
-                    string result = conv.convert (double.parse (to_entry.get_text ()), to_unit.active, from_unit.active);
+                    string result = conv.convert ((to_entry.get_text ()), to_unit.active, from_unit.active);
                     from_entry.set_text (result);
                 }
                 save_state ();
@@ -207,7 +207,7 @@ namespace Pebbles {
 
             to_unit.changed.connect (() => {
                 if (allow_change) {
-                    string result = conv.convert (double.parse (from_entry.get_text ()), from_unit.active, to_unit.active);
+                    string result = conv.convert ((from_entry.get_text ()), from_unit.active, to_unit.active);
                     to_entry.set_text (result);
                 }
                 save_state ();
@@ -218,7 +218,7 @@ namespace Pebbles {
                 int temp = to_unit.active;
                 to_unit.active = from_unit.active;
                 from_unit.active = temp;
-                string result = conv.convert (double.parse (from_entry.get_text ()), from_unit.active, to_unit.active);
+                string result = conv.convert ((from_entry.get_text ()), from_unit.active, to_unit.active);
                 to_entry.set_text (result);
                 allow_change = true;
             });
@@ -266,7 +266,7 @@ namespace Pebbles {
             int temp = to_unit.active;
             to_unit.active = from_unit.active;
             from_unit.active = temp;
-            string result = conv.convert (double.parse (from_entry.get_text ()), from_unit.active, to_unit.active);
+            string result = conv.convert ((from_entry.get_text ()), from_unit.active, to_unit.active);
             to_entry.set_text (result);
             allow_change = true;
         }

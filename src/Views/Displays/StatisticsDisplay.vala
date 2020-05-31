@@ -378,7 +378,7 @@ namespace Pebbles {
         }
 
         public void update_graph () {
-            string[] data_set= get_samples ().split (",");
+            string[] data_set= get_samples ().split ("[&&]");
             bar_graph.set_data_set (data_set);
             bar_graph.queue_draw ();
         }
@@ -541,15 +541,15 @@ namespace Pebbles {
                 samples.append (cell_e.get_text ());
             });
             samples.foreach ((cell_data) => {
-                sample_text = sample_text.concat (cell_data, ",");
+                sample_text = sample_text.concat (cell_data, "[&&]");
             });
-            sample_text = sample_text.slice (0, sample_text.length - 1);
+            sample_text = sample_text.slice (0, sample_text.length - 4);
             return sample_text;
         }
 
         private void load_saved_sample () {
             string tokens = settings.stat_input_array;
-            string[] data = tokens.split (",");
+            string[] data = tokens.split ("[&&]");
             for (int i = 0; i < data.length; i++) {
                 insert_cell (true, data[i]);
             }

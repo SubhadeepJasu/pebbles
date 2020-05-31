@@ -37,14 +37,9 @@ namespace Pebbles {
             }
             angle_mode_sci = angle_mode_in;
             if (result == "E") {
-                return result;
+                return "E";
             }
-            string evaluated_result = evaluate_exp (result, float_accuracy);
-            if (evaluated_result == "nan")
-                evaluated_result = "E";
-            if (evaluated_result == "inf")
-                evaluated_result = "∞";
-            return evaluated_result;
+            return evaluate_exp (result, float_accuracy);
         }
 
         private static bool has_precedence (char op1, char op2) {
@@ -312,36 +307,7 @@ namespace Pebbles {
 
             // Take care of float accuracy of the result
             string output = Utils.manage_decimal_places (values.pop (), float_accuracy);
-            output = output.replace (".", Utils.get_local_radix_symbol ());
-
-            // Remove trailing 0s and decimals
-            while (output.has_suffix ("0")) {
-                output = output.slice (0, -1);
-            }
-            if (output.has_suffix (Utils.get_local_radix_symbol ())) {
-                output = output.slice (0, -1);
-            }
-
-            // Insert separator symbol in large numbers
-            StringBuilder output_builder = new StringBuilder (output);
-            var decimalPos = output.last_index_of (Utils.get_local_radix_symbol ());
-            if (decimalPos == -1) {
-                decimalPos = output.length;
-            }
-            int end_position = 0;
-
-            // Take care of minus sign at the beginning of string, if any
-            if (output.has_prefix ("-")) {
-                end_position = 1;
-            }
-            for (int i = decimalPos - 3; i > end_position; i -= 3) {
-                output_builder.insert (i, Utils.get_local_separator_symbol ());
-            }
-            
-            if (output_builder.str == "-0") {
-                return "0";
-            }
-            return output_builder.str;
+            return output;
         }
         private static bool r_l_associative (string operator) {
             if (operator == "u" || operator == "^" || operator == "") {

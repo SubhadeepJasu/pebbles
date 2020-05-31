@@ -118,7 +118,7 @@ namespace Pebbles {
             string data_set = settings.currency_multipliers;
             double[] multipliers;
             if (data_set != "") {
-                string[] token = data_set.split (",");
+                string[] token = data_set.split ("[&&]");
                 multipliers = new double[token.length];
                 for (int i = 0; i < token.length; i++) {
                     multipliers [i] = double.parse (token [i]);
@@ -134,7 +134,7 @@ namespace Pebbles {
             for (int i = 0; i < multipliers.length; i++) {
                 save_data = (save_data + multipliers[i].to_string ());
                 if (i < multipliers.length - 1) {
-                    save_data += ",";
+                    save_data += "[&&]";
                 }
             }
             var date_time = new DateTime.now_local ();

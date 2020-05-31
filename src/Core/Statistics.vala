@@ -32,7 +32,7 @@ namespace Pebbles
         }
         
         private void string_splitter (string input_vals){
-            tokens = input_vals.split(",");
+            tokens = input_vals.split("[&&]");
             x = new double [tokens.length];
             for(int i = 0; i < tokens.length; i++) { 
                 x[i] = double.parse(tokens[i]);

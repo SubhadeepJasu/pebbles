@@ -191,7 +191,7 @@ namespace Pebbles {
             plus_button = new StyledButton ("+", _("Add"));
             plus_button.get_style_context ().add_class ("h3");
             zero_button = new StyledButton ("0");
-            decimal_button = new StyledButton (".");
+            decimal_button = new StyledButton (Utils.get_local_radix_symbol ());
             left_parenthesis_button = new StyledButton ("(");
             right_parenthesis_button = new StyledButton (")");
             
@@ -605,7 +605,7 @@ namespace Pebbles {
                 display_unit.insert_text ("0");
             });
             decimal_button.clicked.connect (() => {;
-                display_unit.insert_text (".");
+                display_unit.insert_text (Utils.get_local_radix_symbol ());
             });
             left_parenthesis_button.clicked.connect (() => {;
                 display_unit.insert_text ("( ");
@@ -689,7 +689,7 @@ namespace Pebbles {
                         display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
                     if (display_unit.answer_label.get_text () != "E") {
                         var res = display_unit.answer_label.get_text ();
-                        res = res.replace (",", "");
+                        res = res.replace (Utils.get_local_separator_symbol (), "");
                         memory_reserve += double.parse (res);
                     }
                 }
@@ -711,7 +711,7 @@ namespace Pebbles {
                         display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
                     if (display_unit.answer_label.get_text () != "E") {
                         var res = display_unit.answer_label.get_text ();
-                        res = res.replace (",", "");
+                        res = res.replace (Utils.get_local_separator_symbol (), "");
                         memory_reserve -= double.parse (res);
                     }
                 }
@@ -881,7 +881,7 @@ namespace Pebbles {
                 break;
                 case KeyboardHandler.KeyMap.NUMPAD_RADIX:
                 case KeyboardHandler.KeyMap.KEYPAD_RADIX:
-                this.insert_text (".");
+                this.insert_text (Utils.get_local_radix_symbol ());
                 decimal_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
                 break;
                 case KeyboardHandler.KeyMap.X_LOWER:
@@ -1100,7 +1100,7 @@ namespace Pebbles {
                 display_unit.input_entry.grab_focus_without_selecting ();
                 if (display_unit.answer_label.get_text () != "E" && display_unit.answer_label.get_text () != "0") {
                     var res = display_unit.answer_label.get_text ();
-                    res = res.replace (",", "");
+                    res = res.replace (Utils.get_local_separator_symbol (), "");
                     memory_reserve += double.parse (res);
                 }
                 memory_plus_button.get_style_context ().add_class ("Pebbles_Buttons_Memory_Pressed");
@@ -1110,7 +1110,7 @@ namespace Pebbles {
                 display_unit.input_entry.grab_focus_without_selecting ();
                 if (display_unit.answer_label.get_text () != "E" && display_unit.answer_label.get_text () != "0") {
                     var res = display_unit.answer_label.get_text ();
-                    res = res.replace (",", "");
+                    res = res.replace (Utils.get_local_separator_symbol (), "");
                     memory_reserve -= double.parse (res);
                 }
                 memory_minus_button.get_style_context ().add_class ("Pebbles_Buttons_Memory_Pressed");

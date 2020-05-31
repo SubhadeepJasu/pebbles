@@ -184,7 +184,7 @@ namespace Pebbles {
             else {
                 result = sci_calc.get_result (input_entry.get_text (), angle_mode, settings.decimal_places);
             }
-            answer_label.set_text (result);
+            answer_label.set_text (Utils.format_result (result));
             settings.sci_output_text = answer_label.get_text ();
             if (result == "E") {
                 shake ();

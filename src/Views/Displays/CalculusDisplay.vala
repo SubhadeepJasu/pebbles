@@ -176,7 +176,7 @@ namespace Pebbles {
             else {
                 result = Calculus.get_derivative (input_entry.get_text (), angle_mode, dx);
             }
-            answer_label.set_text (result);
+            answer_label.set_text (Utils.format_result (result));
             var settings = Settings.get_default ();
             settings.cal_output_text = result;
             if (result == "E") {
@@ -184,7 +184,7 @@ namespace Pebbles {
             }
             else {
                 this.cal_view.window.history_manager.append_from_strings (input_entry.get_text (), 
-                                                                        result.replace (",", ""),
+                                                                        result.replace (Utils.get_local_separator_symbol (), ""),
                                                                         angle_mode,
                                                                         EvaluationResult.CalculusResultMode.DER,
                                                                         0,
@@ -203,7 +203,7 @@ namespace Pebbles {
             else {
                 result = Calculus.get_definite_integral (input_entry.get_text (), angle_mode, l, u);
             }
-            answer_label.set_text (result);
+            answer_label.set_text (Utils.format_result (result));
             var settings = Settings.get_default ();
             settings.cal_output_text = result;
             if (result == "E") {
@@ -211,7 +211,7 @@ namespace Pebbles {
             }
             else {
                 this.cal_view.window.history_manager.append_from_strings (input_entry.get_text (), 
-                                                                        result.replace (",", ""), 
+                                                                        result.replace (Utils.get_local_separator_symbol (), ""), 
                                                                         angle_mode, 
                                                                         EvaluationResult.CalculusResultMode.INT,
                                                                         u,

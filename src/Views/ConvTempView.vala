@@ -170,7 +170,7 @@ namespace Pebbles {
 
             from_entry.changed.connect (() => {
                 if (from_to == 0 && allow_change) {
-                    string result = TempConverter.convert (double.parse (from_entry.get_text ()), from_unit.active, to_unit.active);
+                    string result = TempConverter.convert ((from_entry.get_text ()), from_unit.active, to_unit.active);
                     to_entry.set_text (result);
                 }
                 save_state ();
@@ -178,7 +178,7 @@ namespace Pebbles {
 
             to_entry.changed.connect (() => {
                 if (from_to == 1 && allow_change) {
-                    string result = TempConverter.convert (double.parse (to_entry.get_text ()), to_unit.active, from_unit.active);
+                    string result = TempConverter.convert ((to_entry.get_text ()), to_unit.active, from_unit.active);
                     from_entry.set_text (result);
                 }
                 save_state ();
@@ -186,7 +186,7 @@ namespace Pebbles {
 
             from_unit.changed.connect (() => {
                 if (allow_change) {
-                    string result = TempConverter.convert (double.parse (to_entry.get_text ()), to_unit.active, from_unit.active);
+                    string result = TempConverter.convert ((to_entry.get_text ()), to_unit.active, from_unit.active);
                     from_entry.set_text (result);
                 }
                 save_state ();
@@ -194,7 +194,7 @@ namespace Pebbles {
 
             to_unit.changed.connect (() => {
                 if (allow_change) {
-                    string result = TempConverter.convert (double.parse (from_entry.get_text ()), from_unit.active, to_unit.active);
+                    string result = TempConverter.convert ((from_entry.get_text ()), from_unit.active, to_unit.active);
                     to_entry.set_text (result);
                 }
                 save_state ();
@@ -205,7 +205,7 @@ namespace Pebbles {
                 int temp = to_unit.active;
                 to_unit.active = from_unit.active;
                 from_unit.active = temp;
-                string result = TempConverter.convert (double.parse (from_entry.get_text ()), from_unit.active, to_unit.active);
+                string result = TempConverter.convert ((from_entry.get_text ()), from_unit.active, to_unit.active);
                 to_entry.set_text (result);
                 allow_change = true;
             });
@@ -252,7 +252,7 @@ namespace Pebbles {
             int temp = to_unit.active;
             to_unit.active = from_unit.active;
             from_unit.active = temp;
-            string result = TempConverter.convert (double.parse (from_entry.get_text ()), from_unit.active, to_unit.active);
+            string result = TempConverter.convert ((from_entry.get_text ()), from_unit.active, to_unit.active);
             to_entry.set_text (result);
             allow_change = true;
         }
@@ -292,7 +292,10 @@ namespace Pebbles {
         static double k_2_f (double k) {
             return ((k - 273.15) * 9/5 + 32);
         }
-        public static string convert (double val, int i, int j) {
+        public static string convert (string input_string, int i, int j) {
+            string input_temp = input_string.replace (Utils.get_local_separator_symbol (), "");
+            input_temp = input_temp.replace(Utils.get_local_radix_symbol (), ".");
+            double val = double.parse (input_temp);
             string output = "";
             if (i == 0) {
                 switch (j) {
