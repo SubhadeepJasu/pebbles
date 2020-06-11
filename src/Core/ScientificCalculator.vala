@@ -65,43 +65,10 @@ namespace Pebbles {
             else if ((op1 == '^' || op1 == 'q') && (op2 == '*' || op2 == '/' || op2 == '-' || op2 == '+' || op2 == 'm')) {
                 return false;
             }
-            else if ((op1 == '*' || op1 == 'm') && (op2 == '/' || op2 == '+' || op2 == '-')) {
+            else if ((op1 == 'm') && (op2 == '/' || op2 == '*' || op2 == '+' || op2 == '-')) {
                 return false;
             }
-            else if ((op1 == '/') && (op2 == '+' || op2 == '-')) {
-                return false;
-            }
-            else {
-                return true;
-            }
-        }
-        private static bool has_precedence_bodmas (char op1, char op2) {
-            if (op2 == '(' || op2 == ')') {
-                return false;
-            }
-            // Following the PEMDAS rule: <http://mathworld.wolfram.com/PEMDAS.html>
-            if (angle_op (op1) && (op2 == '!' || op2 == 'p' || op2 == 'b' || op2 == 'l' || op2 == 'u' || op2 == 'q' || op2 == '^' || op2 == '*' || op2 == '/' || op2 == '-' || op2 == '+' || op2 == 'm')) {
-                return false;
-            }
-            else if ((op1 == '!') && (op2 == 'p' || op2 == 'b' || op2 == 'l' || op2 == 'u' || op2 == 'q' || op2 == '^' || op2 == '*' || op2 == '/' || op2 == '-' || op2 == '+' || op2 == 'm')) {
-                return false;
-            }
-            else if ((op1 == 'p' || op1 == 'b') && (op2 == 'l' || op2 == 'u' || op2 == 'q' || op2 == '^' || op2 == '*' || op2 == '/' || op2 == '-' || op2 == '+' || op2 == 'm')) {
-                return false;
-            }
-            else if ((op1 == 'l') && (op2 == 'u' || op2 == 'q' || op2 == '^' || op2 == '*' || op2 == '/' || op2 == '-' || op2 == '+' || op2 == 'm')) {
-                return false;
-            }
-            else if ((op1 == 'u') && (op2 == '^' || op2 == 'q' || op2 == '*' || op2 == '/' || op2 == '-' || op2 == '+' || op2 == 'm')) {
-                return false;
-            }
-            else if ((op1 == '^' || op1 == 'q') && (op2 == '*' || op2 == '/' || op2 == '-' || op2 == '+' || op2 == 'm')) {
-                return false;
-            }
-            else if ((op1 == '/' || op1 == 'm') && (op2 == '*' || op2 == '+' || op2 == '-')) {
-                return false;
-            }
-            else if ((op1 == '*') && (op2 == '+' || op2 == '-')) {
+            else if ((op1 == '/' || op1 == '*') && (op2 == '+' || op2 == '-')) {
                 return false;
             }
             else {
@@ -314,26 +281,13 @@ namespace Pebbles {
 
                 // If token is an operator
                 else if (is_operator(tokens[i])) {
-                    Settings settings = Settings.get_default ();
-                    if (settings.use_pemdas) {
-                        while (!r_l_associative (tokens[i]) && !ops.empty() && has_precedence_pemdas(tokens[i].get(0), ops.peek())) {
-                            string tmp = apply_op(ops.pop(), values.pop(), values.pop());
-                            if (tmp != "E") {
-                                values.push(double.parse(tmp));
-                            }
-                            else {
-                                return "E";
-                            }
+                    while (!r_l_associative (tokens[i]) && !ops.empty() && has_precedence_pemdas(tokens[i].get(0), ops.peek())) {
+                        string tmp = apply_op(ops.pop(), values.pop(), values.pop());
+                        if (tmp != "E") {
+                            values.push(double.parse(tmp));
                         }
-                    } else {
-                        while (!r_l_associative (tokens[i]) && !ops.empty() && has_precedence_bodmas(tokens[i].get(0), ops.peek())) {
-                            string tmp = apply_op(ops.pop(), values.pop(), values.pop());
-                            if (tmp != "E") {
-                                values.push(double.parse(tmp));
-                            }
-                            else {
-                                return "E";
-                            }
+                        else {
+                            return "E";
                         }
                     }
                     // Push current token to stack

@@ -74,11 +74,6 @@
 			<summary>Number of decimal places after radix</summary>
 			<description>Number of decimal places after radix point.</description>
 		</key>
-		<key name="use-pemdas" type="b">
-			<default>false</default>
-			<summary>Use PEMDAS rule instead of BODMAS</summary>
-			<description>Use PEMDAS rule instead of BODMAS</description>
-		</key>
 		<key name="sci-input-text" type="s">
 			<default>"0"</default>
 			<summary>Input Text from Scientific mode</summary>
