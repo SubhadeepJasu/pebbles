@@ -104,9 +104,6 @@ namespace Pebbles {
             else if ((op1 == '*') && (op2 == '+' || op2 == '-')) {
                 return false;
             }
-            else if ((op1 == '+') && (op2 == '-')) {
-                return false;
-            }
             else {
                 return true;
             }
