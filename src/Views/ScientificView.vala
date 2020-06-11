@@ -102,6 +102,7 @@ namespace Pebbles {
         }
 
         private bool shift_held = false;
+        private bool ctrl_held = false;
 
         public ScientificView (MainWindow window) {
             this.window = window;
@@ -656,6 +657,9 @@ namespace Pebbles {
 
         public void key_pressed (Gdk.EventKey event) {
             this.display_unit.input_entry.grab_focus_without_selecting ();
+            if (event.keyval == KeyboardHandler.KeyMap.CTRL) {
+                ctrl_held = true;
+            }
             switch (event.keyval) {
                 case KeyboardHandler.KeyMap.BACKSPACE:
                 if (del_button.get_sensitive ()) {
@@ -795,8 +799,12 @@ namespace Pebbles {
                 sin_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
                 break;
                 case KeyboardHandler.KeyMap.C_LOWER:
-                display_unit.insert_text ("cos ");
-                cos_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
+                if (ctrl_held) {
+                    display_unit.write_answer_to_clipboard ();
+                } else {
+                    display_unit.insert_text ("cos ");
+                    cos_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
+                }
                 break;
                 case KeyboardHandler.KeyMap.T_LOWER:
                 display_unit.insert_text ("tan ");
@@ -819,8 +827,12 @@ namespace Pebbles {
                 sin_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
                 break;
                 case KeyboardHandler.KeyMap.C_UPPER:
-                display_unit.insert_text ("icos ");
-                cos_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
+                if (ctrl_held) {
+                    display_unit.write_answer_to_clipboard ();
+                } else {
+                    display_unit.insert_text ("icos ");
+                    cos_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
+                }
                 break;
                 case KeyboardHandler.KeyMap.T_UPPER:
                 display_unit.insert_text ("itan ");
@@ -959,6 +971,7 @@ namespace Pebbles {
             memory_minus_button.get_style_context ().remove_class ("Pebbles_Buttons_Memory_Pressed");
             memory_recall_button.get_style_context ().remove_class ("Pebbles_Buttons_Memory_Pressed");
             memory_clear_button.get_style_context ().remove_class ("Pebbles_Buttons_Memory_Pressed");
+            ctrl_held = false;
         }
 
         public void set_evaluation (EvaluationResult result) {

@@ -234,5 +234,16 @@ namespace Pebbles {
 
             answer_label.set_text (result.result);
         }
+
+        public bool write_answer_to_clipboard () {
+            if (!this.sci_view.window.history_manager.is_empty ()) {
+                Gdk.Display display = this.get_display ();
+                Gtk.Clipboard clipboard = Gtk.Clipboard.get_for_display (display, Gdk.SELECTION_CLIPBOARD);
+                string last_answer = this.sci_view.window.history_manager.get_last_evaluation_result ().result;
+                clipboard.set_text (last_answer, -1);
+                return true;
+            }
+            return false;
+        }
     }
 }
