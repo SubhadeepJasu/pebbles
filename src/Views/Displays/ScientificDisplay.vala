@@ -37,13 +37,11 @@ namespace Pebbles {
 
         // Angle mode
         GlobalAngleUnit angle_mode;
-        construct {
-            sci_display_make_ui ();
-        }
         
         ScientificView sci_view;
         public ScientificDisplay (ScientificView view) {
             this.sci_view = view;
+            sci_display_make_ui ();
         }
         private void sci_display_make_ui () {
             var settings = Settings.get_default ();
@@ -130,7 +128,6 @@ namespace Pebbles {
             attach (input_entry, 0, 3, 1, 1);
 
             width_request = 530;
-
         }
 
         public void set_shift_enable (bool s_on) {

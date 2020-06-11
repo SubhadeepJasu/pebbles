@@ -155,7 +155,11 @@ namespace Pebbles {
             all_clear_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
             del_button = new Gtk.Button.from_icon_name ("edit-clear-symbolic", Gtk.IconSize.BUTTON);
             del_button.set_tooltip_text (_("Backspace"));
-            del_button.sensitive = false;
+            if (display_unit.input_entry.get_text () =="0" || display_unit.input_entry.get_text () == "") {
+                del_button.sensitive = false;
+            } else {
+                del_button.sensitive = true;
+            }
             display_unit.input_entry.changed.connect (() => {
                 if (display_unit.input_entry.get_text () == "0" || display_unit.input_entry.get_text () == "")
                     del_button.sensitive = false;
@@ -283,6 +287,7 @@ namespace Pebbles {
             attach (button_container_left, 0, 1, 1, 1);
             attach (button_container_right, 1, 1, 1, 1);
             set_column_homogeneous (true);
+            display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
         }
         public void hold_shift (bool hold) {
             shift_held = hold;
