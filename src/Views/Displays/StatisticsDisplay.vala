@@ -606,5 +606,11 @@ namespace Pebbles {
             answer_label.set_text (text);
             settings.stat_output_text = text;
         }
+        public void write_answer_to_clipboard () {
+            Gdk.Display display = this.get_display ();
+            Gtk.Clipboard clipboard = Gtk.Clipboard.get_for_display (display, Gdk.SELECTION_CLIPBOARD);
+            string last_answer = answer_label.get_text();
+            clipboard.set_text (last_answer, -1);
+        }
     }
 }

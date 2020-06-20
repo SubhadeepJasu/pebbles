@@ -870,13 +870,13 @@ namespace Pebbles {
             key_release_event.connect ((event) => {
                 switch (settings.view_index) {
                     case 0:
-                        scientific_view.key_released ();
+                        scientific_view.key_released (event);
                         break;
                     case 2:
-                        calculus_view.key_released ();
+                        calculus_view.key_released (event);
                         break;
                     case 4:
-                        statistics_view.key_released ();
+                        statistics_view.key_released (event);
                         break;
                     case 5:
                         conv_length_view.key_release_event (event);

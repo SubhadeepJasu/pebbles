@@ -927,7 +927,7 @@ namespace Pebbles {
             }
         }
 
-        public void key_released () {
+        public void key_released (Gdk.EventKey event) {
             display_unit.display_on ();
             del_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
             seven_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
@@ -971,7 +971,9 @@ namespace Pebbles {
             memory_minus_button.get_style_context ().remove_class ("Pebbles_Buttons_Memory_Pressed");
             memory_recall_button.get_style_context ().remove_class ("Pebbles_Buttons_Memory_Pressed");
             memory_clear_button.get_style_context ().remove_class ("Pebbles_Buttons_Memory_Pressed");
-            ctrl_held = false;
+            if (event.keyval == KeyboardHandler.KeyMap.CTRL) {
+                ctrl_held = false;
+            }
         }
 
         public void set_evaluation (EvaluationResult result) {
