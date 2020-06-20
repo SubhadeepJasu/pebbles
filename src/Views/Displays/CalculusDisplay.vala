@@ -104,7 +104,7 @@ namespace Pebbles {
             input_entry.changed.connect (() => {
                 if (input_entry.get_text ().has_prefix ("0") && input_entry.get_text () != null) {
                     if (input_entry.get_text ().length != 1) {
-                        input_entry.set_text (input_entry.get_text ().slice (1, 2));
+                        input_entry.set_text (input_entry.get_text ().slice (1, input_entry.get_text().length));
                     }
                 }
 
@@ -262,6 +262,17 @@ namespace Pebbles {
             input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
 
             answer_label.set_text (result.result);
+        }
+
+        public bool write_answer_to_clipboard () {
+            if (!this.cal_view.window.history_manager.is_empty ()) {
+                Gdk.Display display = this.get_display ();
+                Gtk.Clipboard clipboard = Gtk.Clipboard.get_for_display (display, Gdk.SELECTION_CLIPBOARD);
+                string last_answer = this.cal_view.window.history_manager.get_last_evaluation_result ().result;
+                clipboard.set_text (last_answer, -1);
+                return true;
+            }
+            return false;
         }
     }
 }

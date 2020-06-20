@@ -115,6 +115,7 @@ namespace Pebbles {
         // Keyboard Events
         Gdk.Keymap keymap;
         bool keyboard_shift_status;
+        private bool ctrl_held = false;
 
         public MainWindow () {
             load_settings ();
@@ -856,6 +857,14 @@ namespace Pebbles {
                         this.angle_unit_button_label_update ();
                     }
                 }
+                if (event.keyval == KeyboardHandler.KeyMap.CTRL) {
+                    ctrl_held = true;
+                }
+                if(event.keyval == KeyboardHandler.KeyMap.V_LOWER || event.keyval == KeyboardHandler.KeyMap.V_UPPER) {
+                    if (ctrl_held) {
+                        return false;
+                    }
+                }                
                 return true;
             });
             key_release_event.connect ((event) => {
@@ -911,6 +920,9 @@ namespace Pebbles {
                 }
                 if (event.keyval == 65505) {
                     keyboard_shift_status = false;
+                }
+                if (event.keyval == KeyboardHandler.KeyMap.CTRL) {
+                    ctrl_held = false;
                 }
                 return false;
             });

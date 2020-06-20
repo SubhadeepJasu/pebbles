@@ -106,7 +106,7 @@ namespace Pebbles {
             input_entry.changed.connect (() => {
                     if (input_entry.get_text ().has_prefix ("0") && input_entry.get_text () != null) {
                         if (input_entry.get_text ().length != 1) {
-                            input_entry.set_text (input_entry.get_text ().slice (1, 2));
+                            input_entry.set_text (input_entry.get_text ().slice (1, input_entry.get_text().length));
                         }
                     }
 
@@ -116,6 +116,9 @@ namespace Pebbles {
                 display_on ();
                 return false;
             }); 
+            input_entry.copy_clipboard.connect(() => {
+                this.write_answer_to_clipboard();
+            });
             
             // Make seperator
             Gtk.Separator lcd_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
