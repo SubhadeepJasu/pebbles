@@ -60,6 +60,20 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release date="2020-06-20" version="1.0.4">
+      <description>
+        <p>Fixed:</p>
+        <ul>
+          <li>[UI] Comma and Radix symbols now obey Language &amp; Region settings</li>
+          <li>[UI] Backspace button should now check if input entry has text on start up</li>
+          <li>[Core] Fix precedance with proper PEMDAS rule</li>
+        </ul>
+        <p>Improved:</p>
+        <ul>
+          <li>[UI] Better clipboard system for Scientific, Calculus, Statistics and converters</li>
+        </ul>
+      </description>
+    </release>
     <release date="2020-03-20" version="1.0.3">
       <description>
         <p>New:</p>
