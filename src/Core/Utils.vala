@@ -21,6 +21,50 @@
 
 namespace Pebbles {
     public class Utils {
+        public static string get_local_radix_symbol () {
+            return Posix.nl_langinfo (Posix.NLItem.RADIXCHAR);
+        }
+
+        public static string get_local_separator_symbol () {
+            return Posix.nl_langinfo (Posix.NLItem.THOUSEP);
+        }
+
+        public static string format_result (string result) {
+            string output = result.replace (".", Utils.get_local_radix_symbol ());
+
+            // Remove trailing 0s and decimals
+            while (output.has_suffix ("0")) {
+                output = output.slice (0, -1);
+            }
+            if (output.has_suffix (Utils.get_local_radix_symbol ())) {
+                output = output.slice (0, -1);
+            }
+
+            // Insert separator symbol in large numbers
+            StringBuilder output_builder = new StringBuilder (output);
+            var decimalPos = output.last_index_of (Utils.get_local_radix_symbol ());
+            if (decimalPos == -1) {
+                decimalPos = output.length;
+            }
+            int end_position = 0;
+
+            // Take care of minus sign at the beginning of string, if any
+            if (output.has_prefix ("-")) {
+                end_position = 1;
+            }
+            for (int i = decimalPos - 3; i > end_position; i -= 3) {
+                output_builder.insert (i, Utils.get_local_separator_symbol ());
+            }
+            
+            if (output_builder.str == "-0") {
+                return "0";
+            }
+            if (output_builder.str == "nan")
+                output_builder.str = "E";
+            if (output_builder.str == "inf")
+                output_builder.str = "∞";
+            return output_builder.str;
+        }
         public static bool check_parenthesis (string exp) {
             int bracket_balance = 0;
             for (int i = 0; i < exp.length; i++) {
@@ -156,20 +200,24 @@ namespace Pebbles {
             return result;
         }
         private static string uniminus_convert (string exp) {
+            print(">%s<\n", exp);
             string uniminus_converted = "";
             string[] tokens = exp.split (" ");
-            for (int i = 1; i < tokens.length; i++) {
+            for (int i = 0; i < tokens.length; i++) {
                 if (tokens[i] == "-") {
-                    if (tokens [i - 1] == ")" || tokens [i - 1] == "x" || is_number (tokens [i - 1]) ) {
+                    print("token: %d\n", i);
+                    if (i == 0) {
+                        tokens [i] = "u";
+                    } else if (tokens [i - 1] == ")" || tokens [i - 1] == "x" || is_number (tokens [i - 1]) ) {
                         tokens [i] = "-";
-                    }
-                    else {
+                    } else {
                         tokens [i] = "u";
                     }
                 }
             }
             uniminus_converted = string.joinv (" ", tokens);
             uniminus_converted = uniminus_converted.replace ("u", "0 u");
+            print("converted: %s\n", uniminus_converted);
             return uniminus_converted;
         }
         

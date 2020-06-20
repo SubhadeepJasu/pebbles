@@ -104,7 +104,7 @@ namespace Pebbles {
             input_entry.changed.connect (() => {
                 if (input_entry.get_text ().has_prefix ("0") && input_entry.get_text () != null) {
                     if (input_entry.get_text ().length != 1) {
-                        input_entry.set_text (input_entry.get_text ().slice (1, 2));
+                        input_entry.set_text (input_entry.get_text ().slice (1, input_entry.get_text().length));
                     }
                 }
 
@@ -176,7 +176,7 @@ namespace Pebbles {
             else {
                 result = Calculus.get_derivative (input_entry.get_text (), angle_mode, dx);
             }
-            answer_label.set_text (result);
+            answer_label.set_text (Utils.format_result (result));
             var settings = Settings.get_default ();
             settings.cal_output_text = result;
             if (result == "E") {
@@ -184,7 +184,7 @@ namespace Pebbles {
             }
             else {
                 this.cal_view.window.history_manager.append_from_strings (input_entry.get_text (), 
-                                                                        result.replace (",", ""),
+                                                                        result.replace (Utils.get_local_separator_symbol (), ""),
                                                                         angle_mode,
                                                                         EvaluationResult.CalculusResultMode.DER,
                                                                         0,
@@ -203,7 +203,7 @@ namespace Pebbles {
             else {
                 result = Calculus.get_definite_integral (input_entry.get_text (), angle_mode, l, u);
             }
-            answer_label.set_text (result);
+            answer_label.set_text (Utils.format_result (result));
             var settings = Settings.get_default ();
             settings.cal_output_text = result;
             if (result == "E") {
@@ -211,7 +211,7 @@ namespace Pebbles {
             }
             else {
                 this.cal_view.window.history_manager.append_from_strings (input_entry.get_text (), 
-                                                                        result.replace (",", ""), 
+                                                                        result.replace (Utils.get_local_separator_symbol (), ""), 
                                                                         angle_mode, 
                                                                         EvaluationResult.CalculusResultMode.INT,
                                                                         u,
@@ -262,6 +262,13 @@ namespace Pebbles {
             input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
 
             answer_label.set_text (result.result);
+        }
+
+        public void write_answer_to_clipboard () {
+            Gdk.Display display = this.get_display ();
+            Gtk.Clipboard clipboard = Gtk.Clipboard.get_for_display (display, Gdk.SELECTION_CLIPBOARD);
+            string last_answer = answer_label.get_text().replace(Utils.get_local_separator_symbol(), "");
+            clipboard.set_text (last_answer, -1);
         }
     }
 }

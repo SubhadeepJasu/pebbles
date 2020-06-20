@@ -253,11 +253,11 @@ namespace Pebbles {
             //    result = sci_calc.get_result (main_entry.get_text ().replace ("ans", "2"), GlobalAngleUnit.DEG, accuracy_settings.decimal_places);
             //}
             //else {
-                result = sci_calc.get_result (main_entry.get_text ().replace ("ans", last_answer).replace (",", ""), GlobalAngleUnit.DEG, accuracy_settings.decimal_places);
+                result = sci_calc.get_result (main_entry.get_text ().replace ("ans", last_answer).replace (Utils.get_local_separator_symbol (), ""), GlobalAngleUnit.DEG, accuracy_settings.decimal_places);
             //}
-            main_entry.set_text (result);
+            main_entry.set_text (Utils.format_result(result));
             if (result != "E") {
-                last_answer = result.replace (",", "");
+                last_answer = result.replace (Utils.get_local_separator_symbol (), "");
             }
             main_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
         }

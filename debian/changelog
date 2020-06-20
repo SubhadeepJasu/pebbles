@@ -1,3 +1,14 @@
+com.github.subhadeepjasu.pebbles (1.0.4) bionic; urgency=low
+
+  [FIXED]
+  * Comma and Radix symbols now obey Language and Region settings
+  * Backspace button should now check if input entry has text on start up
+  * Fix precedance with proper PEMDAS rule
+  [IMPROVED]
+  * Better clipboard system for Scientific, Calculus, Statistics and converters
+
+ -- Subhadeep Jasu <subhadeep@gmail.com>  Sat, 20 Jun 2020 21:03:05 +0530
+
 com.github.subhadeepjasu.pebbles (1.0.3) bionic; urgency=medium
 
   [NEW]

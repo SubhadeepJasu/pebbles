@@ -32,7 +32,10 @@ namespace Pebbles {
             }
         }
         Settings settings;
-        public string convert (double input, int unit_a, int unit_b) {
+        public string convert (string input_string, int unit_a, int unit_b) {
+            string input_temp = input_string.replace (Utils.get_local_separator_symbol (), "");
+            input_temp = input_temp.replace(Utils.get_local_radix_symbol (), ".");
+            double input = double.parse (input_temp);
             settings = Settings.get_default ();
             double result = input * (unit_multipliers_list [unit_b] / unit_multipliers_list [unit_a]);
             string output = "";
@@ -42,15 +45,8 @@ namespace Pebbles {
             } else {
                 output = Utils.manage_decimal_places (result, settings.decimal_places);
             }
-            // Remove trailing 0s and decimals
-            while (output.has_suffix ("0")) {
-                output = output.slice (0, -1);
-            }
-            if (output.has_suffix (".")) {
-                output = output.slice (0, -1);
-            }
 
-            return output;
+            return Utils.format_result (output);
         }
         public void update_multipliers (double[] multipliers) {
             unit_multipliers_list = multipliers;
