@@ -32,6 +32,8 @@ namespace Pebbles {
         private Gtk.Button interchange_button;
         private Settings settings;
 
+        bool ctrl_held = false;
+
         private const double[] unit_multipliers = {
             100,
             1,
@@ -146,7 +148,16 @@ namespace Pebbles {
             this.key_press_event.connect ((event) => {
                 keypad.key_pressed (event);
                 grab_focus_on_view_switch ();
+                if (event.keyval == KeyboardHandler.KeyMap.CTRL) {
+                    ctrl_held = true;
+                }
                 switch (event.keyval) {
+                    case KeyboardHandler.KeyMap.C_UPPER:
+                    case KeyboardHandler.KeyMap.C_LOWER:
+                    if (ctrl_held) {
+                        write_answer_to_clipboard ();
+                    }
+                    break;
                     case KeyboardHandler.KeyMap.TAB:
                     case KeyboardHandler.KeyMap.SHIFT_TAB:
                     if (this.from_entry.has_focus) {
@@ -177,9 +188,12 @@ namespace Pebbles {
                 return false;
             });
 
-            this.key_release_event.connect (() => {
+            this.key_release_event.connect ((event) => {
                 keypad.key_released ();
                 interchange_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+                if (event.keyval == KeyboardHandler.KeyMap.CTRL) {
+                    ctrl_held = false;
+                }
                 return false;
             });
 
@@ -287,6 +301,18 @@ namespace Pebbles {
         private void save_state () {
             settings.conv_speed_from_entry = from_entry.get_text ();
             settings.conv_speed_to_entry = to_entry.get_text ();
+        }
+
+        public void write_answer_to_clipboard () {
+            Gdk.Display display = this.get_display ();
+            Gtk.Clipboard clipboard = Gtk.Clipboard.get_for_display (display, Gdk.SELECTION_CLIPBOARD);
+            if (from_to == 0) {
+                string last_answer = to_entry.get_text().replace(Utils.get_local_separator_symbol(), "");
+                clipboard.set_text (last_answer, -1);
+            } else {
+                string last_answer = from_entry.get_text().replace(Utils.get_local_separator_symbol(), "");
+                clipboard.set_text (last_answer, -1);
+            } 
         }
     }
 }
