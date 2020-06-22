@@ -842,6 +842,12 @@ namespace Pebbles {
                         conv_curr_view.key_press_event (event);
                         break;
                 }
+                if (settings.view_index != 4 && 
+                    (event.keyval == KeyboardHandler.KeyMap.NAV_LEFT || 
+                    event.keyval == KeyboardHandler.KeyMap.NAV_RIGHT)
+                ) {
+                    return false;
+                }
                 if (event.keyval == 65505) {
                     keyboard_shift_status = true;
                 }
