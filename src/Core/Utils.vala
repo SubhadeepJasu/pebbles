@@ -171,8 +171,10 @@ namespace Pebbles {
                 exp = exp.strip ();
                 exp = space_removal (exp);
                 
-                // Take care of unary subtraction
-                exp = uniminus_replace (exp);
+                // Intelligently convert expressions based on common rules
+                exp = unary_minus_convert (exp);
+
+                
                 //stdout.printf ("'%s'\n", exp);
                 return exp;
             }
@@ -199,7 +201,7 @@ namespace Pebbles {
             }
             return result;
         }
-        private static string uniminus_replace (string exp) {
+        private static string unary_minus_convert (string exp) {
             print(">%s<\n", exp);
             string uniminus_converted = "";
             string[] tokens = exp.split (" ");
