@@ -172,7 +172,7 @@ namespace Pebbles {
                 exp = space_removal (exp);
                 
                 // Take care of unary subtraction
-                exp = uniminus_convert (exp);
+                exp = uniminus_replace (exp);
                 //stdout.printf ("'%s'\n", exp);
                 return exp;
             }
@@ -199,24 +199,30 @@ namespace Pebbles {
             }
             return result;
         }
-        private static string uniminus_convert (string exp) {
+        private static string uniminus_replace (string exp) {
             print(">%s<\n", exp);
             string uniminus_converted = "";
             string[] tokens = exp.split (" ");
             for (int i = 0; i < tokens.length; i++) {
                 if (tokens[i] == "-") {
-                    print("token: %d\n", i);
+                    print("token: %s\n", tokens[i + 1]);
                     if (i == 0) {
-                        tokens [i] = "u";
+                        if (i < tokens.length) {
+                            tokens [i] = "( 0 u";
+                            tokens [i + 1] = tokens [i + 1] + " )";
+                        }
                     } else if (tokens [i - 1] == ")" || tokens [i - 1] == "x" || is_number (tokens [i - 1]) ) {
                         tokens [i] = "-";
                     } else {
-                        tokens [i] = "u";
+                        if (i < tokens.length) {
+                            tokens [i] = "( 0 u";
+                            tokens [i + 1] = tokens [i + 1] + " )";
+                        }
                     }
                 }
             }
             uniminus_converted = string.joinv (" ", tokens);
-            uniminus_converted = uniminus_converted.replace ("u", "0 u");
+            //uniminus_converted = uniminus_converted.replace ("u", "0 u");
             print("converted: %s\n", uniminus_converted);
             return uniminus_converted;
         }
