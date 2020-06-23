@@ -173,9 +173,11 @@ namespace Pebbles {
                 
                 // Intelligently convert expressions based on common rules
                 exp = unary_minus_convert (exp);
+                //exp = algebraic_variable_product_convert (exp);
 
-                
-                //stdout.printf ("'%s'\n", exp);
+
+                //exp = space_removal (exp);
+                print ("Final exp: " + exp + "\n");
                 return exp;
             }
             else {
@@ -225,8 +227,21 @@ namespace Pebbles {
             }
             uniminus_converted = string.joinv (" ", tokens);
             //uniminus_converted = uniminus_converted.replace ("u", "0 u");
-            print("converted: %s\n", uniminus_converted);
+            print("unary converted: %s\n", uniminus_converted);
             return uniminus_converted;
+        }
+
+        public static string algebraic_variable_product_convert (string exp) {
+            string converted_exp = "";
+            string[] tokens = exp.replace("x", " x ").split (" ");
+            for (int i = 1; i < tokens.length; i++) {
+                if (tokens[i] == "x" && is_number(tokens[i - 1]) && tokens[i - 1] != "(") {
+                    tokens[i] = "* x";
+                }
+            }
+            converted_exp = space_removal(string.joinv (" ", tokens));
+            print("algebraic converted: %s\n", converted_exp);
+            return converted_exp;
         }
         
         private static bool is_number (string exp) {
@@ -240,7 +255,8 @@ namespace Pebbles {
                 exp.has_suffix ("7") ||
                 exp.has_suffix ("8") ||
                 exp.has_suffix ("9") ||
-                exp.has_suffix (".")
+                exp.has_suffix (".") ||
+                exp.has_suffix ("x")
                 ) {
                     return true;
                 }

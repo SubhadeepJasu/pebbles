@@ -36,6 +36,7 @@ namespace Pebbles {
             double result, error;
             
             string revised_exp = Utils.st_tokenize (exp);
+            revised_exp = Utils.algebraic_variable_product_convert (revised_exp);
             char* user_func = new char [revised_exp.length];
             for (int i = 0; i < revised_exp.length; i++) {
                 user_func [i] = (char)revised_exp.get_char (i);
@@ -59,12 +60,14 @@ namespace Pebbles {
         public static string get_definite_integral (string exp, GlobalAngleUnit angle_mode_in, double lower_limit, double upper_limit) {
             // Using Simpson's 3/8 method
             
+            string revised_exp = Utils.st_tokenize (exp);
+            revised_exp = Utils.algebraic_variable_product_convert (revised_exp);
             ScientificCalculator sci_calc = new ScientificCalculator ();
             int accuracy = 40;
             double interval_size = (upper_limit - lower_limit) / accuracy;
             //stdout.printf ("DEBUG: lower_limit = %lf, upper_limit = %lf\n", lower_limit, upper_limit);
-            string exp1 = sci_calc.get_result (exp.replace ("x", lower_limit.to_string()), angle_mode_in);
-            string exp2 = sci_calc.get_result (exp.replace ("x", upper_limit.to_string()), angle_mode_in);
+            string exp1 = sci_calc.get_result (revised_exp.replace ("x", lower_limit.to_string()), angle_mode_in);
+            string exp2 = sci_calc.get_result (revised_exp.replace ("x", upper_limit.to_string()), angle_mode_in);
             
             if (exp1 != "E" && exp2 != "E") {
                 double sum = 0.0;
@@ -84,10 +87,10 @@ namespace Pebbles {
                 // Calculate value till integral limit is reached
                 for (int i = 1; i < accuracy; i++) {
                     if (i % 3 == 0) {
-                        sum = sum + 2 * double.parse (sci_calc.get_result (exp.replace ("x", (lower_limit + i * interval_size).to_string()), angle_mode_in));
+                        sum = sum + 2 * double.parse (sci_calc.get_result (revised_exp.replace ("x", (lower_limit + i * interval_size).to_string()), angle_mode_in));
                     }
                     else {
-                        sum = sum + 3 * double.parse (sci_calc.get_result (exp.replace ("x", (lower_limit + i * interval_size).to_string()), angle_mode_in));
+                        sum = sum + 3 * double.parse (sci_calc.get_result (revised_exp.replace ("x", (lower_limit + i * interval_size).to_string()), angle_mode_in));
                     }
                 }
                 Settings accuracy_settings = Settings.get_default ();
