@@ -172,9 +172,8 @@ namespace Pebbles {
                 exp = space_removal (exp);
                 
                 // Intelligently convert expressions based on common rules
+                exp = algebraic_parenthesis_product_convert (exp);
                 exp = unary_minus_convert (exp);
-                //exp = algebraic_variable_product_convert (exp);
-
 
                 //exp = space_removal (exp);
                 print ("Final exp: " + exp + "\n");
@@ -240,6 +239,25 @@ namespace Pebbles {
                 }
             }
             converted_exp = space_removal(string.joinv (" ", tokens));
+            //print("algebraic converted: %s\n", converted_exp);
+            return converted_exp;
+        }
+
+        public static string algebraic_parenthesis_product_convert (string exp) {
+            string[] tokens = exp.split (" ");
+            for (int i = 1; i < tokens.length - 1; i++) {
+                if (tokens[i] == "(") {
+                    if (is_number (tokens[i - 1])) {
+                        tokens[i] = "* (";
+                    }
+                }
+                if (tokens[i] == ")") {
+                    if (is_number (tokens[i + 1]) || tokens[i + 1] == "(") {
+                        tokens[i] = ") *";
+                    }
+                }
+            }
+            string converted_exp = space_removal(string.joinv (" ", tokens));
             print("algebraic converted: %s\n", converted_exp);
             return converted_exp;
         }
