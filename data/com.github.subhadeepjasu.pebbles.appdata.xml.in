@@ -60,6 +60,16 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release date="2020-07-05" version="1.0.5">
+      <description>
+        <p>Fixed:</p>
+        <ul>
+          <li>[UI] Allow navigation left and right buttons to pass through selectively</li>
+          <li>[Core] Better negative number handling</li>
+          <li>[Core] Implicit multiplication on parenthesis and around variable (x)</li>
+        </ul>
+      </description>
+    </release>
     <release date="2020-06-20" version="1.0.4">
       <description>
         <p>Fixed:</p>

@@ -2,7 +2,7 @@
 project (
     'com.github.subhadeepjasu.pebbles',
     'vala', 'c',
-    version: '1.0.4',
+    version: '1.0.5',
 )
 
 # GNOME module
