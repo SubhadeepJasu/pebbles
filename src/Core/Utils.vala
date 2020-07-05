@@ -171,9 +171,12 @@ namespace Pebbles {
                 exp = exp.strip ();
                 exp = space_removal (exp);
                 
-                // Take care of unary subtraction
-                exp = uniminus_convert (exp);
-                //stdout.printf ("'%s'\n", exp);
+                // Intelligently convert expressions based on common rules
+                exp = algebraic_parenthesis_product_convert (exp);
+                exp = unary_minus_convert (exp);
+
+                //exp = space_removal (exp);
+                print ("Final exp: " + exp + "\n");
                 return exp;
             }
             else {
@@ -199,26 +202,64 @@ namespace Pebbles {
             }
             return result;
         }
-        private static string uniminus_convert (string exp) {
+        private static string unary_minus_convert (string exp) {
             print(">%s<\n", exp);
             string uniminus_converted = "";
             string[] tokens = exp.split (" ");
             for (int i = 0; i < tokens.length; i++) {
                 if (tokens[i] == "-") {
-                    print("token: %d\n", i);
+                    print("token: %s\n", tokens[i + 1]);
                     if (i == 0) {
-                        tokens [i] = "u";
+                        if (i < tokens.length) {
+                            tokens [i] = "( 0 u";
+                            tokens [i + 1] = tokens [i + 1] + " )";
+                        }
                     } else if (tokens [i - 1] == ")" || tokens [i - 1] == "x" || is_number (tokens [i - 1]) ) {
                         tokens [i] = "-";
                     } else {
-                        tokens [i] = "u";
+                        if (i < tokens.length) {
+                            tokens [i] = "( 0 u";
+                            tokens [i + 1] = tokens [i + 1] + " )";
+                        }
                     }
                 }
             }
             uniminus_converted = string.joinv (" ", tokens);
-            uniminus_converted = uniminus_converted.replace ("u", "0 u");
-            print("converted: %s\n", uniminus_converted);
+            //uniminus_converted = uniminus_converted.replace ("u", "0 u");
+            print("unary converted: %s\n", uniminus_converted);
             return uniminus_converted;
+        }
+
+        public static string algebraic_variable_product_convert (string exp) {
+            string converted_exp = "";
+            string[] tokens = exp.replace("x", " x ").split (" ");
+            for (int i = 1; i < tokens.length; i++) {
+                if (tokens[i] == "x" && is_number(tokens[i - 1]) && tokens[i - 1] != "(") {
+                    tokens[i] = "* x";
+                }
+            }
+            converted_exp = space_removal(string.joinv (" ", tokens));
+            //print("algebraic converted: %s\n", converted_exp);
+            return converted_exp;
+        }
+
+        public static string algebraic_parenthesis_product_convert (string exp) {
+            string[] tokens = exp.split (" ");
+            for (int i = 1; i < tokens.length - 1; i++) {
+                if (tokens[i] == "(") {
+                    if (is_number (tokens[i - 1])) {
+                        tokens[i] = "* (";
+                    }
+                }
+                if (tokens[i] == ")") {
+                    if (is_number (tokens[i + 1]) || tokens[i + 1] == "(") {
+                        tokens[i] = ") *";
+                    }
+                }
+            }
+            string converted_exp = space_removal(string.joinv (" ", tokens));
+            print("algebraic converted: %s\n", converted_exp);
+            return converted_exp;
         }
         
         private static bool is_number (string exp) {
@@ -232,7 +273,8 @@ namespace Pebbles {
                 exp.has_suffix ("7") ||
                 exp.has_suffix ("8") ||
                 exp.has_suffix ("9") ||
-                exp.has_suffix (".")
+                exp.has_suffix (".") ||
+                exp.has_suffix ("x")
                 ) {
                     return true;
                 }
