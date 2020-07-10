@@ -60,11 +60,50 @@
     </screenshot>
   </screenshots>
   <releases>
-    <release date="2020-03-03" version="1.0.3">
+    <release date="2020-07-05" version="1.0.5">
+      <description>
+        <p>Fixed:</p>
+        <ul>
+          <li>[UI] Allow navigation left and right buttons to pass through selectively</li>
+          <li>[Core] Better negative number handling</li>
+          <li>[Core] Implicit multiplication on parenthesis and around variable (x)</li>
+        </ul>
+      </description>
+    </release>
+    <release date="2020-06-20" version="1.0.4">
+      <description>
+        <p>Fixed:</p>
+        <ul>
+          <li>[UI] Comma and Radix symbols now obey Language &amp; Region settings</li>
+          <li>[UI] Backspace button should now check if input entry has text on start up</li>
+          <li>[Core] Fix precedance with proper PEMDAS rule</li>
+        </ul>
+        <p>Improved:</p>
+        <ul>
+          <li>[UI] Better clipboard system for Scientific, Calculus, Statistics and converters</li>
+        </ul>
+      </description>
+    </release>
+    <release date="2020-03-20" version="1.0.3">
       <description>
         <p>New:</p>
         <ul>
-          <li>[UI] Auto switch to view that was used last time</li>
+          <li>[UI] Save and restore calculator state across invocations</li>
+          <li>[Converter] Save currency converter forex data after update</li>
+          <li>[Calculus] Fix derivative accuracy bug which caused it to output zero everytime</li>
+        </ul>
+        <p>Translations:</p>
+        <ul>
+          <li>French (by Nathan Bonnemains)</li>
+        </ul>
+        <p>Fixed:</p>
+        <ul>
+          <li>Code structure fixed and improved by Nathan Bonnemains</li>
+          <li>[Calculus] Make Calculus button labels consistent with Scientific view</li>
+        </ul>
+        <p>Improved:</p>
+        <ul>
+          <li>[Controls] Use Escape Key to close dialogues</li>
         </ul>
       </description>
     </release>

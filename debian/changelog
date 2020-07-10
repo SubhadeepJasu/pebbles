@@ -1,9 +1,38 @@
-com.github.subhadeepjasu.pebbles (1.0.3) UNRELEASED; urgency=medium
+com.github.subhadeepjasu.pebbles (1.0.5) bionic; urgency=low
+
+  [FIXED]
+  * Allow navigation left and right buttons to pass through selectively
+  * Better negative number handling
+  * Implicit multiplication on parenthesis and around variable x
+
+ -- Subhadeep Jasu <subhadeep@gmail.com>  Sun, 5 Jul 2020 11:37:45 +0530
+
+com.github.subhadeepjasu.pebbles (1.0.4) bionic; urgency=low
+
+  [FIXED]
+  * Comma and Radix symbols now obey Language and Region settings
+  * Backspace button should now check if input entry has text on start up
+  * Fix precedance with proper PEMDAS rule
+  [IMPROVED]
+  * Better clipboard system for Scientific, Calculus, Statistics and converters
+
+ -- Subhadeep Jasu <subhadeep@gmail.com>  Sat, 20 Jun 2020 21:03:05 +0530
+
+com.github.subhadeepjasu.pebbles (1.0.3) bionic; urgency=medium
 
   [NEW]
-  * Auto-switch to view that was used last time
+  * Save and restore calculator state across invocations
+  * Save currency converter forex data after update
+  * Fix derivative accuracy bug which caused it to output zero everytime
+  [TRANSLATIONS]
+  * French (by Nathan Bonnemains)
+  [FIXED]
+  * Code structure fixed and improved by Nathan Bonnemains
+  * Make Calculus button labels consistent with Scientific view
+  [IMPROVED]
+  * Use Escape Key to close dialogues
 
- -- Subhadeep Jasu <subhadeep@gmail.com>  Tue, 03 Mar 2020 23:01:31 +0530
+ -- Subhadeep Jasu <subhadeep@gmail.com>  Fri, 20 Mar 2020 22:16:01 +0530
 
 com.github.subhadeepjasu.pebbles (1.0.2) bionic; urgency=low
 

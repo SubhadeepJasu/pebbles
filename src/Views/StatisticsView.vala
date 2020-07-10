@@ -62,6 +62,8 @@ namespace Pebbles {
         StyledButton pop_variance_button;
         StyledButton pop_std_dev_button;
         StyledButton memory_clear_button;
+
+        private bool ctrl_held = false;
         
         // Statistics Calculator Memory Store
         private double _memory_reserve;
@@ -541,7 +543,7 @@ namespace Pebbles {
             });
 
             this.key_release_event.connect ((event) => {
-                key_released ();
+                key_released (event);
                 return false;
             });
 
@@ -567,6 +569,9 @@ namespace Pebbles {
         public void key_pressed (Gdk.EventKey event) {
             stdout.printf ("key: %u\n", event.keyval);
             display_unit.set_editable_cell ();
+            if (event.keyval == KeyboardHandler.KeyMap.CTRL) {
+                ctrl_held = true;
+            }
             switch (event.keyval) {
                 case KeyboardHandler.KeyMap.BACKSPACE:
                 display_unit.send_backspace ();
@@ -734,11 +739,13 @@ namespace Pebbles {
                 break;
                 case KeyboardHandler.KeyMap.V_LOWER:
                 case KeyboardHandler.KeyMap.V_UPPER:
-                display_unit.set_result_type (10);
-                Statistics stat_calc = new Statistics(decimal_places);
-                display_unit.set_answer_label (stat_calc.sample_variance (display_unit.get_samples ()));
-                display_unit.display_off ();
-                sample_variance_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
+                if (!ctrl_held) {
+                    display_unit.set_result_type (10);
+                    Statistics stat_calc = new Statistics(decimal_places);
+                    display_unit.set_answer_label (stat_calc.sample_variance (display_unit.get_samples ()));
+                    display_unit.display_off ();
+                    sample_variance_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
+                }
                 break;
                 case KeyboardHandler.KeyMap.M_LOWER:
                 case KeyboardHandler.KeyMap.M_UPPER:
@@ -763,6 +770,12 @@ namespace Pebbles {
                 display_unit.set_answer_label (stat_calc.sample_standard_deviation (display_unit.get_samples ()));
                 display_unit.display_off ();
                 sample_std_dev_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.C_UPPER:
+                case KeyboardHandler.KeyMap.C_LOWER:
+                if (ctrl_held) {
+                    display_unit.write_answer_to_clipboard ();
+                }
                 break;
                 case KeyboardHandler.KeyMap.G_LOWER:
                 case KeyboardHandler.KeyMap.G_UPPER:
@@ -795,7 +808,7 @@ namespace Pebbles {
                 break;
             }
         }
-        public void key_released () {
+        public void key_released (Gdk.EventKey event) {
             del_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
             seven_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
             eight_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
@@ -835,6 +848,9 @@ namespace Pebbles {
 
             display_unit.set_editable_cell ();
             display_unit.display_on ();
+            if (event.keyval == KeyboardHandler.KeyMap.CTRL) {
+                ctrl_held = false;
+            }
         }
     }
 }

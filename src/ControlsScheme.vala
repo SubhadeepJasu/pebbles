@@ -54,6 +54,12 @@ namespace Pebbles {
                 },
                 {
                     _("All Clear"), "Delete"
+                },
+                {
+                    _("Copy Result"), "<Ctrl>C"
+                },
+                {
+                    _("Paste Input Expression"), "<Ctrl>V"
                 }
             };
             scientific = {

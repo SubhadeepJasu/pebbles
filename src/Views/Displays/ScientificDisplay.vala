@@ -37,13 +37,11 @@ namespace Pebbles {
 
         // Angle mode
         GlobalAngleUnit angle_mode;
-        construct {
-            sci_display_make_ui ();
-        }
         
         ScientificView sci_view;
         public ScientificDisplay (ScientificView view) {
             this.sci_view = view;
+            sci_display_make_ui ();
         }
         private void sci_display_make_ui () {
             var settings = Settings.get_default ();
@@ -108,7 +106,7 @@ namespace Pebbles {
             input_entry.changed.connect (() => {
                     if (input_entry.get_text ().has_prefix ("0") && input_entry.get_text () != null) {
                         if (input_entry.get_text ().length != 1) {
-                            input_entry.set_text (input_entry.get_text ().slice (1, 2));
+                            input_entry.set_text (input_entry.get_text ().slice (1, input_entry.get_text().length));
                         }
                     }
 
@@ -118,6 +116,9 @@ namespace Pebbles {
                 display_on ();
                 return false;
             }); 
+            input_entry.copy_clipboard.connect(() => {
+                this.write_answer_to_clipboard();
+            });
             
             // Make seperator
             Gtk.Separator lcd_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
@@ -130,7 +131,6 @@ namespace Pebbles {
             attach (input_entry, 0, 3, 1, 1);
 
             width_request = 530;
-
         }
 
         public void set_shift_enable (bool s_on) {
@@ -184,13 +184,13 @@ namespace Pebbles {
             else {
                 result = sci_calc.get_result (input_entry.get_text (), angle_mode, settings.decimal_places);
             }
-            answer_label.set_text (result);
+            answer_label.set_text (Utils.format_result (result));
             settings.sci_output_text = answer_label.get_text ();
             if (result == "E") {
                 shake ();
             }
             else {
-                this.sci_view.window.history_manager.append_from_strings (input_entry.get_text (), result.replace (",", ""), angle_mode, null, 0, 0, 0, EvaluationResult.ResultSource.SCIF);
+                this.sci_view.window.history_manager.append_from_strings (input_entry.get_text (), result.replace (Utils.get_local_separator_symbol (), ""), angle_mode, null, 0, 0, 0, EvaluationResult.ResultSource.SCIF);
                 this.sci_view.last_answer_button.set_sensitive (true);
             }
         }
@@ -236,6 +236,13 @@ namespace Pebbles {
             input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
 
             answer_label.set_text (result.result);
+        }
+
+        public void write_answer_to_clipboard () {
+            Gdk.Display display = this.get_display ();
+            Gtk.Clipboard clipboard = Gtk.Clipboard.get_for_display (display, Gdk.SELECTION_CLIPBOARD);
+            string last_answer = answer_label.get_text().replace(Utils.get_local_separator_symbol(), "");
+            clipboard.set_text (last_answer, -1);
         }
     }
 }

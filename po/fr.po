@@ -849,7 +849,7 @@ msgstr "Mile"
 
 #: src/views/ConvLengthView.vala:58
 msgid "Nautical Mile"
-msgstr "Mille nautique"
+msgstr "Mile nautique"
 
 #: src/views/ConvAreaView.vala:48
 msgid "Square millimetre"

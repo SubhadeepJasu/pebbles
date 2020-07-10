@@ -115,6 +115,7 @@ namespace Pebbles {
         // Keyboard Events
         Gdk.Keymap keymap;
         bool keyboard_shift_status;
+        private bool ctrl_held = false;
 
         public MainWindow () {
             load_settings ();
@@ -841,6 +842,12 @@ namespace Pebbles {
                         conv_curr_view.key_press_event (event);
                         break;
                 }
+                if (settings.view_index != 4 && 
+                    (event.keyval == KeyboardHandler.KeyMap.NAV_LEFT || 
+                    event.keyval == KeyboardHandler.KeyMap.NAV_RIGHT)
+                ) {
+                    return false;
+                }
                 if (event.keyval == 65505) {
                     keyboard_shift_status = true;
                 }
@@ -856,18 +863,26 @@ namespace Pebbles {
                         this.angle_unit_button_label_update ();
                     }
                 }
+                if (event.keyval == KeyboardHandler.KeyMap.CTRL) {
+                    ctrl_held = true;
+                }
+                if(event.keyval == KeyboardHandler.KeyMap.V_LOWER || event.keyval == KeyboardHandler.KeyMap.V_UPPER) {
+                    if (ctrl_held) {
+                        return false;
+                    }
+                }                
                 return true;
             });
             key_release_event.connect ((event) => {
                 switch (settings.view_index) {
                     case 0:
-                        scientific_view.key_released ();
+                        scientific_view.key_released (event);
                         break;
                     case 2:
-                        calculus_view.key_released ();
+                        calculus_view.key_released (event);
                         break;
                     case 4:
-                        statistics_view.key_released ();
+                        statistics_view.key_released (event);
                         break;
                     case 5:
                         conv_length_view.key_release_event (event);
@@ -911,6 +926,9 @@ namespace Pebbles {
                 }
                 if (event.keyval == 65505) {
                     keyboard_shift_status = false;
+                }
+                if (event.keyval == KeyboardHandler.KeyMap.CTRL) {
+                    ctrl_held = false;
                 }
                 return false;
             });

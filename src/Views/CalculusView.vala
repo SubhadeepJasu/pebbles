@@ -112,6 +112,7 @@ namespace Pebbles {
 
         
         private bool shift_held = false;
+        private bool ctrl_held = false;
         
         public CalculusView (MainWindow window) {
             this.window = window;
@@ -165,7 +166,11 @@ namespace Pebbles {
             all_clear_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
             del_button = new Gtk.Button.from_icon_name ("edit-clear-symbolic", Gtk.IconSize.BUTTON);
             del_button.set_tooltip_text (_("Backspace"));
-            del_button.sensitive = false;
+            if (display_unit.input_entry.get_text () =="0" || display_unit.input_entry.get_text () == "") {
+                del_button.sensitive = false;
+            } else {
+                del_button.sensitive = true;
+            }
             display_unit.input_entry.changed.connect (() => {
                 if (display_unit.input_entry.get_text () == "0" || display_unit.input_entry.get_text () == "")
                     del_button.sensitive = false;
@@ -191,7 +196,7 @@ namespace Pebbles {
             plus_button = new StyledButton ("+", _("Add"));
             plus_button.get_style_context ().add_class ("h3");
             zero_button = new StyledButton ("0");
-            decimal_button = new StyledButton (".");
+            decimal_button = new StyledButton (Utils.get_local_radix_symbol ());
             left_parenthesis_button = new StyledButton ("(");
             right_parenthesis_button = new StyledButton (")");
             
@@ -371,6 +376,7 @@ namespace Pebbles {
             attach (button_container_left, 0, 1, 1, 1);
             attach (button_container_right, 1, 1, 1, 1);
             set_column_homogeneous (true);
+            display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
         }
         public void hold_shift (bool hold) {
             shift_held = hold;
@@ -605,7 +611,7 @@ namespace Pebbles {
                 display_unit.insert_text ("0");
             });
             decimal_button.clicked.connect (() => {;
-                display_unit.insert_text (".");
+                display_unit.insert_text (Utils.get_local_radix_symbol ());
             });
             left_parenthesis_button.clicked.connect (() => {;
                 display_unit.insert_text ("( ");
@@ -689,7 +695,7 @@ namespace Pebbles {
                         display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
                     if (display_unit.answer_label.get_text () != "E") {
                         var res = display_unit.answer_label.get_text ();
-                        res = res.replace (",", "");
+                        res = res.replace (Utils.get_local_separator_symbol (), "");
                         memory_reserve += double.parse (res);
                     }
                 }
@@ -711,7 +717,7 @@ namespace Pebbles {
                         display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
                     if (display_unit.answer_label.get_text () != "E") {
                         var res = display_unit.answer_label.get_text ();
-                        res = res.replace (",", "");
+                        res = res.replace (Utils.get_local_separator_symbol (), "");
                         memory_reserve -= double.parse (res);
                     }
                 }
@@ -822,6 +828,9 @@ namespace Pebbles {
 
         public void key_pressed (Gdk.EventKey event) {
             this.display_unit.input_entry.grab_focus_without_selecting ();
+            if (event.keyval == KeyboardHandler.KeyMap.CTRL) {
+                ctrl_held = true;
+            }
             switch (event.keyval) {
                 case KeyboardHandler.KeyMap.BACKSPACE:
                 if (del_button.get_sensitive ()) {
@@ -881,7 +890,7 @@ namespace Pebbles {
                 break;
                 case KeyboardHandler.KeyMap.NUMPAD_RADIX:
                 case KeyboardHandler.KeyMap.KEYPAD_RADIX:
-                this.insert_text (".");
+                this.insert_text (Utils.get_local_radix_symbol ());
                 decimal_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
                 break;
                 case KeyboardHandler.KeyMap.X_LOWER:
@@ -961,8 +970,12 @@ namespace Pebbles {
                 sin_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
                 break;
                 case KeyboardHandler.KeyMap.C_LOWER:
-                display_unit.insert_text ("cos ");
-                cos_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
+                if (ctrl_held) {
+                    display_unit.write_answer_to_clipboard ();
+                } else {
+                    display_unit.insert_text ("cos ");
+                    cos_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
+                }
                 break;
                 case KeyboardHandler.KeyMap.T_LOWER:
                 display_unit.insert_text ("tan ");
@@ -989,8 +1002,12 @@ namespace Pebbles {
                 cos_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
                 break;
                 case KeyboardHandler.KeyMap.T_UPPER:
-                display_unit.insert_text ("itan ");
-                tan_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
+                if (ctrl_held) {
+                    display_unit.write_answer_to_clipboard ();
+                } else {
+                    display_unit.insert_text ("icos ");
+                    cos_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
+                }
                 break;
                 case KeyboardHandler.KeyMap.H_UPPER:
                 display_unit.insert_text ("isinh ");
@@ -1100,7 +1117,7 @@ namespace Pebbles {
                 display_unit.input_entry.grab_focus_without_selecting ();
                 if (display_unit.answer_label.get_text () != "E" && display_unit.answer_label.get_text () != "0") {
                     var res = display_unit.answer_label.get_text ();
-                    res = res.replace (",", "");
+                    res = res.replace (Utils.get_local_separator_symbol (), "");
                     memory_reserve += double.parse (res);
                 }
                 memory_plus_button.get_style_context ().add_class ("Pebbles_Buttons_Memory_Pressed");
@@ -1110,7 +1127,7 @@ namespace Pebbles {
                 display_unit.input_entry.grab_focus_without_selecting ();
                 if (display_unit.answer_label.get_text () != "E" && display_unit.answer_label.get_text () != "0") {
                     var res = display_unit.answer_label.get_text ();
-                    res = res.replace (",", "");
+                    res = res.replace (Utils.get_local_separator_symbol (), "");
                     memory_reserve -= double.parse (res);
                 }
                 memory_minus_button.get_style_context ().add_class ("Pebbles_Buttons_Memory_Pressed");
@@ -1131,7 +1148,7 @@ namespace Pebbles {
             }
         }
 
-        public void key_released () {
+        public void key_released (Gdk.EventKey event) {
             display_unit.display_on ();
             del_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
             seven_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
@@ -1171,6 +1188,9 @@ namespace Pebbles {
             memory_minus_button.get_style_context ().remove_class ("Pebbles_Buttons_Memory_Pressed");
             memory_recall_button.get_style_context ().remove_class ("Pebbles_Buttons_Memory_Pressed");
             memory_clear_button.get_style_context ().remove_class ("Pebbles_Buttons_Memory_Pressed");
+            if (event.keyval == KeyboardHandler.KeyMap.CTRL) {
+                ctrl_held = false;
+            }
         }
 
         private void cycle_focus (bool clockwise) {

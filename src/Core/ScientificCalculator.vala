@@ -31,22 +31,18 @@ namespace Pebbles {
 
         public string get_result (string exp, GlobalAngleUnit angle_mode_in, int? float_accuracy = -1, bool? tokenize = true) {
             var result = exp;
+            warning(result);
             if (tokenize) {
-                result = Utils.st_tokenize (exp);
+                result = Utils.st_tokenize (exp.replace (Utils.get_local_radix_symbol (), "."));
             }
             angle_mode_sci = angle_mode_in;
             if (result == "E") {
-                return result;
+                return "E";
             }
-            string evaluated_result = evaluate_exp (result, float_accuracy);
-            if (evaluated_result == "nan")
-                evaluated_result = "E";
-            if (evaluated_result == "inf")
-                evaluated_result = "∞";
-            return evaluated_result;
+            return evaluate_exp (result, float_accuracy);
         }
 
-        private static bool has_precedence (char op1, char op2) {
+        private static bool has_precedence_pemdas (char op1, char op2) {
             if (op2 == '(' || op2 == ')') {
                 return false;
             }
@@ -69,10 +65,10 @@ namespace Pebbles {
             else if ((op1 == '^' || op1 == 'q') && (op2 == '*' || op2 == '/' || op2 == '-' || op2 == '+' || op2 == 'm')) {
                 return false;
             }
-            else if ((op1 == '*' || op1 == 'm') && (op2 == '/' || op2 == '+' || op2 == '-')) {
+            else if ((op1 == 'm') && (op2 == '/' || op2 == '*' || op2 == '+' || op2 == '-')) {
                 return false;
             }
-            else if ((op1 == '/') && (op2 == '+' || op2 == '-')) {
+            else if ((op1 == '/' || op1 == '*') && (op2 == '+' || op2 == '-')) {
                 return false;
             }
             else {
@@ -285,7 +281,7 @@ namespace Pebbles {
 
                 // If token is an operator
                 else if (is_operator(tokens[i])) {
-                    while (!r_l_associative (tokens[i]) && !ops.empty() && has_precedence(tokens[i].get(0), ops.peek())) {
+                    while (!r_l_associative (tokens[i]) && !ops.empty() && has_precedence_pemdas(tokens[i].get(0), ops.peek())) {
                         string tmp = apply_op(ops.pop(), values.pop(), values.pop());
                         if (tmp != "E") {
                             values.push(double.parse(tmp));
@@ -311,35 +307,7 @@ namespace Pebbles {
 
             // Take care of float accuracy of the result
             string output = Utils.manage_decimal_places (values.pop (), float_accuracy);
-
-            // Remove trailing 0s and decimals
-            while (output.has_suffix ("0")) {
-                output = output.slice (0, -1);
-            }
-            if (output.has_suffix (".")) {
-                output = output.slice (0, -1);
-            }
-
-            // Insert separator symbol in large numbers
-            StringBuilder output_builder = new StringBuilder (output);
-            var decimalPos = output.last_index_of (".");
-            if (decimalPos == -1) {
-                decimalPos = output.length;
-            }
-            int end_position = 0;
-
-            // Take care of minus sign at the beginning of string, if any
-            if (output.has_prefix ("-")) {
-                end_position = 1;
-            }
-            for (int i = decimalPos - 3; i > end_position; i -= 3) {
-                output_builder.insert (i, ",");
-            }
-            
-            if (output_builder.str == "-0") {
-                return "0";
-            }
-            return output_builder.str;
+            return output;
         }
         private static bool r_l_associative (string operator) {
             if (operator == "u" || operator == "^" || operator == "") {

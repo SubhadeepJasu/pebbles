@@ -29,11 +29,8 @@ namespace Pebbles {
 
         public signal void update_settings ();
 
-        construct {
-            settings = Pebbles.Settings.get_default ();
-        }
-
         public PreferencesOverlay () {
+            settings = Pebbles.Settings.get_default ();
             var main_grid = new Gtk.Grid ();
             main_grid.halign = Gtk.Align.CENTER;
             main_grid.row_spacing = 8;
@@ -51,30 +48,30 @@ namespace Pebbles {
             var constant_label1 = new Gtk.Label (_("Constant 1"));
             constant_label1.halign = Gtk.Align.START;
             constants_select_1 = new Gtk.ComboBoxText ();
-            constants_select_1.append_text (_("Euler's constant (exponential)") + "                e");
-            constants_select_1.append_text (_("Archimedes' constant (pi)") + "                        \xCF\x80");
-            constants_select_1.append_text (_("Imaginary number") + "                                      i");
-            constants_select_1.append_text (_("Golden ratio (phi)") + "                                       \xCF\x86");
-            constants_select_1.append_text (_("Euler–Mascheroni constant (gamma)") + "   \xF0\x9D\x9B\xBE");
-            constants_select_1.append_text (_("Conway's constant (lambda)") + "                      \xCE\xBB");
-            constants_select_1.append_text (_("Khinchin's constant") + "                                    K");
-            constants_select_1.append_text (_("The Feigenbaum constant alpha") + "            \xCE\xB1");
-            constants_select_1.append_text (_("The Feigenbaum constant delta") + "             \xCE\xB4");
-            constants_select_1.append_text (_("Apery's constant") + "                                    \xF0\x9D\x9B\x87(3)");
+            constants_select_1.append_text (_("Euler's constant (exponential)") + "  \"e\"");
+            constants_select_1.append_text (_("Archimedes' constant (pi)") + "  \"\xCF\x80\"");
+            constants_select_1.append_text (_("Imaginary number") + "  \"i\"");
+            constants_select_1.append_text (_("Golden ratio (phi)") + "  \"\xCF\x86\"");
+            constants_select_1.append_text (_("Euler–Mascheroni constant (gamma)") + "  \"\xF0\x9D\x9B\xBE\"");
+            constants_select_1.append_text (_("Conway's constant (lambda)") + "  \"\xCE\xBB\"");
+            constants_select_1.append_text (_("Khinchin's constant") + "  \"K\"");
+            constants_select_1.append_text (_("The Feigenbaum constant alpha") + "  \"\xCE\xB1\"");
+            constants_select_1.append_text (_("The Feigenbaum constant delta") + "  \"\xCE\xB4\"");
+            constants_select_1.append_text (_("Apery's constant") + "  \"\xF0\x9D\x9B\x87(3)\"");
 
             var constant_label2 = new Gtk.Label (_("Constant 2 (Hold Shift)"));
             constant_label2.halign = Gtk.Align.START;
             constants_select_2 = new Gtk.ComboBoxText ();
-            constants_select_2.append_text (_("Euler's constant (exponential)") + "                e");
-            constants_select_2.append_text (_("Archimedes' constant (pi)") + "                        \xCF\x80");
-            constants_select_2.append_text (_("Imaginary number") + "                                      i");
-            constants_select_2.append_text (_("Golden ratio (phi)") + "                                       \xCF\x86");
-            constants_select_2.append_text (_("Euler–Mascheroni constant (gamma)") + "   \xF0\x9D\x9B\xBE");
-            constants_select_2.append_text (_("Conway's constant (lambda)") + "                      \xCE\xBB");
-            constants_select_2.append_text (_("Khinchin's constant") + "                                    K");
-            constants_select_2.append_text (_("The Feigenbaum constant alpha") + "            \xCE\xB1");
-            constants_select_2.append_text (_("The Feigenbaum constant delta") + "             \xCE\xB4");
-            constants_select_2.append_text (_("Apery's constant") + "                                    \xF0\x9D\x9B\x87(3)");
+            constants_select_2.append_text (_("Euler's constant (exponential)") + "  \"e\"");
+            constants_select_2.append_text (_("Archimedes' constant (pi)") + "  \"\xCF\x80\"");
+            constants_select_2.append_text (_("Imaginary number") + "  \"i\"");
+            constants_select_2.append_text (_("Golden ratio (phi)") + "  \"\xCF\x86\"");
+            constants_select_2.append_text (_("Euler–Mascheroni constant (gamma)") + "  \"\xF0\x9D\x9B\xBE\"");
+            constants_select_2.append_text (_("Conway's constant (lambda)") + "  \"\xCE\xBB\"");
+            constants_select_2.append_text (_("Khinchin's constant") + "  \"K\"");
+            constants_select_2.append_text (_("The Feigenbaum constant alpha") + "  \"\xCE\xB1\"");
+            constants_select_2.append_text (_("The Feigenbaum constant delta") + "  \"\xCE\xB4\"");
+            constants_select_2.append_text (_("Apery's constant") + "  \"\xF0\x9D\x9B\x87(3)\"");
 
             this.delete_event.connect (() => {
                 save_settings ();
@@ -131,7 +128,6 @@ namespace Pebbles {
         }
 
         private void load_constant_button_settings () {
-            settings = Pebbles.Settings.get_default ();
             switch (settings.constant_key_value1) {
                 case ConstantKeyIndex.ARCHIMEDES:
                 constants_select_1.set_active(1);
@@ -197,7 +193,6 @@ namespace Pebbles {
                 break;
             }
         }
-        
         private void make_events () {
             this.key_release_event.connect ((event) => {
                 if (event.keyval == KeyboardHandler.KeyMap.ESCAPE) {

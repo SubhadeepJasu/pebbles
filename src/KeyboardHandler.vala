@@ -144,7 +144,9 @@ namespace Pebbles {
             RETURN       = 65293,
             RETURN_NUMPAD= 65421,
             ESCAPE       = 65307,
-            SPACE_BAR    = 32
+            SPACE_BAR    = 32,
+
+            CTRL         = 65507
         }
         public static bool key_is_number (uint key) {
             if (((key >= KeyMap.NUMPAD_0) && (key <= KeyMap.NUMPAD_9))
