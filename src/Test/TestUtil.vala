@@ -47,6 +47,15 @@ namespace Pebbles {
                 stdout.printf ("        I should get '%s', but I got '%s'!\n", what_i_should_get, what_i_got);
             }
         }
+        private static void test_programmer_integration () {
+            var settings = Settings.get_default ();
+            settings.number_system = NumberSystem.DECIMAL;
+            ProgrammerCalculator prog_calc_front = new ProgrammerCalculator ();
+            prog_calc_front.populate_token_array ("2 + 3 * (5 and 6)");
+            settings.number_system = NumberSystem.BINARY;
+            var result = prog_calc_front.set_number_system ("2 + 3 * (5 and 6)");
+            print(result + "\n");
+        }
         private static void test_programmer(string input1, string input2) {
             Programmer prog_calc = new Programmer();
             string[] input1_arr = input1.split(" ");
@@ -194,98 +203,6 @@ namespace Pebbles {
                 stdout.printf ("        we should get %s years %s months %s weeks %s days.\n", year, month, week, day);
             }
         }
-        private static void test_conversion_from_binary (string bin, string hex, string decimal, string octal) {
-            if(ProgrammerCalculator.binary_to_decimal (bin) != decimal) {
-                 stdout.printf ("[ERROR] Given %s, the decimal should be = %s but I got = %s\n",bin,decimal,ProgrammerCalculator.binary_to_decimal (bin));
-            }
-            if(ProgrammerCalculator.binary_to_octal (bin) != octal) {
-                 stdout.printf ("[ERROR] Given %s, the octal should be = %s but I got = %s\n",bin,octal,ProgrammerCalculator.binary_to_octal (bin));
-            }
-            if(ProgrammerCalculator.binary_to_hexadecimal (bin) != hex) {
-                 stdout.printf ("[ERROR] Given %s, the hexadecimal should be = %s but I got = %s\n",bin,hex,ProgrammerCalculator.binary_to_hexadecimal (bin));
-            }
-        }
-        private static void test_conversion_from_octal (string octal, string hex, string decimal, string bin) {
-            if(ProgrammerCalculator.octal_to_binary (octal) != bin) {
-                 stdout.printf ("[ERROR] Given %s, the binary should be = %s but I got = %s\n",octal,bin,ProgrammerCalculator.octal_to_binary (octal));
-            }
-            if(ProgrammerCalculator.octal_to_decimal (octal) != decimal) {
-                 stdout.printf ("[ERROR] Given %s, the decimal should be = %s but I got = %s\n",bin,octal,ProgrammerCalculator.octal_to_decimal (octal));
-            }
-            if(ProgrammerCalculator.octal_to_hexadecimal (octal) != hex) {
-                 stdout.printf ("[ERROR] Given %s, the hexadecimal should be = %s but I got = %s\n",bin,hex,ProgrammerCalculator.octal_to_hexadecimal (octal));
-            }
-        }
-        private static void test_conversion_from_decimal (string decimal, string hex, string octal, string bin) {
-            if(ProgrammerCalculator.decimal_to_binary (decimal) != bin) {
-                 stdout.printf ("[ERROR] Given %s, the binary should be = %s but I got = %s\n",decimal,bin,ProgrammerCalculator.decimal_to_binary (decimal));
-            }
-            if(ProgrammerCalculator.decimal_to_octal (decimal) != octal) {
-                 stdout.printf ("[ERROR] Given %s, the octal should be = %s but I got = %s\n",decimal,octal,ProgrammerCalculator.decimal_to_octal (decimal));
-            }
-            if(ProgrammerCalculator.decimal_to_hexadecimal (decimal) != hex) {
-                 stdout.printf ("[ERROR] Given %s, the hexadecimal should be = %s but I got = %s\n",decimal,hex,ProgrammerCalculator.decimal_to_hexadecimal (decimal));
-            }
-        }
-        private static void test_conversion_from_hexadecimal (string hex, string decimal, string octal, string bin) {
-            if(ProgrammerCalculator.hexadecimal_to_binary (hex) != bin) {
-                 stdout.printf ("[ERROR] Given %s, the binary should be = %s but I got = %s\n",hex,bin,ProgrammerCalculator.hexadecimal_to_binary (hex));
-            }
-            if(ProgrammerCalculator.hexadecimal_to_octal (hex) != octal) {
-                 stdout.printf ("[ERROR] Given %s, the octal should be = %s but I got = %s\n",hex,octal,ProgrammerCalculator.hexadecimal_to_octal (hex));
-            }
-            if(ProgrammerCalculator.hexadecimal_to_decimal (hex) != decimal) {
-                 stdout.printf ("[ERROR] Given %s, the decimal should be = %s but I got = %s\n",hex,decimal,ProgrammerCalculator.hexadecimal_to_decimal (hex));
-            }
-        }
-        private static void test_logical_operations_on_decimal (string decimal1, string decimal2, string and_decimal, string or_decimal, string not_decimal1, string not_decimal2, string xor_decimal) {
-            if(ProgrammerCalculator.decimal_and_operation(decimal1,decimal2) != and_decimal) {
-                stdout.printf ("[ERROR] Given %s and %s, the AND of the two should be = %s but I got = %s\n",decimal1, decimal2, and_decimal,ProgrammerCalculator.decimal_and_operation (decimal1, decimal2));
-            }
-            if(ProgrammerCalculator.decimal_or_operation(decimal1,decimal2) != or_decimal) {
-                stdout.printf ("[ERROR] Given %s and %s, the OR of the two should be = %s but I got = %s\n",decimal1, decimal2, or_decimal,ProgrammerCalculator.decimal_or_operation (decimal1, decimal2));
-            }
-            if(ProgrammerCalculator.decimal_not_operation(decimal1) != not_decimal1) {
-                stdout.printf ("[ERROR] Given %s , the NOT should be = %s but I got = %s\n",decimal1, not_decimal1,ProgrammerCalculator.decimal_not_operation (decimal1));
-            }
-            if(ProgrammerCalculator.decimal_not_operation(decimal2) != not_decimal2) {
-                stdout.printf ("[ERROR] Given %s , the NOT should be = %s but I got = %s\n",decimal2, not_decimal2,ProgrammerCalculator.decimal_not_operation (decimal2));
-            }
-            if(ProgrammerCalculator.decimal_xor_operation(decimal1,decimal2) != xor_decimal) {
-                stdout.printf ("[ERROR] Given %s and %s, the XOR of the two should be = %s but I got = %s\n",decimal1, decimal2, xor_decimal,ProgrammerCalculator.decimal_xor_operation (decimal1, decimal2));
-            }
-        }
-        private static void test_arithmetic_operations_on_decimal (string decimal1, string decimal2, string mod_decimal, string addition_decimal, string subtraction_decimal, string multiplication_decimal, string division_decimal) {
-            if(ProgrammerCalculator.decimal_mod_operation(decimal1,decimal2) != mod_decimal) {
-                stdout.printf ("[ERROR] Given %s and %s, the MOD of the two should be = %s but I got = %s\n",decimal1, decimal2, mod_decimal,ProgrammerCalculator.decimal_mod_operation (decimal1, decimal2));
-            }
-            if(ProgrammerCalculator.decimal_addition_operation(decimal1,decimal2) != addition_decimal) {
-                stdout.printf ("[ERROR] Given %s and %s, the ADDITION of the two should be = %s but I got = %s\n",decimal1, decimal2, addition_decimal,ProgrammerCalculator.decimal_addition_operation (decimal1, decimal2));
-            }
-            if(ProgrammerCalculator.decimal_subtraction_operation(decimal1,decimal2) != subtraction_decimal) {
-                stdout.printf ("[ERROR] Given %s and %s, the SUBTRACTION of the two should be = %s but I got = %s\n",decimal1, decimal2, subtraction_decimal,ProgrammerCalculator.decimal_subtraction_operation (decimal1, decimal2));
-            }
-            if(ProgrammerCalculator.decimal_multiplication_operation(decimal1,decimal2) != multiplication_decimal) {
-                stdout.printf ("[ERROR] Given %s and %s, the MULTIPLICATION of the two should be = %s but I got = %s\n",decimal1, decimal2, multiplication_decimal,ProgrammerCalculator.decimal_multiplication_operation (decimal1, decimal2));
-            }
-            if(ProgrammerCalculator.decimal_division_operation(decimal1,decimal2) != division_decimal) {
-                stdout.printf ("[ERROR] Given %s and %s, the DIVISION of the two should be = %s but I got = %s\n",decimal1, decimal2, division_decimal,ProgrammerCalculator.decimal_division_operation (decimal1, decimal2));
-            }
-        }
-        private static void test_shift_operations_on_decimal (string decimal1, string decimal2, string left_shift_decimal, string right_shift_decimal, string left_rotate_decimal, string right_rotate_decimal, string value_mode) {
-            if(ProgrammerCalculator.decimal_left_shift_operation(decimal1,decimal2,value_mode) != left_shift_decimal) {
-                stdout.printf ("[ERROR] Given %s and %s, value mode is %s, the LEFT SHIFT of the first by second should be = %s but I got = %s\n",decimal1, decimal2, value_mode, left_shift_decimal,ProgrammerCalculator.decimal_left_shift_operation (decimal1, decimal2, value_mode));
-            }
-            if(ProgrammerCalculator.decimal_right_shift_operation(decimal1,decimal2,value_mode) != right_shift_decimal) {
-                stdout.printf ("[ERROR] Given %s and %s, value mode is %s, the RIGHT SHIFT of the first by second should be = %s but I got = %s\n",decimal1, decimal2, value_mode, right_shift_decimal,ProgrammerCalculator.decimal_right_shift_operation (decimal1, decimal2, value_mode));
-            }
-            if(ProgrammerCalculator.decimal_left_rotate_operation(decimal1,decimal2,value_mode) != left_rotate_decimal) {
-                stdout.printf ("[ERROR] Given %s and %s, value mode is %s, the LEFT ROTATION of the first by second should be = %s but I got = %s\n",decimal1, decimal2, value_mode, left_rotate_decimal,ProgrammerCalculator.decimal_left_rotate_operation (decimal1, decimal2, value_mode));
-            }
-            if(ProgrammerCalculator.decimal_right_rotate_operation(decimal1,decimal2,value_mode) != right_rotate_decimal) {
-                stdout.printf ("[ERROR] Given %s and %s, value mode is %s, the RIGHT ROTATION of the first by second should be = %s but I got = %s\n",decimal1, decimal2, value_mode, right_rotate_decimal,ProgrammerCalculator.decimal_right_rotate_operation (decimal1, decimal2, value_mode));
-            }
-        }
         public static void run_test () {
             show_greeter ();
             stdout.printf ("\nTesting Tokenization...\n");
@@ -362,6 +279,11 @@ namespace Pebbles {
             test_scientific ("100 + 20%", "120");
             test_scientific ("20% + 100", "100.2");
             
+            stdout.printf ("\nIntegration Testing Programmer Calculator\n");
+            stdout.printf ("-------------------------------------------------------------\n");
+
+            test_programmer_integration ();
+
             stdout.printf ("\nTesting Programmer New Calculator\n");
             stdout.printf ("-------------------------------------------------------------\n");
             
@@ -375,47 +297,6 @@ namespace Pebbles {
             test_date_difference (20, 11, 2018, 30, 11, 2018, "10", "0", "0", "1", "3");
             test_date_difference (17, 1, 2019, 7, 2, 2042, "8422", "23", "0", "3", "0");
             test_date_difference (20, 11, 2018, 20, 11, 2018, "0", "0", "0", "0", "0"); 
-
-            stdout.printf ("\nTesting All conversions from binary\n");
-            stdout.printf ("-------------------------------------------------------------\n");
-            test_conversion_from_binary ("10", "2", "2", "2");
-            test_conversion_from_binary ("1110", "E", "14", "16");
-            test_conversion_from_binary ("0", "0", "0", "0");
-
-            stdout.printf ("\nTesting All conversions from octal\n");
-            stdout.printf ("-------------------------------------------------------------\n");
-            test_conversion_from_octal ("3", "3", "3", "11");
-            test_conversion_from_octal ("16", "E", "14", "1110");
-            test_conversion_from_octal ("2000", "400", "1024", "10000000000");
-            test_conversion_from_octal ("0", "0", "0", "0");
-
-            stdout.printf ("\nTesting All conversions from decimal\n");
-            stdout.printf ("-------------------------------------------------------------\n");
-            test_conversion_from_decimal ("3", "3", "3", "11");
-            test_conversion_from_decimal ("1024", "400", "2000", "10000000000");
-            test_conversion_from_decimal ("0", "0", "0", "0");
-
-            stdout.printf ("\nTesting All conversions from hexadecimal\n");
-            stdout.printf ("-------------------------------------------------------------\n");
-            test_conversion_from_hexadecimal ("16", "22", "26", "10110");
-            test_conversion_from_hexadecimal ("3", "3", "3", "11");
-            test_conversion_from_hexadecimal ("0", "0", "0", "0");
-
-            stdout.printf ("\nTesting All logical operations in decimal\n");
-            stdout.printf ("-------------------------------------------------------------\n");
-            test_logical_operations_on_decimal ("5", "0", "0", "5", "-6", "-1", "5");
-            test_logical_operations_on_decimal ("889", "66", "64", "891", "-890", "-67", "827");
-            test_logical_operations_on_decimal ("-66", "6", "6", "-66", "65", "-7", "-72");
-
-            stdout.printf ("\nTesting All arithmetic operations in decimal\n");
-            stdout.printf ("-------------------------------------------------------------\n");
-            test_arithmetic_operations_on_decimal ("10", "51", "1", "61", "-41", "510", "0");
-            test_arithmetic_operations_on_decimal ("-4", "0", "Undefined", "-4", "-4", "0", "Not possible");
-
-            stdout.printf ("\nTesting All shift operations in decimal\n");
-            stdout.printf ("-------------------------------------------------------------\n");
-            test_shift_operations_on_decimal ("1010", "5", "32320", "3", "32320", "-1879048161", "DWORD");
-            test_shift_operations_on_decimal ("88", "1", "-80", "44", "-80", "44", "BYTE");
         }
     }
 }
