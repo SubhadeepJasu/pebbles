@@ -84,7 +84,7 @@ namespace Pebbles {
 
         public ProgrammerView (MainWindow window) {
             this.window = window;
-
+            settings = Settings.get_default ();
             // Make UI
             prog_make_ui ();
             prog_make_events ();
@@ -169,7 +169,7 @@ namespace Pebbles {
             bit_mode_button.append_text ("DECI");
             bit_mode_button.append_text ("OCTL");
             bit_mode_button.append_text ("BNRY");
-            bit_mode_button.set_active  (1);
+            bit_mode_button.set_active  (5 - settings.number_system);
 
             // Make buttons on the right
             or_button = new StyledButton ("Or", "Logical OR (TRUE for any input being TRUE)");
@@ -291,29 +291,18 @@ namespace Pebbles {
             display_unit.dec_label.get_style_context ().add_class ("PebblesLCDSwitchSelected");
             bit_mode_button.mode_changed.connect (() => {
                 if (bit_mode_button.selected == 0) {
-                    display_unit.dec_label.get_style_context ().remove_class ("PebblesLCDSwitchSelected");
-                    display_unit.oct_label.get_style_context ().remove_class ("PebblesLCDSwitchSelected");
-                    display_unit.bin_label.get_style_context ().remove_class ("PebblesLCDSwitchSelected");
-                    display_unit.hex_label.get_style_context ().add_class    ("PebblesLCDSwitchSelected");
+                    settings.number_system = NumberSystem.HEXADECIMAL;
                 }
                 else if (bit_mode_button.selected == 1){
-                    display_unit.hex_label.get_style_context ().remove_class ("PebblesLCDSwitchSelected");
-                    display_unit.oct_label.get_style_context ().remove_class ("PebblesLCDSwitchSelected");
-                    display_unit.bin_label.get_style_context ().remove_class ("PebblesLCDSwitchSelected");
-                    display_unit.dec_label.get_style_context ().add_class    ("PebblesLCDSwitchSelected");
+                    settings.number_system = NumberSystem.DECIMAL;
                 }
                 else if (bit_mode_button.selected == 2){
-                    display_unit.hex_label.get_style_context ().remove_class ("PebblesLCDSwitchSelected");
-                    display_unit.dec_label.get_style_context ().remove_class ("PebblesLCDSwitchSelected");
-                    display_unit.bin_label.get_style_context ().remove_class ("PebblesLCDSwitchSelected");
-                    display_unit.oct_label.get_style_context ().add_class    ("PebblesLCDSwitchSelected");
+                    settings.number_system = NumberSystem.OCTAL;
                 }
                 else if (bit_mode_button.selected == 3){
-                    display_unit.hex_label.get_style_context ().remove_class ("PebblesLCDSwitchSelected");
-                    display_unit.oct_label.get_style_context ().remove_class ("PebblesLCDSwitchSelected");
-                    display_unit.dec_label.get_style_context ().remove_class ("PebblesLCDSwitchSelected");
-                    display_unit.bin_label.get_style_context ().add_class    ("PebblesLCDSwitchSelected");
+                    settings.number_system = NumberSystem.BINARY;
                 }
+                display_unit.set_number_system ();
                 set_keypad_mode (bit_mode_button.selected);
             });
         }

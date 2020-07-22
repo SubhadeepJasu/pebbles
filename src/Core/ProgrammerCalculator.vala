@@ -65,6 +65,19 @@ namespace Pebbles {
         }
         private Token[] stored_tokens;
 
+        public ProgrammerCalculator () {
+            stored_tokens = new Token[1];
+            stored_tokens[0] = new Token();
+            stored_tokens[0].token = "0";
+            stored_tokens[0].number_system = NumberSystem.DECIMAL;
+            stored_tokens[0].type = TokenType.OPERAND;
+        }
+
+        public Token get_last_token () {
+            print ("%d\n", stored_tokens.length);
+            return stored_tokens[stored_tokens.length - 1];
+        }
+
         public void populate_token_array (string exp) {
             stored_tokens = Utils.get_token_array (exp);
             for (int i = 0; i < stored_tokens.length; i++) {
@@ -107,14 +120,19 @@ namespace Pebbles {
 
             if (number_system_a == NumberSystem.DECIMAL) {
                 if (number_system_b == NumberSystem.BINARY) {
-                    return convert_decimal_to_boolean (exp);
+                    return convert_decimal_to_binary (exp);
+                }
+            }
+            if (number_system_a == NumberSystem.BINARY) {
+                if (number_system_b == NumberSystem.DECIMAL) {
+                    return convert_binary_to_decimal (exp);
                 }
             }
             return "";
         }
 
-        private string convert_decimal_to_boolean (string number) {
-            int[] temp = new int[number.length];
+        public string convert_decimal_to_binary (string number) {
+            int[] temp = new int[64];
             int decimal = int.parse (number);
             int i = 0;
             for (; decimal > 0; i++) {
@@ -127,5 +145,51 @@ namespace Pebbles {
             }
             return binary;
         } 
+        public string convert_binary_to_decimal (string number) {
+            int binary = int.parse (number);
+            int decimal = 0;
+            int nbase = 1; 
+  
+            int temp = binary; 
+            while (temp > 0) { 
+                int last_digit = temp % 10; 
+                temp = temp / 10; 
+        
+                decimal += last_digit * nbase; 
+        
+                nbase = nbase * 2; 
+            } 
+            return decimal.to_string ();
+        }
+        public string represent_binary_by_word_length (string binary_value, GlobalWordLength wrd_length, bool? format = false) {
+            string new_binary = "";
+            switch (wrd_length) {
+                case GlobalWordLength.BYT:
+                if (binary_value.length > 8) {
+                    print ("bigger_value: " + binary_value + "\n");
+                    new_binary = binary_value.slice (binary_value.length - 9, -1);
+                } else {
+                    print ("smaller_value\n");
+                    string pre_zeros = "";
+                    for (int i = 0; i < 8 - binary_value.length; i++) {
+                        pre_zeros += "0";
+                    }
+                    new_binary = pre_zeros + binary_value;
+                }
+                break;
+            }
+
+            if (format) {
+                string formatted_binary = "";
+                for (int i = 0; i < new_binary.length; i++) {
+                    formatted_binary += new_binary.get_char (i).to_string ();
+                    if ((i + 1)%4 == 0) {
+                        formatted_binary += " ";
+                    }
+                }
+                return formatted_binary;
+            }
+            return new_binary;
+        }
     }
 }

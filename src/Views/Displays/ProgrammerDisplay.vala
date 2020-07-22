@@ -20,6 +20,8 @@
 
 namespace Pebbles {
     public class ProgrammerDisplay : Gtk.Grid {
+        //Settings;
+        Pebbles.Settings settings;
         // Status Bar
         Gtk.Grid  lcd_status_bar;
         Gtk.Label qwd_label;
@@ -49,13 +51,19 @@ namespace Pebbles {
         // Word length mode
         GlobalWordLength word_mode;
 
+        // 
+        ProgrammerCalculator programmer_calculator_front_end;
+
         construct {
             prog_display_make_ui ();
+            prog_display_make_events ();
         }
         ProgrammerView prog_view;
 
         public ProgrammerDisplay (ProgrammerView view) {
+            this.settings = Settings.get_default ();
             this.prog_view = view;
+            programmer_calculator_front_end = new ProgrammerCalculator ();
         }
 
         private void prog_display_make_ui () {
@@ -182,6 +190,87 @@ namespace Pebbles {
             attach (input_entry,        2, 3, 1, 1);
 
             width_request = 530;
+        }
+
+        private void prog_display_make_events () {
+            input_entry.changed.connect (() => {
+                if (input_entry.get_text () == "") {
+                    input_entry.set_text ("0");
+                }
+                if (input_entry.get_text ().has_prefix ("0") && input_entry.get_text () != null) {
+                    if (input_entry.get_text ().length != 1) {
+                        input_entry.set_text (input_entry.get_text ().slice (1, input_entry.get_text().length));
+                    }
+                }
+                programmer_calculator_front_end.populate_token_array (input_entry.get_text ());
+                display_all_number_systems ();
+            });
+        }
+        private void display_all_number_systems () {
+            ProgrammerCalculator.Token current_input = programmer_calculator_front_end.get_last_token ();
+            string binary_value = "";
+            string decimal_value = "0";
+            int max_num = 0;
+            switch (settings.global_word_length) {
+                case GlobalWordLength.BYT:
+                max_num = 8;
+                break;
+                case GlobalWordLength.WRD:
+                max_num = 16;
+                break;
+                case GlobalWordLength.DWD:
+                max_num = 32;
+                break;
+                case GlobalWordLength.QWD:
+                max_num = 64;
+                break;
+            }
+            for (int i = 0; i < max_num; i++) {
+                binary_value += "0";
+            }
+            if (current_input.type == ProgrammerCalculator.TokenType.OPERAND) {
+                if (current_input.number_system == NumberSystem.DECIMAL) {
+                    decimal_value = current_input.token;
+                    binary_value = programmer_calculator_front_end.convert_decimal_to_binary (current_input.token);
+                    binary_value = programmer_calculator_front_end.represent_binary_by_word_length (binary_value, GlobalWordLength.BYT, true);
+                } else
+                if (current_input.number_system == NumberSystem.BINARY) {
+                    decimal_value = programmer_calculator_front_end.convert_binary_to_decimal (current_input.token);
+                    binary_value = programmer_calculator_front_end.represent_binary_by_word_length (current_input.token, GlobalWordLength.BYT, true);
+                }
+                
+            }
+            dec_number_label.set_text (decimal_value);
+            bin_number_label.set_text (binary_value);
+        }
+        public void set_number_system () {
+            switch (settings.number_system) {
+                case NumberSystem.HEXADECIMAL:
+                dec_label.get_style_context ().remove_class ("PebblesLCDSwitchSelected");
+                oct_label.get_style_context ().remove_class ("PebblesLCDSwitchSelected");
+                bin_label.get_style_context ().remove_class ("PebblesLCDSwitchSelected");
+                hex_label.get_style_context ().add_class    ("PebblesLCDSwitchSelected");
+                break;
+                case NumberSystem.BINARY:
+                dec_label.get_style_context ().remove_class ("PebblesLCDSwitchSelected");
+                oct_label.get_style_context ().remove_class ("PebblesLCDSwitchSelected");
+                bin_label.get_style_context ().add_class    ("PebblesLCDSwitchSelected");
+                hex_label.get_style_context ().remove_class ("PebblesLCDSwitchSelected");
+                break;
+                case NumberSystem.DECIMAL:
+                dec_label.get_style_context ().add_class    ("PebblesLCDSwitchSelected");
+                oct_label.get_style_context ().remove_class ("PebblesLCDSwitchSelected");
+                bin_label.get_style_context ().remove_class ("PebblesLCDSwitchSelected");
+                hex_label.get_style_context ().remove_class ("PebblesLCDSwitchSelected");
+                break;
+                case NumberSystem.OCTAL:
+                dec_label.get_style_context ().remove_class ("PebblesLCDSwitchSelected");
+                oct_label.get_style_context ().add_class    ("PebblesLCDSwitchSelected");
+                bin_label.get_style_context ().remove_class ("PebblesLCDSwitchSelected");
+                hex_label.get_style_context ().remove_class ("PebblesLCDSwitchSelected");
+                break;
+            }
+            input_entry.set_text (programmer_calculator_front_end.set_number_system (input_entry.get_text ()));
         }
         public void set_shift_enable (bool s_on) {
             if (s_on) {
