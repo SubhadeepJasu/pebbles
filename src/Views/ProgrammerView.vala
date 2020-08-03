@@ -169,7 +169,20 @@ namespace Pebbles {
             bit_mode_button.append_text ("DECI");
             bit_mode_button.append_text ("OCTL");
             bit_mode_button.append_text ("BNRY");
-            bit_mode_button.set_active  (5 - settings.number_system);
+            switch (settings.number_system) {
+                case NumberSystem.BINARY:
+                bit_mode_button.set_active  (3);
+                break;
+                case NumberSystem.OCTAL:
+                bit_mode_button.set_active  (2);
+                break;
+                case NumberSystem.DECIMAL:
+                bit_mode_button.set_active  (1);
+                break;
+                case NumberSystem.HEXADECIMAL:
+                bit_mode_button.set_active  (0);
+                break;
+            }
 
             // Make buttons on the right
             or_button = new StyledButton ("Or", "Logical OR (TRUE for any input being TRUE)");
@@ -288,7 +301,6 @@ namespace Pebbles {
             }
         }
         private void prog_make_events () {
-            display_unit.dec_label.get_style_context ().add_class ("PebblesLCDSwitchSelected");
             bit_mode_button.mode_changed.connect (() => {
                 if (bit_mode_button.selected == 0) {
                     settings.number_system = NumberSystem.HEXADECIMAL;
@@ -305,6 +317,7 @@ namespace Pebbles {
                 display_unit.set_number_system ();
                 set_keypad_mode (bit_mode_button.selected);
             });
+            display_unit.set_number_system ();
         }
         private void set_keypad_mode (int mode) {
             switch (mode) {

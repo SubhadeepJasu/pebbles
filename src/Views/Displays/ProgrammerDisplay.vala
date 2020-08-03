@@ -53,17 +53,15 @@ namespace Pebbles {
 
         // 
         ProgrammerCalculator programmer_calculator_front_end;
-
-        construct {
-            prog_display_make_ui ();
-            prog_display_make_events ();
-        }
         ProgrammerView prog_view;
 
         public ProgrammerDisplay (ProgrammerView view) {
             this.settings = Settings.get_default ();
             this.prog_view = view;
             programmer_calculator_front_end = new ProgrammerCalculator ();
+
+            prog_display_make_ui ();
+            prog_display_make_events ();
         }
 
         private void prog_display_make_ui () {
@@ -118,13 +116,13 @@ namespace Pebbles {
             hex_number_label  = new Gtk.Label ("0");
             dec_number_label  = new Gtk.Label ("0");
             oct_number_label  = new Gtk.Label ("0");
-            bin_number_label = new Gtk.Label ("0");
+            bin_number_label = new Gtk.Label (get_binary_length ());
             bin_number_label.set_line_wrap_mode (Pango.WrapMode.CHAR);
             bin_number_label.set_line_wrap (true);
             bin_number_label.lines = 2;
-            bin_number_label.set_width_chars (32);
-            bin_number_label.set_max_width_chars (32);
-            bin_number_label.single_line_mode =    false;
+            bin_number_label.set_width_chars (34);
+            bin_number_label.set_max_width_chars (34);
+            bin_number_label.single_line_mode = false;
             bin_number_label.set_xalign (0);
             bin_number_label.set_yalign (0);
             
@@ -178,8 +176,8 @@ namespace Pebbles {
             Gtk.Separator lcd_separator_v = new Gtk.Separator (Gtk.Orientation.VERTICAL);
             lcd_separator_v.set_opacity (0.6);
             lcd_separator_v.margin_bottom = 8;
-            lcd_separator_v.margin_start = 21;
             lcd_separator_v.margin_end   = 7;
+            lcd_separator_v.halign = Gtk.Align.CENTER;
             
             // Put it together
             attach (lcd_status_bar,     0, 0, 3, 1);
@@ -208,8 +206,44 @@ namespace Pebbles {
         }
         private void display_all_number_systems () {
             ProgrammerCalculator.Token current_input = programmer_calculator_front_end.get_last_token ();
-            string binary_value = "";
+            string binary_value = get_binary_length ();
             string decimal_value = "0";
+            string octal_value = "0";
+            string hex_value = "0";
+            if (current_input.type == ProgrammerCalculator.TokenType.OPERAND) {
+                if (current_input.number_system == NumberSystem.DECIMAL) {
+                    decimal_value = current_input.token;
+                    octal_value = programmer_calculator_front_end.convert_decimal_to_octal (current_input.token, settings.global_word_length);
+                    hex_value = programmer_calculator_front_end.convert_decimal_to_hexadecimal (current_input.token);
+                    binary_value = programmer_calculator_front_end.convert_decimal_to_binary (current_input.token, settings.global_word_length, true);
+                } else
+                if (current_input.number_system == NumberSystem.BINARY) {
+                    decimal_value = programmer_calculator_front_end.convert_binary_to_decimal (current_input.token, settings.global_word_length);
+                    binary_value = programmer_calculator_front_end.represent_binary_by_word_length (current_input.token, settings.global_word_length, true);
+                    octal_value = programmer_calculator_front_end.convert_binary_to_octal (current_input.token, settings.global_word_length);
+                    hex_value = programmer_calculator_front_end.convert_binary_to_hexadecimal (current_input.token, settings.global_word_length);
+                } else
+                if (current_input.number_system == NumberSystem.HEXADECIMAL) {
+                    hex_value = current_input.token;
+                    octal_value = programmer_calculator_front_end.convert_hexadecimal_to_octal (current_input.token, settings.global_word_length);
+                    binary_value = programmer_calculator_front_end.convert_hexadecimal_to_binary (current_input.token, settings.global_word_length, true);
+                    decimal_value = programmer_calculator_front_end.convert_hexadecimal_to_decimal (current_input.token, settings.global_word_length);
+                } else
+                if (current_input.number_system == NumberSystem.OCTAL) {
+                    binary_value = programmer_calculator_front_end.convert_octal_to_binary (current_input.token, settings.global_word_length, true);
+                    decimal_value = programmer_calculator_front_end.convert_octal_to_decimal (current_input.token, settings.global_word_length);
+                    octal_value = current_input.token;
+                    hex_value = programmer_calculator_front_end.convert_octal_to_hexadecimal (current_input.token, settings.global_word_length);
+                }
+                
+            }
+            hex_number_label.set_text (hex_value);
+            dec_number_label.set_text (decimal_value);
+            oct_number_label.set_text (octal_value);
+            bin_number_label.set_text (binary_value);
+        }
+        private string get_binary_length () {
+            string binary_value = "";
             int max_num = 0;
             switch (settings.global_word_length) {
                 case GlobalWordLength.BYT:
@@ -227,21 +261,11 @@ namespace Pebbles {
             }
             for (int i = 0; i < max_num; i++) {
                 binary_value += "0";
-            }
-            if (current_input.type == ProgrammerCalculator.TokenType.OPERAND) {
-                if (current_input.number_system == NumberSystem.DECIMAL) {
-                    decimal_value = current_input.token;
-                    binary_value = programmer_calculator_front_end.convert_decimal_to_binary (current_input.token);
-                    binary_value = programmer_calculator_front_end.represent_binary_by_word_length (binary_value, GlobalWordLength.BYT, true);
-                } else
-                if (current_input.number_system == NumberSystem.BINARY) {
-                    decimal_value = programmer_calculator_front_end.convert_binary_to_decimal (current_input.token);
-                    binary_value = programmer_calculator_front_end.represent_binary_by_word_length (current_input.token, GlobalWordLength.BYT, true);
+                if ((i + 1) % 8 == 0) {
+                    binary_value += " ";
                 }
-                
             }
-            dec_number_label.set_text (decimal_value);
-            bin_number_label.set_text (binary_value);
+            return binary_value;
         }
         public void set_number_system () {
             switch (settings.number_system) {
@@ -270,7 +294,7 @@ namespace Pebbles {
                 hex_label.get_style_context ().remove_class ("PebblesLCDSwitchSelected");
                 break;
             }
-            input_entry.set_text (programmer_calculator_front_end.set_number_system (input_entry.get_text ()));
+            input_entry.set_text (programmer_calculator_front_end.set_number_system (input_entry.get_text (), settings.global_word_length));
         }
         public void set_shift_enable (bool s_on) {
             if (s_on) {

@@ -871,7 +871,7 @@ namespace Pebbles {
                         return false;
                     }
                 }                
-                return true;
+                return false;
             });
             key_release_event.connect ((event) => {
                 switch (settings.view_index) {

@@ -51,13 +51,6 @@ namespace Pebbles {
             var settings = Settings.get_default ();
             settings.number_system = NumberSystem.DECIMAL;
             ProgrammerCalculator prog_calc_front = new ProgrammerCalculator ();
-            prog_calc_front.populate_token_array ("2 + 3 * (5 and 6)");
-            settings.number_system = NumberSystem.BINARY;
-            var result = prog_calc_front.set_number_system ("2 + 3 * (5 and 6)");
-            print(result + "\n");
-
-            var bin = prog_calc_front.represent_binary_by_word_length ("1000101010", GlobalWordLength.BYT, true);
-            print (">>>" + bin + "\n");
         }
         private static void test_programmer(string input1, string input2) {
             Programmer prog_calc = new Programmer();
