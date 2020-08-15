@@ -746,25 +746,25 @@ namespace Pebbles {
             }
         }
         private void word_length_button_label_update () {
-            if (settings.global_word_length == Pebbles.GlobalAngleUnit.QWD) {
+            if (settings.global_word_length == Pebbles.GlobalWordLength.QWD) {
                 word_length_button.label = "QWD";
                 word_length_button.tooltip_text = "QWORD";
                 programmer_view.display_unit.set_word_length_status (0);
                 programmer_view.bit_grid.set_bit_length_mode (3);
             }
-            else if (settings.global_word_length == Pebbles.GlobalAngleUnit.DWD) {
+            else if (settings.global_word_length == Pebbles.GlobalWordLength.DWD) {
                 word_length_button.label = "DWD";
                 word_length_button.tooltip_text = "DWORD";
                 programmer_view.display_unit.set_word_length_status (1);
                 programmer_view.bit_grid.set_bit_length_mode (2);
             }
-            else if (settings.global_word_length == Pebbles.GlobalAngleUnit.WRD) {
+            else if (settings.global_word_length == Pebbles.GlobalWordLength.WRD) {
                 word_length_button.label = "WRD";
                 word_length_button.tooltip_text = "WORD";
                 programmer_view.display_unit.set_word_length_status (2);
                 programmer_view.bit_grid.set_bit_length_mode (1);
             }
-            else if (settings.global_word_length == Pebbles.GlobalAngleUnit.BYT) {
+            else if (settings.global_word_length == Pebbles.GlobalWordLength.BYT) {
                 word_length_button.label = "BYT";
                 word_length_button.tooltip_text = "BYTE";
                 programmer_view.display_unit.set_word_length_status (3);
