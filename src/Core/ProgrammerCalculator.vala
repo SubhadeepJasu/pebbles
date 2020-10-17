@@ -20,7 +20,7 @@
  */
 namespace Pebbles {
     public class ProgrammerCalculator {
-        private const char[] HEXADECIMAL_DIGITS = { 'a', 'b', 'b', 'd', 'e', 'f'};
+        private const char[] HEXADECIMAL_DIGITS = { 'a', 'b', 'c', 'd', 'e', 'f'};
         public enum TokenType {
             OPERATOR,
             OPERAND,
@@ -380,17 +380,17 @@ namespace Pebbles {
                 case "1001":
                 return "9"; 
                 case "1010":
-                return "A"; 
+                return "a"; 
                 case "1011":
-                return "B"; 
+                return "b"; 
                 case "1100":
-                return "C"; 
+                return "b"; 
                 case "1101":
-                return "D"; 
+                return "d"; 
                 case "1110":
-                return "E"; 
+                return "e"; 
                 case "1111":
-                return "F"; 
+                return "f"; 
             }
             return "";
         }
@@ -440,18 +440,12 @@ namespace Pebbles {
 
         public string convert_binary_to_octal (string bin_value, GlobalWordLength? wrd_length = GlobalWordLength.BYT) {
 
-            int64 binaryNum = int64.parse (represent_binary_by_word_length (bin_value, wrd_length));
-            int64 octalNum = 0, decimalNum = 0, count = 0;
-
-            while(binaryNum != 0) {
-               decimalNum += (int64)(binaryNum%10) * pow64(2,count);
-               ++count;
-               binaryNum = (int64)(binaryNum / 10);
-            }
-            count = 1;
+            string binary_string = represent_binary_by_word_length (bin_value, wrd_length);
+            uint64 octalNum = 0, decimalNum = 0, count = 1;
+            decimalNum = uint64.parse(convert_binary_to_decimal(binary_string, wrd_length));
             while (decimalNum != 0) {
-               octalNum += (int64)Math.fabs(decimalNum % 8) * count;
-               decimalNum = (int64)(decimalNum / 8);
+               octalNum += (uint64)Math.fabs(decimalNum % 8) * count;
+               decimalNum = (uint64)(decimalNum / 8);
                count *= 10;
             }
             return octalNum.to_string();
@@ -493,9 +487,9 @@ namespace Pebbles {
             string bin_value = convert_octal_to_binary (oct_value, wrd_length);
             return convert_binary_to_hexadecimal (bin_value, wrd_length);
         }
-        private int64 pow64 (int64 a, int64 b) {
-            int64 c = 1;
-            for (int64 i = 0; i < b; i++) {
+        private uint64 pow64 (uint64 a, uint64 b) {
+            uint64 c = 1;
+            for (uint64 i = 0; i < b; i++) {
                 c *= a;
             }
             return c;
