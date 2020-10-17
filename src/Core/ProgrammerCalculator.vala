@@ -466,17 +466,13 @@ namespace Pebbles {
             int64 decimalNum = 0, binaryNum = 0, count = 0;
 
             while(octalNum != 0) {
-                decimalNum += (int64)((octalNum%10) * Math.pow(8,count));
+                decimalNum += (int64)((octalNum%10) * pow64(8,count));
                 ++count;
                 octalNum/=10;
             }
             count = 1;
-            while (decimalNum != 0) {
-                binaryNum += (decimalNum % 2) * count;
-                decimalNum /= 2;
-                count *= 10;
-            }
-            string bin_value = represent_binary_by_word_length (binaryNum.to_string (), wrd_length, format);
+            string bin_value = convert_decimal_to_binary (decimalNum.to_string (), wrd_length);
+            bin_value = represent_binary_by_word_length (bin_value, wrd_length, format);
             return bin_value;
         }
         public string convert_octal_to_decimal (string oct_value, GlobalWordLength? wrd_length = GlobalWordLength.BYT) {
