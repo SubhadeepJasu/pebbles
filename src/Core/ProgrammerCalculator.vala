@@ -199,7 +199,8 @@ namespace Pebbles {
                     for (int i = 0; i < 8 - binary_value.length; i++) {
                         pre_zeros += "0";
                     }
-                    new_binary = pre_zeros + binary_value;
+                    if (format)
+                        new_binary = pre_zeros + binary_value;
                 }
                 break;
                 case GlobalWordLength.WRD:
@@ -434,8 +435,10 @@ namespace Pebbles {
                     i++; 
                 } 
             }
-            
-            return hex_value;
+            while (hex_value.has_prefix ("0")) {
+                hex_value = hex_value.splice (0, 1, "");
+            }
+            return (hex_value == "") ? "0" : hex_value;
         }
 
         public string convert_binary_to_octal (string bin_value, GlobalWordLength? wrd_length = GlobalWordLength.BYT) {
@@ -470,7 +473,6 @@ namespace Pebbles {
                 ++count;
                 octalNum/=10;
             }
-            count = 1;
             string bin_value = convert_decimal_to_binary (decimalNum.to_string (), wrd_length);
             bin_value = represent_binary_by_word_length (bin_value, wrd_length, format);
             return bin_value;
