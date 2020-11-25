@@ -793,6 +793,9 @@ namespace Pebbles {
                     case 0: 
                         scientific_view.key_pressed (event);
                         break;
+                    case 1:
+                        programmer_view.key_pressed (event);
+                        break;
                     case 2:
                         calculus_view.key_pressed (event);
                         break;
@@ -871,12 +874,15 @@ namespace Pebbles {
                         return false;
                     }
                 }                
-                return false;
+                return true;
             });
             key_release_event.connect ((event) => {
                 switch (settings.view_index) {
                     case 0:
                         scientific_view.key_released (event);
+                        break;
+                    case 1:
+                        programmer_view.key_released (event);
                         break;
                     case 2:
                         calculus_view.key_released (event);

@@ -32,6 +32,8 @@ namespace Pebbles {
         Gtk.Label shift_label;
         
         // Number System label
+        Gtk.Grid number_system_grid;
+
         public Gtk.Label hex_label;
         public Gtk.Label dec_label;
         public Gtk.Label oct_label;
@@ -100,7 +102,7 @@ namespace Pebbles {
             lcd_status_bar.set_halign (Gtk.Align.END);
             
             // Make number system view
-            Gtk.Grid number_system_grid = new Gtk.Grid ();
+            number_system_grid = new Gtk.Grid ();
             hex_label = new Gtk.Label ("HEX");
             dec_label = new Gtk.Label ("DEC");
             oct_label = new Gtk.Label ("OCT");
@@ -192,15 +194,13 @@ namespace Pebbles {
 
         private void prog_display_make_events () {
             input_entry.changed.connect (() => {
-                if (input_entry.get_text () == "") {
-                    input_entry.set_text ("0");
-                }
                 if (input_entry.get_text ().has_prefix ("0") && input_entry.get_text () != null) {
                     if (input_entry.get_text ().length != 1) {
                         input_entry.set_text (input_entry.get_text ().slice (1, input_entry.get_text().length));
                     }
                 }
-                programmer_calculator_front_end.populate_token_array (input_entry.get_text ());
+                if (input_entry.get_text() != "0" && input_entry.get_text() != "")
+                    programmer_calculator_front_end.populate_token_array (input_entry.get_text ());
                 display_all_number_systems ();
             });
         }
@@ -335,6 +335,36 @@ namespace Pebbles {
                     word_mode = GlobalWordLength.QWD;
                     break;
             }
+        }
+        // Just eye-candy
+        public void display_off () {
+            answer_label.set_opacity (0.1);
+            number_system_grid.set_opacity (0.1);
+            input_entry.set_opacity (0.1);
+            lcd_status_bar.set_opacity (0.1);
+        }
+
+        public void display_on () {
+            answer_label.set_opacity (1);
+            number_system_grid.set_opacity (1);
+            input_entry.set_opacity (1);
+            lcd_status_bar.set_opacity (1);
+        }
+
+        public void send_backspace () {
+            input_entry.backspace ();
+            if (input_entry.get_text () == "") {
+                input_entry.set_text ("0");
+                input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+            }
+        }
+
+        public void insert_text (string text) {
+            if (input_entry.get_text () == "0") {
+                input_entry.set_text ("");
+            }
+            input_entry.grab_focus_without_selecting ();
+            input_entry.insert_at_cursor (text);
         }
     }
 }
