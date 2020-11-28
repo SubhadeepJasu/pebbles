@@ -74,6 +74,10 @@ namespace Pebbles {
             stored_tokens[0].type = TokenType.OPERAND;
         }
 
+        public string get_result (GlobalWordLength? wrd_length) {
+            return evaluate_exp (wrd_length);
+        }
+
         public Token get_last_token () {
             print ("%d\n", stored_tokens.length);
             return stored_tokens[stored_tokens.length - 1];
@@ -491,6 +495,134 @@ namespace Pebbles {
                 c *= a;
             }
             return c;
+        }
+        // Evaluation ///////////////////////////////////////////////////////////////
+
+        private static bool has_precedence_pemdas (char op1, char op2) {
+            if (op2 == '(' || op2 == ')') {
+                return false;
+            }
+            // Following the PEMDAS rule: <http://mathworld.wolfram.com/PEMDAS.html>
+            if ((op1 == '!' || op1 == 'm') && (op2 == '|' || op2 == '&' || op2 == '<' || op2 == '>' || op2 == '+' || op2 == '-' || op2 == 'x' || op2 == 'n' || op2 == '/' || op2 == '*')) {
+                return false;
+            }
+            else if ((op1 == '/' || op1 == '*') && (op2 == '|' || op2 == '&' || op2 == '<' || op2 == '>' || op2 == '+' || op2 == '-' || op2 == 'x' || op2 == 'n')) {
+                return false;
+            }
+            else if ((op1 == '+' || op1 == '-') && (op2 == '<' || op2 == '>' || op2 == '|' || op2 == '&' || op2 == 'x' || op2 == 'n')) {
+                return false;
+            }
+            else if ((op1 == '<' || op1 == '>') && (op2 == '|' || op2 == '&' || op2 == 'x' || op2 == 'n')) {
+                return false;
+            }
+            else if ((op1 == '&') && (op2 == '|' || op2 == 'x' || op2 == 'n')) {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+
+        public bool[] apply_op (Programmer prog_calc, char op, bool[] a, bool[] b) {
+            print(">>9\n");
+            bool[] bool_array = new bool[int.max(a.length, b.length)];
+            switch (op) {
+                case '+':
+                print("9\n");
+                return prog_calc.add (a, b);
+            }
+            return bool_array;
+        }
+
+        public string evaluate_exp (GlobalWordLength? wrd_length = GlobalWordLength.BYT) {
+            CharStack ops = new CharStack (50);
+            print("1\n");
+            BoolArrayStack values = new BoolArrayStack(50);
+            print("1\n");
+            Programmer prog_calc = new Programmer();
+            print("1\n");
+            for (int i = 0; i < stored_tokens.length; i++) {
+                print("2\n");
+                if (stored_tokens[i].type == TokenType.OPERAND) {
+                    //ops.push((char)(stored_tokens[i].token.get_char(0)));
+                    values.push(string_to_bool_array(stored_tokens[i].token, stored_tokens[i].number_system, wrd_length));
+                    print("3\n");
+                } else if (stored_tokens[i].type == TokenType.PARENTHESIS) {
+                    print("/3\n");
+                    if (stored_tokens[i].token == "(") {
+                        ops.push ('(');
+                        print("4\n");
+                    }
+                    else {
+                        while (ops.peek() != '(') {
+                            bool[] tmp = apply_op(prog_calc, ops.pop(), values.pop(), values.pop());
+                            values.push(tmp);
+                            print("4\n");
+                        }
+                        ops.pop();
+                        print("5\n");
+                    }
+                } else if (stored_tokens[i].type == TokenType.OPERATOR) {
+                    print(">>6\n");
+                    while (!ops.empty() && has_precedence_pemdas(stored_tokens[i].token.get(0), ops.peek())) {
+                        print(">>7\n");
+                        bool[] tmp = apply_op(prog_calc, ops.pop(), values.pop(), values.pop());
+                        values.push(tmp);
+                        print("7\n");
+                    }
+                    // Push current token to stack
+                    ops.push(stored_tokens[i].token.get(0));
+                    print("<<6\n");
+                }
+            }
+            while (!ops.empty()) {
+                print(">>8\n");
+                bool[] tmp = apply_op(prog_calc, ops.pop(), values.pop(), values.pop());
+                values.push(tmp);
+                print("8\n");
+            }
+
+            // Take care of float accuracy of the result
+            print("9\n");
+            string output = bool_array_to_string (values.pop());
+            print("9\n");
+            return output;
+        }
+        private bool[] string_to_bool_array (string str, NumberSystem number_system, GlobalWordLength wrd_length) {
+            bool[] bool_array = new bool[64];
+            string converted_str = "";
+            switch (number_system) {
+                case NumberSystem.OCTAL:
+                converted_str = convert_octal_to_binary (str, wrd_length, true).replace (" ", "");
+                break;
+                case NumberSystem.DECIMAL:
+                converted_str = convert_decimal_to_binary (str, wrd_length, true).replace (" ", "");
+                break;
+                default:
+                converted_str = represent_binary_by_word_length (str, wrd_length, true).replace (" ", "");
+                break;
+            }
+            for (int i = 0; i < converted_str.length; i++) {
+                if (converted_str.get_char(i) == '0') {
+                    bool_array[i] = false;
+                } else {
+                    bool_array[i] = true;
+                }
+            }
+            return bool_array;
+        }
+
+        private string bool_array_to_string(bool[] arr) {
+            string str = "";
+            for (int i = 0; i < arr.length; i++) {
+                if (arr[i] == true) {
+                    str += "1";
+                } else {
+                    str += "0";
+                }
+            }
+            //stdout.printf(str + "\n");
+            return str;
         }
     }
 }

@@ -51,9 +51,22 @@ namespace Pebbles {
             return xor_each_bit(c, xor_each_bit(a,b));
         }
         public bool[] add (bool[] input_a, bool[] input_b) {
+            string str = "", strr = "", strrr = "";
+            for (int i = 0; i < input_a.length; i++) {
+                str += (input_a[i] == true) ? "1" : "0";
+            }
+            print("\n" + str + "\n");
+            for (int i = 0; i < input_b.length; i++) {
+                strr += (input_b[i] == true) ? "1" : "0";
+            }
+            print(strr + "\n");
             for(int i=63; i>63-word_size;i--) {
                 output[i] = full_add(input_a[i], input_b[i]);  //always set carry to false on first iteration
             }
+            for (int i = 0; i < output.length; i++) {
+                strrr += (output[i] == true) ? "1" : "0";
+            }
+            print(strrr + "\n");
             return output;
         }
         public bool[] ones_complement(bool[] input) {

@@ -192,6 +192,11 @@ namespace Pebbles {
             width_request = 530;
         }
 
+        public void get_answer_evaluate () {
+            string result = programmer_calculator_front_end.get_result (settings.global_word_length);
+            this.answer_label.set_text (result);
+        }
+
         private void prog_display_make_events () {
             input_entry.changed.connect (() => {
                 if (input_entry.get_text ().has_prefix ("0") && input_entry.get_text () != null) {

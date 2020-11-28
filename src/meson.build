@@ -22,6 +22,9 @@ sources = files (
     'Core/CurrencyConverter.vala',
     'Core/DateCalculator.vala',
 
+    'Core/CharStack.vala',
+    'Core/BoolArrayStack.vala',
+
     'Views/MiniCalculator.vala',
     'Views/CalculusView.vala',
     'Views/ProgrammerView.vala',
