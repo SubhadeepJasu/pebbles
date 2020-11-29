@@ -193,7 +193,7 @@ namespace Pebbles {
         }
 
         public void get_answer_evaluate () {
-            string result = programmer_calculator_front_end.get_result (settings.global_word_length);
+            string result = programmer_calculator_front_end.evaluate_exp (settings.global_word_length, settings.number_system);
             this.answer_label.set_text (result);
         }
 

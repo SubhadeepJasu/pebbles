@@ -51,26 +51,13 @@ namespace Pebbles {
             return xor_each_bit(c, xor_each_bit(a,b));
         }
         public bool[] add (bool[] input_a, bool[] input_b) {
-            string str = "", strr = "", strrr = "";
-            for (int i = 0; i < input_a.length; i++) {
-                str += (input_a[i] == true) ? "1" : "0";
-            }
-            print("\n" + str + "\n");
-            for (int i = 0; i < input_b.length; i++) {
-                strr += (input_b[i] == true) ? "1" : "0";
-            }
-            print(strr + "\n");
-            for(int i=63; i>63-word_size;i--) {
+            for(int i=63; i>63-(int)word_size;i--) {
                 output[i] = full_add(input_a[i], input_b[i]);  //always set carry to false on first iteration
             }
-            for (int i = 0; i < output.length; i++) {
-                strrr += (output[i] == true) ? "1" : "0";
-            }
-            print(strrr + "\n");
             return output;
         }
         public bool[] ones_complement(bool[] input) {
-            for(int i=64-word_size;i<64;i++) {
+            for(int i=64-(int)word_size;i<64;i++) {
                 output[i] = !input[i];  //always set carry to false on first iteration
             }
             return output;
@@ -96,22 +83,22 @@ namespace Pebbles {
         public bool[] multiply (bool[] input_a, bool[] input_b) {
             bool[] input_a_copy =new bool[64];
             bool[] input_b_copy =new bool[64];
-            for(int i=0; i<64-word_size;i++) {
+            for(int i=0; i<64-(int)word_size;i++) {
                 input_a_copy[i] = false;
                 input_b_copy[i] = false;
             }
-            for(int i=64-word_size; i<64;i++) {
+            for(int i=64-(int)word_size; i<64;i++) {
                 input_a_copy[i] = input_a[i];
                 input_b_copy[i] = input_b[i];
             }
             bool[] bit_product;
             bool[] sum_of_products = new bool[64];
             int k=0;
-            for (int i=63;i>=64-word_size;i--) {
+            for (int i=63;i>=64-(int)word_size;i--) {
                 bit_product = new bool[64];
                 //check if bit taken in multiplier is 1 then multiply and add to obtain final result else if 0 then skip
                 if(input_b_copy[i]==true) {
-                    for (int j=63-k; j>=64-word_size; j--) {
+                    for (int j=63-k; j>=64-(int)word_size; j--) {
                         //each_bit_product[i,j] = multiply_two_bits(input_a_copy[j+k], input_b_copy[i]);
                         bit_product[j] = multiply_two_bits(input_a_copy[j+k], input_b_copy[i]);
                     
@@ -125,37 +112,37 @@ namespace Pebbles {
             return output;
         }
         public bool[] and(bool[] input_a, bool[] input_b) {
-            for(int i=64-word_size; i<64;i++) {
+            for(int i=64-(int)word_size; i<64;i++) {
                 output[i] = input_a[i] && input_b[i];
             }
             return output;
         }
         public bool[] nand(bool[] input_a, bool[] input_b) {
-            for(int i=64-word_size; i<64;i++) {
+            for(int i=64-(int)word_size; i<64;i++) {
                 output[i] = !(input_a[i] && input_b[i]);
             }
             return output;
         }
         public bool[] or(bool[] input_a, bool[] input_b) {
-            for(int i=64-word_size; i<64;i++) {
+            for(int i=64-(int)word_size; i<64;i++) {
                 output[i] = input_a[i] || input_b[i];
             }
             return output;
         }
         public bool[] nor(bool[] input_a, bool[] input_b) {
-            for(int i=64-word_size; i<64;i++) {
+            for(int i=64-(int)word_size; i<64;i++) {
                 output[i] = !(input_a[i] || input_b[i]);
             }
             return output;
         }
         public bool[] xor(bool[] input_a, bool[] input_b) {
-            for(int i=64-word_size; i<64;i++) {
+            for(int i=64-(int)word_size; i<64;i++) {
                 output[i] = xor_each_bit(input_a[i], input_b[i]);
             }
             return output;
         }
         public bool[] xnor(bool[] input_a, bool[] input_b) {
-            for(int i=64-word_size; i<64;i++) {
+            for(int i=64-(int)word_size; i<64;i++) {
                 output[i] = !(xor_each_bit(input_a[i], input_b[i]));
             }
             return output;

@@ -74,10 +74,6 @@ namespace Pebbles {
             stored_tokens[0].type = TokenType.OPERAND;
         }
 
-        public string get_result (GlobalWordLength? wrd_length) {
-            return evaluate_exp (wrd_length);
-        }
-
         public Token get_last_token () {
             print ("%d\n", stored_tokens.length);
             return stored_tokens[stored_tokens.length - 1];
@@ -524,23 +520,41 @@ namespace Pebbles {
         }
 
         public bool[] apply_op (Programmer prog_calc, char op, bool[] a, bool[] b) {
-            print(">>9\n");
             bool[] bool_array = new bool[int.max(a.length, b.length)];
             switch (op) {
                 case '+':
-                print("9\n");
                 return prog_calc.add (a, b);
+                case '-':
+                return prog_calc.subtract (a, b);
+                case '*':
+                return prog_calc.multiply (a, b);
+                case '/':
+                return prog_calc.multiply (a, b);
+                case '&':
+                return prog_calc.and (a, b);
             }
             return bool_array;
         }
 
-        public string evaluate_exp (GlobalWordLength? wrd_length = GlobalWordLength.BYT) {
+        public string evaluate_exp (GlobalWordLength? wrd_length = GlobalWordLength.BYT, NumberSystem number_system) {
             CharStack ops = new CharStack (50);
-            print("1\n");
             BoolArrayStack values = new BoolArrayStack(50);
-            print("1\n");
             Programmer prog_calc = new Programmer();
-            print("1\n");
+            switch (wrd_length) {
+                case GlobalWordLength.BYT:
+                prog_calc.word_size = WordSize.BYTE;
+                break;
+                case GlobalWordLength.WRD:
+                prog_calc.word_size = WordSize.WORD;
+                break;
+                case GlobalWordLength.DWD:
+                prog_calc.word_size = WordSize.DWORD;
+                break;
+                case GlobalWordLength.QWD:
+                prog_calc.word_size = WordSize.QWORD;
+                break;
+            }
+            prog_calc.word_size = WordSize.BYTE;
             for (int i = 0; i < stored_tokens.length; i++) {
                 print("2\n");
                 if (stored_tokens[i].type == TokenType.OPERAND) {
@@ -584,7 +598,7 @@ namespace Pebbles {
 
             // Take care of float accuracy of the result
             print("9\n");
-            string output = bool_array_to_string (values.pop());
+            string output = bool_array_to_string (values.pop(), wrd_length, number_system);
             print("9\n");
             return output;
         }
@@ -597,6 +611,9 @@ namespace Pebbles {
                 break;
                 case NumberSystem.DECIMAL:
                 converted_str = convert_decimal_to_binary (str, wrd_length, true).replace (" ", "");
+                break;
+                case NumberSystem.HEXADECIMAL:
+                converted_str = convert_hexadecimal_to_binary (str, wrd_length, true).replace (" ", "");
                 break;
                 default:
                 converted_str = represent_binary_by_word_length (str, wrd_length, true).replace (" ", "");
@@ -612,7 +629,7 @@ namespace Pebbles {
             return bool_array;
         }
 
-        private string bool_array_to_string(bool[] arr) {
+        private string bool_array_to_string(bool[] arr, GlobalWordLength wrd_length, NumberSystem number_system) {
             string str = "";
             for (int i = 0; i < arr.length; i++) {
                 if (arr[i] == true) {
@@ -621,7 +638,20 @@ namespace Pebbles {
                     str += "0";
                 }
             }
-            //stdout.printf(str + "\n");
+            switch (number_system) {
+                case NumberSystem.OCTAL:
+                str = convert_binary_to_octal (str, wrd_length);
+                break;
+                case NumberSystem.DECIMAL:
+                str = convert_binary_to_decimal (str, wrd_length);
+                break;
+                case NumberSystem.HEXADECIMAL:
+                str = convert_binary_to_hexadecimal (str, wrd_length);
+                break;
+                default:
+                str = represent_binary_by_word_length (str, wrd_length);
+                break;
+            }
             return str;
         }
     }
