@@ -50,28 +50,38 @@ namespace Pebbles {
             carry = (a && b) || (b && carry) || (a && carry);
             return xor_each_bit(c, xor_each_bit(a,b));
         }
-        public bool[] add (bool[] input_a, bool[] input_b) {
-            for(int i=63; i>63-(int)word_size;i--) {
+        public bool[] add (bool[] input_a, bool[] input_b, int? word_size = 8) {
+            print("<<<%d\n", input_a.length);
+            for (int i = 0; i < input_a.length; i++)
+                print("%d", (input_a[i]) ? 1 : 0);
+            print("\nto b\n");
+            for (int i = 0; i < input_b.length; i++)
+                print("%d", (input_b[i]) ? 1 : 0);
+            for(int i=63; i>63-word_size;i--) {
                 output[i] = full_add(input_a[i], input_b[i]);  //always set carry to false on first iteration
             }
+            print("\n");
+            for (int i = 0; i < output.length; i++)
+                print("%d", (output[i]) ? 1 : 0);
+            print("\n");
             return output;
         }
-        public bool[] ones_complement(bool[] input) {
-            for(int i=64-(int)word_size;i<64;i++) {
+        public bool[] ones_complement(bool[] input, int? word_size = 8) {
+            for(int i=64-word_size;i<64;i++) {
                 output[i] = !input[i];  //always set carry to false on first iteration
             }
             return output;
         }
-        public bool[] twos_complement(bool[] input) {
-            bool[] input_copy = ones_complement(input);
+        public bool[] twos_complement(bool[] input, int? word_size = 8) {
+            bool[] input_copy = ones_complement(input, word_size);
             bool[] binary_one = new bool[64];
             binary_one[63] = true;
-            add(input_copy, binary_one);
+            add(input_copy, binary_one, word_size);
             return output;
         }
-        public bool[] subtract (bool[] input_a, bool[] input_b) {
-            bool[] input_b_copy = twos_complement(input_b);
-            add(input_a, input_b_copy);
+        public bool[] subtract (bool[] input_a, bool[] input_b, int? word_size = 8) {
+            bool[] input_b_copy = twos_complement(input_b, word_size);
+            add(input_a, input_b_copy, word_size);
             return output;
         }
         public bool multiply_two_bits (bool a, bool b) {
@@ -135,8 +145,8 @@ namespace Pebbles {
             }
             return output;
         }
-        public bool[] xor(bool[] input_a, bool[] input_b) {
-            for(int i=64-(int)word_size; i<64;i++) {
+        public bool[] xor(bool[] input_a, bool[] input_b, int? word_size = 8) {
+            for(int i=64-word_size; i<64;i++) {
                 output[i] = xor_each_bit(input_a[i], input_b[i]);
             }
             return output;
