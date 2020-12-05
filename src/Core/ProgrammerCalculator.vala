@@ -505,7 +505,7 @@ namespace Pebbles {
                 case '+':
                 return prog_calc.add (a, b, word_size);
                 case '-':
-                return prog_calc.subtract (a, b, word_size);
+                return prog_calc.subtract (b, a, word_size);
                 case '*':
                 return prog_calc.multiply (a, b);
                 case '/':

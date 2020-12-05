@@ -103,8 +103,9 @@ namespace Pebbles {
             print("\n");
             
             print("Binary Subtraction operation:");
-            prog_calc.subtract(input_a, input_b);
+            prog_calc.subtract(input_a, input_b, 8);
             output = prog_calc.output;
+            print("sub\n");
             for(int i =0; i<64; i++) {
                 print("%s",output[i]?"1":"0");
             }
