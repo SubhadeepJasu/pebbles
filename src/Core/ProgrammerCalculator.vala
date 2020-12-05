@@ -199,8 +199,7 @@ namespace Pebbles {
                     for (int i = 0; i < 8 - binary_value.length; i++) {
                         pre_zeros += "0";
                     }
-                    if (format)
-                        new_binary = pre_zeros + binary_value;
+                    new_binary = pre_zeros + binary_value;
                 }
                 break;
                 case GlobalWordLength.WRD:
@@ -398,24 +397,6 @@ namespace Pebbles {
 
         public string convert_binary_to_hexadecimal (string bin_value, GlobalWordLength? wrd_length = GlobalWordLength.BYT) {
             string bin = represent_binary_by_word_length (bin_value, wrd_length, false);
-            int l = bin.length;
-            int t = bin.index_of_char ('.', 0);
-            int len_left = t != -1 ? t : l; 
-            for (int i = 1; i <= (4 - len_left % 4) % 4; i++) 
-                bin = "0" + bin; 
-            
-            // if decimal point exists     
-            if (t != -1)     
-            { 
-                // length of string after '.' 
-                int len_right = l - len_left - 1; 
-                
-                // add min 0's in the end to make right 
-                // substring length divisible by 4  
-                for (int i = 1; i <= (4 - len_right % 4) % 4; i++) 
-                    bin = bin + "0"; 
-            } 
-
             int i = 0;
             string hex_value = "";
 
@@ -424,9 +405,8 @@ namespace Pebbles {
                 // of size 4 and add its hex code 
                 hex_value += map_bin_to_hex(bin.substring(i, 4)); 
                 i += 4; 
-                if (i == bin.length) 
+                if (i == bin.length || bin == "") 
                     break; 
-                    
                 // if '.' is encountered add it 
                 // to result 
                 if (bin.get_char(i) == '.')     
@@ -443,7 +423,7 @@ namespace Pebbles {
 
         public string convert_binary_to_octal (string bin_value, GlobalWordLength? wrd_length = GlobalWordLength.BYT) {
 
-            string binary_string = represent_binary_by_word_length (bin_value, wrd_length);
+            string binary_string = represent_binary_by_word_length (bin_value, wrd_length, false);
             uint64 octalNum = 0, decimalNum = 0, count = 1;
             decimalNum = uint64.parse(convert_binary_to_decimal(binary_string, wrd_length));
             while (decimalNum != 0) {
@@ -491,6 +471,175 @@ namespace Pebbles {
                 c *= a;
             }
             return c;
+        }
+        // Evaluation ///////////////////////////////////////////////////////////////
+
+        private static bool has_precedence_pemdas (char op1, char op2) {
+            if (op2 == '(' || op2 == ')') {
+                return false;
+            }
+            // Following the PEMDAS rule: <http://mathworld.wolfram.com/PEMDAS.html>
+            if ((op1 == '!' || op1 == 'm') && (op2 == '|' || op2 == '&' || op2 == '<' || op2 == '>' || op2 == '+' || op2 == '-' || op2 == 'x' || op2 == 'n' || op2 == '/' || op2 == '*')) {
+                return false;
+            }
+            else if ((op1 == '/' || op1 == '*') && (op2 == '|' || op2 == '&' || op2 == '<' || op2 == '>' || op2 == '+' || op2 == '-' || op2 == 'x' || op2 == 'n')) {
+                return false;
+            }
+            else if ((op1 == '+' || op1 == '-') && (op2 == '<' || op2 == '>' || op2 == '|' || op2 == '&' || op2 == 'x' || op2 == 'n')) {
+                return false;
+            }
+            else if ((op1 == '<' || op1 == '>') && (op2 == '|' || op2 == '&' || op2 == 'x' || op2 == 'n')) {
+                return false;
+            }
+            else if ((op1 == '&') && (op2 == '|' || op2 == 'x' || op2 == 'n')) {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+
+        public bool[] apply_op (Programmer prog_calc, char op, bool[] a, bool[] b, int word_size) {
+            bool[] bool_array = new bool[int.max(a.length, b.length)];
+            switch (op) {
+                case '+':
+                return prog_calc.add (a, b, word_size);
+                case '-':
+                return prog_calc.subtract (b, a, word_size);
+                case '*':
+                return prog_calc.multiply (a, b);
+                case '/':
+                return prog_calc.multiply (a, b);
+                case '&':
+                return prog_calc.and (a, b);
+            }
+            return bool_array;
+        }
+
+        public string evaluate_exp (GlobalWordLength? wrd_length = GlobalWordLength.BYT, NumberSystem number_system) {
+            CharStack ops = new CharStack (50);
+            BoolArrayStack values = new BoolArrayStack(50);
+            Programmer prog_calc = new Programmer();
+            int word_size = 8;
+            switch (wrd_length) {
+                case GlobalWordLength.BYT:
+                prog_calc.word_size = WordSize.BYTE;
+                break;
+                case GlobalWordLength.WRD:
+                prog_calc.word_size = WordSize.WORD;
+                word_size = 16;
+                break;
+                case GlobalWordLength.DWD:
+                prog_calc.word_size = WordSize.DWORD;
+                word_size = 32;
+                break;
+                case GlobalWordLength.QWD:
+                prog_calc.word_size = WordSize.QWORD;
+                word_size = 64;
+                break;
+            }
+            prog_calc.word_size = WordSize.BYTE;
+            for (int i = 0; i < stored_tokens.length; i++) {
+                print("2\n");
+                if (stored_tokens[i].type == TokenType.OPERAND) {
+                    //ops.push((char)(stored_tokens[i].token.get_char(0)));
+                    values.push(string_to_bool_array(stored_tokens[i].token, stored_tokens[i].number_system, wrd_length));
+                    print("3\n");
+                } else if (stored_tokens[i].type == TokenType.PARENTHESIS) {
+                    print("/3\n");
+                    if (stored_tokens[i].token == "(") {
+                        ops.push ('(');
+                        print("4\n");
+                    }
+                    else {
+                        while (ops.peek() != '(') {
+                            bool[] tmp = apply_op(prog_calc, ops.pop(), values.pop(), values.pop(), word_size);
+                            values.push(tmp);
+                            print("4\n");
+                        }
+                        ops.pop();
+                        print("5\n");
+                    }
+                } else if (stored_tokens[i].type == TokenType.OPERATOR) {
+                    print(">>6\n");
+                    while (!ops.empty() && has_precedence_pemdas(stored_tokens[i].token.get(0), ops.peek())) {
+                        print(">>7\n");
+                        bool[] tmp = apply_op(prog_calc, ops.pop(), values.pop(), values.pop(), word_size);
+                        values.push(tmp);
+                        print("7\n");
+                    }
+                    // Push current token to stack
+                    ops.push(stored_tokens[i].token.get(0));
+                    print("<<6\n");
+                }
+            }
+            while (!ops.empty()) {
+                print(">>8\n");
+                bool[] tmp = apply_op(prog_calc, ops.pop(), values.pop(), values.pop(), word_size);
+                values.push(tmp);
+                print("8\n");
+            }
+
+            // Take care of float accuracy of the result
+            print("9\n");
+            string output = bool_array_to_string (values.pop(), wrd_length, number_system);
+            print("9\n");
+            return output;
+        }
+        private bool[] string_to_bool_array (string str, NumberSystem number_system, GlobalWordLength wrd_length) {
+            bool[] bool_array = new bool[64];
+            string converted_str = "";
+            switch (number_system) {
+                case NumberSystem.OCTAL:
+                converted_str = convert_octal_to_binary (str, wrd_length, true).replace (" ", "");
+                break;
+                case NumberSystem.DECIMAL:
+                converted_str = convert_decimal_to_binary (str, wrd_length, true).replace (" ", "");
+                break;
+                case NumberSystem.HEXADECIMAL:
+                converted_str = convert_hexadecimal_to_binary (str, wrd_length, true).replace (" ", "");
+                break;
+                default:
+                converted_str = represent_binary_by_word_length (str, wrd_length, true).replace (" ", "");
+                break;
+            }
+            int j = 0;
+            for (int i = 64-converted_str.length; i < 64; i++) {
+                if (converted_str.get_char(j) == '0') {
+                    bool_array[i] = false;
+                } else {
+                    bool_array[i] = true;
+                }
+                j++;
+            }
+            return bool_array;
+        }
+
+        private string bool_array_to_string(bool[] arr, GlobalWordLength wrd_length, NumberSystem number_system) {
+            string str = "";
+            print("length%d\n", arr.length);
+            for (int i = 0; i <= arr.length; i++) {
+                if (arr[i] == true) {
+                    str += "1";
+                } else {
+                    str += "0";
+                }
+            }
+            switch (number_system) {
+                case NumberSystem.OCTAL:
+                str = convert_binary_to_octal (str, wrd_length);
+                break;
+                case NumberSystem.DECIMAL:
+                str = convert_binary_to_decimal (str, wrd_length);
+                break;
+                case NumberSystem.HEXADECIMAL:
+                str = convert_binary_to_hexadecimal (str, wrd_length);
+                break;
+                default:
+                str = represent_binary_by_word_length (str, wrd_length);
+                break;
+            }
+            return str;
         }
     }
 }

@@ -340,7 +340,7 @@ namespace Pebbles {
             });
             result_button.button_release_event.connect (() => {
                 display_unit.display_on ();
-                //display_unit.get_answer_evaluate ();
+                display_unit.get_answer_evaluate ();
                 return false;
             });
             all_clear_button.clicked.connect (() => {
