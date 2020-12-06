@@ -182,9 +182,16 @@ namespace Pebbles {
         } 
         public string convert_binary_to_decimal (string number, GlobalWordLength? wrd_length = GlobalWordLength.WRD) {
             string formatted_binary = represent_binary_by_word_length (number, wrd_length);
-            int64 decimal = 0; 
-            int64.from_string (formatted_binary, out decimal, 2);
-            return decimal.to_string ();
+            int64 decimal = 0;
+            string converted_binary = formatted_binary;
+            if (formatted_binary.get(0) == '1') {
+                converted_binary = "";
+                for (int i = 0; i < formatted_binary.length; i++) {
+                    converted_binary += (formatted_binary.get(i) == '1') ? "0" : "1";
+                }
+            }
+            int64.from_string (converted_binary, out decimal, 2);
+            return "-" + (decimal + 1).to_string ();
         }
         public string represent_binary_by_word_length (string binary_value, GlobalWordLength wrd_length = GlobalWordLength.BYT, bool? format = false) {
             string new_binary = "";
