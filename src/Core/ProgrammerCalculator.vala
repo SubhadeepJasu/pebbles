@@ -180,18 +180,20 @@ namespace Pebbles {
             }
             return represent_binary_by_word_length (binary, wrd_length, format);
         } 
-        public string convert_binary_to_decimal (string number, GlobalWordLength? wrd_length = GlobalWordLength.WRD) {
+        public string convert_binary_to_decimal (string number, GlobalWordLength? wrd_length = GlobalWordLength.WRD, bool? negative = false) {
             string formatted_binary = represent_binary_by_word_length (number, wrd_length);
             int64 decimal = 0;
             string converted_binary = formatted_binary;
-            if (formatted_binary.get(0) == '1') {
+            if (negative) {
                 converted_binary = "";
                 for (int i = 0; i < formatted_binary.length; i++) {
                     converted_binary += (formatted_binary.get(i) == '1') ? "0" : "1";
                 }
+                int64.from_string (converted_binary, out decimal, 2);
+                return "-" + (decimal + 1).to_string ();
             }
             int64.from_string (converted_binary, out decimal, 2);
-            return "-" + (decimal + 1).to_string ();
+            return decimal.to_string ();
         }
         public string represent_binary_by_word_length (string binary_value, GlobalWordLength wrd_length = GlobalWordLength.BYT, bool? format = false) {
             string new_binary = "";
@@ -402,21 +404,28 @@ namespace Pebbles {
             return "";
         }
 
-        public string convert_binary_to_hexadecimal (string bin_value, GlobalWordLength? wrd_length = GlobalWordLength.BYT) {
+        public string convert_binary_to_hexadecimal (string bin_value, GlobalWordLength? wrd_length = GlobalWordLength.BYT, bool? negative = false) {
             string bin = represent_binary_by_word_length (bin_value, wrd_length, false);
             int i = 0;
             string hex_value = "";
-
+            string converted_binary = bin;
+            if (negative) {
+                converted_binary = "";
+                for (i = 0; i < bin.length; i++) {
+                    converted_binary += (bin.get(i) == '1') ? "0" : "1";
+                }
+            }
+            i = 0;
             while (true) {
                 // one by one extract from left, substring 
                 // of size 4 and add its hex code 
-                hex_value += map_bin_to_hex(bin.substring(i, 4)); 
+                hex_value += map_bin_to_hex(converted_binary.substring(i, 4)); 
                 i += 4; 
-                if (i == bin.length || bin == "") 
+                if (i == converted_binary.length || converted_binary == "") 
                     break; 
                 // if '.' is encountered add it 
                 // to result 
-                if (bin.get_char(i) == '.')     
+                if (converted_binary.get_char(i) == '.')     
                 { 
                     hex_value += "."; 
                     i++; 
@@ -425,20 +434,37 @@ namespace Pebbles {
             while (hex_value.has_prefix ("0")) {
                 hex_value = hex_value.splice (0, 1, "");
             }
+            if (negative) {
+                int hex_num = 0x0;
+                hex_value.scanf("%x", &hex_num);
+                hex_num++;
+                hex_value = "%x".printf(hex_num);
+                hex_value = "-" + hex_value;
+            }
             return (hex_value == "") ? "0" : hex_value;
         }
 
-        public string convert_binary_to_octal (string bin_value, GlobalWordLength? wrd_length = GlobalWordLength.BYT) {
+        public string convert_binary_to_octal (string bin_value, GlobalWordLength? wrd_length = GlobalWordLength.BYT, bool? negative = false) {
 
             string binary_string = represent_binary_by_word_length (bin_value, wrd_length, false);
             uint64 octalNum = 0, decimalNum = 0, count = 1;
-            decimalNum = uint64.parse(convert_binary_to_decimal(binary_string, wrd_length));
+            string converted_binary = binary_string;
+            if (negative) {
+                converted_binary = "";
+                for (int i = 0; i < binary_string.length; i++) {
+                    converted_binary += (binary_string.get(i) == '1') ? "0" : "1";
+                }
+            }
+            uint64.from_string (converted_binary, out decimalNum, 2);
+            if (negative) {
+                decimalNum++;
+            }
             while (decimalNum != 0) {
                octalNum += (uint64)Math.fabs(decimalNum % 8) * count;
                decimalNum = (uint64)(decimalNum / 8);
                count *= 10;
             }
-            return octalNum.to_string();
+            return (negative) ? "-" + octalNum.to_string() : octalNum.to_string();
         }
 
         public string convert_decimal_to_octal (string dec_value, GlobalWordLength? wrd_length = GlobalWordLength.BYT) {
@@ -634,13 +660,13 @@ namespace Pebbles {
             }
             switch (number_system) {
                 case NumberSystem.OCTAL:
-                str = convert_binary_to_octal (str, wrd_length);
+                str = convert_binary_to_octal (str, wrd_length, arr[0]);
                 break;
                 case NumberSystem.DECIMAL:
-                str = convert_binary_to_decimal (str, wrd_length);
+                str = convert_binary_to_decimal (str, wrd_length, arr[0]);
                 break;
                 case NumberSystem.HEXADECIMAL:
-                str = convert_binary_to_hexadecimal (str, wrd_length);
+                str = convert_binary_to_hexadecimal (str, wrd_length, arr[0]);
                 break;
                 default:
                 str = represent_binary_by_word_length (str, wrd_length);
