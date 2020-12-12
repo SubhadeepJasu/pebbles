@@ -512,6 +512,9 @@ namespace Pebbles {
                 return false;
             }
             // Following the PEMDAS rule: <http://mathworld.wolfram.com/PEMDAS.html>
+            if ((op1 == 'u') && (op2 == '|' || op2 == '&' || op2 == '<' || op2 == '>' || op2 == '+' || op2 == '-' || op2 == 'x' || op2 == 'n' || op2 == '/' || op2 == '*' || op2 == '!' || op2 == 'm')) {
+                return false;
+            }
             if ((op1 == '!' || op1 == 'm') && (op2 == '|' || op2 == '&' || op2 == '<' || op2 == '>' || op2 == '+' || op2 == '-' || op2 == 'x' || op2 == 'n' || op2 == '/' || op2 == '*')) {
                 return false;
             }
