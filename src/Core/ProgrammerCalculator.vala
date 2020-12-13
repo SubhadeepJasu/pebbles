@@ -548,6 +548,8 @@ namespace Pebbles {
                 return prog_calc.multiply (a, b);
                 case '&':
                 return prog_calc.and (a, b);
+                case '<':
+                return prog_calc.left_shift (b, a, word_size);
             }
             return bool_array;
         }

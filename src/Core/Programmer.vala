@@ -51,19 +51,9 @@ namespace Pebbles {
             return xor_each_bit(c, xor_each_bit(a,b));
         }
         public bool[] add (bool[] input_a, bool[] input_b, int? word_size = 8) {
-            print("<<<%d\n", input_a.length);
-            for (int i = 0; i < input_a.length; i++)
-                print("%d", (input_a[i]) ? 1 : 0);
-            print("\nto b\n");
-            for (int i = 0; i < input_b.length; i++)
-                print("%d", (input_b[i]) ? 1 : 0);
             for(int i=63; i>63-word_size;i--) {
                 output[i] = full_add(input_a[i], input_b[i]);  //always set carry to false on first iteration
             }
-            print("\n");
-            for (int i = 0; i < output.length; i++)
-                print("%d", (output[i]) ? 1 : 0);
-            print("\n");
             return output;
         }
         public bool[] ones_complement(bool[] input, int? word_size = 8) {
@@ -121,6 +111,62 @@ namespace Pebbles {
             output = sum_of_products;
             return output;
         }
+
+        public bool[] division_quotient(bool[] input_a, bool[] input_b, int? word_size = 8) {
+            bool[] dividend = new bool[64];
+            int comparator_result;
+            //for left shifting dividend/remainder by 1
+            bool[] shift_size = new bool[64];
+            shift_size[63] = true;
+
+            for(int i=64-(int)word_size; i<64; i++) {
+                dividend = left_shift(dividend, shift_size, word_size);
+                print("Left shift : ");
+                for(int j = 0; j< 64 ; j++){ print(dividend[j]?"1":"0"); }
+                print("\n");
+                dividend[63] = input_a[i];
+                comparator_result = comparator(dividend, input_b, word_size);
+                if(comparator_result == -1) {
+                    output[i] = false;
+                }
+                else {
+                    output[i] = true;
+                    dividend = subtract(dividend, input_b, word_size);
+                }
+            }
+            return output;
+        }
+
+        /***
+        compares two boolean arrays and returns an integer based on the following:
+        a<b return -1
+        a=b return 0
+        a>b return 1
+        */
+
+        public int comparator(bool[] input_a, bool[] input_b, int? word_size = 8) {
+            for(int i=64-(int)word_size; i<64;i++) {
+                if(input_a[i] == false && input_b[i] == true) {
+                    return -1;
+                }
+                else if(input_a[i] == input_b[i]) {
+                    continue;
+                }
+                else {
+                    return 1;
+                }
+            }
+            return 0;
+        }
+
+        public bool[] left_shift(bool[] input_a, bool[] input_b, int? word_size = 8) {
+            for(int i=64-(int)word_size+1; i<64;i++) {
+                output[i-1] = input_a[i];
+            }
+            output[63] = false;
+            return output;
+        }
+
         public bool[] and(bool[] input_a, bool[] input_b) {
             for(int i=64-(int)word_size; i<64;i++) {
                 output[i] = input_a[i] && input_b[i];

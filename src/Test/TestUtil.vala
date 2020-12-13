@@ -119,6 +119,14 @@ namespace Pebbles {
             }
             print("\n");
 
+            print("Binary Division quotient operation:");
+            prog_calc.division_quotient(input_a, input_b, 8);
+            output = prog_calc.output;
+            for(int i =0; i<64; i++) {
+                print("%s",output[i]?"1":"0");
+            }
+            print("\n");
+
             prog_calc.word_size = WordSize.BYTE;
             print("Binary And operation:");
             prog_calc.and(input_a, input_b);

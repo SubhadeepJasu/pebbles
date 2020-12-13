@@ -200,8 +200,8 @@ namespace Pebbles {
                 exp = exp.replace ("or", " [10] ");
                 exp = exp.replace ("mod", " [11] ");
 
-                exp = exp.replace ("[0]", " 0 l ");
-                exp = exp.replace ("[1]", " 0 r ");
+                exp = exp.replace ("[0]", " 0 < ");
+                exp = exp.replace ("[1]", " 0 > ");
                 exp = exp.replace ("[2]", " 0 k ");
                 exp = exp.replace ("[3]", " 0 q ");
                 exp = exp.replace ("[4]", " n ");
@@ -238,8 +238,8 @@ namespace Pebbles {
         public static ProgrammerCalculator.Token[] get_token_array (string input_exp) {
             var settings = Pebbles.Settings.get_default ();
 
-            var exp = input_exp.replace ("lsh", " lsh ");
-            exp = exp.replace ("rsh", " rsh ");
+            var exp = input_exp.replace ("lsh", " < ");
+            exp = exp.replace ("rsh", " > ");
             exp = exp.replace ("lr", " lr ");
             exp = exp.replace ("rr", " rr ");
             exp = exp.replace ("not", " not ");
@@ -271,8 +271,8 @@ namespace Pebbles {
             ProgrammerCalculator.Token[] tokens = new ProgrammerCalculator.Token[str_tokens.length];
             for (int i = 0; i < str_tokens.length; i++) {
                 switch (str_tokens[i]) {
-                    case "lsh":
-                    case "rsh":
+                    case "<":
+                    case ">":
                     case "lr":
                     case "rr":
                     case "not":
