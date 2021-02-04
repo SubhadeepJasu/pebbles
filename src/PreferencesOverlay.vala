@@ -24,6 +24,8 @@ namespace Pebbles {
     public class PreferencesOverlay : Gtk.Window {
         Pebbles.Settings settings;
         Gtk.SpinButton precision_entry;
+        Gtk.Entry forex_api_key;
+        Gtk.LinkButton forex_api_link;
         Gtk.ComboBoxText constants_select_1;
         Gtk.ComboBoxText constants_select_2;
 
@@ -86,6 +88,18 @@ namespace Pebbles {
             main_grid.attach (constant_label2, 0, 5, 1, 1);
             main_grid.attach (constants_select_2, 0, 6, 1, 1);
 
+            var forex_label = new Gtk.Label (_("Currency Converter API Key"));
+            forex_label.halign = Gtk.Align.START;
+            forex_label.get_style_context ().add_class ("h4");
+            forex_api_link = new Gtk.LinkButton.with_label ("https://free.currencyconverterapi.com/", _("Get your own API key"));
+            forex_api_key = new Gtk.Entry ();
+            forex_api_key.set_icon_from_icon_name (Gtk.EntryIconPosition.SECONDARY,"edit-undo-symbolic");
+            forex_api_key.placeholder_text = "03eb97e97cbf3fa3e228";
+            
+            main_grid.attach (forex_label, 0, 7, 1, 1);
+            main_grid.attach (forex_api_key, 0, 8, 1, 1);
+            main_grid.attach (forex_api_link, 0, 9, 1, 1);
+
             this.add (main_grid);
 
             var headerbar = new Gtk.HeaderBar ();
@@ -99,8 +113,8 @@ namespace Pebbles {
 
             // Set up window attributes
             this.resizable = false;
-            this.set_default_size (460, 440);
-            this.set_size_request (460, 440);
+            this.set_default_size (460, 520);
+            this.set_size_request (460, 520);
 
             //this.add (scrolled_window);
 
@@ -118,13 +132,17 @@ namespace Pebbles {
 
             settings.constant_key_value1 = (ConstantKeyIndex)constants_select_1.get_active ();
             settings.constant_key_value2 = (ConstantKeyIndex)constants_select_2.get_active ();
-
+            if (forex_api_key.get_text () != "")
+                settings.forex_api_key = forex_api_key.get_text ();
+            else
+                settings.forex_api_key = "03eb97e97cbf3fa3e228";
             this.update_settings ();
         }
 
         private void load_settings () {
             precision_entry.set_value ((double)settings.decimal_places);
             load_constant_button_settings ();
+            forex_api_key.set_text (settings.forex_api_key);
         }
 
         private void load_constant_button_settings () {
@@ -199,6 +217,10 @@ namespace Pebbles {
                     this.hide ();
                 }
                 return false;
+            });
+            this.forex_api_key.icon_release.connect ((pos, event) => {
+                settings.forex_api_key = "03eb97e97cbf3fa3e228";
+                this.forex_api_key.set_text ("03eb97e97cbf3fa3e228");
             });
         }
     }

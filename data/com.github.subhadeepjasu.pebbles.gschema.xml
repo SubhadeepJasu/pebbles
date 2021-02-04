@@ -300,5 +300,10 @@
 			<summary>Year value for counting date</summary>
 			<description>Year value for counting date</description>
 		</key>
+		<key name="forex-api-key" type="s">
+			<default>"03eb97e97cbf3fa3e228"</default>
+			<summary>Currency Converter API key</summary>
+			<description>Get your own API key from https://free.currencyconverterapi.com/</description>
+		</key>
 		</schema>
 </schemalist>
