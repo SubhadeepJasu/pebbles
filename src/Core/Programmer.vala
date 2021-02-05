@@ -126,12 +126,16 @@ namespace Pebbles {
                 print("\n");
                 dividend[63] = input_a[i];
                 comparator_result = comparator(dividend, input_b, word_size);
+                print("i : %d , Comparator : %d \n" , i, comparator_result);
                 if(comparator_result == -1) {
                     output[i] = false;
                 }
                 else {
                     output[i] = true;
                     dividend = subtract(dividend, input_b, word_size);
+                    print("Subtract for div : ");
+                    for(int j = 0; j< 64 ; j++){ print(dividend[j]?"1":"0"); }
+                    print("\n");
                 }
             }
             return output;
