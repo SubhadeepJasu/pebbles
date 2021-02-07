@@ -536,6 +536,7 @@ namespace Pebbles {
         }
 
         public bool[] apply_op (Programmer prog_calc, char op, bool[] a, bool[] b, int word_size) {
+            print("apply op\n");
             bool[] bool_array = new bool[int.max(a.length, b.length)];
             switch (op) {
                 case '+':
@@ -545,11 +546,17 @@ namespace Pebbles {
                 case '*':
                 return prog_calc.multiply (a, b);
                 case '/':
-                return prog_calc.multiply (a, b);
+                // This is using a hacky workaround for division which is not ideal.
+                // There is a badly made restoring division function as well which
+                // needs to be fixed and used.
+                string result = prog_calc.division_signed_integer (b, a, word_size);
+                return string_to_bool_array (result, NumberSystem.DECIMAL, Settings.get_default().global_word_length);
                 case '&':
                 return prog_calc.and (a, b);
                 case '<':
-                return prog_calc.left_shift (b, a, word_size);
+                return prog_calc.left_shift (b, a, false, word_size);
+                case '>':
+                return prog_calc.right_shift (b, a, false, word_size);
             }
             return bool_array;
         }

@@ -112,29 +112,75 @@ namespace Pebbles {
             return output;
         }
 
-        public bool[] division_quotient(bool[] input_a, bool[] input_b, int? word_size = 8) {
+        // Naive integer division using OS (Meant to be replaced by restoring division)
+        public string division_signed_integer (bool[] input_a, bool[] input_b, int? word_size = 8) {
+            string dividend = "";
+            string divisor = "";
+            for (int i = 63; i >= 0; i--) {
+                dividend = ((input_a[i]) ? "1" : "0") + dividend;
+                divisor = ((input_b[i]) ? "1" : "0") + divisor;
+            }
+            int64 int_dividend;
+            int64.from_string (dividend, out int_dividend, 2);
+            int64 int_divisor;
+            int64.from_string (divisor, out int_divisor, 2);
+            print("%s / %s", int_dividend.to_string (), int_divisor.to_string ());
+            int64 quotient = int_dividend / int_divisor;
+            return quotient.to_string ();
+        }
+
+        // Restoring division algorithm (needs to be fixed, may be the whole logic is incorrect here :v)
+        public bool[] division_quotient (bool[] input_a, bool[] input_b, int? word_size = 8) {
+            print("Inputs for division:");
+            for(int j = 0; j< 64 ; j++){ print(input_a[j]?"1":"0"); }
+            print("\n");
+            for(int j = 0; j< 64 ; j++){ print(input_b[j]?"1":"0"); }
+            print("\n");
             bool[] dividend = new bool[64];
+            for (int i = 63; i >= 64 - input_a.length; i--) {
+                dividend[i] = input_a[i];
+            }
             int comparator_result;
             //for left shifting dividend/remainder by 1
             bool[] shift_size = new bool[64];
             shift_size[63] = true;
-
-            for(int i=64-(int)word_size; i<64; i++) {
-                dividend = left_shift(dividend, shift_size, word_size);
+            output = new bool[64];
+            int right_most = find_right_most_one (input_a);
+            print("rightmost: %d", right_most);
+            for(int i=64-(int)word_size +right_most; i<64; i++) {
+                dividend = left_shift(dividend, shift_size, dividend[64 - word_size], word_size);
                 print("Left shift : ");
                 for(int j = 0; j< 64 ; j++){ print(dividend[j]?"1":"0"); }
                 print("\n");
                 dividend[63] = input_a[i];
                 comparator_result = comparator(dividend, input_b, word_size);
+                print("i : %d , Comparator : %d \n" , i, comparator_result);
                 if(comparator_result == -1) {
                     output[i] = false;
                 }
                 else {
                     output[i] = true;
+                    print("Subtract for div : ");
+                    for(int j = 0; j< 64 ; j++){ print(dividend[j]?"1":"0"); }
+                    print("\n");
+                    for(int j = 0; j< 64 ; j++){ print(input_b[j]?"1":"0"); }
+                    print("\n");
                     dividend = subtract(dividend, input_b, word_size);
+                    for(int j = 0; j< 64 ; j++){ print(dividend[j]?"1":"0"); }
+                    print("\n");
                 }
             }
             return output;
+        }
+
+        private int find_right_most_one (bool[] input) {
+            int i = 0;
+            for (; i < input.length; i++) {
+                if (input[i] == true) {
+                    break;
+                }
+            }
+            return (input.length - i);
         }
 
         /***
@@ -159,11 +205,20 @@ namespace Pebbles {
             return 0;
         }
 
-        public bool[] left_shift(bool[] input_a, bool[] input_b, int? word_size = 8) {
+        public bool[] left_shift(bool[] input_a, bool[] input_b, bool fill_bits, int? word_size = 8) {
             for(int i=64-(int)word_size+1; i<64;i++) {
                 output[i-1] = input_a[i];
             }
-            output[63] = false;
+            output[63] = fill_bits;
+            return output;
+        }
+
+        public bool[] right_shift(bool[] input_a, bool[] input_b, bool fill_bits, int? word_size = 8) {
+            print("Right\n");
+            for (int i = 64-word_size; i < 63; i++) {
+                output[i+1] = input_a[i];
+            }
+            output[0] = fill_bits;
             return output;
         }
 
