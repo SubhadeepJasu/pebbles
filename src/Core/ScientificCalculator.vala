@@ -76,7 +76,7 @@ namespace Pebbles {
             }
         }
         public static double fact (double n) {
-            int j = 1, fact = 1;
+            long j = 1, fact = 1;
             for (; j <= n; j++) {
                 fact = fact * j;
             }

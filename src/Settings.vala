@@ -125,6 +125,7 @@ namespace Pebbles {
         public string date_day_entry {get; set;}
         public string date_month_entry {get; set;}
         public string date_year_entry {get; set;}
+        public string forex_api_key {get; set;}
         
         private Settings () {
             base ("com.github.subhadeepjasu.pebbles");
