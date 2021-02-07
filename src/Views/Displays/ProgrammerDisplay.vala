@@ -204,7 +204,7 @@ namespace Pebbles {
                         input_entry.set_text (input_entry.get_text ().slice (1, input_entry.get_text().length));
                     }
                 }
-                if (input_entry.get_text() != "0" && input_entry.get_text() != "")
+                if (input_entry.get_text().chug () != "")
                     programmer_calculator_front_end.populate_token_array (input_entry.get_text ());
                 display_all_number_systems ();
             });
@@ -358,7 +358,7 @@ namespace Pebbles {
 
         public void send_backspace () {
             input_entry.backspace ();
-            if (input_entry.get_text () == "") {
+            if (input_entry.get_text ().chug () == "") {
                 input_entry.set_text ("0");
                 input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
             }

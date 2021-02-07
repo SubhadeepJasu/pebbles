@@ -200,10 +200,10 @@ namespace Pebbles {
             switch (wrd_length) {
                 case GlobalWordLength.BYT:
                 if (binary_value.length > 8) {
-                    print ("bigger_value: " + binary_value + "\n");
+                    // print ("bigger_value: " + binary_value + "\n");
                     new_binary = binary_value.slice (binary_value.length - 9, -1);
                 } else {
-                    print ("smaller_value\n");
+                    // print ("smaller_value\n");
                     string pre_zeros = "";
                     for (int i = 0; i < 8 - binary_value.length; i++) {
                         pre_zeros += "0";
@@ -213,10 +213,10 @@ namespace Pebbles {
                 break;
                 case GlobalWordLength.WRD:
                 if (binary_value.length > 16) {
-                    print ("bigger_value: " + binary_value + "\n");
+                    // print ("bigger_value: " + binary_value + "\n");
                     new_binary = binary_value.slice (binary_value.length - 17, -1);
                 } else {
-                    print ("smaller_value\n");
+                    // print ("smaller_value\n");
                     string pre_zeros = "";
                     for (int i = 0; i < 16 - binary_value.length; i++) {
                         pre_zeros += "0";
@@ -226,10 +226,10 @@ namespace Pebbles {
                 break;
                 case GlobalWordLength.DWD:
                 if (binary_value.length > 32) {
-                    print ("bigger_value: " + binary_value + "\n");
+                    //  print ("bigger_value: " + binary_value + "\n");
                     new_binary = binary_value.slice (binary_value.length - 33, -1);
                 } else {
-                    print ("smaller_value\n");
+                    //  print ("smaller_value\n");
                     string pre_zeros = "";
                     for (int i = 0; i < 32 - binary_value.length; i++) {
                         pre_zeros += "0";
@@ -239,10 +239,10 @@ namespace Pebbles {
                 break;
                 case GlobalWordLength.QWD:
                 if (binary_value.length > 64) {
-                    print ("bigger_value: " + binary_value + "\n");
+                    //  print ("bigger_value: " + binary_value + "\n");
                     new_binary = binary_value.slice (binary_value.length - 65, -1);
                 } else {
-                    print ("smaller_value\n");
+                    //  print ("smaller_value\n");
                     string pre_zeros = "";
                     for (int i = 0; i < 64 - binary_value.length; i++) {
                         pre_zeros += "0";
@@ -285,7 +285,7 @@ namespace Pebbles {
             for (int j = i - 1; j >= 0; j--) {
                 hex_value += hexa[j].to_string ();
             }
-            return hex_value;
+            return (hex_value.chug () == "") ? "0" : hex_value;
         }
 
         public string convert_hexadecimal_to_decimal (string number, GlobalWordLength? wrd_length = GlobalWordLength.WRD) {
@@ -441,7 +441,7 @@ namespace Pebbles {
                 hex_value = "%x".printf(hex_num);
                 hex_value = "-" + hex_value;
             }
-            return (hex_value == "") ? "0" : hex_value;
+            return (hex_value.chug () == "") ? "0" : hex_value;
         }
 
         public string convert_binary_to_octal (string bin_value, GlobalWordLength? wrd_length = GlobalWordLength.BYT, bool? negative = false) {
