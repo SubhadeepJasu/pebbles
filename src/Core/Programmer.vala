@@ -128,6 +128,22 @@ namespace Pebbles {
             int64 quotient = int_dividend / int_divisor;
             return quotient.to_string ();
         }
+        // Again, naive
+        public string mod_signed_integer (bool[] input_a, bool[] input_b, int? word_size = 8) {
+            string dividend = "";
+            string divisor = "";
+            for (int i = 63; i >= 0; i--) {
+                dividend = ((input_a[i]) ? "1" : "0") + dividend;
+                divisor = ((input_b[i]) ? "1" : "0") + divisor;
+            }
+            int64 int_dividend;
+            int64.from_string (dividend, out int_dividend, 2);
+            int64 int_divisor;
+            int64.from_string (divisor, out int_divisor, 2);
+            print("%s / %s", int_dividend.to_string (), int_divisor.to_string ());
+            int64 remainder = int_dividend % int_divisor;
+            return remainder.to_string ();
+        }
 
         // Restoring division algorithm (needs to be fixed, may be the whole logic is incorrect here :v)
         public bool[] division_quotient (bool[] input_a, bool[] input_b, int? word_size = 8) {
@@ -241,25 +257,25 @@ namespace Pebbles {
             return output;
         }
 
-        public bool[] and(bool[] input_a, bool[] input_b) {
+        public bool[] and(bool[] input_a, bool[] input_b, int? word_size = 8) {
             for(int i=64-(int)word_size; i<64;i++) {
                 output[i] = input_a[i] && input_b[i];
             }
             return output;
         }
-        public bool[] nand(bool[] input_a, bool[] input_b) {
+        public bool[] nand(bool[] input_a, bool[] input_b, int? word_size = 8) {
             for(int i=64-(int)word_size; i<64;i++) {
                 output[i] = !(input_a[i] && input_b[i]);
             }
             return output;
         }
-        public bool[] or(bool[] input_a, bool[] input_b) {
+        public bool[] or(bool[] input_a, bool[] input_b, int? word_size = 8) {
             for(int i=64-(int)word_size; i<64;i++) {
                 output[i] = input_a[i] || input_b[i];
             }
             return output;
         }
-        public bool[] nor(bool[] input_a, bool[] input_b) {
+        public bool[] nor(bool[] input_a, bool[] input_b, int? word_size = 8) {
             for(int i=64-(int)word_size; i<64;i++) {
                 output[i] = !(input_a[i] || input_b[i]);
             }
@@ -271,14 +287,14 @@ namespace Pebbles {
             }
             return output;
         }
-        public bool[] xnor(bool[] input_a, bool[] input_b) {
+        public bool[] xnor(bool[] input_a, bool[] input_b, int? word_size = 8) {
             for(int i=64-(int)word_size; i<64;i++) {
                 output[i] = !(xor_each_bit(input_a[i], input_b[i]));
             }
             return output;
         }
-        public bool[] not(bool[] input) {
-            output = ones_complement(input);
+        public bool[] not(bool[] input, int? word_size = 8) {
+            output = ones_complement(input, word_size);
             return output; //not() does not modify output buffer
         }
    }

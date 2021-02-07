@@ -432,9 +432,9 @@ namespace Pebbles {
             });
             xor_button.clicked.connect (() => {
                 if (shift_held)
-                    display_unit.insert_text (" nxor ");
+                    display_unit.insert_text (" xnor ");
                 else
-                    display_unit.insert_text (" nor ");
+                    display_unit.insert_text (" xor ");
             });
             not_button.clicked.connect (() => {
                 if (shift_held)

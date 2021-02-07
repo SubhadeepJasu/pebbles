@@ -512,22 +512,25 @@ namespace Pebbles {
                 return false;
             }
             // Following the PEMDAS rule: <http://mathworld.wolfram.com/PEMDAS.html>
-            if ((op1 == 'u') && (op2 == '|' || op2 == '&' || op2 == '<' || op2 == '>' || op2 == '+' || op2 == '-' || op2 == 'x' || op2 == 'n' || op2 == '/' || op2 == '*' || op2 == '!' || op2 == 'm')) {
+            if ((op1 == 'u') && (op2 == '|' || op2 == 'o' || op2 == 'a' || op2 == '&' || op2 == '<' || op2 == '>' || op2 == '+' || op2 == '-' || op2 == 'x' || op2 == 'n' || op2 == '/' || op2 == '*' || op2 == '!' || op2 == 'm')) {
                 return false;
             }
             if ((op1 == '!' || op1 == 'm') && (op2 == '|' || op2 == '&' || op2 == '<' || op2 == '>' || op2 == '+' || op2 == '-' || op2 == 'x' || op2 == 'n' || op2 == '/' || op2 == '*')) {
                 return false;
             }
-            else if ((op1 == '/' || op1 == '*') && (op2 == '|' || op2 == '&' || op2 == '<' || op2 == '>' || op2 == '+' || op2 == '-' || op2 == 'x' || op2 == 'n')) {
+            else if ((op1 == '/' || op1 == '*') && (op2 == '|' || op2 == 'o' || op2 == '&' || op2 == 'a' || op2 == '<' || op2 == '>' || op2 == '+' || op2 == '-' || op2 == 'x' || op2 == 'n')) {
                 return false;
             }
-            else if ((op1 == '+' || op1 == '-') && (op2 == '<' || op2 == '>' || op2 == '|' || op2 == '&' || op2 == 'x' || op2 == 'n')) {
+            else if ((op1 == '+' || op1 == '-') && (op2 == '<' || op2 == '>' || op2 == '|' || op2 == 'o' || op2 == '&' || op2 == 'a' || op2 == 'x' || op2 == 'n')) {
                 return false;
             }
-            else if ((op1 == '<' || op1 == '>') && (op2 == '|' || op2 == '&' || op2 == 'x' || op2 == 'n')) {
+            else if ((op1 == '<' || op1 == '>') && (op2 == '|' || op2 == 'o' || op2 == '&' || op2 == 'a' || op2 == 'x' || op2 == 'n')) {
                 return false;
             }
-            else if ((op1 == '&') && (op2 == '|' || op2 == 'x' || op2 == 'n')) {
+            else if ((op1 == '&' || op1 == 'a') && (op2 == '|' || op2 == 'o' || op2 == 'x' || op2 == 'n')) {
+                return false;
+            }
+            else if ((op1 == 'x' || op1 == 'o' || op1 == 'n') && (op2 == '|')) {
                 return false;
             }
             else {
@@ -551,7 +554,25 @@ namespace Pebbles {
                 string result = prog_calc.division_signed_integer (b, a, word_size);
                 return string_to_bool_array (result, NumberSystem.DECIMAL, Settings.get_default().global_word_length);
                 case '&':
-                return prog_calc.and (a, b);
+                return prog_calc.and (a, b, word_size);
+                case '|':
+                return prog_calc.or (a, b, word_size);
+                case '!':
+                return prog_calc.not (a, word_size);
+                case 'a':
+                return prog_calc.nand (a, b, word_size);
+                case 'o':
+                return prog_calc.nor (a, b, word_size);
+                case 'x':
+                return prog_calc.xor (a, b, word_size);
+                case 'n':
+                return prog_calc.xnor (a, b, word_size);
+                case 'm':
+                // This is using a hacky workaround for division which is not ideal.
+                // There is a badly made restoring division function as well which
+                // needs to be fixed and used.
+                string result = prog_calc.mod_signed_integer (b, a, word_size);
+                return string_to_bool_array (result, NumberSystem.DECIMAL, Settings.get_default().global_word_length);
                 case '<':
                 return prog_calc.left_shift (b, a, false, word_size);
                 case '>':

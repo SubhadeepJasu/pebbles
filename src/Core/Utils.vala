@@ -242,18 +242,18 @@ namespace Pebbles {
             exp = exp.replace ("rsh", " > ");
             exp = exp.replace ("lr", " lr ");
             exp = exp.replace ("rr", " rr ");
-            exp = exp.replace ("not", " not ");
+            exp = exp.replace ("not", " ! ");
             exp = exp.replace ("nand", " [5] ");
             exp = exp.replace ("xnor", " [6] ");
             exp = exp.replace ("xor", " [7] ");
             exp = exp.replace ("nor", " [8] ");
-            exp = exp.replace ("and", " and ");
-            exp = exp.replace ("or", " or ");
-            exp = exp.replace ("mod", " mod ");
-            exp = exp.replace ("[5]", " nand ");
-            exp = exp.replace ("[6]", " xnor ");
-            exp = exp.replace ("[7]", " xor ");
-            exp = exp.replace ("[8]", " nor ");
+            exp = exp.replace ("and", " & ");
+            exp = exp.replace ("or", " | ");
+            exp = exp.replace ("mod", " m ");
+            exp = exp.replace ("[5]", " a ");
+            exp = exp.replace ("[6]", " n ");
+            exp = exp.replace ("[7]", " x ");
+            exp = exp.replace ("[8]", " o ");
             exp = exp.replace ("(", " ( ");
             exp = exp.replace (")", " ) ");
             exp = exp.replace ("+", " + ");
@@ -275,14 +275,14 @@ namespace Pebbles {
                     case ">":
                     case "lr":
                     case "rr":
-                    case "not":
-                    case "nand":
-                    case "xnor":
-                    case "xor":
-                    case "nor":
-                    case "and":
-                    case "or":
-                    case "mod":
+                    case "!":
+                    case "a":
+                    case "n":
+                    case "x":
+                    case "o":
+                    case "&":
+                    case "|":
+                    case "m":
                     case "+":
                     case "-":
                     case "/":
