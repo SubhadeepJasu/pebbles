@@ -206,17 +206,36 @@ namespace Pebbles {
         }
 
         public bool[] left_shift(bool[] input_a, bool[] input_b, bool fill_bits, int? word_size = 8) {
-            for(int i=64-(int)word_size+1; i<64;i++) {
-                output[i-1] = input_a[i];
+            int64 shift_amount;
+            string shift_amount_binary_string = "";
+            for (int i = 63; i >= 0; i--) {
+                shift_amount_binary_string = ((input_b[i]) ? "1" : "0") + shift_amount_binary_string;
+            }
+            int64.from_string (shift_amount_binary_string, out shift_amount, 2);
+            if (shift_amount < 1)
+                shift_amount = 1;
+            if (shift_amount > word_size)
+                shift_amount = word_size;
+            for(int i=64-(int)word_size+(int)shift_amount; i<64;i++) {
+                output[i-shift_amount] = input_a[i];
             }
             output[63] = fill_bits;
             return output;
         }
 
         public bool[] right_shift(bool[] input_a, bool[] input_b, bool fill_bits, int? word_size = 8) {
-            print("Right\n");
-            for (int i = 64-word_size; i < 63; i++) {
-                output[i+1] = input_a[i];
+            int64 shift_amount;
+            string shift_amount_binary_string = "";
+            for (int i = 63; i >= 0; i--) {
+                shift_amount_binary_string = ((input_b[i]) ? "1" : "0") + shift_amount_binary_string;
+            }
+            int64.from_string (shift_amount_binary_string, out shift_amount, 2);
+            if (shift_amount < 1)
+                shift_amount = 1;
+            if (shift_amount > word_size)
+                shift_amount = word_size;
+            for (int i = 64-word_size; i < 64 - shift_amount; i++) {
+                output[i+shift_amount] = input_a[i];
             }
             output[0] = fill_bits;
             return output;
