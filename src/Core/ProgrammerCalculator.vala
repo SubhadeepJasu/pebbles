@@ -536,6 +536,7 @@ namespace Pebbles {
         }
 
         public bool[] apply_op (Programmer prog_calc, char op, bool[] a, bool[] b, int word_size) {
+            print("apply op\n");
             bool[] bool_array = new bool[int.max(a.length, b.length)];
             switch (op) {
                 case '+':
@@ -554,6 +555,8 @@ namespace Pebbles {
                 return prog_calc.and (a, b);
                 case '<':
                 return prog_calc.left_shift (b, a, false, word_size);
+                case '>':
+                return prog_calc.right_shift (b, a, false, word_size);
             }
             return bool_array;
         }

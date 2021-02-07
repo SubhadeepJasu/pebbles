@@ -129,7 +129,7 @@ namespace Pebbles {
             return quotient.to_string ();
         }
 
-        // Restoring division algorithm
+        // Restoring division algorithm (needs to be fixed, may be the whole logic is incorrect here :v)
         public bool[] division_quotient (bool[] input_a, bool[] input_b, int? word_size = 8) {
             print("Inputs for division:");
             for(int j = 0; j< 64 ; j++){ print(input_a[j]?"1":"0"); }
@@ -205,11 +205,20 @@ namespace Pebbles {
             return 0;
         }
 
-        public bool[] left_shift(bool[] input_a, bool[] input_b, bool fill_bits = false, int? word_size = 8) {
+        public bool[] left_shift(bool[] input_a, bool[] input_b, bool fill_bits, int? word_size = 8) {
             for(int i=64-(int)word_size+1; i<64;i++) {
                 output[i-1] = input_a[i];
             }
             output[63] = fill_bits;
+            return output;
+        }
+
+        public bool[] right_shift(bool[] input_a, bool[] input_b, bool fill_bits, int? word_size = 8) {
+            print("Right\n");
+            for (int i = 64-word_size; i < 63; i++) {
+                output[i+1] = input_a[i];
+            }
+            output[0] = fill_bits;
             return output;
         }
 
