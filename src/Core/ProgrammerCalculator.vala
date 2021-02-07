@@ -545,11 +545,15 @@ namespace Pebbles {
                 case '*':
                 return prog_calc.multiply (a, b);
                 case '/':
-                return prog_calc.multiply (a, b);
+                // This is using a hacky workaround for division which is not ideal.
+                // There is a badly made restoring division function as well which
+                // needs to be fixed and used.
+                string result = prog_calc.division_signed_integer (b, a, word_size);
+                return string_to_bool_array (result, NumberSystem.DECIMAL, Settings.get_default().global_word_length);
                 case '&':
                 return prog_calc.and (a, b);
                 case '<':
-                return prog_calc.left_shift (b, a, word_size);
+                return prog_calc.left_shift (b, a, false, word_size);
             }
             return bool_array;
         }
