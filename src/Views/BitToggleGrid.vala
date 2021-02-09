@@ -24,9 +24,13 @@ namespace Pebbles {
         private Gtk.Button button2;
         private Gtk.Button button3;
         private Gtk.Button button4;
+
+        public signal void bit_changed (bool[] bool_array);
         
+        private bool[] bool_array;
         private Gtk.Label first_button;
         public ButtonSubGrid (int num){
+            bool_array = new bool[4];
             first_button = new Gtk.Label (num.to_string ());
             first_button.set_opacity (0.5);
             
@@ -63,42 +67,54 @@ namespace Pebbles {
             button1.clicked.connect (() => {
                 if (button1.get_label () == "0") {
                     button1.set_label ("1");
+                    bool_array[0] = true;
                     button1.get_style_context ().add_class ("Pebbles_Bit_Activated");
                 }
                 else {
                     button1.set_label ("0");
+                    bool_array[0] = false;
                     button1.get_style_context ().remove_class ("Pebbles_Bit_Activated");
                 }
+                bit_changed (bool_array);
             });
             button2.clicked.connect (() => {
                 if (button2.get_label () == "0") {
                     button2.set_label ("1");
+                    bool_array[1] = true;
                     button2.get_style_context ().add_class ("Pebbles_Bit_Activated");
                 }
                 else {
                     button2.set_label ("0");
+                    bool_array[1] = false;
                     button2.get_style_context ().remove_class ("Pebbles_Bit_Activated");
                 }
+                bit_changed (bool_array);
             });
             button3.clicked.connect (() => {
                 if (button3.get_label () == "0") {
                     button3.set_label ("1");
+                    bool_array[2] = true;
                     button3.get_style_context ().add_class ("Pebbles_Bit_Activated");
                 }
                 else {
                     button3.set_label ("0");
+                    bool_array[2] = false;
                     button3.get_style_context ().remove_class ("Pebbles_Bit_Activated");
                 }
+                bit_changed (bool_array);
             });
             button4.clicked.connect (() => {
                 if (button4.get_label () == "0") {
                     button4.set_label ("1");
+                    bool_array[3] = true;
                     button4.get_style_context ().add_class ("Pebbles_Bit_Activated");
                 }
                 else {
                     button4.set_label ("0");
+                    bool_array[3] = false;
                     button4.get_style_context ().remove_class ("Pebbles_Bit_Activated");
                 }
+                bit_changed (bool_array);
             });
         }
 
@@ -140,7 +156,12 @@ namespace Pebbles {
         
         public  Gtk.Button    hide_grid;
         
+        private bool[] bool_array;
+
+        public signal void changed (bool[] bool_array);
+
         public BitToggleGrid () {
+            bool_array = new bool[64];
             hide_grid = new Gtk.Button.from_icon_name ("pan-down-symbolic", Gtk.IconSize.BUTTON);
             //hide_grid.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
             hide_grid.get_style_context ().add_class ("circular_button");
@@ -205,6 +226,8 @@ namespace Pebbles {
             get_style_context ().add_class ("Pebbles_Card");
             margin_end    = 8;
             margin_bottom = 8;
+
+            make_events ();
         }
         public void set_bit_length_mode (int mode) {
             if (mode == 0) {
@@ -279,6 +302,121 @@ namespace Pebbles {
                 button_grid_2.group_set_active  (true);
                 button_grid_1.group_set_active  (true);
             }
+        }
+
+        public void make_events () {
+            button_grid_1.bit_changed.connect ((arr) => {
+                this.bool_array[63] = arr[3];
+                this.bool_array[62] = arr[2];
+                this.bool_array[61] = arr[1];
+                this.bool_array[60] = arr[0];
+                this.changed (this.bool_array);
+            });
+            button_grid_2.bit_changed.connect ((arr) => {
+                this.bool_array[59] = arr[3];
+                this.bool_array[58] = arr[2];
+                this.bool_array[57] = arr[1];
+                this.bool_array[56] = arr[0];
+                this.changed (this.bool_array);
+            });
+            button_grid_3.bit_changed.connect ((arr) => {
+                this.bool_array[55] = arr[3];
+                this.bool_array[54] = arr[2];
+                this.bool_array[53] = arr[1];
+                this.bool_array[52] = arr[0];
+                this.changed (this.bool_array);
+            });
+            button_grid_4.bit_changed.connect ((arr) => {
+                this.bool_array[51] = arr[3];
+                this.bool_array[50] = arr[2];
+                this.bool_array[49] = arr[1];
+                this.bool_array[48] = arr[0];
+                this.changed (this.bool_array);
+            });
+            button_grid_5.bit_changed.connect ((arr) => {
+                this.bool_array[47] = arr[3];
+                this.bool_array[46] = arr[2];
+                this.bool_array[45] = arr[1];
+                this.bool_array[44] = arr[0];
+                this.changed (this.bool_array);
+            });
+            button_grid_6.bit_changed.connect ((arr) => {
+                this.bool_array[43] = arr[3];
+                this.bool_array[42] = arr[2];
+                this.bool_array[40] = arr[1];
+                this.bool_array[40] = arr[0];
+                this.changed (this.bool_array);
+            });
+            button_grid_7.bit_changed.connect ((arr) => {
+                this.bool_array[39] = arr[3];
+                this.bool_array[38] = arr[2];
+                this.bool_array[37] = arr[1];
+                this.bool_array[36] = arr[0];
+                this.changed (this.bool_array);
+            });
+            button_grid_8.bit_changed.connect ((arr) => {
+                this.bool_array[35] = arr[3];
+                this.bool_array[34] = arr[2];
+                this.bool_array[33] = arr[1];
+                this.bool_array[32] = arr[0];
+                this.changed (this.bool_array);
+            });
+            button_grid_9.bit_changed.connect ((arr) => {
+                this.bool_array[31] = arr[3];
+                this.bool_array[30] = arr[2];
+                this.bool_array[29] = arr[1];
+                this.bool_array[28] = arr[0];
+                this.changed (this.bool_array);
+            });
+            button_grid_10.bit_changed.connect ((arr) => {
+                this.bool_array[27] = arr[3];
+                this.bool_array[26] = arr[2];
+                this.bool_array[25] = arr[1];
+                this.bool_array[24] = arr[0];
+                this.changed (this.bool_array);
+            });
+            button_grid_11.bit_changed.connect ((arr) => {
+                this.bool_array[23] = arr[3];
+                this.bool_array[22] = arr[2];
+                this.bool_array[21] = arr[1];
+                this.bool_array[20] = arr[0];
+                this.changed (this.bool_array);
+            });
+            button_grid_12.bit_changed.connect ((arr) => {
+                this.bool_array[19] = arr[3];
+                this.bool_array[18] = arr[2];
+                this.bool_array[17] = arr[1];
+                this.bool_array[16] = arr[0];
+                this.changed (this.bool_array);
+            });
+            button_grid_13.bit_changed.connect ((arr) => {
+                this.bool_array[15] = arr[3];
+                this.bool_array[14] = arr[2];
+                this.bool_array[13] = arr[1];
+                this.bool_array[12] = arr[0];
+                this.changed (this.bool_array);
+            });
+            button_grid_14.bit_changed.connect ((arr) => {
+                this.bool_array[11] = arr[3];
+                this.bool_array[10] = arr[2];
+                this.bool_array[9] = arr[1];
+                this.bool_array[8] = arr[0];
+                this.changed (this.bool_array);
+            });
+            button_grid_15.bit_changed.connect ((arr) => {
+                this.bool_array[7] = arr[3];
+                this.bool_array[6] = arr[2];
+                this.bool_array[5] = arr[1];
+                this.bool_array[4] = arr[0];
+                this.changed (this.bool_array);
+            });
+            button_grid_16.bit_changed.connect ((arr) => {
+                this.bool_array[3] = arr[3];
+                this.bool_array[2] = arr[2];
+                this.bool_array[1] = arr[1];
+                this.bool_array[0] = arr[0];
+                this.changed (this.bool_array);
+            });
         }
     }
 }

@@ -79,6 +79,10 @@ namespace Pebbles {
             return stored_tokens[stored_tokens.length - 1];
         }
 
+        public void set_last_token (bool[] arr, GlobalWordLength wrd_length, NumberSystem number_system) {
+            stored_tokens[stored_tokens.length - 1].token = bool_array_to_string (arr, wrd_length, number_system);
+        }
+
         public void populate_token_array (string exp) {
             stored_tokens = Utils.get_token_array (exp);
             for (int i = 0; i < stored_tokens.length; i++) {
@@ -651,7 +655,7 @@ namespace Pebbles {
             print("9\n");
             return output;
         }
-        private bool[] string_to_bool_array (string str, NumberSystem number_system, GlobalWordLength wrd_length) {
+        public bool[] string_to_bool_array (string str, NumberSystem number_system, GlobalWordLength wrd_length) {
             bool[] bool_array = new bool[64];
             string converted_str = "";
             switch (number_system) {
@@ -680,7 +684,7 @@ namespace Pebbles {
             return bool_array;
         }
 
-        private string bool_array_to_string(bool[] arr, GlobalWordLength wrd_length, NumberSystem number_system) {
+        public string bool_array_to_string(bool[] arr, GlobalWordLength wrd_length, NumberSystem number_system) {
             string str = "";
             print("length%d\n", arr.length);
             for (int i = 0; i <= arr.length; i++) {

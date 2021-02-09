@@ -57,6 +57,22 @@ namespace Pebbles {
         ProgrammerCalculator programmer_calculator_front_end;
         ProgrammerView prog_view;
 
+        // Programmer Calculator memory store
+        private int64 _memory_reserve;
+        private int64 memory_reserve {
+            get { return _memory_reserve; }
+            set {
+                _memory_reserve = value;
+                if (_memory_reserve == 0) {
+                    set_memory_status (false);
+                }
+                else {
+                    set_memory_status (true);
+                }
+                //settings.sci_memory_value = _memory_reserve.to_string ();
+            }
+        }
+
         public ProgrammerDisplay (ProgrammerView view) {
             this.settings = Settings.get_default ();
             this.prog_view = view;
@@ -195,6 +211,30 @@ namespace Pebbles {
         public void get_answer_evaluate () {
             string result = programmer_calculator_front_end.evaluate_exp (settings.global_word_length, settings.number_system);
             this.answer_label.set_text (result);
+        }
+
+        public void memory_append (bool subtract) {
+            string output = answer_label.get_text();
+            bool[] output_array = programmer_calculator_front_end.string_to_bool_array (output, settings.number_system, settings.global_word_length);
+            string int_string = programmer_calculator_front_end.bool_array_to_string (output_array, settings.global_word_length, NumberSystem.DECIMAL);
+            int64 output_integer = 0;
+            int64.from_string (int_string, out output_integer);
+            print("memory: %s\n", output_integer.to_string ());
+            if (subtract) {
+                memory_reserve -= output_integer;
+            } else {
+                memory_reserve += output_integer;
+            }
+        }
+
+        public void memory_recall () {
+            bool[] output_array = programmer_calculator_front_end.string_to_bool_array (memory_reserve.to_string (), NumberSystem.DECIMAL, settings.global_word_length);
+            string output = programmer_calculator_front_end.bool_array_to_string (output_array, settings.global_word_length, settings.number_system);
+            insert_text (output);
+        }
+
+        public void memory_clear () {
+            memory_reserve = 0;
         }
 
         private void prog_display_make_events () {
@@ -370,6 +410,15 @@ namespace Pebbles {
             }
             input_entry.grab_focus_without_selecting ();
             input_entry.insert_at_cursor (text);
+        }
+
+        public void set_memory_status (bool state) {
+            if (state) {
+                memory_label.set_opacity (1);
+            }
+            else {
+                memory_label.set_opacity (0.2);
+            }
         }
     }
 }

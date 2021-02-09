@@ -448,6 +448,65 @@ namespace Pebbles {
                 else
                     display_unit.insert_text (" lsh ");
             });
+            memory_plus_button.button_press_event.connect ((event) => {
+                if (event.button == 1) {
+                    display_unit.display_off ();
+                    display_unit.get_answer_evaluate ();
+                    if (display_unit.input_entry.get_text ().length == 0 && display_unit.input_entry.get_text () != "0") {
+                        display_unit.input_entry.set_text ("0");
+                    }
+                    display_unit.input_entry.grab_focus_without_selecting ();
+                    if (display_unit.input_entry.cursor_position < display_unit.input_entry.get_text ().length)
+                        display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                    if (display_unit.answer_label.get_text () != "Error") {
+                        display_unit.memory_append (false);
+                    }
+                }
+                return false;
+            });
+            memory_plus_button.button_release_event.connect (() => {
+                display_unit.display_on ();
+                return false;
+            });
+            memory_minus_button.button_press_event.connect ((event) => {
+                if (event.button == 1) {
+                    display_unit.display_off ();
+                    display_unit.get_answer_evaluate ();
+                    if (display_unit.input_entry.get_text ().length == 0 && display_unit.input_entry.get_text () != "0") {
+                        display_unit.input_entry.set_text ("0");
+                    }
+                    display_unit.input_entry.grab_focus_without_selecting ();
+                    if (display_unit.input_entry.cursor_position < display_unit.input_entry.get_text ().length)
+                        display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                    if (display_unit.answer_label.get_text () != "Error") {
+                        display_unit.memory_append (true);
+                    }
+                }
+                return false;
+            });
+            memory_minus_button.button_release_event.connect (() => {
+                display_unit.display_on ();
+                return false;
+            });
+
+            memory_recall_button.clicked.connect (() => {
+                display_unit.memory_recall ();
+            });
+
+            memory_clear_button.button_press_event.connect ((event) => {
+                display_unit.display_off ();
+                return false;
+            });
+            memory_clear_button.button_release_event.connect (() => {
+                display_unit.display_on ();
+                display_unit.memory_clear ();
+                return false;
+            });
+
+            bit_grid.changed.connect ((arr) => {
+                for(int j = 0; j< 64 ; j++){ print(arr[j]?"1":"0"); }
+                print("\n");
+            });
         }
         public void key_pressed (Gdk.EventKey event) {
             switch (event.keyval) {
