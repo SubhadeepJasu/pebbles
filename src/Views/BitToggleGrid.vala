@@ -134,6 +134,37 @@ namespace Pebbles {
                 first_button.set_opacity (0.2);
             }
         }
+
+        public void set_bits (bool[] arr) {
+            bool_array = arr;
+            button1.set_label ((arr[0]) ? "1" : "0");
+            if (arr[0]) {
+                button1.get_style_context ().add_class ("Pebbles_Bit_Activated");
+            } else {
+                button1.get_style_context ().remove_class ("Pebbles_Bit_Activated");
+            }
+
+            button2.set_label ((arr[1]) ? "1" : "0");
+            if (arr[1]) {
+                button2.get_style_context ().add_class ("Pebbles_Bit_Activated");
+            } else {
+                button2.get_style_context ().remove_class ("Pebbles_Bit_Activated");
+            }
+
+            button3.set_label ((arr[2]) ? "1" : "0");
+            if (arr[2]) {
+                button3.get_style_context ().add_class ("Pebbles_Bit_Activated");
+            } else {
+                button3.get_style_context ().remove_class ("Pebbles_Bit_Activated");
+            }
+
+            button4.set_label ((arr[3]) ? "1" : "0");
+            if (arr[3]) {
+                button4.get_style_context ().add_class ("Pebbles_Bit_Activated");
+            } else {
+                button4.get_style_context ().remove_class ("Pebbles_Bit_Activated");
+            }
+        }
     }
 
     public class BitToggleGrid : Gtk.Grid {
@@ -417,6 +448,26 @@ namespace Pebbles {
                 this.bool_array[0] = arr[0];
                 this.changed (this.bool_array);
             });
+        }
+
+        public void set_bits (bool[] arr) {
+            button_grid_16.set_bits (arr[0:4]);
+            button_grid_15.set_bits (arr[4:8]);
+            button_grid_14.set_bits (arr[8:12]);
+            button_grid_13.set_bits (arr[12:16]);
+            button_grid_12.set_bits (arr[16:20]);
+            button_grid_11.set_bits (arr[20:24]);
+            button_grid_10.set_bits (arr[24:28]);
+            button_grid_9.set_bits (arr[28:32]);
+            button_grid_8.set_bits (arr[32:36]);
+            button_grid_7.set_bits (arr[36:40]);
+            button_grid_6.set_bits (arr[40:44]);
+            button_grid_5.set_bits (arr[44:48]);
+            button_grid_4.set_bits (arr[48:52]);
+            button_grid_3.set_bits (arr[52:56]);
+            button_grid_2.set_bits (arr[56:60]);
+            button_grid_1.set_bits (arr[60:64]);
+            bool_array = arr;
         }
     }
 }

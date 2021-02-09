@@ -504,8 +504,11 @@ namespace Pebbles {
             });
 
             bit_grid.changed.connect ((arr) => {
-                for(int j = 0; j< 64 ; j++){ print(arr[j]?"1":"0"); }
-                print("\n");
+                display_unit.set_last_token_from_bit_grid (arr);
+            });
+
+            display_unit.last_token_changed.connect ((arr) => {
+                bit_grid.set_bits (arr);
             });
         }
         public void key_pressed (Gdk.EventKey event) {

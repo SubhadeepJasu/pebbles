@@ -79,8 +79,16 @@ namespace Pebbles {
             return stored_tokens[stored_tokens.length - 1];
         }
 
-        public void set_last_token (bool[] arr, GlobalWordLength wrd_length, NumberSystem number_system) {
+        public string set_last_token (bool[] arr, GlobalWordLength wrd_length, NumberSystem number_system) {
+            if (stored_tokens[stored_tokens.length - 1].type != TokenType.OPERAND) {
+                stored_tokens.resize (stored_tokens.length + 1);
+            }
             stored_tokens[stored_tokens.length - 1].token = bool_array_to_string (arr, wrd_length, number_system);
+            string[] token_list = new string[stored_tokens.length];
+            for (int i = 0; i < stored_tokens.length; i++) {
+                token_list[i] = stored_tokens[i].token;
+            }
+            return string.joinv (" ", token_list);
         }
 
         public void populate_token_array (string exp) {

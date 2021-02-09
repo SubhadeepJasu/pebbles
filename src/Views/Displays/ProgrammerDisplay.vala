@@ -73,6 +73,8 @@ namespace Pebbles {
             }
         }
 
+        public signal void last_token_changed (bool[] bool_arr);
+
         public ProgrammerDisplay (ProgrammerView view) {
             this.settings = Settings.get_default ();
             this.prog_view = view;
@@ -237,6 +239,11 @@ namespace Pebbles {
             memory_reserve = 0;
         }
 
+        public void set_last_token_from_bit_grid (bool[] arr) {
+            input_entry.set_text (programmer_calculator_front_end.set_last_token (arr, settings.global_word_length, settings.number_system));
+            input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+        }
+
         private void prog_display_make_events () {
             input_entry.changed.connect (() => {
                 if (input_entry.get_text ().has_prefix ("0") && input_entry.get_text () != null) {
@@ -286,6 +293,14 @@ namespace Pebbles {
             dec_number_label.set_text (decimal_value);
             oct_number_label.set_text (octal_value);
             bin_number_label.set_text (binary_value);
+
+            bool[] bool_array = programmer_calculator_front_end.string_to_bool_array (
+                current_input.token,
+                current_input.number_system,
+                settings.global_word_length
+            );
+
+            last_token_changed (bool_array);
         }
         private string get_binary_length () {
             string binary_value = "";
