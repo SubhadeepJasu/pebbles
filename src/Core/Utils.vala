@@ -303,6 +303,32 @@ namespace Pebbles {
 
             return tokens;
         }
+
+        public static string get_natural_expression (string str) {
+            string ret_val = str;
+            ret_val = ret_val.replace ("<", "lsh");
+            ret_val = ret_val.replace (">", "rsh");
+            ret_val = ret_val.replace ("!", "[0]");
+            ret_val = ret_val.replace ("&", "[1]");
+            ret_val = ret_val.replace ("|", "[2]");
+            ret_val = ret_val.replace ("m", "[3]");
+            ret_val = ret_val.replace ("a", "[4]");
+            ret_val = ret_val.replace ("o", "[5]");
+            ret_val = ret_val.replace ("x", "[6]");
+            ret_val = ret_val.replace ("n", "[7]");
+            ret_val = ret_val.replace ("[0]", "not");
+            ret_val = ret_val.replace ("[1]", "and");
+            ret_val = ret_val.replace ("[2]", "or");
+            ret_val = ret_val.replace ("[3]", "mod");
+            ret_val = ret_val.replace ("[4]", "nand");
+            ret_val = ret_val.replace ("[5]", "nor");
+            ret_val = ret_val.replace ("[6]", "xor");
+            ret_val = ret_val.replace ("[7]", "xnor");
+            ret_val = ret_val.replace ("*", "\xC3\x97");
+            ret_val = ret_val.replace ("/", "\xC3\xB7");
+            ret_val = ret_val.replace ("-", "−");
+            return ret_val;
+        }
         private static string space_removal(string original) {
             int i = 0,j = 0;
             string result = "";

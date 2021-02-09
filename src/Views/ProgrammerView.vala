@@ -683,10 +683,24 @@ namespace Pebbles {
                 case KeyboardHandler.KeyMap.M_LOWER:
                 display_unit.insert_text (" mod ");
                 break;
+                case KeyboardHandler.KeyMap.PARENTHESIS_L:
+                case KeyboardHandler.KeyMap.SQ_BRACKETS_L:
+                case KeyboardHandler.KeyMap.FL_BRACKETS_L:
+                left_parenthesis_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                display_unit.insert_text ("( ");
+                break;
+                case KeyboardHandler.KeyMap.PARENTHESIS_R:
+                case KeyboardHandler.KeyMap.SQ_BRACKETS_R:
+                case KeyboardHandler.KeyMap.FL_BRACKETS_R:
+                right_parenthesis_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                display_unit.insert_text (" ) ");
+                break;
             }
         }
         public void key_released (Gdk.EventKey event) {
             display_unit.display_on ();
+            left_parenthesis_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            right_parenthesis_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
             del_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
             seven_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
             eight_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");

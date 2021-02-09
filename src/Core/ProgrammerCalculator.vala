@@ -88,7 +88,7 @@ namespace Pebbles {
             for (int i = 0; i < stored_tokens.length; i++) {
                 token_list[i] = stored_tokens[i].token;
             }
-            return string.joinv (" ", token_list);
+            return Utils.get_natural_expression(string.joinv (" ", token_list));
         }
 
         public void populate_token_array (string exp) {
@@ -113,7 +113,7 @@ namespace Pebbles {
             for (int i = 0; i < stored_tokens.length; i++) {
                 token_list[i] = stored_tokens[i].token;
             }
-            return string.joinv (" ", token_list);
+            return Utils.get_natural_expression(string.joinv (" ", token_list));
         }
         private bool compare_token_set (Token[] a, Token[] b) {
             if (a.length != b.length) {

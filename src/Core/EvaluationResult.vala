@@ -29,6 +29,9 @@ namespace Pebbles {
         private double _int_limit_b;
         private double _derivative_point;
         private ResultSource _result_source;
+        private Token _problem_expression_prog;
+        private bool[] _prog_output;
+        private GlobalWordLength _word_length;
 
         public enum ResultSource {
             SCIF,
