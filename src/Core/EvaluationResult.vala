@@ -29,7 +29,7 @@ namespace Pebbles {
         private double _int_limit_b;
         private double _derivative_point;
         private ResultSource _result_source;
-        private Token _problem_expression_prog;
+        private ProgrammerCalculator.Token[] _problem_expression_prog;
         private bool[] _prog_output;
         private GlobalWordLength _word_length;
 
@@ -117,7 +117,44 @@ namespace Pebbles {
             }
         }
 
-        public EvaluationResult (string problem_expression, string result, GlobalAngleUnit? angle_mode = null, CalculusResultMode? calc_mode = null, double? int_limit_a = null, double? int_limit_b = null, double? derivative_point = null, ResultSource? result_source = null) {
+        public ProgrammerCalculator.Token[] problem_expression_prog {
+            get {
+                return _problem_expression_prog;
+            }
+            set {
+                _problem_expression_prog = value;
+            }
+        }
+
+        public bool[] prog_output {
+            get {
+                return _prog_output;
+            }
+            set {
+                _prog_output = value;
+            }
+        }
+
+        public GlobalWordLength word_length {
+            get {
+                return _word_length;
+            }
+            set {
+                _word_length = value;
+            }
+        }
+
+        public EvaluationResult (string problem_expression, 
+                                 string result, 
+                                 GlobalAngleUnit? angle_mode = null, 
+                                 CalculusResultMode? calc_mode = null, 
+                                 double? int_limit_a = null, 
+                                 double? int_limit_b = null, 
+                                 double? derivative_point = null, 
+                                 ResultSource? result_source = null,
+                                 ProgrammerCalculator.Token[]? problem_expression_prog = null,
+                                 bool[]? prog_output = null,
+                                 GlobalWordLength? word_length = GlobalWordLength.BYT) {
             this._problem_expression = problem_expression;
             this._result = result;
 
@@ -144,6 +181,16 @@ namespace Pebbles {
             if (result_source != null) {
                 this._result_source = result_source;
             }
+
+            if (problem_expression_prog != null) {
+                this._problem_expression_prog = problem_expression_prog;
+            }
+
+            if (prog_output != null) {
+                this._prog_output = prog_output;
+            }
+
+            this._word_length = word_length;
         }
     }
 }

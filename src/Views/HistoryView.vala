@@ -26,15 +26,20 @@ namespace Pebbles {
         Gtk.TreeIter iter;
         HistoryManager history;
 
+        EvaluationResult.ResultSource source;
+
         public signal void select_eval_result (EvaluationResult result);
 
-        public HistoryView (HistoryManager history) {
-            make_ui ();
-            this.history = history;
+        public HistoryView (HistoryManager history, EvaluationResult.ResultSource result_source) {
             
-
+            this.history = history;
+            this.source = result_source;
+            
+            make_ui ();
             for (int i = 0; i < history.length (); i++) {
-                append_to_view (history.get_nth_evaluation_result (i));
+                if (history.get_nth_evaluation_result(i).result_source == this.source) {
+                    append_to_view (history.get_nth_evaluation_result (i));
+                }
             }
 
             make_events ();
@@ -73,13 +78,21 @@ namespace Pebbles {
                                             typeof (string), typeof (string),
                                             typeof (string), typeof (string));
             view.set_model (listmodel);
-            view.insert_column_with_attributes (-1, (_("Input Expression")), new Gtk.CellRendererText (), "text", 0);
-            view.insert_column_with_attributes (-1, (_("Angle Mode")), new Gtk.CellRendererText (), "text", 1);
-            view.insert_column_with_attributes (-1, (_("Calculus Mode")), new Gtk.CellRendererText (), "text", 2);
-            view.insert_column_with_attributes (-1, (_("Integral Upper Limit")), new Gtk.CellRendererText (), "text", 3);
-            view.insert_column_with_attributes (-1, (_("Integral Lower Limit")), new Gtk.CellRendererText (), "text", 4);
-            view.insert_column_with_attributes (-1, (_("Derivative At Point")), new Gtk.CellRendererText (),  "text", 5);
-            view.insert_column_with_attributes (-1, (_("Result")), new Gtk.CellRendererText (), "text", 6);
+            int i = 0;
+            view.insert_column_with_attributes (-1, (_("Input Expression")), new Gtk.CellRendererText (), "text", i++);
+            if (source != EvaluationResult.ResultSource.PROG) {
+                view.insert_column_with_attributes (-1, (_("Angle Mode")), new Gtk.CellRendererText (), "text", i++);
+            }
+            if (source == EvaluationResult.ResultSource.CALC) {
+                view.insert_column_with_attributes (-1, (_("Calculus Mode")), new Gtk.CellRendererText (), "text", i++);
+                view.insert_column_with_attributes (-1, (_("Integral Upper Limit")), new Gtk.CellRendererText (), "text", i++);
+                view.insert_column_with_attributes (-1, (_("Integral Lower Limit")), new Gtk.CellRendererText (), "text", i++);
+                view.insert_column_with_attributes (-1, (_("Derivative At Point")), new Gtk.CellRendererText (),  "text", i++);
+            }
+            if (source == EvaluationResult.ResultSource.PROG) {
+                view.insert_column_with_attributes (-1, (_("Word Length")), new Gtk.CellRendererText (),  "text", i++);
+            }
+            view.insert_column_with_attributes (-1, (_("Result")), new Gtk.CellRendererText (), "text", i);
         }
 
         private void append_to_view (EvaluationResult result) {
@@ -113,13 +126,41 @@ namespace Pebbles {
                 calc_result_type = "N / A";
                 break;
             }
-            listmodel.set (iter, 0, result.problem_expression,
-                                 1, angle_mode, 
-                                 2, calc_result_type, 
-                                 3, result.int_limit_a.to_string (),
-                                 4, result.int_limit_b.to_string (),
-                                 5, result.derivative_point.to_string (),
-                                 6, result.result.to_string ());
+            string word_length = "";
+            switch (result.word_length) {
+                case GlobalWordLength.QWD:
+                word_length = "QWORD";
+                break;
+                case GlobalWordLength.DWD:
+                word_length = "DWORD";
+                break;
+                case GlobalWordLength.WRD:
+                word_length = "WORD";
+                break;
+                case GlobalWordLength.BYT:
+                word_length = "BYTE";
+                break;
+                default:
+                word_length = "N / A";
+                break;
+            }
+            if (source == EvaluationResult.ResultSource.SCIF) {
+                listmodel.set (iter, 0, result.problem_expression,
+                                     1, angle_mode,
+                                     2, result.result.to_string ());
+            } else if (source == EvaluationResult.ResultSource.CALC) {
+                listmodel.set (iter, 0, result.problem_expression,
+                                     1, angle_mode, 
+                                     2, calc_result_type, 
+                                     3, result.int_limit_a.to_string (),
+                                     4, result.int_limit_b.to_string (),
+                                     5, result.derivative_point.to_string (),
+                                     6, result.result.to_string ());
+            } else {
+                listmodel.set (iter, 0, result.problem_expression,
+                                     1, word_length,
+                                     2, result.result.to_string ());
+            }
             show_all ();
         }
 

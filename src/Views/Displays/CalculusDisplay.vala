@@ -183,14 +183,14 @@ namespace Pebbles {
                 shake ();
             }
             else {
-                this.cal_view.window.history_manager.append_from_strings (input_entry.get_text (), 
+                this.cal_view.window.history_manager.append_from_strings (EvaluationResult.ResultSource.CALC,
+                                                                        input_entry.get_text (), 
                                                                         result.replace (Utils.get_local_separator_symbol (), ""),
                                                                         angle_mode,
                                                                         EvaluationResult.CalculusResultMode.DER,
                                                                         0,
                                                                         0,
-                                                                        dx,
-                                                                        EvaluationResult.ResultSource.CALC);
+                                                                        dx);
                 this.cal_view.last_answer_button.set_sensitive (true);
             }
         }
@@ -210,14 +210,15 @@ namespace Pebbles {
                 shake ();
             }
             else {
-                this.cal_view.window.history_manager.append_from_strings (input_entry.get_text (), 
+                this.cal_view.window.history_manager.append_from_strings (
+                                                                        EvaluationResult.ResultSource.CALC,
+                                                                        input_entry.get_text (), 
                                                                         result.replace (Utils.get_local_separator_symbol (), ""), 
                                                                         angle_mode, 
                                                                         EvaluationResult.CalculusResultMode.INT,
                                                                         u,
                                                                         l,
-                                                                        0,
-                                                                        EvaluationResult.ResultSource.CALC);
+                                                                        0);
                 this.cal_view.last_answer_button.set_sensitive (true);
             }
         }

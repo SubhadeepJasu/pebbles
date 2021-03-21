@@ -23,14 +23,18 @@ namespace Pebbles {
     public class HistoryManager {
          private List<EvaluationResult> _history;
 
-         public void append_from_strings (string problem_expression, 
+         public void append_from_strings (
+                                        EvaluationResult.ResultSource result_source,
+                                        string problem_expression, 
                                         string result, 
                                         GlobalAngleUnit? angle_mode = null,
                                         EvaluationResult.CalculusResultMode? calc_mode = null, 
                                         double? int_limit_a = null, 
                                         double? int_limit_b = null, 
                                         double? derivative_point = null,
-                                        EvaluationResult.ResultSource? result_source = null) {
+                                        ProgrammerCalculator.Token[]? token_list = null, 
+                                        bool[]? output = null, 
+                                        GlobalWordLength? output_word_length = GlobalWordLength.BYT) {
             _history.append (new EvaluationResult(problem_expression,
                                                 result, 
                                                 angle_mode, 
@@ -38,7 +42,10 @@ namespace Pebbles {
                                                 int_limit_a,
                                                 int_limit_b,
                                                 derivative_point,
-                                                result_source));
+                                                result_source,
+                                                token_list,
+                                                output,
+                                                output_word_length));
         }
 
         public void append_from_evaluation_result (EvaluationResult eval_res) {
