@@ -79,20 +79,15 @@ namespace Pebbles {
                                             typeof (string), typeof (string));
             view.set_model (listmodel);
             int i = 0;
-            view.insert_column_with_attributes (-1, (_("Input Expression")), new Gtk.CellRendererText (), "text", i++);
+            view.insert_column_with_attributes (-1, (_("Input Expression") + "\x20 \x20 \x20 \x20 \x20 \x20 \x20"), new Gtk.CellRendererText (), "text", i++);
             if (source != EvaluationResult.ResultSource.PROG) {
                 view.insert_column_with_attributes (-1, (_("Angle Mode")), new Gtk.CellRendererText (), "text", i++);
-            }
-            if (source == EvaluationResult.ResultSource.CALC) {
-                view.insert_column_with_attributes (-1, (_("Calculus Mode")), new Gtk.CellRendererText (), "text", i++);
-                view.insert_column_with_attributes (-1, (_("Integral Upper Limit")), new Gtk.CellRendererText (), "text", i++);
-                view.insert_column_with_attributes (-1, (_("Integral Lower Limit")), new Gtk.CellRendererText (), "text", i++);
-                view.insert_column_with_attributes (-1, (_("Derivative At Point")), new Gtk.CellRendererText (),  "text", i++);
             }
             if (source == EvaluationResult.ResultSource.PROG) {
                 view.insert_column_with_attributes (-1, (_("Word Length")), new Gtk.CellRendererText (),  "text", i++);
             }
-            view.insert_column_with_attributes (-1, (_("Result")), new Gtk.CellRendererText (), "text", i);
+            view.insert_column_with_attributes (-1, (_("Result")), new Gtk.CellRendererText (), "text", i++);
+            view.insert_column_with_attributes (-1, (_("Source")), new Gtk.CellRendererText (), "text", i);
         }
 
         private void append_to_view (EvaluationResult result) {
@@ -147,19 +142,37 @@ namespace Pebbles {
             if (source == EvaluationResult.ResultSource.SCIF) {
                 listmodel.set (iter, 0, result.problem_expression,
                                      1, angle_mode,
-                                     2, result.result.to_string ());
+                                     2, result.result.to_string (),
+                                     3, "Scientific");
             } else if (source == EvaluationResult.ResultSource.CALC) {
-                listmodel.set (iter, 0, result.problem_expression,
+                string problem_function = "";
+                if (result.calc_mode == EvaluationResult.CalculusResultMode.INT) {
+                    problem_function = "\xE2\x88\xAB" + " \xE2\x82\x8D" + "\xE2\x82\x98 \xE2\x82\x8C " + result.int_limit_a.to_string () + ", \xE2\x82\x99 \xE2\x82\x8C " + result.int_limit_b.to_string () + "\xE2\x82\x8E";
+                } else if (result.calc_mode == EvaluationResult.CalculusResultMode.DER) {
+                    string derivative_limit = "\xE2\x82\x8D"  + "\xE2\x82\x93" + "\xE2\x82\x8C" + result.derivative_point.to_string () + "\xE2\x82\x8E";
+                    problem_function = "d/dx | " + derivative_limit + "";
+                }
+                problem_function = problem_function.replace("0", "\xE2\x82\x80");
+                problem_function = problem_function.replace("1", "\xE2\x82\x81");
+                problem_function = problem_function.replace("2", "\xE2\x82\x82");
+                problem_function = problem_function.replace("3", "\xE2\x82\x83");
+                problem_function = problem_function.replace("4", "\xE2\x82\x84");
+                problem_function = problem_function.replace("5", "\xE2\x82\x85");
+                problem_function = problem_function.replace("6", "\xE2\x82\x86");
+                problem_function = problem_function.replace("7", "\xE2\x82\x87");
+                problem_function = problem_function.replace("8", "\xE2\x82\x88");
+                problem_function = problem_function.replace("9", "\xE2\x82\x89");
+                problem_function = problem_function.replace("-", "\xE2\x82\x8B");
+                
+                listmodel.set (iter, 0, problem_function + "\t" + result.problem_expression,
                                      1, angle_mode, 
-                                     2, calc_result_type, 
-                                     3, result.int_limit_a.to_string (),
-                                     4, result.int_limit_b.to_string (),
-                                     5, result.derivative_point.to_string (),
-                                     6, result.result.to_string ());
+                                     2, result.result.to_string (),
+                                     3, "Calculus");
             } else {
                 listmodel.set (iter, 0, result.problem_expression,
                                      1, word_length,
-                                     2, result.result.to_string ());
+                                     2, result.result.to_string (),
+                                     3, "Programmer");
             }
             show_all ();
         }

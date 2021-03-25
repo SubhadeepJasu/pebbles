@@ -213,6 +213,10 @@ namespace Pebbles {
         public void get_answer_evaluate () {
             string result = programmer_calculator_front_end.evaluate_exp (settings.global_word_length, settings.number_system);
             this.answer_label.set_text (result);
+
+            //  if (!this.prog_view.window.history_manager.is_empty ()) {
+            //      string last_answer = this.sci_view.window.history_manager.get_last_evaluation_result ().result;
+            //  }
         }
 
         public void memory_append (bool subtract) {
