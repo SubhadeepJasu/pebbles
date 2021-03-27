@@ -79,6 +79,10 @@ namespace Pebbles {
             return stored_tokens[stored_tokens.length - 1];
         }
 
+        public Token[] get_token_array () {
+            return stored_tokens;
+        }
+
         public string set_last_token (bool[] arr, GlobalWordLength wrd_length, NumberSystem number_system) {
             if (stored_tokens[stored_tokens.length - 1].type != TokenType.OPERAND) {
                 stored_tokens.resize (stored_tokens.length + 1);
@@ -98,13 +102,13 @@ namespace Pebbles {
             }
             print("\n");
         }
-        public string set_number_system (string exp, GlobalWordLength? wrd_length = GlobalWordLength.BYT) {
+        public string set_number_system (string exp, GlobalWordLength? wrd_length = GlobalWordLength.BYT, bool? force_decimal = false) {
             var token_structure = Utils.get_token_array (exp);
             if (compare_token_set (token_structure, stored_tokens)) {
                 for (int i = 0; i < token_structure.length; i++) {
                     if (token_structure[i].type == TokenType.OPERAND) {
                         if (token_structure[i].number_system != stored_tokens[i].number_system) {
-                            stored_tokens[i].token = convert_number_system (stored_tokens[i].token, stored_tokens[i].number_system, token_structure[i].number_system, wrd_length);
+                            stored_tokens[i].token = convert_number_system (stored_tokens[i].token, stored_tokens[i].number_system, force_decimal ? NumberSystem.DECIMAL : token_structure[i].number_system, wrd_length);
                         }
                     }
                 }
@@ -593,11 +597,12 @@ namespace Pebbles {
             return bool_array;
         }
 
-        public string evaluate_exp (GlobalWordLength? wrd_length = GlobalWordLength.BYT, NumberSystem number_system) {
+        public string evaluate_exp (GlobalWordLength? wrd_length = GlobalWordLength.BYT, NumberSystem number_system, out bool[]? output_array = null) {
             CharStack ops = new CharStack (50);
             BoolArrayStack values = new BoolArrayStack(50);
             Programmer prog_calc = new Programmer();
             int word_size = 8;
+            prog_calc.word_size = WordSize.BYTE;
             switch (wrd_length) {
                 case GlobalWordLength.BYT:
                 prog_calc.word_size = WordSize.BYTE;
@@ -615,52 +620,40 @@ namespace Pebbles {
                 word_size = 64;
                 break;
             }
-            prog_calc.word_size = WordSize.BYTE;
             for (int i = 0; i < stored_tokens.length; i++) {
-                print("2\n");
                 if (stored_tokens[i].type == TokenType.OPERAND) {
                     //ops.push((char)(stored_tokens[i].token.get_char(0)));
                     values.push(string_to_bool_array(stored_tokens[i].token, stored_tokens[i].number_system, wrd_length));
-                    print("3\n");
                 } else if (stored_tokens[i].type == TokenType.PARENTHESIS) {
-                    print("/3\n");
                     if (stored_tokens[i].token == "(") {
                         ops.push ('(');
-                        print("4\n");
                     }
                     else {
                         while (ops.peek() != '(') {
                             bool[] tmp = apply_op(prog_calc, ops.pop(), values.pop(), values.pop(), word_size);
                             values.push(tmp);
-                            print("4\n");
                         }
                         ops.pop();
-                        print("5\n");
                     }
                 } else if (stored_tokens[i].type == TokenType.OPERATOR) {
-                    print(">>6\n");
                     while (!ops.empty() && has_precedence_pemdas(stored_tokens[i].token.get(0), ops.peek())) {
-                        print(">>7\n");
                         bool[] tmp = apply_op(prog_calc, ops.pop(), values.pop(), values.pop(), word_size);
                         values.push(tmp);
-                        print("7\n");
                     }
                     // Push current token to stack
                     ops.push(stored_tokens[i].token.get(0));
-                    print("<<6\n");
                 }
             }
             while (!ops.empty()) {
-                print(">>8\n");
                 bool[] tmp = apply_op(prog_calc, ops.pop(), values.pop(), values.pop(), word_size);
                 values.push(tmp);
-                print("8\n");
             }
+            bool[] answer = values.pop();
 
-            // Take care of float accuracy of the result
-            print("9\n");
-            string output = bool_array_to_string (values.pop(), wrd_length, number_system);
-            print("9\n");
+            // Send the original array back for storage.
+            output_array = answer;
+            string output = bool_array_to_string (answer, wrd_length, number_system);
+            
             return output;
         }
         public bool[] string_to_bool_array (string str, NumberSystem number_system, GlobalWordLength wrd_length) {

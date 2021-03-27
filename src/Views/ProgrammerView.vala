@@ -71,7 +71,7 @@ namespace Pebbles {
         StyledButton memory_recall_button;
         StyledButton not_button;
         StyledButton memory_clear_button;
-        StyledButton ans_button;
+        public StyledButton ans_button;
         StyledButton result_button;
         
         // Bit Toggle View
@@ -501,6 +501,10 @@ namespace Pebbles {
                 display_unit.display_on ();
                 display_unit.memory_clear ();
                 return false;
+            });
+
+            ans_button.clicked.connect (() => {
+                display_unit.insert_text ("ans ");
             });
 
             bit_grid.changed.connect ((arr) => {

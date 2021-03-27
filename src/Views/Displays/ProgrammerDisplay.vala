@@ -211,12 +211,27 @@ namespace Pebbles {
         }
 
         public void get_answer_evaluate () {
-            string result = programmer_calculator_front_end.evaluate_exp (settings.global_word_length, settings.number_system);
+            bool[] answer_array;
+            if (!this.prog_view.window.history_manager.is_empty ()) {
+                bool[] last_output_array= this.prog_view.window.history_manager.get_last_evaluation_result ().prog_output;
+                string last_answer = programmer_calculator_front_end.bool_array_to_string (last_output_array, settings.global_word_length, settings.number_system);
+                input_entry.set_text (input_entry.get_text().replace ("ans", last_answer));
+                this.set_number_system ();
+            }
+            string result = programmer_calculator_front_end.evaluate_exp (settings.global_word_length, settings.number_system, out answer_array);
             this.answer_label.set_text (result);
-
-            //  if (!this.prog_view.window.history_manager.is_empty ()) {
-            //      string last_answer = this.sci_view.window.history_manager.get_last_evaluation_result ().result;
-            //  }
+            this.prog_view.window.history_manager.append_from_strings (EvaluationResult.ResultSource.PROG, 
+                                                                       input_entry.get_text (), 
+                                                                       result, 
+                                                                       null, 
+                                                                       null, 
+                                                                       0, 
+                                                                       0, 
+                                                                       0,
+                                                                       programmer_calculator_front_end.get_token_array(),
+                                                                       answer_array,
+                                                                       settings.global_word_length);
+            this.prog_view.ans_button.set_sensitive (true);
         }
 
         public void memory_append (bool subtract) {
