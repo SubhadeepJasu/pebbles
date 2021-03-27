@@ -183,6 +183,152 @@ namespace Pebbles {
                 return "E";
             }
         }
+
+        public string pg_tokenize (string input) {
+            if (check_parenthesis (input)) {
+                var exp = input;
+                exp = exp.replace ("lsh", " [0] ");
+                exp = exp.replace ("rsh", " [1] ");
+                exp = exp.replace ("lr", " [2] ");
+                exp = exp.replace ("rr", " [3] ");
+                exp = exp.replace ("not", " [4] ");
+                exp = exp.replace ("nand", " [5] ");
+                exp = exp.replace ("xnor", " [6]] ");
+                exp = exp.replace ("xor", " [7] ");
+                exp = exp.replace ("nor", " [8] ");
+                exp = exp.replace ("and", " [9] ");
+                exp = exp.replace ("or", " [10] ");
+                exp = exp.replace ("mod", " [11] ");
+
+                exp = exp.replace ("[0]", " 0 < ");
+                exp = exp.replace ("[1]", " 0 > ");
+                exp = exp.replace ("[2]", " 0 k ");
+                exp = exp.replace ("[3]", " 0 q ");
+                exp = exp.replace ("[4]", " n ");
+                exp = exp.replace ("[5]", " r ");
+                exp = exp.replace ("[6]", " 0 t ");
+                exp = exp.replace ("[7]", " y ");
+                exp = exp.replace ("[8]", " w ");
+                exp = exp.replace ("[9]", " x ");
+                exp = exp.replace ("[10]", " z ");
+                exp = exp.replace ("[11]", " m ");
+                exp = exp.replace ("(", " ( ");
+                exp = exp.replace (")", " ) ");
+                exp = exp.replace ("+", " + ");
+                exp = exp.replace ("-", " - ");
+                exp = exp.replace ("−", " - ");
+                exp = exp.replace ("\xC3\x97", " * ");
+                exp = exp.replace ("\xC3\xB7", " / ");
+                exp = exp.replace ("*", " * ");
+                exp = exp.replace ("/", " / ");
+                exp = exp.strip ();
+                exp = space_removal (exp);
+
+                // Intelligently convert expressions based on common rules
+                exp = algebraic_parenthesis_product_convert (exp);
+                exp = unary_minus_convert (exp);
+
+                //exp = space_removal (exp);
+                print ("Final exp: " + exp + "\n");
+                return exp;
+            }
+
+            return "E";
+        }
+        public static ProgrammerCalculator.Token[] get_token_array (string input_exp) {
+            var settings = Pebbles.Settings.get_default ();
+
+            var exp = input_exp.replace ("lsh", " < ");
+            exp = exp.replace ("rsh", " > ");
+            exp = exp.replace ("lr", " lr ");
+            exp = exp.replace ("rr", " rr ");
+            exp = exp.replace ("not", " ! ");
+            exp = exp.replace ("nand", " [5] ");
+            exp = exp.replace ("xnor", " [6] ");
+            exp = exp.replace ("xor", " [7] ");
+            exp = exp.replace ("nor", " [8] ");
+            exp = exp.replace ("and", " & ");
+            exp = exp.replace ("or", " | ");
+            exp = exp.replace ("mod", " m ");
+            exp = exp.replace ("[5]", " a ");
+            exp = exp.replace ("[6]", " n ");
+            exp = exp.replace ("[7]", " x ");
+            exp = exp.replace ("[8]", " o ");
+            exp = exp.replace ("(", " ( ");
+            exp = exp.replace (")", " ) ");
+            exp = exp.replace ("+", " + ");
+            exp = exp.replace ("-", " - ");
+            exp = exp.replace ("−", " - ");
+            exp = exp.replace ("\xC3\x97", " * ");
+            exp = exp.replace ("\xC3\xB7", " / ");
+            exp = exp.replace ("*", " * ");
+            exp = exp.replace ("/", " / ");
+            exp = exp.strip ();
+            exp = space_removal (exp);
+
+            string str_with_unform_spaces = space_removal (exp);
+            string[] str_tokens = str_with_unform_spaces.split (" ");
+            ProgrammerCalculator.Token[] tokens = new ProgrammerCalculator.Token[str_tokens.length];
+            for (int i = 0; i < str_tokens.length; i++) {
+                switch (str_tokens[i]) {
+                    case "<":
+                    case ">":
+                    case "lr":
+                    case "rr":
+                    case "!":
+                    case "a":
+                    case "n":
+                    case "x":
+                    case "o":
+                    case "&":
+                    case "|":
+                    case "m":
+                    case "+":
+                    case "-":
+                    case "/":
+                    case "*":
+                    tokens[i].type = ProgrammerCalculator.TokenType.OPERATOR;
+                    break;
+                    case "(":
+                    case ")":
+                    tokens[i].type = ProgrammerCalculator.TokenType.PARENTHESIS;
+                    break;
+                    default:
+                    tokens[i].type = ProgrammerCalculator.TokenType.OPERAND;
+                    break;
+                }
+                tokens[i].token = str_tokens[i];
+                tokens[i].number_system = settings.number_system;
+            }
+
+            return tokens;
+        }
+
+        public static string get_natural_expression (string str) {
+            string ret_val = str;
+            ret_val = ret_val.replace ("<", "lsh");
+            ret_val = ret_val.replace (">", "rsh");
+            ret_val = ret_val.replace ("!", "[0]");
+            ret_val = ret_val.replace ("&", "[1]");
+            ret_val = ret_val.replace ("|", "[2]");
+            ret_val = ret_val.replace ("m", "[3]");
+            ret_val = ret_val.replace ("a", "[4]");
+            ret_val = ret_val.replace ("o", "[5]");
+            ret_val = ret_val.replace ("x", "[6]");
+            ret_val = ret_val.replace ("n", "[7]");
+            ret_val = ret_val.replace ("[0]", "not");
+            ret_val = ret_val.replace ("[1]", "and");
+            ret_val = ret_val.replace ("[2]", "or");
+            ret_val = ret_val.replace ("[3]", "mod");
+            ret_val = ret_val.replace ("[4]", "nand");
+            ret_val = ret_val.replace ("[5]", "nor");
+            ret_val = ret_val.replace ("[6]", "xor");
+            ret_val = ret_val.replace ("[7]", "xnor");
+            ret_val = ret_val.replace ("*", "\xC3\x97");
+            ret_val = ret_val.replace ("/", "\xC3\xB7");
+            ret_val = ret_val.replace ("-", "−");
+            return ret_val;
+        }
         private static string space_removal(string original) {
             int i = 0,j = 0;
             string result = "";
@@ -275,6 +421,35 @@ namespace Pebbles {
                 exp.has_suffix ("9") ||
                 exp.has_suffix (".") ||
                 exp.has_suffix ("x")
+                ) {
+                    return true;
+                }
+                return false;
+        }
+        private static bool pg_is_number (string exp) {
+            if (exp.has_suffix ("0") ||
+                exp.has_suffix ("1") ||
+                exp.has_suffix ("2") ||
+                exp.has_suffix ("3") ||
+                exp.has_suffix ("4") ||
+                exp.has_suffix ("5") ||
+                exp.has_suffix ("6") ||
+                exp.has_suffix ("7") ||
+                exp.has_suffix ("8") ||
+                exp.has_suffix ("9") ||
+                exp.has_suffix (".") ||
+                exp.has_suffix ("a") ||
+                exp.has_suffix ("b") ||
+                exp.has_suffix ("c") ||
+                exp.has_suffix ("d") ||
+                exp.has_suffix ("e") ||
+                exp.has_suffix ("f") ||
+                exp.has_suffix ("A") ||
+                exp.has_suffix ("B") ||
+                exp.has_suffix ("C") ||
+                exp.has_suffix ("D") ||
+                exp.has_suffix ("E") ||
+                exp.has_suffix ("F")
                 ) {
                     return true;
                 }

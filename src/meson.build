@@ -15,11 +15,15 @@ sources = files (
     'Core/ScientificCalculator.vala',
     'Core/Calculus.vala',
     'Core/ProgrammerCalculator.vala',
+    'Core/Programmer.vala',
     'Core/Statistics.vala',
     'Core/Utils.vala',
     'Core/Converter.vala',
     'Core/CurrencyConverter.vala',
     'Core/DateCalculator.vala',
+
+    'Core/CharStack.vala',
+    'Core/BoolArrayStack.vala',
 
     'Views/MiniCalculator.vala',
     'Views/CalculusView.vala',

@@ -249,7 +249,7 @@ msgid "Constants"
 msgstr "Constantes"
 
 #: src/ControlsScheme.vala:100 src/views/MiniCalculator.vala:100
-#: src/views/ScientificView.vala:252 src/views/HistoryView.vala:82
+#: src/views/ScientificView.vala:252 src/views/HistoryViewScientific.vala:82
 msgid "Result"
 msgstr "Résultat"
 
@@ -1007,15 +1007,15 @@ msgstr "Décennie"
 msgid "Century"
 msgstr "Siècle"
 
-#: src/views/ConvAngleView.vala:44 src/views/HistoryView.vala:91
+#: src/views/ConvAngleView.vala:44 src/views/HistoryViewScientific.vala:91
 msgid "Degree"
 msgstr "Degré"
 
-#: src/views/ConvAngleView.vala:45 src/views/HistoryView.vala:94
+#: src/views/ConvAngleView.vala:45 src/views/HistoryViewScientific.vala:94
 msgid "Radian"
 msgstr "Radian"
 
-#: src/views/ConvAngleView.vala:46 src/views/HistoryView.vala:97
+#: src/views/ConvAngleView.vala:46 src/views/HistoryViewScientific.vala:97
 msgid "Gradian"
 msgstr "Gradian"
 
@@ -1339,43 +1339,43 @@ msgstr "Convertisseurs d'unité"
 msgid "Pebbles Controls"
 msgstr "Contrôles de Pebbles"
 
-#: src/views/HistoryView.vala:47
+#: src/views/HistoryViewScientific.vala:47
 msgid "Double click to recall"
 msgstr "Double-cliquer pour rappeler"
 
-#: src/views/HistoryView.vala:56
+#: src/views/HistoryViewScientific.vala:56
 msgid "History"
 msgstr "Historique"
 
-#: src/views/HistoryView.vala:76
+#: src/views/HistoryViewScientific.vala:76
 msgid "Input Expression"
 msgstr "Expression saisie"
 
-#: src/views/HistoryView.vala:77
+#: src/views/HistoryViewScientific.vala:77
 msgid "Angle Mode"
 msgstr "Mode angulaire"
 
-#: src/views/HistoryView.vala:78
+#: src/views/HistoryViewScientific.vala:78
 msgid "Calculus Mode"
 msgstr "Mode de calcul"
 
-#: src/views/HistoryView.vala:79
+#: src/views/HistoryViewScientific.vala:79
 msgid "Integral Upper Limit"
 msgstr "Limite supérieure de l'intégrale"
 
-#: src/views/HistoryView.vala:80
+#: src/views/HistoryViewScientific.vala:80
 msgid "Integral Lower Limit"
 msgstr "Limite inférieure de l'intégrale"
 
-#: src/views/HistoryView.vala:81
+#: src/views/HistoryViewScientific.vala:81
 msgid "Derivative At Point"
 msgstr "Dérivation en un point"
 
-#: src/views/HistoryView.vala:107
+#: src/views/HistoryViewScientific.vala:107
 msgid "Integral"
 msgstr "Intégrale"
 
-#: src/views/HistoryView.vala:110
+#: src/views/HistoryViewScientific.vala:110
 msgid "Derivative"
 msgstr "Dérivée"
 

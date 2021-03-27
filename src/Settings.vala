@@ -37,6 +37,15 @@ namespace Pebbles {
         BYT  = 3
     }
 
+    // Specify the number system to use
+    // Its used in programmer mode
+    public enum NumberSystem {
+        BINARY,
+        OCTAL,
+        DECIMAL,
+        HEXADECIMAL
+    }
+
     // Will be used to specify the variable constant key
     // both normal and alternative values.
     public enum ConstantKeyIndex {
@@ -66,6 +75,7 @@ namespace Pebbles {
         public bool shift_alternative_function {get; set;}
         public GlobalAngleUnit global_angle_unit {get; set;}
         public GlobalWordLength global_word_length {get; set;}
+        public NumberSystem number_system {get; set;}
         public bool use_dark_theme {get; set;}
         public ConstantKeyIndex constant_key_value1 {get; set;}
         public ConstantKeyIndex constant_key_value2 {get; set;}
@@ -73,6 +83,8 @@ namespace Pebbles {
         public string sci_input_text {get; set;}
         public string sci_output_text {get; set;}
         public string sci_memory_value {get; set;} 
+        public string prog_input_text {get; set;}
+        public string prog_output_text {get; set;}
         public string cal_input_text {get; set;}
         public string cal_output_text {get; set;}
         public string cal_integration_upper_limit {get; set;}

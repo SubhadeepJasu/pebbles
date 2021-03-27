@@ -10,6 +10,12 @@
 		<value nick="wrd"  value="2" />
 		<value nick="byt"  value="3" />
     </enum>
+	<enum id="com.github.subhadeepjasu.pebbles.number-system">
+		<value nick="binary" value="0" />
+		<value nick="octal" value="1" />
+		<value nick="decimal" value="2" />
+		<value nick="hexadecimal" value="3" />
+	</enum>
     <enum id="com.github.subhadeepjasu.pebbles.constant-key-index">
 		<value nick="euler"  		value="0" />
 		<value nick="archimedes"  	value="1" />
@@ -53,6 +59,11 @@
 			<summary>Choose the Word Length</summary>
 			<description>Select the word length.</description>
 		</key>
+		<key name="number-system" enum="com.github.subhadeepjasu.pebbles.number-system">
+			<default>"decimal"</default>
+			<summary>Choose the number system</summary>
+			<description>Select the number system.</description>
+		</key>
 		<key name="use-dark-theme" type="b">
 			<default>true</default>
 			<summary>Use Dark Theme</summary>
@@ -88,6 +99,16 @@
 			<default>"0"</default>
 			<summary>Memory Value in Scientific Mode</summary>
 			<description>Memory Value in Scientific Mode</description>
+		</key>
+		<key name="prog-input-text" type="s">
+			<default>"0"</default>
+			<summary>Input Text from Programmer mode</summary>
+			<description>Input Text from Programmer mode</description>
+		</key>
+		<key name="prog-output-text" type="s">
+			<default>"0"</default>
+			<summary>Output Text from Programmer mode</summary>
+			<description>Output Text from Programmer mode</description>
 		</key>
 		<key name="cal-input-text" type="s">
 			<default>"0"</default>

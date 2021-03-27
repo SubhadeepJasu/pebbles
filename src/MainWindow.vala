@@ -329,7 +329,7 @@ namespace Pebbles {
             calc_category.expand_all ();
             calc_category.add (scientific_item);
             calc_category.add (calculus_item);
-            //calc_category.add (programmer_item); // Will be added in a future update
+            calc_category.add (programmer_item); // Will be added in a future update
             calc_category.add (date_item);
             calc_category.add (stats_item);
             //calc_category.add (finance_item);
@@ -683,7 +683,23 @@ namespace Pebbles {
 
         private void show_history () {
             if (history_modal == null) {
-                history_modal = new HistoryView (history_manager);
+                EvaluationResult.ResultSource result_source;
+                print(settings.view_index.to_string());
+                switch (settings.view_index) {
+                    case 0:
+                    result_source = EvaluationResult.ResultSource.SCIF;
+                    break;
+                    case 1:
+                    result_source = EvaluationResult.ResultSource.PROG;
+                    break;
+                    case 2:
+                    result_source = EvaluationResult.ResultSource.CALC;
+                    break;
+                    default:
+                    result_source = EvaluationResult.ResultSource.SCIF;
+                    break;
+                }
+                history_modal = new HistoryView (history_manager, result_source);
                 history_modal.application = this.application;
                 this.application.add_window (history_modal);
                 history_modal.set_attached_to (this);
@@ -714,6 +730,13 @@ namespace Pebbles {
                         item_list.selected = calculus_item;
                         calculus_view.set_evaluation (result);
                         settings.view_index = 2;
+                        break;
+                        case EvaluationResult.ResultSource.PROG:
+                        common_view.set_visible_child (programmer_view);
+                        header_switcher.set_visible_child (programmer_header_grid);
+                        item_list.selected = programmer_item;
+                        calculus_view.set_evaluation (result);
+                        settings.view_index = 1;
                         break;
                     }
 
@@ -792,6 +815,9 @@ namespace Pebbles {
                 switch (settings.view_index) {
                     case 0: 
                         scientific_view.key_pressed (event);
+                        break;
+                    case 1:
+                        programmer_view.key_pressed (event);
                         break;
                     case 2:
                         calculus_view.key_pressed (event);
@@ -877,6 +903,9 @@ namespace Pebbles {
                 switch (settings.view_index) {
                     case 0:
                         scientific_view.key_released (event);
+                        break;
+                    case 1:
+                        programmer_view.key_released (event);
                         break;
                     case 2:
                         calculus_view.key_released (event);

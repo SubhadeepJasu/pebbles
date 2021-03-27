@@ -87,7 +87,7 @@ namespace Pebbles {
             one_button = new StyledButton ("1");
             two_button = new StyledButton ("2");
             three_button = new StyledButton ("3");
-            zero_button = new StyledButton ("4");
+            zero_button = new StyledButton ("0");
             radix_button = new StyledButton (".");
             add_button = new StyledButton ("+", "Add");
             add_button.get_style_context ().add_class ("h3");

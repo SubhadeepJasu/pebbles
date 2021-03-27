@@ -104,13 +104,11 @@ namespace Pebbles {
                 }
             });
             input_entry.changed.connect (() => {
-                    if (input_entry.get_text ().has_prefix ("0") && input_entry.get_text () != null) {
-                        if (input_entry.get_text ().length != 1) {
-                            input_entry.set_text (input_entry.get_text ().slice (1, input_entry.get_text().length));
-                        }
+                if (input_entry.get_text ().has_prefix ("0") && input_entry.get_text () != null) {
+                    if (input_entry.get_text ().length != 1) {
+                        input_entry.set_text (input_entry.get_text ().slice (1, input_entry.get_text().length));
                     }
-
-                    settings.sci_input_text = input_entry.get_text ();
+                }
             });
             input_entry.key_release_event.connect (() => {
                 display_on ();
@@ -177,20 +175,21 @@ namespace Pebbles {
             var sci_calc = new ScientificCalculator ();
             string result = "";
             Settings settings = Settings.get_default ();
-            if (!this.sci_view.window.history_manager.is_empty ()) {
-                string last_answer = this.sci_view.window.history_manager.get_last_evaluation_result ().result;
+            if (!this.sci_view.window.history_manager.is_empty (EvaluationResult.ResultSource.SCIF)) {
+                string last_answer = this.sci_view.window.history_manager.get_last_evaluation_result (EvaluationResult.ResultSource.SCIF).result;
                 result = sci_calc.get_result (input_entry.get_text ().replace ("ans", last_answer), angle_mode, settings.decimal_places);
             }
             else {
                 result = sci_calc.get_result (input_entry.get_text (), angle_mode, settings.decimal_places);
             }
             answer_label.set_text (Utils.format_result (result));
+            settings.sci_input_text = input_entry.get_text ();
             settings.sci_output_text = answer_label.get_text ();
             if (result == "E") {
                 shake ();
             }
             else {
-                this.sci_view.window.history_manager.append_from_strings (input_entry.get_text (), result.replace (Utils.get_local_separator_symbol (), ""), angle_mode, null, 0, 0, 0, EvaluationResult.ResultSource.SCIF);
+                this.sci_view.window.history_manager.append_from_strings (EvaluationResult.ResultSource.SCIF, input_entry.get_text (), result.replace (Utils.get_local_separator_symbol (), ""), angle_mode, null, 0, 0, 0);
                 this.sci_view.last_answer_button.set_sensitive (true);
             }
         }
