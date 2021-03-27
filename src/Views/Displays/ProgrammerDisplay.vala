@@ -212,8 +212,8 @@ namespace Pebbles {
 
         public void get_answer_evaluate () {
             bool[] answer_array;
-            if (!this.prog_view.window.history_manager.is_empty ()) {
-                bool[] last_output_array= this.prog_view.window.history_manager.get_last_evaluation_result ().prog_output;
+            if (!this.prog_view.window.history_manager.is_empty (EvaluationResult.ResultSource.PROG)) {
+                bool[] last_output_array= this.prog_view.window.history_manager.get_last_evaluation_result (EvaluationResult.ResultSource.PROG).prog_output;
                 string last_answer = programmer_calculator_front_end.bool_array_to_string (last_output_array, settings.global_word_length, settings.number_system);
                 input_entry.set_text (input_entry.get_text().replace ("ans", last_answer));
                 this.set_number_system ();

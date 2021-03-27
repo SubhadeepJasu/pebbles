@@ -562,7 +562,8 @@ namespace Pebbles {
                 case '-':
                 return prog_calc.subtract (b, a, word_size);
                 case '*':
-                return prog_calc.multiply (a, b);
+                string result = prog_calc.multiply (a, b, word_size);
+                return string_to_bool_array (result, NumberSystem.DECIMAL, Settings.get_default().global_word_length);
                 case '/':
                 // This is using a hacky workaround for division which is not ideal.
                 // There is a badly made restoring division function as well which

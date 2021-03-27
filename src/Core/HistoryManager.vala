@@ -56,17 +56,48 @@ namespace Pebbles {
             return _history.nth_data(n);
         }
 
-        public EvaluationResult get_last_evaluation_result () {
+        public EvaluationResult get_last_evaluation_result (EvaluationResult.ResultSource? mode = null) {
+            if (mode != null) {
+                for (uint i = _history.length () - 1; i >= 0; i--) {
+                    if (_history.nth_data(i) != null && _history.nth_data(i).result_source == mode) {
+                        return _history.nth_data(i);
+                    }
+                }
+            }
             unowned List<EvaluationResult> last = _history.last ();
             return last.nth_data (0);
         }
 
-        public uint length () {
+        public uint length (EvaluationResult.ResultSource? mode = null) {
+            if (mode != null) {
+                uint count = 0;
+                for (uint i = 0; i < _history.length (); i++) {
+                    if (_history.nth_data(i) != null && _history.nth_data(i).result_source == mode) {
+                        count++;
+                    }
+                }
+                return count;
+            }
             return _history.length ();
         }
 
-        public bool is_empty () {
-            return (_history.length () == 0) ? true : false;
+        public bool is_empty (EvaluationResult.ResultSource? mode = null) {
+            print("H\n");
+            if (_history.length () == 0) {
+                return true;
+            } else {
+                if (mode != null) {
+                
+                    for (uint i = _history.length () - 1; i >= 0; i--) {
+                        if (_history.nth_data(i) != null && _history.nth_data(i).result_source == mode) {
+                            print("j\n");
+                            return false;
+                        }
+                        print("j\n");
+                    }
+                }
+                return true;
+            }
         }
     }
 }

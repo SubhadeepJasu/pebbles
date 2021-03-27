@@ -35,7 +35,7 @@ namespace Pebbles {
 
         // Input section left buttons
         StyledButton all_clear_button;
-        StyledButton del_button;
+        Gtk.Button del_button;
         StyledButton seven_button;
         StyledButton eight_button;
         StyledButton nine_button;
@@ -126,7 +126,8 @@ namespace Pebbles {
             // Make buttons on the left
             all_clear_button = new StyledButton ("AC", "All Clear");
             all_clear_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
-            del_button = new StyledButton ("Del", "Backspace");
+            del_button = new Gtk.Button.from_icon_name ("edit-clear-symbolic", Gtk.IconSize.BUTTON);
+            del_button.set_tooltip_text (_("Backspace"));
             if (display_unit.input_entry.get_text () =="0" || display_unit.input_entry.get_text () == "") {
                 del_button.sensitive = false;
             } else {
