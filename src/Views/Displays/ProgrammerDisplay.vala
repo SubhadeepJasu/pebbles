@@ -55,6 +55,7 @@ namespace Pebbles {
 
         // 
         ProgrammerCalculator programmer_calculator_front_end;
+        bool[] answer_array;
         ProgrammerView prog_view;
 
         // Programmer Calculator memory store
@@ -210,8 +211,7 @@ namespace Pebbles {
             width_request = 530;
         }
 
-        public void get_answer_evaluate () {
-            bool[] answer_array;
+        public void get_answer_evaluate (bool? dont_push_history = false) {
             if (!this.prog_view.window.history_manager.is_empty (EvaluationResult.ResultSource.PROG)) {
                 bool[] last_output_array= this.prog_view.window.history_manager.get_last_evaluation_result (EvaluationResult.ResultSource.PROG).prog_output;
                 string last_answer = programmer_calculator_front_end.bool_array_to_string (last_output_array, settings.global_word_length, settings.number_system);
@@ -229,17 +229,18 @@ namespace Pebbles {
                 shake ();
             }
             else {
-                this.prog_view.window.history_manager.append_from_strings (EvaluationResult.ResultSource.PROG, 
-                                                                       input_entry.get_text (), 
-                                                                       result, 
-                                                                       null, 
-                                                                       null, 
-                                                                       0, 
-                                                                       0, 
-                                                                       0,
-                                                                       programmer_calculator_front_end.get_token_array(),
-                                                                       answer_array,
-                                                                       settings.global_word_length);
+                if (dont_push_history != true)
+                    this.prog_view.window.history_manager.append_from_strings (EvaluationResult.ResultSource.PROG, 
+                                                                        input_entry.get_text (), 
+                                                                        result, 
+                                                                        null, 
+                                                                        null, 
+                                                                        0, 
+                                                                        0, 
+                                                                        0,
+                                                                        programmer_calculator_front_end.get_token_array(),
+                                                                        answer_array,
+                                                                        settings.global_word_length);
                 settings.prog_output_text = result;
                 settings.prog_input_text = input_entry.get_text ();
                 this.prog_view.ans_button.set_sensitive (true);
@@ -395,6 +396,11 @@ namespace Pebbles {
                 break;
             }
             input_entry.set_text (programmer_calculator_front_end.set_number_system (input_entry.get_text (), settings.global_word_length));
+            if (answer_array != null) {
+                answer_label.set_text (programmer_calculator_front_end.bool_array_to_string(answer_array, settings.global_word_length, settings.number_system));
+            } else {
+                get_answer_evaluate(true);
+            }
         }
         public void set_shift_enable (bool s_on) {
             if (s_on) {
