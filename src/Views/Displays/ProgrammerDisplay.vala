@@ -171,7 +171,7 @@ namespace Pebbles {
             
             
             // Make LCD Answer label
-            answer_label = new Gtk.Label ("0");
+            answer_label = new Gtk.Label (settings.prog_output_text);
             answer_label.set_halign (Gtk.Align.END);
             answer_label.get_style_context ().add_class ("pebbles_h1");
             var scrollable = new Gtk.ScrolledWindow (null, null);
@@ -231,6 +231,8 @@ namespace Pebbles {
                                                                        programmer_calculator_front_end.get_token_array(),
                                                                        answer_array,
                                                                        settings.global_word_length);
+            settings.prog_output_text = result;
+            settings.prog_input_text = input_entry.get_text ();
             this.prog_view.ans_button.set_sensitive (true);
         }
 
@@ -270,9 +272,10 @@ namespace Pebbles {
                         input_entry.set_text (input_entry.get_text ().slice (1, input_entry.get_text().length));
                     }
                 }
-                if (input_entry.get_text().chug () != "")
+                if (input_entry.get_text ().chug () != "")
                     programmer_calculator_front_end.populate_token_array (input_entry.get_text ());
                 display_all_number_systems ();
+                
             });
         }
         private void display_all_number_systems () {

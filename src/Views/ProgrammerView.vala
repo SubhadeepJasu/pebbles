@@ -333,7 +333,10 @@ namespace Pebbles {
                 set_keypad_mode (bit_mode_button.selected);
                 display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
             });
+            //display_unit.input_entry.set_text ("");
+            display_unit.insert_text(settings.prog_input_text);
             display_unit.set_number_system ();
+            
 
             result_button.button_press_event.connect ((event) => {
                 display_unit.display_off ();

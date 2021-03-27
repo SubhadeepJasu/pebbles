@@ -83,6 +83,8 @@ namespace Pebbles {
         public string sci_input_text {get; set;}
         public string sci_output_text {get; set;}
         public string sci_memory_value {get; set;} 
+        public string prog_input_text {get; set;}
+        public string prog_output_text {get; set;}
         public string cal_input_text {get; set;}
         public string cal_output_text {get; set;}
         public string cal_integration_upper_limit {get; set;}

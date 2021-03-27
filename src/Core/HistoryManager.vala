@@ -75,6 +75,9 @@ namespace Pebbles {
                     if (_history.nth_data(i) != null && _history.nth_data(i).result_source == mode) {
                         count++;
                     }
+                    if (i == 0) {
+                        break;
+                    }
                 }
                 return count;
             }
@@ -86,14 +89,17 @@ namespace Pebbles {
             if (_history.length () == 0) {
                 return true;
             } else {
-                if (mode != null) {
-                
+                // i >= 0 is not the proper way to go and the last condition is
+                // for breaking an infinite loop
+                if (mode != null && _history != null) {
                     for (uint i = _history.length () - 1; i >= 0; i--) {
                         if (_history.nth_data(i) != null && _history.nth_data(i).result_source == mode) {
-                            print("j\n");
                             return false;
                         }
-                        print("j\n");
+                        print("Counting_history (%u)...\n", i);
+                        if (i == 0) {
+                            return true;
+                        }
                     }
                 }
                 return true;

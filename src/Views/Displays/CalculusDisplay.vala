@@ -107,8 +107,6 @@ namespace Pebbles {
                         input_entry.set_text (input_entry.get_text ().slice (1, input_entry.get_text().length));
                     }
                 }
-
-                settings.cal_input_text = input_entry.get_text ();
             });
             
             // Make seperator
@@ -169,8 +167,8 @@ namespace Pebbles {
         
         public void get_answer_evaluate_derivative (double dx) {
             string result = "";
-            if (!this.cal_view.window.history_manager.is_empty ()) {
-                string last_answer = this.cal_view.window.history_manager.get_last_evaluation_result ().result;
+            if (!this.cal_view.window.history_manager.is_empty (EvaluationResult.ResultSource.CALC)) {
+                string last_answer = this.cal_view.window.history_manager.get_last_evaluation_result (EvaluationResult.ResultSource.CALC).result;
                 result = Calculus.get_derivative (input_entry.get_text ().replace ("ans", last_answer), angle_mode, dx);
             }
             else {
@@ -179,6 +177,7 @@ namespace Pebbles {
             answer_label.set_text (Utils.format_result (result));
             var settings = Settings.get_default ();
             settings.cal_output_text = result;
+            settings.cal_input_text = input_entry.get_text ();
             if (result == "E") {
                 shake ();
             }
@@ -196,8 +195,8 @@ namespace Pebbles {
         }
         public void get_answer_evaluate_integral (double l, double u) {
             string result = "";
-            if (!this.cal_view.window.history_manager.is_empty ()) {
-                string last_answer = this.cal_view.window.history_manager.get_last_evaluation_result ().result;
+            if (!this.cal_view.window.history_manager.is_empty (EvaluationResult.ResultSource.CALC)) {
+                string last_answer = this.cal_view.window.history_manager.get_last_evaluation_result (EvaluationResult.ResultSource.CALC).result;
                 result = Calculus.get_definite_integral (input_entry.get_text ().replace ("ans", last_answer), angle_mode, l, u);
             }
             else {
@@ -206,6 +205,7 @@ namespace Pebbles {
             answer_label.set_text (Utils.format_result (result));
             var settings = Settings.get_default ();
             settings.cal_output_text = result;
+            settings.cal_input_text = input_entry.get_text ();
             if (result == "E") {
                 shake ();
             }
