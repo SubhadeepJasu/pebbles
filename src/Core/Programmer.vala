@@ -25,6 +25,9 @@ namespace Pebbles {
         DWORD=32,
         QWORD=64
     }
+    public errordomain CalcError {
+        DIVIDE_BY_ZERO
+    }
     public class Programmer {
         public WordSize word_size;
         public bool[] output;
@@ -138,7 +141,10 @@ namespace Pebbles {
             int64.from_string (dividend, out int_dividend, 2);
             int64 int_divisor;
             int64.from_string (divisor, out int_divisor, 2);
-            print("%s / %s", int_dividend.to_string (), int_divisor.to_string ());
+            print("%s / %s\n", int_dividend.to_string (), int_divisor.to_string ());
+            if (int_divisor == 0) {
+                return "Error";
+            }
             int64 quotient = int_dividend / int_divisor;
             return quotient.to_string ();
         }
@@ -154,7 +160,10 @@ namespace Pebbles {
             int64.from_string (dividend, out int_dividend, 2);
             int64 int_divisor;
             int64.from_string (divisor, out int_divisor, 2);
-            print("%s / %s", int_dividend.to_string (), int_divisor.to_string ());
+            print("%s / %s\n", int_dividend.to_string (), int_divisor.to_string ());
+            if (int_divisor == 0) {
+                return "Error";
+            }
             int64 remainder = int_dividend % int_divisor;
             return remainder.to_string ();
         }

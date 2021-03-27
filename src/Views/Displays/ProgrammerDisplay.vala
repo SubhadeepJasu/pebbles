@@ -218,9 +218,18 @@ namespace Pebbles {
                 input_entry.set_text (input_entry.get_text().replace ("ans", last_answer));
                 this.set_number_system ();
             }
-            string result = programmer_calculator_front_end.evaluate_exp (settings.global_word_length, settings.number_system, out answer_array);
+            string result = "";
+            try {
+                result = programmer_calculator_front_end.evaluate_exp (settings.global_word_length, settings.number_system, out answer_array);
+            } catch (CalcError e) {
+                result = "E";
+            }
             this.answer_label.set_text (result);
-            this.prog_view.window.history_manager.append_from_strings (EvaluationResult.ResultSource.PROG, 
+            if (result == "E") {
+                shake ();
+            }
+            else {
+                this.prog_view.window.history_manager.append_from_strings (EvaluationResult.ResultSource.PROG, 
                                                                        input_entry.get_text (), 
                                                                        result, 
                                                                        null, 
@@ -231,9 +240,18 @@ namespace Pebbles {
                                                                        programmer_calculator_front_end.get_token_array(),
                                                                        answer_array,
                                                                        settings.global_word_length);
-            settings.prog_output_text = result;
-            settings.prog_input_text = input_entry.get_text ();
-            this.prog_view.ans_button.set_sensitive (true);
+                settings.prog_output_text = result;
+                settings.prog_input_text = input_entry.get_text ();
+                this.prog_view.ans_button.set_sensitive (true);
+            }
+        }
+
+        private void shake () {
+            get_style_context ().add_class ("pebbles_shake");
+            Timeout.add (450, () => {
+                get_style_context ().remove_class ("pebbles_shake");
+                return false;
+            });
         }
 
         public void memory_append (bool subtract) {

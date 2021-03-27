@@ -554,7 +554,7 @@ namespace Pebbles {
             }
         }
 
-        public bool[] apply_op (Programmer prog_calc, char op, bool[] a, bool[] b, int word_size) {
+        public bool[] apply_op (Programmer prog_calc, char op, bool[] a, bool[] b, int word_size) throws CalcError {
             bool[] bool_array = new bool[int.max(a.length, b.length)];
             switch (op) {
                 case '+':
@@ -569,6 +569,9 @@ namespace Pebbles {
                 // There is a badly made restoring division function as well which
                 // needs to be fixed and used.
                 string result = prog_calc.division_signed_integer (b, a, word_size);
+                if (result == "Error") {
+                    throw new CalcError.DIVIDE_BY_ZERO ("Dividing by zero not allowed");
+                }
                 return string_to_bool_array (result, NumberSystem.DECIMAL, Settings.get_default().global_word_length);
                 case '&':
                 return prog_calc.and (a, b, word_size);
@@ -589,6 +592,9 @@ namespace Pebbles {
                 // There is a badly made restoring division function as well which
                 // needs to be fixed and used.
                 string result = prog_calc.mod_signed_integer (b, a, word_size);
+                if (result == "Error") {
+                    throw new CalcError.DIVIDE_BY_ZERO ("Dividing by zero not allowed");
+                }
                 return string_to_bool_array (result, NumberSystem.DECIMAL, Settings.get_default().global_word_length);
                 case '<':
                 return prog_calc.left_shift (b, a, false, word_size);
@@ -598,7 +604,7 @@ namespace Pebbles {
             return bool_array;
         }
 
-        public string evaluate_exp (GlobalWordLength? wrd_length = GlobalWordLength.BYT, NumberSystem number_system, out bool[]? output_array = null) {
+        public string evaluate_exp (GlobalWordLength? wrd_length = GlobalWordLength.BYT, NumberSystem number_system, out bool[]? output_array = null) throws CalcError {
             CharStack ops = new CharStack (50);
             BoolArrayStack values = new BoolArrayStack(50);
             Programmer prog_calc = new Programmer();
@@ -631,23 +637,35 @@ namespace Pebbles {
                     }
                     else {
                         while (ops.peek() != '(') {
-                            bool[] tmp = apply_op(prog_calc, ops.pop(), values.pop(), values.pop(), word_size);
-                            values.push(tmp);
+                            try {
+                                bool[] tmp = apply_op(prog_calc, ops.pop(), values.pop(), values.pop(), word_size);
+                                values.push(tmp);
+                            } catch (CalcError e) {
+                                throw e;
+                            }
                         }
                         ops.pop();
                     }
                 } else if (stored_tokens[i].type == TokenType.OPERATOR) {
                     while (!ops.empty() && has_precedence_pemdas(stored_tokens[i].token.get(0), ops.peek())) {
-                        bool[] tmp = apply_op(prog_calc, ops.pop(), values.pop(), values.pop(), word_size);
-                        values.push(tmp);
+                        try {
+                            bool[] tmp = apply_op(prog_calc, ops.pop(), values.pop(), values.pop(), word_size);
+                            values.push(tmp);
+                        } catch (CalcError e) {
+                            throw e;
+                        }
                     }
                     // Push current token to stack
                     ops.push(stored_tokens[i].token.get(0));
                 }
             }
             while (!ops.empty()) {
-                bool[] tmp = apply_op(prog_calc, ops.pop(), values.pop(), values.pop(), word_size);
-                values.push(tmp);
+                try {
+                    bool[] tmp = apply_op(prog_calc, ops.pop(), values.pop(), values.pop(), word_size);
+                    values.push(tmp);
+                } catch (CalcError e) {
+                    throw e;
+                }
             }
             bool[] answer = values.pop();
 
