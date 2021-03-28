@@ -1,3 +1,16 @@
+com.github.subhadeepjasu.pebbles (1.1.0) bionic; urgency=medium
+
+  [NEW]
+  * Implement Programmer mode
+  [FIXED]
+  * Fix minimode having wrong button label
+  * Allow changing currency converter API key
+  * Handle large factorials
+  * Replace imaginary number with universal parabolic constant
+  * Fix operator precedance
+
+ -- Subhadeep Jasu <subhadeep@gmail.com>  Sun, 28 Mar 2021 12:42:25 +0530
+
 com.github.subhadeepjasu.pebbles (1.0.5) bionic; urgency=low
 
   [FIXED]
