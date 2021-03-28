@@ -135,6 +135,8 @@ namespace Pebbles {
             PERCENTAGE   = 37,
             EXP_CAP      = 94,
             EXCLAMATION  = 33,
+            LT           = 60,
+            GT           = 62,
 
             NAV_LEFT     = 65361,
             NAV_RIGHT    = 65363,
