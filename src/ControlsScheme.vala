@@ -22,6 +22,7 @@ namespace Pebbles {
     public class ControlScheme {
         public string[,] common;
         public string[,] scientific;
+        public string[,] programmer;
         public string[,] statistics;
         public string[,] calculus;
         public string[,] converter;
@@ -104,6 +105,23 @@ namespace Pebbles {
                 },
                 {
                     _("Constants"), "R"
+                },
+                {
+                    _("Result"), "Return"
+                }
+            };
+            programmer = {
+                {
+                    _("Logical OR or NOR"), "O"
+                },
+                {
+                    _("Logical AND or NAND"), "N"
+                },
+                {
+                    _("Logical XOR or XNOR"), "X"
+                },
+                {
+                    _("Logical NOT or Mod"), "T"
                 },
                 {
                     _("Result"), "Return"

@@ -124,7 +124,7 @@ namespace Pebbles {
             button_container_right.row_spacing = 8;
 
             // Make buttons on the left
-            all_clear_button = new StyledButton ("AC", "All Clear");
+            all_clear_button = new StyledButton ("AC", "All Clear", {"Delete"});
             all_clear_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
             del_button = new Gtk.Button.from_icon_name ("edit-clear-symbolic", Gtk.IconSize.BUTTON);
             del_button.set_tooltip_text (_("Backspace"));
@@ -200,26 +200,26 @@ namespace Pebbles {
             }
 
             // Make buttons on the right
-            or_button = new StyledButton ("Or", "Logical OR (TRUE for any input being TRUE)");
+            or_button = new StyledButton ("Or", "Logical OR (TRUE for any input being TRUE)", {"O"});
             or_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            memory_plus_button = new StyledButton ("   M+   ", "Add it to the value in Memory");
+            memory_plus_button = new StyledButton ("   M+   ", "Add it to the value in Memory", {"F3"});
             memory_plus_button.get_style_context ().add_class ("Pebbles_Buttons_Memory");
-            and_button = new StyledButton (" And ", "Logical AND (TRUE for all inputs being TRUE)");
+            and_button = new StyledButton (" And ", "Logical AND (TRUE for all inputs being TRUE)", {"N"});
             and_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            memory_minus_button = new StyledButton ("M-", "Subtract it from the value in Memory");
+            memory_minus_button = new StyledButton ("M-", "Subtract it from the value in Memory", {"F4"});
             memory_minus_button.get_style_context ().add_class ("Pebbles_Buttons_Memory");
-            xor_button = new StyledButton ("Xor", "Logical Exclusive-OR (TRUE for exactly one input being TRUE)");
+            xor_button = new StyledButton ("Xor", "Logical Exclusive-OR (TRUE for exactly one input being TRUE)", {"X"});
             xor_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            memory_recall_button = new StyledButton ("MR", "Recall value from Memory");
+            memory_recall_button = new StyledButton ("MR", "Recall value from Memory", {"F5"});
             memory_recall_button.get_style_context ().add_class ("Pebbles_Buttons_Memory");
-            not_button = new StyledButton ("Not", "Logical Inverter (TRUE for input being FALSE and vice versa)");
+            not_button = new StyledButton ("Not", "Logical Inverter (TRUE for input being FALSE and vice versa)", {"T"});
             not_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            memory_clear_button = new StyledButton ("MC", "Memory Clear");
+            memory_clear_button = new StyledButton ("MC", "Memory Clear", {"F6"});
             memory_clear_button.get_style_context ().add_class ("Pebbles_Buttons_Memory");
-            ans_button = new StyledButton ("Ans", "Last answer");
+            ans_button = new StyledButton ("Ans", "Last answer", {"F7"});
             ans_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             ans_button.set_sensitive (false);
-            result_button = new StyledButton ("=", "Result");
+            result_button = new StyledButton ("=", "Result", {"Return"});
             result_button.get_style_context ().add_class ("h2");
             result_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
             
@@ -301,17 +301,17 @@ namespace Pebbles {
         }
         public void set_alternative_button () {
             if (shift_held) {
-                or_button.update_label ("Nor", "Logical NOT-of-OR (TRUE only for all inputs being FALSE)");
-                and_button.update_label ("Nand", "Logical NOT-of-AND (FALSE only for all inputs being TRUE)");
-                xor_button.update_label ("Xnor", "Logical NOT-of-XOR (TRUE only for all inputs being same)");
-                not_button.update_label ("Mod", "Modulus");
+                or_button.update_label ("Nor", "Logical NOT-of-OR (TRUE only for all inputs being FALSE)", {"O"});
+                and_button.update_label ("Nand", "Logical NOT-of-AND (FALSE only for all inputs being TRUE)", {"N"});
+                xor_button.update_label ("Xnor", "Logical NOT-of-XOR (TRUE only for all inputs being same)", {"X"});
+                not_button.update_label ("Mod", "Modulus", {"T", "M"});
                 lsh_rsh_button.update_label ("Rsh", "Right Shift");
             }
             else {
-                or_button.update_label      ("Or", "Logical OR (TRUE for any input being TRUE)");
-                and_button.update_label     ("And", "Logical AND (TRUE for all inputs being TRUE)");
-                xor_button.update_label     ("Xor", "Logical Exclusive-OR (TRUE for exactly one input being TRUE)");
-                not_button.update_label     ("Not", "Logical Inverter (TRUE for input being FALSE and vice versa)");
+                or_button.update_label      ("Or", "Logical OR (TRUE for any input being TRUE)", {"O"});
+                and_button.update_label     ("And", "Logical AND (TRUE for all inputs being TRUE)", {"N"});
+                xor_button.update_label     ("Xor", "Logical Exclusive-OR (TRUE for exactly one input being TRUE)", {"X"});
+                not_button.update_label     ("Not", "Logical Inverter (TRUE for input being FALSE and vice versa)", {"T"});
                 lsh_rsh_button.update_label ("Lsh", "Left Shift");
             }
         }
@@ -482,7 +482,7 @@ namespace Pebbles {
                     display_unit.input_entry.grab_focus_without_selecting ();
                     if (display_unit.input_entry.cursor_position < display_unit.input_entry.get_text ().length)
                         display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
-                    if (display_unit.answer_label.get_text () != "Error") {
+                    if (display_unit.answer_label.get_text () != "E") {
                         display_unit.memory_append (true);
                     }
                 }
@@ -691,6 +691,16 @@ namespace Pebbles {
                 case KeyboardHandler.KeyMap.M_LOWER:
                 display_unit.insert_text (" mod ");
                 break;
+                case KeyboardHandler.KeyMap.LT:
+                case KeyboardHandler.KeyMap.KEYPAD_COMMA:
+                display_unit.insert_text (" lsh ");
+                lsh_rsh_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.GT:
+                case KeyboardHandler.KeyMap.KEYPAD_RADIX:
+                display_unit.insert_text (" rsh ");
+                lsh_rsh_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
+                break;
                 case KeyboardHandler.KeyMap.PARENTHESIS_L:
                 case KeyboardHandler.KeyMap.SQ_BRACKETS_L:
                 case KeyboardHandler.KeyMap.FL_BRACKETS_L:
@@ -702,6 +712,56 @@ namespace Pebbles {
                 case KeyboardHandler.KeyMap.FL_BRACKETS_R:
                 right_parenthesis_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
                 display_unit.insert_text (" ) ");
+                break;
+                case KeyboardHandler.KeyMap.RETURN:
+                case KeyboardHandler.KeyMap.RETURN_NUMPAD:
+                display_unit.display_off ();
+                display_unit.get_answer_evaluate ();
+                result_button.get_style_context ().add_class ("Pebbles_Buttons_Suggested_Pressed");
+                break;
+
+                // Memory Buttons
+                case KeyboardHandler.KeyMap.F3:
+                display_unit.display_off ();
+                display_unit.get_answer_evaluate ();
+                if (display_unit.input_entry.get_text ().length == 0 && display_unit.input_entry.get_text () != "0") {
+                    display_unit.input_entry.set_text ("0");
+                }
+                display_unit.input_entry.grab_focus_without_selecting ();
+                if (display_unit.input_entry.cursor_position < display_unit.input_entry.get_text ().length)
+                    display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                if (display_unit.answer_label.get_text () != "E") {
+                    display_unit.memory_append (false);
+                }
+                memory_plus_button.get_style_context ().add_class ("Pebbles_Buttons_Memory_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.F4:
+                display_unit.display_off ();
+                display_unit.get_answer_evaluate ();
+                if (display_unit.input_entry.get_text ().length == 0 && display_unit.input_entry.get_text () != "0") {
+                    display_unit.input_entry.set_text ("0");
+                }
+                display_unit.input_entry.grab_focus_without_selecting ();
+                if (display_unit.input_entry.cursor_position < display_unit.input_entry.get_text ().length)
+                    display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                if (display_unit.answer_label.get_text () != "E") {
+                    display_unit.memory_append (true);
+                }
+                memory_minus_button.get_style_context ().add_class ("Pebbles_Buttons_Memory_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.F5:
+                display_unit.display_off ();
+                display_unit.memory_recall ();
+                memory_recall_button.get_style_context ().add_class ("Pebbles_Buttons_Memory_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.F6:
+                display_unit.display_off ();
+                display_unit.memory_clear ();
+                memory_clear_button.get_style_context ().add_class ("Pebbles_Buttons_Memory_Pressed");
+                break;
+                case KeyboardHandler.KeyMap.F7:
+                display_unit.insert_text ("ans ");
+                ans_button.get_style_context ().add_class ("Pebbles_Buttons_Function_Pressed");
                 break;
             }
         }
@@ -726,11 +786,20 @@ namespace Pebbles {
             d_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
             e_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
             f_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            lsh_rsh_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
 
             plus_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
             minus_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
             div_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
             multi_button.get_style_context ().remove_class ("Pebbles_Buttons_Pressed");
+            result_button.get_style_context ().remove_class ("Pebbles_Buttons_Suggested_Pressed");
+
+            memory_plus_button.get_style_context ().remove_class ("Pebbles_Buttons_Memory_Pressed");
+            memory_minus_button.get_style_context ().remove_class ("Pebbles_Buttons_Memory_Pressed");
+            memory_recall_button.get_style_context ().remove_class ("Pebbles_Buttons_Memory_Pressed");
+            memory_clear_button.get_style_context ().remove_class ("Pebbles_Buttons_Memory_Pressed");
+
+            ans_button.get_style_context ().remove_class ("Pebbles_Buttons_Function_Pressed");
         }
         private void set_keypad_mode (int mode) {
             switch (mode) {

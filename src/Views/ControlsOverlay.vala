@@ -66,6 +66,7 @@ namespace Pebbles {
             }
 
             left_column.attach (statistics_grid, 0, 3, 1, 1);
+            
 
             /// Calculus Section //////////////////////////////////////
             right_column.attach (new Granite.HeaderLabel (_("Calculus")), 0, 2, 1, 1);
@@ -80,8 +81,21 @@ namespace Pebbles {
 
             right_column.attach (calculus_grid, 0, 3, 1, 1);
 
+            /// Programmer Section //////////////////////////////////////
+            right_column.attach (new Granite.HeaderLabel (_("Programmer")), 0, 4, 1, 1);
+
+            var programmer_grid = new Gtk.Grid ();
+            programmer_grid.margin_start = 8;
+            programmer_grid.margin_end = 8;
+            programmer_grid.row_spacing = 4;
+            for (int i = 0; i < scheme.programmer.length[0]; i++) {
+                programmer_grid.attach (new Granite.AccelLabel (scheme.programmer[i, 0], scheme.programmer[i, 1]), 0, i, 1, 1);
+            }
+
+            right_column.attach (programmer_grid, 0, 5, 1, 1);
+
             /// Converters Section //////////////////////////////////////
-            right_column.attach (new Granite.HeaderLabel (_("Unit Converters")), 0, 4, 1, 1);
+            right_column.attach (new Granite.HeaderLabel (_("Unit Converters")), 0, 6, 1, 1);
 
             var converter_grid = new Gtk.Grid ();
             converter_grid.margin_start = 8;
@@ -91,7 +105,7 @@ namespace Pebbles {
                 converter_grid.attach (new Granite.AccelLabel (scheme.converter[i, 0], scheme.converter[i, 1]), 0, i, 1, 1);
             }
 
-            right_column.attach (converter_grid, 0, 5, 1, 1);
+            right_column.attach (converter_grid, 0, 7, 1, 1);
 
             main_grid.attach (left_column, 0, 0, 1, 1);
             main_grid.attach (right_column, 1, 0, 1, 1);

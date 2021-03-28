@@ -52,7 +52,7 @@ namespace Pebbles {
             constants_select_1 = new Gtk.ComboBoxText ();
             constants_select_1.append_text (_("Euler's constant (exponential)") + "  \"e\"");
             constants_select_1.append_text (_("Archimedes' constant (pi)") + "  \"\xCF\x80\"");
-            constants_select_1.append_text (_("Imaginary number") + "  \"i\"");
+            constants_select_1.append_text (_("Parabolic constant") + "  \"\xF0\x9D\x91\x83\"");
             constants_select_1.append_text (_("Golden ratio (phi)") + "  \"\xCF\x86\"");
             constants_select_1.append_text (_("Euler–Mascheroni constant (gamma)") + "  \"\xF0\x9D\x9B\xBE\"");
             constants_select_1.append_text (_("Conway's constant (lambda)") + "  \"\xCE\xBB\"");
@@ -66,7 +66,7 @@ namespace Pebbles {
             constants_select_2 = new Gtk.ComboBoxText ();
             constants_select_2.append_text (_("Euler's constant (exponential)") + "  \"e\"");
             constants_select_2.append_text (_("Archimedes' constant (pi)") + "  \"\xCF\x80\"");
-            constants_select_2.append_text (_("Imaginary number") + "  \"i\"");
+            constants_select_2.append_text (_("Parabolic constant") + "  \"\xF0\x9D\x91\x83\"");
             constants_select_2.append_text (_("Golden ratio (phi)") + "  \"\xCF\x86\"");
             constants_select_2.append_text (_("Euler–Mascheroni constant (gamma)") + "  \"\xF0\x9D\x9B\xBE\"");
             constants_select_2.append_text (_("Conway's constant (lambda)") + "  \"\xCE\xBB\"");
@@ -150,7 +150,7 @@ namespace Pebbles {
                 case ConstantKeyIndex.ARCHIMEDES:
                 constants_select_1.set_active(1);
                 break;
-                case ConstantKeyIndex.IMAGINARY:
+                case ConstantKeyIndex.PARABOLIC:
                 constants_select_1.set_active(2);
                 break;
                 case ConstantKeyIndex.GOLDEN_RATIO:
@@ -182,7 +182,7 @@ namespace Pebbles {
                 case ConstantKeyIndex.ARCHIMEDES:
                 constants_select_2.set_active(1);
                 break;
-                case ConstantKeyIndex.IMAGINARY:
+                case ConstantKeyIndex.PARABOLIC:
                 constants_select_2.set_active(2);
                 break;
                 case ConstantKeyIndex.GOLDEN_RATIO:

@@ -60,6 +60,22 @@
     </screenshot>
   </screenshots>
   <releases>
+    <release date="2021-03-28" version="1.1.0">
+      <description>
+        <p>New:</p>
+        <ul>
+          <li>[Programmer] Implement Programmer mode</li>
+        </ul>
+        <p>Fixed:</p>
+        <ul>
+          <li>[UI] Fix minimode having wrong button label</li>
+          <li>[UI] Allow changing currency converter API key</li>
+          <li>[Core] Handle large factorials</li>
+          <li>[Core] Replace imaginary number with universal parabolic constant</li>
+          <li>[Core] Fix operator precedance</li>
+        </ul>
+      </description>
+    </release>
     <release date="2020-07-05" version="1.0.5">
       <description>
         <p>Fixed:</p>
