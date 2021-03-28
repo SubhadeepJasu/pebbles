@@ -335,9 +335,9 @@ namespace Pebbles {
                     constant_label_1 = "\xCF\x80";
                     constant_desc_1 = _("Archimedes' constant (pi)");
                     break;
-                case ConstantKeyIndex.IMAGINARY:
-                    constant_label_1 = "i";
-                    constant_desc_1 = _("Imaginary number (\xE2\x88\x9A-1)");
+                case ConstantKeyIndex.PARABOLIC:
+                    constant_label_1 = "\xF0\x9D\x91\x83";
+                    constant_desc_1 = _("Parabolic constant (\xF0\x9D\x91\x83)");
                     break;
                 case ConstantKeyIndex.GOLDEN_RATIO:
                     constant_label_1 = "\xCF\x86";
@@ -377,9 +377,9 @@ namespace Pebbles {
                     constant_label_2 = "\xCF\x80";
                     constant_desc_2 = _("Archimedes' constant (pi)");
                     break;
-                case ConstantKeyIndex.IMAGINARY:
-                    constant_label_2 = "i";
-                    constant_desc_2 = _("Imaginary number (\xE2\x88\x9A-1)");
+                case ConstantKeyIndex.PARABOLIC:
+                    constant_label_2 = "\xF0\x9D\x91\x83";
+                    constant_desc_2 = _("Parabolic constant (\xF0\x9D\x91\x83)");
                     break;
                 case ConstantKeyIndex.GOLDEN_RATIO:
                     constant_label_2 = "\xCF\x86";

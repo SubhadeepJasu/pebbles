@@ -105,7 +105,7 @@ namespace Pebbles {
                 exp = exp.replace ("K", " ( 2.685452001 ) ");
                 exp = exp.replace ("\xCE\xB1", " ( 2.5029 ) ");
                 exp = exp.replace ("\xCE\xB4", " ( 4.6692 ) ");
-                exp = exp.replace ("\xF0\x9D\x9B\x87(3)", " ( 1.2020569 ) ");
+                exp = exp.replace ("\xF0\x9D\x91\x83", " ( 2.29558714939 ) ");
                 exp = exp.replace ("E", " * 10 ^ ");
                 exp = exp.replace ("pi", " ( 3.1415926535897932 ) ");
                 
