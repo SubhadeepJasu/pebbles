@@ -71,6 +71,9 @@ namespace Pebbles {
         }
         public int window_x {get; set;}
         public int window_y {get; set;}
+        public int window_w {get; set;}
+        public int window_h {get; set;}
+        public bool window_maximized {get; set;}
         public int view_index {get; set;}
         public bool shift_alternative_function {get; set;}
         public GlobalAngleUnit global_angle_unit {get; set;}

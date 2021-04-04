@@ -21,6 +21,9 @@
 
 namespace Pebbles {
     public class MainWindow : Gtk.Window {
+        // Main Leaflet
+        Hdy.Leaflet main_leaflet;
+
         // CONTROLS
         Gtk.HeaderBar headerbar;
         Granite.ModeSwitch dark_mode_switch;
@@ -37,6 +40,7 @@ namespace Pebbles {
         Gtk.Label shift_label;
         public Gtk.Switch shift_switch;
         StyledButton angle_unit_button;
+        StyledButton leaflet_back_button;
         Gtk.Button history_button;
         
         Gtk.Label date_age_label;
@@ -117,24 +121,40 @@ namespace Pebbles {
         bool keyboard_shift_status;
         private bool ctrl_held = false;
 
-        public MainWindow () {
-            load_settings ();
-            make_ui ();
-            handle_focus ();
-        }
+        /// Initialized
+        bool initialized = false;
 
-        construct {
+        public MainWindow () {
             settings = Pebbles.Settings.get_default ();
             settings.notify["use-dark-theme"].connect (() => {
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = settings.use_dark_theme;
             });
             this.delete_event.connect (() => {
                 save_settings ();
+                return false;
             });
             history_manager = new HistoryManager ();
 
             keymap = Gdk.Keymap.get_for_display (Gdk.Display.get_default ());
             keymap.state_changed.connect (update_caps_status);
+            this.configure_event.connect ((event) => {
+                adjust_view (!initialized);
+                if (!initialized) {
+                    this.resize (settings.window_w, settings.window_h);
+                }
+                return false;
+            });
+            load_settings ();
+            make_ui ();
+            handle_focus ();
+            Timeout.add (200, () => {
+                if (main_leaflet.get_child_transition_running ()) {
+                    return true;
+                } else {
+                    initialized = true;
+                    return false;
+                }
+            });
         }
         
         public void make_ui () {
@@ -149,6 +169,14 @@ namespace Pebbles {
             });
             
             // Make Scientific / Calculus View Controls ///////////////
+            // Create back button
+            leaflet_back_button = new StyledButton ("All Categories");
+            leaflet_back_button.valign = Gtk.Align.CENTER;
+            leaflet_back_button.set_image (new Gtk.Image.from_icon_name ("format-justify-left-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
+            leaflet_back_button.tooltip_text = "Pebbles Menu";
+            leaflet_back_button.clicked.connect (() => {
+                main_leaflet.set_visible_child (item_list);
+            });
             // Create angle unit button
             angle_unit_button = new StyledButton ("DEG", "<b>" + _("Degrees") + "</b> \xE2\x86\x92" + _("Radians"), {"F8"});
             angle_unit_button.set_margin_end (7);
@@ -245,6 +273,8 @@ namespace Pebbles {
             // Create App Menu
             app_menu = new Gtk.MenuButton ();
             app_menu.valign = Gtk.Align.CENTER;
+            app_menu.set_margin_top (8);
+            app_menu.set_margin_bottom (8);
             app_menu.set_image (new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
             app_menu.tooltip_text = "Pebbles Menu";
             
@@ -297,6 +327,7 @@ namespace Pebbles {
             headerbar.title = ("Pebbles");
             headerbar.get_style_context ().add_class ("default-decoration");
             headerbar.show_close_button = true;
+            headerbar.pack_start (leaflet_back_button);
             headerbar.pack_start (header_switcher);
             headerbar.pack_end (history_button);
             headerbar.pack_end (app_menu);
@@ -400,30 +431,42 @@ namespace Pebbles {
             common_view.valign = Gtk.Align.CENTER;
             common_view.halign = Gtk.Align.CENTER;
             common_view.add_named (scientific_view, "Scientific");
-            common_view.add_named (calculus_view, "Calculus");
-            common_view.add_named (programmer_view, "Programmer");
-            common_view.add_named (date_view, "Date");
-            common_view.add_named (statistics_view, "Statistics");
-            common_view.add_named (conv_length_view, "Length");
-            common_view.add_named (conv_area_view, "Area");
-            common_view.add_named (conv_volume_view, "Volume");
-            common_view.add_named (conv_time_view, "Time");
-            common_view.add_named (conv_angle_view, "Angle");
-            common_view.add_named (conv_speed_view, "Speed");
-            common_view.add_named (conv_mass_view, "Mass");
-            common_view.add_named (conv_press_view, "Pressure");
-            common_view.add_named (conv_energy_view, "Energy");
-            common_view.add_named (conv_power_view, "Power");
-            common_view.add_named (conv_temp_view, "Temperature");
-            common_view.add_named (conv_data_view, "Data");
-            common_view.add_named (conv_curr_view, "Currency");
+            //  common_view.add_named (calculus_view, "Calculus");
+            //  common_view.add_named (programmer_view, "Programmer");
+            //  common_view.add_named (date_view, "Date");
+            //  common_view.add_named (statistics_view, "Statistics");
+            //  common_view.add_named (conv_length_view, "Length");
+            //  common_view.add_named (conv_area_view, "Area");
+            //  common_view.add_named (conv_volume_view, "Volume");
+            //  common_view.add_named (conv_time_view, "Time");
+            //  common_view.add_named (conv_angle_view, "Angle");
+            //  common_view.add_named (conv_speed_view, "Speed");
+            //  common_view.add_named (conv_mass_view, "Mass");
+            //  common_view.add_named (conv_press_view, "Pressure");
+            //  common_view.add_named (conv_energy_view, "Energy");
+            //  common_view.add_named (conv_power_view, "Power");
+            //  common_view.add_named (conv_temp_view, "Temperature");
+            //  common_view.add_named (conv_data_view, "Data");
+            //  common_view.add_named (conv_curr_view, "Currency");
             
-            //Create Panes
-            var paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
-            paned.position = 200;
-            paned.position_set = true;
-            paned.pack1 (item_list, false, false);
-            paned.pack2 (common_view, false, false);
+            //  //Create Panes
+            //  var paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
+            //  paned.position = 200;
+            //  paned.position_set = true;
+            //  paned.pack1 (item_list, false, false);
+            //  paned.pack2 (common_view, false, false);
+
+            main_leaflet = new Hdy.Leaflet ();
+            main_leaflet.set_mode_transition_duration (250);
+            main_leaflet.add (item_list);
+            // main_leaflet.add (new Gtk.Separator (Gtk.Orientation.VERTICAL));
+            main_leaflet.add (common_view);
+            main_leaflet.set_can_swipe_back (true);
+            main_leaflet.set_transition_type (Hdy.LeafletTransitionType.OVER);
+
+            var main_deck = new Hdy.Deck();
+            //main_deck.can_swipe_back = true;
+            main_deck.add (main_leaflet);
 
             // Create View Events
             item_list.item_selected.connect ((item) => {
@@ -486,18 +529,31 @@ namespace Pebbles {
             angle_unit_button_label_update ();
             word_length_button_label_update ();
 
-            // Set up window attributes
-            this.set_default_size (900, 600);
-            this.set_size_request (900, 600);
+            //  // Set up window attributes
+            //  this.set_default_size (900, 600);
+            //  this.set_size_request (900, 600);
 
             // Show all the stuff
-            this.add (paned);
-            this.set_resizable (false);
+            this.add (main_deck);
             this.show_all ();
 
             update_caps_status ();
             set_view ();
             common_view.set_transition_type (Gtk.StackTransitionType.SLIDE_UP_DOWN);
+        }
+
+        private void adjust_view (bool? pre_fold = false) {
+            if (main_leaflet.folded || pre_fold) {
+                leaflet_back_button.set_visible (true);
+                header_switcher.set_visible (false);
+                dark_mode_switch.set_visible (false);
+                history_button.set_visible (false);
+            } else {
+                leaflet_back_button.set_visible (false);
+                header_switcher.set_visible (true);
+                dark_mode_switch.set_visible (true);
+                history_button.set_visible (true);
+            }
         }
 
         private void set_view () {
@@ -636,6 +692,8 @@ namespace Pebbles {
             }
             
             this.show_all ();
+            main_leaflet.set_visible_child (common_view);
+            adjust_view ();
         } 
 
         private void show_controls () {
