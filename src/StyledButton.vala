@@ -30,6 +30,7 @@ namespace Pebbles {
             } else {
                 tooltip_text = tooltip_desc;
             }
+            get_style_context ().remove_class ("image-button");
         }
         public void update_label (string label_text, string? tooltip_desc = null, string[]? accel_markup = null) {
             this.label_text.set_text (label_text);

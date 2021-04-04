@@ -166,6 +166,7 @@ namespace Pebbles {
             all_clear_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
             del_button = new Gtk.Button.from_icon_name ("edit-clear-symbolic", Gtk.IconSize.BUTTON);
             del_button.set_tooltip_text (_("Backspace"));
+            del_button.get_style_context ().remove_class ("image-button");
             if (display_unit.input_entry.get_text () =="0" || display_unit.input_entry.get_text () == "") {
                 del_button.sensitive = false;
             } else {

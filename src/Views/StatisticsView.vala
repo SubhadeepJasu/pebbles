@@ -124,6 +124,7 @@ namespace Pebbles {
             del_button = new Gtk.Button.from_icon_name ("edit-clear-symbolic", Gtk.IconSize.BUTTON);
             del_button.set_tooltip_text (_("Backspace"));
             del_button.sensitive = false;
+            del_button.get_style_context ().remove_class ("image-button");
             reset_button = new StyledButton (_("Reset"), _("Clear sample"), {"End"});
             seven_button = new StyledButton ("7");
             eight_button = new StyledButton ("8");
