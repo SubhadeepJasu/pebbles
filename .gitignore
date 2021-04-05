@@ -3,3 +3,6 @@ builddir
 src/valacompiler
 ~*
 *~
+.vscode
+.editorconfig
+.flatpak-builder
