@@ -1,5 +1,0 @@
-[Runtime]
-name=com.github.subhadeepjasu.pebbles.Debug
-
-[ExtensionOf]
-ref=app/com.github.subhadeepjasu.pebbles/x86_64/master
