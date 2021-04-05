@@ -24,7 +24,7 @@ before_install:
   - mkdir _build
   - meson . _build
   - ninja -C _build
-  - ninja -C _build install
+  - sudo ninja -C _build install
 
 addons:
   apt:
