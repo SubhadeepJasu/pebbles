@@ -18,6 +18,7 @@ before_install:
   - sudo apt install valac
   - sudo apt install mono-complete
   - sudo apt install libgio2.0-cil-dev
+  - sudo apt install libgirepository1.0-dev
   - wget "https://gitlab.gnome.org/GNOME/libhandy/-/archive/1.0.3/libhandy-1.0.3.tar.gz"
   - tar --strip-components=1 -zxf libhandy-1.0.3.tar.gz
   - mkdir _build
