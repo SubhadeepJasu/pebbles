@@ -11,9 +11,9 @@ services:
   - docker
 
 before_install:
-  - sudo apt install meson
   - wget "https://gitlab.gnome.org/GNOME/libhandy/-/archive/1.0.3/libhandy-1.0.3.tar.gz"
   - tar --strip-components=1 -zxf libhandy-1.0.3.tar.gz
+  - mkdir _build
   - meson . _build
   - ninja -C _build
   - ninja -C _build install
@@ -24,6 +24,7 @@ addons:
       - ubuntu-toolchain-r-test
     packages:
       - libstdc++-5-dev
+      - meson
 
 install:
   - npm i -g @elementaryos/houston
