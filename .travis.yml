@@ -11,6 +11,7 @@ services:
   - docker
 
 before_install:
+  - sudo apt install meson
   - wget "https://gitlab.gnome.org/GNOME/libhandy/-/archive/1.0.3/libhandy-1.0.3.tar.gz"
   - tar --strip-components=1 -zxf libhandy-1.0.3.tar.gz
   - meson . _build
