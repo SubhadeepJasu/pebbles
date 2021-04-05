@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2019 elementary, Inc. <contact@elementary.io> -->
+<component>
+  <id>io.elementary.granite</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>LGPL-3.0</project_license>
+  <name>Granite</name>
+  <name xml:lang="zh_TW">Granite</name>
+  <name xml:lang="tr">Granite</name>
+  <name xml:lang="sl">Granit</name>
+  <name xml:lang="pt_BR">Granite</name>
+  <name xml:lang="pt">Granite</name>
+  <name xml:lang="nl">Granite</name>
+  <name xml:lang="mr">ग्रॅनाइट</name>
+  <name xml:lang="ja">Granite</name>
+  <name xml:lang="he">Granite</name>
+  <name xml:lang="fr">Granite</name>
+  <name xml:lang="es">Granite</name>
+  <name xml:lang="eo">Granite</name>
+  <name xml:lang="en_GB">Granite</name>
+  <name xml:lang="en_CA">Granite</name>
+  <name xml:lang="en_AU">Granite</name>
+  <name xml:lang="de">Granite</name>
+  <name xml:lang="da">Granite</name>
+  <name xml:lang="cs">Granite</name>
+  <name xml:lang="ca">Granit</name>
+  <summary>Build consistent and usable apps more quickly and easily</summary>
+  <summary xml:lang="tr">Tutarlı ve kullanışlı uygulamaları daha hızlı ve kolay bir şekilde oluşturun</summary>
+  <summary xml:lang="sl">Oblikujte konsistentne in uporabne aplikacije hitreje in lažje</summary>
+  <summary xml:lang="pt_BR">Construa aplicativos consistentes e utilizáveis com maior rapidez e facilidade</summary>
+  <summary xml:lang="pt">Criar aplicações consistentes e utilizáveis com mais rapidez e facilidade</summary>
+  <summary xml:lang="nl">Bouw sneller en gemakkelijker stabiele en bruikbare apps</summary>
+  <summary xml:lang="mr">अधिक द्रुत आणि सहजतेने सुसंगत आणि वापरण्यायोग्य अॅप्स तयार करा</summary>
+  <summary xml:lang="ja">一貫性があり実用に耐えるアプリをより速く簡単に作成します</summary>
+  <summary xml:lang="he">בניית יישומים אחידים ושימושיים במהירות רבה יותר וביתר פשטות</summary>
+  <summary xml:lang="fr">Construire des applications cohérentes et utilisables plus rapidement et facilement</summary>
+  <summary xml:lang="es">Cree aplicaciones uniformes y utilizables de manera más rápida y fácil</summary>
+  <summary xml:lang="eo">Konstrui koherajn kaj uzoplenajn aplikaĵojn rapide kaj facile</summary>
+  <summary xml:lang="en_GB">Build consistent and usable apps more quickly and easily</summary>
+  <summary xml:lang="en_CA">Build consistent and usable apps more quickly and easily</summary>
+  <summary xml:lang="en_AU">Build consistent and usable apps more quickly and easily</summary>
+  <summary xml:lang="da">Byg sammenhængende og brugbare apps hurtigere og lettere</summary>
+  <summary xml:lang="cs">Vytvářejte jednotné a snadno použitelné aplikace rychleji a snáze</summary>
+  <summary xml:lang="ca">Construcció consistent i aplicacions amb usabilitat més ràpida i fàcil</summary>
+  <description>
+    <p>A companion library for GTK and GLib that provides complex widgets and convenience methods designed for use in apps built for elementary OS.</p>
+    <p xml:lang="tr">elementary OS sistemi için tasarlanan uygulamalarda kullanılmak üzere tasarlanmış, karmaşık widget'lar için kolaylık sağlayan yardımcı bir GTK ve GLib kitaplığı.</p>
+    <p xml:lang="sl">Spremljevalna knjižnica za GTK in GLib, ki nudi kompleksne gradnike in priročne metode, narejene za uporabo v aplikacijah za elementary OS.</p>
+    <p xml:lang="pt_BR">Uma biblioteca tudo-em-um para GTK e GLib  que oferece widgets complexos e métodos convenientes projetados para uso em apps feitos para o Elementary OS</p>
+    <p xml:lang="pt">Uma biblioteca parceira para GTK e GLib que fornece widgets complexos e métodos práticos projetados para uso em aplicações criadas para o elementary OS.</p>
+    <p xml:lang="nl">Een bibliotheek voor GTK en GLib, die complexe widgets en gemakkelijke methodes biedt, ontworpen voor gebruik in apps voor elementary OS.</p>
+    <p xml:lang="mr">GTK आणि GLib साठी एक सहयोगी लायब्ररी जी प्राथमिक ओएससाठी तयार केलेल्या अ‍ॅप्समध्ये वापरण्यासाठी डिझाइन केलेले जटिल विजेट आणि सोयीच्या पद्धती प्रदान करते.</p>
+    <p xml:lang="ja">elementary OS 向けのアプリでの利用のためにデザインされた複雑なウィジェットや便利なメソッドを提供する、GTK と GLib の共有ライブラリです。</p>
+    <p xml:lang="he">ספרייה מלווה ל־GTK ול־GLib שמספקת וידג׳טים מורכבים ושיטות נוחות שתוכננו לטובת שימוש ביישומים שנבנו עבור elementary OS.</p>
+    <p xml:lang="fr">Une bibliothèque accompagnant GTK et GLib qui fournit des widgets complexes et des méthodes pratiques conçu pour être utilisé dans les applications fabriquées pour elementary OS.</p>
+    <p xml:lang="es">Una biblioteca complementaria para GTK y GLib que proporciona widgets complejos y métodos convenientes diseñados para su uso en aplicaciones para elementary OS.</p>
+    <p xml:lang="eo">Kompania biblioteko por GTK kaj GLib, kiu provizas rafinitajn kromprogrametojn kaj oportunajn metodojn fasonitaj por uzo ĉe aplikaĵoj faritaj por elementary OS.</p>
+    <p xml:lang="en_GB">A companion library for GTK and GLib that provides complex widgets and convenience methods designed for use in apps built for elementary OS.</p>
+    <p xml:lang="da">Et ledsagerbibliotek til GTK og GLib, der leverer komplekse widgets og bekvemmelighedsmetoder designet til brug i apps bygget til elementary OS.</p>
+    <p xml:lang="cs">Doprovodná knihovna pro GTK  a GLib, která poskytuje komplexní metody pro ovládací prvky a pohodlí, navržené pro použití v aplikacích, vytvořených pro elementary OS.</p>
+    <p xml:lang="ca">Una biblioteca complementària per a GTK i GLib que ofereix ginys complexos i mètodes de conveniència dissenyats per usar-los en aplicacions creades per a l'elementary OS.</p>
+  </description>
+  <releases>
+    <release version="5.5.0" date="2020-06-30" urgency="medium">
+      <description>
+        <p>New Style Constants:</p>
+        <p xml:lang="pt_BR">Novas constantes de estilo:</p>
+        <p xml:lang="pt">Novas constantes de estilo:</p>
+        <p xml:lang="nl">Nieuwe Stijl instellingen:</p>
+        <p xml:lang="mr">नवीन शैलीतील स्थिर :</p>
+        <p xml:lang="ja">スタイル用の新しい定数:</p>
+        <p xml:lang="fr">Nouvelles constantes de style :</p>
+        <p xml:lang="es">Constantes de estilos nuevas:</p>
+        <p xml:lang="da">Ny Stil Konstanter:</p>
+        <p xml:lang="cs">Nové konstanty stylu:</p>
+        <p xml:lang="ca">Constants d'estil noves:</p>
+        <ul>
+          <li>STYLE_CLASS_COLOR_BUTTON</li>
+          <li xml:lang="pt_BR">STYLE_CLASS_COLOR_BUTTON</li>
+          <li xml:lang="pt">STYLE_CLASS_COLOR_BUTTON</li>
+          <li xml:lang="nl">STYLE_CLASS_COLOR_BUTTON</li>
+          <li xml:lang="mr">STYLE_CLASS_COLOR_BUTTON</li>
+          <li xml:lang="ja">STYLE_CLASS_COLOR_BUTTON</li>
+          <li xml:lang="fr">STYLE_CLASS_COLOR_BUTTON</li>
+          <li xml:lang="es">STYLE_CLASS_COLOR_BUTTON</li>
+          <li xml:lang="da">STYLE_CLASS_COLOR_BUTTON</li>
+          <li xml:lang="cs">STYLE_CLASS_COLOR_BUTTON</li>
+          <li xml:lang="ca">STYLE_CLASS_COLOR_BUTTON</li>
+          <li>STYLE_CLASS_ROUNDED</li>
+          <li xml:lang="pt_BR">STYLE_CLASS_ROUNDED</li>
+          <li xml:lang="pt">STYLE_CLASS_ROUNDED</li>
+          <li xml:lang="nl">STYLE_CLASS_ROUNDED</li>
+          <li xml:lang="mr">STYLE_CLASS_ROUNDED</li>
+          <li xml:lang="ja">STYLE_CLASS_ROUNDED</li>
+          <li xml:lang="fr">STYLE_CLASS_ROUNDED</li>
+          <li xml:lang="es">STYLE_CLASS_ROUNDED</li>
+          <li xml:lang="da">STYLE_CLASS_ROUNDED</li>
+          <li xml:lang="cs">STYLE_CLASS_ROUNDED</li>
+          <li xml:lang="ca">STYLE_CLASS_ROUNDED</li>
+        </ul>
+        <p>Deprecations:</p>
+        <p xml:lang="pt_BR">Depreciações:</p>
+        <p xml:lang="pt">Depreciações:</p>
+        <p xml:lang="nl">Uitfasering:</p>
+        <p xml:lang="mr">घसारा:</p>
+        <p xml:lang="ja">非推奨:</p>
+        <p xml:lang="he">נזנחו:</p>
+        <p xml:lang="fr">Dépréciations :</p>
+        <p xml:lang="es">Obsolescencias:</p>
+        <p xml:lang="da">Deprekationer:</p>
+        <p xml:lang="cs">Opuštěno:</p>
+        <p xml:lang="ca">Obsolescències:</p>
+        <ul>
+          <li>Several theming utilities. Use Gtk.CssProvider and Gtk.StyleContext instead</li>
+          <li>Granite.Services.SimpleCommand. Use GLib.AppInfo.create_from_commandline instead</li>
+          <li>Old unused utilities like get_button_layout_schema, get_default_close_button_position, and Granite.Services.Paths</li>
+          <li>Old unused widgets like CollapsiblePaned and CompositedWindow</li>
+        </ul>
+        <p>Other Changes:</p>
+        <ul>
+          <li>Granite.SourceList now gets Gtk.STYLE_CLASS_SIDEBAR by default</li>
+          <li>Updated translations</li>
+          <li xml:lang="zh_CN">翻译更新</li>
+          <li xml:lang="tr">Çeviriler güncellendi</li>
+          <li xml:lang="sl">Posodobljeni prevodi</li>
+          <li xml:lang="pt_BR">Traduções atualizadas</li>
+          <li xml:lang="pt">Traduções atualizadas</li>
+          <li xml:lang="nl">Bijgewerkte vertalingen</li>
+          <li xml:lang="mr">अद्ययावत भाषांतर</li>
+          <li xml:lang="ja">翻訳の更新</li>
+          <li xml:lang="he">תרגומים עודכנו</li>
+          <li xml:lang="fr">Mise à jour des traductions</li>
+          <li xml:lang="fi">Päivitetyt käännökset</li>
+          <li xml:lang="es">Traducciones actualizadas</li>
+          <li xml:lang="eo">Ĝisdatigitaj tradukoj</li>
+          <li xml:lang="en_GB">Updated translations</li>
+          <li xml:lang="en_CA">Updated translations</li>
+          <li xml:lang="en_AU">Updated translations</li>
+          <li xml:lang="de">Aktualisierte Übersetzungen</li>
+          <li xml:lang="da">Opdaterede oversættelser</li>
+          <li xml:lang="cs">Aktualizovány překlady</li>
+          <li xml:lang="ca">Traduccions actualitzades</li>
+          <li xml:lang="ar">ترجمات محدثة</li>
+        </ul>
+      </description>
+    </release>
+    <release version="5.4.0" date="2020-04-29" urgency="medium">
+      <description>
+        <p>New features:</p>
+        <p xml:lang="tr">Yeni özellikler:</p>
+        <p xml:lang="pt_BR">Novas funcionalidades:</p>
+        <p xml:lang="pt">Novas funcionalidades:</p>
+        <p xml:lang="nl">Nieuwe functies:</p>
+        <p xml:lang="mr">नवीन वैशिष्टये:</p>
+        <p xml:lang="ja">新機能:</p>
+        <p xml:lang="he">תכונות חדשות:</p>
+        <p xml:lang="fr">Nouvelles fonctionnalités :</p>
+        <p xml:lang="es">Funcionalidades nuevas:</p>
+        <p xml:lang="da">Nye funktioner:</p>
+        <p xml:lang="cs">Nové funkce:</p>
+        <p xml:lang="ca">Funcions noves:</p>
+        <ul>
+          <li>New Settings class to share Pantheon desktop settings with apps</li>
+          <li xml:lang="pt_BR">Nova classe de Configurações para compartilhar as configurações da área de trabalho do Pantheon com aplicativos</li>
+          <li xml:lang="pt">Definições de nova classe para partilhar as definições do ambiente de trabalho Pantheon com aplicações</li>
+          <li xml:lang="nl">Nieuwe instellingen klasse om Pantheon bureaublad instellingen met apps te delen</li>
+          <li xml:lang="mr">अ‍ॅप्‍ससह पँथिओन डेस्कटॉप सेटिंग्ज सामायिक करण्यासाठी नवीन सेटिंग्ज क्लास</li>
+          <li xml:lang="ja">Pantheon デスクトップの設定をアプリと共有できる、新しい Settings クラスを追加</li>
+          <li xml:lang="he">מחלקת הגדרות חדשה לטובת שיתוף הגדרות שולחן העבודה Pantheon עם יישומים</li>
+          <li xml:lang="fr">Nouvelle classe de paramètres pour partager les paramètres de bureau de Pantheon avec les applications</li>
+          <li xml:lang="es">Clase nueva para Configuración que permite compartir las preferencias del escritorio con las aplicaciones</li>
+          <li xml:lang="da">Ny indstillings klasse for at dele Pantheon desktop indstillinger med apps</li>
+          <li xml:lang="cs">Nová třída Nastavení, pro sdílení nastavení desktopového prostředí Pantheon s aplikacemi</li>
+          <li xml:lang="ca">Classe nova de paràmetres per compartir els paràmetres del Pantheon amb les aplicacions</li>
+          <li>Introduced Settings.prefers_color_scheme to get a user's color scheme preference, i.e. for a dark style</li>
+          <li xml:lang="pt_BR">Introdução de Settings.prefers_color_scheme para obter a preferência do esquema de cores do usuário, ou seja, para um estilo escuro</li>
+          <li xml:lang="pt">Introdução de Settings.prefers_color_scheme para obter a preferência de um esquema de cores do utilizador, ou seja, para um estilo escuro</li>
+          <li xml:lang="nl">Settings.prefers_color_scheme geïntroduceerd om een gebruikers voorkeur voor een kleurenschema te krijgen, bijv. voor een donker thema</li>
+          <li xml:lang="mr">वापरकर्त्याची रंगसंगती प्राधान्य मिळविण्यासाठी Settings.prefers_color_scheme सादर केले, उदा. गडद शैलीसाठी</li>
+          <li xml:lang="ja">ダークスタイルなどの用途を想定した、ユーザーの配色設定を取得できる Settings.prefers_color_scheme を導入</li>
+          <li xml:lang="he">הוצג Settings.prefers_color_scheme כדי לקבל את העדפות הצבע של המשתמש, למשל: סגנון חשוך</li>
+          <li xml:lang="fr">Introduction de Settings.prefers_color_scheme pour récupérer la préférence de couleur de l'utilisateur, par ex. pour le thème sombre</li>
+          <li xml:lang="es">Se añadió Settings.prefers_color_scheme para obtener la preferencia de combinación de colores (tema claro/oscuro) del usuario</li>
+          <li xml:lang="da">Introducerede Settings.prefers_color_scheme for at få en brugers præference for farveskema, f.eks. for en mørk stil</li>
+          <li xml:lang="cs">Zavedeno Settings.prefers_color_scheme pro získání uživatelových předvoleb ohledně schématu barev, tj. pro tmavý styl</li>
+          <li xml:lang="ca">Introducció de Settings.prefers_color_scheme per obtenir la preferència de l'esquema de colors de l'usuari, és a dir, per a un estil fosc</li>
+        </ul>
+        <p>Deprecations:</p>
+        <p xml:lang="pt_BR">Depreciações:</p>
+        <p xml:lang="pt">Depreciações:</p>
+        <p xml:lang="nl">Uitfasering:</p>
+        <p xml:lang="mr">घसारा:</p>
+        <p xml:lang="ja">非推奨:</p>
+        <p xml:lang="he">נזנחו:</p>
+        <p xml:lang="fr">Dépréciations :</p>
+        <p xml:lang="es">Obsolescencias:</p>
+        <p xml:lang="da">Deprekationer:</p>
+        <p xml:lang="cs">Opuštěno:</p>
+        <p xml:lang="ca">Obsolescències:</p>
+        <ul>
+          <li>It is now recommended to use GLib.Settings instead of Granite.Services.Settings</li>
+          <li xml:lang="pt_BR">Agora é recomendado usar GLib.Settings em vez de Granite.Services.Settings</li>
+          <li xml:lang="pt">Recomenda-se agora a utilização de GLib.Settings em vez de Granite.Services.Settings</li>
+          <li xml:lang="nl">Het wordt aangeraden om GLib.Settings te gebruiken in plaats van Granite.Services.Settings</li>
+          <li xml:lang="mr">आता Granite.Services.Settings ऐवजी GLib.Settings  वापरण्याची शिफारस केली जाते</li>
+          <li xml:lang="ja">Granite.Services.Settings の代替として GLib.Settings の使用を推奨します</li>
+          <li xml:lang="he">מעתה מומלץ להשתמש ב־GLib.Settings במקום Granite.Services.Settings</li>
+          <li xml:lang="fr">Il est désormais recommandé d'utiliser GLib.Settings au lieu de Granite.Service.Settings</li>
+          <li xml:lang="es">Ahora se recomienda emplear GLib.Settings en lugar de Granite.Services.Settings</li>
+          <li xml:lang="da">Det anbefales nu at bruge GLib.Settings i stedet for Granite.Services.Settings</li>
+          <li xml:lang="cs">Nyní je doporučeno použít GLib.Settings namísto Granite.Services.Settings</li>
+          <li xml:lang="ca">Ara es recomana usar GLib.Settings en lloc de Granite.Services.Settings.</li>
+        </ul>
+      </description>
+    </release>
+    <release version="5.3.1" date="2020-04-01" urgency="medium">
+      <description>
+        <p>Improvements:</p>
+        <p xml:lang="zh_CN">改进：</p>
+        <p xml:lang="tr">İyileştirmeler:</p>
+        <p xml:lang="sl">Izboljšave:</p>
+        <p xml:lang="pt_BR">Melhorias:</p>
+        <p xml:lang="pt">Melhorias:</p>
+        <p xml:lang="nl">Verbeteringen:</p>
+        <p xml:lang="mr">सुधारणा:</p>
+        <p xml:lang="ja">改善点:</p>
+        <p xml:lang="he">שיפורים:</p>
+        <p xml:lang="fr">Améliorations :</p>
+        <p xml:lang="fi">Parannukset:</p>
+        <p xml:lang="es">Mejoras:</p>
+        <p xml:lang="eo">Plibonigoj:</p>
+        <p xml:lang="en_GB">Improvements:</p>
+        <p xml:lang="en_CA">Improvements:</p>
+        <p xml:lang="en_AU">Improvements:</p>
+        <p xml:lang="de">Verbesserungen:</p>
+        <p xml:lang="da">Forbedringer:</p>
+        <p xml:lang="cs">Vylepšení:</p>
+        <p xml:lang="ca">Millores:</p>
+        <p xml:lang="ar">التحسينات:</p>
+        <ul>
+          <li>Better align labels in settings sidebars</li>
+          <li xml:lang="tr">Etiketler, ayar kenar çubuklarında daha iyi hizalandı</li>
+          <li xml:lang="sl">Boljša poravnava besedila v stranski vrstici za nastavitve</li>
+          <li xml:lang="pt_BR">Melhor alinhamento das etiquetas nas configurações das barras laterais</li>
+          <li xml:lang="pt">Melhor alinhamento das etiquetas nas definições das barras laterais</li>
+          <li xml:lang="nl">Een betere plaatsing van labels in de instellingen zijpanelen</li>
+          <li xml:lang="mr">सेटिंग्ज साइडबारमध्ये लेबल अधिक संरेखित करा</li>
+          <li xml:lang="ja">設定サイドバーに表示されるラベルの配置を改善</li>
+          <li xml:lang="he">יישור טוב יותר של תוויות בסרגלי ההגדרות שבצדדים</li>
+          <li xml:lang="fr">Meilleur alignement des étiquettes dans les barres latérales de paramètres</li>
+          <li xml:lang="es">Alinear mejor las etiquetas en las barras laterales de configuración</li>
+          <li xml:lang="eo">Pli bone liniigi etikedojn ĉe agordaraj flankbretoj</li>
+          <li xml:lang="en_GB">Better align labels in settings sidebars</li>
+          <li xml:lang="da">Juster etiketter for bedre visning i indstillingernes sidebar</li>
+          <li xml:lang="cs">Lepší zarovnání štítků v postranních panelech nastavení</li>
+          <li xml:lang="ca">Millora de l'alineació de les etiquetes a les barres laterals</li>
+          <li>Make AccelLabel.label settable</li>
+          <li xml:lang="tr">AccelLabel.label ayarlanabilir yapıldı</li>
+          <li xml:lang="sl">Nastavljiv AccelLabel.label</li>
+          <li xml:lang="pt_BR">Torna o AccelLabel.label configurável</li>
+          <li xml:lang="pt">Tornar o AccelLabel.label regulável</li>
+          <li xml:lang="nl">Maak AccelLabel.label instelbaar</li>
+          <li xml:lang="mr">AccelLabel.label settable बनवा</li>
+          <li xml:lang="ja">AccelLabel.label を書き込み可能に変更</li>
+          <li xml:lang="he">לאפשר הגדרה של AccelLabel.label</li>
+          <li xml:lang="fr">AccelLabel.label peut désormais être défini</li>
+          <li xml:lang="es">Hacer AccelLabel.label configurable</li>
+          <li xml:lang="eo">Nun AccelLabel.label agordeblas</li>
+          <li xml:lang="en_GB">Make AccelLabel.label settable</li>
+          <li xml:lang="da">Gør AccelLabel.label indstillelig</li>
+          <li xml:lang="cs">AccelLabel.label je možné nastavit</li>
+          <li xml:lang="ca">Es pot configurar AccelLabel.label.</li>
+          <li>Updated translations</li>
+          <li xml:lang="zh_CN">翻译更新</li>
+          <li xml:lang="tr">Çeviriler güncellendi</li>
+          <li xml:lang="sl">Posodobljeni prevodi</li>
+          <li xml:lang="pt_BR">Traduções atualizadas</li>
+          <li xml:lang="pt">Traduções atualizadas</li>
+          <li xml:lang="nl">Bijgewerkte vertalingen</li>
+          <li xml:lang="mr">अद्ययावत भाषांतर</li>
+          <li xml:lang="ja">翻訳の更新</li>
+          <li xml:lang="he">תרגומים עודכנו</li>
+          <li xml:lang="fr">Mise à jour des traductions</li>
+          <li xml:lang="fi">Päivitetyt käännökset</li>
+          <li xml:lang="es">Traducciones actualizadas</li>
+          <li xml:lang="eo">Ĝisdatigitaj tradukoj</li>
+          <li xml:lang="en_GB">Updated translations</li>
+          <li xml:lang="en_CA">Updated translations</li>
+          <li xml:lang="en_AU">Updated translations</li>
+          <li xml:lang="de">Aktualisierte Übersetzungen</li>
+          <li xml:lang="da">Opdaterede oversættelser</li>
+          <li xml:lang="cs">Aktualizovány překlady</li>
+          <li xml:lang="ca">Traduccions actualitzades</li>
+          <li xml:lang="ar">ترجمات محدثة</li>
+        </ul>
+      </description>
+    </release>
+    <release version="5.3.0" date="2019-12-12" urgency="medium">
+      <description>
+        <p>New features</p>
+        <p xml:lang="tr">Yeni özellikler</p>
+        <p xml:lang="sl">Nove zmožnosti</p>
+        <p xml:lang="pt_BR">Novas funcionalidades</p>
+        <p xml:lang="pt">Novas funcionalidades</p>
+        <p xml:lang="nl">Nieuwe functies</p>
+        <p xml:lang="mr">नवीन वैशिष्टये</p>
+        <p xml:lang="ja">新機能</p>
+        <p xml:lang="he">תכונות חדשות</p>
+        <p xml:lang="fr">Nouvelles fonctionnalités</p>
+        <p xml:lang="es">Nuevas características</p>
+        <p xml:lang="eo">Novaj funkcioj</p>
+        <p xml:lang="en_GB">New features</p>
+        <p xml:lang="da">Nye funktioner</p>
+        <p xml:lang="cs">Nové funkce</p>
+        <p xml:lang="ca">Funcions noves</p>
+        <ul>
+          <li>Add tooltips to source list items and their actions</li>
+          <li xml:lang="tr">Kaynak liste öğelerine ve eylemlerine araç ipuçları eklendi</li>
+          <li xml:lang="sl">Dodaj namige h SourceList elementom in njihovim akcijam</li>
+          <li xml:lang="pt_BR">Adicione dicas de ferramentas aos itens da lista de origem e suas ações</li>
+          <li xml:lang="pt">Adicionar dicas de ferramentas aos itens da lista de opções de fornecimento e suas ações</li>
+          <li xml:lang="nl">Helpteksten toegevoegd aan items in de bronnenlijst en hun acties</li>
+          <li xml:lang="mr">स्त्रोत सूची आयटम आणि त्यांच्या क्रियांमध्ये टूलटिप्स जोडा</li>
+          <li xml:lang="ja">ソースリストの項目とアクションにツールチップを追加</li>
+          <li xml:lang="he">הוספת חלוניות עצה לפריטי רשימת מקורות והפעולות שלהן</li>
+          <li xml:lang="fr">Ajout d'infobulles aux éléments des listes et leurs actions</li>
+          <li xml:lang="es">Añadir información sobre herramientas a los elementos de la lista de origen y sus acciones</li>
+          <li xml:lang="eo">Aldoni ŝpruchelpilojn al fontlistaj elementoj kaj ĝiaj agadoj</li>
+          <li xml:lang="en_GB">Add tooltips to source list items and their actions</li>
+          <li xml:lang="en_CA">Add tooltips to source list items and their actions</li>
+          <li xml:lang="en_AU">Add tooltips to source list items and their actions</li>
+          <li xml:lang="da">Føj værktøjstip til kildelisteemner og deres handlinger</li>
+          <li xml:lang="cs">Přidány nástrojové tipy pro položky zdrojového seznamu a jejich akce</li>
+          <li xml:lang="ca">Addició d'informació d'ajuda als elements de la llista d'origen i les seves accions</li>
+          <li>New AccelLabel widget for use in menus and popovers</li>
+          <li xml:lang="tr">Menülerde ve açılır pencerelerde kullanım için yeni AccelLabel pencere öğesi</li>
+          <li xml:lang="sl">Nov AccelLabel  gradnik za uporabo v menijih in pojavnimi okni</li>
+          <li xml:lang="pt_BR">Novo widget AccelLabel para uso em menus e popovers</li>
+          <li xml:lang="pt">Novo widget AccelLabel para uso em menus e janelas emergentes</li>
+          <li xml:lang="nl">Een nieuwe AccelLabel widget voor gebruik in menu’s en als pop-up tekst</li>
+          <li xml:lang="mr">मेनू आणि पॉपओव्हरमध्ये वापरण्यासाठी नवीन AccelLabel विजेट</li>
+          <li xml:lang="ja">メニューとポップオーバーで利用できる AccelLabel ウィジェットを追加</li>
+          <li xml:lang="he">וידג׳ט AccelLabel חדש לשימוש בתפריטים ובחלוניות צפות</li>
+          <li xml:lang="fr">Nouveau widget AccelLabel pour l'utilisation dans les menus et fenêtres popup</li>
+          <li xml:lang="es">Nuevo «widget» de «AccelLabel» para usar en menús y ventanas emergentes</li>
+          <li xml:lang="eo">Nova AccelLabel kromprogrameto uzota ĉe menuoj kaj ŝprucfenestroj</li>
+          <li xml:lang="en_GB">New AccelLabel widget for use in menus and popovers</li>
+          <li xml:lang="en_CA">New AccelLabel widget for use in menus and popovers</li>
+          <li xml:lang="en_AU">New AccelLabel widget for use in menus and popovers</li>
+          <li xml:lang="da">Ny AccelLabel-widget til brug i menuer og popovers</li>
+          <li xml:lang="cs">Nový ovládací prvek AccelLabel widget pro použití v nabídkách a dialozích vyskakujících po najetí  ukazatelem myši</li>
+          <li xml:lang="ca">Giny nou AccelLabel per usar-lo en menús i finestres emergents</li>
+        </ul>
+        <p>Improvements:</p>
+        <p xml:lang="zh_CN">改进：</p>
+        <p xml:lang="tr">İyileştirmeler:</p>
+        <p xml:lang="sl">Izboljšave:</p>
+        <p xml:lang="pt_BR">Melhorias:</p>
+        <p xml:lang="pt">Melhorias:</p>
+        <p xml:lang="nl">Verbeteringen:</p>
+        <p xml:lang="mr">सुधारणा:</p>
+        <p xml:lang="ja">改善点:</p>
+        <p xml:lang="he">שיפורים:</p>
+        <p xml:lang="fr">Améliorations :</p>
+        <p xml:lang="fi">Parannukset:</p>
+        <p xml:lang="es">Mejoras:</p>
+        <p xml:lang="eo">Plibonigoj:</p>
+        <p xml:lang="en_GB">Improvements:</p>
+        <p xml:lang="en_CA">Improvements:</p>
+        <p xml:lang="en_AU">Improvements:</p>
+        <p xml:lang="de">Verbesserungen:</p>
+        <p xml:lang="da">Forbedringer:</p>
+        <p xml:lang="cs">Vylepšení:</p>
+        <p xml:lang="ca">Millores:</p>
+        <p xml:lang="ar">التحسينات:</p>
+        <ul>
+          <li>Delay tab resizing when closing tabs</li>
+          <li xml:lang="tr">Sekmeleri kapatırken sekme yeniden boyutlandırmasını geciktir</li>
+          <li xml:lang="sl">Zakasnitev spremembe velikosti zavihkov ob zaprtju zavihka</li>
+          <li xml:lang="pt_BR">Atraso no redimensionamento de abas ao fechar as abas</li>
+          <li xml:lang="pt">Atraso no redimensionamento do separador ao fechar os separadores</li>
+          <li xml:lang="nl">Vertraag het aanpassen van de tab grootte bij het sluiten van tabs</li>
+          <li xml:lang="mr">टॅब बंद करताना टॅबचे आकार बदलण्यास विलंब करा</li>
+          <li xml:lang="ja">タブを閉じる際に、タブサイズの復元を遅延させるように修正</li>
+          <li xml:lang="he">השהיית שינוי גודל לשוניות בעת סגירת לשוניות</li>
+          <li xml:lang="fr">Retardement du redimensionnement des onglets lors de leur fermeture</li>
+          <li xml:lang="es">Retraso en el cambio de tamaño de la pestaña al cerrar las pestañas</li>
+          <li xml:lang="eo">Malfruigi langetan ferman ampleksiĝon</li>
+          <li xml:lang="en_GB">Delay tab resizing when closing tabs</li>
+          <li xml:lang="en_CA">Delay tab resizing when closing tabs</li>
+          <li xml:lang="en_AU">Delay tab resizing when closing tabs</li>
+          <li xml:lang="da">Forsink fane størrelses ændring når faner lukkes</li>
+          <li xml:lang="cs">Při zavírání karet je zařazena prodleva pro změnu velikosti karty</li>
+          <li xml:lang="ca">Retard del canvi de mida de la pestanya quan es tanquen les pestanyes</li>
+          <li>Updated translations</li>
+          <li xml:lang="zh_CN">翻译更新</li>
+          <li xml:lang="tr">Çeviriler güncellendi</li>
+          <li xml:lang="sl">Posodobljeni prevodi</li>
+          <li xml:lang="pt_BR">Traduções atualizadas</li>
+          <li xml:lang="pt">Traduções atualizadas</li>
+          <li xml:lang="nl">Bijgewerkte vertalingen</li>
+          <li xml:lang="mr">अद्ययावत भाषांतर</li>
+          <li xml:lang="ja">翻訳の更新</li>
+          <li xml:lang="he">תרגומים עודכנו</li>
+          <li xml:lang="fr">Mise à jour des traductions</li>
+          <li xml:lang="fi">Päivitetyt käännökset</li>
+          <li xml:lang="es">Traducciones actualizadas</li>
+          <li xml:lang="eo">Ĝisdatigitaj tradukoj</li>
+          <li xml:lang="en_GB">Updated translations</li>
+          <li xml:lang="en_CA">Updated translations</li>
+          <li xml:lang="en_AU">Updated translations</li>
+          <li xml:lang="de">Aktualisierte Übersetzungen</li>
+          <li xml:lang="da">Opdaterede oversættelser</li>
+          <li xml:lang="cs">Aktualizovány překlady</li>
+          <li xml:lang="ca">Traduccions actualitzades</li>
+          <li xml:lang="ar">ترجمات محدثة</li>
+        </ul>
+      </description>
+    </release>
+  </releases>
+  <compulsory_for_desktop>Pantheon</compulsory_for_desktop>
+  <developer_name>elementary, Inc.</developer_name>
+  <developer_name xml:lang="zh_TW">elementary, Inc.</developer_name>
+  <developer_name xml:lang="zh_CN">elementary, Inc.</developer_name>
+  <developer_name xml:lang="tr">elementary, Inc.</developer_name>
+  <developer_name xml:lang="sv">elementary, Inc.</developer_name>
+  <developer_name xml:lang="sl">elementary, Inc.</developer_name>
+  <developer_name xml:lang="ru">elementary, Inc.</developer_name>
+  <developer_name xml:lang="pt_BR">elementary, Inc.</developer_name>
+  <developer_name xml:lang="pt">elementary, Inc.</developer_name>
+  <developer_name xml:lang="pl">elementary, Inc.</developer_name>
+  <developer_name xml:lang="nn">elementary, Inc.</developer_name>
+  <developer_name xml:lang="nl">elementary, Inc.</developer_name>
+  <developer_name xml:lang="nb">elementary, Inc.</developer_name>
+  <developer_name xml:lang="mr">एलिमेंटरी,Inc.</developer_name>
+  <developer_name xml:lang="lt">elementary, Inc.</developer_name>
+  <developer_name xml:lang="ko">elementary, Inc.</developer_name>
+  <developer_name xml:lang="ja">elementary, Inc.</developer_name>
+  <developer_name xml:lang="it">elementary, Inc.</developer_name>
+  <developer_name xml:lang="he">elementary בע״מ</developer_name>
+  <developer_name xml:lang="gl">elementary, Inc.</developer_name>
+  <developer_name xml:lang="fr">elementary, Inc.</developer_name>
+  <developer_name xml:lang="fi">elementary, Inc.</developer_name>
+  <developer_name xml:lang="es">elementary, Inc.</developer_name>
+  <developer_name xml:lang="eo">elementary, Inc.</developer_name>
+  <developer_name xml:lang="en_GB">elementary, Inc.</developer_name>
+  <developer_name xml:lang="en_CA">elementary, Inc.</developer_name>
+  <developer_name xml:lang="en_AU">elementary, Inc.</developer_name>
+  <developer_name xml:lang="el">elementary, Inc.</developer_name>
+  <developer_name xml:lang="de">elementary, Inc.</developer_name>
+  <developer_name xml:lang="da">elementary, Incorporated.</developer_name>
+  <developer_name xml:lang="cs">elementary, Inc.</developer_name>
+  <developer_name xml:lang="ca">elementary, Inc.</developer_name>
+  <developer_name xml:lang="bs">elementary, Inc.</developer_name>
+  <developer_name xml:lang="ar">اليمينتري المتحدة.</developer_name>
+  <url type="homepage">https://elementary.io</url>
+  <url type="bugtracker">https://github.com/elementary/granite/issues</url>
+</component>

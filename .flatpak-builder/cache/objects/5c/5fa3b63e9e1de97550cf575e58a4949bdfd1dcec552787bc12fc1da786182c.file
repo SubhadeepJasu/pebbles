@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2018 Subhadeep Jasu <subhajasu@gmail.com> -->
+<component type="desktop-application">
+  <id>com.github.subhadeepjasu.pebbles</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0+</project_license>
+  <name>Pebbles</name>
+  <name xml:lang="fr">Pebbles</name>
+  <summary>Perform advanced calculations with ease</summary>
+  <summary xml:lang="fr">Effectuez des calculs avancés facilement</summary>
+  <description>
+    <p>An advanced calculator that helps you with complicated calculations in your homework</p>
+    <p xml:lang="fr">Une calculatrice avancée pour vous aider avec les calculs compliqués dans vos devoirs</p>
+    <p>Features:</p>
+    <p xml:lang="fr">Fonctionnalités :</p>
+    <ul>
+      <li>Scientific mode</li>
+      <li xml:lang="fr">Mode scientifique</li>
+      <li>Programmer mode (Coming Soon)</li>
+      <li xml:lang="fr">Mode programmeur (Bientôt disponible)</li>
+      <li>Calculus mode</li>
+      <li xml:lang="fr">Mode calcul</li>
+      <li>Statistics mode</li>
+      <li xml:lang="fr">Mode statistiques</li>
+      <li>Date Calculation mode</li>
+      <li xml:lang="fr">Mode calcul de dates</li>
+      <li>Some common unit converters</li>
+      <li xml:lang="fr">Convertisseurs d'unités usuelles</li>
+    </ul>
+  </description>
+  <categories>
+    <category>Calculator</category>
+  </categories>
+  <custom>
+    <value key="x-appcenter-color-primary">#84AEAA</value>
+    <value key="x-appcenter-color-primary-text">rgb(39,40,99)</value>
+    <value key="x-appcenter-suggested-price">0</value>
+  </custom>
+  <translation type="gettext">com.github.subhadeepjasu.pebbles</translation>
+  <developer_name>Subhadeep Jasu</developer_name>
+  <developer_name xml:lang="fr">Subhadeep Jasu</developer_name>
+  <url type="homepage">https://github.com/SubhadeepJasu/pebbles</url>
+  <url type="bugtracker">https://github.com/SubhadeepJasu/pebbles/issues</url>
+  <url type="help">https://github.com/SubhadeepJasu/pebbles/issues</url>
+  <update_contact>subhajasu@gmail.com</update_contact>
+  <launchable type="desktop-id">com.github.subhadeepjasu.pebbles.desktop</launchable>
+  <screenshots>
+    <screenshot type="default">
+      <caption>Scientific Mode</caption>
+      <caption xml:lang="fr">Mode scientifique</caption>
+      <image>https://raw.githubusercontent.com/SubhadeepJasu/pebbles/master/screenshots/Screenshot-Scientific.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Calculus Mode</caption>
+      <caption xml:lang="fr">Mode calcul</caption>
+      <image>https://raw.githubusercontent.com/SubhadeepJasu/pebbles/master/screenshots/Screenshot-Calculus.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Statistics Mode</caption>
+      <caption xml:lang="fr">Mode statistiques</caption>
+      <image>https://raw.githubusercontent.com/SubhadeepJasu/pebbles/master/screenshots/Screenshot-Statistics.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Date Mode</caption>
+      <caption xml:lang="fr">Mode date</caption>
+      <image>https://raw.githubusercontent.com/SubhadeepJasu/pebbles/master/screenshots/Screenshot-Date.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Speed Unit Converter Mode</caption>
+      <caption xml:lang="fr">Mode convertisseur d'unités de vitesse</caption>
+      <image>https://raw.githubusercontent.com/SubhadeepJasu/pebbles/master/screenshots/Screenshot-Converter-Speed.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Currency Unit Converter Mode</caption>
+      <caption xml:lang="fr">Mode convertisseur de devises</caption>
+      <image>https://raw.githubusercontent.com/SubhadeepJasu/pebbles/master/screenshots/Screenshot-Converter-Currency.png</image>
+    </screenshot>
+  </screenshots>
+  <releases>
+    <release date="2021-03-28" version="1.1.0">
+      <description>
+        <p>New:</p>
+        <p xml:lang="fr">Nouveau :</p>
+        <ul>
+          <li>[Programmer] Implement Programmer mode</li>
+        </ul>
+        <p>Fixed:</p>
+        <p xml:lang="fr">Corrigé :</p>
+        <ul>
+          <li>[UI] Fix minimode having wrong button label</li>
+          <li>[UI] Allow changing currency converter API key</li>
+          <li>[Core] Handle large factorials</li>
+          <li>[Core] Replace imaginary number with universal parabolic constant</li>
+          <li>[Core] Fix operator precedance</li>
+        </ul>
+      </description>
+    </release>
+    <release date="2020-07-05" version="1.0.5">
+      <description>
+        <p>Fixed:</p>
+        <p xml:lang="fr">Corrigé :</p>
+        <ul>
+          <li>[UI] Allow navigation left and right buttons to pass through selectively</li>
+          <li>[Core] Better negative number handling</li>
+          <li>[Core] Implicit multiplication on parenthesis and around variable (x)</li>
+        </ul>
+      </description>
+    </release>
+    <release date="2020-06-20" version="1.0.4">
+      <description>
+        <p>Fixed:</p>
+        <p xml:lang="fr">Corrigé :</p>
+        <ul>
+          <li>[UI] Comma and Radix symbols now obey Language &amp; Region settings</li>
+          <li>[UI] Backspace button should now check if input entry has text on start up</li>
+          <li>[Core] Fix precedance with proper PEMDAS rule</li>
+        </ul>
+        <p>Improved:</p>
+        <p xml:lang="fr">Amélioré :</p>
+        <ul>
+          <li>[UI] Better clipboard system for Scientific, Calculus, Statistics and converters</li>
+        </ul>
+      </description>
+    </release>
+    <release date="2020-03-20" version="1.0.3">
+      <description>
+        <p>New:</p>
+        <p xml:lang="fr">Nouveau :</p>
+        <ul>
+          <li>[UI] Save and restore calculator state across invocations</li>
+          <li>[Converter] Save currency converter forex data after update</li>
+          <li>[Calculus] Fix derivative accuracy bug which caused it to output zero everytime</li>
+        </ul>
+        <p>Translations:</p>
+        <ul>
+          <li>French (by Nathan Bonnemains)</li>
+        </ul>
+        <p>Fixed:</p>
+        <p xml:lang="fr">Corrigé :</p>
+        <ul>
+          <li>Code structure fixed and improved by Nathan Bonnemains</li>
+          <li>[Calculus] Make Calculus button labels consistent with Scientific view</li>
+        </ul>
+        <p>Improved:</p>
+        <p xml:lang="fr">Amélioré :</p>
+        <ul>
+          <li>[Controls] Use Escape Key to close dialogues</li>
+        </ul>
+      </description>
+    </release>
+    <release date="2020-03-01" version="1.0.2">
+      <description>
+        <p>Fixed:</p>
+        <p xml:lang="fr">Corrigé :</p>
+        <ul>
+          <li>[Converter] Override conversion precision based on unit for Currency and Data converter</li>
+          <li xml:lang="fr">[Convertisseur] Conversions unitaires plus précises pour les convertisseurs de devises et de données</li>
+        </ul>
+      </description>
+    </release>
+    <release date="2020-02-29" version="1.0.1">
+      <description>
+        <p>Fixed:</p>
+        <p xml:lang="fr">Corrigé :</p>
+        <ul>
+          <li>[Controls]  Use F7 for last answer and F8 for changing angle mode</li>
+          <li xml:lang="fr">[Contrôles] Utilisez F7 pour récupérer la dernière réponse et F8 pour modifier le mode d'angle</li>
+          <li>[HeaderBar] Change 'GRD' to 'GRA'</li>
+          <li xml:lang="fr">[Barre de titre] Modification de « GRD » en « GRA »</li>
+          <li>[Date View] Enable counting date backwards</li>
+          <li xml:lang="fr">[Vue date] Possibilité de calculer la date à rebours</li>
+        </ul>
+        <p>Improved:</p>
+        <p xml:lang="fr">Amélioré :</p>
+        <ul>
+          <li>[Translations]  Add more translatable strings</li>
+          <li xml:lang="fr">[Traduction] Plus de chaînes sont désormais disponibles pour la traduction</li>
+        </ul>
+      </description>
+    </release>
+    <release date="2020-02-28" version="1.0.0">
+      <description>
+        <p>Initial Release</p>
+        <p xml:lang="fr">Version initiale</p>
+      </description>
+    </release>
+  </releases>
+</component>

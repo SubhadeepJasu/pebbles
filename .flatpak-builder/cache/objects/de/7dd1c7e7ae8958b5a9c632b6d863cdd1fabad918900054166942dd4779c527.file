@@ -1,0 +1,19 @@
+prefix=/app
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+datadir=${prefix}/share
+bindir=${prefix}/bin
+g_ir_scanner=${bindir}/g-ir-scanner
+g_ir_compiler=${bindir}/g-ir-compiler
+g_ir_generate=${bindir}/g-ir-generate
+gidatadir=${datadir}/gobject-introspection-1.0
+girdir=${datadir}/gir-1.0
+typelibdir=${libdir}/girepository-1.0
+
+Name: gobject-introspection
+Description: GObject Introspection
+Version: 1.66.1
+Requires: glib-2.0 >=  2.58.0, gobject-2.0 >=  2.58.0
+Libs: -L${libdir} -lgirepository-1.0
+Cflags: -I${includedir}/gobject-introspection-1.0

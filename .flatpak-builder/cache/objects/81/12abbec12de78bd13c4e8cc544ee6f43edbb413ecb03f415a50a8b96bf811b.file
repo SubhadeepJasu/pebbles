@@ -1,0 +1,5 @@
+[Runtime]
+name=com.github.subhadeepjasu.pebbles.Locale
+
+[ExtensionOf]
+ref=app/com.github.subhadeepjasu.pebbles/x86_64/master
