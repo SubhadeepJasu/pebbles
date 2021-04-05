@@ -152,6 +152,7 @@ namespace Pebbles {
                     return true;
                 } else {
                     initialized = true;
+                    adjust_view ();
                     return false;
                 }
             });
@@ -283,9 +284,12 @@ namespace Pebbles {
             controls_overlay_item.add (new Granite.AccelLabel (_("Show Controls"), "F1"));
             var preferences_overlay_item = new Gtk.MenuItem ();
             preferences_overlay_item.add (new Granite.AccelLabel (_("Preferences"), "F2"));
+            var dark_mode_switch_item = new Gtk.MenuItem ();
+            dark_mode_switch_item.add (new Granite.AccelLabel (_("Dark Mode"), ""));
 
             settings_menu.append (controls_overlay_item);
             settings_menu.append (preferences_overlay_item);
+            settings_menu.append (dark_mode_switch_item);
             settings_menu.show_all();
 
             controls_overlay_item.activate.connect (() => {
@@ -384,7 +388,8 @@ namespace Pebbles {
             item_list = new Granite.Widgets.SourceList ();
             item_list.root.add (calc_category);
             item_list.root.add (conv_category);
-            item_list.width_request = 170;
+            item_list.width_request = 180;
+            item_list.hexpand = false;
             
             // Create Views
             scientific_view  = new Pebbles.ScientificView (this);
@@ -428,8 +433,8 @@ namespace Pebbles {
 
             // Create Views Pane
             common_view = new Gtk.Stack ();
-            common_view.valign = Gtk.Align.CENTER;
-            common_view.halign = Gtk.Align.CENTER;
+            common_view.valign = Gtk.Align.FILL;
+            common_view.halign = Gtk.Align.FILL;
             common_view.add_named (scientific_view, "Scientific");
             //  common_view.add_named (calculus_view, "Calculus");
             //  common_view.add_named (programmer_view, "Programmer");

@@ -58,29 +58,35 @@ namespace Pebbles {
             grad_label     = new Gtk.Label ("GRA");
             grad_label.get_style_context ().add_class ("pebbles_h4");
             memory_label   = new Gtk.Label ("M");
+            memory_label.set_halign (Gtk.Align.CENTER);
+            memory_label.hexpand = true;
             memory_label.get_style_context ().add_class ("pebbles_h4");
             memory_label.set_opacity (0.2);
             shift_label    = new Gtk.Label ("SHIFT");
             shift_label.get_style_context ().add_class ("pebbles_h4");
             shift_label.set_opacity (0.2);
+            shift_label.set_halign (Gtk.Align.END);
+            shift_label.hexpand = true;
 
             var angle_mode_display = new Gtk.Grid ();
             angle_mode_display.attach (deg_label,  0, 0, 1, 1);
             angle_mode_display.attach (rad_label,  1, 0, 1, 1);
             angle_mode_display.attach (grad_label, 2, 0, 1, 1);
             angle_mode_display.column_spacing = 10;
+            angle_mode_display.set_halign (Gtk.Align.START);
 
             lcd_status_bar.attach (angle_mode_display, 0, 0, 1, 1);
             lcd_status_bar.attach (memory_label, 1, 0, 1, 1);
             lcd_status_bar.attach (shift_label, 2, 0, 1, 1);
-            lcd_status_bar.column_spacing = 205;
-            lcd_status_bar.width_request = 530;
-            lcd_status_bar.set_halign (Gtk.Align.END);
+            lcd_status_bar.width_request = 200;
+            lcd_status_bar.set_halign (Gtk.Align.FILL);
+            lcd_status_bar.hexpand = true;
 
             // Make LCD Answer label
             answer_label = new Gtk.Label (settings.sci_output_text);
             answer_label.set_halign (Gtk.Align.END);
-            answer_label.get_style_context ().add_class ("pebbles_h1");
+            answer_label.set_valign (Gtk.Align.END);
+            answer_label.vexpand = true;
             var scrollable = new Gtk.ScrolledWindow (null, null);
             scrollable.add (answer_label);
             scrollable.propagate_natural_height = true;
@@ -93,9 +99,9 @@ namespace Pebbles {
             input_entry.set_has_frame (false);
             input_entry.set_text (settings.sci_input_text);
             input_entry.get_style_context ().add_class ("pebbles_h2");
-            input_entry.set_halign (Gtk.Align.START);
-            input_entry.width_request = 530;
-            input_entry.max_width_chars = 39;
+            input_entry.set_halign (Gtk.Align.FILL);
+            input_entry.hexpand = true;
+            input_entry.margin_bottom = 1;
             input_entry.activate.connect (() => {
                 display_off ();
                 get_answer_evaluate ();
@@ -128,7 +134,7 @@ namespace Pebbles {
             attach (lcd_separator, 0, 2, 1, 1);
             attach (input_entry, 0, 3, 1, 1);
 
-            width_request = 530;
+            width_request = 300;
         }
 
         public void set_shift_enable (bool s_on) {
@@ -191,6 +197,7 @@ namespace Pebbles {
             else {
                 this.sci_view.window.history_manager.append_from_strings (EvaluationResult.ResultSource.SCIF, input_entry.get_text (), result.replace (Utils.get_local_separator_symbol (), ""), angle_mode, null, 0, 0, 0);
                 this.sci_view.last_answer_button.set_sensitive (true);
+                this.sci_view.toolbar_ans_button.set_sensitive (true);
             }
         }
 

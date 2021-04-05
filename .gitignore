@@ -1,5 +1,6 @@
 build
 builddir
+_build
 src/valacompiler
 ~*
 *~

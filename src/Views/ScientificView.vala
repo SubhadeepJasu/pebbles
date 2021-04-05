@@ -85,6 +85,15 @@ namespace Pebbles {
         string constant_label_2;
         string constant_desc_2;
 
+        // Button Leaflet
+        Hdy.Leaflet button_leaflet;
+
+        // Toolbar
+        Gtk.Revealer bottom_button_bar_revealer;
+        StyledButton toolbar_view_functions_buttons_button;
+        public StyledButton toolbar_ans_button;
+        StyledButton toolbar_result_button;
+
         // Scietific Calculator Memory Store
         private double _memory_reserve;
         private double memory_reserve {
@@ -113,9 +122,10 @@ namespace Pebbles {
         }
 
         construct { 
-            halign = Gtk.Align.CENTER;
-            valign = Gtk.Align.CENTER;
+            halign = Gtk.Align.FILL;
+            valign = Gtk.Align.FILL;
             column_spacing = 1;
+            height_request = 400;
 
             // Handle inputs
             input_expression = new List <string> ();
@@ -124,12 +134,13 @@ namespace Pebbles {
         public void sci_make_ui () {
             //Make fake LCD display
             display_container = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-            display_container.height_request = 120;
-            display_container.width_request = 560;
+            display_container.height_request = 138;
+            //display_container.width_request = 560;
             display_container.margin_start = 8;
             display_container.margin_end = 8;
             display_container.margin_top = 8;
             display_container.margin_bottom = 8;
+            display_container.vexpand = true;
             display_unit = new ScientificDisplay (this);
             display_container.pack_start (display_unit);
 
@@ -141,6 +152,7 @@ namespace Pebbles {
             button_container_left.margin_bottom = 8;
             button_container_left.column_spacing = 8;
             button_container_left.row_spacing = 8;
+            button_container_left.vexpand = true;
 
             // Make Input section on the right
             button_container_right = new Gtk.Grid ();
@@ -150,6 +162,7 @@ namespace Pebbles {
             button_container_right.margin_bottom = 8;
             button_container_right.column_spacing = 8;
             button_container_right.row_spacing = 8;
+            button_container_right.vexpand = true;
 
             // Make buttons on the left
             all_clear_button = new StyledButton ("AC", _("All Clear"), {"Delete"});
@@ -284,10 +297,53 @@ namespace Pebbles {
             button_container_right.set_column_homogeneous (true);
             button_container_right.set_row_homogeneous (true);
 
+            toolbar_view_functions_buttons_button = new StyledButton ("<i> ƒ </i>");
+            toolbar_view_functions_buttons_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
+            toolbar_view_functions_buttons_button.get_style_context ().remove_class ("image-button");
+            toolbar_view_functions_buttons_button.halign = Gtk.Align.START;
+
+
+            toolbar_ans_button = new StyledButton ("Ans");
+            toolbar_ans_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
+            toolbar_ans_button.get_style_context ().remove_class ("image-button");
+            toolbar_ans_button.halign = Gtk.Align.END;
+            toolbar_ans_button.sensitive = false;
+
+            toolbar_result_button = new StyledButton (" = ", _("Result"), {"Return"});
+            toolbar_result_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
+            toolbar_result_button.get_style_context ().remove_class ("image-button");
+            toolbar_result_button.hexpand = true;
+
+            button_leaflet = new Hdy.Leaflet ();
+            button_leaflet.add (button_container_left);
+            button_leaflet.add (button_container_right);
+            button_leaflet.set_visible_child (button_container_left);
+            button_leaflet.hhomogeneous_unfolded = true;
+            button_leaflet.can_swipe_back = true;
+            button_leaflet.can_swipe_forward = true;
+
+            bottom_button_bar_revealer = new Gtk.Revealer ();
+            var bottom_toolbar = new Gtk.ActionBar ();
+            bottom_toolbar.height_request = 40;
+
+            var toolbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 2);
+            toolbox.set_homogeneous (true);
+            toolbox.pack_start (toolbar_view_functions_buttons_button);
+            toolbox.pack_start (toolbar_result_button);
+            toolbox.pack_end (toolbar_ans_button);
+            toolbox.margin = 8;
+            toolbox.margin_start = 4;
+            toolbox.margin_end = 4;
+
+            bottom_toolbar.pack_start (toolbox);
+
+
+            bottom_button_bar_revealer.add (bottom_toolbar);
+            bottom_button_bar_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
             // Put it together
-            attach (display_container, 0, 0, 2, 1);
-            attach (button_container_left, 0, 1, 1, 1);
-            attach (button_container_right, 1, 1, 1, 1);
+            attach (display_container, 0, 0, 1, 1);
+            attach (button_leaflet, 0, 1, 1, 1);
+            attach (bottom_button_bar_revealer, 0, 2, 1, 1);
             set_column_homogeneous (true);
             display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
         }
@@ -295,6 +351,16 @@ namespace Pebbles {
             shift_held = hold;
             display_unit.set_shift_enable (hold);
             set_alternative_button ();
+        }
+
+        private void toggle_leaf () {
+            if (!button_leaflet.get_child_transition_running ()) {
+                if (button_leaflet.get_visible_child () == button_container_left) {
+                    button_leaflet.set_visible_child (button_container_right);
+                } else {
+                    button_leaflet.set_visible_child (button_container_left);
+                }
+            }
         }
         
         public void set_alternative_button () {
@@ -420,12 +486,31 @@ namespace Pebbles {
             }
         }
         private void sci_make_events () {
+            this.size_allocate.connect ((event) => {
+                if (button_leaflet.folded) {
+                    bottom_button_bar_revealer.set_reveal_child (true);
+                } else {
+                    bottom_button_bar_revealer.set_reveal_child (false);
+                }
+            });
+            toolbar_view_functions_buttons_button.clicked.connect (() => {
+                toggle_leaf ();
+            });
             memory_reserve = double.parse (settings.sci_memory_value);
             result_button.button_press_event.connect ((event) => {
                 display_unit.display_off ();
                 return false;
             });
             result_button.button_release_event.connect (() => {
+                display_unit.display_on ();
+                display_unit.get_answer_evaluate ();
+                return false;
+            });
+            toolbar_result_button.button_press_event.connect ((event) => {
+                display_unit.display_off ();
+                return false;
+            });
+            toolbar_result_button.button_release_event.connect (() => {
                 display_unit.display_on ();
                 display_unit.get_answer_evaluate ();
                 return false;
@@ -636,6 +721,9 @@ namespace Pebbles {
             });
             
             last_answer_button.clicked.connect (() => {
+                display_unit.insert_text ("ans ");
+            });
+            toolbar_ans_button.clicked.connect (() => {
                 display_unit.insert_text ("ans ");
             });
         }

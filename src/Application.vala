@@ -35,6 +35,13 @@ namespace Pebbles {
         }
 
         Gtk.CssProvider css_provider;
+        Gtk.CssProvider font_size_provider;
+        const string DISPLAY_FONT_SIZE_TEMPLATE = 
+        "
+        .pebbles_h1 { font-size: %dpx; } 
+        .pebbles_h2 { font-size: %dpx; }
+        .pebbles_h4 { font-size: %dpx; }
+        ";
 
         public PebblesApp () {
             Object (
@@ -50,6 +57,10 @@ namespace Pebbles {
             mainwindow.application = this;
             
             mainwindow.present ();
+            mainwindow.configure_event.connect ((event) => {
+                adjust_font_responsive (event);
+                return false;
+            });
         }
 
         public override int command_line (ApplicationCommandLine cmd) {
@@ -88,7 +99,12 @@ namespace Pebbles {
                     Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
                 );
             }
-            
+            font_size_provider = new Gtk.CssProvider ();
+            Gtk.StyleContext.add_provider_for_screen (
+                Gdk.Screen.get_default(),
+                font_size_provider,
+                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+            );
             if (mini_mode) {
                 var minicalcwindow = new Pebbles.MiniCalculator ();
                 minicalcwindow.show_all ();
@@ -103,7 +119,20 @@ namespace Pebbles {
                 activate ();
             }
         }
-
+        private double map_range (double input, double input_start, double input_end, double output_start, double output_end) {
+            return output_start + ((output_end - output_start) / (input_end - input_start)) * (input - input_start);
+        }
+        private void adjust_font_responsive (Gdk.EventConfigure event) {
+            try {
+                var target_size_h1 = (int)map_range (double.max((double) event.height/600, 1), 1, 2, 40, 120);
+                var target_size_h2 = (int)map_range (double.max((double) event.height/600, 1), 1, 2, 20, 50);
+                var target_size_h4 = (int)map_range (double.max((double) event.height/600, 1), 1, 2, 10, 20);
+                var css = DISPLAY_FONT_SIZE_TEMPLATE.printf(target_size_h1, target_size_h2, target_size_h4);
+                font_size_provider.load_from_data (css, -1);
+            } catch (Error e) {
+                Process.exit(1);
+            }
+        }
         public static int main (string[] args) {
             var app = new PebblesApp ();
             return app.run (args);

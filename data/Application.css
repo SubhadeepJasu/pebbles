@@ -28,6 +28,7 @@
 .Pebbles_Display_Unit_Bg {
 	background-image: linear-gradient(#b6bfb6, #dae6da);
 	padding-left: 15px;
+	padding-right: 15px;
 	padding-top: 3px;
 	border-radius: 2.5px;
 	border: 1px solid alpha (black, 0.6);
@@ -240,6 +241,7 @@
 	background: none;
 	box-shadow: none;
 	caret-color: alpha (#272863, 0.8);
+	transition: none;
 }
 
 .pebbles_h2 selection {
