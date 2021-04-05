@@ -10,13 +10,19 @@ sudo: required
 services:
   - docker
 
+before_install:
+  - wget "https://gitlab.gnome.org/GNOME/libhandy/-/archive/1.0.3/libhandy-1.0.3.tar.gz"
+  - tar --strip-components=1 -zxf libhandy-1.0.3.tar.gz
+  - meson . _build
+  - ninja -C _build
+  - ninja -C _build install
+
 addons:
   apt:
     sources:
       - ubuntu-toolchain-r-test
     packages:
       - libstdc++-5-dev
-      - libhandy-1-dev
 
 install:
   - npm i -g @elementaryos/houston
