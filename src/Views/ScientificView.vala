@@ -77,6 +77,8 @@ namespace Pebbles {
         StyledButton constant_button;
         public StyledButton last_answer_button;
         StyledButton result_button;
+        StyledButton shift_button;
+        Gtk.Stack result_shift_container;
 
         // App Settings
         Pebbles.Settings settings;
@@ -86,12 +88,12 @@ namespace Pebbles {
         string constant_desc_2;
 
         // Button Leaflet
-        Hdy.Leaflet button_leaflet;
+        public Hdy.Leaflet button_leaflet;
 
         // Toolbar
         Gtk.Revealer bottom_button_bar_revealer;
         StyledButton toolbar_view_functions_buttons_button;
-        public StyledButton toolbar_ans_button;
+        public StyledButton toolbar_angle_mode_button;
         StyledButton toolbar_result_button;
 
         // Scietific Calculator Memory Store
@@ -147,6 +149,7 @@ namespace Pebbles {
             // Make Input section on the left
             button_container_left = new Gtk.Grid ();
             button_container_left.height_request = 250;
+            button_container_left.width_request = 256;
             button_container_left.margin_start = 8;
             button_container_left.margin_end = 8;
             button_container_left.margin_bottom = 8;
@@ -157,6 +160,7 @@ namespace Pebbles {
             // Make Input section on the right
             button_container_right = new Gtk.Grid ();
             button_container_right.height_request = 250;
+            button_container_right.width_request = 256;
             button_container_right.margin_start = 8;
             button_container_right.margin_end = 8;
             button_container_right.margin_bottom = 8;
@@ -272,6 +276,7 @@ namespace Pebbles {
             result_button = new StyledButton ("=", _("Result"), {"Return"});
             result_button.get_style_context ().add_class ("h2");
             result_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
+            shift_button = new StyledButton ("Shift");
 
             button_container_right.attach (sqr_button, 0, 0, 1, 1);
             button_container_right.attach (pow_root_button, 1, 0, 1, 1);
@@ -292,26 +297,29 @@ namespace Pebbles {
             button_container_right.attach (fact_button, 0, 4, 1, 1);
             button_container_right.attach (constant_button, 1, 4, 1, 1);
             button_container_right.attach (last_answer_button, 2, 4, 1, 1);
-            button_container_right.attach (result_button, 3, 4, 1, 1);
+
+            result_shift_container = new Gtk.Stack ();
+            result_shift_container.add_named (result_button, "result_button");
+            result_shift_container.add_named (shift_button, "shift_button");
+
+            button_container_right.attach (result_shift_container, 3, 4, 1, 1);
 
             button_container_right.set_column_homogeneous (true);
             button_container_right.set_row_homogeneous (true);
 
             toolbar_view_functions_buttons_button = new StyledButton ("<i> ƒ </i>");
             toolbar_view_functions_buttons_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            toolbar_view_functions_buttons_button.get_style_context ().remove_class ("image-button");
             toolbar_view_functions_buttons_button.halign = Gtk.Align.START;
+            toolbar_view_functions_buttons_button.width_request = 46;
 
 
-            toolbar_ans_button = new StyledButton ("Ans");
-            toolbar_ans_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            toolbar_ans_button.get_style_context ().remove_class ("image-button");
-            toolbar_ans_button.halign = Gtk.Align.END;
-            toolbar_ans_button.sensitive = false;
+            toolbar_angle_mode_button = new StyledButton ("DEG", "<b>" + _("Degrees") + "</b> \xE2\x86\x92" + _("Radians"), {"F8"});
+            toolbar_angle_mode_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
+            toolbar_angle_mode_button.halign = Gtk.Align.END;
+            toolbar_angle_mode_button.width_request = 46;
 
             toolbar_result_button = new StyledButton (" = ", _("Result"), {"Return"});
             toolbar_result_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
-            toolbar_result_button.get_style_context ().remove_class ("image-button");
             toolbar_result_button.hexpand = true;
 
             button_leaflet = new Hdy.Leaflet ();
@@ -330,7 +338,7 @@ namespace Pebbles {
             toolbox.set_homogeneous (true);
             toolbox.pack_start (toolbar_view_functions_buttons_button);
             toolbox.pack_start (toolbar_result_button);
-            toolbox.pack_end (toolbar_ans_button);
+            toolbox.pack_end (toolbar_angle_mode_button);
             toolbox.margin = 8;
             toolbox.margin_start = 4;
             toolbox.margin_end = 4;
@@ -489,8 +497,10 @@ namespace Pebbles {
             this.size_allocate.connect ((event) => {
                 if (button_leaflet.folded) {
                     bottom_button_bar_revealer.set_reveal_child (true);
+                    result_shift_container.set_visible_child_name ("shift_button");
                 } else {
                     bottom_button_bar_revealer.set_reveal_child (false);
+                    result_shift_container.set_visible_child_name ("result_button");
                 }
             });
             toolbar_view_functions_buttons_button.clicked.connect (() => {
@@ -723,8 +733,8 @@ namespace Pebbles {
             last_answer_button.clicked.connect (() => {
                 display_unit.insert_text ("ans ");
             });
-            toolbar_ans_button.clicked.connect (() => {
-                display_unit.insert_text ("ans ");
+            toolbar_angle_mode_button.clicked.connect (() => {
+                // display_unit.insert_text ("ans ");
             });
         }
 

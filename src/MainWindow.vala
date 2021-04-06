@@ -113,6 +113,7 @@ namespace Pebbles {
         
         // History
         public HistoryManager history_manager;
+        Gtk.MenuItem history_item;
         
         private bool currency_view_visited = false;
 
@@ -284,12 +285,12 @@ namespace Pebbles {
             controls_overlay_item.add (new Granite.AccelLabel (_("Show Controls"), "F1"));
             var preferences_overlay_item = new Gtk.MenuItem ();
             preferences_overlay_item.add (new Granite.AccelLabel (_("Preferences"), "F2"));
-            var dark_mode_switch_item = new Gtk.MenuItem ();
-            dark_mode_switch_item.add (new Granite.AccelLabel (_("Dark Mode"), ""));
+            history_item = new Gtk.MenuItem ();
+            history_item.add (new Granite.AccelLabel (_("History"), ""));
 
             settings_menu.append (controls_overlay_item);
             settings_menu.append (preferences_overlay_item);
-            settings_menu.append (dark_mode_switch_item);
+            settings_menu.append (history_item);
             settings_menu.show_all();
 
             controls_overlay_item.activate.connect (() => {
@@ -298,6 +299,10 @@ namespace Pebbles {
 
             preferences_overlay_item.activate.connect (() => {
                 show_preferences ();
+            });
+
+            history_item.activate.connect (() => {
+                show_history ();
             });
             
             app_menu.popup = settings_menu;
@@ -331,6 +336,7 @@ namespace Pebbles {
             headerbar.title = ("Pebbles");
             headerbar.get_style_context ().add_class ("default-decoration");
             headerbar.show_close_button = true;
+            headerbar.height_request = 47;
             headerbar.pack_start (leaflet_back_button);
             headerbar.pack_start (header_switcher);
             headerbar.pack_end (history_button);
@@ -386,6 +392,7 @@ namespace Pebbles {
             conv_category.add (conv_curr_item);
 
             item_list = new Granite.Widgets.SourceList ();
+            item_list.get_style_context().add_class("sidebar-left");
             item_list.root.add (calc_category);
             item_list.root.add (conv_category);
             item_list.width_request = 180;
@@ -413,6 +420,11 @@ namespace Pebbles {
             
             update_button.clicked.connect (() => {
                 conv_curr_view.update_currency_data ();
+            });
+
+            this.scientific_view.toolbar_angle_mode_button.clicked.connect (() => {
+                settings.switch_angle_unit ();
+                angle_unit_button_label_update ();
             });
             
             conv_curr_view.start_update.connect (() => {
@@ -548,16 +560,18 @@ namespace Pebbles {
         }
 
         private void adjust_view (bool? pre_fold = false) {
-            if (main_leaflet.folded || pre_fold) {
+            if (this.scientific_view.button_leaflet.folded || pre_fold) {
                 leaflet_back_button.set_visible (true);
                 header_switcher.set_visible (false);
                 dark_mode_switch.set_visible (false);
                 history_button.set_visible (false);
+                history_item.set_visible (true);
             } else {
                 leaflet_back_button.set_visible (false);
                 header_switcher.set_visible (true);
                 dark_mode_switch.set_visible (true);
                 history_button.set_visible (true);
+                history_item.set_visible (false);
             }
         }
 
@@ -812,16 +826,19 @@ namespace Pebbles {
         private void angle_unit_button_label_update () {
             if (settings.global_angle_unit == Pebbles.GlobalAngleUnit.DEG) {
                 angle_unit_button.update_label ("DEG", "<b>" + _("Degrees") + "</b> \xE2\x86\x92 " + _("Radians"), {"F8"});
+                this.scientific_view.toolbar_angle_mode_button.update_label ("DEG", "<b>" + _("Degrees") + "</b> \xE2\x86\x92 " + _("Radians"), {"F8"});
                 scientific_view.set_angle_mode_display (0);
                 calculus_view.set_angle_mode_display (0);
             }
             else if (settings.global_angle_unit == Pebbles.GlobalAngleUnit.RAD) {
                 angle_unit_button.update_label ("RAD", "<b>" + _("Radians") + "</b> \xE2\x86\x92 " + _("Gradians"), {"F8"});
+                this.scientific_view.toolbar_angle_mode_button.update_label ("RAD", "<b>" + _("Radians") + "</b> \xE2\x86\x92 " + _("Gradians"), {"F8"});
                 scientific_view.set_angle_mode_display (1);
                 calculus_view.set_angle_mode_display (1);
             }
             else if (settings.global_angle_unit == Pebbles.GlobalAngleUnit.GRAD) {
                 angle_unit_button.update_label ("GRA", "<b>" + _("Gradians") + "</b> \xE2\x86\x92 " + _("Degrees"), {"F8"});
+                this.scientific_view.toolbar_angle_mode_button.update_label ("GRA", "<b>" + _("Gradians") + "</b> \xE2\x86\x92 " + _("Degrees"), {"F8"});
                 scientific_view.set_angle_mode_display (2);
                 calculus_view.set_angle_mode_display (2);
             }
@@ -864,13 +881,23 @@ namespace Pebbles {
             } else {
                 this.move (settings.window_x, settings.window_y);
             }
+            this.resize (settings.window_w, settings.window_h);
+            if (settings.window_maximized) {
+                this.maximize ();
+            }
         }
 
         private void save_settings () {
-            int x, y;
+            int x, y, w, h;
             this.get_position (out x, out y);
             settings.window_x = x;
             settings.window_y = y;
+
+            this.get_size (out w, out h);
+            settings.window_w = w;
+            settings.window_h = h;
+
+            settings.window_maximized = this.is_maximized;
         }
 
         private void handle_focus () {

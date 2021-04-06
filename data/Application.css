@@ -422,3 +422,6 @@ scrolledwindow overshoot.right {
 scrolledwindow overshoot.left {
      background-image: none;
 }
+.sidebar-left {
+	border-right: 1px solid alpha(#000, 0.3);
+}
