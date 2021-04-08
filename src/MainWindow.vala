@@ -177,7 +177,10 @@ namespace Pebbles {
             leaflet_back_button.set_image (new Gtk.Image.from_icon_name ("format-justify-left-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
             leaflet_back_button.tooltip_text = "Pebbles Menu";
             leaflet_back_button.clicked.connect (() => {
-                main_leaflet.set_visible_child (item_list);
+                if (main_leaflet.get_visible_child () == common_view)
+                    main_leaflet.set_visible_child (item_list);
+                else
+                    main_leaflet.set_visible_child (common_view);
             });
             // Create angle unit button
             angle_unit_button = new StyledButton ("DEG", "<b>" + _("Degrees") + "</b> \xE2\x86\x92" + _("Radians"), {"F8"});
