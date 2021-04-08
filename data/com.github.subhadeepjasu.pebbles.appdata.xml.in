@@ -11,7 +11,7 @@
     <p>Features:</p>
     <ul>
         <li>Scientific mode</li>
-        <li>Programmer mode (Coming Soon)</li>
+        <li>Programmer mode</li>
         <li>Calculus mode</li>
         <li>Statistics mode</li>
         <li>Date Calculation mode</li>
@@ -59,6 +59,7 @@
       <image>https://raw.githubusercontent.com/SubhadeepJasu/pebbles/master/screenshots/Screenshot-Converter-Currency.png</image>
     </screenshot>
   </screenshots>
+  <content_rating type="oars-1.1" />
   <releases>
     <release date="2021-03-28" version="1.1.0">
       <description>
