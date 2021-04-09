@@ -47,6 +47,10 @@
       <image>https://raw.githubusercontent.com/SubhadeepJasu/pebbles/master/screenshots/Screenshot-Statistics.png</image>
     </screenshot>
     <screenshot>
+      <caption>Programmer Mode</caption>
+      <image>https://raw.githubusercontent.com/SubhadeepJasu/pebbles/master/screenshots/Screenshot-Programmer.png</image>
+    </screenshot>
+    <screenshot>
       <caption>Date Mode</caption>
       <image>https://raw.githubusercontent.com/SubhadeepJasu/pebbles/master/screenshots/Screenshot-Date.png</image>
     </screenshot>
@@ -89,7 +93,7 @@
     <content_attribute id="money-gambling">none</content_attribute>
   </content_rating>
   <releases>
-    <release date="2021-03-28" version="1.1.0">
+    <release date="2021-04-09" version="1.1.0">
       <description>
         <p>New:</p>
         <ul>
