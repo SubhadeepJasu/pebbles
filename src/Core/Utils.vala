@@ -297,7 +297,7 @@ namespace Pebbles {
                     tokens[i].type = ProgrammerCalculator.TokenType.OPERAND;
                     break;
                 }
-                tokens[i].token = str_tokens[i];
+                tokens[i].token = remove_leading_zeroes(str_tokens[i]);
                 tokens[i].number_system = settings.number_system;
             }
 
@@ -496,6 +496,17 @@ namespace Pebbles {
                     break;
             }
             return output;
+        }
+
+        public static string remove_leading_zeroes (string text) {
+            if (text == "0") {
+                return "0";
+            }
+            int n = text.index_of_char('1', 0);
+            if (n < 0) {
+                return text;
+            }
+            return text.substring(n);
         }
     }
 }
