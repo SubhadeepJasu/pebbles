@@ -241,7 +241,8 @@ namespace Pebbles {
                                                                         0,
                                                                         programmer_calculator_front_end.get_token_array(),
                                                                         answer_array,
-                                                                        settings.global_word_length);
+                                                                        settings.global_word_length,
+                                                                        settings.number_system);
                 }
                 settings.prog_input_text = input_entry.get_text ();
                 settings.prog_output_text = result;
@@ -485,6 +486,13 @@ namespace Pebbles {
             else {
                 memory_label.set_opacity (0.2);
             }
+        }
+
+        public void set_evaluation (EvaluationResult result) {
+            input_entry.set_text (result.problem_expression);
+            input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+            set_number_system();
+            answer_label.set_text (result.result);
         }
     }
 }

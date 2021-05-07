@@ -720,6 +720,8 @@ namespace Pebbles {
                         case EvaluationResult.ResultSource.SCIF:
                         common_view.set_visible_child (scientific_view);
                         header_switcher.set_visible_child (scientific_header_grid);
+                        settings.global_angle_unit = result.angle_mode;
+                        angle_unit_button_label_update();
                         scientific_view.set_evaluation (result);
                         item_list.selected = scientific_item;
                         settings.view_index = 0;
@@ -728,6 +730,8 @@ namespace Pebbles {
                         common_view.set_visible_child (calculus_view);
                         header_switcher.set_visible_child (scientific_header_grid);
                         item_list.selected = calculus_item;
+                        settings.global_angle_unit = result.angle_mode;
+                        angle_unit_button_label_update();
                         calculus_view.set_evaluation (result);
                         settings.view_index = 2;
                         break;
@@ -735,7 +739,9 @@ namespace Pebbles {
                         common_view.set_visible_child (programmer_view);
                         header_switcher.set_visible_child (programmer_header_grid);
                         item_list.selected = programmer_item;
-                        calculus_view.set_evaluation (result);
+                        settings.global_word_length = result.word_length;
+                        word_length_button_label_update();
+                        programmer_view.set_evaluation (result);
                         settings.view_index = 1;
                         break;
                     }

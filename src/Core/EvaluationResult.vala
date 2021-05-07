@@ -32,6 +32,7 @@ namespace Pebbles {
         private ProgrammerCalculator.Token[] _problem_expression_prog;
         private bool[] _prog_output;
         private GlobalWordLength _word_length;
+        private NumberSystem _number_system;
 
         public enum ResultSource {
             SCIF,
@@ -144,6 +145,15 @@ namespace Pebbles {
             }
         }
 
+        public NumberSystem number_system {
+            get {
+                return _number_system;
+            }
+            set {
+                _number_system = value;
+            }
+        }
+
         public EvaluationResult (string problem_expression, 
                                  string result, 
                                  GlobalAngleUnit? angle_mode = null, 
@@ -154,7 +164,8 @@ namespace Pebbles {
                                  ResultSource? result_source = null,
                                  ProgrammerCalculator.Token[]? problem_expression_prog = null,
                                  bool[]? prog_output = null,
-                                 GlobalWordLength? word_length = GlobalWordLength.BYT) {
+                                 GlobalWordLength? word_length = GlobalWordLength.BYT,
+                                 NumberSystem? number_system = NumberSystem.DECIMAL) {
             this._problem_expression = problem_expression;
             this._result = result;
 
@@ -191,6 +202,8 @@ namespace Pebbles {
             }
 
             this._word_length = word_length;
+
+            this._number_system = number_system;
         }
     }
 }

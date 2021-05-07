@@ -34,7 +34,8 @@ namespace Pebbles {
                                         double? derivative_point = null,
                                         ProgrammerCalculator.Token[]? token_list = null, 
                                         bool[]? output = null, 
-                                        GlobalWordLength? output_word_length = GlobalWordLength.BYT) {
+                                        GlobalWordLength? output_word_length = GlobalWordLength.BYT,
+                                        NumberSystem? number_system = NumberSystem.DECIMAL) {
             _history.append (new EvaluationResult(problem_expression,
                                                 result, 
                                                 angle_mode, 
@@ -45,7 +46,8 @@ namespace Pebbles {
                                                 result_source,
                                                 token_list,
                                                 output,
-                                                output_word_length));
+                                                output_word_length,
+                                                number_system));
         }
 
         public void append_from_evaluation_result (EvaluationResult eval_res) {

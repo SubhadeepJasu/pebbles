@@ -315,24 +315,31 @@ namespace Pebbles {
                 lsh_rsh_button.update_label ("Lsh", "Left Shift");
             }
         }
+        private void connect_number_system_button () {
+            bit_mode_button.mode_changed.connect (number_system_change_handler);
+        }
+        private void disconnect_number_system_button () {
+            bit_mode_button.mode_changed.disconnect (number_system_change_handler);
+        }
+        void number_system_change_handler () {
+            if (bit_mode_button.selected == 0) {
+                settings.number_system = NumberSystem.HEXADECIMAL;
+            }
+            else if (bit_mode_button.selected == 1){
+                settings.number_system = NumberSystem.DECIMAL;
+            }
+            else if (bit_mode_button.selected == 2){
+                settings.number_system = NumberSystem.OCTAL;
+            }
+            else if (bit_mode_button.selected == 3){
+                settings.number_system = NumberSystem.BINARY;
+            }
+            display_unit.set_number_system ();
+            set_keypad_mode (bit_mode_button.selected);
+            display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+        }
         private void prog_make_events () {
-            bit_mode_button.mode_changed.connect (() => {
-                if (bit_mode_button.selected == 0) {
-                    settings.number_system = NumberSystem.HEXADECIMAL;
-                }
-                else if (bit_mode_button.selected == 1){
-                    settings.number_system = NumberSystem.DECIMAL;
-                }
-                else if (bit_mode_button.selected == 2){
-                    settings.number_system = NumberSystem.OCTAL;
-                }
-                else if (bit_mode_button.selected == 3){
-                    settings.number_system = NumberSystem.BINARY;
-                }
-                display_unit.set_number_system ();
-                set_keypad_mode (bit_mode_button.selected);
-                display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
-            });
+            connect_number_system_button();
             //display_unit.input_entry.set_text ("");
             display_unit.insert_text(settings.prog_input_text);
             display_unit.set_number_system ();
@@ -868,6 +875,31 @@ namespace Pebbles {
                     f_button.set_sensitive (false);
                     break;
             }
+        }
+
+        public void set_evaluation (EvaluationResult result) {
+            disconnect_number_system_button ();
+            this.display_unit.set_evaluation (result);
+            settings.number_system = result.number_system;
+            switch (settings.number_system) {
+                case NumberSystem.BINARY:
+                bit_mode_button.set_active  (3);
+                set_keypad_mode(3);
+                break;
+                case NumberSystem.OCTAL:
+                bit_mode_button.set_active  (2);
+                set_keypad_mode(2);
+                break;
+                case NumberSystem.DECIMAL:
+                bit_mode_button.set_active  (1);
+                set_keypad_mode(1);
+                break;
+                case NumberSystem.HEXADECIMAL:
+                bit_mode_button.set_active  (0);
+                set_keypad_mode(0);
+                break;
+            }
+            connect_number_system_button ();
         }
     }
 }   
