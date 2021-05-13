@@ -93,6 +93,22 @@
     <content_attribute id="money-gambling">none</content_attribute>
   </content_rating>
   <releases>
+    <release date="2021-05-13" version="1.1.1">
+      <description>
+        <p>New:</p>
+        <ul>
+          <li>[Core] Insert result in history from any mode to any mode</li>
+        </ul>
+        <p>Improved:</p>
+        <ul>
+          <li>[Core] Persist History across invocations</li>
+        </ul>
+        <p>Fixed:</p>
+        <ul>
+          <li>[Programmer] Better binary formatting</li>
+        </ul>
+      </description>
+    </release>
     <release date="2021-04-09" version="1.1.0">
       <description>
         <p>New:</p>

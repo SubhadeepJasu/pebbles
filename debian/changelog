@@ -1,3 +1,14 @@
+com.github.subhadeepjasu.pebbles (1.1.1) bionic; urgency=low
+
+  [NEW]
+  * Insert result in history from any mode to any mode
+  [FIXED]
+  * Better binary formatting
+  [IMPROVED]
+  * Persist History across invocations
+
+ -- Subhadeep Jasu <subhadeep@gmail.com>  Thu, 13 May 2021 11:03:25 +0530
+
 com.github.subhadeepjasu.pebbles (1.1.0) bionic; urgency=medium
 
   [NEW]
