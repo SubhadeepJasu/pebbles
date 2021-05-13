@@ -979,5 +979,28 @@ namespace Pebbles {
         public void set_evaluation (EvaluationResult result) {
             this.display_unit.set_evaluation (result);
         }
+        public void insert_evaluation_result (EvaluationResult result) {
+            ProgrammerCalculator prog_module = new ProgrammerCalculator ();
+            string output = "";
+            if (result.result_source == EvaluationResult.ResultSource.PROG) {
+                switch (result.number_system) {
+                    case NumberSystem.BINARY:
+                    output = prog_module.convert_binary_to_decimal (result.result, result.word_length);
+                    break;
+                    case NumberSystem.OCTAL:
+                    output = prog_module.convert_octal_to_decimal (result.result, result.word_length);
+                    break;
+                    case NumberSystem.HEXADECIMAL:
+                    output = prog_module.convert_hexadecimal_to_decimal (result.result, result.word_length);
+                    break;
+                    default:
+                    output = result.result;
+                    break;
+                }
+            } else {
+                output = result.result;
+            }
+            display_unit.insert_text (" " + output);
+        }
     }
 }

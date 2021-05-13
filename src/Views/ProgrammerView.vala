@@ -879,7 +879,7 @@ namespace Pebbles {
 
         public void set_evaluation (EvaluationResult result) {
             disconnect_number_system_button ();
-            this.display_unit.set_evaluation (result);
+            display_unit.set_evaluation (result);
             settings.number_system = result.number_system;
             switch (settings.number_system) {
                 case NumberSystem.BINARY:
@@ -900,6 +900,36 @@ namespace Pebbles {
                 break;
             }
             connect_number_system_button ();
+        }
+
+        public void insert_evaluation_result (EvaluationResult result) {
+            if (result.result_source == EvaluationResult.ResultSource.PROG) {
+                settings.number_system = result.number_system;
+                switch (settings.number_system) {
+                    case NumberSystem.BINARY:
+                    bit_mode_button.set_active  (3);
+                    set_keypad_mode(3);
+                    break;
+                    case NumberSystem.OCTAL:
+                    bit_mode_button.set_active  (2);
+                    set_keypad_mode(2);
+                    break;
+                    case NumberSystem.DECIMAL:
+                    bit_mode_button.set_active  (1);
+                    set_keypad_mode(1);
+                    break;
+                    case NumberSystem.HEXADECIMAL:
+                    bit_mode_button.set_active  (0);
+                    set_keypad_mode(0);
+                    break;
+                }
+            } else {
+                settings.number_system = NumberSystem.DECIMAL;
+                bit_mode_button.set_active  (1);
+                set_keypad_mode(1);
+            }
+            double result_floating = double.parse (result.result);
+            display_unit.insert_text (" " + ((int)result_floating).to_string ());
         }
     }
 }   

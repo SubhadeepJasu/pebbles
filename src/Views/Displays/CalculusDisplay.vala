@@ -190,7 +190,6 @@ namespace Pebbles {
                                                                         0,
                                                                         0,
                                                                         dx);
-                this.cal_view.last_answer_button.set_sensitive (true);
             }
         }
         public void get_answer_evaluate_integral (double l, double u) {
@@ -219,7 +218,6 @@ namespace Pebbles {
                                                                         u,
                                                                         l,
                                                                         0);
-                this.cal_view.last_answer_button.set_sensitive (true);
             }
         }
         private void shake () {

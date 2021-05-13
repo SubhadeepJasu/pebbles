@@ -215,8 +215,11 @@ namespace Pebbles {
             if (!this.prog_view.window.history_manager.is_empty (EvaluationResult.ResultSource.PROG)) {
                 bool[] last_output_array= this.prog_view.window.history_manager.get_last_evaluation_result (EvaluationResult.ResultSource.PROG).prog_output;
                 string last_answer = programmer_calculator_front_end.bool_array_to_string (last_output_array, settings.global_word_length, settings.number_system);
+                warning(last_answer);
                 input_entry.set_text (input_entry.get_text().replace ("ans", last_answer));
-                this.set_number_system ();
+                if (dont_push_history != true) {
+                    this.set_number_system ();
+                }
             }
             string result = "";
             try {
@@ -246,7 +249,6 @@ namespace Pebbles {
                 }
                 settings.prog_input_text = input_entry.get_text ();
                 settings.prog_output_text = result;
-                this.prog_view.ans_button.set_sensitive (true);
             }
         }
 
@@ -405,6 +407,7 @@ namespace Pebbles {
                 settings.prog_input_text = input_entry.get_text ();
                 settings.prog_output_text = Utils.remove_leading_zeroes (result);
             } else {
+                warning("h");
                 get_answer_evaluate(true);
             }
         }
@@ -491,6 +494,7 @@ namespace Pebbles {
         public void set_evaluation (EvaluationResult result) {
             input_entry.set_text (result.problem_expression);
             input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+            answer_array = new bool [64];
             set_number_system();
             answer_label.set_text (result.result);
         }
