@@ -196,7 +196,6 @@ namespace Pebbles {
             }
             else {
                 this.sci_view.window.history_manager.append_from_strings (EvaluationResult.ResultSource.SCIF, input_entry.get_text (), result.replace (Utils.get_local_separator_symbol (), ""), angle_mode, null, 0, 0, 0);
-                this.sci_view.last_answer_button.set_sensitive (true);
             }
         }
 

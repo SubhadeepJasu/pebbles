@@ -420,6 +420,15 @@ namespace Pebbles {
             conv_temp_view   = new Pebbles.ConvTempView ();
             conv_data_view   = new Pebbles.ConvDataView ();
             conv_curr_view   = new Pebbles.ConvCurrView ();
+
+            history_manager.history_updated.connect (() => {
+                scientific_view.last_answer_button.set_sensitive (!history_manager.is_empty (EvaluationResult.ResultSource.SCIF));
+                calculus_view.last_answer_button.set_sensitive (!history_manager.is_empty (EvaluationResult.ResultSource.CALC));
+                programmer_view.ans_button.set_sensitive (!history_manager.is_empty (EvaluationResult.ResultSource.PROG));
+            });
+            scientific_view.last_answer_button.set_sensitive (!history_manager.is_empty (EvaluationResult.ResultSource.SCIF));
+            calculus_view.last_answer_button.set_sensitive (!history_manager.is_empty (EvaluationResult.ResultSource.CALC));
+            programmer_view.ans_button.set_sensitive (!history_manager.is_empty (EvaluationResult.ResultSource.PROG));
             
             update_button.clicked.connect (() => {
                 conv_curr_view.update_currency_data ();
@@ -790,6 +799,12 @@ namespace Pebbles {
                     history_modal = null;
                     return false;
                 });
+                history_modal.clear.connect (() => {
+                    settings.saved_history = "";
+                    history_manager.clear_history ();
+                    history_modal.close();
+                    history_modal = null;
+                });
 
                 history_modal.select_eval_result.connect ((result) => {
                     settings = Pebbles.Settings.get_default ();
@@ -800,6 +815,8 @@ namespace Pebbles {
                         case EvaluationResult.ResultSource.SCIF:
                         common_view.set_visible_child (scientific_view);
                         header_switcher.set_visible_child (scientific_header_grid);
+                        settings.global_angle_unit = result.angle_mode;
+                        angle_unit_button_label_update();
                         scientific_view.set_evaluation (result);
                         item_list.selected = scientific_item;
                         settings.view_index = 0;
@@ -808,6 +825,8 @@ namespace Pebbles {
                         common_view.set_visible_child (calculus_view);
                         header_switcher.set_visible_child (scientific_header_grid);
                         item_list.selected = calculus_item;
+                        settings.global_angle_unit = result.angle_mode;
+                        angle_unit_button_label_update();
                         calculus_view.set_evaluation (result);
                         settings.view_index = 2;
                         break;
@@ -815,12 +834,26 @@ namespace Pebbles {
                         common_view.set_visible_child (programmer_view);
                         header_switcher.set_visible_child (programmer_header_grid);
                         item_list.selected = programmer_item;
-                        calculus_view.set_evaluation (result);
+                        settings.global_word_length = result.word_length;
+                        word_length_button_label_update();
+                        programmer_view.set_evaluation (result);
                         settings.view_index = 1;
                         break;
                     }
-
-                    scientific_view.set_evaluation (result);
+                });
+                history_modal.insert_eval_result.connect ((result) => {
+                    warning(result.result);
+                    switch (settings.view_index) {
+                        case 0:
+                        scientific_view.insert_evaluation_result (result);
+                        break;
+                        case 1:
+                        programmer_view.insert_evaluation_result (result);
+                        break;
+                        case 2:
+                        calculus_view.insert_evaluation_result (result);
+                        break;
+                    }
                 });
             }
             history_modal.present ();
@@ -887,6 +920,12 @@ namespace Pebbles {
             this.resize (settings.window_w, settings.window_h);
             if (settings.window_maximized) {
                 this.maximize ();
+
+            }
+            if (settings.saved_history != "") {
+                print("load\n");
+                history_manager.load_from_csv (settings.saved_history);
+                print("loaded\n");
             }
         }
 
@@ -901,6 +940,8 @@ namespace Pebbles {
             settings.window_h = h;
 
             settings.window_maximized = this.is_maximized;
+            string history_csv = history_manager.to_csv ();
+            settings.saved_history = history_csv;
         }
 
         private void handle_focus () {

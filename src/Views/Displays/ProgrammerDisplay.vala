@@ -215,12 +215,16 @@ namespace Pebbles {
             if (!this.prog_view.window.history_manager.is_empty (EvaluationResult.ResultSource.PROG)) {
                 bool[] last_output_array= this.prog_view.window.history_manager.get_last_evaluation_result (EvaluationResult.ResultSource.PROG).prog_output;
                 string last_answer = programmer_calculator_front_end.bool_array_to_string (last_output_array, settings.global_word_length, settings.number_system);
+                warning(last_answer);
                 input_entry.set_text (input_entry.get_text().replace ("ans", last_answer));
-                this.set_number_system ();
+                if (dont_push_history != true) {
+                    this.set_number_system ();
+                }
             }
             string result = "";
             try {
                 result = programmer_calculator_front_end.evaluate_exp (settings.global_word_length, settings.number_system, out answer_array);
+                result = Utils.remove_leading_zeroes(result);
             } catch (CalcError e) {
                 result = "E";
             }
@@ -229,7 +233,7 @@ namespace Pebbles {
                 shake ();
             }
             else {
-                if (dont_push_history != true)
+                if (dont_push_history != true) {
                     this.prog_view.window.history_manager.append_from_strings (EvaluationResult.ResultSource.PROG, 
                                                                         input_entry.get_text (), 
                                                                         result, 
@@ -240,10 +244,11 @@ namespace Pebbles {
                                                                         0,
                                                                         programmer_calculator_front_end.get_token_array(),
                                                                         answer_array,
-                                                                        settings.global_word_length);
-                settings.prog_output_text = result;
+                                                                        settings.global_word_length,
+                                                                        settings.number_system);
+                }
                 settings.prog_input_text = input_entry.get_text ();
-                this.prog_view.ans_button.set_sensitive (true);
+                settings.prog_output_text = result;
             }
         }
 
@@ -397,8 +402,12 @@ namespace Pebbles {
             }
             input_entry.set_text (programmer_calculator_front_end.set_number_system (input_entry.get_text (), settings.global_word_length));
             if (answer_array != null) {
-                answer_label.set_text (programmer_calculator_front_end.bool_array_to_string(answer_array, settings.global_word_length, settings.number_system));
+                string result = programmer_calculator_front_end.bool_array_to_string (answer_array, settings.global_word_length, settings.number_system);
+                answer_label.set_text (Utils.remove_leading_zeroes (result));
+                settings.prog_input_text = input_entry.get_text ();
+                settings.prog_output_text = Utils.remove_leading_zeroes (result);
             } else {
+                warning("h");
                 get_answer_evaluate(true);
             }
         }
@@ -480,6 +489,14 @@ namespace Pebbles {
             else {
                 memory_label.set_opacity (0.2);
             }
+        }
+
+        public void set_evaluation (EvaluationResult result) {
+            input_entry.set_text (result.problem_expression);
+            input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+            answer_array = new bool [64];
+            set_number_system();
+            answer_label.set_text (result.result);
         }
     }
 }

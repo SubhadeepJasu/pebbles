@@ -25,10 +25,13 @@ namespace Pebbles {
         Gtk.ListStore listmodel;
         Gtk.TreeIter iter;
         HistoryManager history;
+        Gtk.Button clear_button;
 
         EvaluationResult.ResultSource source;
 
         public signal void select_eval_result (EvaluationResult result);
+        public signal void insert_eval_result (EvaluationResult result);
+        public signal void clear ();
 
         public HistoryView (HistoryManager history, EvaluationResult.ResultSource result_source) {
             
@@ -49,15 +52,18 @@ namespace Pebbles {
             main_tree = new Gtk.TreeView ();
             setup_treeview (main_tree);
             main_tree.set_hover_selection (true);
-            main_tree.tooltip_text = _("Double click to recall");
+            main_tree.tooltip_text = _("Double click to recall, Right click to insert");
             var scrolled_window = new Gtk.ScrolledWindow (null, null);
             scrolled_window.add (main_tree);
             scrolled_window.width_request = 600;
             scrolled_window.height_request = 400;
 
+            clear_button = new Gtk.Button.from_icon_name ("edit-delete-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+
             var headerbar = new Gtk.HeaderBar ();
             headerbar.has_subtitle = false;
             headerbar.set_show_close_button (true);
+            headerbar.pack_end(clear_button);
             headerbar.title = _("History");
 
             set_titlebar (headerbar);
@@ -178,12 +184,24 @@ namespace Pebbles {
                 var result = history.get_nth_evaluation_result (path.get_indices ()[0]);
                 select_eval_result (result);
             });
-
+            main_tree.button_press_event.connect ((event) => {
+                if (event.type == Gdk.EventType.BUTTON_PRESS && event.button == 3) {
+                    Gtk.TreePath path;
+                    Gtk.TreeViewColumn column;
+                    main_tree.get_cursor (out path, out column);
+                    var result = history.get_nth_evaluation_result (path.get_indices ()[0]);
+                    insert_eval_result (result);
+                }
+                return false;
+            });
             this.key_release_event.connect ((event) => {
                 if (event.keyval == KeyboardHandler.KeyMap.ESCAPE) {
                     this.hide ();
                 }
                 return false;
+            });
+            clear_button.clicked.connect(() => {
+                clear();
             });
         }
     }

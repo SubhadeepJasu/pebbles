@@ -250,7 +250,7 @@ namespace Pebbles {
             exp = exp.replace ("and", " & ");
             exp = exp.replace ("or", " | ");
             exp = exp.replace ("mod", " m ");
-            exp = exp.replace ("[5]", " a ");
+            exp = exp.replace ("[5]", " _ ");
             exp = exp.replace ("[6]", " n ");
             exp = exp.replace ("[7]", " x ");
             exp = exp.replace ("[8]", " o ");
@@ -276,7 +276,7 @@ namespace Pebbles {
                     case "lr":
                     case "rr":
                     case "!":
-                    case "a":
+                    case "_":
                     case "n":
                     case "x":
                     case "o":
@@ -297,7 +297,7 @@ namespace Pebbles {
                     tokens[i].type = ProgrammerCalculator.TokenType.OPERAND;
                     break;
                 }
-                tokens[i].token = str_tokens[i];
+                tokens[i].token = remove_leading_zeroes(str_tokens[i]);
                 tokens[i].number_system = settings.number_system;
             }
 
@@ -312,7 +312,7 @@ namespace Pebbles {
             ret_val = ret_val.replace ("&", "[1]");
             ret_val = ret_val.replace ("|", "[2]");
             ret_val = ret_val.replace ("m", "[3]");
-            ret_val = ret_val.replace ("a", "[4]");
+            ret_val = ret_val.replace ("_", "[4]");
             ret_val = ret_val.replace ("o", "[5]");
             ret_val = ret_val.replace ("x", "[6]");
             ret_val = ret_val.replace ("n", "[7]");
@@ -496,6 +496,17 @@ namespace Pebbles {
                     break;
             }
             return output;
+        }
+
+        public static string remove_leading_zeroes (string text) {
+            if (text == "0") {
+                return "0";
+            }
+            int n = text.index_of_char('1', 0);
+            if (n < 0) {
+                return text;
+            }
+            return text.substring(n);
         }
     }
 }

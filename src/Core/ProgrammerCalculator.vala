@@ -115,6 +115,7 @@ namespace Pebbles {
             }
             string[] token_list = new string[stored_tokens.length];
             for (int i = 0; i < stored_tokens.length; i++) {
+                stored_tokens[i].token = Utils.remove_leading_zeroes(stored_tokens[i].token);
                 token_list[i] = stored_tokens[i].token;
             }
             return Utils.get_natural_expression(string.joinv (" ", token_list));
@@ -528,22 +529,22 @@ namespace Pebbles {
                 return false;
             }
             // Following the PEMDAS rule: <http://mathworld.wolfram.com/PEMDAS.html>
-            if ((op1 == 'u') && (op2 == '|' || op2 == 'o' || op2 == 'a' || op2 == '&' || op2 == '<' || op2 == '>' || op2 == '+' || op2 == '-' || op2 == 'x' || op2 == 'n' || op2 == '/' || op2 == '*' || op2 == '!' || op2 == 'm')) {
+            if ((op1 == 'u') && (op2 == '|' || op2 == 'o' || op2 == '_' || op2 == '&' || op2 == '<' || op2 == '>' || op2 == '+' || op2 == '-' || op2 == 'x' || op2 == 'n' || op2 == '/' || op2 == '*' || op2 == '!' || op2 == 'm')) {
                 return false;
             }
             if ((op1 == '!' || op1 == 'm') && (op2 == '|' || op2 == '&' || op2 == '<' || op2 == '>' || op2 == '+' || op2 == '-' || op2 == 'x' || op2 == 'n' || op2 == '/' || op2 == '*')) {
                 return false;
             }
-            else if ((op1 == '/' || op1 == '*') && (op2 == '|' || op2 == 'o' || op2 == '&' || op2 == 'a' || op2 == '<' || op2 == '>' || op2 == '+' || op2 == '-' || op2 == 'x' || op2 == 'n')) {
+            else if ((op1 == '/' || op1 == '*') && (op2 == '|' || op2 == 'o' || op2 == '&' || op2 == '_' || op2 == '<' || op2 == '>' || op2 == '+' || op2 == '-' || op2 == 'x' || op2 == 'n')) {
                 return false;
             }
-            else if ((op1 == '+' || op1 == '-') && (op2 == '<' || op2 == '>' || op2 == '|' || op2 == 'o' || op2 == '&' || op2 == 'a' || op2 == 'x' || op2 == 'n')) {
+            else if ((op1 == '+' || op1 == '-') && (op2 == '<' || op2 == '>' || op2 == '|' || op2 == 'o' || op2 == '&' || op2 == '_' || op2 == 'x' || op2 == 'n')) {
                 return false;
             }
-            else if ((op1 == '<' || op1 == '>') && (op2 == '|' || op2 == 'o' || op2 == '&' || op2 == 'a' || op2 == 'x' || op2 == 'n')) {
+            else if ((op1 == '<' || op1 == '>') && (op2 == '|' || op2 == 'o' || op2 == '&' || op2 == '_' || op2 == 'x' || op2 == 'n')) {
                 return false;
             }
-            else if ((op1 == '&' || op1 == 'a') && (op2 == '|' || op2 == 'o' || op2 == 'x' || op2 == 'n')) {
+            else if ((op1 == '&' || op1 == '_') && (op2 == '|' || op2 == 'o' || op2 == 'x' || op2 == 'n')) {
                 return false;
             }
             else if ((op1 == 'x' || op1 == 'o' || op1 == 'n') && (op2 == '|')) {
@@ -579,7 +580,7 @@ namespace Pebbles {
                 return prog_calc.or (a, b, word_size);
                 case '!':
                 return prog_calc.not (a, word_size);
-                case 'a':
+                case '_':
                 return prog_calc.nand (a, b, word_size);
                 case 'o':
                 return prog_calc.nor (a, b, word_size);
