@@ -12,7 +12,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License 
+ * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  *
  * Authored by: Subhadeep Jasu <subhajasu@gmail.com>
@@ -75,13 +75,13 @@ namespace Pebbles {
         public StyledButton last_answer_button;
         StyledButton integration_button;
         StyledButton derivation_button;
-        
+
         Gtk.Entry int_limit_a;
         Gtk.Entry int_limit_b;
         Gtk.Entry int_limit_x;
-        
+
         Gtk.Entry differential_value;
-        
+
         CommonNumericKeypad keypad_a;
         CommonNumericKeypad keypad_b;
         CommonNumericKeypad keypad_x;
@@ -91,7 +91,10 @@ namespace Pebbles {
         string constant_desc_1 = "";
         string constant_label_2 = "";
         string constant_desc_2 = "";
-        
+
+        // Button Leaflet
+        public Hdy.Leaflet button_leaflet;
+
         public int integral_accuracy { get; set; }
 
         Gtk.Entry editable_entry;
@@ -110,10 +113,10 @@ namespace Pebbles {
             }
         }
 
-        
+
         private bool shift_held = false;
         private bool ctrl_held = false;
-        
+
         public CalculusView (MainWindow window) {
             this.window = window;
             load_constant_button_settings ();
@@ -122,18 +125,20 @@ namespace Pebbles {
             cal_make_events ();
         }
         construct {
-            halign = Gtk.Align.CENTER;
-            valign = Gtk.Align.CENTER;
+            halign = Gtk.Align.FILL;
+            valign = Gtk.Align.FILL;
+            column_spacing = 1;
+            height_request = 400;
         }
         private void cal_make_ui () {
             // Make Fake LCD display
             display_container = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-            display_container.height_request = 120;
-            display_container.width_request = 560;
+            display_container.height_request = 138;
             display_container.margin_start = 8;
             display_container.margin_end = 8;
             display_container.margin_top = 8;
             display_container.margin_bottom = 8;
+            display_container.vexpand = true;
             display_unit = new CalculusDisplay (this);
             display_container.pack_start (display_unit);
             display_unit.button_release_event.connect (() => {
@@ -142,25 +147,29 @@ namespace Pebbles {
                 return false;
             });
             this.editable_entry = display_unit.input_entry;
-            
+
             // Make Input section on the left
             button_container_left = new Gtk.Grid ();
             button_container_left.height_request = 250;
+            button_container_left.width_request = 256;
             button_container_left.margin_start = 8;
             button_container_left.margin_end = 8;
             button_container_left.margin_bottom = 8;
             button_container_left.column_spacing = 8;
             button_container_left.row_spacing = 8;
+            button_container_left.vexpand = true;
 
             // Make Input section on the right
             button_container_right = new Gtk.Grid ();
             button_container_right.height_request = 250;
+            button_container_right.width_request = 256;
             button_container_right.margin_start = 8;
             button_container_right.margin_end = 8;
             button_container_right.margin_bottom = 8;
             button_container_right.column_spacing = 8;
             button_container_right.row_spacing = 8;
-            
+            button_container_right.vexpand = true;
+
             // Make buttons on the left
             all_clear_button = new StyledButton ("AC", _("All Clear"), {"Delete"});
             all_clear_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
@@ -200,7 +209,7 @@ namespace Pebbles {
             decimal_button = new StyledButton (Utils.get_local_radix_symbol ());
             left_parenthesis_button = new StyledButton ("(");
             right_parenthesis_button = new StyledButton (")");
-            
+
             button_container_left.attach (all_clear_button, 0, 0, 1, 1);
             button_container_left.attach (del_button, 1, 0, 1, 1);
             button_container_left.attach (variable_button, 2, 0, 1, 1);
@@ -221,7 +230,7 @@ namespace Pebbles {
             button_container_left.attach (decimal_button, 1, 4, 1, 1);
             button_container_left.attach (left_parenthesis_button, 2, 4, 1, 1);
             button_container_left.attach (right_parenthesis_button, 3, 4, 1, 1);
-            
+
             button_container_left.set_column_homogeneous (true);
             button_container_left.set_row_homogeneous (true);
 
@@ -259,7 +268,7 @@ namespace Pebbles {
             last_answer_button = new StyledButton ("Ans", _("Last answer"), {"F7"});
             last_answer_button.sensitive = false;
             last_answer_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            
+
             // Make integration section
             var integration_grid = new Gtk.Grid ();
             integration_grid.get_style_context ().add_class ("button");
@@ -269,7 +278,7 @@ namespace Pebbles {
             integration_button.get_style_context ().add_class ("suggested-override");
             integration_button.margin_top = 5;
             integration_button.margin_start = 2;
-            
+
             int_limit_a = new Gtk.Entry ();
             int_limit_a.button_release_event.connect (() => {
                 this.editable_entry = int_limit_a;
@@ -285,7 +294,7 @@ namespace Pebbles {
             int_limit_a.changed.connect (() => {
                 settings.cal_integration_upper_limit = int_limit_a.get_text ();
             });
-            
+
             int_limit_b = new Gtk.Entry ();
             int_limit_b.button_release_event.connect (() => {
                 this.editable_entry = int_limit_b;
@@ -315,7 +324,7 @@ namespace Pebbles {
             int_limit_b.icon_release.connect (() => {
                 keypad_b.set_visible (true);
             });
-            
+
             // Make derivation section
             var derivation_grid = new Gtk.Grid ();
             derivation_grid.get_style_context ().add_class ("button");
@@ -325,7 +334,7 @@ namespace Pebbles {
             derivation_button.get_style_context ().add_class ("suggested-override");
             derivation_button.margin_top = 5;
             derivation_button.margin_start = 2;
-            
+
             int_limit_x = new Gtk.Entry ();
             int_limit_x.button_release_event.connect (() => {
                 this.editable_entry = int_limit_x;
@@ -349,7 +358,7 @@ namespace Pebbles {
             int_limit_x.icon_release.connect (() => {
                 keypad_x.set_visible (true);
             });
-            
+
             button_container_right.attach (sin_button,              0, 0, 1, 1);
             button_container_right.attach (sinh_button,             1, 0, 1, 1);
             button_container_right.attach (pow_root_button,         2, 0, 1, 1);
@@ -368,14 +377,21 @@ namespace Pebbles {
             button_container_right.attach (memory_clear_button,     3, 3, 1, 1);
             button_container_right.attach (integration_grid,        0, 4, 2, 1);
             button_container_right.attach (derivation_grid,         2, 4, 2, 1);
-            
+
             button_container_right.set_column_homogeneous (true);
             button_container_right.set_row_homogeneous (true);
-            
+
+            button_leaflet = new Hdy.Leaflet ();
+            button_leaflet.add (button_container_left);
+            button_leaflet.add (button_container_right);
+            button_leaflet.set_visible_child (button_container_left);
+            button_leaflet.hhomogeneous_unfolded = true;
+            button_leaflet.can_swipe_back = true;
+            button_leaflet.can_swipe_forward = true;
+
             // Put it together
-            attach (display_container, 0, 0, 2, 1);
-            attach (button_container_left, 0, 1, 1, 1);
-            attach (button_container_right, 1, 1, 1, 1);
+            attach (display_container, 0, 0, 1, 1);
+            attach (button_leaflet, 0, 1, 1, 1);
             set_column_homogeneous (true);
             display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
         }
@@ -511,7 +527,7 @@ namespace Pebbles {
                     else {
                         display_unit.get_answer_evaluate_derivative (double.parse (limit));
                     }
-                    
+
                     if (display_unit.input_entry.get_text ().length == 0 && display_unit.input_entry.get_text () != "0") {
                         display_unit.input_entry.set_text ("0");
                     }
@@ -542,7 +558,7 @@ namespace Pebbles {
                     else {
                         display_unit.get_answer_evaluate_integral (double.parse (limit_l), double.parse (limit_u));
                     }
-                    
+
                     if (display_unit.input_entry.get_text ().length == 0 && display_unit.input_entry.get_text () != "0") {
                         display_unit.input_entry.set_text ("0");
                     }
@@ -556,7 +572,7 @@ namespace Pebbles {
                 display_unit.display_on ();
                 return false;
             });
-            
+
             all_clear_button.clicked.connect (() => {
                 display_unit.input_entry.grab_focus_without_selecting ();
                 display_unit.input_entry.set_text ("0");
@@ -620,7 +636,7 @@ namespace Pebbles {
             right_parenthesis_button.clicked.connect (() => {;
                 display_unit.insert_text (") ");
             });
-            
+
             pow_root_button.clicked.connect (() => {
                 if (shift_held)
                     display_unit.insert_text ("\xE2\x81\xBF√ ");
@@ -684,7 +700,7 @@ namespace Pebbles {
                 else
                     display_unit.insert_text ("mod ");
             });
-            
+
             memory_plus_button.button_press_event.connect ((event) => {
                 if (event.button == 1) {
                     display_unit.display_off ();
@@ -706,7 +722,7 @@ namespace Pebbles {
                 display_unit.display_on ();
                 return false;
             });
-            
+
             memory_minus_button.button_press_event.connect ((event) => {
                 if (event.button == 1) {
                     display_unit.display_off ();
@@ -728,7 +744,7 @@ namespace Pebbles {
                 display_unit.display_on ();
                 return false;
             });
-            
+
             memory_clear_button.button_press_event.connect ((event) => {
                 display_unit.display_off ();
                 memory_reserve = 0.0;
@@ -738,11 +754,11 @@ namespace Pebbles {
                 display_unit.display_on ();
                 return false;
             });
-            
+
             memory_recall_button.clicked.connect (() => {
                 display_unit.insert_text (memory_reserve.to_string ());
             });
-            
+
             last_answer_button.clicked.connect (() => {
                 display_unit.insert_text ("ans ");
             });
@@ -1076,7 +1092,7 @@ namespace Pebbles {
                     else {
                         display_unit.get_answer_evaluate_integral (double.parse (limit_l), double.parse (limit_u));
                     }
-                    
+
                     if (display_unit.input_entry.get_text ().length == 0 && display_unit.input_entry.get_text () != "0") {
                         display_unit.input_entry.set_text ("0");
                     }
@@ -1096,7 +1112,7 @@ namespace Pebbles {
                     else {
                         display_unit.get_answer_evaluate_derivative (double.parse (limit));
                     }
-                    
+
                     if (display_unit.input_entry.get_text ().length == 0 && display_unit.input_entry.get_text () != "0") {
                         display_unit.input_entry.set_text ("0");
                     }
@@ -1221,7 +1237,7 @@ namespace Pebbles {
 
         public void set_evaluation (EvaluationResult result) {
             this.display_unit.set_evaluation (result);
-            
+
             int_limit_a.set_text (result.int_limit_a.to_string ());
             int_limit_b.set_text (result.int_limit_b.to_string ());
             int_limit_x.set_text (result.derivative_point.to_string ());

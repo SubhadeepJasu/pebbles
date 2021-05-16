@@ -12,7 +12,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License 
+ * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  *
  * Authored by: Subhadeep Jasu <subhajasu@gmail.com>
@@ -123,7 +123,7 @@ namespace Pebbles {
             sci_make_events ();
         }
 
-        construct { 
+        construct {
             halign = Gtk.Align.FILL;
             valign = Gtk.Align.FILL;
             column_spacing = 1;
@@ -281,7 +281,7 @@ namespace Pebbles {
             button_container_right.attach (sqr_button, 0, 0, 1, 1);
             button_container_right.attach (pow_root_button, 1, 0, 1, 1);
             button_container_right.attach (expo_power_button, 2, 0, 1, 1);
-            button_container_right.attach (memory_plus_button, 3, 0, 1, 1); 
+            button_container_right.attach (memory_plus_button, 3, 0, 1, 1);
             button_container_right.attach (sin_button, 0, 1, 1, 1);
             button_container_right.attach (sinh_button, 1, 1, 1, 1);
             button_container_right.attach (log_cont_base_button, 2, 1, 1, 1);
@@ -370,7 +370,7 @@ namespace Pebbles {
                 }
             }
         }
-        
+
         public void set_alternative_button () {
             if (shift_held) {
                 sqr_button.update_label ("\xE2\x88\x9A", _("Square root over number"), {"Q"});
@@ -669,7 +669,7 @@ namespace Pebbles {
                 else
                     display_unit.insert_text (constant_label_1);
             });
-            
+
             memory_plus_button.button_press_event.connect ((event) => {
                 if (event.button == 1) {
                     display_unit.display_off ();
@@ -692,7 +692,7 @@ namespace Pebbles {
                 display_unit.display_on ();
                 return false;
             });
-            
+
             memory_minus_button.button_press_event.connect ((event) => {
                 if (event.button == 1) {
                     display_unit.display_off ();
@@ -715,7 +715,7 @@ namespace Pebbles {
                 display_unit.display_on ();
                 return false;
             });
-            
+
             memory_clear_button.button_press_event.connect ((event) => {
                 display_unit.display_off ();
                 memory_reserve = 0.0;
@@ -725,11 +725,11 @@ namespace Pebbles {
                 display_unit.display_on ();
                 return false;
             });
-            
+
             memory_recall_button.clicked.connect (() => {
                 display_unit.insert_text (memory_reserve.to_string ());
             });
-            
+
             last_answer_button.clicked.connect (() => {
                 display_unit.insert_text ("ans ");
             });
