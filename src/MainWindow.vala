@@ -572,18 +572,23 @@ namespace Pebbles {
         }
 
         private void adjust_view (bool? pre_fold = false) {
-            if (this.scientific_view.button_leaflet.folded || pre_fold) {
-                leaflet_back_button.set_visible (true);
+            if (this.scientific_view.button_leaflet.folded ||
+                this.calculus_view.button_leaflet.folded ||
+                pre_fold) {
                 header_switcher.set_visible (false);
-                dark_mode_switch.set_visible (false);
                 history_button.set_visible (false);
                 history_item.set_visible (true);
             } else {
-                leaflet_back_button.set_visible (false);
                 header_switcher.set_visible (true);
-                dark_mode_switch.set_visible (true);
                 history_button.set_visible (true);
                 history_item.set_visible (false);
+            }
+            if (main_leaflet.folded) {
+                dark_mode_switch.set_visible (false);
+                leaflet_back_button.set_visible (true);
+            } else {
+                dark_mode_switch.set_visible (true);
+                leaflet_back_button.set_visible (false);
             }
         }
 
@@ -591,6 +596,7 @@ namespace Pebbles {
             switch (settings.view_index) {
                 case 0:
                 common_view.set_visible_child (scientific_view);
+                scientific_view.queue_draw ();
                 header_switcher.set_visible_child (scientific_header_grid);
                 if (item_list.selected != scientific_item) {
                     item_list.selected = scientific_item;
@@ -605,6 +611,7 @@ namespace Pebbles {
                 break;
                 case 2:
                 common_view.set_visible_child (calculus_view);
+                calculus_view.queue_draw ();
                 header_switcher.set_visible_child (scientific_header_grid);
                 if (item_list.selected != calculus_item) {
                     item_list.selected = calculus_item;
