@@ -83,6 +83,7 @@ namespace Pebbles {
         public ConstantKeyIndex constant_key_value1 {get; set;}
         public ConstantKeyIndex constant_key_value2 {get; set;}
         public int decimal_places {get; set;}
+        public int integration_accuracy {get; set;}
         public string sci_input_text {get; set;}
         public string sci_output_text {get; set;}
         public string sci_memory_value {get; set;} 

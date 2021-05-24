@@ -271,8 +271,9 @@ namespace Pebbles {
 
             // Make integration section
             var integration_grid = new Gtk.Grid ();
-            integration_grid.get_style_context ().add_class ("button");
+            integration_grid.get_style_context ().add_class ("calculus-button-grid");
             integration_grid.get_style_context ().add_class ("Pebbles_Buttons_Function");
+            integration_grid.set_row_homogeneous (true);
             integration_button = new StyledButton ("\xE2\x88\xAB", _("Definite Integral (Upper limit 'u' and Lower limit 'l')"), {"I"});
             integration_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
             integration_button.get_style_context ().add_class ("suggested-override");
@@ -289,6 +290,7 @@ namespace Pebbles {
             int_limit_a.width_chars = 4;
             int_limit_a.margin_start = 5;
             int_limit_a.margin_top = 5;
+            int_limit_a.set_hexpand (true);
             int_limit_a.placeholder_text = "u";
             int_limit_a.set_text (settings.cal_integration_upper_limit);
             int_limit_a.changed.connect (() => {
@@ -305,6 +307,7 @@ namespace Pebbles {
             int_limit_b.width_chars = 4;
             int_limit_b.margin_start = 5;
             int_limit_b.margin_top = 5;
+            int_limit_b.set_hexpand (true);
             int_limit_b.placeholder_text = "l";
             int_limit_b.set_text (settings.cal_integration_lower_limit);
             int_limit_b.changed.connect (() => {
@@ -327,8 +330,11 @@ namespace Pebbles {
 
             // Make derivation section
             var derivation_grid = new Gtk.Grid ();
-            derivation_grid.get_style_context ().add_class ("button");
+            derivation_grid.get_style_context ().add_class ("calculus-button-grid");
             derivation_grid.get_style_context ().add_class ("Pebbles_Buttons_Function");
+            derivation_grid.set_row_homogeneous (true);
+            derivation_grid.set_column_homogeneous (true);
+            derivation_grid.set_halign (Gtk.Align.FILL);
             derivation_button = new StyledButton ("dy/dx", _("Derivative (at a point x)"), {"D"});
             derivation_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
             derivation_button.get_style_context ().add_class ("suggested-override");

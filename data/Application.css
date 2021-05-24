@@ -55,6 +55,15 @@
     animation: shake 0.4s ease-in-out 1;
 }
 
+.calculus-button-grid {
+	padding-left: 4px;
+	padding-right: 6px;
+	padding-top: 2px;
+    padding-bottom: 7px;
+	border: 1px solid alpha (@accent_color, 0.5);
+	border-radius: 2px;
+}
+
 @keyframes shake {
     0% { padding-left: 0; }
     25% { padding-left: 20px; }

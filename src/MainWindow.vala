@@ -176,7 +176,7 @@ namespace Pebbles {
             // Create back button
             leaflet_back_button = new StyledButton ("All Categories");
             leaflet_back_button.valign = Gtk.Align.CENTER;
-            leaflet_back_button.set_image (new Gtk.Image.from_icon_name ("format-justify-left-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
+            leaflet_back_button.set_image (new Gtk.Image.from_icon_name ("view-more-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
             leaflet_back_button.tooltip_text = "Pebbles Menu";
             leaflet_back_button.clicked.connect (() => {
                 if (main_leaflet.get_visible_child () == common_view)
@@ -730,12 +730,12 @@ namespace Pebbles {
                 break;
             }
             main_leaflet.set_visible_child (common_view);
-            this.show_all ();
             Timeout.add (200, () => {
                 if (main_leaflet.get_child_transition_running ()) {
                     adjust_view (true);
                     return true;
                 } else {
+                    this.show_all ();
                     adjust_view ();
                     return false;
                 }

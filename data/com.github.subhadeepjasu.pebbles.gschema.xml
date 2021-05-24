@@ -100,6 +100,12 @@
 			<summary>Number of decimal places after radix</summary>
 			<description>Number of decimal places after radix point.</description>
 		</key>
+		<key name="integration-accuracy" type="i">
+			<range min="500" max="100000"/>
+			<default>10000</default>
+			<summary>Accuracy of integratal caculus evaluation</summary>
+			<description>Number of cycles of Simpson's 3/8 evaluation</description>
+		</key>
 		<key name="sci-input-text" type="s">
 			<default>"0"</default>
 			<summary>Input Text from Scientific mode</summary>
