@@ -95,6 +95,13 @@ namespace Pebbles {
         // Button Leaflet
         public Hdy.Leaflet button_leaflet;
 
+        // Toolbar
+        Gtk.Revealer bottom_button_bar_revealer;
+        StyledButton toolbar_view_functions_buttons_button;
+        public StyledButton toolbar_angle_mode_button;
+        StyledButton toolbar_integrate_button;
+        StyledButton toolbar_differentiate_button;
+
         public int integral_accuracy { get; set; }
 
         Gtk.Entry editable_entry;
@@ -775,6 +782,17 @@ namespace Pebbles {
                 else if (val == "del") {
                     int_limit_a.backspace ();
                 }
+                else if (val == "-") {
+                    int_limit_a.grab_focus_without_selecting ();
+                    string entry_text = int_limit_a.get_text ();
+                    if (entry_text.contains ("-")) {
+                        entry_text = entry_text.replace ("-", "");
+                    } else {
+                        entry_text = "-" + entry_text;
+                    }
+                    int_limit_a.set_text (entry_text);
+                    int_limit_a.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                }
                 else {
                     if (int_limit_a.get_text () == "0"){
                         int_limit_a.set_text("");
@@ -789,6 +807,17 @@ namespace Pebbles {
                 else if (val == "del") {
                     int_limit_b.backspace ();
                 }
+                else if (val == "-") {
+                    int_limit_b.grab_focus_without_selecting ();
+                    string entry_text = int_limit_b.get_text ();
+                    if (entry_text.contains ("-")) {
+                        entry_text = entry_text.replace ("-", "");
+                    } else {
+                        entry_text = "-" + entry_text;
+                    }
+                    int_limit_b.set_text (entry_text);
+                    int_limit_b.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                }
                 else {
                     if (int_limit_b.get_text () == "0"){
                         int_limit_b.set_text("");
@@ -802,6 +831,17 @@ namespace Pebbles {
                 }
                 else if (val == "del") {
                     int_limit_x.backspace ();
+                }
+                else if (val == "-") {
+                    int_limit_x.grab_focus_without_selecting ();
+                    string entry_text = int_limit_x.get_text ();
+                    if (entry_text.contains ("-")) {
+                        entry_text = entry_text.replace ("-", "");
+                    } else {
+                        entry_text = "-" + entry_text;
+                    }
+                    int_limit_x.set_text (entry_text);
+                    int_limit_x.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
                 }
                 else {
                     if (int_limit_x.get_text () == "0"){
@@ -841,8 +881,20 @@ namespace Pebbles {
             if (editable_entry.get_text () == "0") {
                 editable_entry.set_text ("");
             }
-            editable_entry.grab_focus_without_selecting ();
-            editable_entry.insert_at_cursor (text);
+            if (text.contains ("-") && editable_entry != display_unit.input_entry) {
+                editable_entry.grab_focus_without_selecting ();
+                string entry_text = editable_entry.get_text ();
+                if (entry_text.contains ("-")) {
+                    entry_text = entry_text.replace ("-", "");
+                } else {
+                    entry_text = "-" + entry_text;
+                }
+                editable_entry.set_text (entry_text);
+                editable_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+            } else {
+                editable_entry.grab_focus_without_selecting ();
+                editable_entry.insert_at_cursor (text);
+            }
         }
         public void insert_text_to_main_entry (string text) {
             editable_entry = display_unit.input_entry;
@@ -936,7 +988,6 @@ namespace Pebbles {
                 break;
                 case KeyboardHandler.KeyMap.MINUS_NUMPAD:
                 case KeyboardHandler.KeyMap.MINUS_KEYPAD:
-                if (editable_entry == display_unit.input_entry)
                 this.insert_text (" - ");
                 subtract_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
                 break;

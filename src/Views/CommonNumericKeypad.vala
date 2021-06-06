@@ -40,6 +40,7 @@ namespace Pebbles {
         StyledButton three_button;
         StyledButton zero_button;
         StyledButton decimal_button;
+        StyledButton negative_button;
         Gtk.Button done_button;
         
         Gtk.Entry entry;
@@ -63,6 +64,7 @@ namespace Pebbles {
             three_button = new StyledButton ("3");
             zero_button = new StyledButton ("0");
             decimal_button = new StyledButton (".");
+            negative_button = new StyledButton ("+/\xE2\x88\x92");
             done_button = new Gtk.Button.from_icon_name ("pan-down-symbolic", Gtk.IconSize.BUTTON);
 
             // Arange the buttons
@@ -80,6 +82,7 @@ namespace Pebbles {
             main_grid.attach (three_button, 2, 3, 1, 1);
             main_grid.attach (zero_button, 0, 4, 1, 1);
             main_grid.attach (decimal_button, 1, 4, 1, 1);
+            main_grid.attach (negative_button, 2, 4, 1, 1);
             main_grid.set_column_homogeneous (true);
             main_grid.set_row_homogeneous (true);
             
@@ -101,6 +104,7 @@ namespace Pebbles {
             three_button.clicked.connect (() => send_button_press ("3"));
             zero_button.clicked.connect (() => send_button_press ("0"));
             decimal_button.clicked.connect (() => send_button_press ("."));
+            negative_button.clicked.connect (() => send_button_press ("-"));
             done_button.clicked.connect (() => {
                 this.popdown ();
             });
