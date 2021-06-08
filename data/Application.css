@@ -26,21 +26,23 @@
  */
 
 .Pebbles_Display_Unit_Bg {
-	background-image: linear-gradient(#b6bfb6, #dae6da);
+	/* background-image: linear-gradient(#b6bfb6, #dae6da); */
+	background-image: url("resource://com/github/subhadeepjasu/pebbles/images/textures/texture.png");
 	padding-left: 15px;
 	padding-right: 15px;
 	padding-top: 3px;
 	border-radius: 2.5px;
 	border: 1px solid alpha (black, 0.6);
 	box-shadow:
-	inset 0px 1px 8px 0px alpha (black, 0.15),
+	inset 0px 2px 2px 0px alpha (black, 0.15),
 	inset 0px 0px 2px 1px alpha (black, 0.20),
+	inset 0px 72px 36px 1px alpha (#f3faf3, 0.5),
 	0px 1px 0px 0px alpha (white, 0.3),
 	0px -1px 0px 0px alpha (black, 0.15);
 }
 
 .Pebbles_Display_Unit_Bg:backdrop {
-	background-image: linear-gradient(#bdc7bd, #c9d3c9);
+	background-image: linear-gradient(#bdc7bd, #f1fff1);
 	padding-left: 15px;
 	padding-top: 3px;
 	border-radius: 2.5px;
@@ -203,7 +205,7 @@
 .pebbles_h1 {
 	font-size: 40px;
 	font-family: Open Sans;
-	text-shadow: 0 0px alpha (#000, 0);
+	text-shadow: 0 2px 1px alpha (#000, 0.1);
 	opacity: 0.85;
 	color:#272863;
 	margin-top: 6px;
@@ -212,7 +214,7 @@
 .pebbles_h2 {
 	font-size: 20px;
 	font-family: Open Sans;
-	text-shadow: 0 0px alpha (#000, 0);
+	text-shadow: 0 2px 1px alpha (#000, 0.1);
 	opacity: 0.8;
 	color:#272863;
 	margin-top: 3px;
@@ -231,7 +233,7 @@
 .pebbles_h3 {
 	font-size: 16px;
 	font-family: Raleway;
-	text-shadow: 0 0px alpha (#000, 0);
+	text-shadow: 0 2px 1px alpha (#000, 0.1);
 	opacity: 0.8;
 	color:#272863;
 	margin-top: 3px;
@@ -244,7 +246,7 @@
 .pebbles_h4 {
 	font-size: 10px;
 	font-family: Roboto;
-	text-shadow: 0 0px alpha (#000, 0);
+	text-shadow: 0 2px 1px alpha (#000, 0.1);
 	opacity: 0.8;
 	color:#272863;
 	font-weight: bold;
@@ -255,6 +257,7 @@
 	font-size: 10px;
 	opacity: 0.8;
 	font-weight: bold;
+	box-shadow: 0 2px 2px alpha (#000, 0.3);
 	color:#272863;
 	border: 1px solid #272863;
 	padding-left : 6px;
