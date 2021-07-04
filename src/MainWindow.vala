@@ -463,7 +463,7 @@ namespace Pebbles {
             common_view.halign = Gtk.Align.FILL;
             common_view.add_named (scientific_view, "Scientific");
             common_view.add_named (calculus_view, "Calculus");
-            //  common_view.add_named (programmer_view, "Programmer");
+            common_view.add_named (programmer_view, "Programmer");
             //  common_view.add_named (date_view, "Date");
             //  common_view.add_named (statistics_view, "Statistics");
             //  common_view.add_named (conv_length_view, "Length");
