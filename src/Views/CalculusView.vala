@@ -97,10 +97,9 @@ namespace Pebbles {
 
         // Toolbar
         Gtk.Revealer bottom_button_bar_revealer;
-        StyledButton toolbar_view_functions_buttons_button;
         public StyledButton toolbar_angle_mode_button;
-        StyledButton toolbar_integrate_button;
-        StyledButton toolbar_differentiate_button;
+        StyledButton toolbar_int_der_func_button;
+        public StyledButton toolbar_shift_button;
 
         public int integral_accuracy { get; set; }
 
@@ -402,9 +401,43 @@ namespace Pebbles {
             button_leaflet.can_swipe_back = true;
             button_leaflet.can_swipe_forward = true;
 
+            bottom_button_bar_revealer = new Gtk.Revealer ();
+            var bottom_toolbar = new Gtk.ActionBar ();
+            bottom_toolbar.height_request = 40;
+
+            toolbar_int_der_func_button = new StyledButton ("d/dx \xE2\x88\xAB<i> ƒ(x) dx</i>", _("Other functions, integration and differentiation"));
+            toolbar_int_der_func_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
+            toolbar_int_der_func_button.halign = Gtk.Align.CENTER;
+            toolbar_int_der_func_button.hexpand = true;
+
+            toolbar_shift_button = new StyledButton (_("Shift"), _("Access alternative functions"));
+            toolbar_shift_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
+            toolbar_shift_button.halign = Gtk.Align.START;
+            toolbar_shift_button.width_request = 46;
+
+            toolbar_angle_mode_button = new StyledButton ("DEG", "<b>" + _("Degrees") + "</b> \xE2\x86\x92" + _("Radians"), {"F8"});
+            toolbar_angle_mode_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
+            toolbar_angle_mode_button.halign = Gtk.Align.END;
+            toolbar_angle_mode_button.width_request = 46;
+
+            bottom_button_bar_revealer.add (bottom_toolbar);
+            bottom_button_bar_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
+
+            var toolbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 2);
+            toolbox.set_homogeneous (true);
+            toolbox.pack_start (toolbar_shift_button);
+            toolbox.pack_start (toolbar_int_der_func_button);
+            toolbox.pack_end (toolbar_angle_mode_button);
+            toolbox.margin = 8;
+            toolbox.margin_start = 4;
+            toolbox.margin_end = 4;
+
+            bottom_toolbar.pack_start (toolbox);
+
             // Put it together
-            attach (display_container, 0, 0, 1, 1);
-            attach (button_leaflet, 0, 1, 1, 1);
+            attach (display_container,          0, 0, 1, 1);
+            attach (button_leaflet,             0, 1, 1, 1);
+            attach (bottom_button_bar_revealer, 0, 2, 1, 1);
             set_column_homogeneous (true);
             display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
         }
@@ -530,6 +563,13 @@ namespace Pebbles {
             }
         }
         private void cal_make_events () {
+            this.size_allocate.connect ((event) => {
+                if (button_leaflet.folded) {
+                    bottom_button_bar_revealer.set_reveal_child (true);
+                } else {
+                    bottom_button_bar_revealer.set_reveal_child (false);
+                }
+            });
             derivation_button.button_press_event.connect ((event) => {
                 if (event.button == 1) {
                     display_unit.display_off ();
