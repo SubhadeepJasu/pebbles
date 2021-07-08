@@ -464,7 +464,7 @@ namespace Pebbles {
             common_view.add_named (scientific_view, "Scientific");
             common_view.add_named (calculus_view, "Calculus");
             common_view.add_named (programmer_view, "Programmer");
-            //  common_view.add_named (date_view, "Date");
+            common_view.add_named (date_view, "Date");
             //  common_view.add_named (statistics_view, "Statistics");
             //  common_view.add_named (conv_length_view, "Length");
             //  common_view.add_named (conv_area_view, "Area");
@@ -577,14 +577,19 @@ namespace Pebbles {
             if ((this.common_view.get_visible_child () == this.scientific_view && this.scientific_view.button_leaflet.folded) ||
                 (this.common_view.get_visible_child () == this.calculus_view && this.calculus_view.button_leaflet.folded) ||
                 (this.common_view.get_visible_child () == this.programmer_view && this.programmer_view.button_leaflet.folded) ||
+                (this.common_view.get_visible_child () == this.date_view && this.date_view.get_allocated_width () < 540) ||
                 pre_fold) {
                 header_switcher.set_visible (false);
                 history_button.set_visible (false);
                 history_item.set_visible (true);
+                date_view.diff_mode_button.set_visible (true);
+                date_view.add_mode_button.set_visible (true);
             } else {
                 header_switcher.set_visible (true);
                 history_button.set_visible (true);
                 history_item.set_visible (false);
+                date_view.diff_mode_button.set_visible (false);
+                date_view.add_mode_button.set_visible (false);
             }
             if (main_leaflet.folded) {
                 dark_mode_switch.set_visible (false);

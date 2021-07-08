@@ -439,3 +439,9 @@ scrolledwindow overshoot.left {
 .sidebar-left {
 	border-right: 1px solid alpha(#000, 0.3);
 }
+
+.pebbles-calendar-box {
+	border: 1px solid alpha(#000, 0.5);
+	border-radius: 4px;
+	background-color: alpha(@accent_color, 0.2);
+}
