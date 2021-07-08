@@ -576,6 +576,7 @@ namespace Pebbles {
         private void adjust_view (bool? pre_fold = false) {
             if ((this.common_view.get_visible_child () == this.scientific_view && this.scientific_view.button_leaflet.folded) ||
                 (this.common_view.get_visible_child () == this.calculus_view && this.calculus_view.button_leaflet.folded) ||
+                (this.common_view.get_visible_child () == this.programmer_view && this.programmer_view.button_leaflet.folded) ||
                 pre_fold) {
                 header_switcher.set_visible (false);
                 history_button.set_visible (false);
@@ -592,7 +593,7 @@ namespace Pebbles {
                 dark_mode_switch.set_visible (true);
                 leaflet_back_button.set_visible (false);
             }
-            warning("adjusting");
+            //warning("adjusting");
         }
 
         private void set_view () {

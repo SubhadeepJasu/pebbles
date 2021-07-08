@@ -102,9 +102,11 @@ namespace Pebbles {
             memory_label   = new Gtk.Label ("M");
             memory_label.get_style_context ().add_class ("pebbles_h4");
             memory_label.set_opacity (0.2);
+            memory_label.hexpand = true;
             shift_label    = new Gtk.Label ("SHIFT");
             shift_label.get_style_context ().add_class ("pebbles_h4");
             shift_label.set_opacity (0.2);
+            
             
             var word_mode_display = new Gtk.Grid ();
             word_mode_display.attach (qwd_label, 0, 0, 1, 1);
@@ -116,9 +118,9 @@ namespace Pebbles {
             lcd_status_bar.attach (word_mode_display, 0, 0, 1, 1);
             lcd_status_bar.attach (memory_label, 1, 0, 1, 1);
             lcd_status_bar.attach (shift_label, 2, 0, 1, 1);
-            lcd_status_bar.column_spacing = 187;
-            lcd_status_bar.width_request  = 530;
-            lcd_status_bar.set_halign (Gtk.Align.END);
+            lcd_status_bar.width_request = 200;
+            lcd_status_bar.set_halign (Gtk.Align.FILL);
+            lcd_status_bar.hexpand = true;
             
             // Make number system view
             number_system_grid = new Gtk.Grid ();
@@ -141,8 +143,8 @@ namespace Pebbles {
             bin_number_label.set_line_wrap_mode (Pango.WrapMode.CHAR);
             bin_number_label.set_line_wrap (true);
             bin_number_label.lines = 2;
-            bin_number_label.set_width_chars (34);
-            bin_number_label.set_max_width_chars (34);
+            bin_number_label.set_width_chars (36);
+            bin_number_label.set_max_width_chars (36);
             bin_number_label.single_line_mode = false;
             bin_number_label.set_xalign (0);
             bin_number_label.set_yalign (0);
@@ -174,6 +176,8 @@ namespace Pebbles {
             // Make LCD Answer label
             answer_label = new Gtk.Label (settings.prog_output_text);
             answer_label.set_halign (Gtk.Align.END);
+            answer_label.set_valign (Gtk.Align.END);
+            answer_label.vexpand = true;
             answer_label.get_style_context ().add_class ("pebbles_h1");
             var scrollable = new Gtk.ScrolledWindow (null, null);
             scrollable.add (answer_label);
@@ -186,8 +190,10 @@ namespace Pebbles {
             input_entry.set_has_frame (false);
             input_entry.set_text ("0");
             input_entry.get_style_context ().add_class ("pebbles_h2");
-            input_entry.set_halign (Gtk.Align.START);
-            input_entry.width_request = 265;
+            input_entry.set_halign (Gtk.Align.FILL);
+            input_entry.hexpand = true;
+            input_entry.margin_bottom = 1;
+            input_entry.width_request = 200;
             input_entry.max_width_chars = 20;
             
             
@@ -197,18 +203,31 @@ namespace Pebbles {
             Gtk.Separator lcd_separator_v = new Gtk.Separator (Gtk.Orientation.VERTICAL);
             lcd_separator_v.set_opacity (0.6);
             lcd_separator_v.margin_bottom = 8;
-            lcd_separator_v.margin_end   = 7;
+            lcd_separator_v.margin_end    = 7;
+            lcd_separator_v.margin_start  = 7;
+            lcd_separator_v.vexpand = true;
             lcd_separator_v.halign = Gtk.Align.CENTER;
+
+            var display_leafet = new Hdy.Leaflet ();
+            var leaflet_grid_left = new Gtk.Grid ();
+            leaflet_grid_left.attach (number_system_grid, 0, 0, 1, 1);
+            leaflet_grid_left.attach (lcd_separator_v,    1, 0, 1, 1);
+
+            var leaflet_grid_right = new Gtk.Grid ();
+            leaflet_grid_right.attach (scrollable, 0, 0, 1, 1);
+            leaflet_grid_right.attach (lcd_separator_h, 0, 1, 1, 1);
+            leaflet_grid_right.attach (input_entry, 0, 3, 1, 1);
+
+            display_leafet.add (leaflet_grid_left);
+            display_leafet.add (leaflet_grid_right);
+
+            display_leafet.set_visible_child (leaflet_grid_right);
             
             // Put it together
-            attach (lcd_status_bar,     0, 0, 3, 1);
-            attach (number_system_grid, 0, 1, 1, 3);
-            attach (lcd_separator_v,    1, 1, 1, 3);
-            attach (scrollable,         2, 1, 1, 1);
-            attach (lcd_separator_h,    2, 2, 1, 1);
-            attach (input_entry,        2, 3, 1, 1);
+            attach (lcd_status_bar,     0, 0, 1, 1);
+            attach (display_leafet,     0, 1, 1, 1);
 
-            width_request = 530;
+            width_request = 300;
         }
 
         public void get_answer_evaluate (bool? dont_push_history = false) {

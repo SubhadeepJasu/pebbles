@@ -19,7 +19,7 @@
  */
 
 namespace Pebbles {
-    public class ProgrammerView : Gtk.Overlay {
+    public class ProgrammerView : Gtk.Grid {
         // Reference of main window
         public MainWindow window;
 
@@ -61,6 +61,7 @@ namespace Pebbles {
         StyledButton lsh_rsh_button;
         StyledButton plus_button;
         Granite.Widgets.ModeButton bit_mode_button;
+        Gtk.Stack result_shift_container;
 
         // Input section right buttons
         StyledButton or_button;
@@ -73,9 +74,19 @@ namespace Pebbles {
         StyledButton memory_clear_button;
         public StyledButton ans_button;
         StyledButton result_button;
+        StyledButton shift_button;
         
         // Bit Toggle View
         public BitToggleGrid bit_grid;
+
+        // Button Leaflet
+        public Hdy.Leaflet button_leaflet;
+
+        // Toolbar
+        Gtk.Revealer bottom_button_bar_revealer;
+        StyledButton toolbar_view_functions_buttons_button;
+        public StyledButton toolbar_angle_mode_button;
+        StyledButton toolbar_result_button;
 
         // App Settings
         Pebbles.Settings settings;
@@ -91,17 +102,14 @@ namespace Pebbles {
         }
 
         public void prog_make_ui () {
-
-            var main_grid = new Gtk.Grid ();
-
             // Make fake LCD display
             display_container = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
             display_container.height_request = 120;
-            display_container.width_request = 560;
             display_container.margin_start = 8;
             display_container.margin_end = 8;
             display_container.margin_top = 8;
             display_container.margin_bottom = 8;
+            display_container.vexpand = true;
             display_unit = new ProgrammerDisplay (this);
             display_container.pack_start (display_unit);
 
@@ -113,15 +121,17 @@ namespace Pebbles {
             button_container_left.margin_bottom = 8;
             button_container_left.column_spacing = 8;
             button_container_left.row_spacing = 8;
+            button_container_left.vexpand = true;
 
             // Make Input section on the right
             button_container_right = new Gtk.Grid ();
             button_container_right.height_request = 250;
-            button_container_right.margin_start = 4;
+            button_container_right.margin_start = 8;
             button_container_right.margin_end = 8;
             button_container_right.margin_bottom = 8;
             button_container_right.column_spacing = 8;
             button_container_right.row_spacing = 8;
+            button_container_right.vexpand = true;
 
             // Make buttons on the left
             all_clear_button = new StyledButton ("AC", "All Clear", {"Delete"});
@@ -224,82 +234,175 @@ namespace Pebbles {
             result_button = new StyledButton ("=", "Result", {"Return"});
             result_button.get_style_context ().add_class ("h2");
             result_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
+            shift_button = new StyledButton ("Shift");
             
 
-            button_container_left.attach (all_clear_button, 0, 0, 1, 1);
-            button_container_left.attach (del_button, 1, 0, 1, 1);
-            button_container_left.attach (bit_mode_button, 2, 0, 4, 1);
-            button_container_left.attach (seven_button, 0, 1, 1, 1);
-            button_container_left.attach (eight_button, 1, 1, 1, 1);
-            button_container_left.attach (nine_button, 2, 1, 1, 1);
-            button_container_left.attach (a_button, 3, 1, 1, 1);
-            button_container_left.attach (d_button, 4, 1, 1, 1);
-            button_container_left.attach (div_button, 5, 1, 1, 1);
-            button_container_left.attach (four_button, 0, 2, 1, 1);
-            button_container_left.attach (five_button, 1, 2, 1, 1);
-            button_container_left.attach (six_button, 2, 2, 1, 1);
-            button_container_left.attach (b_button, 3, 2, 1, 1);
-            button_container_left.attach (e_button, 4, 2, 1, 1);
-            button_container_left.attach (multi_button, 5, 2, 1, 1);
-            button_container_left.attach (one_button, 0, 3, 1, 1);
-            button_container_left.attach (two_button, 1, 3, 1, 1);
-            button_container_left.attach (three_button, 2, 3, 1, 1);
-            button_container_left.attach (c_button, 3, 3, 1, 1);
-            button_container_left.attach (f_button,4 ,3, 1, 1);
-            button_container_left.attach (minus_button,5, 3, 1, 1);
-            button_container_left.attach (zero_button,0, 4, 1, 1);
-            button_container_left.attach (left_parenthesis_button, 1, 4, 1, 1);
-            button_container_left.attach (right_parenthesis_button, 2, 4, 1, 1);
-            button_container_left.attach (bit_button, 3, 4, 1 ,1);
-            button_container_left.attach (lsh_rsh_button, 4, 4, 1, 1);
-            button_container_left.attach (plus_button, 5, 4, 1, 1);
+            //  button_container_left.attach (all_clear_button, 0, 0, 1, 1);
+            //  button_container_left.attach (del_button, 1, 0, 1, 1);
+            //  button_container_left.attach (bit_mode_button, 2, 0, 4, 1);
+            //  button_container_left.attach (seven_button, 0, 1, 1, 1);
+            //  button_container_left.attach (eight_button, 1, 1, 1, 1);
+            //  button_container_left.attach (nine_button, 2, 1, 1, 1);
+            //  button_container_left.attach (a_button, 3, 1, 1, 1);
+            //  button_container_left.attach (d_button, 4, 1, 1, 1);
+            //  button_container_left.attach (div_button, 5, 1, 1, 1);
+            //  button_container_left.attach (four_button, 0, 2, 1, 1);
+            //  button_container_left.attach (five_button, 1, 2, 1, 1);
+            //  button_container_left.attach (six_button, 2, 2, 1, 1);
+            //  button_container_left.attach (b_button, 3, 2, 1, 1);
+            //  button_container_left.attach (e_button, 4, 2, 1, 1);
+            //  button_container_left.attach (multi_button, 5, 2, 1, 1);
+            //  button_container_left.attach (one_button, 0, 3, 1, 1);
+            //  button_container_left.attach (two_button, 1, 3, 1, 1);
+            //  button_container_left.attach (three_button, 2, 3, 1, 1);
+            //  button_container_left.attach (c_button, 3, 3, 1, 1);
+            //  button_container_left.attach (f_button,4 ,3, 1, 1);
+            //  button_container_left.attach (minus_button,5, 3, 1, 1);
+            //  button_container_left.attach (zero_button,0, 4, 1, 1);
+            //  button_container_left.attach (left_parenthesis_button, 1, 4, 1, 1);
+            //  button_container_left.attach (right_parenthesis_button, 2, 4, 1, 1);
+            //  button_container_left.attach (bit_button, 3, 4, 1 ,1);
+            //  button_container_left.attach (lsh_rsh_button, 4, 4, 1, 1);
+            //  button_container_left.attach (plus_button, 5, 4, 1, 1);
             
+            //  button_container_left.set_column_homogeneous (true);
+            //  button_container_left.set_row_homogeneous (true);
+            
+
+            //  button_container_right.attach (or_button,           0, 0, 1, 1);
+            //  button_container_right.attach (memory_plus_button,  1, 0, 1, 1);
+            //  button_container_right.attach (and_button,          0, 1, 1, 1);
+            //  button_container_right.attach (memory_minus_button, 1, 1, 1, 1);
+            //  button_container_right.attach (xor_button,          0, 2, 1, 1);
+            //  button_container_right.attach (memory_recall_button,1, 2, 1, 1);
+            //  button_container_right.attach (not_button,          0, 3, 1, 1);
+            //  button_container_right.attach (memory_clear_button, 1, 3, 1, 1);
+            //  button_container_right.attach (ans_button,          0, 4, 1, 1);
+            //  button_container_right.attach (result_button,       1, 4, 1, 1);
+            
+            //  button_container_right.set_column_homogeneous (true);
+            //  button_container_right.set_row_homogeneous (true);
+            button_container_left.attach (all_clear_button,         0, 0, 1, 1);
+            button_container_left.attach (del_button,               1, 0, 1, 1);
+            button_container_left.attach (lsh_rsh_button,           2, 0, 1, 1);
+            button_container_left.attach (div_button,               3, 0, 1, 1);
+            button_container_left.attach (seven_button,             0, 1, 1, 1);
+            button_container_left.attach (eight_button,             1, 1, 1, 1);
+            button_container_left.attach (nine_button,              2, 1, 1, 1);
+            button_container_left.attach (multi_button,             3, 1, 1, 1);
+            button_container_left.attach (four_button,              0, 2, 1, 1);
+            button_container_left.attach (five_button,              1, 2, 1, 1);
+            button_container_left.attach (six_button,               2, 2, 1, 1);
+            button_container_left.attach (minus_button,             3, 2, 1, 1);
+            button_container_left.attach (one_button,               0, 3, 1, 1);
+            button_container_left.attach (two_button,               1, 3, 1, 1);
+            button_container_left.attach (three_button,             2, 3, 1, 1);
+            button_container_left.attach (plus_button,              3, 3, 1, 1);
+            button_container_left.attach (zero_button,              0, 4, 1, 1);
+            button_container_left.attach (left_parenthesis_button,  1, 4, 1, 1);
+            button_container_left.attach (right_parenthesis_button, 2, 4, 1, 1);
+            button_container_left.attach (bit_button,               3, 4, 1, 1);
+
             button_container_left.set_column_homogeneous (true);
             button_container_left.set_row_homogeneous (true);
-            
 
-            button_container_right.attach (or_button,           0, 0, 1, 1);
-            button_container_right.attach (memory_plus_button,  1, 0, 1, 1);
-            button_container_right.attach (and_button,          0, 1, 1, 1);
-            button_container_right.attach (memory_minus_button, 1, 1, 1, 1);
-            button_container_right.attach (xor_button,          0, 2, 1, 1);
-            button_container_right.attach (memory_recall_button,1, 2, 1, 1);
-            button_container_right.attach (not_button,          0, 3, 1, 1);
-            button_container_right.attach (memory_clear_button, 1, 3, 1, 1);
-            button_container_right.attach (ans_button,          0, 4, 1, 1);
-            button_container_right.attach (result_button,       1, 4, 1, 1);
-            
+            button_container_right.attach (bit_mode_button,         0, 0, 4, 1);
+            button_container_right.attach (d_button,                0, 1, 1, 1);
+            button_container_right.attach (e_button,                1, 1, 1, 1);
+            button_container_right.attach (f_button,                2, 1, 1, 1);
+            button_container_right.attach (memory_plus_button,      3, 1, 1, 1);
+            button_container_right.attach (a_button,                0, 2, 1, 1);
+            button_container_right.attach (b_button,                1, 2, 1, 1);
+            button_container_right.attach (c_button,                2, 2, 1, 1);
+            button_container_right.attach (memory_minus_button,     3, 2, 1, 1);
+            button_container_right.attach (or_button,               0, 3, 1, 1);
+            button_container_right.attach (and_button,              1, 3, 1, 1);
+            button_container_right.attach (xor_button,              2, 3, 1, 1);
+            button_container_right.attach (memory_recall_button,    3, 3, 1, 1);
+            button_container_right.attach (not_button,              0, 4, 1, 1);
+            button_container_right.attach (ans_button,              1, 4, 1, 1);
+            result_shift_container = new Gtk.Stack ();
+            result_shift_container.add_named (result_button, "result_button");
+            result_shift_container.add_named (shift_button, "shift_button");
+
+            button_container_right.attach (result_shift_container, 2, 4, 1, 1);
+            button_container_right.attach (memory_clear_button,     3, 4, 1, 1);
+
             button_container_right.set_column_homogeneous (true);
             button_container_right.set_row_homogeneous (true);
-            
-            var main_keypad_grid = new Gtk.Grid ();
-            main_keypad_grid.attach (button_container_left, 0, 0, 1, 1);
-            main_keypad_grid.attach (button_container_right,1, 0, 1, 1);
+
+            button_leaflet = new Hdy.Leaflet ();
+            button_leaflet.add (button_container_left);
+            button_leaflet.add (button_container_right);
+            button_leaflet.set_visible_child (button_container_left);
+            button_leaflet.hhomogeneous_unfolded = true;
+            button_leaflet.can_swipe_back = true;
+            button_leaflet.can_swipe_forward = true;
             
             bit_grid = new BitToggleGrid ();
             
             var keypad_stack = new Gtk.Stack ();
-            keypad_stack.add_named (main_keypad_grid, "Main Numeric Keypad");
+            keypad_stack.add_named (button_leaflet, "Main Leaflet");
             keypad_stack.add_named (bit_grid, "Bit Toggle Grid");
             keypad_stack.set_transition_type (Gtk.StackTransitionType.OVER_UP_DOWN);
             bit_button.clicked.connect (() => {
                 keypad_stack.set_visible_child (bit_grid);
             });
             bit_grid.hide_grid.clicked.connect (() => {
-                keypad_stack.set_visible_child (main_keypad_grid);
+                keypad_stack.set_visible_child (button_leaflet);
             });
+
+            toolbar_view_functions_buttons_button = new StyledButton ("<i> ƒ </i>");
+            toolbar_view_functions_buttons_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
+            toolbar_view_functions_buttons_button.halign = Gtk.Align.START;
+            toolbar_view_functions_buttons_button.width_request = 46;
+
+
+            toolbar_angle_mode_button = new StyledButton ("QWD", "<b>" + _("QWORD") + "</b> \xE2\x86\x92" + _("DWORD"), {"F8"});
+            toolbar_angle_mode_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
+            toolbar_angle_mode_button.halign = Gtk.Align.END;
+            toolbar_angle_mode_button.width_request = 46;
+
+            toolbar_result_button = new StyledButton (" = ", _("Result"), {"Return"});
+            toolbar_result_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
+            toolbar_result_button.hexpand = true;
+
+            bottom_button_bar_revealer = new Gtk.Revealer ();
+            var bottom_toolbar = new Gtk.ActionBar ();
+            bottom_toolbar.height_request = 40;
+
+            var toolbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 2);
+            toolbox.set_homogeneous (true);
+            toolbox.pack_start (toolbar_view_functions_buttons_button);
+            toolbox.pack_start (toolbar_result_button);
+            toolbox.pack_end (toolbar_angle_mode_button);
+            toolbox.margin = 8;
+            toolbox.margin_start = 4;
+            toolbox.margin_end = 4;
+
+            bottom_toolbar.pack_start (toolbox);
+
+
+            bottom_button_bar_revealer.add (bottom_toolbar);
+            bottom_button_bar_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
             
-            main_grid.attach (display_container, 0, 0, 1, 1);
-            main_grid.attach (keypad_stack, 0, 1, 1, 1);
-            main_grid.width_request = 500;
-            //main_grid.set_column_homogeneous (true);
-            
-            add_overlay (main_grid);
+            attach (display_container, 0, 0, 1, 1);
+            attach (keypad_stack, 0, 1, 1, 1);
+            attach (bottom_button_bar_revealer, 0, 2, 1, 1);
         }
         public void hold_shift (bool hold) {
             shift_held = hold;
             display_unit.set_shift_enable (hold);
             set_alternative_button ();
+        }
+        private void toggle_leaf () {
+            if (!button_leaflet.get_child_transition_running ()) {
+                if (button_leaflet.get_visible_child () == button_container_left) {
+                    button_leaflet.set_visible_child (button_container_right);
+                } else {
+                    button_leaflet.set_visible_child (button_container_left);
+                }
+            }
         }
         public void set_alternative_button () {
             if (shift_held) {
@@ -345,7 +448,19 @@ namespace Pebbles {
             //display_unit.input_entry.set_text ("");
             display_unit.insert_text(settings.prog_input_text);
             display_unit.set_number_system ();
-            
+
+            this.size_allocate.connect ((event) => {
+                if (button_leaflet.folded) {
+                    bottom_button_bar_revealer.set_reveal_child (true);
+                    result_shift_container.set_visible_child_name ("shift_button");
+                } else {
+                    bottom_button_bar_revealer.set_reveal_child (false);
+                    result_shift_container.set_visible_child_name ("result_button");
+                }
+            });
+            toolbar_view_functions_buttons_button.clicked.connect (() => {
+                toggle_leaf ();
+            });
 
             result_button.button_press_event.connect ((event) => {
                 display_unit.display_off ();

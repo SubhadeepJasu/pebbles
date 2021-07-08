@@ -193,7 +193,7 @@ namespace Pebbles {
                 else
                     del_button.sensitive = true;
             });
-            variable_button = new StyledButton ("<i>x</i>", _("Variable for linear expressions"), {"X"});
+            variable_button = new StyledButton ("𝑥", _("Variable for linear expressions"), {"X"});
             divide_button = new StyledButton ("\xC3\xB7", _("Divide"));
             divide_button.get_style_context ().add_class ("h3");
             seven_button = new StyledButton ("7");
