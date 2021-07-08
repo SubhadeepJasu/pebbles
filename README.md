@@ -32,9 +32,8 @@ cd pebbles
 
 Compile, install and start Pebbles on your system
 ```
-meson build --prefix=/usr
-cd build
-sudo ninja install
+meson _build --prefix=/usr
+ninja -C _build install
 com.github.subhadeepjasu.pebbles
 ```
 
