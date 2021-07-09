@@ -72,7 +72,7 @@ namespace Pebbles {
             header_title.get_style_context ().add_class ("h2");
             header_title.set_justify (Gtk.Justification.LEFT);
             header_title.halign = Gtk.Align.START;
-            header_title.margin_start = 6;
+            header_title.margin_start = 8;
 
             // Make Upper Unit Box
             from_entry = new Gtk.Entry ();
@@ -125,10 +125,6 @@ namespace Pebbles {
             conversion_grid.margin_end = 8;
             conversion_grid.valign = Gtk.Align.CENTER;
             conversion_grid.row_spacing = 8;
-            
-            var separator = new Gtk.Separator (Gtk.Orientation.VERTICAL);
-            separator.margin_start = 25;
-            separator.margin_end = 25;
 
             ResponsiveBox wrapbox = new ResponsiveBox (8);
             wrapbox.homogeneous = true;

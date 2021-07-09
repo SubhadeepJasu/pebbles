@@ -467,18 +467,18 @@ namespace Pebbles {
             common_view.add_named (date_view, "Date");
             //  common_view.add_named (statistics_view, "Statistics");
             common_view.add_named (conv_length_view, "Length");
-            //  common_view.add_named (conv_area_view, "Area");
-            //  common_view.add_named (conv_volume_view, "Volume");
-            //  common_view.add_named (conv_time_view, "Time");
-            //  common_view.add_named (conv_angle_view, "Angle");
-            //  common_view.add_named (conv_speed_view, "Speed");
-            //  common_view.add_named (conv_mass_view, "Mass");
-            //  common_view.add_named (conv_press_view, "Pressure");
-            //  common_view.add_named (conv_energy_view, "Energy");
-            //  common_view.add_named (conv_power_view, "Power");
-            //  common_view.add_named (conv_temp_view, "Temperature");
-            //  common_view.add_named (conv_data_view, "Data");
-            //  common_view.add_named (conv_curr_view, "Currency");
+            common_view.add_named (conv_area_view, "Area");
+            common_view.add_named (conv_volume_view, "Volume");
+            common_view.add_named (conv_time_view, "Time");
+            common_view.add_named (conv_angle_view, "Angle");
+            common_view.add_named (conv_speed_view, "Speed");
+            common_view.add_named (conv_mass_view, "Mass");
+            common_view.add_named (conv_press_view, "Pressure");
+            common_view.add_named (conv_energy_view, "Energy");
+            common_view.add_named (conv_power_view, "Power");
+            common_view.add_named (conv_temp_view, "Temperature");
+            common_view.add_named (conv_data_view, "Data");
+            common_view.add_named (conv_curr_view, "Currency");
 
             //  //Create Panes
             //  var paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
@@ -578,6 +578,19 @@ namespace Pebbles {
                 (this.common_view.get_visible_child () == this.calculus_view && this.calculus_view.button_leaflet.folded) ||
                 (this.common_view.get_visible_child () == this.programmer_view && this.programmer_view.button_leaflet.folded) ||
                 (this.common_view.get_visible_child () == this.date_view && this.date_view.get_allocated_width () < 540) ||
+                (this.common_view.get_visible_child () == this.conv_length_view) ||
+                (this.common_view.get_visible_child () == this.conv_area_view) ||
+                (this.common_view.get_visible_child () == this.conv_angle_view) ||
+                (this.common_view.get_visible_child () == this.conv_data_view) ||
+                (this.common_view.get_visible_child () == this.conv_curr_view && this.conv_curr_view.wrapbox.wrapping) ||
+                (this.common_view.get_visible_child () == this.conv_energy_view) ||
+                (this.common_view.get_visible_child () == this.conv_mass_view) ||
+                (this.common_view.get_visible_child () == this.conv_power_view) ||
+                (this.common_view.get_visible_child () == this.conv_press_view) ||
+                (this.common_view.get_visible_child () == this.conv_speed_view) ||
+                (this.common_view.get_visible_child () == this.conv_temp_view) ||
+                (this.common_view.get_visible_child () == this.conv_time_view) ||
+                (this.common_view.get_visible_child () == this.conv_volume_view) ||
                 pre_fold) {
                 header_switcher.set_visible (false);
                 history_button.set_visible (false);
