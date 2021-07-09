@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright 2018 Subhadeep Jasu <subhajasu@gmail.com> -->
+<!-- Copyright 2017-2022 Subhadeep Jasu <subhajasu@gmail.com> -->
 <component type="desktop-application">
   <id>com.github.subhadeepjasu.pebbles</id>
   <metadata_license>CC0-1.0</metadata_license>
@@ -93,6 +93,25 @@
     <content_attribute id="money-gambling">none</content_attribute>
   </content_rating>
   <releases>
+    <release date="2021-07-14" version="2.0.0">
+      <description>
+        <p>New:</p>
+        <ul>
+          <li>[UI] Make UI resizable and responsive with touch support</li>
+          <li>[UI] Follow platform-implemented dark style preference</li>
+        </ul>
+        <p>Improved:</p>
+        <ul>
+          <li>[Calculus] Prevent divide by zero errors, use "tends to zero" logic</li>
+          <li>[Calculus] Add ability to input negative and fractional limits</li>
+          <li>[Calculus] Add ability to modify integration accuracy</li>
+        </ul>
+        <p>Fixed:</p>
+        <ul>
+          <li>[Programmer] Remove leading '0's correctly</li>
+        </ul>
+      </description>
+    </release>
     <release date="2021-05-13" version="1.1.1">
       <description>
         <p>New:</p>

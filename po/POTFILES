@@ -24,7 +24,7 @@ src/Views/ConvTempView.vala
 src/Views/ConvDataView.vala
 src/Views/ConvCurrView.vala
 src/Views/ControlsOverlay.vala
-src/Views/HistoryViewScientific.vala
+src/Views/HistoryView.vala
 src/Views/BottomPopper.vala
 
 src/Views/Displays/StatisticsDisplay.vala

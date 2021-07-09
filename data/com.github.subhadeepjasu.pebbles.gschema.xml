@@ -79,11 +79,6 @@
 			<summary>Choose the number system</summary>
 			<description>Select the number system.</description>
 		</key>
-		<key name="use-dark-theme" type="b">
-			<default>true</default>
-			<summary>Use Dark Theme</summary>
-			<description>Use dark theme.</description>
-		</key>
 		<key name="constant-key-value1" enum="com.github.subhadeepjasu.pebbles.constant-key-index">
 			<default>"euler"</default>
 			<summary>Choose Constant 1</summary>
