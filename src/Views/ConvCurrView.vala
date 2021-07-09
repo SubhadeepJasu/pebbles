@@ -188,7 +188,7 @@ namespace Pebbles {
         public void update_currency_data () {
             start_update ();
             waiting_overlay_bar.opacity = 1.0;
-            //curr.request_update ();
+            curr.request_update ();
         }
         private void handle_events () {
             curr.update_failed.connect (() => {
