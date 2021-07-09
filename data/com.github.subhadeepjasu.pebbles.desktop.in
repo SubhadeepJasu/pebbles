@@ -9,7 +9,6 @@ Terminal=false
 Type=Application
 Keywords=calculator;scientific;programmer;statistics;converter;convert;calculate;boolean;
 X-GNOME-Gettext-Domain=com.github.subhadeepjasu.pebbles
-X-GNOME-UsesNotifications=true
 Actions=MiniMode;NewWindow;
 
 [Desktop Action MiniMode]

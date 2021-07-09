@@ -28,7 +28,6 @@ namespace Pebbles {
 
         // CONTROLS
         Gtk.HeaderBar headerbar;
-        Granite.ModeSwitch dark_mode_switch;
         Pebbles.Settings settings;
         Gtk.MenuButton app_menu;
 
@@ -110,9 +109,6 @@ namespace Pebbles {
         PreferencesOverlay preferences_modal;
         HistoryView     history_modal;
 
-        // NOTIFICATION
-        Notification desktop_notification;
-
         // History
         public HistoryManager history_manager;
         Gtk.MenuItem history_item;
@@ -129,9 +125,6 @@ namespace Pebbles {
 
         public MainWindow () {
             settings = Pebbles.Settings.get_default ();
-            settings.notify["use-dark-theme"].connect (() => {
-                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = settings.use_dark_theme;
-            });
             this.delete_event.connect (() => {
                 save_settings ();
                 return false;
@@ -162,16 +155,6 @@ namespace Pebbles {
         }
 
         public void make_ui () {
-            // Create dark mode switcher
-            dark_mode_switch = new Granite.ModeSwitch.from_icon_name ("display-brightness-symbolic", "weather-clear-night-symbolic");
-            dark_mode_switch.primary_icon_tooltip_text = _("Light background");
-            dark_mode_switch.secondary_icon_tooltip_text = _("Dark background");
-            dark_mode_switch.valign = Gtk.Align.CENTER;
-            dark_mode_switch.active = settings.use_dark_theme;
-            dark_mode_switch.notify["active"].connect (() => {
-                settings.use_dark_theme = dark_mode_switch.active;
-            });
-
             // Make Scientific / Calculus View Controls ///////////////
             // Create back button
             leaflet_back_button = new StyledButton (_("All Categories"));
@@ -366,7 +349,6 @@ namespace Pebbles {
             headerbar.pack_start (header_switcher);
             headerbar.pack_end (history_button);
             headerbar.pack_end (app_menu);
-            headerbar.pack_end (dark_mode_switch);// Uncomment to use dark mode switch
             this.set_titlebar (headerbar);
 
             // Create Item Pane
@@ -375,7 +357,7 @@ namespace Pebbles {
             programmer_item  = new Granite.Widgets.SourceList.Item (_("Programmer"));
             date_item        = new Granite.Widgets.SourceList.Item (_("Date"));
             stats_item       = new Granite.Widgets.SourceList.Item (_("Statistics"));
-            var finance_item     = new Granite.Widgets.SourceList.Item (_("Financial"));
+            finance_item     = new Granite.Widgets.SourceList.Item (_("Financial"));
             conv_length_item = new Granite.Widgets.SourceList.Item (_("Length"));
             conv_area_item   = new Granite.Widgets.SourceList.Item (_("Area"));
             conv_volume_item = new Granite.Widgets.SourceList.Item (_("Volume"));
@@ -651,10 +633,8 @@ namespace Pebbles {
                 date_view.add_mode_button.set_visible (false);
             }
             if (main_leaflet.folded) {
-                dark_mode_switch.set_visible (false);
                 leaflet_back_button.set_visible (true);
             } else {
-                dark_mode_switch.set_visible (true);
                 leaflet_back_button.set_visible (false);
             }
             //warning("adjusting");
@@ -994,7 +974,6 @@ namespace Pebbles {
             }
         }
         private void load_settings () {
-            Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = settings.use_dark_theme;
             if (settings.window_x < 0 || settings.window_y < 0 ) {
                 this.window_position = Gtk.WindowPosition.CENTER;
             } else {

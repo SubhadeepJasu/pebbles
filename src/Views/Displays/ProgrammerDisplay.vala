@@ -284,7 +284,11 @@ namespace Pebbles {
             bool[] output_array = programmer_calculator_front_end.string_to_bool_array (output, settings.number_system, settings.global_word_length);
             string int_string = programmer_calculator_front_end.bool_array_to_string (output_array, settings.global_word_length, NumberSystem.DECIMAL);
             int64 output_integer = 0;
-            int64.from_string (int_string, out output_integer);
+            try {
+                int64.from_string (int_string, out output_integer);
+            } catch (Error e) {
+                warning (e.message);
+            }
             print("memory: %s\n", output_integer.to_string ());
             if (subtract) {
                 memory_reserve -= output_integer;

@@ -112,6 +112,7 @@ namespace Pebbles {
             main_grid.attach (forex_api_link, 0, 11, 1, 1);
 
             this.add (main_grid);
+            main_grid.margin_bottom = 8;
 
             var headerbar = new Gtk.HeaderBar ();
             headerbar.has_subtitle = false;

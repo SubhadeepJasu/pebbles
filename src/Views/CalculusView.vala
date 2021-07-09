@@ -20,7 +20,6 @@
 
 namespace Pebbles {
     public class CalculusView : Gtk.Grid {
-        Gtk.Label cal_placeholder;
         // Reference of main window
         public MainWindow window;
 
@@ -79,8 +78,6 @@ namespace Pebbles {
         Gtk.Entry int_limit_a;
         Gtk.Entry int_limit_b;
         Gtk.Entry int_limit_x;
-
-        Gtk.Entry differential_value;
 
         CommonNumericKeypad keypad_a;
         CommonNumericKeypad keypad_b;
@@ -905,17 +902,6 @@ namespace Pebbles {
             keypad_a.closed.connect (() => display_unit.input_entry.grab_focus_without_selecting ());
             keypad_b.closed.connect (() => display_unit.input_entry.grab_focus_without_selecting ());
             keypad_x.closed.connect (() => display_unit.input_entry.grab_focus_without_selecting ());
-        }
-        private void char_button_click (string input) {
-            string sample = display_unit.input_entry.get_text ();
-            display_unit.input_entry.grab_focus_without_selecting ();
-            if (sample != "0") {
-                display_unit.input_entry.set_text (sample.concat (input));
-            }
-            else {
-                display_unit.input_entry.set_text (input);
-            }
-            display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
         }
         public void set_angle_mode_display (int state) {
             display_unit.set_angle_status (state);
