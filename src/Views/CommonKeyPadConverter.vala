@@ -46,6 +46,7 @@ namespace Pebbles {
             // Make the buttons
             del_button = new Gtk.Button.from_icon_name ("edit-clear-symbolic", Gtk.IconSize.BUTTON);
             del_button.set_tooltip_text (_("Backspace"));
+            del_button.get_style_context ().remove_class ("image-button");
             all_clear_button = new StyledButton ("AC", (_("Clear Entry")));
             all_clear_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
             seven_button = new StyledButton ("7");
@@ -77,7 +78,7 @@ namespace Pebbles {
             set_column_homogeneous (true);
             set_row_homogeneous (true);
             
-            width_request = 248;
+            width_request = 250;
             height_request = 210;
             margin_start = 8;
             margin_end = 8;

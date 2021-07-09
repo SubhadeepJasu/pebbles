@@ -279,7 +279,7 @@
 
 .Pebbles_Conversion_Text_Box {
 	background: none;
-	border: 1px solid alpha (@border_color, 0);
+	border: 1px solid alpha (#000, 0.0);
 	box-shadow: none;
 	font-weight: bold;
 }
@@ -297,12 +297,9 @@
                 0.97
             )
         );
-    border: 1px solid @border_color;
-    border-radius: 2.5px;
-    box-shadow:
-        inset 0 1px 0 0 alpha (@inset_dark_color, 0.7),
-        inset 0 0 0 1px alpha (@inset_dark_color, 0.3),
-        0 1px 0 0 alpha (@bg_highlight_color, 0.3);
+	box-shadow: inset 0 1px alpha(#000, 0.1), 0 1px alpha(#fff, 0.1);
+    border: 1px solid alpha(#000, 0.3);
+    border-radius: 3px;
     color: @text_color;
     text-shadow: 0 1px @text_shadow_color;
     padding: 3px;

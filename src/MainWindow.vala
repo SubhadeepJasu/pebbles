@@ -466,7 +466,7 @@ namespace Pebbles {
             common_view.add_named (programmer_view, "Programmer");
             common_view.add_named (date_view, "Date");
             //  common_view.add_named (statistics_view, "Statistics");
-            //  common_view.add_named (conv_length_view, "Length");
+            common_view.add_named (conv_length_view, "Length");
             //  common_view.add_named (conv_area_view, "Area");
             //  common_view.add_named (conv_volume_view, "Volume");
             //  common_view.add_named (conv_time_view, "Time");
@@ -493,7 +493,7 @@ namespace Pebbles {
             // main_leaflet.add (new Gtk.Separator (Gtk.Orientation.VERTICAL));
             main_leaflet.add (common_view);
             main_leaflet.set_can_swipe_back (true);
-            main_leaflet.set_transition_type (Hdy.LeafletTransitionType.OVER);
+            main_leaflet.set_transition_type (Hdy.LeafletTransitionType.UNDER);
 
             main_deck = new Hdy.Deck();
             //main_deck.can_swipe_back = true;
