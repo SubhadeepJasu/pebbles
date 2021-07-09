@@ -74,7 +74,7 @@ namespace Pebbles {
         StyledButton memory_clear_button;
         public StyledButton ans_button;
         StyledButton result_button;
-        StyledButton shift_button;
+        public StyledButton shift_button;
         
         // Bit Toggle View
         public BitToggleGrid bit_grid;
@@ -85,13 +85,13 @@ namespace Pebbles {
         // Toolbar
         Gtk.Revealer bottom_button_bar_revealer;
         StyledButton toolbar_view_functions_buttons_button;
-        public StyledButton toolbar_angle_mode_button;
+        public StyledButton toolbar_word_mode_button;
         StyledButton toolbar_result_button;
 
         // App Settings
         Pebbles.Settings settings;
 
-        private bool shift_held = false;
+        public bool shift_held = false;
 
         public ProgrammerView (MainWindow window) {
             this.window = window;
@@ -352,16 +352,16 @@ namespace Pebbles {
                 keypad_stack.set_visible_child (button_leaflet);
             });
 
-            toolbar_view_functions_buttons_button = new StyledButton ("<i> ƒ </i>");
+            toolbar_view_functions_buttons_button = new StyledButton ("<i> ƒ </i>", _("Opens functions panel"));
             toolbar_view_functions_buttons_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             toolbar_view_functions_buttons_button.halign = Gtk.Align.START;
             toolbar_view_functions_buttons_button.width_request = 46;
 
 
-            toolbar_angle_mode_button = new StyledButton ("QWD", "<b>" + _("QWORD") + "</b> \xE2\x86\x92" + _("DWORD"), {"F8"});
-            toolbar_angle_mode_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            toolbar_angle_mode_button.halign = Gtk.Align.END;
-            toolbar_angle_mode_button.width_request = 46;
+            toolbar_word_mode_button = new StyledButton ("QWD", "<b>" + _("Qword") + "</b> \xE2\x86\x92" + _("Dword"), {"F8"});
+            toolbar_word_mode_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
+            toolbar_word_mode_button.halign = Gtk.Align.END;
+            toolbar_word_mode_button.width_request = 46;
 
             toolbar_result_button = new StyledButton (" = ", _("Result"), {"Return"});
             toolbar_result_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
@@ -375,7 +375,7 @@ namespace Pebbles {
             toolbox.set_homogeneous (true);
             toolbox.pack_start (toolbar_view_functions_buttons_button);
             toolbox.pack_start (toolbar_result_button);
-            toolbox.pack_end (toolbar_angle_mode_button);
+            toolbox.pack_end (toolbar_word_mode_button);
             toolbox.margin = 8;
             toolbox.margin_start = 4;
             toolbox.margin_end = 4;

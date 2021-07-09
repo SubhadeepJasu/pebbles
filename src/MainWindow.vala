@@ -55,7 +55,7 @@ namespace Pebbles {
         public Gtk.Grid date_diff_grid;
         public Gtk.Grid date_add_grid;
 
-        Gtk.Button word_length_button;
+        StyledButton word_length_button;
         public Gtk.Switch shift_switch_prog;
 
         public Gtk.Button update_button;
@@ -174,7 +174,7 @@ namespace Pebbles {
 
             // Make Scientific / Calculus View Controls ///////////////
             // Create back button
-            leaflet_back_button = new StyledButton ("All Categories");
+            leaflet_back_button = new StyledButton (_("All Categories"));
             leaflet_back_button.valign = Gtk.Align.CENTER;
             leaflet_back_button.set_image (new Gtk.Image.from_icon_name ("view-more-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
             leaflet_back_button.tooltip_text = "Pebbles Menu";
@@ -241,8 +241,7 @@ namespace Pebbles {
             date_mode_stack.set_transition_type (Gtk.StackTransitionType.SLIDE_LEFT_RIGHT);
 
             // Make Programmer Controls
-            word_length_button = new Gtk.Button.with_label ("QWD");
-            word_length_button.tooltip_text = "QWORD";
+            word_length_button = new StyledButton ("QWD", "<b>" + _("Qword") + "</b> \xE2\x86\x92" + _("Dword"), {"F8"});
             word_length_button.set_margin_end (7);
             word_length_button.width_request = 50;
             word_length_button.clicked.connect (() => {
@@ -292,10 +291,27 @@ namespace Pebbles {
             preferences_overlay_item.add (new Granite.AccelLabel (_("Preferences"), "F2"));
             history_item = new Gtk.MenuItem ();
             history_item.add (new Granite.AccelLabel (_("History"), ""));
+            var update_forex_item = new Gtk.MenuItem ();
+            update_forex_item.add (new Granite.AccelLabel (_("Update Forex Data"), "R"));
+
+            update_button.unmap.connect (() => {
+                if (header_switcher != null && header_switcher.visible == false) {
+                    update_forex_item.visible = true;
+                } else {
+                    update_forex_item.visible = false;
+                }
+            });
+            update_button.map.connect (() => {
+                if (header_switcher != null && header_switcher.visible == true) {
+                    update_forex_item.visible = false;
+                }
+            });
+
 
             settings_menu.append (controls_overlay_item);
             settings_menu.append (preferences_overlay_item);
             settings_menu.append (history_item);
+            settings_menu.append (update_forex_item);
             settings_menu.show_all();
 
             controls_overlay_item.activate.connect (() => {
@@ -308,6 +324,10 @@ namespace Pebbles {
 
             history_item.activate.connect (() => {
                 show_history ();
+            });
+
+            update_forex_item.activate.connect (() => {
+                conv_curr_view.update_currency_data ();
             });
 
             app_menu.popup = settings_menu;
@@ -439,6 +459,32 @@ namespace Pebbles {
             this.scientific_view.toolbar_angle_mode_button.clicked.connect (() => {
                 settings.switch_angle_unit ();
                 angle_unit_button_label_update ();
+            });
+            this.scientific_view.shift_button.clicked.connect (() => {
+                scientific_view.hold_shift (!scientific_view.shift_held);
+                calculus_view.hold_shift (!calculus_view.shift_held);
+                shift_switch.active = scientific_view.shift_held && calculus_view.shift_held;
+            });
+
+            this.calculus_view.toolbar_shift_button.clicked.connect (() => {
+                scientific_view.hold_shift (!scientific_view.shift_held);
+                calculus_view.hold_shift (!calculus_view.shift_held);
+                shift_switch.active = scientific_view.shift_held && calculus_view.shift_held;
+            });
+
+            this.calculus_view.toolbar_angle_mode_button.clicked.connect (() => {
+                settings.switch_angle_unit ();
+                angle_unit_button_label_update ();
+            });
+
+            this.programmer_view.toolbar_word_mode_button.clicked.connect (() => {
+                settings.switch_word_length ();
+                word_length_button_label_update ();
+            });
+
+            this.programmer_view.shift_button.clicked.connect (() => {
+                programmer_view.hold_shift (!programmer_view.shift_held);
+                shift_switch_prog.active = programmer_view.shift_held;
             });
 
             conv_curr_view.start_update.connect (() => {
@@ -897,18 +943,21 @@ namespace Pebbles {
             if (settings.global_angle_unit == Pebbles.GlobalAngleUnit.DEG) {
                 angle_unit_button.update_label ("DEG", "<b>" + _("Degrees") + "</b> \xE2\x86\x92 " + _("Radians"), {"F8"});
                 this.scientific_view.toolbar_angle_mode_button.update_label ("DEG", "<b>" + _("Degrees") + "</b> \xE2\x86\x92 " + _("Radians"), {"F8"});
+                this.calculus_view.toolbar_angle_mode_button.update_label ("DEG", "<b>" + _("Degrees") + "</b> \xE2\x86\x92 " + _("Radians"), {"F8"});
                 scientific_view.set_angle_mode_display (0);
                 calculus_view.set_angle_mode_display (0);
             }
             else if (settings.global_angle_unit == Pebbles.GlobalAngleUnit.RAD) {
                 angle_unit_button.update_label ("RAD", "<b>" + _("Radians") + "</b> \xE2\x86\x92 " + _("Gradians"), {"F8"});
                 this.scientific_view.toolbar_angle_mode_button.update_label ("RAD", "<b>" + _("Radians") + "</b> \xE2\x86\x92 " + _("Gradians"), {"F8"});
+                this.calculus_view.toolbar_angle_mode_button.update_label ("RAD", "<b>" + _("Radians") + "</b> \xE2\x86\x92 " + _("Gradians"), {"F8"});
                 scientific_view.set_angle_mode_display (1);
                 calculus_view.set_angle_mode_display (1);
             }
             else if (settings.global_angle_unit == Pebbles.GlobalAngleUnit.GRAD) {
                 angle_unit_button.update_label ("GRA", "<b>" + _("Gradians") + "</b> \xE2\x86\x92 " + _("Degrees"), {"F8"});
                 this.scientific_view.toolbar_angle_mode_button.update_label ("GRA", "<b>" + _("Gradians") + "</b> \xE2\x86\x92 " + _("Degrees"), {"F8"});
+                this.calculus_view.toolbar_angle_mode_button.update_label ("GRA", "<b>" + _("Gradians") + "</b> \xE2\x86\x92 " + _("Degrees"), {"F8"});
                 scientific_view.set_angle_mode_display (2);
                 calculus_view.set_angle_mode_display (2);
             }
@@ -920,26 +969,26 @@ namespace Pebbles {
         }
         private void word_length_button_label_update () {
             if (settings.global_word_length == Pebbles.GlobalWordLength.QWD) {
-                word_length_button.label = "QWD";
-                word_length_button.tooltip_text = "QWORD";
+                word_length_button.update_label ("QWD", "<b>" + _("Qword") + "</b> \xE2\x86\x92 " + _("Dword"), {"F8"});
+                programmer_view.toolbar_word_mode_button.update_label ("QWD", "<b>" + _("Qword") + "</b> \xE2\x86\x92 " + _("Dword"), {"F8"});
                 programmer_view.display_unit.set_word_length_status (0);
                 programmer_view.bit_grid.set_bit_length_mode (3);
             }
             else if (settings.global_word_length == Pebbles.GlobalWordLength.DWD) {
-                word_length_button.label = "DWD";
-                word_length_button.tooltip_text = "DWORD";
+                word_length_button.update_label ("DWD", "<b>" + _("Dword") + "</b> \xE2\x86\x92 " + _("Word"), {"F8"});
+                programmer_view.toolbar_word_mode_button.update_label ("DWD", "<b>" + _("Dword") + "</b> \xE2\x86\x92 " + _("Word"), {"F8"});
                 programmer_view.display_unit.set_word_length_status (1);
                 programmer_view.bit_grid.set_bit_length_mode (2);
             }
             else if (settings.global_word_length == Pebbles.GlobalWordLength.WRD) {
-                word_length_button.label = "WRD";
-                word_length_button.tooltip_text = "WORD";
+                word_length_button.update_label ("WRD", "<b>" + _("Word") + "</b> \xE2\x86\x92 " + _("Byte"), {"F8"});
+                programmer_view.toolbar_word_mode_button.update_label ("DWD", "<b>" + _("Dword") + "</b> \xE2\x86\x92 " + _("Word"), {"F8"});
                 programmer_view.display_unit.set_word_length_status (2);
                 programmer_view.bit_grid.set_bit_length_mode (1);
             }
             else if (settings.global_word_length == Pebbles.GlobalWordLength.BYT) {
-                word_length_button.label = "BYT";
-                word_length_button.tooltip_text = "BYTE";
+                word_length_button.update_label ("BYT", "<b>" + _("Byte") + "</b> \xE2\x86\x92 " + _("Qword"), {"F8"});
+                programmer_view.toolbar_word_mode_button.update_label ("DWD", "<b>" + _("Dword") + "</b> \xE2\x86\x92 " + _("Word"), {"F8"});
                 programmer_view.display_unit.set_word_length_status (3);
                 programmer_view.bit_grid.set_bit_length_mode (0);
             }

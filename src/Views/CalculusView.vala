@@ -120,7 +120,7 @@ namespace Pebbles {
         }
 
 
-        private bool shift_held = false;
+        public bool shift_held = false;
         private bool ctrl_held = false;
 
         public CalculusView (MainWindow window) {
@@ -472,6 +472,15 @@ namespace Pebbles {
                 constant_button.update_label (constant_label_1, constant_desc_1, {"R"});
             }
         }
+        private void toggle_leaf () {
+            if (!button_leaflet.get_child_transition_running ()) {
+                if (button_leaflet.get_visible_child () == button_container_left) {
+                    button_leaflet.set_visible_child (button_container_right);
+                } else {
+                    button_leaflet.set_visible_child (button_container_left);
+                }
+            }
+        }
         public void load_constant_button_settings () {
             settings = Pebbles.Settings.get_default ();
             switch (settings.constant_key_value1) {
@@ -569,6 +578,9 @@ namespace Pebbles {
                 } else {
                     bottom_button_bar_revealer.set_reveal_child (false);
                 }
+            });
+            toolbar_int_der_func_button.clicked.connect (() => {
+                toggle_leaf ();
             });
             derivation_button.button_press_event.connect ((event) => {
                 if (event.button == 1) {

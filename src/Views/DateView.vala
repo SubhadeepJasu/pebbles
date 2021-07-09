@@ -52,6 +52,8 @@ namespace Pebbles {
         Gtk.Grid date_diff_grid;
         Gtk.Grid date_add_grid;
 
+        Gtk.Label add_header;
+
         Pebbles.Settings settings;
         
         DateCalculator date_calculator_object;
@@ -69,18 +71,49 @@ namespace Pebbles {
             this.date_add_grid = window.date_add_grid;
             this.diff_mode_switch.state_set.connect ((event) => {
                 do_calculations ();
+                diff_mode_button.set_active (this.diff_mode_switch.active ? 1 : 0);
                 return false;
+            });
+            this.diff_mode_button.mode_changed.connect (() => {
+                do_calculations ();
+                if (diff_mode_button.selected == 0) {
+                    this.diff_mode_switch.set_active (false);
+                } else {
+                    this.diff_mode_switch.set_active (true);
+                }
             });
             this.add_mode_switch.state_set.connect ((event) => {
                 if (add_mode_switch.get_active ()) {
                     add_label.set_text (_("Subtract"));
+                    add_mode_button.set_active (1);
+                    if (add_header != null)
+                        add_header.set_text (_("The Date was"));
                     find_date (true);
                 }
                 else {
                     add_label.set_text (_("Add"));
+                    add_mode_button.set_active (0);
+                    if (add_header != null)
+                        add_header.set_text (_("The Date will be"));
                     find_date (false);
                 }
                 return false;
+            });
+
+            this.add_mode_button.mode_changed.connect (() => {
+                if (add_mode_button.selected == 0) {
+                    add_label.set_text (_("Add"));
+                    add_mode_switch.set_active (false);
+                    if (add_header != null)
+                        add_header.set_text (_("The Date will be"));
+                    find_date (false);
+                } else {
+                    add_label.set_text (_("Subtract"));
+                    add_mode_switch.set_active (true);
+                    if (add_header != null)
+                        add_header.set_text (_("The Date was"));
+                    find_date (true);
+                }
             });
             load_date ();
         }
@@ -98,6 +131,7 @@ namespace Pebbles {
             diff_mode_button = new Granite.Widgets.ModeButton ();
             diff_mode_button.append_text (_("AGE"));
             diff_mode_button.append_text (_("DUR"));
+            diff_mode_button.set_active (0);
             var from_label = new Gtk.Label (_("From"));
             from_label.xalign = 0;
             from_label.get_style_context ().add_class (Granite.STYLE_CLASS_H4_LABEL);
@@ -151,6 +185,7 @@ namespace Pebbles {
             add_mode_button = new Granite.Widgets.ModeButton ();
             add_mode_button.append_text (_("ADD"));
             add_mode_button.append_text (_("SUB"));
+            add_mode_button.set_active (0);
             var start_label = new Gtk.Label (_("Starting from"));
             start_label.xalign = 0;
             start_label.get_style_context ().add_class (Granite.STYLE_CLASS_H4_LABEL);
@@ -228,7 +263,7 @@ namespace Pebbles {
             date_add_view.column_spacing = 8;
             date_add_view.row_spacing = 4;
             
-            var add_header = new Gtk.Label (_("The Date will be"));
+            add_header = new Gtk.Label (_("The Date will be"));
             add_header.xalign = 0;
             add_header.valign = Gtk.Align.START;
             add_header.width_request = 160;
@@ -254,10 +289,12 @@ namespace Pebbles {
             main_calendar.show_day_names = true;
             main_calendar.width_request = 210;
             main_calendar.hexpand = true;
+            main_calendar.margin_top = 8;
             add_grid.attach (main_calendar, 0, 3, 1, 1);
             
             var separator_add = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
             separator_add.margin = 28;
+            separator_add.margin_top = 64;
             separator_add.hexpand = true;
             
             date_add_view.attach (separator_add, 0, 4, 1, 1);

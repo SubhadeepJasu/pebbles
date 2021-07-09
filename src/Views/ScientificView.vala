@@ -77,7 +77,7 @@ namespace Pebbles {
         StyledButton constant_button;
         public StyledButton last_answer_button;
         StyledButton result_button;
-        StyledButton shift_button;
+        public StyledButton shift_button;
         Gtk.Stack result_shift_container;
 
         // App Settings
@@ -112,7 +112,7 @@ namespace Pebbles {
             }
         }
 
-        private bool shift_held = false;
+        public bool shift_held = false;
         private bool ctrl_held = false;
 
         public ScientificView (MainWindow window) {
@@ -306,7 +306,7 @@ namespace Pebbles {
             button_container_right.set_column_homogeneous (true);
             button_container_right.set_row_homogeneous (true);
 
-            toolbar_view_functions_buttons_button = new StyledButton ("<i> ƒ </i>");
+            toolbar_view_functions_buttons_button = new StyledButton ("<i> ƒ </i>", _("Opens functions panel"));
             toolbar_view_functions_buttons_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             toolbar_view_functions_buttons_button.halign = Gtk.Align.START;
             toolbar_view_functions_buttons_button.width_request = 46;
