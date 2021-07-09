@@ -473,9 +473,12 @@ namespace Pebbles {
             if (text == "0") {
                 return "0";
             }
-            int n = text.index_of_char('1', 0);
-            if (n < 0) {
-                return text;
+            int n = -1;
+            for (int i = 0; i < text.length; i++) {
+                if (text.get_char(i) != '0') {
+                    n = i;
+                    break;
+                }
             }
             return text.substring(n);
         }
