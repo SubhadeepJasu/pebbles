@@ -137,7 +137,6 @@ namespace Pebbles {
             //Make fake LCD display
             display_container = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
             display_container.height_request = 138;
-            //display_container.width_request = 560;
             display_container.margin_start = 8;
             display_container.margin_end = 8;
             display_container.margin_top = 8;

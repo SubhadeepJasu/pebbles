@@ -24,6 +24,12 @@ namespace Pebbles {
         // Display
         StatisticsDisplay display_unit;
 
+        // Input section left side
+        Gtk.Grid button_container_left;
+
+        // Input section right side
+        Gtk.Grid button_container_right;
+
         // Left Buttons
         StyledButton all_clear_button;
         Gtk.Button del_button;
@@ -63,6 +69,13 @@ namespace Pebbles {
         StyledButton pop_std_dev_button;
         StyledButton memory_clear_button;
 
+        // Button Leaflet
+        public Hdy.Leaflet button_leaflet;
+
+        // Toolbar
+        Gtk.Revealer bottom_button_bar_revealer;
+        StyledButton result_button;
+
         private bool ctrl_held = false;
         
         // Statistics Calculator Memory Store
@@ -91,7 +104,6 @@ namespace Pebbles {
             // Make fake lcd display
             var display_container = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
             display_container.height_request = 120;
-            display_container.width_request = 560;
             display_container.margin_start = 8;
             display_container.margin_end = 8;
             display_container.margin_top = 8;
@@ -101,22 +113,24 @@ namespace Pebbles {
 
 
             // Make Input section on the left
-            var button_container_left = new Gtk.Grid ();
+            button_container_left = new Gtk.Grid ();
             button_container_left.height_request = 250;
             button_container_left.margin_start = 8;
             button_container_left.margin_end = 8;
             button_container_left.margin_bottom = 8;
             button_container_left.column_spacing = 8;
             button_container_left.row_spacing = 8;
+            button_container_left.vexpand = true;
 
             // Make Input section on the right
-            var button_container_right = new Gtk.Grid ();
+            button_container_right = new Gtk.Grid ();
             button_container_right.height_request = 250;
             button_container_right.margin_start = 8;
             button_container_right.margin_end = 8;
             button_container_right.margin_bottom = 8;
             button_container_right.column_spacing = 8;
             button_container_right.row_spacing = 8;
+            button_container_left.vexpand = true;
 
             // Make buttons on the left
             all_clear_button = new StyledButton ("AC", (_("All Clear")), {"Delete"});
@@ -155,6 +169,7 @@ namespace Pebbles {
             button_container_left.attach (decimal_button, 1, 4, 1, 1);
             button_container_left.attach (negative_button, 2, 4, 1, 1);
 
+            button_container_left.hexpand = true;
             button_container_left.set_column_homogeneous (true);
             button_container_left.set_row_homogeneous (true);
 
@@ -222,16 +237,67 @@ namespace Pebbles {
             button_container_right.attach (pop_std_dev_button, 2, 4, 1, 1);
             button_container_right.attach (memory_clear_button, 3, 4, 1, 1);
 
+            button_container_right.hexpand = true;
             button_container_right.set_column_homogeneous (true);
             button_container_right.set_row_homogeneous (true);
 
-            attach (display_container, 0, 0, 2, 1);
-            attach (button_container_left, 0, 1, 1, 1);
-            attach (button_container_right, 1, 1, 1, 1);
+            button_leaflet = new Hdy.Leaflet ();
+            button_leaflet.add (button_container_left);
+            button_leaflet.add (button_container_right);
+            button_leaflet.set_visible_child (button_container_left);
+            //  button_leaflet.hhomogeneous_unfolded = true;
+            button_leaflet.can_swipe_back = true;
+            button_leaflet.can_swipe_forward = true;
+
+            bottom_button_bar_revealer = new Gtk.Revealer ();
+            var bottom_toolbar = new Gtk.ActionBar ();
+            bottom_toolbar.height_request = 40;
+
+            result_button = new StyledButton ("=", "Query Result");
+            result_button.width_request = 72;
+            result_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
+            result_button.halign = Gtk.Align.CENTER;
+            result_button.hexpand = true;
+
+            bottom_button_bar_revealer.add (bottom_toolbar);
+            bottom_button_bar_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
+
+            var toolbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 2);
+            toolbox.set_homogeneous (true);
+            toolbox.pack_start (result_button);
+            toolbox.margin = 8;
+            toolbox.margin_start = 4;
+            toolbox.margin_end = 4;
+
+            bottom_toolbar.pack_start (toolbox);
+
+            attach (display_container, 0, 0, 1, 1);
+            attach (button_leaflet, 0, 1, 1, 1);
+            attach (bottom_button_bar_revealer, 0, 2, 1, 1);
             //set_column_homogeneous (true);
         }
 
+        private void toggle_leaf () {
+            if (!button_leaflet.get_child_transition_running ()) {
+                if (button_leaflet.get_visible_child () == button_container_left) {
+                    button_leaflet.set_visible_child (button_container_right);
+                } else {
+                    button_leaflet.set_visible_child (button_container_left);
+                }
+            }
+        }
+
         void stat_make_event () {
+            this.size_allocate.connect ((event) => {
+                if (button_leaflet.folded) {
+                    bottom_button_bar_revealer.set_reveal_child (true);
+                } else {
+                    bottom_button_bar_revealer.set_reveal_child (false);
+                }
+            });
+            result_button.clicked.connect (() => {
+                toggle_leaf ();
+            });
             // Numeric Buttons
             seven_button.clicked.connect (() => {
                 display_unit.insert_text ("7");

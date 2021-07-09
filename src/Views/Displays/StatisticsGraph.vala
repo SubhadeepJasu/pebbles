@@ -23,9 +23,6 @@ namespace Pebbles {
         private int cardinality;
         private double[] data_set;
 
-        private const double scale_x = 140;
-        private const double scale_y = 56;
-
         public void set_data_set (string[] data_points) {
             data_set = new double[data_points.length];
             for (int i = 0; i < data_points.length; i++) {
@@ -54,14 +51,14 @@ namespace Pebbles {
                 double max_height = max_point - min_point;
                 stdout.printf ("max: %lf, min: %lf\n", max_point, min_point);
     
-                int baseline = (int)(-scale_y * (min_point / max_height));
+                int baseline = (int)(-get_allocated_height () * (min_point / max_height));
     
-                double line_width = (scale_x / cardinality);
+                double line_width = (get_allocated_width () / cardinality);
                 double gap = (line_width/4).clamp (0, 2);
                 
                 // Draw bars as per data points
                 for (int i = 0; i < cardinality; i++) {
-                    draw_bar (context, (int)(line_width - gap), (int)((data_set[i]/max_height) * scale_y), (int)(i * line_width), baseline);
+                    draw_bar (context, (int)(line_width - gap), (int)((data_set[i]/max_height) * get_allocated_height ()), (int)(i * line_width), baseline);
                     stdout.printf ("%d\n", i);
                 }
             }
@@ -71,8 +68,8 @@ namespace Pebbles {
 
         private void draw_bar (Cairo.Context ctx, int width, int height, int x_offset, int y_offset) {
             ctx.set_line_width (width);
-            ctx.move_to (x_offset + (width/2), 2 + scale_y - (y_offset));
-            ctx.line_to (x_offset + (width/2), 2 + scale_y - (height + y_offset));
+            ctx.move_to (x_offset + (width/2), 2 + get_allocated_height () - (y_offset));
+            ctx.line_to (x_offset + (width/2), 2 + get_allocated_height () - (height + y_offset));
             ctx.stroke ();
         }
 
