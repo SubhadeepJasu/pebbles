@@ -196,7 +196,6 @@ namespace Pebbles {
         public BitToggleGrid () {
             bool_array = new bool[64];
             hide_grid = new Gtk.Button.from_icon_name ("pan-down-symbolic", Gtk.IconSize.BUTTON);
-            //hide_grid.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
             hide_grid.get_style_context ().add_class ("circular_button");
             hide_grid.get_style_context ().remove_class ("image-button");
             hide_grid.valign = Gtk.Align.START;

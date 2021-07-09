@@ -289,7 +289,6 @@ namespace Pebbles {
             } catch (Error e) {
                 warning (e.message);
             }
-            print("memory: %s\n", output_integer.to_string ());
             if (subtract) {
                 memory_reserve -= output_integer;
             } else {

@@ -253,7 +253,7 @@ namespace Pebbles {
             var bottom_toolbar = new Gtk.ActionBar ();
             bottom_toolbar.height_request = 40;
 
-            result_button = new StyledButton ("=", "Query Result");
+            result_button = new StyledButton ("=", _("Query Result"));
             result_button.width_request = 72;
             result_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
             result_button.halign = Gtk.Align.CENTER;

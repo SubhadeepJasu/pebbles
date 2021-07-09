@@ -49,7 +49,6 @@ namespace Pebbles {
                 double max_point = highest_point (data_set);
                 double min_point = lowest_point (data_set);
                 double max_height = max_point - min_point;
-                stdout.printf ("max: %lf, min: %lf\n", max_point, min_point);
     
                 int baseline = (int)(-get_allocated_height () * (min_point / max_height));
     
@@ -59,7 +58,6 @@ namespace Pebbles {
                 // Draw bars as per data points
                 for (int i = 0; i < cardinality; i++) {
                     draw_bar (context, (int)(line_width - gap), (int)((data_set[i]/max_height) * get_allocated_height ()), (int)(i * line_width), baseline);
-                    stdout.printf ("%d\n", i);
                 }
             }
 

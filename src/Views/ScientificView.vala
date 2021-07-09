@@ -275,7 +275,7 @@ namespace Pebbles {
             result_button = new StyledButton ("=", _("Result"), {"Return"});
             result_button.get_style_context ().add_class ("h2");
             result_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
-            shift_button = new StyledButton ("Shift");
+            shift_button = new StyledButton (_("Shift"), _("Access alternative functions"));
 
             button_container_right.attach (sqr_button, 0, 0, 1, 1);
             button_container_right.attach (pow_root_button, 1, 0, 1, 1);

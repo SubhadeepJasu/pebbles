@@ -144,7 +144,7 @@ namespace Pebbles {
             if (result.result_source == EvaluationResult.ResultSource.SCIF) {
                 listmodel.set (iter, 0, result.problem_expression,
                                      1, angle_mode,
-                                     2, "Scientific",
+                                     2, _("Scientific"),
                                      3, result.result.to_string ());
             } else if (result.result_source == EvaluationResult.ResultSource.CALC) {
                 string problem_function = "";
@@ -168,12 +168,12 @@ namespace Pebbles {
                 
                 listmodel.set (iter, 0, problem_function + "\t" + result.problem_expression,
                                      1, angle_mode, 
-                                     2, "Calculus",
+                                     2, _("Calculus"),
                                      3, result.result.to_string ());
             } else {
                 listmodel.set (iter, 0, result.problem_expression,
                                      1, word_length,
-                                     2, "Programmer",
+                                     2, _("Programmer"),
                                      3, result.result.to_string ());
             }
             show_all ();

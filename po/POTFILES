@@ -6,6 +6,7 @@ src/PreferencesOverlay.vala
 src/Views/MiniCalculator.vala
 src/Views/CalculusView.vala
 src/Views/ScientificView.vala
+src/Views/ProgrammerView.vala
 src/Views/DateView.vala
 src/Views/StatisticsView.vala
 src/Views/CommonNumericKeypad.vala
