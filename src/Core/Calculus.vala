@@ -55,17 +55,17 @@ namespace Pebbles {
         }
 
 
-/////// INTEGRATION ///////////////////////////////////////////////////////////////////////////////////////////////////////
+/////// INTEGRATION /////////////////////////////////////////////////////////////////////////////////////////////////////// 
 
         public static string get_definite_integral (string exp, GlobalAngleUnit angle_mode_in, double lower_limit, double upper_limit) {
             // Using Simpson's 3/8 method
             
             string revised_exp = Utils.st_tokenize (exp);
             revised_exp = Utils.algebraic_variable_product_convert (revised_exp);
-            ScientificCalculator sci_calc = new ScientificCalculator ();
-            int accuracy = 40;
+            ScientificCalculator sci_calc = new ScientificCalculator (true);
+            Settings accuracy_settings = Settings.get_default ();
+            int accuracy = accuracy_settings.integration_accuracy;
             double interval_size = (upper_limit - lower_limit) / accuracy;
-            //stdout.printf ("DEBUG: lower_limit = %lf, upper_limit = %lf\n", lower_limit, upper_limit);
             string exp1 = sci_calc.get_result (revised_exp.replace ("x", lower_limit.to_string()), angle_mode_in);
             string exp2 = sci_calc.get_result (revised_exp.replace ("x", upper_limit.to_string()), angle_mode_in);
             
@@ -93,7 +93,6 @@ namespace Pebbles {
                         sum = sum + 3 * double.parse (sci_calc.get_result (revised_exp.replace ("x", (lower_limit + i * interval_size).to_string()), angle_mode_in));
                     }
                 }
-                Settings accuracy_settings = Settings.get_default ();
                 return Utils.manage_decimal_places ((3 * interval_size / 8) * sum, accuracy_settings.decimal_places);
             }
             else {

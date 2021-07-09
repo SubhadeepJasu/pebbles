@@ -32,6 +32,8 @@ namespace Pebbles {
         public ButtonSubGrid (int num){
             bool_array = new bool[4];
             first_button = new Gtk.Label (num.to_string ());
+            first_button.halign = Gtk.Align.END;
+            first_button.margin_end = 6;
             first_button.set_opacity (0.5);
             
             button1 = new Gtk.Button.with_label ("0");
@@ -59,7 +61,7 @@ namespace Pebbles {
             attach (button2,      1, 0, 1, 1);
             attach (button3,      2, 0, 1, 1);
             attach (button4,      3, 0, 1, 1);
-            attach (first_button, 3, 1, 1, 1);
+            attach (first_button, 0, 1, 4, 1);
             
             create_events ();
         }
@@ -194,8 +196,9 @@ namespace Pebbles {
         public BitToggleGrid () {
             bool_array = new bool[64];
             hide_grid = new Gtk.Button.from_icon_name ("pan-down-symbolic", Gtk.IconSize.BUTTON);
-            //hide_grid.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
             hide_grid.get_style_context ().add_class ("circular_button");
+            hide_grid.get_style_context ().remove_class ("image-button");
+            hide_grid.valign = Gtk.Align.START;
             button_grid_1  = new ButtonSubGrid (0);
             button_grid_2  = new ButtonSubGrid (4);
             button_grid_3  = new ButtonSubGrid (8);
@@ -235,7 +238,7 @@ namespace Pebbles {
             button_grid_15.margin = 2;
             button_grid_16.margin = 2;
             
-            attach (hide_grid,       1, 0, 2, 1);
+            attach (hide_grid,       0, 0, 4, 1);
             attach (button_grid_16,  0, 1, 1, 1);
             attach (button_grid_15,  1, 1, 1, 1);
             attach (button_grid_14,  2, 1, 1, 1);
@@ -257,6 +260,8 @@ namespace Pebbles {
             get_style_context ().add_class ("Pebbles_Card");
             margin_end    = 8;
             margin_bottom = 8;
+            row_homogeneous = true;
+            column_homogeneous = true;
 
             make_events ();
         }

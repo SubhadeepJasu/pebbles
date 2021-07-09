@@ -26,7 +26,6 @@ namespace Pebbles {
         Gtk.Button close_button;
         Gtk.Entry  main_entry;
         Gtk.Button clear_button;
-        Gtk.Button restore_button;
         StyledButton all_clear_button;
         StyledButton seven_button;
         StyledButton eight_button;
@@ -50,9 +49,6 @@ namespace Pebbles {
 
         construct {
             settings = Pebbles.Settings.get_default ();
-            settings.notify["use-dark-theme"].connect (() => {
-                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = settings.use_dark_theme;
-            });
         }
 
         public MiniCalculator () {
@@ -89,7 +85,7 @@ namespace Pebbles {
             three_button = new StyledButton ("3");
             zero_button = new StyledButton ("0");
             radix_button = new StyledButton (".");
-            add_button = new StyledButton ("+", "Add");
+            add_button = new StyledButton ("+", _("Add"));
             add_button.get_style_context ().add_class ("h3");
             subtract_button = new StyledButton ("\xE2\x88\x92", (_("Subtract")));
             subtract_button.get_style_context ().add_class ("h3");
@@ -142,12 +138,7 @@ namespace Pebbles {
 
             this.add (button_grid);
             this.set_keep_above (true);
-            load_settings ();
             make_events ();
-        }
-
-        private void load_settings () {
-            Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = settings.use_dark_theme;
         }
 
         void make_events () {

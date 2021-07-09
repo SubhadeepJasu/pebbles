@@ -75,7 +75,6 @@ namespace Pebbles {
         }
 
         public Token get_last_token () {
-            print ("%d\n", stored_tokens.length);
             return stored_tokens[stored_tokens.length - 1];
         }
 
@@ -98,9 +97,7 @@ namespace Pebbles {
         public void populate_token_array (string exp) {
             stored_tokens = Utils.get_token_array (exp);
             for (int i = 0; i < stored_tokens.length; i++) {
-                print ("%s\n", stored_tokens[i].to_string ());
             }
-            print("\n");
         }
         public string set_number_system (string exp, GlobalWordLength? wrd_length = GlobalWordLength.BYT, bool? force_decimal = false) {
             var token_structure = Utils.get_token_array (exp);
@@ -132,10 +129,6 @@ namespace Pebbles {
             return true;
         }
         private string convert_number_system (string exp, NumberSystem number_system_a, NumberSystem number_system_b, GlobalWordLength? wrd_length = GlobalWordLength.WRD) {
-            print ("Number system change\n");
-            print (">" + exp + "\n");
-            print (" %d -> %d\n", number_system_a, number_system_b);
-
             if (number_system_a == NumberSystem.DECIMAL) {
                 if (number_system_b == NumberSystem.BINARY) {
                     return convert_decimal_to_binary (exp, wrd_length);
@@ -217,10 +210,8 @@ namespace Pebbles {
             switch (wrd_length) {
                 case GlobalWordLength.BYT:
                 if (binary_value.length > 8) {
-                    // print ("bigger_value: " + binary_value + "\n");
                     new_binary = binary_value.slice (binary_value.length - 9, -1);
                 } else {
-                    // print ("smaller_value\n");
                     string pre_zeros = "";
                     for (int i = 0; i < 8 - binary_value.length; i++) {
                         pre_zeros += "0";
@@ -230,10 +221,8 @@ namespace Pebbles {
                 break;
                 case GlobalWordLength.WRD:
                 if (binary_value.length > 16) {
-                    // print ("bigger_value: " + binary_value + "\n");
                     new_binary = binary_value.slice (binary_value.length - 17, -1);
                 } else {
-                    // print ("smaller_value\n");
                     string pre_zeros = "";
                     for (int i = 0; i < 16 - binary_value.length; i++) {
                         pre_zeros += "0";
@@ -243,10 +232,8 @@ namespace Pebbles {
                 break;
                 case GlobalWordLength.DWD:
                 if (binary_value.length > 32) {
-                    //  print ("bigger_value: " + binary_value + "\n");
                     new_binary = binary_value.slice (binary_value.length - 33, -1);
                 } else {
-                    //  print ("smaller_value\n");
                     string pre_zeros = "";
                     for (int i = 0; i < 32 - binary_value.length; i++) {
                         pre_zeros += "0";
@@ -256,10 +243,8 @@ namespace Pebbles {
                 break;
                 case GlobalWordLength.QWD:
                 if (binary_value.length > 64) {
-                    //  print ("bigger_value: " + binary_value + "\n");
                     new_binary = binary_value.slice (binary_value.length - 65, -1);
                 } else {
-                    //  print ("smaller_value\n");
                     string pre_zeros = "";
                     for (int i = 0; i < 64 - binary_value.length; i++) {
                         pre_zeros += "0";
@@ -308,7 +293,6 @@ namespace Pebbles {
         public string convert_hexadecimal_to_decimal (string number, GlobalWordLength? wrd_length = GlobalWordLength.WRD) {
             string binary_value = convert_hexadecimal_to_binary (number, wrd_length, false);
             string decimal = convert_binary_to_decimal (binary_value, wrd_length);
-            print(number + ", " + binary_value + ", " + decimal);
             return decimal.to_string ();
         }
 
@@ -380,7 +364,6 @@ namespace Pebbles {
             } 
             
             string formatted_binary = represent_binary_by_word_length (binary_value, wrd_length, format);
-            print(">>>>>>" + binary_value+"<<<"+formatted_binary+">>>\n");
             return formatted_binary;
         } 
         public static string map_bin_to_hex (string bin) {
@@ -707,7 +690,6 @@ namespace Pebbles {
 
         public string bool_array_to_string(bool[] arr, GlobalWordLength wrd_length, NumberSystem number_system) {
             string str = "";
-            print("length%d\n", arr.length);
             for (int i = 0; i <= arr.length; i++) {
                 if (arr[i] == true) {
                     str += "1";

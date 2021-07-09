@@ -12,7 +12,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License 
+ * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  *
  * Authored by: Subhadeep Jasu <subhajasu@gmail.com>
@@ -21,15 +21,19 @@
 
 namespace Pebbles {
     public class MainWindow : Gtk.Window {
+        // Main Leaflet
+        Hdy.Leaflet main_leaflet;
+
+        Hdy.Deck main_deck;
+
         // CONTROLS
         Gtk.HeaderBar headerbar;
-        Granite.ModeSwitch dark_mode_switch;
         Pebbles.Settings settings;
         Gtk.MenuButton app_menu;
-        
+
         // Switchable Controls
         public Gtk.Stack header_switcher;
-        
+
         // Header Widgets
         Gtk.Grid programmer_header_grid;
         Gtk.Grid scientific_header_grid;
@@ -37,8 +41,9 @@ namespace Pebbles {
         Gtk.Label shift_label;
         public Gtk.Switch shift_switch;
         StyledButton angle_unit_button;
+        StyledButton leaflet_back_button;
         Gtk.Button history_button;
-        
+
         Gtk.Label date_age_label;
         Gtk.Label date_dur_label;
         public Gtk.Switch diff_mode_switch;
@@ -48,10 +53,10 @@ namespace Pebbles {
         public Gtk.Stack date_mode_stack;
         public Gtk.Grid date_diff_grid;
         public Gtk.Grid date_add_grid;
-        
-        Gtk.Button word_length_button;
+
+        StyledButton word_length_button;
         public Gtk.Switch shift_switch_prog;
-        
+
         public Gtk.Button update_button;
 
         // VIEWS
@@ -103,13 +108,12 @@ namespace Pebbles {
         ControlsOverlay controls_modal;
         PreferencesOverlay preferences_modal;
         HistoryView     history_modal;
-        
-        // NOTIFICATION
-        Notification desktop_notification;
-        
+
         // History
         public HistoryManager history_manager;
-        
+        Gtk.MenuItem history_item;
+        Gtk.MenuItem update_forex_item;
+
         private bool currency_view_visited = false;
 
         // Keyboard Events
@@ -117,38 +121,65 @@ namespace Pebbles {
         bool keyboard_shift_status;
         private bool ctrl_held = false;
 
-        public MainWindow () {
-            load_settings ();
-            make_ui ();
-            handle_focus ();
-        }
+        /// Initialized
+        bool initialized = false;
 
-        construct {
+        public MainWindow () {
             settings = Pebbles.Settings.get_default ();
-            settings.notify["use-dark-theme"].connect (() => {
-                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = settings.use_dark_theme;
-            });
             this.delete_event.connect (() => {
                 save_settings ();
+                return false;
             });
             history_manager = new HistoryManager ();
 
             keymap = Gdk.Keymap.get_for_display (Gdk.Display.get_default ());
             keymap.state_changed.connect (update_caps_status);
-        }
-        
-        public void make_ui () {
-            // Create dark mode switcher
-            dark_mode_switch = new Granite.ModeSwitch.from_icon_name ("display-brightness-symbolic", "weather-clear-night-symbolic");
-            dark_mode_switch.primary_icon_tooltip_text = _("Light background");
-            dark_mode_switch.secondary_icon_tooltip_text = _("Dark background");
-            dark_mode_switch.valign = Gtk.Align.CENTER;
-            dark_mode_switch.active = settings.use_dark_theme;
-            dark_mode_switch.notify["active"].connect (() => {
-                settings.use_dark_theme = dark_mode_switch.active;
+            this.configure_event.connect ((event) => {
+                adjust_view (!initialized);
+                if (!initialized) {
+                    this.resize (settings.window_w, settings.window_h);
+                }
+                return false;
             });
-            
+            load_settings ();
+            make_ui ();
+            handle_focus ();
+            Timeout.add (200, () => {
+                if (main_leaflet.get_child_transition_running ()) {
+                    return true;
+                } else {
+                    initialized = true;
+                    adjust_view ();
+                    return false;
+                }
+            });
+            var granite_settings = Granite.Settings.get_default ();
+            var gtk_settings = Gtk.Settings.get_default ();
+
+            gtk_settings.gtk_application_prefer_dark_theme = (
+                granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK
+            );
+
+            granite_settings.notify["prefers-color-scheme"].connect (() => {
+                gtk_settings.gtk_application_prefer_dark_theme = (
+                    granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK
+                );
+            });
+        }
+
+        public void make_ui () {
             // Make Scientific / Calculus View Controls ///////////////
+            // Create back button
+            leaflet_back_button = new StyledButton (_("All Categories"));
+            leaflet_back_button.valign = Gtk.Align.CENTER;
+            leaflet_back_button.set_image (new Gtk.Image.from_icon_name ("view-more-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
+            leaflet_back_button.tooltip_text = "Pebbles Menu";
+            leaflet_back_button.clicked.connect (() => {
+                if (main_leaflet.get_visible_child () == common_view)
+                    main_leaflet.set_visible_child (item_list);
+                else
+                    main_leaflet.set_visible_child (common_view);
+            });
             // Create angle unit button
             angle_unit_button = new StyledButton ("DEG", "<b>" + _("Degrees") + "</b> \xE2\x86\x92" + _("Radians"), {"F8"});
             angle_unit_button.set_margin_end (7);
@@ -157,7 +188,7 @@ namespace Pebbles {
                 settings.switch_angle_unit ();
                 angle_unit_button_label_update ();
             });
-            
+
             // Create shift switcher
             scientific_header_grid = new Gtk.Grid ();
             shift_label = new Gtk.Label (_("Shift") + " ");
@@ -175,8 +206,8 @@ namespace Pebbles {
             scientific_header_grid.attach (shift_switch, 2, 0, 1, 1);
             scientific_header_grid.valign = Gtk.Align.CENTER;
             scientific_header_grid.column_spacing = 6;
-        
-            
+
+
             // Make Date Switcher ///////////////////////////////////////
             date_mode_stack = new Gtk.Stack ();
             date_age_label = new Gtk.Label ("AGE");
@@ -189,7 +220,7 @@ namespace Pebbles {
             date_diff_grid.attach (diff_mode_switch, 1, 0, 1, 1);
             date_diff_grid.attach (date_dur_label, 2, 0, 1, 1);
             date_diff_grid.valign = Gtk.Align.CENTER;
-            
+
             date_add_label = new Gtk.Label ("ADD");
             date_sub_label = new Gtk.Label ("SUB");
             add_mode_switch = new Gtk.Switch ();
@@ -200,14 +231,13 @@ namespace Pebbles {
             date_add_grid.attach (add_mode_switch, 1, 0, 1, 1);
             date_add_grid.attach (date_sub_label, 2, 0, 1, 1);
             date_add_grid.valign = Gtk.Align.CENTER;
-            
+
             date_mode_stack.add_named (date_diff_grid, "Date_Diff");
             date_mode_stack.add_named (date_add_grid, "Date_Add");
             date_mode_stack.set_transition_type (Gtk.StackTransitionType.SLIDE_LEFT_RIGHT);
-            
+
             // Make Programmer Controls
-            word_length_button = new Gtk.Button.with_label ("QWD");
-            word_length_button.tooltip_text = "QWORD";
+            word_length_button = new StyledButton ("QWD", "<b>" + _("Qword") + "</b> \xE2\x86\x92" + _("Dword"), {"F8"});
             word_length_button.set_margin_end (7);
             word_length_button.width_request = 50;
             word_length_button.clicked.connect (() => {
@@ -231,31 +261,39 @@ namespace Pebbles {
             programmer_header_grid.valign = Gtk.Align.CENTER;
             programmer_header_grid.column_spacing = 6;
 
-            
+
             // Make Conversion Switcher null
             null_switcher = new Gtk.Label ("");
-            
+
             // Make currency update switcher
             update_button = new Gtk.Button.from_icon_name ("view-refresh-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
             update_button.width_request = 10;
             update_button.halign = Gtk.Align.START;
             update_button.margin = 1;
             update_button.tooltip_markup = Granite.markup_accel_tooltip ({"R"}, "<b>" + _("Update Forex Data") + "</b>\n" + _("Updates automatically every 10 minutes") + _("\nLast updated on ") + settings.currency_update_date);
-            
+
             // Create App Menu
             app_menu = new Gtk.MenuButton ();
             app_menu.valign = Gtk.Align.CENTER;
+            app_menu.set_margin_top (8);
+            app_menu.set_margin_bottom (8);
             app_menu.set_image (new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
             app_menu.tooltip_text = "Pebbles Menu";
-            
+
             var settings_menu = new Gtk.Menu ();
             var controls_overlay_item = new Gtk.MenuItem();
             controls_overlay_item.add (new Granite.AccelLabel (_("Show Controls"), "F1"));
             var preferences_overlay_item = new Gtk.MenuItem ();
             preferences_overlay_item.add (new Granite.AccelLabel (_("Preferences"), "F2"));
+            history_item = new Gtk.MenuItem ();
+            history_item.add (new Granite.AccelLabel (_("History"), ""));
+            update_forex_item = new Gtk.MenuItem ();
+            update_forex_item.add (new Granite.AccelLabel (_("Update Forex Data"), "R"));
 
             settings_menu.append (controls_overlay_item);
             settings_menu.append (preferences_overlay_item);
+            settings_menu.append (history_item);
+            settings_menu.append (update_forex_item);
             settings_menu.show_all();
 
             controls_overlay_item.activate.connect (() => {
@@ -265,9 +303,17 @@ namespace Pebbles {
             preferences_overlay_item.activate.connect (() => {
                 show_preferences ();
             });
-            
+
+            history_item.activate.connect (() => {
+                show_history ();
+            });
+
+            update_forex_item.activate.connect (() => {
+                conv_curr_view.update_currency_data ();
+            });
+
             app_menu.popup = settings_menu;
-            
+
             // Create History Button
             history_button = new Gtk.Button ();
             history_button.valign = Gtk.Align.CENTER;
@@ -278,7 +324,7 @@ namespace Pebbles {
             history_button.clicked.connect (() => {
                 show_history ();
             });
-            
+
             // Create Header Switcher
             header_switcher = new Gtk.Stack ();
             header_switcher.set_margin_top (7);
@@ -289,27 +335,28 @@ namespace Pebbles {
             header_switcher.add_named (date_mode_stack, "Date Mode Switch");
             header_switcher.add_named (null_switcher, "Converter");
             header_switcher.add_named (update_button, "Update Currency");
-            
-            
-            
+
+
+
             // Create headerbar
             headerbar = new Gtk.HeaderBar ();
             headerbar.title = ("Pebbles");
             headerbar.get_style_context ().add_class ("default-decoration");
             headerbar.show_close_button = true;
+            headerbar.height_request = 47;
+            headerbar.pack_start (leaflet_back_button);
             headerbar.pack_start (header_switcher);
             headerbar.pack_end (history_button);
             headerbar.pack_end (app_menu);
-            headerbar.pack_end (dark_mode_switch);// Uncomment to use dark mode switch
             this.set_titlebar (headerbar);
-            
+
             // Create Item Pane
             scientific_item  = new Granite.Widgets.SourceList.Item (_("Scientific"));
             calculus_item    = new Granite.Widgets.SourceList.Item (_("Calculus"));
             programmer_item  = new Granite.Widgets.SourceList.Item (_("Programmer"));
             date_item        = new Granite.Widgets.SourceList.Item (_("Date"));
             stats_item       = new Granite.Widgets.SourceList.Item (_("Statistics"));
-            var finance_item     = new Granite.Widgets.SourceList.Item (_("Financial"));
+            finance_item     = new Granite.Widgets.SourceList.Item (_("Financial"));
             conv_length_item = new Granite.Widgets.SourceList.Item (_("Length"));
             conv_area_item   = new Granite.Widgets.SourceList.Item (_("Area"));
             conv_volume_item = new Granite.Widgets.SourceList.Item (_("Volume"));
@@ -323,7 +370,7 @@ namespace Pebbles {
             conv_temp_item   = new Granite.Widgets.SourceList.Item (_("Temperature"));
             conv_data_item   = new Granite.Widgets.SourceList.Item (_("Data"));
             conv_curr_item   = new Granite.Widgets.SourceList.Item (_("Currency"));
-            
+
             // Calculators
             var calc_category = new Granite.Widgets.SourceList.ExpandableItem (_("Calculator"));
             calc_category.expand_all ();
@@ -351,10 +398,12 @@ namespace Pebbles {
             conv_category.add (conv_curr_item);
 
             item_list = new Granite.Widgets.SourceList ();
+            item_list.get_style_context().add_class("sidebar-left");
             item_list.root.add (calc_category);
             item_list.root.add (conv_category);
-            item_list.width_request = 170;
-            
+            item_list.width_request = 180;
+            item_list.hexpand = false;
+
             // Create Views
             scientific_view  = new Pebbles.ScientificView (this);
             programmer_view  = new Pebbles.ProgrammerView (this);
@@ -383,18 +432,49 @@ namespace Pebbles {
             scientific_view.last_answer_button.set_sensitive (!history_manager.is_empty (EvaluationResult.ResultSource.SCIF));
             calculus_view.last_answer_button.set_sensitive (!history_manager.is_empty (EvaluationResult.ResultSource.CALC));
             programmer_view.ans_button.set_sensitive (!history_manager.is_empty (EvaluationResult.ResultSource.PROG));
-            
+
             update_button.clicked.connect (() => {
                 conv_curr_view.update_currency_data ();
             });
-            
+
+            this.scientific_view.toolbar_angle_mode_button.clicked.connect (() => {
+                settings.switch_angle_unit ();
+                angle_unit_button_label_update ();
+            });
+            this.scientific_view.shift_button.clicked.connect (() => {
+                scientific_view.hold_shift (!scientific_view.shift_held);
+                calculus_view.hold_shift (!calculus_view.shift_held);
+                shift_switch.active = scientific_view.shift_held && calculus_view.shift_held;
+            });
+
+            this.calculus_view.toolbar_shift_button.clicked.connect (() => {
+                scientific_view.hold_shift (!scientific_view.shift_held);
+                calculus_view.hold_shift (!calculus_view.shift_held);
+                shift_switch.active = scientific_view.shift_held && calculus_view.shift_held;
+            });
+
+            this.calculus_view.toolbar_angle_mode_button.clicked.connect (() => {
+                settings.switch_angle_unit ();
+                angle_unit_button_label_update ();
+            });
+
+            this.programmer_view.toolbar_word_mode_button.clicked.connect (() => {
+                settings.switch_word_length ();
+                word_length_button_label_update ();
+            });
+
+            this.programmer_view.shift_button.clicked.connect (() => {
+                programmer_view.hold_shift (!programmer_view.shift_held);
+                shift_switch_prog.active = programmer_view.shift_held;
+            });
+
             conv_curr_view.start_update.connect (() => {
                 update_button.set_sensitive (false);
             });
             conv_curr_view.update_done_or_failed.connect (() => {
                 update_button.set_sensitive (true);
             });
-            
+
             Timeout.add_seconds (600, () => {
                 if (update_button.get_sensitive ()) {
                     update_button.set_sensitive (false);
@@ -406,8 +486,9 @@ namespace Pebbles {
 
             // Create Views Pane
             common_view = new Gtk.Stack ();
-            common_view.valign = Gtk.Align.CENTER;
-            common_view.halign = Gtk.Align.CENTER;
+            common_view.valign = Gtk.Align.FILL;
+            common_view.halign = Gtk.Align.FILL;
+            common_view.homogeneous = false;
             common_view.add_named (scientific_view, "Scientific");
             common_view.add_named (calculus_view, "Calculus");
             common_view.add_named (programmer_view, "Programmer");
@@ -426,13 +507,25 @@ namespace Pebbles {
             common_view.add_named (conv_temp_view, "Temperature");
             common_view.add_named (conv_data_view, "Data");
             common_view.add_named (conv_curr_view, "Currency");
-            
-            //Create Panes
-            var paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
-            paned.position = 200;
-            paned.position_set = true;
-            paned.pack1 (item_list, false, false);
-            paned.pack2 (common_view, false, false);
+
+            //  //Create Panes
+            //  var paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
+            //  paned.position = 200;
+            //  paned.position_set = true;
+            //  paned.pack1 (item_list, false, false);
+            //  paned.pack2 (common_view, false, false);
+
+            main_leaflet = new Hdy.Leaflet ();
+            main_leaflet.set_mode_transition_duration (250);
+            main_leaflet.add (item_list);
+            // main_leaflet.add (new Gtk.Separator (Gtk.Orientation.VERTICAL));
+            main_leaflet.add (common_view);
+            main_leaflet.set_can_swipe_back (true);
+            main_leaflet.set_transition_type (Hdy.LeafletTransitionType.UNDER);
+
+            main_deck = new Hdy.Deck();
+            //main_deck.can_swipe_back = true;
+            main_deck.add (main_leaflet);
 
             // Create View Events
             item_list.item_selected.connect ((item) => {
@@ -495,18 +588,60 @@ namespace Pebbles {
             angle_unit_button_label_update ();
             word_length_button_label_update ();
 
-            // Set up window attributes
-            this.set_default_size (900, 600);
-            this.set_size_request (900, 600);
+            //  // Set up window attributes
+            //  this.set_default_size (900, 600);
+            //  this.set_size_request (900, 600);
 
             // Show all the stuff
-            this.add (paned);
-            this.set_resizable (false);
+            this.add (main_deck);
             this.show_all ();
 
             update_caps_status ();
             set_view ();
             common_view.set_transition_type (Gtk.StackTransitionType.SLIDE_UP_DOWN);
+        }
+
+        private void adjust_view (bool? pre_fold = false) {
+            if ((this.common_view.get_visible_child () == this.scientific_view && this.scientific_view.button_leaflet.folded) ||
+                (this.common_view.get_visible_child () == this.calculus_view && this.calculus_view.button_leaflet.folded) ||
+                (this.common_view.get_visible_child () == this.programmer_view && this.programmer_view.button_leaflet.folded) ||
+                (this.common_view.get_visible_child () == this.date_view && this.date_view.get_allocated_width () < 540) ||
+                (this.common_view.get_visible_child () == this.conv_length_view) ||
+                (this.common_view.get_visible_child () == this.conv_area_view) ||
+                (this.common_view.get_visible_child () == this.conv_angle_view) ||
+                (this.common_view.get_visible_child () == this.conv_data_view) ||
+                (this.common_view.get_visible_child () == this.conv_curr_view && this.conv_curr_view.wrapbox.wrapping) ||
+                (this.common_view.get_visible_child () == this.conv_energy_view) ||
+                (this.common_view.get_visible_child () == this.conv_mass_view) ||
+                (this.common_view.get_visible_child () == this.conv_power_view) ||
+                (this.common_view.get_visible_child () == this.conv_press_view) ||
+                (this.common_view.get_visible_child () == this.conv_speed_view) ||
+                (this.common_view.get_visible_child () == this.conv_temp_view) ||
+                (this.common_view.get_visible_child () == this.conv_time_view) ||
+                (this.common_view.get_visible_child () == this.conv_volume_view) ||
+                pre_fold) {
+                header_switcher.set_visible (false);
+                history_button.set_visible (false);
+                history_item.set_visible (true);
+                date_view.diff_mode_button.set_visible (true);
+                date_view.add_mode_button.set_visible (true);
+            } else {
+                header_switcher.set_visible (true);
+                history_button.set_visible (true);
+                history_item.set_visible (false);
+                date_view.diff_mode_button.set_visible (false);
+                date_view.add_mode_button.set_visible (false);
+            }
+            if ((this.common_view.get_visible_child () == this.conv_curr_view) && !header_switcher.visible) {
+                update_forex_item.set_visible (true);
+            } else {
+                update_forex_item.set_visible (false);
+            }
+            if (main_leaflet.folded) {
+                leaflet_back_button.set_visible (true);
+            } else {
+                leaflet_back_button.set_visible (false);
+            }
         }
 
         private void set_view () {
@@ -643,9 +778,18 @@ namespace Pebbles {
                 }
                 break;
             }
-            
-            this.show_all ();
-        } 
+            main_leaflet.set_visible_child (common_view);
+            Timeout.add (200, () => {
+                if (main_leaflet.get_child_transition_running ()) {
+                    adjust_view (true);
+                    return true;
+                } else {
+                    this.show_all ();
+                    adjust_view ();
+                    return false;
+                }
+            });
+        }
 
         private void show_controls () {
             if (controls_modal == null) {
@@ -653,7 +797,7 @@ namespace Pebbles {
                 controls_modal.application = this.application;
                 this.application.add_window (controls_modal);
                 controls_modal.set_attached_to (this);
-                
+
                 controls_modal.set_transient_for (this);
 
                 controls_modal.delete_event.connect (() => {
@@ -712,7 +856,7 @@ namespace Pebbles {
                 history_modal.application = this.application;
                 this.application.add_window (history_modal);
                 history_modal.set_attached_to (this);
-                
+
                 history_modal.set_transient_for (this);
 
                 history_modal.delete_event.connect (() => {
@@ -782,16 +926,22 @@ namespace Pebbles {
         private void angle_unit_button_label_update () {
             if (settings.global_angle_unit == Pebbles.GlobalAngleUnit.DEG) {
                 angle_unit_button.update_label ("DEG", "<b>" + _("Degrees") + "</b> \xE2\x86\x92 " + _("Radians"), {"F8"});
+                this.scientific_view.toolbar_angle_mode_button.update_label ("DEG", "<b>" + _("Degrees") + "</b> \xE2\x86\x92 " + _("Radians"), {"F8"});
+                this.calculus_view.toolbar_angle_mode_button.update_label ("DEG", "<b>" + _("Degrees") + "</b> \xE2\x86\x92 " + _("Radians"), {"F8"});
                 scientific_view.set_angle_mode_display (0);
                 calculus_view.set_angle_mode_display (0);
             }
             else if (settings.global_angle_unit == Pebbles.GlobalAngleUnit.RAD) {
                 angle_unit_button.update_label ("RAD", "<b>" + _("Radians") + "</b> \xE2\x86\x92 " + _("Gradians"), {"F8"});
+                this.scientific_view.toolbar_angle_mode_button.update_label ("RAD", "<b>" + _("Radians") + "</b> \xE2\x86\x92 " + _("Gradians"), {"F8"});
+                this.calculus_view.toolbar_angle_mode_button.update_label ("RAD", "<b>" + _("Radians") + "</b> \xE2\x86\x92 " + _("Gradians"), {"F8"});
                 scientific_view.set_angle_mode_display (1);
                 calculus_view.set_angle_mode_display (1);
             }
             else if (settings.global_angle_unit == Pebbles.GlobalAngleUnit.GRAD) {
                 angle_unit_button.update_label ("GRA", "<b>" + _("Gradians") + "</b> \xE2\x86\x92 " + _("Degrees"), {"F8"});
+                this.scientific_view.toolbar_angle_mode_button.update_label ("GRA", "<b>" + _("Gradians") + "</b> \xE2\x86\x92 " + _("Degrees"), {"F8"});
+                this.calculus_view.toolbar_angle_mode_button.update_label ("GRA", "<b>" + _("Gradians") + "</b> \xE2\x86\x92 " + _("Degrees"), {"F8"});
                 scientific_view.set_angle_mode_display (2);
                 calculus_view.set_angle_mode_display (2);
             }
@@ -803,36 +953,40 @@ namespace Pebbles {
         }
         private void word_length_button_label_update () {
             if (settings.global_word_length == Pebbles.GlobalWordLength.QWD) {
-                word_length_button.label = "QWD";
-                word_length_button.tooltip_text = "QWORD";
+                word_length_button.update_label ("QWD", "<b>" + _("Qword") + "</b> \xE2\x86\x92 " + _("Dword"), {"F8"});
+                programmer_view.toolbar_word_mode_button.update_label ("QWD", "<b>" + _("Qword") + "</b> \xE2\x86\x92 " + _("Dword"), {"F8"});
                 programmer_view.display_unit.set_word_length_status (0);
                 programmer_view.bit_grid.set_bit_length_mode (3);
             }
             else if (settings.global_word_length == Pebbles.GlobalWordLength.DWD) {
-                word_length_button.label = "DWD";
-                word_length_button.tooltip_text = "DWORD";
+                word_length_button.update_label ("DWD", "<b>" + _("Dword") + "</b> \xE2\x86\x92 " + _("Word"), {"F8"});
+                programmer_view.toolbar_word_mode_button.update_label ("DWD", "<b>" + _("Dword") + "</b> \xE2\x86\x92 " + _("Word"), {"F8"});
                 programmer_view.display_unit.set_word_length_status (1);
                 programmer_view.bit_grid.set_bit_length_mode (2);
             }
             else if (settings.global_word_length == Pebbles.GlobalWordLength.WRD) {
-                word_length_button.label = "WRD";
-                word_length_button.tooltip_text = "WORD";
+                word_length_button.update_label ("WRD", "<b>" + _("Word") + "</b> \xE2\x86\x92 " + _("Byte"), {"F8"});
+                programmer_view.toolbar_word_mode_button.update_label ("DWD", "<b>" + _("Dword") + "</b> \xE2\x86\x92 " + _("Word"), {"F8"});
                 programmer_view.display_unit.set_word_length_status (2);
                 programmer_view.bit_grid.set_bit_length_mode (1);
             }
             else if (settings.global_word_length == Pebbles.GlobalWordLength.BYT) {
-                word_length_button.label = "BYT";
-                word_length_button.tooltip_text = "BYTE";
+                word_length_button.update_label ("BYT", "<b>" + _("Byte") + "</b> \xE2\x86\x92 " + _("Qword"), {"F8"});
+                programmer_view.toolbar_word_mode_button.update_label ("DWD", "<b>" + _("Dword") + "</b> \xE2\x86\x92 " + _("Word"), {"F8"});
                 programmer_view.display_unit.set_word_length_status (3);
                 programmer_view.bit_grid.set_bit_length_mode (0);
             }
         }
         private void load_settings () {
-            Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = settings.use_dark_theme;
             if (settings.window_x < 0 || settings.window_y < 0 ) {
                 this.window_position = Gtk.WindowPosition.CENTER;
             } else {
                 this.move (settings.window_x, settings.window_y);
+            }
+            this.resize (settings.window_w, settings.window_h);
+            if (settings.window_maximized) {
+                this.maximize ();
+
             }
             if (settings.saved_history != "") {
                 print("load\n");
@@ -842,10 +996,16 @@ namespace Pebbles {
         }
 
         private void save_settings () {
-            int x, y;
+            int x, y, w, h;
             this.get_position (out x, out y);
             settings.window_x = x;
             settings.window_y = y;
+
+            this.get_size (out w, out h);
+            settings.window_w = w;
+            settings.window_h = h;
+
+            settings.window_maximized = this.is_maximized;
             string history_csv = history_manager.to_csv ();
             settings.saved_history = history_csv;
         }
@@ -853,7 +1013,7 @@ namespace Pebbles {
         private void handle_focus () {
             key_press_event.connect ((event) => {
                 switch (settings.view_index) {
-                    case 0: 
+                    case 0:
                         scientific_view.key_pressed (event);
                         break;
                     case 1:
@@ -908,8 +1068,8 @@ namespace Pebbles {
                         conv_curr_view.key_press_event (event);
                         break;
                 }
-                if (settings.view_index != 4 && 
-                    (event.keyval == KeyboardHandler.KeyMap.NAV_LEFT || 
+                if (settings.view_index != 4 &&
+                    (event.keyval == KeyboardHandler.KeyMap.NAV_LEFT ||
                     event.keyval == KeyboardHandler.KeyMap.NAV_RIGHT)
                 ) {
                     return false;
@@ -936,7 +1096,7 @@ namespace Pebbles {
                     if (ctrl_held) {
                         return false;
                     }
-                }                
+                }
                 return true;
             });
             key_release_event.connect ((event) => {

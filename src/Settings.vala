@@ -71,15 +71,18 @@ namespace Pebbles {
         }
         public int window_x {get; set;}
         public int window_y {get; set;}
+        public int window_w {get; set;}
+        public int window_h {get; set;}
+        public bool window_maximized {get; set;}
         public int view_index {get; set;}
         public bool shift_alternative_function {get; set;}
         public GlobalAngleUnit global_angle_unit {get; set;}
         public GlobalWordLength global_word_length {get; set;}
         public NumberSystem number_system {get; set;}
-        public bool use_dark_theme {get; set;}
         public ConstantKeyIndex constant_key_value1 {get; set;}
         public ConstantKeyIndex constant_key_value2 {get; set;}
         public int decimal_places {get; set;}
+        public int integration_accuracy {get; set;}
         public string sci_input_text {get; set;}
         public string sci_output_text {get; set;}
         public string sci_memory_value {get; set;} 

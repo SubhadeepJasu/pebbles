@@ -29,6 +29,12 @@ namespace Pebbles {
         private const double INV_GRAD_VAL = 200 / Math.PI;
         private const double INV_DEG_VAL  = 180 / Math.PI;
 
+        private bool zero_limit = false;
+
+        public ScientificCalculator (bool? zero_limit = false) {
+            this.zero_limit = (bool) zero_limit;
+        }
+
         public string get_result (string exp, GlobalAngleUnit angle_mode_in, int? float_accuracy = -1, bool? tokenize = true) {
             var result = exp;
             warning(result);
@@ -101,6 +107,14 @@ namespace Pebbles {
                 case '*':
                     return (a * b).to_string();
                 case '/':
+                    if (zero_limit) {
+                        if (b == 0) {
+                            b = double.MIN;
+                            if (a == 0) {
+                                a = double.MIN;
+                            }
+                        }
+                    } 
                     return (b == 0) ? "E" : (a/b).to_string ();
                 case 'q':
                     return (Math.pow (b, ((1/a) + 0.0))).to_string ();

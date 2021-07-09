@@ -426,35 +426,6 @@ namespace Pebbles {
                 }
                 return false;
         }
-        private static bool pg_is_number (string exp) {
-            if (exp.has_suffix ("0") ||
-                exp.has_suffix ("1") ||
-                exp.has_suffix ("2") ||
-                exp.has_suffix ("3") ||
-                exp.has_suffix ("4") ||
-                exp.has_suffix ("5") ||
-                exp.has_suffix ("6") ||
-                exp.has_suffix ("7") ||
-                exp.has_suffix ("8") ||
-                exp.has_suffix ("9") ||
-                exp.has_suffix (".") ||
-                exp.has_suffix ("a") ||
-                exp.has_suffix ("b") ||
-                exp.has_suffix ("c") ||
-                exp.has_suffix ("d") ||
-                exp.has_suffix ("e") ||
-                exp.has_suffix ("f") ||
-                exp.has_suffix ("A") ||
-                exp.has_suffix ("B") ||
-                exp.has_suffix ("C") ||
-                exp.has_suffix ("D") ||
-                exp.has_suffix ("E") ||
-                exp.has_suffix ("F")
-                ) {
-                    return true;
-                }
-                return false;
-        }
         public static string manage_decimal_places (double result, int accuracy) {
             string output = "";
             switch (accuracy) {
@@ -502,9 +473,12 @@ namespace Pebbles {
             if (text == "0") {
                 return "0";
             }
-            int n = text.index_of_char('1', 0);
-            if (n < 0) {
-                return text;
+            int n = -1;
+            for (int i = 0; i < text.length; i++) {
+                if (text.get_char(i) != '0') {
+                    n = i;
+                    break;
+                }
             }
             return text.substring(n);
         }

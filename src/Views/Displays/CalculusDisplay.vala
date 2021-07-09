@@ -12,7 +12,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License 
+ * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  *
  * Authored by: Subhadeep Jasu <subhajasu@gmail.com>
@@ -36,7 +36,7 @@ namespace Pebbles {
 
         // Angle mode
         GlobalAngleUnit angle_mode;
-        
+
         construct {
             calc_make_display_ui ();
         }
@@ -51,7 +51,7 @@ namespace Pebbles {
 
             // Stylize background;
             get_style_context ().add_class ("Pebbles_Display_Unit_Bg");
-            
+
             // Make status bar
             lcd_status_bar = new Gtk.Grid ();
             deg_label      = new Gtk.Label ("DEG");
@@ -62,28 +62,33 @@ namespace Pebbles {
             grad_label.get_style_context ().add_class ("pebbles_h4");
             memory_label   = new Gtk.Label ("M");
             memory_label.get_style_context ().add_class ("pebbles_h4");
+            memory_label.hexpand = true;
             memory_label.set_opacity (0.2);
             shift_label    = new Gtk.Label ("SHIFT");
             shift_label.get_style_context ().add_class ("pebbles_h4");
             shift_label.set_opacity (0.2);
+            shift_label.set_halign (Gtk.Align.END);
+            shift_label.hexpand = true;
 
             var angle_mode_display = new Gtk.Grid ();
             angle_mode_display.attach (deg_label,  0, 0, 1, 1);
             angle_mode_display.attach (rad_label,  1, 0, 1, 1);
             angle_mode_display.attach (grad_label, 2, 0, 1, 1);
             angle_mode_display.column_spacing = 10;
+            angle_mode_display.set_halign (Gtk.Align.START);
 
             lcd_status_bar.attach (angle_mode_display, 0, 0, 1, 1);
             lcd_status_bar.attach (memory_label, 1, 0, 1, 1);
             lcd_status_bar.attach (shift_label, 2, 0, 1, 1);
-            lcd_status_bar.column_spacing = 205;
-            lcd_status_bar.width_request = 530;
-            lcd_status_bar.set_halign (Gtk.Align.END);
+            lcd_status_bar.width_request = 200;
+            lcd_status_bar.set_halign (Gtk.Align.FILL);
+            lcd_status_bar.hexpand = true;
 
             // Make LCD Answer label
             answer_label = new Gtk.Label (settings.cal_output_text);
             answer_label.set_halign (Gtk.Align.END);
-            answer_label.get_style_context ().add_class ("pebbles_h1");
+            answer_label.set_valign (Gtk.Align.END);
+            answer_label.vexpand = true;
             var scrollable = new Gtk.ScrolledWindow (null, null);
             scrollable.add (answer_label);
             scrollable.propagate_natural_height = true;
@@ -96,9 +101,9 @@ namespace Pebbles {
             input_entry.set_has_frame (false);
             input_entry.set_text (settings.cal_input_text);
             input_entry.get_style_context ().add_class ("pebbles_h2");
-            input_entry.set_halign (Gtk.Align.START);
-            input_entry.width_request = 530;
-            input_entry.max_width_chars = 39;
+            input_entry.set_halign (Gtk.Align.FILL);
+            input_entry.hexpand = true;
+            input_entry.margin_bottom = 1;
 
 
             input_entry.changed.connect (() => {
@@ -108,7 +113,7 @@ namespace Pebbles {
                     }
                 }
             });
-            
+
             // Make seperator
             Gtk.Separator lcd_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
             lcd_separator.set_opacity (0.6);
@@ -119,7 +124,7 @@ namespace Pebbles {
             attach (lcd_separator, 0, 2, 1, 1);
             attach (input_entry, 0, 3, 1, 1);
 
-            width_request = 530;
+            width_request = 300;
         }
 
         public void set_shift_enable (bool s_on) {
@@ -131,7 +136,7 @@ namespace Pebbles {
             }
             this.queue_draw ();
         }
-        
+
         public void set_angle_status (int state) {
             switch (state) {
                 case 1 :
@@ -164,7 +169,7 @@ namespace Pebbles {
                 memory_label.set_opacity (0.2);
             }
         }
-        
+
         public void get_answer_evaluate_derivative (double dx) {
             string result = "";
             if (!this.cal_view.window.history_manager.is_empty (EvaluationResult.ResultSource.CALC)) {
@@ -183,7 +188,7 @@ namespace Pebbles {
             }
             else {
                 this.cal_view.window.history_manager.append_from_strings (EvaluationResult.ResultSource.CALC,
-                                                                        input_entry.get_text (), 
+                                                                        input_entry.get_text (),
                                                                         result.replace (Utils.get_local_separator_symbol (), ""),
                                                                         angle_mode,
                                                                         EvaluationResult.CalculusResultMode.DER,
@@ -211,9 +216,9 @@ namespace Pebbles {
             else {
                 this.cal_view.window.history_manager.append_from_strings (
                                                                         EvaluationResult.ResultSource.CALC,
-                                                                        input_entry.get_text (), 
-                                                                        result.replace (Utils.get_local_separator_symbol (), ""), 
-                                                                        angle_mode, 
+                                                                        input_entry.get_text (),
+                                                                        result.replace (Utils.get_local_separator_symbol (), ""),
+                                                                        angle_mode,
                                                                         EvaluationResult.CalculusResultMode.INT,
                                                                         u,
                                                                         l,

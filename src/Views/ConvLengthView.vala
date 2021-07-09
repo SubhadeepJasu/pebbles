@@ -69,10 +69,10 @@ namespace Pebbles {
 
             // Make Header Label
             var header_title = new Gtk.Label (_("Length"));
-            header_title.get_style_context ().add_class ("h1");
+            header_title.get_style_context ().add_class ("h2");
             header_title.set_justify (Gtk.Justification.LEFT);
             header_title.halign = Gtk.Align.START;
-            header_title.margin_start = 6;
+            header_title.margin_start = 8;
 
             // Make Upper Unit Box
             from_entry = new Gtk.Entry ();
@@ -119,23 +119,22 @@ namespace Pebbles {
             conversion_grid.attach (to_entry, 0, 4, 1, 1);
             conversion_grid.width_request = 240;
             conversion_grid.height_request = 210;
-            conversion_grid.set_row_homogeneous (true);
+            conversion_grid.row_homogeneous = true;
+            conversion_grid.column_homogeneous = true;
             conversion_grid.margin_start = 8;
             conversion_grid.margin_end = 8;
             conversion_grid.valign = Gtk.Align.CENTER;
-            conversion_grid.halign = Gtk.Align.CENTER;
             conversion_grid.row_spacing = 8;
+
+            ResponsiveBox wrapbox = new ResponsiveBox (8);
+            wrapbox.margin_bottom = 8;
+            wrapbox.pack_end (keypad, true, true, 0);
+            wrapbox.pack_start (conversion_grid, true, true, 0);
             
-            var separator = new Gtk.Separator (Gtk.Orientation.VERTICAL);
-            separator.margin_start = 25;
-            separator.margin_end = 25;
-            
-            halign = Gtk.Align.CENTER;
+            halign = Gtk.Align.FILL;
             valign = Gtk.Align.CENTER;
-            attach (header_title, 0, 0, 3, 1);
-            attach (keypad, 0, 1, 1, 1);
-            attach (separator, 1, 1, 1, 1);
-            attach (conversion_grid, 2, 1, 1, 1);
+            attach (header_title, 0, 0, 1, 1);
+            attach (wrapbox, 0, 1, 1, 1);
             row_spacing = 8;
 
             handle_events ();

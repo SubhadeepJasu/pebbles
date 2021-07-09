@@ -10,6 +10,8 @@ sources = files (
 
     'Test/TestUtil.vala',
 
+    'Common/ResponsiveBox.vala',
+
     'Core/EvaluationResult.vala',
     'Core/HistoryManager.vala',
     'Core/ScientificCalculator.vala',

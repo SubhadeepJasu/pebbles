@@ -41,6 +41,7 @@ namespace Pebbles {
         bool ctrl_held = false;
 
         private Settings settings;
+        public ResponsiveBox wrapbox;
 
         private double[] unit_multipliers = {
             0,
@@ -56,17 +57,17 @@ namespace Pebbles {
         };
 
         private string[] units = {
-            (_("US Dollar") + "                                                $"),
-            (_("Euro") + "                                                         €"),
-            (_("British Pounds") + "                                       £"),
-            (_("Australian Dollar") + "                                   $"),
-            (_("Brazilian Real") + "                                       R$"),
-            (_("Canadian Dollar") + "                                    $"),
-            (_("Chinese Yuan") + "                                         ¥"),
-            (_("Indian Rupee") + "                                          ₹"),
-            (_("Japanese Yen") + "                                         ¥"),
-            (_("Russian Ruble") + "                                        руб"),
-            (_("South African Rand") + "                               R"),
+            (_("US Dollar") + ": $"),
+            (_("Euro") + ": €"),
+            (_("British Pounds") + ": £"),
+            (_("Australian Dollar") + ": $"),
+            (_("Brazilian Real") + ": R$"),
+            (_("Canadian Dollar") + ": $"),
+            (_("Chinese Yuan") + ": ¥"),
+            (_("Indian Rupee") + ": ₹"),
+            (_("Japanese Yen") + ": ¥"),
+            (_("Russian Ruble") + ": руб"),
+            (_("South African Rand") + ": R"),
         };
 
         private const int[] precision_override_structure = {
@@ -100,10 +101,10 @@ namespace Pebbles {
             
             // Make Header Label
             var header_title = new Gtk.Label (_("Currency"));
-            header_title.get_style_context ().add_class ("h1");
+            header_title.get_style_context ().add_class ("h2");
             header_title.set_justify (Gtk.Justification.LEFT);
             header_title.halign = Gtk.Align.START;
-            header_title.margin_start = 6;
+            header_title.margin_start = 8;
             
             // Make Upper Unit Box
             from_entry = new Gtk.Entry ();
@@ -150,25 +151,25 @@ namespace Pebbles {
             conversion_grid.attach (to_entry, 0, 4, 1, 1);
             conversion_grid.width_request = 240;
             conversion_grid.height_request = 210;
-            conversion_grid.set_row_homogeneous (true);
+            conversion_grid.row_homogeneous = true;
+            conversion_grid.column_homogeneous = true;
             conversion_grid.margin_start = 8;
             conversion_grid.margin_end = 8;
             conversion_grid.valign = Gtk.Align.CENTER;
-            conversion_grid.halign = Gtk.Align.CENTER;
             conversion_grid.row_spacing = 8;
 
-            var separator = new Gtk.Separator (Gtk.Orientation.VERTICAL);
-            separator.margin_start = 25;
-            separator.margin_end = 25;
-
-            main_grid.halign = Gtk.Align.CENTER;
-            main_grid.valign = Gtk.Align.CENTER;
-            main_grid.attach (header_title, 0, 0, 3, 1);
-            main_grid.attach (keypad, 0, 1, 1, 1);
-            main_grid.attach (separator, 1, 1, 1, 1);
-            main_grid.attach (conversion_grid, 2, 1, 1, 1);
+            wrapbox = new ResponsiveBox (8);
+            wrapbox.margin_bottom = 8;
+            wrapbox.pack_end (keypad, true, true, 0);
+            wrapbox.pack_start (conversion_grid, true, true, 0);
+            
+            halign = Gtk.Align.FILL;
+            valign = Gtk.Align.FILL;
+            main_grid.attach (header_title, 0, 0, 1, 1);
+            main_grid.attach (wrapbox, 0, 1, 1, 1);
 
             main_grid.row_spacing = 8;
+            main_grid.valign = Gtk.Align.CENTER;
             
             add (main_grid);
             
@@ -179,7 +180,9 @@ namespace Pebbles {
             waiting_overlay_bar.opacity = 0.0;
             
             add_overlay (toast);
-            conv.update_multipliers (curr.load_from_save ());
+            double[] saved_data = curr.load_from_save ();
+            if (saved_data.length > 0)
+                conv.update_multipliers (saved_data);
             handle_events ();
         }
         public void update_currency_data () {

@@ -52,9 +52,14 @@ namespace Pebbles {
         Gtk.Grid date_diff_grid;
         Gtk.Grid date_add_grid;
 
+        Gtk.Label add_header;
+
         Pebbles.Settings settings;
         
         DateCalculator date_calculator_object;
+
+        public Granite.Widgets.ModeButton diff_mode_button;
+        public Granite.Widgets.ModeButton add_mode_button;
         
         public DateView (MainWindow window) {
             settings = Settings.get_default ();
@@ -66,18 +71,49 @@ namespace Pebbles {
             this.date_add_grid = window.date_add_grid;
             this.diff_mode_switch.state_set.connect ((event) => {
                 do_calculations ();
+                diff_mode_button.set_active (this.diff_mode_switch.active ? 1 : 0);
                 return false;
+            });
+            this.diff_mode_button.mode_changed.connect (() => {
+                do_calculations ();
+                if (diff_mode_button.selected == 0) {
+                    this.diff_mode_switch.set_active (false);
+                } else {
+                    this.diff_mode_switch.set_active (true);
+                }
             });
             this.add_mode_switch.state_set.connect ((event) => {
                 if (add_mode_switch.get_active ()) {
                     add_label.set_text (_("Subtract"));
+                    add_mode_button.set_active (1);
+                    if (add_header != null)
+                        add_header.set_text (_("The Date was"));
                     find_date (true);
                 }
                 else {
                     add_label.set_text (_("Add"));
+                    add_mode_button.set_active (0);
+                    if (add_header != null)
+                        add_header.set_text (_("The Date will be"));
                     find_date (false);
                 }
                 return false;
+            });
+
+            this.add_mode_button.mode_changed.connect (() => {
+                if (add_mode_button.selected == 0) {
+                    add_label.set_text (_("Add"));
+                    add_mode_switch.set_active (false);
+                    if (add_header != null)
+                        add_header.set_text (_("The Date will be"));
+                    find_date (false);
+                } else {
+                    add_label.set_text (_("Subtract"));
+                    add_mode_switch.set_active (true);
+                    if (add_header != null)
+                        add_header.set_text (_("The Date was"));
+                    find_date (true);
+                }
             });
             load_date ();
         }
@@ -85,14 +121,17 @@ namespace Pebbles {
         private void build_ui () {
             // Make Date Mode Switcher ////////////////////////////////////////////////////
             date_mode = new Granite.Widgets.ModeButton ();
-            date_mode.append_text (_("Difference Between Dates"));
-            date_mode.append_text (_("Add or Subtract Dates"));
-            date_mode.margin_start = 100;
-            date_mode.margin_end = 100;
+            date_mode.append_text (_("Find Difference"));
+            date_mode.append_text (_("Infer Date"));
+            date_mode.margin = 8;
             
             // Make Date Difference View
             // ---------------------------------------------------------------------------
             date_difference_view = new Gtk.Grid ();
+            diff_mode_button = new Granite.Widgets.ModeButton ();
+            diff_mode_button.append_text (_("AGE"));
+            diff_mode_button.append_text (_("DUR"));
+            diff_mode_button.set_active (0);
             var from_label = new Gtk.Label (_("From"));
             from_label.xalign = 0;
             from_label.get_style_context ().add_class (Granite.STYLE_CLASS_H4_LABEL);
@@ -102,10 +141,11 @@ namespace Pebbles {
             to_label.xalign = 0;
             to_label.get_style_context ().add_class (Granite.STYLE_CLASS_H4_LABEL);
             datepicker_diff_to   = new Granite.Widgets.DatePicker ();
-            date_difference_view.attach (from_label, 0, 0, 1, 1);
-            date_difference_view.attach (datepicker_diff_from, 0, 1, 1, 1);
-            date_difference_view.attach (to_label, 0, 2, 1, 1);
-            date_difference_view.attach (datepicker_diff_to, 0, 3, 1, 1);
+            date_difference_view.attach (diff_mode_button, 0, 0, 1, 1);
+            date_difference_view.attach (from_label, 0, 1, 1, 1);
+            date_difference_view.attach (datepicker_diff_from, 0, 2, 1, 1);
+            date_difference_view.attach (to_label, 0, 3, 1, 1);
+            date_difference_view.attach (datepicker_diff_to, 0, 4, 1, 1);
             
             var diff_header = new Gtk.Label (_("Difference"));
             diff_header.xalign = 0;
@@ -113,6 +153,8 @@ namespace Pebbles {
             
             date_diff_label = new Gtk.Label (_("Hey, it's the same date") + "\n");
             date_diff_label.xalign = 0;
+            date_diff_label.hexpand = true;
+            date_diff_label.set_line_wrap (true);
             date_diff_label.get_style_context ().add_class (Granite.STYLE_CLASS_H2_LABEL);
             days_diff_label = new Gtk.Label ("");
             days_diff_label.xalign = 0;
@@ -121,16 +163,14 @@ namespace Pebbles {
             diff_grid.attach (diff_header,0, 0, 1, 1);
             diff_grid.attach (date_diff_label,0, 1, 1, 1);
             diff_grid.attach (days_diff_label,0, 2, 1, 1);
-            diff_grid.width_request = 370;
             
             
-            var separator_diff = new Gtk.Separator (Gtk.Orientation.VERTICAL);
-            separator_diff.margin_start = 8;
-            separator_diff.margin_end = 8;
-            separator_diff.height_request = 131;
+            var separator_diff = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+            separator_diff.margin = 28;
+            separator_diff.hexpand = true;
             
-            date_difference_view.attach (separator_diff, 1, 0, 1, 4);
-            date_difference_view.attach (diff_grid, 2, 0, 1, 4);
+            date_difference_view.attach (separator_diff, 0, 5, 1, 1);
+            date_difference_view.attach (diff_grid, 0, 6, 1, 1);
             
             date_difference_view.height_request = 200;
             date_difference_view.margin_start = 8;
@@ -142,6 +182,10 @@ namespace Pebbles {
             // Make Add Date View
             // ----------------------------------------------------------------------------
             date_add_view = new Gtk.Grid ();
+            add_mode_button = new Granite.Widgets.ModeButton ();
+            add_mode_button.append_text (_("ADD"));
+            add_mode_button.append_text (_("SUB"));
+            add_mode_button.set_active (0);
             var start_label = new Gtk.Label (_("Starting from"));
             start_label.xalign = 0;
             start_label.get_style_context ().add_class (Granite.STYLE_CLASS_H4_LABEL);
@@ -202,12 +246,14 @@ namespace Pebbles {
             date_input_grid.attach (add_entry_month, 1, 0, 1, 1);
             date_input_grid.attach (add_entry_year, 2, 0, 1, 1);
             date_input_grid.column_spacing = 4;
+            date_input_grid.column_homogeneous = true;
             
             datepicker_add_sub  = new Granite.Widgets.DatePicker ();
-            date_add_view.attach (start_label, 0, 0, 1, 1);
-            date_add_view.attach (datepicker_add_sub, 0, 1, 1, 1);
-            date_add_view.attach (add_label, 0, 2, 1, 1);
-            date_add_view.attach (date_input_grid, 0, 3, 1, 1);
+            date_add_view.attach (add_mode_button, 0, 0, 1, 1);
+            date_add_view.attach (start_label, 0, 1, 1, 1);
+            date_add_view.attach (datepicker_add_sub, 0, 2, 1, 1);
+            date_add_view.attach (add_label, 0, 3, 1, 1);
+            date_add_view.attach (date_input_grid, 0, 4, 1, 1);
             
             
             date_add_view.height_request = 200;
@@ -217,7 +263,7 @@ namespace Pebbles {
             date_add_view.column_spacing = 8;
             date_add_view.row_spacing = 4;
             
-            var add_header = new Gtk.Label (_("The Date will be"));
+            add_header = new Gtk.Label (_("The Date will be"));
             add_header.xalign = 0;
             add_header.valign = Gtk.Align.START;
             add_header.width_request = 160;
@@ -236,20 +282,17 @@ namespace Pebbles {
             add_grid.attach (add_header,0, 0, 1, 1);
             add_grid.attach (week_day_label,0, 1, 1, 1);
             add_grid.attach (date_dmy_label,0, 2, 1, 1);
-            add_grid.width_request = 370;
             
             main_calendar = new Gtk.Calendar ();
             main_calendar.set_display_options (Gtk.CalendarDisplayOptions.NO_MONTH_CHANGE);
+            main_calendar.get_style_context ().add_class ("pebbles-calendar-box");
             main_calendar.show_day_names = true;
             main_calendar.width_request = 210;
-            add_grid.attach (main_calendar, 1, 0, 1, 3);
+            main_calendar.hexpand = true;
+            main_calendar.margin_top = 8;
+            add_grid.attach (main_calendar, 0, 3, 1, 1);
             
-            var separator_add = new Gtk.Separator (Gtk.Orientation.VERTICAL);
-            separator_add.margin_start = 8;
-            separator_add.margin_end = 8;
-            
-            date_add_view.attach (separator_add, 1, 0, 1, 4);
-            date_add_view.attach (add_grid, 2, 0, 1, 4);            
+            date_add_view.attach (add_grid, 0, 5, 1, 1);            
             
             var date_calc_holder = new Gtk.Stack ();
             date_calc_holder.add_named (date_difference_view, _("Difference Between Dates"));
@@ -288,8 +331,8 @@ namespace Pebbles {
             attach (date_mode, 0, 0, 2, 1);
             attach (date_calc_holder, 0, 1, 1, 1);
             row_spacing = 54;
-            halign = Gtk.Align.CENTER;
             valign = Gtk.Align.CENTER;
+            vexpand = true;
         }
         
         private void do_calculations () {
@@ -344,9 +387,9 @@ namespace Pebbles {
                         part++;
                 }
                 if (res_day != "0") {
-                    if (part > 2)
-                        result_date += "\n";
-                    else if (part != 0)
+                    //  if (part > 2)
+                    //      result_date += "\n";
+                    if (part != 0)
                         result_date += " ";
                     if (part > 0)
                         result_date += (_("and") + " ");

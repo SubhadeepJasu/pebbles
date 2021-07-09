@@ -39,6 +39,21 @@
 			<summary>The saved y-position of the window.</summary>
 			<description>The saved y-position of the window.</description>
 		</key>
+		<key name="window-w" type="i">
+			<default>800</default>
+			<summary>The saved width of the window.</summary>
+			<description>The saved width of the window.</description>
+		</key>
+		<key name="window-h" type="i">
+			<default>400</default>
+			<summary>The saved height of the window.</summary>
+			<description>The saved height of the window.</description>
+		</key>
+		<key name="window-maximized" type="b">
+			<default>false</default>
+			<summary>Window maximized</summary>
+			<description>If window should be maximized</description>
+		</key>
 		<key name="view-index" type="i">
 			<default>0</default>
 			<summary>The saved view index of main stack</summary>
@@ -64,11 +79,6 @@
 			<summary>Choose the number system</summary>
 			<description>Select the number system.</description>
 		</key>
-		<key name="use-dark-theme" type="b">
-			<default>true</default>
-			<summary>Use Dark Theme</summary>
-			<description>Use dark theme.</description>
-		</key>
 		<key name="constant-key-value1" enum="com.github.subhadeepjasu.pebbles.constant-key-index">
 			<default>"euler"</default>
 			<summary>Choose Constant 1</summary>
@@ -84,6 +94,12 @@
 			<default>9</default>
 			<summary>Number of decimal places after radix</summary>
 			<description>Number of decimal places after radix point.</description>
+		</key>
+		<key name="integration-accuracy" type="i">
+			<range min="500" max="100000"/>
+			<default>10000</default>
+			<summary>Accuracy of integratal caculus evaluation</summary>
+			<description>Number of cycles of Simpson's 3/8 evaluation</description>
 		</key>
 		<key name="sci-input-text" type="s">
 			<default>"0"</default>

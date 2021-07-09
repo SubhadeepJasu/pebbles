@@ -127,7 +127,7 @@ namespace Pebbles {
                 }
                 return multipliers;
             }
-            return null;
+            return new double[0];
         }
 
 

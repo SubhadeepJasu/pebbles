@@ -28,6 +28,7 @@ namespace Pebbles {
         Gtk.LinkButton forex_api_link;
         Gtk.ComboBoxText constants_select_1;
         Gtk.ComboBoxText constants_select_2;
+        Gtk.Scale accuracy_scale;
 
         public signal void update_settings ();
 
@@ -43,6 +44,14 @@ namespace Pebbles {
             precision_label.halign = Gtk.Align.START;
             precision_entry = new Gtk.SpinButton.with_range (1, 9, 1);
             precision_entry.max_length = 1;
+
+            var accuracy_label = new Gtk.Label (_("Integral Calculus Accuracy"));
+            accuracy_label.halign = Gtk.Align.START;
+            accuracy_label.get_style_context ().add_class ("h4");
+            accuracy_scale = new Gtk.Scale.with_range (Gtk.Orientation.HORIZONTAL, 500, 100000, 100);
+            accuracy_scale.set_draw_value (false);
+            accuracy_scale.add_mark (500, Gtk.PositionType.TOP, _("Fast"));
+            accuracy_scale.add_mark (100000, Gtk.PositionType.TOP, _("Accurate"));
 
             var constant_button_label = new Gtk.Label (_("Scientific constants button:"));
             constant_button_label.get_style_context ().add_class ("h4");
@@ -82,11 +91,13 @@ namespace Pebbles {
 
             main_grid.attach (precision_label, 0, 0, 1, 1);
             main_grid.attach (precision_entry, 0, 1, 1, 1);
-            main_grid.attach (constant_button_label, 0, 2, 1, 1);
-            main_grid.attach (constant_label1, 0, 3, 1, 1);
-            main_grid.attach (constants_select_1, 0, 4, 1, 1);
-            main_grid.attach (constant_label2, 0, 5, 1, 1);
-            main_grid.attach (constants_select_2, 0, 6, 1, 1);
+            main_grid.attach (accuracy_label,  0, 2, 1, 1);
+            main_grid.attach (accuracy_scale,  0, 3, 1, 1);
+            main_grid.attach (constant_button_label, 0, 4, 1, 1);
+            main_grid.attach (constant_label1, 0, 5, 1, 1);
+            main_grid.attach (constants_select_1, 0, 6, 1, 1);
+            main_grid.attach (constant_label2, 0, 7, 1, 1);
+            main_grid.attach (constants_select_2, 0, 8, 1, 1);
 
             var forex_label = new Gtk.Label (_("Currency Converter API Key"));
             forex_label.halign = Gtk.Align.START;
@@ -96,11 +107,12 @@ namespace Pebbles {
             forex_api_key.set_icon_from_icon_name (Gtk.EntryIconPosition.SECONDARY,"edit-undo-symbolic");
             forex_api_key.placeholder_text = "03eb97e97cbf3fa3e228";
             
-            main_grid.attach (forex_label, 0, 7, 1, 1);
-            main_grid.attach (forex_api_key, 0, 8, 1, 1);
-            main_grid.attach (forex_api_link, 0, 9, 1, 1);
+            main_grid.attach (forex_label, 0, 9, 1, 1);
+            main_grid.attach (forex_api_key, 0, 10, 1, 1);
+            main_grid.attach (forex_api_link, 0, 11, 1, 1);
 
             this.add (main_grid);
+            main_grid.margin_bottom = 8;
 
             var headerbar = new Gtk.HeaderBar ();
             headerbar.has_subtitle = false;
@@ -136,6 +148,8 @@ namespace Pebbles {
                 settings.forex_api_key = forex_api_key.get_text ();
             else
                 settings.forex_api_key = "03eb97e97cbf3fa3e228";
+            
+            settings.integration_accuracy = (int)(accuracy_scale.get_value ());
             this.update_settings ();
         }
 
@@ -143,6 +157,7 @@ namespace Pebbles {
             precision_entry.set_value ((double)settings.decimal_places);
             load_constant_button_settings ();
             forex_api_key.set_text (settings.forex_api_key);
+            accuracy_scale.set_value ((double)settings.integration_accuracy);
         }
 
         private void load_constant_button_settings () {

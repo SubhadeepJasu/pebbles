@@ -12,7 +12,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License 
+ * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  *
  * Authored by: Subhadeep Jasu <subhajasu@gmail.com>
@@ -20,7 +20,6 @@
 
 namespace Pebbles {
     public class CalculusView : Gtk.Grid {
-        Gtk.Label cal_placeholder;
         // Reference of main window
         public MainWindow window;
 
@@ -75,13 +74,11 @@ namespace Pebbles {
         public StyledButton last_answer_button;
         StyledButton integration_button;
         StyledButton derivation_button;
-        
+
         Gtk.Entry int_limit_a;
         Gtk.Entry int_limit_b;
         Gtk.Entry int_limit_x;
-        
-        Gtk.Entry differential_value;
-        
+
         CommonNumericKeypad keypad_a;
         CommonNumericKeypad keypad_b;
         CommonNumericKeypad keypad_x;
@@ -91,7 +88,16 @@ namespace Pebbles {
         string constant_desc_1 = "";
         string constant_label_2 = "";
         string constant_desc_2 = "";
-        
+
+        // Button Leaflet
+        public Hdy.Leaflet button_leaflet;
+
+        // Toolbar
+        Gtk.Revealer bottom_button_bar_revealer;
+        public StyledButton toolbar_angle_mode_button;
+        StyledButton toolbar_int_der_func_button;
+        public StyledButton toolbar_shift_button;
+
         public int integral_accuracy { get; set; }
 
         Gtk.Entry editable_entry;
@@ -110,10 +116,10 @@ namespace Pebbles {
             }
         }
 
-        
-        private bool shift_held = false;
+
+        public bool shift_held = false;
         private bool ctrl_held = false;
-        
+
         public CalculusView (MainWindow window) {
             this.window = window;
             load_constant_button_settings ();
@@ -122,18 +128,20 @@ namespace Pebbles {
             cal_make_events ();
         }
         construct {
-            halign = Gtk.Align.CENTER;
-            valign = Gtk.Align.CENTER;
+            halign = Gtk.Align.FILL;
+            valign = Gtk.Align.FILL;
+            column_spacing = 1;
+            height_request = 400;
         }
         private void cal_make_ui () {
             // Make Fake LCD display
             display_container = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-            display_container.height_request = 120;
-            display_container.width_request = 560;
+            display_container.height_request = 138;
             display_container.margin_start = 8;
             display_container.margin_end = 8;
             display_container.margin_top = 8;
             display_container.margin_bottom = 8;
+            display_container.vexpand = true;
             display_unit = new CalculusDisplay (this);
             display_container.pack_start (display_unit);
             display_unit.button_release_event.connect (() => {
@@ -142,30 +150,35 @@ namespace Pebbles {
                 return false;
             });
             this.editable_entry = display_unit.input_entry;
-            
+
             // Make Input section on the left
             button_container_left = new Gtk.Grid ();
             button_container_left.height_request = 250;
+            button_container_left.width_request = 256;
             button_container_left.margin_start = 8;
             button_container_left.margin_end = 8;
             button_container_left.margin_bottom = 8;
             button_container_left.column_spacing = 8;
             button_container_left.row_spacing = 8;
+            button_container_left.vexpand = true;
 
             // Make Input section on the right
             button_container_right = new Gtk.Grid ();
             button_container_right.height_request = 250;
+            button_container_right.width_request = 256;
             button_container_right.margin_start = 8;
             button_container_right.margin_end = 8;
             button_container_right.margin_bottom = 8;
             button_container_right.column_spacing = 8;
             button_container_right.row_spacing = 8;
-            
+            button_container_right.vexpand = true;
+
             // Make buttons on the left
             all_clear_button = new StyledButton ("AC", _("All Clear"), {"Delete"});
             all_clear_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
             del_button = new Gtk.Button.from_icon_name ("edit-clear-symbolic", Gtk.IconSize.BUTTON);
             del_button.set_tooltip_text (_("Backspace"));
+            del_button.get_style_context ().remove_class ("image-button");
             if (display_unit.input_entry.get_text () =="0" || display_unit.input_entry.get_text () == "") {
                 del_button.sensitive = false;
             } else {
@@ -177,7 +190,7 @@ namespace Pebbles {
                 else
                     del_button.sensitive = true;
             });
-            variable_button = new StyledButton ("<i>x</i>", _("Variable for linear expressions"), {"X"});
+            variable_button = new StyledButton ("𝑥", _("Variable for linear expressions"), {"X"});
             divide_button = new StyledButton ("\xC3\xB7", _("Divide"));
             divide_button.get_style_context ().add_class ("h3");
             seven_button = new StyledButton ("7");
@@ -199,7 +212,7 @@ namespace Pebbles {
             decimal_button = new StyledButton (Utils.get_local_radix_symbol ());
             left_parenthesis_button = new StyledButton ("(");
             right_parenthesis_button = new StyledButton (")");
-            
+
             button_container_left.attach (all_clear_button, 0, 0, 1, 1);
             button_container_left.attach (del_button, 1, 0, 1, 1);
             button_container_left.attach (variable_button, 2, 0, 1, 1);
@@ -220,7 +233,7 @@ namespace Pebbles {
             button_container_left.attach (decimal_button, 1, 4, 1, 1);
             button_container_left.attach (left_parenthesis_button, 2, 4, 1, 1);
             button_container_left.attach (right_parenthesis_button, 3, 4, 1, 1);
-            
+
             button_container_left.set_column_homogeneous (true);
             button_container_left.set_row_homogeneous (true);
 
@@ -258,17 +271,18 @@ namespace Pebbles {
             last_answer_button = new StyledButton ("Ans", _("Last answer"), {"F7"});
             last_answer_button.sensitive = false;
             last_answer_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            
+
             // Make integration section
             var integration_grid = new Gtk.Grid ();
-            integration_grid.get_style_context ().add_class ("button");
+            integration_grid.get_style_context ().add_class ("calculus-button-grid");
             integration_grid.get_style_context ().add_class ("Pebbles_Buttons_Function");
+            integration_grid.set_row_homogeneous (true);
             integration_button = new StyledButton ("\xE2\x88\xAB", _("Definite Integral (Upper limit 'u' and Lower limit 'l')"), {"I"});
             integration_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
             integration_button.get_style_context ().add_class ("suggested-override");
             integration_button.margin_top = 5;
             integration_button.margin_start = 2;
-            
+
             int_limit_a = new Gtk.Entry ();
             int_limit_a.button_release_event.connect (() => {
                 this.editable_entry = int_limit_a;
@@ -279,12 +293,13 @@ namespace Pebbles {
             int_limit_a.width_chars = 4;
             int_limit_a.margin_start = 5;
             int_limit_a.margin_top = 5;
+            int_limit_a.set_hexpand (true);
             int_limit_a.placeholder_text = "u";
             int_limit_a.set_text (settings.cal_integration_upper_limit);
             int_limit_a.changed.connect (() => {
                 settings.cal_integration_upper_limit = int_limit_a.get_text ();
             });
-            
+
             int_limit_b = new Gtk.Entry ();
             int_limit_b.button_release_event.connect (() => {
                 this.editable_entry = int_limit_b;
@@ -295,6 +310,7 @@ namespace Pebbles {
             int_limit_b.width_chars = 4;
             int_limit_b.margin_start = 5;
             int_limit_b.margin_top = 5;
+            int_limit_b.set_hexpand (true);
             int_limit_b.placeholder_text = "l";
             int_limit_b.set_text (settings.cal_integration_lower_limit);
             int_limit_b.changed.connect (() => {
@@ -314,17 +330,20 @@ namespace Pebbles {
             int_limit_b.icon_release.connect (() => {
                 keypad_b.set_visible (true);
             });
-            
+
             // Make derivation section
             var derivation_grid = new Gtk.Grid ();
-            derivation_grid.get_style_context ().add_class ("button");
+            derivation_grid.get_style_context ().add_class ("calculus-button-grid");
             derivation_grid.get_style_context ().add_class ("Pebbles_Buttons_Function");
+            derivation_grid.set_row_homogeneous (true);
+            derivation_grid.set_column_homogeneous (true);
+            derivation_grid.set_halign (Gtk.Align.FILL);
             derivation_button = new StyledButton ("dy/dx", _("Derivative (at a point x)"), {"D"});
             derivation_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
             derivation_button.get_style_context ().add_class ("suggested-override");
             derivation_button.margin_top = 5;
             derivation_button.margin_start = 2;
-            
+
             int_limit_x = new Gtk.Entry ();
             int_limit_x.button_release_event.connect (() => {
                 this.editable_entry = int_limit_x;
@@ -348,7 +367,7 @@ namespace Pebbles {
             int_limit_x.icon_release.connect (() => {
                 keypad_x.set_visible (true);
             });
-            
+
             button_container_right.attach (sin_button,              0, 0, 1, 1);
             button_container_right.attach (sinh_button,             1, 0, 1, 1);
             button_container_right.attach (pow_root_button,         2, 0, 1, 1);
@@ -367,14 +386,55 @@ namespace Pebbles {
             button_container_right.attach (memory_clear_button,     3, 3, 1, 1);
             button_container_right.attach (integration_grid,        0, 4, 2, 1);
             button_container_right.attach (derivation_grid,         2, 4, 2, 1);
-            
+
             button_container_right.set_column_homogeneous (true);
             button_container_right.set_row_homogeneous (true);
-            
+
+            button_leaflet = new Hdy.Leaflet ();
+            button_leaflet.add (button_container_left);
+            button_leaflet.add (button_container_right);
+            button_leaflet.set_visible_child (button_container_left);
+            button_leaflet.hhomogeneous_unfolded = true;
+            button_leaflet.can_swipe_back = true;
+            button_leaflet.can_swipe_forward = true;
+
+            bottom_button_bar_revealer = new Gtk.Revealer ();
+            var bottom_toolbar = new Gtk.ActionBar ();
+            bottom_toolbar.height_request = 40;
+
+            toolbar_int_der_func_button = new StyledButton ("d/dx \xE2\x88\xAB<i> ƒ(x) dx</i>", _("Other functions, integration and differentiation"));
+            toolbar_int_der_func_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
+            toolbar_int_der_func_button.halign = Gtk.Align.CENTER;
+            toolbar_int_der_func_button.hexpand = true;
+
+            toolbar_shift_button = new StyledButton (_("Shift"), _("Access alternative functions"));
+            toolbar_shift_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
+            toolbar_shift_button.halign = Gtk.Align.START;
+            toolbar_shift_button.width_request = 46;
+
+            toolbar_angle_mode_button = new StyledButton ("DEG", "<b>" + _("Degrees") + "</b> \xE2\x86\x92" + _("Radians"), {"F8"});
+            toolbar_angle_mode_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
+            toolbar_angle_mode_button.halign = Gtk.Align.END;
+            toolbar_angle_mode_button.width_request = 46;
+
+            bottom_button_bar_revealer.add (bottom_toolbar);
+            bottom_button_bar_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
+
+            var toolbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 2);
+            toolbox.set_homogeneous (true);
+            toolbox.pack_start (toolbar_shift_button);
+            toolbox.pack_start (toolbar_int_der_func_button);
+            toolbox.pack_end (toolbar_angle_mode_button);
+            toolbox.margin = 8;
+            toolbox.margin_start = 4;
+            toolbox.margin_end = 4;
+
+            bottom_toolbar.pack_start (toolbox);
+
             // Put it together
-            attach (display_container, 0, 0, 2, 1);
-            attach (button_container_left, 0, 1, 1, 1);
-            attach (button_container_right, 1, 1, 1, 1);
+            attach (display_container,          0, 0, 1, 1);
+            attach (button_leaflet,             0, 1, 1, 1);
+            attach (bottom_button_bar_revealer, 0, 2, 1, 1);
             set_column_homogeneous (true);
             display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
         }
@@ -407,6 +467,15 @@ namespace Pebbles {
                 tanh_button.update_label ("tanh", _("Hyperbolic Tangent"), {"A"});
                 perm_comb_button.update_label ("<sup>n</sup>P\xE1\xB5\xA3", _("Permutations"), {"P"});
                 constant_button.update_label (constant_label_1, constant_desc_1, {"R"});
+            }
+        }
+        private void toggle_leaf () {
+            if (!button_leaflet.get_child_transition_running ()) {
+                if (button_leaflet.get_visible_child () == button_container_left) {
+                    button_leaflet.set_visible_child (button_container_right);
+                } else {
+                    button_leaflet.set_visible_child (button_container_left);
+                }
             }
         }
         public void load_constant_button_settings () {
@@ -500,6 +569,16 @@ namespace Pebbles {
             }
         }
         private void cal_make_events () {
+            this.size_allocate.connect ((event) => {
+                if (button_leaflet.folded) {
+                    bottom_button_bar_revealer.set_reveal_child (true);
+                } else {
+                    bottom_button_bar_revealer.set_reveal_child (false);
+                }
+            });
+            toolbar_int_der_func_button.clicked.connect (() => {
+                toggle_leaf ();
+            });
             derivation_button.button_press_event.connect ((event) => {
                 if (event.button == 1) {
                     display_unit.display_off ();
@@ -510,7 +589,7 @@ namespace Pebbles {
                     else {
                         display_unit.get_answer_evaluate_derivative (double.parse (limit));
                     }
-                    
+
                     if (display_unit.input_entry.get_text ().length == 0 && display_unit.input_entry.get_text () != "0") {
                         display_unit.input_entry.set_text ("0");
                     }
@@ -541,7 +620,7 @@ namespace Pebbles {
                     else {
                         display_unit.get_answer_evaluate_integral (double.parse (limit_l), double.parse (limit_u));
                     }
-                    
+
                     if (display_unit.input_entry.get_text ().length == 0 && display_unit.input_entry.get_text () != "0") {
                         display_unit.input_entry.set_text ("0");
                     }
@@ -555,7 +634,7 @@ namespace Pebbles {
                 display_unit.display_on ();
                 return false;
             });
-            
+
             all_clear_button.clicked.connect (() => {
                 display_unit.input_entry.grab_focus_without_selecting ();
                 display_unit.input_entry.set_text ("0");
@@ -619,7 +698,7 @@ namespace Pebbles {
             right_parenthesis_button.clicked.connect (() => {;
                 display_unit.insert_text (") ");
             });
-            
+
             pow_root_button.clicked.connect (() => {
                 if (shift_held)
                     display_unit.insert_text ("\xE2\x81\xBF√ ");
@@ -683,7 +762,7 @@ namespace Pebbles {
                 else
                     display_unit.insert_text ("mod ");
             });
-            
+
             memory_plus_button.button_press_event.connect ((event) => {
                 if (event.button == 1) {
                     display_unit.display_off ();
@@ -705,7 +784,7 @@ namespace Pebbles {
                 display_unit.display_on ();
                 return false;
             });
-            
+
             memory_minus_button.button_press_event.connect ((event) => {
                 if (event.button == 1) {
                     display_unit.display_off ();
@@ -727,7 +806,7 @@ namespace Pebbles {
                 display_unit.display_on ();
                 return false;
             });
-            
+
             memory_clear_button.button_press_event.connect ((event) => {
                 display_unit.display_off ();
                 memory_reserve = 0.0;
@@ -737,11 +816,11 @@ namespace Pebbles {
                 display_unit.display_on ();
                 return false;
             });
-            
+
             memory_recall_button.clicked.connect (() => {
                 display_unit.insert_text (memory_reserve.to_string ());
             });
-            
+
             last_answer_button.clicked.connect (() => {
                 display_unit.insert_text ("ans ");
             });
@@ -751,6 +830,17 @@ namespace Pebbles {
                 }
                 else if (val == "del") {
                     int_limit_a.backspace ();
+                }
+                else if (val == "-") {
+                    int_limit_a.grab_focus_without_selecting ();
+                    string entry_text = int_limit_a.get_text ();
+                    if (entry_text.contains ("-")) {
+                        entry_text = entry_text.replace ("-", "");
+                    } else {
+                        entry_text = "-" + entry_text;
+                    }
+                    int_limit_a.set_text (entry_text);
+                    int_limit_a.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
                 }
                 else {
                     if (int_limit_a.get_text () == "0"){
@@ -766,6 +856,17 @@ namespace Pebbles {
                 else if (val == "del") {
                     int_limit_b.backspace ();
                 }
+                else if (val == "-") {
+                    int_limit_b.grab_focus_without_selecting ();
+                    string entry_text = int_limit_b.get_text ();
+                    if (entry_text.contains ("-")) {
+                        entry_text = entry_text.replace ("-", "");
+                    } else {
+                        entry_text = "-" + entry_text;
+                    }
+                    int_limit_b.set_text (entry_text);
+                    int_limit_b.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                }
                 else {
                     if (int_limit_b.get_text () == "0"){
                         int_limit_b.set_text("");
@@ -780,6 +881,17 @@ namespace Pebbles {
                 else if (val == "del") {
                     int_limit_x.backspace ();
                 }
+                else if (val == "-") {
+                    int_limit_x.grab_focus_without_selecting ();
+                    string entry_text = int_limit_x.get_text ();
+                    if (entry_text.contains ("-")) {
+                        entry_text = entry_text.replace ("-", "");
+                    } else {
+                        entry_text = "-" + entry_text;
+                    }
+                    int_limit_x.set_text (entry_text);
+                    int_limit_x.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+                }
                 else {
                     if (int_limit_x.get_text () == "0"){
                         int_limit_x.set_text("");
@@ -790,17 +902,6 @@ namespace Pebbles {
             keypad_a.closed.connect (() => display_unit.input_entry.grab_focus_without_selecting ());
             keypad_b.closed.connect (() => display_unit.input_entry.grab_focus_without_selecting ());
             keypad_x.closed.connect (() => display_unit.input_entry.grab_focus_without_selecting ());
-        }
-        private void char_button_click (string input) {
-            string sample = display_unit.input_entry.get_text ();
-            display_unit.input_entry.grab_focus_without_selecting ();
-            if (sample != "0") {
-                display_unit.input_entry.set_text (sample.concat (input));
-            }
-            else {
-                display_unit.input_entry.set_text (input);
-            }
-            display_unit.input_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
         }
         public void set_angle_mode_display (int state) {
             display_unit.set_angle_status (state);
@@ -818,8 +919,20 @@ namespace Pebbles {
             if (editable_entry.get_text () == "0") {
                 editable_entry.set_text ("");
             }
-            editable_entry.grab_focus_without_selecting ();
-            editable_entry.insert_at_cursor (text);
+            if (text.contains ("-") && editable_entry != display_unit.input_entry) {
+                editable_entry.grab_focus_without_selecting ();
+                string entry_text = editable_entry.get_text ();
+                if (entry_text.contains ("-")) {
+                    entry_text = entry_text.replace ("-", "");
+                } else {
+                    entry_text = "-" + entry_text;
+                }
+                editable_entry.set_text (entry_text);
+                editable_entry.move_cursor (Gtk.MovementStep.DISPLAY_LINE_ENDS, 0, false);
+            } else {
+                editable_entry.grab_focus_without_selecting ();
+                editable_entry.insert_at_cursor (text);
+            }
         }
         public void insert_text_to_main_entry (string text) {
             editable_entry = display_unit.input_entry;
@@ -913,7 +1026,6 @@ namespace Pebbles {
                 break;
                 case KeyboardHandler.KeyMap.MINUS_NUMPAD:
                 case KeyboardHandler.KeyMap.MINUS_KEYPAD:
-                if (editable_entry == display_unit.input_entry)
                 this.insert_text (" - ");
                 subtract_button.get_style_context ().add_class ("Pebbles_Buttons_Pressed");
                 break;
@@ -1075,7 +1187,7 @@ namespace Pebbles {
                     else {
                         display_unit.get_answer_evaluate_integral (double.parse (limit_l), double.parse (limit_u));
                     }
-                    
+
                     if (display_unit.input_entry.get_text ().length == 0 && display_unit.input_entry.get_text () != "0") {
                         display_unit.input_entry.set_text ("0");
                     }
@@ -1095,7 +1207,7 @@ namespace Pebbles {
                     else {
                         display_unit.get_answer_evaluate_derivative (double.parse (limit));
                     }
-                    
+
                     if (display_unit.input_entry.get_text ().length == 0 && display_unit.input_entry.get_text () != "0") {
                         display_unit.input_entry.set_text ("0");
                     }
@@ -1220,7 +1332,7 @@ namespace Pebbles {
 
         public void set_evaluation (EvaluationResult result) {
             this.display_unit.set_evaluation (result);
-            
+
             int_limit_a.set_text (result.int_limit_a.to_string ());
             int_limit_b.set_text (result.int_limit_b.to_string ());
             int_limit_x.set_text (result.derivative_point.to_string ());

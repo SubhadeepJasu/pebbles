@@ -26,20 +26,23 @@
  */
 
 .Pebbles_Display_Unit_Bg {
-	background-image: linear-gradient(#b6bfb6, #dae6da);
+	/* background-image: linear-gradient(#b6bfb6, #dae6da); */
+	background-image: url("resource://com/github/subhadeepjasu/pebbles/images/textures/texture.png");
 	padding-left: 15px;
+	padding-right: 15px;
 	padding-top: 3px;
 	border-radius: 2.5px;
 	border: 1px solid alpha (black, 0.6);
 	box-shadow:
-	inset 0px 1px 8px 0px alpha (black, 0.15),
+	inset 0px 2px 2px 0px alpha (black, 0.15),
 	inset 0px 0px 2px 1px alpha (black, 0.20),
+	inset 0px 72px 36px 1px alpha (#f3faf3, 0.5),
 	0px 1px 0px 0px alpha (white, 0.3),
 	0px -1px 0px 0px alpha (black, 0.15);
 }
 
 .Pebbles_Display_Unit_Bg:backdrop {
-	background-image: linear-gradient(#bdc7bd, #c9d3c9);
+	background-image: linear-gradient(#bdc7bd, #bdc7bd);
 	padding-left: 15px;
 	padding-top: 3px;
 	border-radius: 2.5px;
@@ -52,6 +55,15 @@
 
 .pebbles_shake {
     animation: shake 0.4s ease-in-out 1;
+}
+
+.calculus-button-grid {
+	padding-left: 4px;
+	padding-right: 6px;
+	padding-top: 2px;
+    padding-bottom: 7px;
+	border: 1px solid alpha (@accent_color, 0.5);
+	border-radius: 2px;
 }
 
 @keyframes shake {
@@ -86,13 +98,8 @@
 	color: #333;
 	text-shadow: 0 1px alpha (#000, 0.0);
 	-gtk-icon-shadow: 0 1px alpha (#000, 0.0);
-	border-color: shade (@bg_color, 0.45);
+	border-color: alpha(#000, 0.5);
 	background-image: linear-gradient(#ffe16b, #f9c440);
-	box-shadow:
-	inset 0 0 0 1px alpha (#fff, 0.05),
-	inset 0 1px 0 0 alpha (#fff, 0.25),
-	0 1px 0 0 alpha (#fff, 0.1),
-	inset 0 -1px 0 0 alpha (#fff, 0.1);
 	font-weight: bold;
 }
 
@@ -100,7 +107,7 @@
 	color: #333;
 	text-shadow: 0 1px alpha (#000, 0.0);
 	-gtk-icon-shadow: 0 1px alpha (#000, 0.0);
-	border-color: shade (@bg_color, 0.45);
+	border-color: alpha(#000, 0.7);
 	background-image: linear-gradient(#f9c440, #f9c440);
 	box-shadow:
 	inset 0px 1px 1px 0px alpha (#000, 0.05),
@@ -113,7 +120,7 @@
 	color: #333;
 	text-shadow: 0 1px alpha (#000, 0.0);
 	-gtk-icon-shadow: 0 1px alpha (#000, 0.0);
-	border-color: shade (@bg_color, 0.45);
+	border-color: alpha(#000, 0.7);
 	background-image: linear-gradient(#f9c440, #f9c440);
 	box-shadow:
 	inset 0px 1px 1px 0px alpha (#000, 0.05),
@@ -140,51 +147,26 @@
 }
 
 .Pebbles_Buttons_Function {
-	color: @selected_fg_color;
-	text-shadow: 0 1px alpha (#000, 0.3);
-	-gtk-icon-shadow: 0 1px alpha (#000, 0.3);
-	border-color: shade (@bg_color, 0.35);
-	background-image: linear-gradient(#667885, #485a6c);
-	box-shadow:
-	inset 0 0 0 1px alpha (#fff, 0.05),
-	inset 0 1px 0 0 alpha (#fff, 0.25),
-	0 1px 0 0 alpha (#fff, 0.1),
-	inset 0 -1px 0 0 alpha (#fff, 0.1);
+	background-image: linear-gradient(alpha(#6b7a85, 0.5), alpha(#485a6c, 0.5));
+	border-color: alpha(#000, 0.4);
 }
 
-.Pebbles_Buttons_Function:active{
-	color: @selected_fg_color;
-	text-shadow: 0 1px alpha (#000, 0.3);
-	-gtk-icon-shadow: 0 1px alpha (#000, 0.3);
-	border-color: shade (@bg_color, 0.35);
-	background-image: linear-gradient(#485a6c, #667885);
-	box-shadow:
-	inset 0px 1px 1px 0px alpha (#000, 0.05),
-	inset 0px 0px 1px 1px alpha (#000, 0.05),
-	0 1px 0 0 alpha (#fff, 0.2),
-	0 1px 0 0 alpha (#4c4a52, 0.5);
+.Pebbles_Buttons_Function:active {
+	background-image: linear-gradient(alpha(#273445, 0.5), alpha(#273445, 0.5));
+	border-color: alpha(#000, 0.6);
 }
 
 .Pebbles_Buttons_Function:backdrop {
-	background-image: linear-gradient(#6b7a85, #677680);
+	background-image:  linear-gradient(alpha(#95a3ab, 0.3), alpha(#95a3ab, 0.3));
 }
 
 .Pebbles_Buttons_Function:disabled {
- 	background-image: linear-gradient(alpha (#485a6c, 0.3), alpha (#485a6c, 0.3));
- 	border-color: alpha (shade (@bg_color, 0.45), 0.7);
+	background-image:  linear-gradient(alpha(#95a3ab, 0.2), alpha(#95a3ab, 0.2));
 }
 
 .Pebbles_Buttons_Function_Pressed {
-	color: @selected_fg_color;
-	text-shadow: 0 1px alpha (#000, 0.3);
-	-gtk-icon-shadow: 0 1px alpha (#000, 0.3);
-	border-color: shade (@bg_color, 0.35);
-	background-image: linear-gradient(#485a6c, #667885);
-	box-shadow:
-	inset 0px 1px 1px 0px alpha (#000, 0.05),
-	inset 0px 0px 1px 1px alpha (#000, 0.05),
-	0 1px 0 0 alpha (#fff, 0.2),
-	0 1px 0 0 alpha (#4c4a52, 0.5);
+	background-image: linear-gradient(alpha(#273445, 0.5), alpha(#273445, 0.5));
+	border-color: alpha(#000, 0.6);
 }
 
 .Pebbles_Buttons_Suggested_Pressed {
@@ -223,7 +205,7 @@
 .pebbles_h1 {
 	font-size: 40px;
 	font-family: Open Sans;
-	text-shadow: 0 0px alpha (#000, 0);
+	text-shadow: 0 2px 1px alpha (#000, 0.1);
 	opacity: 0.85;
 	color:#272863;
 	margin-top: 6px;
@@ -232,7 +214,7 @@
 .pebbles_h2 {
 	font-size: 20px;
 	font-family: Open Sans;
-	text-shadow: 0 0px alpha (#000, 0);
+	text-shadow: 0 2px 1px alpha (#000, 0.1);
 	opacity: 0.8;
 	color:#272863;
 	margin-top: 3px;
@@ -240,6 +222,7 @@
 	background: none;
 	box-shadow: none;
 	caret-color: alpha (#272863, 0.8);
+	transition: none;
 }
 
 .pebbles_h2 selection {
@@ -250,7 +233,7 @@
 .pebbles_h3 {
 	font-size: 16px;
 	font-family: Raleway;
-	text-shadow: 0 0px alpha (#000, 0);
+	text-shadow: 0 2px 1px alpha (#000, 0.1);
 	opacity: 0.8;
 	color:#272863;
 	margin-top: 3px;
@@ -263,7 +246,7 @@
 .pebbles_h4 {
 	font-size: 10px;
 	font-family: Roboto;
-	text-shadow: 0 0px alpha (#000, 0);
+	text-shadow: 0 2px 1px alpha (#000, 0.1);
 	opacity: 0.8;
 	color:#272863;
 	font-weight: bold;
@@ -274,6 +257,7 @@
 	font-size: 10px;
 	opacity: 0.8;
 	font-weight: bold;
+	box-shadow: 0 2px 2px alpha (#000, 0.1), inset 0 2px 2px alpha(#000, 0.1);
 	color:#272863;
 	border: 1px solid #272863;
 	padding-left : 6px;
@@ -288,13 +272,14 @@
 
 .PebblesLCDLabelSmall {
 	font-size: 10px;
+	font-family: monospace;
 	opacity: 0.8;
 	color:#272863;
 }
 
 .Pebbles_Conversion_Text_Box {
 	background: none;
-	border: 1px solid alpha (@border_color, 0);
+	border: 1px solid alpha (#000, 0.0);
 	box-shadow: none;
 	font-weight: bold;
 }
@@ -312,12 +297,9 @@
                 0.97
             )
         );
-    border: 1px solid @border_color;
-    border-radius: 2.5px;
-    box-shadow:
-        inset 0 1px 0 0 alpha (@inset_dark_color, 0.7),
-        inset 0 0 0 1px alpha (@inset_dark_color, 0.3),
-        0 1px 0 0 alpha (@bg_highlight_color, 0.3);
+	box-shadow: inset 0 1px alpha(#000, 0.1), 0 1px alpha(#fff, 0.1);
+    border: 1px solid alpha(#000, 0.3);
+    border-radius: 3px;
     color: @text_color;
     text-shadow: 0 1px @text_shadow_color;
     padding: 3px;
@@ -362,7 +344,7 @@
 }
 
 .Pebbles_Card {
-	border: 1px solid @border_color;
+	border: 1px solid alpha(#000, 0.75);
 	box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 3px 3px rgba(0, 0, 0, 0.22);
 	border-radius: 2.5px;
 	padding-bottom: 3px;
@@ -385,6 +367,7 @@
 
 .PebblesFlat {
 	background: none;
+	padding: 0;
 }
 
 .PebblesFlat:hover {
@@ -449,4 +432,14 @@ scrolledwindow overshoot.right {
 }
 scrolledwindow overshoot.left {
      background-image: none;
+}
+.sidebar-left {
+	border-right: 1px solid alpha(#000, 0.3);
+	border-top: 1px solid alpha(#000, 0.1);
+}
+
+.pebbles-calendar-box {
+	border: 1px solid alpha(#000, 0.5);
+	border-radius: 4px;
+	background-color: alpha(@accent_color, 0.2);
 }

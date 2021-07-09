@@ -6,6 +6,7 @@ src/PreferencesOverlay.vala
 src/Views/MiniCalculator.vala
 src/Views/CalculusView.vala
 src/Views/ScientificView.vala
+src/Views/ProgrammerView.vala
 src/Views/DateView.vala
 src/Views/StatisticsView.vala
 src/Views/CommonNumericKeypad.vala
@@ -24,7 +25,7 @@ src/Views/ConvTempView.vala
 src/Views/ConvDataView.vala
 src/Views/ConvCurrView.vala
 src/Views/ControlsOverlay.vala
-src/Views/HistoryViewScientific.vala
+src/Views/HistoryView.vala
 src/Views/BottomPopper.vala
 
 src/Views/Displays/StatisticsDisplay.vala

@@ -125,19 +125,20 @@ namespace Pebbles {
 
             lcd_status_bar.attach (result_type_box, 0, 0, 1, 1);
             lcd_status_bar.attach (memory_label, 1, 0, 1, 1);
-            lcd_status_bar.column_spacing = 205;
-            lcd_status_bar.width_request = 530;
-            lcd_status_bar.set_halign (Gtk.Align.END);
+            lcd_status_bar.hexpand = true;
+            lcd_status_bar.column_homogeneous = true;
 
 
             answer_label = new Gtk.Label (settings.stat_output_text);
-            answer_label.set_halign (Gtk.Align.END);
+            answer_label.halign = Gtk.Align.END;
+            answer_label.valign = Gtk.Align.END;
+            answer_label.vexpand = true;
+            answer_label.hexpand = true;
             answer_label.get_style_context ().add_class ("pebbles_h1");
             var answer_scrollable = new Gtk.ScrolledWindow (null, null);
             answer_scrollable.add (answer_label);
             answer_scrollable.propagate_natural_height = true;
             answer_scrollable.shadow_type = Gtk.ShadowType.NONE;
-            answer_scrollable.width_request = 370;
 
             bar_graph = new StatisticsGraph ();
 
@@ -146,6 +147,7 @@ namespace Pebbles {
             input_table.get_style_context ().add_class ("stats_table");
             var input_table_scrollable = new Gtk.ScrolledWindow (null, null);
             input_table_scrollable.add (input_table);
+            input_table.hexpand = true;
 
             add_cell_warning = new Gtk.Label ("▭+  " + _("Enter data by adding new cell"));
             add_cell_warning.get_style_context ().add_class ("pebbles_h3");
@@ -153,7 +155,7 @@ namespace Pebbles {
             Gtk.Overlay display_overlay = new Gtk.Overlay ();
             display_overlay.add_overlay (add_cell_warning);
             display_overlay.add_overlay (input_table_scrollable);
-            display_overlay.height_request = 34;
+            display_overlay.height_request = 40;
 
             
             
@@ -172,6 +174,8 @@ namespace Pebbles {
             attach (bar_graph, 2, 1, 1, 1);
             attach (lcd_separator_horizontal, 0, 2, 3, 1);
             attach (display_overlay, 0, 3, 3, 1);
+
+            width_request = 300;
             
         }
 
