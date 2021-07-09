@@ -181,7 +181,9 @@ namespace Pebbles {
             waiting_overlay_bar.opacity = 0.0;
             
             add_overlay (toast);
-            conv.update_multipliers (curr.load_from_save ());
+            double[] saved_data = curr.load_from_save ();
+            if (saved_data.length > 0)
+                conv.update_multipliers (saved_data);
             handle_events ();
         }
         public void update_currency_data () {

@@ -112,6 +112,7 @@ namespace Pebbles {
         // History
         public HistoryManager history_manager;
         Gtk.MenuItem history_item;
+        Gtk.MenuItem update_forex_item;
 
         private bool currency_view_visited = false;
 
@@ -274,22 +275,8 @@ namespace Pebbles {
             preferences_overlay_item.add (new Granite.AccelLabel (_("Preferences"), "F2"));
             history_item = new Gtk.MenuItem ();
             history_item.add (new Granite.AccelLabel (_("History"), ""));
-            var update_forex_item = new Gtk.MenuItem ();
+            update_forex_item = new Gtk.MenuItem ();
             update_forex_item.add (new Granite.AccelLabel (_("Update Forex Data"), "R"));
-
-            update_button.unmap.connect (() => {
-                if (header_switcher != null && header_switcher.visible == false) {
-                    update_forex_item.visible = true;
-                } else {
-                    update_forex_item.visible = false;
-                }
-            });
-            update_button.map.connect (() => {
-                if (header_switcher != null && header_switcher.visible == true) {
-                    update_forex_item.visible = false;
-                }
-            });
-
 
             settings_menu.append (controls_overlay_item);
             settings_menu.append (preferences_overlay_item);
@@ -632,12 +619,16 @@ namespace Pebbles {
                 date_view.diff_mode_button.set_visible (false);
                 date_view.add_mode_button.set_visible (false);
             }
+            if ((this.common_view.get_visible_child () == this.conv_curr_view) && !header_switcher.visible) {
+                update_forex_item.set_visible (true);
+            } else {
+                update_forex_item.set_visible (false);
+            }
             if (main_leaflet.folded) {
                 leaflet_back_button.set_visible (true);
             } else {
                 leaflet_back_button.set_visible (false);
             }
-            //warning("adjusting");
         }
 
         private void set_view () {
