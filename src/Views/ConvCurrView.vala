@@ -159,7 +159,6 @@ namespace Pebbles {
             conversion_grid.row_spacing = 8;
 
             wrapbox = new ResponsiveBox (8);
-            wrapbox.homogeneous = true;
             wrapbox.margin_bottom = 8;
             wrapbox.pack_end (keypad, true, true, 0);
             wrapbox.pack_start (conversion_grid, true, true, 0);

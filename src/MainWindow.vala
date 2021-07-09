@@ -153,6 +153,18 @@ namespace Pebbles {
                     return false;
                 }
             });
+            var granite_settings = Granite.Settings.get_default ();
+            var gtk_settings = Gtk.Settings.get_default ();
+
+            gtk_settings.gtk_application_prefer_dark_theme = (
+                granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK
+            );
+
+            granite_settings.notify["prefers-color-scheme"].connect (() => {
+                gtk_settings.gtk_application_prefer_dark_theme = (
+                    granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK
+                );
+            });
         }
 
         public void make_ui () {
@@ -476,6 +488,7 @@ namespace Pebbles {
             common_view = new Gtk.Stack ();
             common_view.valign = Gtk.Align.FILL;
             common_view.halign = Gtk.Align.FILL;
+            common_view.homogeneous = false;
             common_view.add_named (scientific_view, "Scientific");
             common_view.add_named (calculus_view, "Calculus");
             common_view.add_named (programmer_view, "Programmer");

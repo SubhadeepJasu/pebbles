@@ -42,7 +42,7 @@
 }
 
 .Pebbles_Display_Unit_Bg:backdrop {
-	background-image: linear-gradient(#bdc7bd, #f1fff1);
+	background-image: linear-gradient(#bdc7bd, #bdc7bd);
 	padding-left: 15px;
 	padding-top: 3px;
 	border-radius: 2.5px;
@@ -435,6 +435,7 @@ scrolledwindow overshoot.left {
 }
 .sidebar-left {
 	border-right: 1px solid alpha(#000, 0.3);
+	border-top: 1px solid alpha(#000, 0.1);
 }
 
 .pebbles-calendar-box {

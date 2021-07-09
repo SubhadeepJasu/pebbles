@@ -5,6 +5,7 @@ namespace Pebbles {
         public ResponsiveBox (int spacing) {
             this.hexpand = true;
             this.spacing = spacing;
+            this.homogeneous = false;
             this.set_orientation (Gtk.Orientation.VERTICAL);
 
             this.draw.connect (() => {
@@ -14,15 +15,18 @@ namespace Pebbles {
                 }
                 if (total_width_request + 20 < this.get_allocated_width () && this.visible) {
                     this.set_orientation (Gtk.Orientation.HORIZONTAL);
+                    this.homogeneous = true;
                     wrapping = false;
                 } else {
                     this.set_orientation (Gtk.Orientation.VERTICAL);
+                    this.homogeneous = false;
                     wrapping = true;
                 }
                 return false;
             });
             this.unmap.connect (() => {
                 this.set_orientation (Gtk.Orientation.VERTICAL);
+                this.homogeneous = false;
                 wrapping = true;
             });
         }

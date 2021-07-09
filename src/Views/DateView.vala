@@ -292,12 +292,6 @@ namespace Pebbles {
             main_calendar.margin_top = 8;
             add_grid.attach (main_calendar, 0, 3, 1, 1);
             
-            var separator_add = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
-            separator_add.margin = 28;
-            separator_add.margin_top = 64;
-            separator_add.hexpand = true;
-            
-            date_add_view.attach (separator_add, 0, 4, 1, 1);
             date_add_view.attach (add_grid, 0, 5, 1, 1);            
             
             var date_calc_holder = new Gtk.Stack ();
