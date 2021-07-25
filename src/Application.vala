@@ -50,6 +50,18 @@ namespace Pebbles {
             );
             X.init_threads ();
             settings = Settings.get_default ();
+
+            Timeout.add_seconds (1, () => {
+                if (this.get_active_window () != null) {
+                    int height = this.get_active_window ().get_allocated_height ();
+                    if (((MainWindow) (this.get_active_window ())).previous_height != height) {
+                        ((MainWindow) (this.get_active_window ())).previous_height = height;
+                        adjust_font_responsive (height);
+                    }
+                    return true;
+                }
+                return false;
+            });
         }
 
         protected override void activate () {
@@ -57,10 +69,6 @@ namespace Pebbles {
             mainwindow.application = this;
             
             mainwindow.present ();
-            mainwindow.configure_event.connect ((event) => {
-                adjust_font_responsive (event);
-                return false;
-            });
         }
 
         public override int command_line (ApplicationCommandLine cmd) {
@@ -122,11 +130,11 @@ namespace Pebbles {
         private double map_range (double input, double input_start, double input_end, double output_start, double output_end) {
             return output_start + ((output_end - output_start) / (input_end - input_start)) * (input - input_start);
         }
-        private void adjust_font_responsive (Gdk.EventConfigure event) {
+        private void adjust_font_responsive (int height) {
             try {
-                var target_size_h1 = (int)map_range (double.max((double) event.height/600, 1), 1, 2, 40, 120);
-                var target_size_h2 = (int)map_range (double.max((double) event.height/600, 1), 1, 2, 20, 50);
-                var target_size_h4 = (int)map_range (double.max((double) event.height/600, 1), 1, 2, 10, 20);
+                var target_size_h1 = (int)map_range (double.max((double) height/600, 1), 1, 2, 40, 120);
+                var target_size_h2 = (int)map_range (double.max((double) height/600, 1), 1, 2, 20, 50);
+                var target_size_h4 = (int)map_range (double.max((double) height/600, 1), 1, 2, 10, 20);
                 var css = DISPLAY_FONT_SIZE_TEMPLATE.printf(target_size_h1, target_size_h2, target_size_h4);
                 font_size_provider.load_from_data (css, -1);
             } catch (Error e) {

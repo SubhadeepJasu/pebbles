@@ -124,6 +124,8 @@ namespace Pebbles {
         /// Initialized
         bool initialized = false;
 
+        public int previous_height = 0;
+
         public MainWindow () {
             settings = Pebbles.Settings.get_default ();
             this.delete_event.connect (() => {
