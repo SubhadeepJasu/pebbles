@@ -18,17 +18,6 @@ modules:
       - type: git
         url: https://github.com/elementary/granite.git
 
-  # - name: gsl
-  #   buildsystem: simple
-  #   build-commands:
-  #     - autoconf
-  #     - ./configure
-  #     - make
-  #     - sudo make install
-  #   sources:
-  #     - type: archive
-  #       url: https://mirror.ibcp.fr/pub/gnu/gsl/gsl-latest.tar.gz
-  #       sha256: b782339fc7a38fe17689cb39966c4d821236c28018b6593ddb6fd59ee40786a8
   - name: gsl
     config-opts:
       - --disable-static

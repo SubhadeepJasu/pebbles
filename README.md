@@ -8,7 +8,7 @@
 <br>
 Pebbles is an advanced calculator application based in Vala and Gtk.
 
-[![Build Status](https://travis-ci.com/SubhadeepJasu/pebbles.svg?branch=master)](https://travis-ci.com/SubhadeepJasu/pebbles)
+![elementary flatpak build status](https://github.com/SubhadeepJasu/pebbles/actions/workflows/ci.yml/badge.svg)
 
 ## Get it from store
 | elementary OS    | FlatHub       	|
