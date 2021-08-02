@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+
+jobs:
+  flatpak:
+    name: Flatpak
+    runs-on: ubuntu-latest
+
+    container:
+      image: ghcr.io/elementary/flatpak-platform/runtime:daily
+      options: --privileged
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Build
+        uses: bilelmoussaoui/flatpak-github-actions/flatpak-builder@v3
+        with:
+          bundle: Pebbles.flatpak
+          manifest-path: com.github.subhadeepjasu.pebbles.yml
+          run-tests: true
+          repository-name: appcenter
+          repository-url: https://flatpak.elementary.io/repo.flatpakrepo
+          cache-key: "flatpak-builder-${{ github.sha }}"

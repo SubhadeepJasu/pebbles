@@ -93,12 +93,13 @@
     <content_attribute id="money-gambling">none</content_attribute>
   </content_rating>
   <releases>
-    <release date="2021-07-14" version="2.0.0">
+    <release date="2021-08-03" version="2.0.0">
       <description>
         <p>New:</p>
         <ul>
           <li>[UI] Make UI resizable and responsive with touch support</li>
-          <li>[UI] Follow platform-implemented dark style preference</li>
+          <li>[UI] Follow system-wide dark style preference</li>
+          <li>[UI] Updated CSS to be in tune with style of elementary OS 6 Odin</li>
         </ul>
         <p>Improved:</p>
         <ul>
