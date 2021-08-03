@@ -12,12 +12,6 @@ finish-args:
   - '--system-talk-name=org.freedesktop.Accounts'
   - '--metadata=X-DConf=migrate-path=/com/github/subhadeepjasu/pebbles'
 modules:
-  - name: granite
-    buildsystem: meson
-    sources:
-      - type: git
-        url: https://github.com/elementary/granite.git
-
   - name: gsl
     config-opts:
       - --disable-static
@@ -28,12 +22,6 @@ modules:
         url: https://ftp.gnu.org/gnu/gsl/gsl-2.6.tar.gz
         sha256: b782339fc7a38fe17689cb39966c4d821236c28018b6593ddb6fd59ee40786a8
   
-  - name: libhandy-1
-    buildsystem: meson
-    sources:
-      - type: git
-        url: https://gitlab.gnome.org/GNOME/libhandy.git
-
   - name: pebbles
     buildsystem: meson
     sources:
