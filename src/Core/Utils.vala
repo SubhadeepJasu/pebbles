@@ -153,7 +153,7 @@ namespace Pebbles {
                 exp = exp.replace (")", " ) ");
                 exp = exp.replace ("\xC3\x97", " * ");
                 exp = exp.replace ("\xC3\xB7", " / ");
-                exp = exp.replace ("%", " / 100 ");
+                //exp = exp.replace ("%", " / 100 ");
                 exp = exp.replace ("+", " + ");
                 exp = exp.replace ("-", " - ");
                 exp = exp.replace ("−", " - ");
@@ -227,6 +227,7 @@ namespace Pebbles {
                 // Intelligently convert expressions based on common rules
                 exp = algebraic_parenthesis_product_convert (exp);
                 exp = unary_minus_convert (exp);
+                exp = relative_percentage_convert(exp);
 
                 //exp = space_removal (exp);
                 print ("Final exp: " + exp + "\n");
@@ -406,6 +407,57 @@ namespace Pebbles {
             string converted_exp = space_removal(string.joinv (" ", tokens));
             print("algebraic converted: %s\n", converted_exp);
             return converted_exp;
+        }
+
+        public static string relative_percentage_convert (string exp) {
+            if (exp.contains ("%")) {
+                // Expression is of the form `a +/- b  %`
+                string exp_a = "";
+                string exp_b = "";
+                string[] tokens = exp.split (" ");
+                int percentage_index = -1;
+                for (int i = tokens.length - 1; i > 0; i--) {
+                    if (tokens[i] == "%") {
+                        percentage_index = i;
+                        break;
+                    }
+                }
+                if (is_number (tokens[percentage_index - 1])) {
+                    exp_b = tokens[percentage_index - 1];
+                    if (tokens[percentage_index - 2] != null && !is_number (tokens[percentage_index - 2])) {
+                        if (tokens[percentage_index - 3] != null) {
+                            if (tokens[percentage_index - 3] == ")") {
+                                int paren_balance = -1;
+                                int paren_start_index = -1;
+                                for (int i = percentage_index - 4; i > 0; i--) {
+                                    if (tokens[i] == "(") {
+                                        paren_balance++;
+                                    } else if (tokens[i] == ")") {
+                                        paren_balance--;
+                                    }
+                                    if (paren_balance == 0) {
+                                        paren_start_index = i;
+                                        break;
+                                    }
+                                }
+                                if (paren_start_index >= 0) {
+                                    string[] tokens_in_range = tokens[paren_start_index:percentage_index - 2];
+                                    for (int i = 0; i < tokens_in_range.length; i++) {
+                                        exp_a += " " + tokens_in_range[i] + " ";
+                                    }
+                                    exp_a = space_removal (exp_a);
+                                    return exp.replace("%", " / " + exp_a);
+                                }
+                            } else if (is_number (tokens[percentage_index - 3])) {
+                                exp_a = tokens[percentage_index - 3];
+                                return exp.replace("%", " / " + exp_a);
+                            }
+                        }
+                    }
+                    return exp.replace("%", " / 100 ");
+                }
+            }
+            return exp;
         }
         
         private static bool is_number (string exp) {
