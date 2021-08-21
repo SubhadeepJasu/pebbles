@@ -153,7 +153,7 @@ namespace Pebbles {
                 exp = exp.replace (")", " ) ");
                 exp = exp.replace ("\xC3\x97", " * ");
                 exp = exp.replace ("\xC3\xB7", " / ");
-                //exp = exp.replace ("%", " / 100 ");
+                exp = exp.replace ("%", " % ");
                 exp = exp.replace ("+", " + ");
                 exp = exp.replace ("-", " - ");
                 exp = exp.replace ("−", " - ");
@@ -174,9 +174,10 @@ namespace Pebbles {
                 // Intelligently convert expressions based on common rules
                 exp = algebraic_parenthesis_product_convert (exp);
                 exp = unary_minus_convert (exp);
+                exp = relative_percentage_convert(exp);
 
-                //exp = space_removal (exp);
-                print ("Final exp: " + exp + "\n");
+                exp = space_removal (exp.strip ());
+                print ("Finalle exp: >>>>" + exp + "<<<<\n");
                 return exp;
             }
             else {
@@ -227,7 +228,6 @@ namespace Pebbles {
                 // Intelligently convert expressions based on common rules
                 exp = algebraic_parenthesis_product_convert (exp);
                 exp = unary_minus_convert (exp);
-                exp = relative_percentage_convert(exp);
 
                 //exp = space_removal (exp);
                 print ("Final exp: " + exp + "\n");
@@ -410,8 +410,10 @@ namespace Pebbles {
         }
 
         public static string relative_percentage_convert (string exp) {
+            print ("Exp: %s\n", exp);
             if (exp.contains ("%")) {
                 // Expression is of the form `a +/- b  %`
+                print ("Percentage////////////////////\n");
                 string exp_a = "";
                 string exp_b = "";
                 string[] tokens = exp.split (" ");
@@ -422,6 +424,7 @@ namespace Pebbles {
                         break;
                     }
                 }
+                print ("1\n");
                 if (is_number (tokens[percentage_index - 1])) {
                     exp_b = tokens[percentage_index - 1];
                     if (tokens[percentage_index - 2] != null && !is_number (tokens[percentage_index - 2])) {
@@ -446,16 +449,16 @@ namespace Pebbles {
                                         exp_a += " " + tokens_in_range[i] + " ";
                                     }
                                     exp_a = space_removal (exp_a);
-                                    return exp.replace("%", " / " + exp_a);
+                                    return exp.replace("%", " * " + exp_a + " / 100 ");
                                 }
                             } else if (is_number (tokens[percentage_index - 3])) {
                                 exp_a = tokens[percentage_index - 3];
-                                return exp.replace("%", " / " + exp_a);
+                                return exp.replace("%", " * " + exp_a + " / 100 ");
                             }
                         }
                     }
-                    return exp.replace("%", " / 100 ");
                 }
+                return exp.replace("%", " / 100 ");
             }
             return exp;
         }
