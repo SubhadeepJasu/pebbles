@@ -427,12 +427,18 @@ namespace Pebbles {
                 print ("1\n");
                 if (is_number (tokens[percentage_index - 1])) {
                     exp_b = tokens[percentage_index - 1];
-                    if (tokens[percentage_index - 2] != null && !is_number (tokens[percentage_index - 2])) {
+                    if (tokens[percentage_index - 2] != null &&
+                        (tokens[percentage_index - 2] == "+" ||
+                        tokens[percentage_index - 2] == "-")) {
+                        print ("2\n");
                         if (tokens[percentage_index - 3] != null) {
+                            print ("3\n");
                             if (tokens[percentage_index - 3] == ")") {
+                                print ("4\n");
                                 int paren_balance = -1;
                                 int paren_start_index = -1;
-                                for (int i = percentage_index - 4; i > 0; i--) {
+                                for (int i = percentage_index - 4; i >= 0; i--) {
+                                    print ("%s\n", tokens[i]);
                                     if (tokens[i] == "(") {
                                         paren_balance++;
                                     } else if (tokens[i] == ")") {
@@ -444,6 +450,7 @@ namespace Pebbles {
                                     }
                                 }
                                 if (paren_start_index >= 0) {
+                                    print ("5\n");
                                     string[] tokens_in_range = tokens[paren_start_index:percentage_index - 2];
                                     for (int i = 0; i < tokens_in_range.length; i++) {
                                         exp_a += " " + tokens_in_range[i] + " ";
@@ -453,6 +460,67 @@ namespace Pebbles {
                                 }
                             } else if (is_number (tokens[percentage_index - 3])) {
                                 exp_a = tokens[percentage_index - 3];
+                                return exp.replace("%", " * " + exp_a + " / 100 ");
+                            }
+                        }
+                    }
+                } else if (tokens[percentage_index - 1] == ")") {
+                    print ("6\n");
+                    int paren_balance_b = -1;
+                    int paren_start_index_b = -1;
+                    for (int i = percentage_index - 2; i >= 0; i--) {
+                        print ("%s\n", tokens[i]);
+                        if (tokens[i] == "(") {
+                            paren_balance_b++;
+                        } else if (tokens[i] == ")") {
+                            paren_balance_b--;
+                        }
+                        if (paren_balance_b == 0) {
+                            paren_start_index_b = i;
+                            break;
+                        }
+                    }
+                    if (paren_start_index_b >= 0) {
+                        print ("7\n");
+                        string[] tokens_in_range = tokens[paren_start_index_b:percentage_index - 2];
+                        for (int i = 0; i < tokens_in_range.length; i++) {
+                            exp_b += " " + tokens_in_range[i] + " ";
+                        }
+                        exp_b = space_removal (exp_b);
+                    }
+                    if (tokens[paren_start_index_b - 1] != null &&
+                        (tokens[paren_start_index_b - 1] == "+" ||
+                        tokens[paren_start_index_b - 1] == "-")) {
+                        print ("8\n");
+                        if (tokens[paren_start_index_b - 2] != null) {
+                            print ("9\n");
+                            if (tokens[paren_start_index_b - 2] == ")") {
+                                print ("10\n");
+                                int paren_balance = -1;
+                                int paren_start_index = -1;
+                                for (int i = paren_start_index_b - 3; i >= 0; i--) {
+                                    print ("%s\n", tokens[i]);
+                                    if (tokens[i] == "(") {
+                                        paren_balance++;
+                                    } else if (tokens[i] == ")") {
+                                        paren_balance--;
+                                    }
+                                    if (paren_balance == 0) {
+                                        paren_start_index = i;
+                                        break;
+                                    }
+                                }
+                                if (paren_start_index >= 0) {
+                                    print ("11\n");
+                                    string[] tokens_in_range = tokens[paren_start_index:paren_start_index_b - 1];
+                                    for (int i = 0; i < tokens_in_range.length; i++) {
+                                        exp_a += " " + tokens_in_range[i] + " ";
+                                    }
+                                    exp_a = space_removal (exp_a);
+                                    return exp.replace("%", " * " + exp_a + " / 100 ");
+                                }
+                            } else if (is_number (tokens[paren_start_index_b - 2])) {
+                                exp_a = tokens[paren_start_index_b - 2];
                                 return exp.replace("%", " * " + exp_a + " / 100 ");
                             }
                         }
