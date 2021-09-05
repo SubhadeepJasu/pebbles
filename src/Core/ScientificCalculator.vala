@@ -37,7 +37,6 @@ namespace Pebbles {
 
         public string get_result (string exp, GlobalAngleUnit angle_mode_in, int? float_accuracy = -1, bool? tokenize = true) {
             var result = exp;
-            warning(result);
             if (tokenize) {
                 result = Utils.st_tokenize (exp.replace (Utils.get_local_radix_symbol (), "."));
             }

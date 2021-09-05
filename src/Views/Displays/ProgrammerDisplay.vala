@@ -234,7 +234,7 @@ namespace Pebbles {
             if (!this.prog_view.window.history_manager.is_empty (EvaluationResult.ResultSource.PROG)) {
                 bool[] last_output_array= this.prog_view.window.history_manager.get_last_evaluation_result (EvaluationResult.ResultSource.PROG).prog_output;
                 string last_answer = programmer_calculator_front_end.bool_array_to_string (last_output_array, settings.global_word_length, settings.number_system);
-                warning(last_answer);
+                debug (last_answer);
                 input_entry.set_text (input_entry.get_text().replace ("ans", last_answer));
                 if (dont_push_history != true) {
                     this.set_number_system ();
@@ -429,7 +429,6 @@ namespace Pebbles {
                 settings.prog_input_text = input_entry.get_text ();
                 settings.prog_output_text = Utils.remove_leading_zeroes (result);
             } else {
-                warning("h");
                 get_answer_evaluate(true);
             }
         }

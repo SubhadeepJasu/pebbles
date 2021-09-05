@@ -174,10 +174,12 @@ namespace Pebbles {
                 // Intelligently convert expressions based on common rules
                 exp = algebraic_parenthesis_product_convert (exp);
                 exp = unary_minus_convert (exp);
-                exp = relative_percentage_convert(exp);
+                while (exp.contains("%")) {
+                    exp = relative_percentage_convert(exp);
+                }
 
                 exp = space_removal (exp.strip ());
-                print ("Finalle exp: >>>>" + exp + "<<<<\n");
+                debug ("Final inferred expression: >>>>" + exp + "<<<<\n");
                 return exp;
             }
             else {
@@ -229,8 +231,7 @@ namespace Pebbles {
                 exp = algebraic_parenthesis_product_convert (exp);
                 exp = unary_minus_convert (exp);
 
-                //exp = space_removal (exp);
-                print ("Final exp: " + exp + "\n");
+                debug ("Final inferred expression: " + exp);
                 return exp;
             }
 
@@ -350,12 +351,10 @@ namespace Pebbles {
             return result;
         }
         private static string unary_minus_convert (string exp) {
-            print(">%s<\n", exp);
             string uniminus_converted = "";
             string[] tokens = exp.split (" ");
             for (int i = 0; i < tokens.length; i++) {
                 if (tokens[i] == "-") {
-                    print("token: %s\n", tokens[i + 1]);
                     if (i == 0) {
                         if (i < tokens.length) {
                             tokens [i] = "( 0 u";
@@ -373,7 +372,6 @@ namespace Pebbles {
             }
             uniminus_converted = string.joinv (" ", tokens);
             //uniminus_converted = uniminus_converted.replace ("u", "0 u");
-            print("unary converted: %s\n", uniminus_converted);
             return uniminus_converted;
         }
 
@@ -386,7 +384,6 @@ namespace Pebbles {
                 }
             }
             converted_exp = space_removal(string.joinv (" ", tokens));
-            //print("algebraic converted: %s\n", converted_exp);
             return converted_exp;
         }
 
@@ -405,15 +402,14 @@ namespace Pebbles {
                 }
             }
             string converted_exp = space_removal(string.joinv (" ", tokens));
-            print("algebraic converted: %s\n", converted_exp);
             return converted_exp;
         }
 
         public static string relative_percentage_convert (string exp) {
-            print ("Exp: %s\n", exp);
             if (exp.contains ("%")) {
                 // Expression is of the form `a +/- b  %`
-                print ("Percentage////////////////////\n");
+                debug ("Percentage////////////////////\n");
+                debug ("Exp: %s\n", exp);
                 string exp_a = "";
                 string exp_b = "";
                 string[] tokens = exp.split (" ");
@@ -421,24 +417,20 @@ namespace Pebbles {
                 for (int i = tokens.length - 1; i > 0; i--) {
                     if (tokens[i] == "%") {
                         percentage_index = i;
+                        tokens[i] = "[%]";
                         break;
                     }
                 }
-                print ("1\n");
                 if (is_number (tokens[percentage_index - 1])) {
                     exp_b = tokens[percentage_index - 1];
                     if (tokens[percentage_index - 2] != null &&
                         (tokens[percentage_index - 2] == "+" ||
                         tokens[percentage_index - 2] == "-")) {
-                        print ("2\n");
                         if (tokens[percentage_index - 3] != null) {
-                            print ("3\n");
                             if (tokens[percentage_index - 3] == ")") {
-                                print ("4\n");
                                 int paren_balance = -1;
                                 int paren_start_index = -1;
                                 for (int i = percentage_index - 4; i >= 0; i--) {
-                                    print ("%s\n", tokens[i]);
                                     if (tokens[i] == "(") {
                                         paren_balance++;
                                     } else if (tokens[i] == ")") {
@@ -450,26 +442,27 @@ namespace Pebbles {
                                     }
                                 }
                                 if (paren_start_index >= 0) {
-                                    print ("5\n");
                                     string[] tokens_in_range = tokens[paren_start_index:percentage_index - 2];
                                     for (int i = 0; i < tokens_in_range.length; i++) {
                                         exp_a += " " + tokens_in_range[i] + " ";
                                     }
                                     exp_a = space_removal (exp_a);
-                                    return exp.replace("%", " * " + exp_a + " / 100 ");
+                                    string result = string.joinv (" ", tokens);
+                                    result = space_removal(result);
+                                    return result.replace("[%]", " * " + exp_a + " / 100 ");
                                 }
                             } else if (is_number (tokens[percentage_index - 3])) {
                                 exp_a = tokens[percentage_index - 3];
-                                return exp.replace("%", " * " + exp_a + " / 100 ");
+                                string result = string.joinv (" ", tokens);
+                                result = space_removal(result);
+                                return result.replace("[%]", " * " + exp_a + " / 100 ");
                             }
                         }
                     }
                 } else if (tokens[percentage_index - 1] == ")") {
-                    print ("6\n");
                     int paren_balance_b = -1;
                     int paren_start_index_b = -1;
                     for (int i = percentage_index - 2; i >= 0; i--) {
-                        print ("%s\n", tokens[i]);
                         if (tokens[i] == "(") {
                             paren_balance_b++;
                         } else if (tokens[i] == ")") {
@@ -481,7 +474,6 @@ namespace Pebbles {
                         }
                     }
                     if (paren_start_index_b >= 0) {
-                        print ("7\n");
                         string[] tokens_in_range = tokens[paren_start_index_b:percentage_index - 2];
                         for (int i = 0; i < tokens_in_range.length; i++) {
                             exp_b += " " + tokens_in_range[i] + " ";
@@ -491,15 +483,11 @@ namespace Pebbles {
                     if (tokens[paren_start_index_b - 1] != null &&
                         (tokens[paren_start_index_b - 1] == "+" ||
                         tokens[paren_start_index_b - 1] == "-")) {
-                        print ("8\n");
                         if (tokens[paren_start_index_b - 2] != null) {
-                            print ("9\n");
                             if (tokens[paren_start_index_b - 2] == ")") {
-                                print ("10\n");
                                 int paren_balance = -1;
                                 int paren_start_index = -1;
                                 for (int i = paren_start_index_b - 3; i >= 0; i--) {
-                                    print ("%s\n", tokens[i]);
                                     if (tokens[i] == "(") {
                                         paren_balance++;
                                     } else if (tokens[i] == ")") {
@@ -511,22 +499,27 @@ namespace Pebbles {
                                     }
                                 }
                                 if (paren_start_index >= 0) {
-                                    print ("11\n");
                                     string[] tokens_in_range = tokens[paren_start_index:paren_start_index_b - 1];
                                     for (int i = 0; i < tokens_in_range.length; i++) {
                                         exp_a += " " + tokens_in_range[i] + " ";
                                     }
                                     exp_a = space_removal (exp_a);
-                                    return exp.replace("%", " * " + exp_a + " / 100 ");
+                                    string result = string.joinv (" ", tokens);
+                                    result = space_removal(result);
+                                    return result.replace("[%]", " * " + exp_a + " / 100 ");
                                 }
                             } else if (is_number (tokens[paren_start_index_b - 2])) {
                                 exp_a = tokens[paren_start_index_b - 2];
-                                return exp.replace("%", " * " + exp_a + " / 100 ");
+                                string result = string.joinv (" ", tokens);
+                                result = space_removal(result);
+                                return result.replace("[%]", " * " + exp_a + " / 100 ");
                             }
                         }
                     }
                 }
-                return exp.replace("%", " / 100 ");
+                string result = string.joinv (" ", tokens);
+                result = space_removal(result);
+                return result.replace("[%]", " / 100 ");
             }
             return exp;
         }
