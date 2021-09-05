@@ -65,9 +65,9 @@ namespace Pebbles {
         }
 
         protected override void activate () {
+            init_theme ();
             var mainwindow = new MainWindow ();
             mainwindow.application = this;
-            
             mainwindow.present ();
         }
 
@@ -79,15 +79,15 @@ namespace Pebbles {
         private void command_line_interpreter (ApplicationCommandLine cmd) {
             string[] cmd_args = cmd.get_arguments ();
             unowned string[] args = cmd_args;
-            
+
             bool new_window = false, mini_mode = false;
-            
+
             GLib.OptionEntry [] option = new OptionEntry [4];
             option [0] = { "mini_mode", 0, 0, OptionArg.NONE, ref mini_mode, _("Open In Mini Mode"), null };
             option [1] = { "new_window", 0, 0, OptionArg.NONE, ref new_window, _("Open A New Window"), null };
             option [2] = { "test", 0, 0, OptionArg.NONE, ref test_mode, _("Enable test mode"), null };
             option [3] = { null };
-            
+
             var option_context = new OptionContext ("actions");
             option_context.add_main_entries (option, null);
             try {
@@ -114,6 +114,7 @@ namespace Pebbles {
                 Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
             );
             if (mini_mode) {
+                init_theme ();
                 var minicalcwindow = new Pebbles.MiniCalculator ();
                 minicalcwindow.show_all ();
                 minicalcwindow.application = this;
@@ -141,6 +142,16 @@ namespace Pebbles {
                 Process.exit(1);
             }
         }
+
+        private void init_theme () {
+            GLib.Value value = GLib.Value (GLib.Type.STRING);
+            Gtk.Settings.get_default ().get_property ("gtk-theme-name", ref value);
+            if (!value.get_string ().has_prefix ("io.elementary.")) {
+                Gtk.Settings.get_default ().set_property ("gtk-icon-theme-name", "elementary");
+                Gtk.Settings.get_default ().set_property ("gtk-theme-name", "io.elementary.stylesheet.blueberry");
+            }
+        }
+
         public static int main (string[] args) {
             var app = new PebblesApp ();
             return app.run (args);
