@@ -991,9 +991,9 @@ namespace Pebbles {
 
             }
             if (settings.saved_history != "") {
-                print("load\n");
+                debug ("Loading History from memory");
                 history_manager.load_from_csv (settings.saved_history);
-                print("loaded\n");
+                debug ("Loaded History");
             }
         }
 

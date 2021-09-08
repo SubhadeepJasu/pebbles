@@ -106,7 +106,7 @@ namespace Pebbles {
         }
 
         public bool is_empty (EvaluationResult.ResultSource? mode = null) {
-            print("H\n");
+            debug ("Finding if history is empty");
             if (_history.length == 0) {
                 return true;
             } else {
@@ -117,7 +117,7 @@ namespace Pebbles {
                         if (_history.peek_nth(i) != null && _history.peek_nth(i).result_source == mode) {
                             return false;
                         }
-                        print("Counting_history (%u)...\n", i);
+                        debug ("Found history item (%u)...", i);
                         if (i == 0) {
                             return true;
                         }
@@ -208,7 +208,7 @@ namespace Pebbles {
         public void load_from_csv (string csv_data) {
             //_history = new List<EvaluationResult>();
             string[] lines = csv_data.split ("\n");
-            print(lines.length.to_string ());
+            debug ("Found " + lines.length.to_string () + "entries in memory");
             foreach (string line in lines) {
                 if (line != "") {
                     string[] item = line.split (",");
