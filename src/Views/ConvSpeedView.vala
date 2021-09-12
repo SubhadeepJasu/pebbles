@@ -41,7 +41,7 @@ namespace Pebbles {
             3.28084,
             2.23694,
             1.94384,
-            (1/343),
+            (double) 1/343,
         };
 
         private string[] units = {
