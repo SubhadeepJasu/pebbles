@@ -35,11 +35,11 @@ namespace Pebbles {
         bool ctrl_held = false;
 
         private const double[] unit_multipliers = {
-            1000000,    // Sqaure millimetre
-            10000,      // Square centimetre
-            1,          // Square metre
+            1000000.0,    // Sqaure millimetre
+            10000.0,      // Square centimetre
+            1.0,          // Square metre
             0.000001,   // Square kilometre
-            1550,       // Square inch
+            1550.0,       // Square inch
             10.7639,    // Square foot
             1.19599,    // Square yard
             0.0001,     // Hectare

@@ -35,12 +35,12 @@ namespace Pebbles {
         bool ctrl_held = false;
 
         private const double[] unit_multipliers = {
-            1,
-            (Math.PI/180),
+            1.0,
+            (Math.PI/180.0),
             (1.111111111),
-            ((Math.PI * 1000)/180),
-            3600,
-            60,
+            ((Math.PI * 1000.0)/180.0),
+            3600.0,
+            60.0,
         };
 
         private string[] units = {

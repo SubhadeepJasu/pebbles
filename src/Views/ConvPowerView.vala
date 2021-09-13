@@ -35,7 +35,7 @@ namespace Pebbles {
         bool ctrl_held = false;
 
         private const double[] unit_multipliers = {
-            1,
+            1.0,
             0.001,
             0.00135962,
             0.00134102,

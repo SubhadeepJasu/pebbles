@@ -35,15 +35,15 @@ namespace Pebbles {
         bool ctrl_held = false;
 
         private const double[] unit_multipliers = {
-            1,
+            1.0,
             0.001,
             0.239006,
             0.000239006,
-            (double) 1 / 3600,
+            1.0 / 3600.0,
             0.000000278,
             //6242000000000000000,  Future Support
             0.000947817,
-            (double) 1 / 105500000,
+            1.0 / 105500000.0,
             0.737562,
         };
 
