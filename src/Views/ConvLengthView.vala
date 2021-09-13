@@ -34,11 +34,11 @@ namespace Pebbles {
         bool ctrl_held = false;
 
         private const double[] unit_multipliers = {
-            1000000000, // Nano
-            1000000,    // Micron
-            1000,       // Milli
-            100,        // Centi
-            1,          // Metre
+            1000000000.0, // Nano
+            1000000.0,    // Micron
+            1000.0,       // Milli
+            100.0,        // Centi
+            1.0,          // Metre
             0.001,      // Kilo
             39.3701,    // Inch
             3.28084,    // Foot
