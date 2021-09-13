@@ -31,6 +31,9 @@ namespace Pebbles {
 
         public static string format_result (string result) {
             string output = result.replace (".", Utils.get_local_radix_symbol ());
+            if (!result.contains(Utils.get_local_radix_symbol ())) {
+                output += Utils.get_local_radix_symbol () + "0";
+            }
 
             // Remove trailing 0s and decimals
             while (output.has_suffix ("0")) {
@@ -546,37 +549,37 @@ namespace Pebbles {
             string output = "";
             switch (accuracy) {
                 case 10:
-                    output = ("%.10f".printf (result));
+                    output = ("%.10lf".printf (result));
                     break;
                 case 9:
-                    output = ("%.9f".printf (result));
+                    output = ("%.9lf".printf (result));
                     break;
                 case 8:
-                    output = ("%.8f".printf (result));
+                    output = ("%.8lf".printf (result));
                     break;
                 case 7:
-                    output = ("%.7f".printf (result));
+                    output = ("%.7lf".printf (result));
                     break;
                 case 6:
-                    output = ("%.6f".printf (result));
+                    output = ("%.6lf".printf (result));
                     break;
                 case 5:
-                    output = ("%.5f".printf (result));
+                    output = ("%.5lf".printf (result));
                     break;
                 case 4:
-                    output = ("%.4f".printf (result));
+                    output = ("%.4lf".printf (result));
                     break;
                 case 3:
-                    output = ("%.3f".printf (result));
+                    output = ("%.3lf".printf (result));
                     break;
                 case 2:
-                    output = ("%.2f".printf (result));
+                    output = ("%.2lf".printf (result));
                     break;
                 case 1:
-                    output = ("%.1f".printf (result));
+                    output = ("%.1lf".printf (result));
                     break;
                 case 0:
-                    output = ("%.0f".printf (result));
+                    output = ((int) result).to_string();
                     break;
                 default:
                     output = result.to_string ();
