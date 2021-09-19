@@ -125,6 +125,7 @@ namespace Pebbles {
         bool initialized = false;
 
         public int previous_height = 0;
+        public int previous_width = 0;
 
         public MainWindow () {
             settings = Pebbles.Settings.get_default ();
@@ -607,6 +608,7 @@ namespace Pebbles {
             if ((this.common_view.get_visible_child () == this.scientific_view && this.scientific_view.button_leaflet.folded) ||
                 (this.common_view.get_visible_child () == this.calculus_view && this.calculus_view.button_leaflet.folded) ||
                 (this.common_view.get_visible_child () == this.programmer_view && this.programmer_view.button_leaflet.folded) ||
+                (this.common_view.get_visible_child () == this.statistics_view && this.statistics_view.button_leaflet.folded) ||
                 (this.common_view.get_visible_child () == this.date_view && this.date_view.get_allocated_width () < 540) ||
                 (this.common_view.get_visible_child () == this.conv_length_view) ||
                 (this.common_view.get_visible_child () == this.conv_area_view) ||

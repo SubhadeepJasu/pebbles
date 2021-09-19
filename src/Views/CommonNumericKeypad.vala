@@ -49,6 +49,7 @@ namespace Pebbles {
         
         construct {
             main_grid = new Gtk.Grid ();
+            this.get_style_context ().add_class ("pebbles_button_font_size");
             // Make the buttons
             del_button = new StyledButton ("Del", (_("Backspace")));
             all_clear_button = new StyledButton ("AC", (_("All Clear")));
