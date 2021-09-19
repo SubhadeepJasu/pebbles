@@ -96,7 +96,7 @@
 
 .Pebbles_Buttons_Memory {
 	color: #333;
-	text-shadow: 0 1px alpha (#000, 0.0);
+	text-shadow: 0 1px alpha (#000, 0.2), 0 0 0 2px #000;
 	-gtk-icon-shadow: 0 1px alpha (#000, 0.0);
 	border-color: alpha(#000, 0.5);
 	background-image: linear-gradient(#ffe16b, #f9c440);

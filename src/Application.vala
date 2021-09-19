@@ -41,6 +41,8 @@ namespace Pebbles {
         .pebbles_h1 { font-size: %dpx; } 
         .pebbles_h2 { font-size: %dpx; }
         .pebbles_h4 { font-size: %dpx; }
+        .pebbles_button_font_size { font-size: %dpx; }
+        .pebbles_button_font_size_h3 { font-size: %dpx; }
         ";
 
         public PebblesApp () {
@@ -54,9 +56,12 @@ namespace Pebbles {
             Timeout.add_seconds (1, () => {
                 if (this.get_active_window () != null) {
                     int height = this.get_active_window ().get_allocated_height ();
-                    if (((MainWindow) (this.get_active_window ())).previous_height != height) {
+                    int width = this.get_active_window ().get_allocated_width ();
+                    if (((MainWindow) (this.get_active_window ())).previous_height != height ||
+                        ((MainWindow) (this.get_active_window ())).previous_width != width) {
                         ((MainWindow) (this.get_active_window ())).previous_height = height;
-                        adjust_font_responsive (height);
+                        ((MainWindow) (this.get_active_window ())).previous_width = width;
+                        adjust_font_responsive (height, width);
                     }
                     return true;
                 }
@@ -131,12 +136,19 @@ namespace Pebbles {
         private double map_range (double input, double input_start, double input_end, double output_start, double output_end) {
             return output_start + ((output_end - output_start) / (input_end - input_start)) * (input - input_start);
         }
-        private void adjust_font_responsive (int height) {
+        private void adjust_font_responsive (int height, int width) {
             try {
                 var target_size_h1 = (int)map_range (double.max((double) height/600, 1), 1, 2, 40, 120);
                 var target_size_h2 = (int)map_range (double.max((double) height/600, 1), 1, 2, 20, 50);
                 var target_size_h4 = (int)map_range (double.max((double) height/600, 1), 1, 2, 10, 20);
-                var css = DISPLAY_FONT_SIZE_TEMPLATE.printf(target_size_h1, target_size_h2, target_size_h4);
+                var target_size_button = (int)map_range (double.max((double) width/1000, 1), 1, 1.5, 12, 22);
+                if (target_size_button < 12) target_size_button = 12;
+                if (target_size_button > 28) target_size_button = 28;
+                var css = DISPLAY_FONT_SIZE_TEMPLATE.printf(target_size_h1,
+                                                            target_size_h2,
+                                                            target_size_h4,
+                                                            target_size_button,
+                                                            target_size_button + 4);
                 font_size_provider.load_from_data (css, -1);
             } catch (Error e) {
                 Process.exit(1);

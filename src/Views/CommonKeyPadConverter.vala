@@ -47,19 +47,32 @@ namespace Pebbles {
             del_button = new Gtk.Button.from_icon_name ("edit-clear-symbolic", Gtk.IconSize.BUTTON);
             del_button.set_tooltip_text (_("Backspace"));
             del_button.get_style_context ().remove_class ("image-button");
+            del_button.get_style_context ().add_class ("pebbles_button_font_size");
             all_clear_button = new StyledButton ("AC", (_("Clear Entry")));
             all_clear_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
+            all_clear_button.get_style_context ().add_class ("pebbles_button_font_size");
             seven_button = new StyledButton ("7");
+            seven_button.get_style_context ().add_class ("pebbles_button_font_size");
             eight_button = new StyledButton ("8");
+            eight_button.get_style_context ().add_class ("pebbles_button_font_size");
             nine_button = new StyledButton ("9");
+            nine_button.get_style_context ().add_class ("pebbles_button_font_size");
             four_button = new StyledButton ("4");
+            four_button.get_style_context ().add_class ("pebbles_button_font_size");
             five_button = new StyledButton ("5");
+            five_button.get_style_context ().add_class ("pebbles_button_font_size");
             six_button = new StyledButton ("6");
+            six_button.get_style_context ().add_class ("pebbles_button_font_size");
             one_button = new StyledButton ("1");
+            one_button.get_style_context ().add_class ("pebbles_button_font_size");
             two_button = new StyledButton ("2");
+            two_button.get_style_context ().add_class ("pebbles_button_font_size");
             three_button = new StyledButton ("3");
+            three_button.get_style_context ().add_class ("pebbles_button_font_size");
             zero_button = new StyledButton ("0");
+            zero_button.get_style_context ().add_class ("pebbles_button_font_size");
             decimal_button = new StyledButton (".");
+            decimal_button.get_style_context ().add_class ("pebbles_button_font_size");
 
             // Arange the buttons
             attach (all_clear_button, 0, 0, 1, 1);
