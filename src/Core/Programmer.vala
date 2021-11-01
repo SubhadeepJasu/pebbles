@@ -12,7 +12,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License 
+ * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  *
  * Authored by: Subhadeep Jasu <subhajasu@gmail.com>
@@ -38,7 +38,7 @@ namespace Pebbles {
         public bool parity_flag;
         public bool zero_flag;
         public bool negative_flag;
-        
+
         public Programmer() {
             output =new bool[64];
         }
@@ -83,88 +83,19 @@ namespace Pebbles {
             }
             return false;
         }
-        public string multiply (bool[] input_a, bool[] input_b, int? word_size = 8) {
-            //  bool[] input_a_copy =new bool[64];
-            //  bool[] input_b_copy =new bool[64];
-            //  print(word_size.to_string());
-            //  for(int i=0; i<64-(int)word_size;i++) {
-            //      input_a_copy[i] = false;
-            //      input_b_copy[i] = false;
-            //  }
-            //  for(int i=64-(int)word_size; i<64;i++) {
-            //      input_a_copy[i] = input_a[i];
-            //      input_b_copy[i] = input_b[i];
-            //  }
-            //  bool[] bit_product;
-            //  bool[] sum_of_products = new bool[64];
-            //  int k=0;
-            //  for (int i=63;i>=64-(int)word_size;i--) {
-            //      bit_product = new bool[64];
-            //      //check if bit taken in multiplier is 1 then multiply and add to obtain final result else if 0 then skip
-            //      if(input_b_copy[i]==true) {
-            //          for (int j=63-k; j>=64-(int)word_size; j--) {
-            //              //each_bit_product[i,j] = multiply_two_bits(input_a_copy[j+k], input_b_copy[i]);
-            //              bit_product[j] = multiply_two_bits(input_a_copy[j+k], input_b_copy[i]);
-                    
-            //          }
-            //          carry = false;
-            //          sum_of_products = add(sum_of_products,bit_product);
-            //      }
-            //      k++;
-            //  }
-            //  output = sum_of_products;
-            //  return output;
-            string input_a_s = "";
-            string input_b_s = "";
-            for (int i = 63; i >= 0; i--) {
-                input_a_s = ((input_a[i]) ? "1" : "0") + input_a_s;
-                input_b_s = ((input_b[i]) ? "1" : "0") + input_b_s;
-            }
-            int64 int_dividend;
-            int64.from_string (input_a_s, out int_dividend, 2);
-            int64 int_divisor;
-            int64.from_string (input_b_s, out int_divisor, 2);
-            //print("%s * %s", int_dividend.to_string (), int_divisor.to_string ());
-            int64 product = int_dividend * int_divisor;
+        public string multiply (int64 input_a, int64 input_b, int? word_size = 8) {
+            int64 product = input_a * input_b;
             return product.to_string ();
         }
 
         // Naive integer division using OS (Meant to be replaced by restoring division)
-        public string division_signed_integer (bool[] input_a, bool[] input_b, int? word_size = 8) {
-            string dividend = "";
-            string divisor = "";
-            for (int i = 63; i >= 0; i--) {
-                dividend = ((input_a[i]) ? "1" : "0") + dividend;
-                divisor = ((input_b[i]) ? "1" : "0") + divisor;
-            }
-            int64 int_dividend;
-            int64.from_string (dividend, out int_dividend, 2);
-            int64 int_divisor;
-            int64.from_string (divisor, out int_divisor, 2);
-            //print("%s / %s\n", int_dividend.to_string (), int_divisor.to_string ());
-            if (int_divisor == 0) {
-                return "Error";
-            }
-            int64 quotient = int_dividend / int_divisor;
+        public string division_signed_integer (int64 input_a, int64 input_b, int? word_size = 8) {
+            int64 quotient = input_a / input_b;
             return quotient.to_string ();
         }
         // Again, naive
-        public string mod_signed_integer (bool[] input_a, bool[] input_b, int? word_size = 8) {
-            string dividend = "";
-            string divisor = "";
-            for (int i = 63; i >= 0; i--) {
-                dividend = ((input_a[i]) ? "1" : "0") + dividend;
-                divisor = ((input_b[i]) ? "1" : "0") + divisor;
-            }
-            int64 int_dividend;
-            int64.from_string (dividend, out int_dividend, 2);
-            int64 int_divisor;
-            int64.from_string (divisor, out int_divisor, 2);
-            //print("%s / %s\n", int_dividend.to_string (), int_divisor.to_string ());
-            if (int_divisor == 0) {
-                return "Error";
-            }
-            int64 remainder = int_dividend % int_divisor;
+        public string mod_signed_integer (int64 input_a, int64 input_b, int? word_size = 8) {
+            int64 remainder = input_a / input_b;
             return remainder.to_string ();
         }
 

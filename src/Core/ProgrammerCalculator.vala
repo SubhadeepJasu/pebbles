@@ -176,18 +176,14 @@ namespace Pebbles {
             return "";
         }
 
+        uint64 decimal_to_binary_int_unsigned (uint64 k) {
+            if (k == 0) return 0;
+            if (k == 1) return 1;                       /* optional */
+            return (k % 2) + 10 * decimal_to_binary_int_unsigned (k / 2);
+        }
         public string convert_decimal_to_binary (string number, GlobalWordLength? wrd_length = GlobalWordLength.WRD, bool? format = false) {
-            int[] temp = new int[64];
             int64 decimal = int64.parse (number);
-            int i = 0;
-            for (; decimal > 0; i++) {
-                temp[i] = (int)Math.fabs(decimal%2);
-                decimal/=2;
-            }
-            string binary = "";
-            for (i = i - 1; i >= 0; i--) {
-                binary += temp[i].to_string ();
-            }
+            string binary = decimal_to_binary_int_unsigned(decimal).to_string();
             return represent_binary_by_word_length (binary, wrd_length, format);
         }
         public string convert_binary_to_decimal (string number, GlobalWordLength? wrd_length = GlobalWordLength.WRD) {
@@ -198,10 +194,10 @@ namespace Pebbles {
         public static int64 convert_signed_binary_to_decimal (string binary) {
             int64 dec = 0;
             for (uint i = binary.length - 1; i > 0; i--){
-                dec += (binary.get(i) == '1') ? (int64)Math.pow(2, (binary.length - 1) - i) : 0;
+                dec += (binary.get(i) == '1') ? (int64) pow64 (2, (binary.length - 1) - i) : 0;
             }
             if (binary.get(0) == '1') {
-                return -dec;
+                return dec - (int64)pow64 (2, binary.length - 1);
             }
             return dec;
         }
@@ -457,7 +453,11 @@ namespace Pebbles {
                     converted_binary += (binary_string.get(i) == '1') ? "0" : "1";
                 }
             }
-            uint64.from_string (converted_binary, out decimalNum, 2);
+            try {
+                uint64.from_string (converted_binary, out decimalNum, 2);
+            } catch (Error e) {
+                decimalNum = ProgrammerCalculator.convert_signed_binary_to_decimal(binary_string);
+            }
             if (negative) {
                 decimalNum++;
             }
@@ -481,7 +481,7 @@ namespace Pebbles {
 
         public string convert_octal_to_binary (string oct_value, GlobalWordLength? wrd_length = GlobalWordLength.BYT, bool? format = false) {
             int64 octalNum = int64.parse (oct_value);
-            int64 decimalNum = 0, binaryNum = 0, count = 0;
+            int64 decimalNum = 0, count = 0;
 
             while(octalNum != 0) {
                 decimalNum += (int64)((octalNum%10) * pow64(8,count));
@@ -500,7 +500,7 @@ namespace Pebbles {
             string bin_value = convert_octal_to_binary (oct_value, wrd_length);
             return convert_binary_to_hexadecimal (bin_value, wrd_length);
         }
-        private uint64 pow64 (uint64 a, uint64 b) {
+        private static uint64 pow64 (uint64 a, uint64 b) {
             uint64 c = 1;
             for (uint64 i = 0; i < b; i++) {
                 c *= a;
@@ -540,79 +540,290 @@ namespace Pebbles {
             }
         }
 
-        public bool[] apply_op (Programmer prog_calc, char op, bool[] a, bool[] b, int word_size) throws CalcError {
-            bool[] bool_array = new bool[int.max(a.length, b.length)];
-            switch (op) {
-                case '+':
-                return prog_calc.add (a, b, word_size);
-                case '-':
-                return prog_calc.subtract (b, a, word_size);
-                case '*':
-                string result = prog_calc.multiply (a, b, word_size);
-                return string_to_bool_array (result, NumberSystem.DECIMAL, Settings.get_default().global_word_length);
-                case '/':
-                // This is using a hacky workaround for division which is not ideal.
-                // There is a badly made restoring division function as well which
-                // needs to be fixed and used.
-                string result = prog_calc.division_signed_integer (b, a, word_size);
-                if (result == "Error") {
-                    throw new CalcError.DIVIDE_BY_ZERO ("Dividing by zero not allowed");
+        public bool[] apply_op (Programmer prog_calc, char op, bool[] a_input, bool[] b_input, Pebbles.GlobalWordLength word_size) throws CalcError {
+            print ("finding...\n");
+            bool[] ret_val = new bool[64];
+            if (word_size == GlobalWordLength.BYT) {
+                int8 a = 0;
+                int8 b = 0;
+                int8 result = 0;
+
+                string str_a = "";
+                string str_b = "";
+                for (int i = 56; i < 64; i++) {
+                    str_a += a_input[i] ? "1" : "0";
+                    str_b += b_input[i] ? "1" : "0";
                 }
-                return string_to_bool_array (result, NumberSystem.DECIMAL, Settings.get_default().global_word_length);
-                case '&':
-                return prog_calc.and (a, b, word_size);
-                case '|':
-                return prog_calc.or (a, b, word_size);
-                case '!':
-                return prog_calc.not (a, word_size);
-                case '_':
-                return prog_calc.nand (a, b, word_size);
-                case 'o':
-                return prog_calc.nor (a, b, word_size);
-                case 'x':
-                return prog_calc.xor (a, b, word_size);
-                case 'n':
-                return prog_calc.xnor (a, b, word_size);
-                case 'm':
-                // This is using a hacky workaround for division which is not ideal.
-                // There is a badly made restoring division function as well which
-                // needs to be fixed and used.
-                string result = prog_calc.mod_signed_integer (b, a, word_size);
-                if (result == "Error") {
-                    throw new CalcError.DIVIDE_BY_ZERO ("Dividing by zero not allowed");
+                a = (int8)ProgrammerCalculator.convert_signed_binary_to_decimal(str_a);
+                b = (int8)ProgrammerCalculator.convert_signed_binary_to_decimal(str_b);
+                print ("%d %c %d = ", b, op, a);
+                switch (op) {
+                    case '+':
+                    result = a + b;
+                    break;
+                    case '-':
+                    result = b - a;
+                    break;
+                    case '*':
+                    result = a * b;
+                    break;
+                    case '/':
+                    if (a == 0) {
+                        throw new CalcError.DIVIDE_BY_ZERO ("Dividing by zero not allowed");
+                    } else {
+                        result = b / a;
+                    }
+                    break;
+                    case '&':
+                    result = a & b;
+                    break;
+                    case '|':
+                    result = a | b;
+                    break;
+                    case '!':
+                    result = ~a;
+                    break;
+                    case '_':
+                    result = ~(a & b);
+                    break;
+                    case 'o':
+                    result = ~(a | b);
+                    break;
+                    case 'x':
+                    result = (a | b) & (~a | ~b);
+                    break;
+                    case 'n':
+                    result = (a & b) | (~a & ~b);
+                    break;
+                    case 'm':
+                    if (a == 0) {
+                        throw new CalcError.DIVIDE_BY_ZERO ("Dividing by zero not allowed");
+                    } else {
+                        result = b % a;
+                    }
+                    break;
+                    case '<':
+                    result = b << a;
+                    break;
+                    case '>':
+                    result = b >> a;
+                    break;
                 }
-                return string_to_bool_array (result, NumberSystem.DECIMAL, Settings.get_default().global_word_length);
-                case '<':
-                return prog_calc.left_shift (b, a, false, word_size);
-                case '>':
-                return prog_calc.right_shift (b, a, false, word_size);
+                print ("%d\n", result);
+                return string_to_bool_array(result.to_string(), Pebbles.NumberSystem.DECIMAL, Pebbles.GlobalWordLength.BYT);
+            } else if (word_size == GlobalWordLength.WRD) {
+                int16 a = 0;
+                int16 b = 0;
+                int16 result = 0;
+
+                string str_a = "";
+                string str_b = "";
+                for (int i = 48; i < 64; i++) {
+                    str_a += a_input[i] ? "1" : "0";
+                    str_b += b_input[i] ? "1" : "0";
+                }
+                a = (int16)ProgrammerCalculator.convert_signed_binary_to_decimal(str_a);
+                b = (int16)ProgrammerCalculator.convert_signed_binary_to_decimal(str_b);
+                print ("%d %c %d = ", b, op, a);
+                switch (op) {
+                    case '+':
+                    result = a + b;
+                    break;
+                    case '-':
+                    result = b - a;
+                    break;
+                    case '*':
+                    result = a * b;
+                    break;
+                    case '/':
+                    if (a == 0) {
+                        throw new CalcError.DIVIDE_BY_ZERO ("Dividing by zero not allowed");
+                    } else {
+                        result = b / a;
+                    }
+                    break;
+                    case '&':
+                    result = a & b;
+                    break;
+                    case '|':
+                    result = a | b;
+                    break;
+                    case '!':
+                    result = ~a;
+                    break;
+                    case '_':
+                    result = ~(a & b);
+                    break;
+                    case 'o':
+                    result = ~(a | b);
+                    break;
+                    case 'x':
+                    result = (a | b) & (~a | ~b);
+                    break;
+                    case 'n':
+                    result = (a & b) | (~a & ~b);
+                    break;
+                    case 'm':
+                    if (a == 0) {
+                        throw new CalcError.DIVIDE_BY_ZERO ("Dividing by zero not allowed");
+                    } else {
+                        result = b % a;
+                    }
+                    break;
+                    case '<':
+                    result = b << a;
+                    break;
+                    case '>':
+                    result = b >> a;
+                    break;
+                }
+                print ("%d\n", result);
+                return string_to_bool_array(result.to_string(), Pebbles.NumberSystem.DECIMAL, Pebbles.GlobalWordLength.WRD);
+            }if (word_size == GlobalWordLength.DWD) {
+                int32 a = 0;
+                int32 b = 0;
+                int32 result = 0;
+
+                string str_a = "";
+                string str_b = "";
+                for (int i = 32; i < 64; i++) {
+                    str_a += a_input[i] ? "1" : "0";
+                    str_b += b_input[i] ? "1" : "0";
+                }
+                a = (int8)ProgrammerCalculator.convert_signed_binary_to_decimal(str_a);
+                b = (int8)ProgrammerCalculator.convert_signed_binary_to_decimal(str_b);
+                print ("%d %c %d = ", b, op, a);
+                switch (op) {
+                    case '+':
+                    result = a + b;
+                    break;
+                    case '-':
+                    result = b - a;
+                    break;
+                    case '*':
+                    result = a * b;
+                    break;
+                    case '/':
+                    if (a == 0) {
+                        throw new CalcError.DIVIDE_BY_ZERO ("Dividing by zero not allowed");
+                    } else {
+                        result = b / a;
+                    }
+                    break;
+                    case '&':
+                    result = a & b;
+                    break;
+                    case '|':
+                    result = a | b;
+                    break;
+                    case '!':
+                    result = ~a;
+                    break;
+                    case '_':
+                    result = ~(a & b);
+                    break;
+                    case 'o':
+                    result = ~(a | b);
+                    break;
+                    case 'x':
+                    result = (a | b) & (~a | ~b);
+                    break;
+                    case 'n':
+                    result = (a & b) | (~a & ~b);
+                    break;
+                    case 'm':
+                    if (a == 0) {
+                        throw new CalcError.DIVIDE_BY_ZERO ("Dividing by zero not allowed");
+                    } else {
+                        result = b % a;
+                    }
+                    break;
+                    case '<':
+                    result = b << a;
+                    break;
+                    case '>':
+                    result = b >> a;
+                    break;
+                }
+                print ("%d\n", result);
+                return string_to_bool_array(result.to_string(), Pebbles.NumberSystem.DECIMAL, Pebbles.GlobalWordLength.DWD);
+            }if (word_size == GlobalWordLength.BYT) {
+                int64 a = 0;
+                int64 b = 0;
+                int64 result = 0;
+
+                string str_a = "";
+                string str_b = "";
+                for (int i = 0; i < 64; i++) {
+                    str_a += a_input[i] ? "1" : "0";
+                    str_b += b_input[i] ? "1" : "0";
+                }
+                a = (int64)ProgrammerCalculator.convert_signed_binary_to_decimal(str_a);
+                b = (int64)ProgrammerCalculator.convert_signed_binary_to_decimal(str_b);
+                print ("%l %c %l = ", b, op, a);
+                switch (op) {
+                    case '+':
+                    result = a + b;
+                    break;
+                    case '-':
+                    result = b - a;
+                    break;
+                    case '*':
+                    result = a * b;
+                    break;
+                    case '/':
+                    if (a == 0) {
+                        throw new CalcError.DIVIDE_BY_ZERO ("Dividing by zero not allowed");
+                    } else {
+                        result = b / a;
+                    }
+                    break;
+                    case '&':
+                    result = a & b;
+                    break;
+                    case '|':
+                    result = a | b;
+                    break;
+                    case '!':
+                    result = ~a;
+                    break;
+                    case '_':
+                    result = ~(a & b);
+                    break;
+                    case 'o':
+                    result = ~(a | b);
+                    break;
+                    case 'x':
+                    result = (a | b) & (~a | ~b);
+                    break;
+                    case 'n':
+                    result = (a & b) | (~a & ~b);
+                    break;
+                    case 'm':
+                    if (a == 0) {
+                        throw new CalcError.DIVIDE_BY_ZERO ("Dividing by zero not allowed");
+                    } else {
+                        result = b % a;
+                    }
+                    break;
+                    case '<':
+                    result = b << a;
+                    break;
+                    case '>':
+                    result = b >> a;
+                    break;
+                }
+                print ("%l\n", result);
+                return string_to_bool_array(result.to_string(), Pebbles.NumberSystem.DECIMAL, Pebbles.GlobalWordLength.QWD);
             }
-            return bool_array;
+
+            return ret_val;
         }
 
         public string evaluate_exp (GlobalWordLength? wrd_length = GlobalWordLength.BYT, NumberSystem number_system, out bool[]? output_array = null) throws CalcError {
             CharStack ops = new CharStack (50);
             BoolArrayStack values = new BoolArrayStack(50);
             Programmer prog_calc = new Programmer();
-            int word_size = 8;
-            prog_calc.word_size = WordSize.BYTE;
-            switch (wrd_length) {
-                case GlobalWordLength.BYT:
-                prog_calc.word_size = WordSize.BYTE;
-                break;
-                case GlobalWordLength.WRD:
-                prog_calc.word_size = WordSize.WORD;
-                word_size = 16;
-                break;
-                case GlobalWordLength.DWD:
-                prog_calc.word_size = WordSize.DWORD;
-                word_size = 32;
-                break;
-                case GlobalWordLength.QWD:
-                prog_calc.word_size = WordSize.QWORD;
-                word_size = 64;
-                break;
-            }
             for (int i = 0; i < stored_tokens.length; i++) {
                 if (stored_tokens[i].type == TokenType.OPERAND) {
                     //ops.push((char)(stored_tokens[i].token.get_char(0)));
@@ -624,7 +835,7 @@ namespace Pebbles {
                     else {
                         while (ops.peek() != '(') {
                             try {
-                                bool[] tmp = apply_op(prog_calc, ops.pop(), values.pop(), values.pop(), word_size);
+                                bool[] tmp = apply_op(prog_calc, ops.pop(), values.pop(), values.pop(), wrd_length);
                                 values.push(tmp);
                             } catch (CalcError e) {
                                 throw e;
@@ -635,7 +846,7 @@ namespace Pebbles {
                 } else if (stored_tokens[i].type == TokenType.OPERATOR) {
                     while (!ops.empty() && has_precedence_pemdas(stored_tokens[i].token.get(0), ops.peek())) {
                         try {
-                            bool[] tmp = apply_op(prog_calc, ops.pop(), values.pop(), values.pop(), word_size);
+                            bool[] tmp = apply_op(prog_calc, ops.pop(), values.pop(), values.pop(), wrd_length);
                             values.push(tmp);
                         } catch (CalcError e) {
                             throw e;
@@ -647,7 +858,7 @@ namespace Pebbles {
             }
             while (!ops.empty()) {
                 try {
-                    bool[] tmp = apply_op(prog_calc, ops.pop(), values.pop(), values.pop(), word_size);
+                    bool[] tmp = apply_op(prog_calc, ops.pop(), values.pop(), values.pop(), wrd_length);
                     values.push(tmp);
                 } catch (CalcError e) {
                     throw e;

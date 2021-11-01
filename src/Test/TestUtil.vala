@@ -12,7 +12,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License 
+ * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  *
  * Authored by: Subhadeep Jasu <subhajasu@gmail.com>
@@ -22,9 +22,9 @@
 namespace Pebbles {
     public class TestUtil {
         public static void show_greeter () {
-            stdout.printf ("                             
- _____     _   _   _         
-|  _  |___| |_| |_| |___ ___ 
+            stdout.printf ("
+ _____     _   _   _
+|  _  |___| |_| |_| |___ ___
 |   __| -_| . | . | | -_|_ -|
 |__|  |___|___|___|_|___|___|
                              \n");
@@ -52,144 +52,144 @@ namespace Pebbles {
             settings.number_system = NumberSystem.DECIMAL;
             ProgrammerCalculator prog_calc_front = new ProgrammerCalculator ();
         }
-        private static void test_programmer(string input1, string input2) {
-            Programmer prog_calc = new Programmer();
-            string[] input1_arr = input1.split(" ");
-            string[] input2_arr = input2.split(" ");
-            bool[] input_a = new bool[64];
-            bool[] input_b = new bool[64];
-            bool[] output;
-            for (int i = 0; i< 64; i++) {
-                if(input1_arr[i] == "0") {
-                    input_a[i] = false;
-                }
-                else {
-                    input_a[i] = true;
-                }
-                
-                if(input2_arr[i] == "0") {
-                    input_b[i] = false;
-                }
-                else {
-                    input_b[i] = true;
-                }
-            }
+        //  private static void test_programmer(string input1, string input2) {
+        //      Programmer prog_calc = new Programmer();
+        //      string[] input1_arr = input1.split(" ");
+        //      string[] input2_arr = input2.split(" ");
+        //      bool[] input_a = new bool[64];
+        //      bool[] input_b = new bool[64];
+        //      bool[] output;
+        //      for (int i = 0; i< 64; i++) {
+        //          if(input1_arr[i] == "0") {
+        //              input_a[i] = false;
+        //          }
+        //          else {
+        //              input_a[i] = true;
+        //          }
 
-            prog_calc.word_size = WordSize.BYTE;
-            print("Binary 1's complement operation:");
-            prog_calc.ones_complement(input_a);
-            output = prog_calc.output;
-            for(int i =0; i<64; i++) {
-                print("%s",output[i]?"1":"0");
-            }
-            print("\n");
-            
-            prog_calc.word_size = WordSize.BYTE;
-            print("Binary 2's complement operation:");
-            prog_calc.twos_complement(input_a);
-            output = prog_calc.output;
-            for(int i =0; i<64; i++) {
-                print("%s",output[i]?"1":"0");
-            }
-            print("\n");
+        //          if(input2_arr[i] == "0") {
+        //              input_b[i] = false;
+        //          }
+        //          else {
+        //              input_b[i] = true;
+        //          }
+        //      }
 
-            prog_calc.word_size = WordSize.BYTE;
-            print("Binary Addition operation:");
-            prog_calc.add(input_a, input_b);
-            output = prog_calc.output;
-            for(int i =0; i<64; i++) {
-                print("%s",output[i]?"1":"0");
-            }
-            print("\n");
-            
-            print("Binary Subtraction operation:");
-            prog_calc.subtract(input_a, input_b, 8);
-            output = prog_calc.output;
-            print("sub\n");
-            for(int i =0; i<64; i++) {
-                print("%s",output[i]?"1":"0");
-            }
-            print("\n");
+        //      prog_calc.word_size = WordSize.BYTE;
+        //      print("Binary 1's complement operation:");
+        //      prog_calc.ones_complement(input_a);
+        //      output = prog_calc.output;
+        //      for(int i =0; i<64; i++) {
+        //          print("%s",output[i]?"1":"0");
+        //      }
+        //      print("\n");
 
-            print("Binary Multiplication operation:");
-            prog_calc.multiply(input_a, input_b);
-            output = prog_calc.output;
-            for(int i =0; i<64; i++) {
-                print("%s",output[i]?"1":"0");
-            }
-            print("\n");
+        //      prog_calc.word_size = WordSize.BYTE;
+        //      print("Binary 2's complement operation:");
+        //      prog_calc.twos_complement(input_a);
+        //      output = prog_calc.output;
+        //      for(int i =0; i<64; i++) {
+        //          print("%s",output[i]?"1":"0");
+        //      }
+        //      print("\n");
 
-            print("Binary Division quotient operation:");
-            prog_calc.division_quotient(input_a, input_b, 8);
-            output = prog_calc.output;
-            for(int i =0; i<64; i++) {
-                print("%s",output[i]?"1":"0");
-            }
-            print("\n");
+        //      prog_calc.word_size = WordSize.BYTE;
+        //      print("Binary Addition operation:");
+        //      prog_calc.add(input_a, input_b);
+        //      output = prog_calc.output;
+        //      for(int i =0; i<64; i++) {
+        //          print("%s",output[i]?"1":"0");
+        //      }
+        //      print("\n");
 
-            prog_calc.word_size = WordSize.BYTE;
-            print("Binary And operation:");
-            prog_calc.and(input_a, input_b);
-            output = prog_calc.output;
-            for(int i =0; i<64; i++) {
-                print("%s",output[i]?"1":"0");
-            }
-            print("\n");
+        //      print("Binary Subtraction operation:");
+        //      prog_calc.subtract(input_a, input_b, 8);
+        //      output = prog_calc.output;
+        //      print("sub\n");
+        //      for(int i =0; i<64; i++) {
+        //          print("%s",output[i]?"1":"0");
+        //      }
+        //      print("\n");
 
-            prog_calc.word_size = WordSize.BYTE;
-            print("Binary Nand operation:");
-            prog_calc.nand(input_a, input_b);
-            output = prog_calc.output;
-            for(int i =0; i<64; i++) {
-                print("%s",output[i]?"1":"0");
-            }
-            print("\n");
+        //      print("Binary Multiplication operation:");
+        //      prog_calc.multiply(input_a, input_b);
+        //      output = prog_calc.output;
+        //      for(int i =0; i<64; i++) {
+        //          print("%s",output[i]?"1":"0");
+        //      }
+        //      print("\n");
 
-            prog_calc.word_size = WordSize.BYTE;
-            print("Binary Or operation:");
-            prog_calc.or(input_a, input_b);
-            output = prog_calc.output;
-            for(int i =0; i<64; i++) {
-                print("%s",output[i]?"1":"0");
-            }
-            print("\n");
+        //      print("Binary Division quotient operation:");
+        //      prog_calc.division_quotient(input_a, input_b, 8);
+        //      output = prog_calc.output;
+        //      for(int i =0; i<64; i++) {
+        //          print("%s",output[i]?"1":"0");
+        //      }
+        //      print("\n");
 
-            prog_calc.word_size = WordSize.BYTE;
-            print("Binary Nor operation:");
-            prog_calc.nor(input_a, input_b);
-            output = prog_calc.output;
-            for(int i =0; i<64; i++) {
-                print("%s",output[i]?"1":"0");
-            }
-            print("\n");
+        //      prog_calc.word_size = WordSize.BYTE;
+        //      print("Binary And operation:");
+        //      prog_calc.and(input_a, input_b);
+        //      output = prog_calc.output;
+        //      for(int i =0; i<64; i++) {
+        //          print("%s",output[i]?"1":"0");
+        //      }
+        //      print("\n");
 
-            prog_calc.word_size = WordSize.BYTE;
-            print("Binary Xor operation:");
-            prog_calc.xor(input_a, input_b);
-            output = prog_calc.output;
-            for(int i =0; i<64; i++) {
-                print("%s",output[i]?"1":"0");
-            }
-            print("\n");
+        //      prog_calc.word_size = WordSize.BYTE;
+        //      print("Binary Nand operation:");
+        //      prog_calc.nand(input_a, input_b);
+        //      output = prog_calc.output;
+        //      for(int i =0; i<64; i++) {
+        //          print("%s",output[i]?"1":"0");
+        //      }
+        //      print("\n");
 
-            prog_calc.word_size = WordSize.BYTE;
-            print("Binary Xnor operation:");
-            prog_calc.xnor(input_a, input_b);
-            output = prog_calc.output;
-            for(int i =0; i<64; i++) {
-                print("%s",output[i]?"1":"0");
-            }
-            print("\n");
+        //      prog_calc.word_size = WordSize.BYTE;
+        //      print("Binary Or operation:");
+        //      prog_calc.or(input_a, input_b);
+        //      output = prog_calc.output;
+        //      for(int i =0; i<64; i++) {
+        //          print("%s",output[i]?"1":"0");
+        //      }
+        //      print("\n");
 
-            prog_calc.word_size = WordSize.BYTE;
-            print("Binary Not operation:");
-            prog_calc.not(input_a);
-            output = prog_calc.output;
-            for(int i =0; i<64; i++) {
-                print("%s",output[i]?"1":"0");
-            }
-            print("\n");
-        }
+        //      prog_calc.word_size = WordSize.BYTE;
+        //      print("Binary Nor operation:");
+        //      prog_calc.nor(input_a, input_b);
+        //      output = prog_calc.output;
+        //      for(int i =0; i<64; i++) {
+        //          print("%s",output[i]?"1":"0");
+        //      }
+        //      print("\n");
+
+        //      prog_calc.word_size = WordSize.BYTE;
+        //      print("Binary Xor operation:");
+        //      prog_calc.xor(input_a, input_b);
+        //      output = prog_calc.output;
+        //      for(int i =0; i<64; i++) {
+        //          print("%s",output[i]?"1":"0");
+        //      }
+        //      print("\n");
+
+        //      prog_calc.word_size = WordSize.BYTE;
+        //      print("Binary Xnor operation:");
+        //      prog_calc.xnor(input_a, input_b);
+        //      output = prog_calc.output;
+        //      for(int i =0; i<64; i++) {
+        //          print("%s",output[i]?"1":"0");
+        //      }
+        //      print("\n");
+
+        //      prog_calc.word_size = WordSize.BYTE;
+        //      print("Binary Not operation:");
+        //      prog_calc.not(input_a);
+        //      output = prog_calc.output;
+        //      for(int i =0; i<64; i++) {
+        //          print("%s",output[i]?"1":"0");
+        //      }
+        //      print("\n");
+        //  }
         private static void test_date_difference (int d1, int m1, int y1, int d2, int m2, int y2, string days, string year, string month, string week, string day) {
             DateTime start_date_time = new DateTime( new TimeZone.local() , y1 , m1 , d1 , 0 , 0 , 0 );
             DateTime end_date_time = new DateTime( new TimeZone.local() , y2 , m2 , d2 , 0 , 0 , 0 );
@@ -213,7 +213,7 @@ namespace Pebbles {
             stdout.printf ("\nTesting Tokenization...\n");
             stdout.printf ("-------------------------------------------------------------\n");
 
-           /* 
+           /*
             * Certain UTF-8 escape characters require a space
             * after it to seperate it from the next character.
             * This is only during testing. This is however not
@@ -229,10 +229,10 @@ namespace Pebbles {
             stdout.printf ("\nTesting Bracket Balance Check...\n");
             stdout.printf ("-------------------------------------------------------------");
             test_tokenize ("2 + (9 - 5)\xC3\x97 5  - (8-7))");
-            
+
             stdout.printf ("\nTesting Scientific Calculator\n");
             stdout.printf ("-------------------------------------------------------------\n");
-            
+
             test_scientific ("2+2", "4");
             test_scientific ("4.23+    1.11", "5.34");
             test_scientific (".13+.51", "0.64");
@@ -283,7 +283,7 @@ namespace Pebbles {
             test_scientific ("10 + 5 - 10%", "14.9");
             test_scientific ("100 + 20%", "120");
             test_scientific ("20% + 100", "100.2");
-            
+
             stdout.printf ("\nIntegration Testing Programmer Calculator\n");
             stdout.printf ("-------------------------------------------------------------\n");
 
@@ -291,18 +291,18 @@ namespace Pebbles {
 
             stdout.printf ("\nTesting Programmer New Calculator\n");
             stdout.printf ("-------------------------------------------------------------\n");
-            
-            test_programmer("0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0", "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1");
-            test_programmer("0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0", "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1");
-            test_programmer("0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0", "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 1 0 0 0 0 0 0 1 1 0 0 0 1 0 1 1");
-            test_programmer("0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1", "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1");
-            
+
+            //  test_programmer("0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0", "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1");
+            //  test_programmer("0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0", "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1");
+            //  test_programmer("0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0", "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 1 0 0 0 0 0 0 1 1 0 0 0 1 0 1 1");
+            //  test_programmer("0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1", "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1");
+
             stdout.printf ("\nTesting Date Difference Calculator\n");
             stdout.printf ("-------------------------------------------------------------\n");
-            
+
             test_date_difference (20, 11, 2018, 30, 11, 2018, "10", "0", "0", "1", "3");
             test_date_difference (17, 1, 2019, 7, 2, 2042, "8422", "23", "0", "3", "0");
-            test_date_difference (20, 11, 2018, 20, 11, 2018, "0", "0", "0", "0", "0"); 
+            test_date_difference (20, 11, 2018, 20, 11, 2018, "0", "0", "0", "0", "0");
         }
     }
 }
