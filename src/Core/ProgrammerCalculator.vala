@@ -12,7 +12,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License 
+ * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  *
  * Authored by: Subhadeep Jasu <subhajasu@gmail.com>
@@ -43,7 +43,7 @@ namespace Pebbles {
                     str += "\"type\": \"parenthesis\"";
                     break;
                 }
-                
+
                 str += ",\n\t";
                 switch (number_system) {
                     case NumberSystem.BINARY:
@@ -60,7 +60,7 @@ namespace Pebbles {
                     break;
                 }
                 str += "\n}";
-                
+
                 return str;
             }
         }
@@ -189,21 +189,21 @@ namespace Pebbles {
                 binary += temp[i].to_string ();
             }
             return represent_binary_by_word_length (binary, wrd_length, format);
-        } 
-        public string convert_binary_to_decimal (string number, GlobalWordLength? wrd_length = GlobalWordLength.WRD, bool? negative = false) {
+        }
+        public string convert_binary_to_decimal (string number, GlobalWordLength? wrd_length = GlobalWordLength.WRD) {
             string formatted_binary = represent_binary_by_word_length (number, wrd_length);
-            int64 decimal = 0;
-            string converted_binary = formatted_binary;
-            if (negative) {
-                converted_binary = "";
-                for (int i = 0; i < formatted_binary.length; i++) {
-                    converted_binary += (formatted_binary.get(i) == '1') ? "0" : "1";
-                }
-                int64.from_string (converted_binary, out decimal, 2);
-                return "-" + (decimal + 1).to_string ();
-            }
-            int64.from_string (converted_binary, out decimal, 2);
+            int64 decimal = ProgrammerCalculator.convert_signed_binary_to_decimal(formatted_binary);
             return decimal.to_string ();
+        }
+        public static int64 convert_signed_binary_to_decimal (string binary) {
+            int64 dec = 0;
+            for (uint i = binary.length - 1; i > 0; i--){
+                dec += (binary.get(i) == '1') ? (int64)Math.pow(2, (binary.length - 1) - i) : 0;
+            }
+            if (binary.get(0) == '1') {
+                return -dec;
+            }
+            return dec;
         }
         public string represent_binary_by_word_length (string binary_value, GlobalWordLength wrd_length = GlobalWordLength.BYT, bool? format = false) {
             string new_binary = "";
@@ -278,7 +278,7 @@ namespace Pebbles {
                     hexa += temp.to_string ();
                 } else {
                     hexa += HEXADECIMAL_DIGITS [temp - 10].to_string ();
-                } 
+                }
                 i++;
                 n /= 16;
             }
@@ -296,76 +296,76 @@ namespace Pebbles {
             return decimal.to_string ();
         }
 
-        public string convert_hexadecimal_to_binary(string hex_value, GlobalWordLength? wrd_length = GlobalWordLength.WRD, bool? format = false) 
-        { 
-            long i = 0; 
+        public string convert_hexadecimal_to_binary(string hex_value, GlobalWordLength? wrd_length = GlobalWordLength.WRD, bool? format = false)
+        {
+            long i = 0;
             string binary_value = "";
-            while (i < hex_value.length) { 
-        
-                switch (hex_value.get_char (i)) { 
-                case '0': 
-                    binary_value += "0000"; 
-                    break; 
-                case '1': 
-                    binary_value += "0001"; 
-                    break; 
-                case '2': 
-                    binary_value += "0010"; 
-                    break; 
-                case '3': 
-                    binary_value += "0011"; 
-                    break; 
-                case '4': 
-                    binary_value += "0100"; 
-                    break; 
-                case '5': 
-                    binary_value += "0101"; 
-                    break; 
-                case '6': 
-                    binary_value += "0110"; 
-                    break; 
-                case '7': 
-                    binary_value += "0111"; 
-                    break; 
-                case '8': 
-                    binary_value += "1000"; 
-                    break; 
-                case '9': 
-                    binary_value += "1001"; 
-                    break; 
-                case 'A': 
-                case 'a': 
-                    binary_value += "1010"; 
-                    break; 
-                case 'B': 
-                case 'b': 
-                    binary_value += "1011"; 
-                    break; 
-                case 'C': 
-                case 'c': 
-                    binary_value += "1100"; 
-                    break; 
-                case 'D': 
-                case 'd': 
-                    binary_value += "1101"; 
-                    break; 
-                case 'E': 
-                case 'e': 
-                    binary_value += "1110"; 
-                    break; 
-                case 'F': 
-                case 'f': 
-                    binary_value += "1111"; 
-                    break; 
-                default: 
+            while (i < hex_value.length) {
+
+                switch (hex_value.get_char (i)) {
+                case '0':
+                    binary_value += "0000";
                     break;
-                } 
-                i++; 
-            } 
-            
+                case '1':
+                    binary_value += "0001";
+                    break;
+                case '2':
+                    binary_value += "0010";
+                    break;
+                case '3':
+                    binary_value += "0011";
+                    break;
+                case '4':
+                    binary_value += "0100";
+                    break;
+                case '5':
+                    binary_value += "0101";
+                    break;
+                case '6':
+                    binary_value += "0110";
+                    break;
+                case '7':
+                    binary_value += "0111";
+                    break;
+                case '8':
+                    binary_value += "1000";
+                    break;
+                case '9':
+                    binary_value += "1001";
+                    break;
+                case 'A':
+                case 'a':
+                    binary_value += "1010";
+                    break;
+                case 'B':
+                case 'b':
+                    binary_value += "1011";
+                    break;
+                case 'C':
+                case 'c':
+                    binary_value += "1100";
+                    break;
+                case 'D':
+                case 'd':
+                    binary_value += "1101";
+                    break;
+                case 'E':
+                case 'e':
+                    binary_value += "1110";
+                    break;
+                case 'F':
+                case 'f':
+                    binary_value += "1111";
+                    break;
+                default:
+                    break;
+                }
+                i++;
+            }
+
             string formatted_binary = represent_binary_by_word_length (binary_value, wrd_length, format);
             return formatted_binary;
-        } 
+        }
         public static string map_bin_to_hex (string bin) {
             switch (bin) {
                 case "0000":
@@ -373,42 +373,43 @@ namespace Pebbles {
                 case "0001":
                 return "1";
                 case "0010":
-                return "2"; 
+                return "2";
                 case "0011":
-                return "3"; 
+                return "3";
                 case "0100":
-                return "4"; 
+                return "4";
                 case "0101":
-                return "5"; 
+                return "5";
                 case "0110":
-                return "6"; 
+                return "6";
                 case "0111":
-                return "7"; 
+                return "7";
                 case "1000":
-                return "8"; 
+                return "8";
                 case "1001":
-                return "9"; 
+                return "9";
                 case "1010":
-                return "a"; 
+                return "a";
                 case "1011":
-                return "b"; 
+                return "b";
                 case "1100":
-                return "b"; 
+                return "b";
                 case "1101":
-                return "d"; 
+                return "d";
                 case "1110":
-                return "e"; 
+                return "e";
                 case "1111":
-                return "f"; 
+                return "f";
             }
             return "";
         }
 
-        public string convert_binary_to_hexadecimal (string bin_value, GlobalWordLength? wrd_length = GlobalWordLength.BYT, bool? negative = false) {
+        public string convert_binary_to_hexadecimal (string bin_value, GlobalWordLength? wrd_length = GlobalWordLength.BYT) {
             string bin = represent_binary_by_word_length (bin_value, wrd_length, false);
             int i = 0;
             string hex_value = "";
             string converted_binary = bin;
+            bool negative = bin[0] == '1';
             if (negative) {
                 converted_binary = "";
                 for (i = 0; i < bin.length; i++) {
@@ -417,19 +418,19 @@ namespace Pebbles {
             }
             i = 0;
             while (true) {
-                // one by one extract from left, substring 
-                // of size 4 and add its hex code 
-                hex_value += map_bin_to_hex(converted_binary.substring(i, 4)); 
-                i += 4; 
-                if (i == converted_binary.length || converted_binary == "") 
-                    break; 
-                // if '.' is encountered add it 
-                // to result 
-                if (converted_binary.get_char(i) == '.')     
-                { 
-                    hex_value += "."; 
-                    i++; 
-                } 
+                // one by one extract from left, substring
+                // of size 4 and add its hex code
+                hex_value += map_bin_to_hex(converted_binary.substring(i, 4));
+                i += 4;
+                if (i == converted_binary.length || converted_binary == "")
+                    break;
+                // if '.' is encountered add it
+                // to result
+                if (converted_binary.get_char(i) == '.')
+                {
+                    hex_value += ".";
+                    i++;
+                }
             }
             while (hex_value.has_prefix ("0")) {
                 hex_value = hex_value.splice (0, 1, "");
@@ -444,11 +445,12 @@ namespace Pebbles {
             return (hex_value.chug () == "") ? "0" : hex_value;
         }
 
-        public string convert_binary_to_octal (string bin_value, GlobalWordLength? wrd_length = GlobalWordLength.BYT, bool? negative = false) {
+        public string convert_binary_to_octal (string bin_value, GlobalWordLength? wrd_length = GlobalWordLength.BYT) {
 
             string binary_string = represent_binary_by_word_length (bin_value, wrd_length, false);
             uint64 octalNum = 0, decimalNum = 0, count = 1;
             string converted_binary = binary_string;
+            bool negative = binary_string[0] == '1';
             if (negative) {
                 converted_binary = "";
                 for (int i = 0; i < binary_string.length; i++) {
@@ -656,7 +658,7 @@ namespace Pebbles {
             // Send the original array back for storage.
             output_array = answer;
             string output = bool_array_to_string (answer, wrd_length, number_system);
-            
+
             return output;
         }
         public bool[] string_to_bool_array (string str, NumberSystem number_system, GlobalWordLength wrd_length) {
@@ -699,13 +701,13 @@ namespace Pebbles {
             }
             switch (number_system) {
                 case NumberSystem.OCTAL:
-                str = convert_binary_to_octal (str, wrd_length, arr[0]);
+                str = convert_binary_to_octal (str, wrd_length);
                 break;
                 case NumberSystem.DECIMAL:
-                str = convert_binary_to_decimal (str, wrd_length, arr[0]);
+                str = convert_binary_to_decimal (str, wrd_length);
                 break;
                 case NumberSystem.HEXADECIMAL:
-                str = convert_binary_to_hexadecimal (str, wrd_length, arr[0]);
+                str = convert_binary_to_hexadecimal (str, wrd_length);
                 break;
                 default:
                 str = represent_binary_by_word_length (str, wrd_length);
