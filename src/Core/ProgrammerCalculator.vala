@@ -176,13 +176,18 @@ namespace Pebbles {
             return "";
         }
 
-        uint64 decimal_to_binary_int_unsigned (uint64 k) {
-            if (k == 0) return 0;
-            if (k == 1) return 1;                       /* optional */
-            return (k % 2) + 10 * decimal_to_binary_int_unsigned (k / 2);
+        string decimal_to_binary_int_unsigned (uint64 k) {
+            string bin = "";
+            var n = k;
+            for (int i = 0; n > 0; i++) {
+                bin = ((uint8)(n%2)).to_string() + bin;
+                n = (uint64)(n/2);
+            }
+
+            return bin;
         }
         public string convert_decimal_to_binary (string number, GlobalWordLength? wrd_length = GlobalWordLength.WRD, bool? format = false) {
-            int64 decimal = int64.parse (number);
+            uint64 decimal = uint64.parse (number);
             string binary = decimal_to_binary_int_unsigned(decimal).to_string();
             return represent_binary_by_word_length (binary, wrd_length, format);
         }
@@ -758,8 +763,8 @@ namespace Pebbles {
                     str_a += a_input[i] ? "1" : "0";
                     str_b += b_input[i] ? "1" : "0";
                 }
-                a = (int64)ProgrammerCalculator.convert_signed_binary_to_decimal(str_a);
-                b = (int64)ProgrammerCalculator.convert_signed_binary_to_decimal(str_b);
+                a = ProgrammerCalculator.convert_signed_binary_to_decimal(str_a);
+                b = ProgrammerCalculator.convert_signed_binary_to_decimal(str_b);
                 print ("%l %c %l = ", b, op, a);
                 switch (op) {
                     case '+':
