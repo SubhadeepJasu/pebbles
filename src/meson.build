@@ -17,7 +17,6 @@ sources = files (
     'Core/ScientificCalculator.vala',
     'Core/Calculus.vala',
     'Core/ProgrammerCalculator.vala',
-    'Core/Programmer.vala',
     'Core/Statistics.vala',
     'Core/Utils.vala',
     'Core/Converter.vala',

@@ -50,7 +50,7 @@ namespace Pebbles {
         private static void test_programmer_integration () {
             var settings = Settings.get_default ();
             settings.number_system = NumberSystem.DECIMAL;
-            ProgrammerCalculator prog_calc_front = new ProgrammerCalculator ();
+            //  ProgrammerCalculator prog_calc_front = new ProgrammerCalculator ();
         }
         //  private static void test_programmer(string input1, string input2) {
         //      Programmer prog_calc = new Programmer();

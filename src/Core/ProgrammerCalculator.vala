@@ -19,6 +19,12 @@
  *              Saunak Biswas  <saunakbis97@gmail.com>
  */
 namespace Pebbles {
+
+    public errordomain CalcError {
+        DIVIDE_BY_ZERO
+    }
+
+
     public class ProgrammerCalculator {
         private const char[] HEXADECIMAL_DIGITS = { 'a', 'b', 'c', 'd', 'e', 'f'};
         public enum TokenType {
@@ -570,8 +576,7 @@ namespace Pebbles {
             }
         }
 
-        public bool[] apply_op (Programmer prog_calc, char op, bool[] a_input, bool[] b_input, Pebbles.GlobalWordLength word_size) throws CalcError {
-            print ("finding...\n");
+        public bool[] apply_op (char op, bool[] a_input, bool[] b_input, Pebbles.GlobalWordLength word_size) throws CalcError {
             bool[] ret_val = new bool[64];
             if (word_size == GlobalWordLength.BYT) {
                 int8 a = 0;
@@ -850,10 +855,9 @@ namespace Pebbles {
             return ret_val;
         }
 
-        public string evaluate_exp (GlobalWordLength? wrd_length = GlobalWordLength.BYT, NumberSystem number_system, out bool[]? output_array = null) throws CalcError {
+        public string evaluate_exp (GlobalWordLength? wrd_length = GlobalWordLength.BYT, NumberSystem? number_system = NumberSystem.BINARY, out bool[]? output_array = null) throws CalcError {
             CharStack ops = new CharStack (50);
             BoolArrayStack values = new BoolArrayStack(50);
-            Programmer prog_calc = new Programmer();
             for (int i = 0; i < stored_tokens.length; i++) {
                 if (stored_tokens[i].type == TokenType.OPERAND) {
                     //ops.push((char)(stored_tokens[i].token.get_char(0)));
@@ -865,7 +869,7 @@ namespace Pebbles {
                     else {
                         while (ops.peek() != '(') {
                             try {
-                                bool[] tmp = apply_op(prog_calc, ops.pop(), values.pop(), values.pop(), wrd_length);
+                                bool[] tmp = apply_op(ops.pop(), values.pop(), values.pop(), wrd_length);
                                 values.push(tmp);
                             } catch (CalcError e) {
                                 throw e;
@@ -876,7 +880,7 @@ namespace Pebbles {
                 } else if (stored_tokens[i].type == TokenType.OPERATOR) {
                     while (!ops.empty() && has_precedence_pemdas(stored_tokens[i].token.get(0), ops.peek())) {
                         try {
-                            bool[] tmp = apply_op(prog_calc, ops.pop(), values.pop(), values.pop(), wrd_length);
+                            bool[] tmp = apply_op(ops.pop(), values.pop(), values.pop(), wrd_length);
                             values.push(tmp);
                         } catch (CalcError e) {
                             throw e;
@@ -888,7 +892,7 @@ namespace Pebbles {
             }
             while (!ops.empty()) {
                 try {
-                    bool[] tmp = apply_op(prog_calc, ops.pop(), values.pop(), values.pop(), wrd_length);
+                    bool[] tmp = apply_op(ops.pop(), values.pop(), values.pop(), wrd_length);
                     values.push(tmp);
                 } catch (CalcError e) {
                     throw e;
