@@ -93,6 +93,18 @@
     <content_attribute id="money-gambling">none</content_attribute>
   </content_rating>
   <releases>
+    <release date="2021-11-03" version="2.0.3">
+      <description>
+        <p>Improved:</p>
+        <ul>
+          <li>[Programmer] Transition to integer-integer logic for all operations</li>
+        </ul>
+        <p>Translations:</p>
+        <ul>
+          <li>Simplified Chinese (by Tommy He)</li>
+        </ul>
+      </description>
+    </release>
     <release date="2021-09-19" version="2.0.2">
       <description>
         <p>Fixed:</p>

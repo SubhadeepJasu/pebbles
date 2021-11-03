@@ -12,13 +12,19 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License 
+ * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  *
  * Authored by: Subhadeep Jasu <subhajasu@gmail.com>
  *              Saunak Biswas  <saunakbis97@gmail.com>
  */
 namespace Pebbles {
+
+    public errordomain CalcError {
+        DIVIDE_BY_ZERO
+    }
+
+
     public class ProgrammerCalculator {
         private const char[] HEXADECIMAL_DIGITS = { 'a', 'b', 'c', 'd', 'e', 'f'};
         public enum TokenType {
@@ -43,7 +49,7 @@ namespace Pebbles {
                     str += "\"type\": \"parenthesis\"";
                     break;
                 }
-                
+
                 str += ",\n\t";
                 switch (number_system) {
                     case NumberSystem.BINARY:
@@ -60,7 +66,7 @@ namespace Pebbles {
                     break;
                 }
                 str += "\n}";
-                
+
                 return str;
             }
         }
@@ -176,34 +182,60 @@ namespace Pebbles {
             return "";
         }
 
+        string decimal_to_binary_int_unsigned (uint64 k) {
+            string bin = "";
+            var n = k;
+            for (int i = 0; n > 0; i++) {
+                bin = ((uint8)(n%2)).to_string() + bin;
+                n = (uint64)(n/2);
+            }
+
+            return bin;
+        }
         public string convert_decimal_to_binary (string number, GlobalWordLength? wrd_length = GlobalWordLength.WRD, bool? format = false) {
-            int[] temp = new int[64];
-            int64 decimal = int64.parse (number);
-            int i = 0;
-            for (; decimal > 0; i++) {
-                temp[i] = (int)Math.fabs(decimal%2);
-                decimal/=2;
-            }
-            string binary = "";
-            for (i = i - 1; i >= 0; i--) {
-                binary += temp[i].to_string ();
-            }
-            return represent_binary_by_word_length (binary, wrd_length, format);
-        } 
-        public string convert_binary_to_decimal (string number, GlobalWordLength? wrd_length = GlobalWordLength.WRD, bool? negative = false) {
-            string formatted_binary = represent_binary_by_word_length (number, wrd_length);
-            int64 decimal = 0;
-            string converted_binary = formatted_binary;
-            if (negative) {
-                converted_binary = "";
-                for (int i = 0; i < formatted_binary.length; i++) {
-                    converted_binary += (formatted_binary.get(i) == '1') ? "0" : "1";
+            uint64 decimal = uint64.parse (number);
+            print ("%s......\n", decimal.to_string());
+            if (number.contains("-")) {
+                switch (wrd_length) {
+                    case GlobalWordLength.BYT:
+                    decimal += 128;
+                    break;
+                    case GlobalWordLength.WRD:
+                    decimal += 32768;
+                    break;
+                    case GlobalWordLength.DWD:
+                    decimal += 2147483648;
+                    break;
+                    case GlobalWordLength.QWD:
+                    decimal += 9223372036854775808;
+                    break;
                 }
-                int64.from_string (converted_binary, out decimal, 2);
-                return "-" + (decimal + 1).to_string ();
             }
-            int64.from_string (converted_binary, out decimal, 2);
+            print ("%s......\n", decimal.to_string());
+            string binary = decimal_to_binary_int_unsigned(decimal).to_string();
+            print ("%s b\n", binary);
+            binary = represent_binary_by_word_length (binary, wrd_length, format);
+            if (number.contains("-")) {
+                binary = binary.substring(1, -1);
+                binary = "1" + binary;
+            }
+            print ("%s n\n", binary);
+            return binary;
+        }
+        public string convert_binary_to_decimal (string number, GlobalWordLength? wrd_length = GlobalWordLength.WRD) {
+            string formatted_binary = represent_binary_by_word_length (number, wrd_length);
+            int64 decimal = ProgrammerCalculator.convert_signed_binary_to_decimal(formatted_binary);
             return decimal.to_string ();
+        }
+        public static int64 convert_signed_binary_to_decimal (string binary) {
+            int64 dec = 0;
+            for (uint i = binary.length - 1; i > 0; i--){
+                dec += (binary.get(i) == '1') ? (int64) pow64 (2, (binary.length - 1) - i) : 0;
+            }
+            if (binary.get(0) == '1') {
+                return dec - (int64)pow64 (2, binary.length - 1);
+            }
+            return dec;
         }
         public string represent_binary_by_word_length (string binary_value, GlobalWordLength wrd_length = GlobalWordLength.BYT, bool? format = false) {
             string new_binary = "";
@@ -278,7 +310,7 @@ namespace Pebbles {
                     hexa += temp.to_string ();
                 } else {
                     hexa += HEXADECIMAL_DIGITS [temp - 10].to_string ();
-                } 
+                }
                 i++;
                 n /= 16;
             }
@@ -296,76 +328,76 @@ namespace Pebbles {
             return decimal.to_string ();
         }
 
-        public string convert_hexadecimal_to_binary(string hex_value, GlobalWordLength? wrd_length = GlobalWordLength.WRD, bool? format = false) 
-        { 
-            long i = 0; 
+        public string convert_hexadecimal_to_binary(string hex_value, GlobalWordLength? wrd_length = GlobalWordLength.WRD, bool? format = false)
+        {
+            long i = 0;
             string binary_value = "";
-            while (i < hex_value.length) { 
-        
-                switch (hex_value.get_char (i)) { 
-                case '0': 
-                    binary_value += "0000"; 
-                    break; 
-                case '1': 
-                    binary_value += "0001"; 
-                    break; 
-                case '2': 
-                    binary_value += "0010"; 
-                    break; 
-                case '3': 
-                    binary_value += "0011"; 
-                    break; 
-                case '4': 
-                    binary_value += "0100"; 
-                    break; 
-                case '5': 
-                    binary_value += "0101"; 
-                    break; 
-                case '6': 
-                    binary_value += "0110"; 
-                    break; 
-                case '7': 
-                    binary_value += "0111"; 
-                    break; 
-                case '8': 
-                    binary_value += "1000"; 
-                    break; 
-                case '9': 
-                    binary_value += "1001"; 
-                    break; 
-                case 'A': 
-                case 'a': 
-                    binary_value += "1010"; 
-                    break; 
-                case 'B': 
-                case 'b': 
-                    binary_value += "1011"; 
-                    break; 
-                case 'C': 
-                case 'c': 
-                    binary_value += "1100"; 
-                    break; 
-                case 'D': 
-                case 'd': 
-                    binary_value += "1101"; 
-                    break; 
-                case 'E': 
-                case 'e': 
-                    binary_value += "1110"; 
-                    break; 
-                case 'F': 
-                case 'f': 
-                    binary_value += "1111"; 
-                    break; 
-                default: 
+            while (i < hex_value.length) {
+
+                switch (hex_value.get_char (i)) {
+                case '0':
+                    binary_value += "0000";
                     break;
-                } 
-                i++; 
-            } 
-            
+                case '1':
+                    binary_value += "0001";
+                    break;
+                case '2':
+                    binary_value += "0010";
+                    break;
+                case '3':
+                    binary_value += "0011";
+                    break;
+                case '4':
+                    binary_value += "0100";
+                    break;
+                case '5':
+                    binary_value += "0101";
+                    break;
+                case '6':
+                    binary_value += "0110";
+                    break;
+                case '7':
+                    binary_value += "0111";
+                    break;
+                case '8':
+                    binary_value += "1000";
+                    break;
+                case '9':
+                    binary_value += "1001";
+                    break;
+                case 'A':
+                case 'a':
+                    binary_value += "1010";
+                    break;
+                case 'B':
+                case 'b':
+                    binary_value += "1011";
+                    break;
+                case 'C':
+                case 'c':
+                    binary_value += "1100";
+                    break;
+                case 'D':
+                case 'd':
+                    binary_value += "1101";
+                    break;
+                case 'E':
+                case 'e':
+                    binary_value += "1110";
+                    break;
+                case 'F':
+                case 'f':
+                    binary_value += "1111";
+                    break;
+                default:
+                    break;
+                }
+                i++;
+            }
+
             string formatted_binary = represent_binary_by_word_length (binary_value, wrd_length, format);
             return formatted_binary;
-        } 
+        }
         public static string map_bin_to_hex (string bin) {
             switch (bin) {
                 case "0000":
@@ -373,42 +405,43 @@ namespace Pebbles {
                 case "0001":
                 return "1";
                 case "0010":
-                return "2"; 
+                return "2";
                 case "0011":
-                return "3"; 
+                return "3";
                 case "0100":
-                return "4"; 
+                return "4";
                 case "0101":
-                return "5"; 
+                return "5";
                 case "0110":
-                return "6"; 
+                return "6";
                 case "0111":
-                return "7"; 
+                return "7";
                 case "1000":
-                return "8"; 
+                return "8";
                 case "1001":
-                return "9"; 
+                return "9";
                 case "1010":
-                return "a"; 
+                return "a";
                 case "1011":
-                return "b"; 
+                return "b";
                 case "1100":
-                return "b"; 
+                return "b";
                 case "1101":
-                return "d"; 
+                return "d";
                 case "1110":
-                return "e"; 
+                return "e";
                 case "1111":
-                return "f"; 
+                return "f";
             }
             return "";
         }
 
-        public string convert_binary_to_hexadecimal (string bin_value, GlobalWordLength? wrd_length = GlobalWordLength.BYT, bool? negative = false) {
+        public string convert_binary_to_hexadecimal (string bin_value, GlobalWordLength? wrd_length = GlobalWordLength.BYT) {
             string bin = represent_binary_by_word_length (bin_value, wrd_length, false);
             int i = 0;
             string hex_value = "";
             string converted_binary = bin;
+            bool negative = bin[0] == '1';
             if (negative) {
                 converted_binary = "";
                 for (i = 0; i < bin.length; i++) {
@@ -417,19 +450,19 @@ namespace Pebbles {
             }
             i = 0;
             while (true) {
-                // one by one extract from left, substring 
-                // of size 4 and add its hex code 
-                hex_value += map_bin_to_hex(converted_binary.substring(i, 4)); 
-                i += 4; 
-                if (i == converted_binary.length || converted_binary == "") 
-                    break; 
-                // if '.' is encountered add it 
-                // to result 
-                if (converted_binary.get_char(i) == '.')     
-                { 
-                    hex_value += "."; 
-                    i++; 
-                } 
+                // one by one extract from left, substring
+                // of size 4 and add its hex code
+                hex_value += map_bin_to_hex(converted_binary.substring(i, 4));
+                i += 4;
+                if (i == converted_binary.length || converted_binary == "")
+                    break;
+                // if '.' is encountered add it
+                // to result
+                if (converted_binary.get_char(i) == '.')
+                {
+                    hex_value += ".";
+                    i++;
+                }
             }
             while (hex_value.has_prefix ("0")) {
                 hex_value = hex_value.splice (0, 1, "");
@@ -444,18 +477,23 @@ namespace Pebbles {
             return (hex_value.chug () == "") ? "0" : hex_value;
         }
 
-        public string convert_binary_to_octal (string bin_value, GlobalWordLength? wrd_length = GlobalWordLength.BYT, bool? negative = false) {
+        public string convert_binary_to_octal (string bin_value, GlobalWordLength? wrd_length = GlobalWordLength.BYT) {
 
             string binary_string = represent_binary_by_word_length (bin_value, wrd_length, false);
             uint64 octalNum = 0, decimalNum = 0, count = 1;
             string converted_binary = binary_string;
+            bool negative = binary_string[0] == '1';
             if (negative) {
                 converted_binary = "";
                 for (int i = 0; i < binary_string.length; i++) {
                     converted_binary += (binary_string.get(i) == '1') ? "0" : "1";
                 }
             }
-            uint64.from_string (converted_binary, out decimalNum, 2);
+            try {
+                uint64.from_string (converted_binary, out decimalNum, 2);
+            } catch (Error e) {
+                decimalNum = ProgrammerCalculator.convert_signed_binary_to_decimal(binary_string);
+            }
             if (negative) {
                 decimalNum++;
             }
@@ -479,7 +517,7 @@ namespace Pebbles {
 
         public string convert_octal_to_binary (string oct_value, GlobalWordLength? wrd_length = GlobalWordLength.BYT, bool? format = false) {
             int64 octalNum = int64.parse (oct_value);
-            int64 decimalNum = 0, binaryNum = 0, count = 0;
+            int64 decimalNum = 0, count = 0;
 
             while(octalNum != 0) {
                 decimalNum += (int64)((octalNum%10) * pow64(8,count));
@@ -498,7 +536,7 @@ namespace Pebbles {
             string bin_value = convert_octal_to_binary (oct_value, wrd_length);
             return convert_binary_to_hexadecimal (bin_value, wrd_length);
         }
-        private uint64 pow64 (uint64 a, uint64 b) {
+        private static uint64 pow64 (uint64 a, uint64 b) {
             uint64 c = 1;
             for (uint64 i = 0; i < b; i++) {
                 c *= a;
@@ -538,79 +576,288 @@ namespace Pebbles {
             }
         }
 
-        public bool[] apply_op (Programmer prog_calc, char op, bool[] a, bool[] b, int word_size) throws CalcError {
-            bool[] bool_array = new bool[int.max(a.length, b.length)];
-            switch (op) {
-                case '+':
-                return prog_calc.add (a, b, word_size);
-                case '-':
-                return prog_calc.subtract (b, a, word_size);
-                case '*':
-                string result = prog_calc.multiply (a, b, word_size);
-                return string_to_bool_array (result, NumberSystem.DECIMAL, Settings.get_default().global_word_length);
-                case '/':
-                // This is using a hacky workaround for division which is not ideal.
-                // There is a badly made restoring division function as well which
-                // needs to be fixed and used.
-                string result = prog_calc.division_signed_integer (b, a, word_size);
-                if (result == "Error") {
-                    throw new CalcError.DIVIDE_BY_ZERO ("Dividing by zero not allowed");
+        public bool[] apply_op (char op, bool[] a_input, bool[] b_input, Pebbles.GlobalWordLength word_size) throws CalcError {
+            bool[] ret_val = new bool[64];
+            if (word_size == GlobalWordLength.BYT) {
+                int8 a = 0;
+                int8 b = 0;
+                int8 result = 0;
+
+                string str_a = "";
+                string str_b = "";
+                for (int i = 56; i < 64; i++) {
+                    str_a += a_input[i] ? "1" : "0";
+                    str_b += b_input[i] ? "1" : "0";
                 }
-                return string_to_bool_array (result, NumberSystem.DECIMAL, Settings.get_default().global_word_length);
-                case '&':
-                return prog_calc.and (a, b, word_size);
-                case '|':
-                return prog_calc.or (a, b, word_size);
-                case '!':
-                return prog_calc.not (a, word_size);
-                case '_':
-                return prog_calc.nand (a, b, word_size);
-                case 'o':
-                return prog_calc.nor (a, b, word_size);
-                case 'x':
-                return prog_calc.xor (a, b, word_size);
-                case 'n':
-                return prog_calc.xnor (a, b, word_size);
-                case 'm':
-                // This is using a hacky workaround for division which is not ideal.
-                // There is a badly made restoring division function as well which
-                // needs to be fixed and used.
-                string result = prog_calc.mod_signed_integer (b, a, word_size);
-                if (result == "Error") {
-                    throw new CalcError.DIVIDE_BY_ZERO ("Dividing by zero not allowed");
+                a = (int8)ProgrammerCalculator.convert_signed_binary_to_decimal(str_a);
+                b = (int8)ProgrammerCalculator.convert_signed_binary_to_decimal(str_b);
+                print ("%d %c %d = ", b, op, a);
+                switch (op) {
+                    case '+':
+                    result = a + b;
+                    break;
+                    case '-':
+                    result = b - a;
+                    break;
+                    case '*':
+                    result = a * b;
+                    break;
+                    case '/':
+                    if (a == 0) {
+                        throw new CalcError.DIVIDE_BY_ZERO ("Dividing by zero not allowed");
+                    } else {
+                        result = b / a;
+                    }
+                    break;
+                    case '&':
+                    result = a & b;
+                    break;
+                    case '|':
+                    result = a | b;
+                    break;
+                    case '!':
+                    result = ~a;
+                    break;
+                    case '_':
+                    result = ~(a & b);
+                    break;
+                    case 'o':
+                    result = ~(a | b);
+                    break;
+                    case 'x':
+                    result = (a | b) & (~a | ~b);
+                    break;
+                    case 'n':
+                    result = (a & b) | (~a & ~b);
+                    break;
+                    case 'm':
+                    if (a == 0) {
+                        throw new CalcError.DIVIDE_BY_ZERO ("Dividing by zero not allowed");
+                    } else {
+                        result = b % a;
+                    }
+                    break;
+                    case '<':
+                    result = b << a;
+                    break;
+                    case '>':
+                    result = b >> a;
+                    break;
                 }
-                return string_to_bool_array (result, NumberSystem.DECIMAL, Settings.get_default().global_word_length);
-                case '<':
-                return prog_calc.left_shift (b, a, false, word_size);
-                case '>':
-                return prog_calc.right_shift (b, a, false, word_size);
+                print ("%d\n", result);
+                return string_to_bool_array(result.to_string(), Pebbles.NumberSystem.DECIMAL, Pebbles.GlobalWordLength.BYT);
+            } else if (word_size == GlobalWordLength.WRD) {
+                int16 a = 0;
+                int16 b = 0;
+                int16 result = 0;
+
+                string str_a = "";
+                string str_b = "";
+                for (int i = 48; i < 64; i++) {
+                    str_a += a_input[i] ? "1" : "0";
+                    str_b += b_input[i] ? "1" : "0";
+                }
+                a = (int16)ProgrammerCalculator.convert_signed_binary_to_decimal(str_a);
+                b = (int16)ProgrammerCalculator.convert_signed_binary_to_decimal(str_b);
+                print ("%d %c %d = ", b, op, a);
+                switch (op) {
+                    case '+':
+                    result = a + b;
+                    break;
+                    case '-':
+                    result = b - a;
+                    break;
+                    case '*':
+                    result = a * b;
+                    break;
+                    case '/':
+                    if (a == 0) {
+                        throw new CalcError.DIVIDE_BY_ZERO ("Dividing by zero not allowed");
+                    } else {
+                        result = b / a;
+                    }
+                    break;
+                    case '&':
+                    result = a & b;
+                    break;
+                    case '|':
+                    result = a | b;
+                    break;
+                    case '!':
+                    result = ~a;
+                    break;
+                    case '_':
+                    result = ~(a & b);
+                    break;
+                    case 'o':
+                    result = ~(a | b);
+                    break;
+                    case 'x':
+                    result = (a | b) & (~a | ~b);
+                    break;
+                    case 'n':
+                    result = (a & b) | (~a & ~b);
+                    break;
+                    case 'm':
+                    if (a == 0) {
+                        throw new CalcError.DIVIDE_BY_ZERO ("Dividing by zero not allowed");
+                    } else {
+                        result = b % a;
+                    }
+                    break;
+                    case '<':
+                    result = b << a;
+                    break;
+                    case '>':
+                    result = b >> a;
+                    break;
+                }
+                print ("%d\n", result);
+                return string_to_bool_array(result.to_string(), Pebbles.NumberSystem.DECIMAL, Pebbles.GlobalWordLength.WRD);
+            }if (word_size == GlobalWordLength.DWD) {
+                int32 a = 0;
+                int32 b = 0;
+                int32 result = 0;
+
+                string str_a = "";
+                string str_b = "";
+                for (int i = 32; i < 64; i++) {
+                    str_a += a_input[i] ? "1" : "0";
+                    str_b += b_input[i] ? "1" : "0";
+                }
+                a = (int8)ProgrammerCalculator.convert_signed_binary_to_decimal(str_a);
+                b = (int8)ProgrammerCalculator.convert_signed_binary_to_decimal(str_b);
+                print ("%d %c %d = ", b, op, a);
+                switch (op) {
+                    case '+':
+                    result = a + b;
+                    break;
+                    case '-':
+                    result = b - a;
+                    break;
+                    case '*':
+                    result = a * b;
+                    break;
+                    case '/':
+                    if (a == 0) {
+                        throw new CalcError.DIVIDE_BY_ZERO ("Dividing by zero not allowed");
+                    } else {
+                        result = b / a;
+                    }
+                    break;
+                    case '&':
+                    result = a & b;
+                    break;
+                    case '|':
+                    result = a | b;
+                    break;
+                    case '!':
+                    result = ~a;
+                    break;
+                    case '_':
+                    result = ~(a & b);
+                    break;
+                    case 'o':
+                    result = ~(a | b);
+                    break;
+                    case 'x':
+                    result = (a | b) & (~a | ~b);
+                    break;
+                    case 'n':
+                    result = (a & b) | (~a & ~b);
+                    break;
+                    case 'm':
+                    if (a == 0) {
+                        throw new CalcError.DIVIDE_BY_ZERO ("Dividing by zero not allowed");
+                    } else {
+                        result = b % a;
+                    }
+                    break;
+                    case '<':
+                    result = b << a;
+                    break;
+                    case '>':
+                    result = b >> a;
+                    break;
+                }
+                print ("%d\n", result);
+                return string_to_bool_array(result.to_string(), Pebbles.NumberSystem.DECIMAL, Pebbles.GlobalWordLength.DWD);
+            }if (word_size == GlobalWordLength.QWD) {
+                int64 a = 0;
+                int64 b = 0;
+                int64 result = 0;
+
+                string str_a = "";
+                string str_b = "";
+                for (int i = 0; i < 64; i++) {
+                    str_a += a_input[i] ? "1" : "0";
+                    str_b += b_input[i] ? "1" : "0";
+                }
+                a = ProgrammerCalculator.convert_signed_binary_to_decimal(str_a);
+                b = ProgrammerCalculator.convert_signed_binary_to_decimal(str_b);
+                print ("%l %c %l = ", b, op, a);
+                switch (op) {
+                    case '+':
+                    result = a + b;
+                    break;
+                    case '-':
+                    result = b - a;
+                    break;
+                    case '*':
+                    result = a * b;
+                    break;
+                    case '/':
+                    if (a == 0) {
+                        throw new CalcError.DIVIDE_BY_ZERO ("Dividing by zero not allowed");
+                    } else {
+                        result = b / a;
+                    }
+                    break;
+                    case '&':
+                    result = a & b;
+                    break;
+                    case '|':
+                    result = a | b;
+                    break;
+                    case '!':
+                    result = ~a;
+                    break;
+                    case '_':
+                    result = ~(a & b);
+                    break;
+                    case 'o':
+                    result = ~(a | b);
+                    break;
+                    case 'x':
+                    result = (a | b) & (~a | ~b);
+                    break;
+                    case 'n':
+                    result = (a & b) | (~a & ~b);
+                    break;
+                    case 'm':
+                    if (a == 0) {
+                        throw new CalcError.DIVIDE_BY_ZERO ("Dividing by zero not allowed");
+                    } else {
+                        result = b % a;
+                    }
+                    break;
+                    case '<':
+                    result = b << a;
+                    break;
+                    case '>':
+                    result = b >> a;
+                    break;
+                }
+                print ("%l\n", result);
+                return string_to_bool_array(result.to_string(), Pebbles.NumberSystem.DECIMAL, Pebbles.GlobalWordLength.QWD);
             }
-            return bool_array;
+
+            return ret_val;
         }
 
-        public string evaluate_exp (GlobalWordLength? wrd_length = GlobalWordLength.BYT, NumberSystem number_system, out bool[]? output_array = null) throws CalcError {
+        public string evaluate_exp (GlobalWordLength? wrd_length = GlobalWordLength.BYT, NumberSystem? number_system = NumberSystem.BINARY, out bool[]? output_array = null) throws CalcError {
             CharStack ops = new CharStack (50);
             BoolArrayStack values = new BoolArrayStack(50);
-            Programmer prog_calc = new Programmer();
-            int word_size = 8;
-            prog_calc.word_size = WordSize.BYTE;
-            switch (wrd_length) {
-                case GlobalWordLength.BYT:
-                prog_calc.word_size = WordSize.BYTE;
-                break;
-                case GlobalWordLength.WRD:
-                prog_calc.word_size = WordSize.WORD;
-                word_size = 16;
-                break;
-                case GlobalWordLength.DWD:
-                prog_calc.word_size = WordSize.DWORD;
-                word_size = 32;
-                break;
-                case GlobalWordLength.QWD:
-                prog_calc.word_size = WordSize.QWORD;
-                word_size = 64;
-                break;
-            }
             for (int i = 0; i < stored_tokens.length; i++) {
                 if (stored_tokens[i].type == TokenType.OPERAND) {
                     //ops.push((char)(stored_tokens[i].token.get_char(0)));
@@ -622,7 +869,7 @@ namespace Pebbles {
                     else {
                         while (ops.peek() != '(') {
                             try {
-                                bool[] tmp = apply_op(prog_calc, ops.pop(), values.pop(), values.pop(), word_size);
+                                bool[] tmp = apply_op(ops.pop(), values.pop(), values.pop(), wrd_length);
                                 values.push(tmp);
                             } catch (CalcError e) {
                                 throw e;
@@ -633,7 +880,7 @@ namespace Pebbles {
                 } else if (stored_tokens[i].type == TokenType.OPERATOR) {
                     while (!ops.empty() && has_precedence_pemdas(stored_tokens[i].token.get(0), ops.peek())) {
                         try {
-                            bool[] tmp = apply_op(prog_calc, ops.pop(), values.pop(), values.pop(), word_size);
+                            bool[] tmp = apply_op(ops.pop(), values.pop(), values.pop(), wrd_length);
                             values.push(tmp);
                         } catch (CalcError e) {
                             throw e;
@@ -645,7 +892,7 @@ namespace Pebbles {
             }
             while (!ops.empty()) {
                 try {
-                    bool[] tmp = apply_op(prog_calc, ops.pop(), values.pop(), values.pop(), word_size);
+                    bool[] tmp = apply_op(ops.pop(), values.pop(), values.pop(), wrd_length);
                     values.push(tmp);
                 } catch (CalcError e) {
                     throw e;
@@ -656,12 +903,13 @@ namespace Pebbles {
             // Send the original array back for storage.
             output_array = answer;
             string output = bool_array_to_string (answer, wrd_length, number_system);
-            
+
             return output;
         }
         public bool[] string_to_bool_array (string str, NumberSystem number_system, GlobalWordLength wrd_length) {
             bool[] bool_array = new bool[64];
             string converted_str = "";
+            print ("%s: str\n", str);
             switch (number_system) {
                 case NumberSystem.OCTAL:
                 converted_str = convert_octal_to_binary (str, wrd_length, true).replace (" ", "");
@@ -699,13 +947,13 @@ namespace Pebbles {
             }
             switch (number_system) {
                 case NumberSystem.OCTAL:
-                str = convert_binary_to_octal (str, wrd_length, arr[0]);
+                str = convert_binary_to_octal (str, wrd_length);
                 break;
                 case NumberSystem.DECIMAL:
-                str = convert_binary_to_decimal (str, wrd_length, arr[0]);
+                str = convert_binary_to_decimal (str, wrd_length);
                 break;
                 case NumberSystem.HEXADECIMAL:
-                str = convert_binary_to_hexadecimal (str, wrd_length, arr[0]);
+                str = convert_binary_to_hexadecimal (str, wrd_length);
                 break;
                 default:
                 str = represent_binary_by_word_length (str, wrd_length);

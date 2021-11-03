@@ -28,7 +28,7 @@
 		<value nick="feigen_delta"	value="8" />
 		<value nick="apery"			value="9" />
     </enum>
-    <schema path="/com/github/SubhadeepJasu/pebbles/" id="com.github.subhadeepjasu.pebbles" gettext-domain="com.github.subhadeepjasu.pebbles">
+    <schema path="/com/github/subhadeepjasu/pebbles/" id="com.github.subhadeepjasu.pebbles" gettext-domain="com.github.subhadeepjasu.pebbles">
 		<key name="window-x" type="i">
 			<default>-1</default>
 			<summary>The saved x-position of the window.</summary>
