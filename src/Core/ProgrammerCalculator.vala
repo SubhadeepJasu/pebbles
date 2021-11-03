@@ -188,8 +188,33 @@ namespace Pebbles {
         }
         public string convert_decimal_to_binary (string number, GlobalWordLength? wrd_length = GlobalWordLength.WRD, bool? format = false) {
             uint64 decimal = uint64.parse (number);
+            print ("%s......\n", decimal.to_string());
+            if (number.contains("-")) {
+                switch (wrd_length) {
+                    case GlobalWordLength.BYT:
+                    decimal += 128;
+                    break;
+                    case GlobalWordLength.WRD:
+                    decimal += 32768;
+                    break;
+                    case GlobalWordLength.DWD:
+                    decimal += 2147483648;
+                    break;
+                    case GlobalWordLength.QWD:
+                    decimal += 9223372036854775808;
+                    break;
+                }
+            }
+            print ("%s......\n", decimal.to_string());
             string binary = decimal_to_binary_int_unsigned(decimal).to_string();
-            return represent_binary_by_word_length (binary, wrd_length, format);
+            print ("%s b\n", binary);
+            binary = represent_binary_by_word_length (binary, wrd_length, format);
+            if (number.contains("-")) {
+                binary = binary.substring(1, -1);
+                binary = "1" + binary;
+            }
+            print ("%s n\n", binary);
+            return binary;
         }
         public string convert_binary_to_decimal (string number, GlobalWordLength? wrd_length = GlobalWordLength.WRD) {
             string formatted_binary = represent_binary_by_word_length (number, wrd_length);
@@ -752,7 +777,7 @@ namespace Pebbles {
                 }
                 print ("%d\n", result);
                 return string_to_bool_array(result.to_string(), Pebbles.NumberSystem.DECIMAL, Pebbles.GlobalWordLength.DWD);
-            }if (word_size == GlobalWordLength.BYT) {
+            }if (word_size == GlobalWordLength.QWD) {
                 int64 a = 0;
                 int64 b = 0;
                 int64 result = 0;
@@ -880,6 +905,7 @@ namespace Pebbles {
         public bool[] string_to_bool_array (string str, NumberSystem number_system, GlobalWordLength wrd_length) {
             bool[] bool_array = new bool[64];
             string converted_str = "";
+            print ("%s: str\n", str);
             switch (number_system) {
                 case NumberSystem.OCTAL:
                 converted_str = convert_octal_to_binary (str, wrd_length, true).replace (" ", "");
