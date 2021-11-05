@@ -64,7 +64,7 @@ namespace Pebbles {
             memory_label.get_style_context ().add_class ("pebbles_h4");
             memory_label.hexpand = true;
             memory_label.set_opacity (0.2);
-            shift_label    = new Gtk.Label ("SHIFT");
+            shift_label    = new Gtk.Label (_("SHIFT"));
             shift_label.get_style_context ().add_class ("pebbles_h4");
             shift_label.set_opacity (0.2);
             shift_label.set_halign (Gtk.Align.END);

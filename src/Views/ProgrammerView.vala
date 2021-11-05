@@ -134,7 +134,7 @@ namespace Pebbles {
             button_container_right.vexpand = true;
 
             // Make buttons on the left
-            all_clear_button = new StyledButton ("AC", "All Clear", {"Delete"});
+            all_clear_button = new StyledButton ("AC", _("All Clear"), {"Delete"});
             all_clear_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
             all_clear_button.get_style_context ().add_class ("pebbles_button_font_size");
             del_button = new Gtk.Button.from_icon_name ("edit-clear-symbolic", Gtk.IconSize.BUTTON);

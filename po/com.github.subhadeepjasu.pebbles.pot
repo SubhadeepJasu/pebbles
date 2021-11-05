@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.subhadeepjasu.pebbles\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-05 17:04+0100\n"
+"POT-Creation-Date: 2021-11-05 18:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,6 +33,10 @@ msgstr ""
 msgid "All Categories"
 msgstr ""
 
+#: src/MainWindow.vala:179 src/MainWindow.vala:284
+msgid "Pebbles Menu"
+msgstr ""
+
 #: src/MainWindow.vala:187 src/MainWindow.vala:932 src/MainWindow.vala:933
 #: src/MainWindow.vala:934 src/MainWindow.vala:946 src/MainWindow.vala:947
 #: src/MainWindow.vala:948 src/Views/CalculusView.vala:449
@@ -51,6 +55,22 @@ msgstr ""
 #: src/Views/CalculusView.vala:444 src/Views/ScientificView.vala:312
 #: src/Views/ProgrammerView.vala:268
 msgid "Shift"
+msgstr ""
+
+#: src/MainWindow.vala:216 src/Views/DateView.vala:132
+msgid "AGE"
+msgstr ""
+
+#: src/MainWindow.vala:217 src/Views/DateView.vala:133
+msgid "DUR"
+msgstr ""
+
+#: src/MainWindow.vala:227 src/Views/DateView.vala:186
+msgid "ADD"
+msgstr ""
+
+#: src/MainWindow.vala:228 src/Views/DateView.vala:187
+msgid "SUB"
 msgstr ""
 
 #: src/MainWindow.vala:243 src/MainWindow.vala:960 src/MainWindow.vala:961
@@ -80,11 +100,11 @@ msgstr ""
 msgid "Show Controls"
 msgstr ""
 
-#: src/MainWindow.vala:290 src/PreferencesOverlay.vala:120
+#: src/MainWindow.vala:290 src/PreferencesOverlay.vala:127
 msgid "Preferences"
 msgstr ""
 
-#: src/MainWindow.vala:292 src/Views/HistoryView.vala:67
+#: src/MainWindow.vala:292 src/Views/HistoryView.vala:68
 msgid "History"
 msgstr ""
 
@@ -93,17 +113,17 @@ msgid "Show Calculation History"
 msgstr ""
 
 #: src/MainWindow.vala:357 src/Views/ControlsOverlay.vala:45
-#: src/Views/HistoryView.vala:147
+#: src/Views/HistoryView.vala:148
 msgid "Scientific"
 msgstr ""
 
 #: src/MainWindow.vala:358 src/Views/ControlsOverlay.vala:72
-#: src/Views/HistoryView.vala:171
+#: src/Views/HistoryView.vala:172
 msgid "Calculus"
 msgstr ""
 
 #: src/MainWindow.vala:359 src/Views/ControlsOverlay.vala:85
-#: src/Views/HistoryView.vala:176
+#: src/Views/HistoryView.vala:177
 msgid "Programmer"
 msgstr ""
 
@@ -228,7 +248,8 @@ msgstr ""
 
 #: src/ControlsScheme.vala:57 src/Views/MiniCalculator.vala:75
 #: src/Views/CalculusView.vala:177 src/Views/ScientificView.vala:171
-#: src/Views/StatisticsView.vala:136 src/Views/CommonNumericKeypad.vala:55
+#: src/Views/ProgrammerView.vala:137 src/Views/StatisticsView.vala:136
+#: src/Views/CommonNumericKeypad.vala:55
 msgid "All Clear"
 msgstr ""
 
@@ -300,7 +321,7 @@ msgstr ""
 #: src/ControlsScheme.vala:110 src/ControlsScheme.vala:127
 #: src/Views/MiniCalculator.vala:96 src/Views/ScientificView.vala:309
 #: src/Views/ScientificView.vala:355 src/Views/ProgrammerView.vala:265
-#: src/Views/ProgrammerView.vala:352 src/Views/HistoryView.vala:91
+#: src/Views/ProgrammerView.vala:352 src/Views/HistoryView.vala:92
 msgid "Result"
 msgstr ""
 
@@ -356,7 +377,7 @@ msgstr ""
 msgid "Cardinality"
 msgstr ""
 
-#: src/ControlsScheme.vala:159 src/Views/HistoryView.vala:90
+#: src/ControlsScheme.vala:159 src/Views/HistoryView.vala:91
 msgid "Mode"
 msgstr ""
 
@@ -440,78 +461,99 @@ msgstr ""
 msgid "Scientific constants button:"
 msgstr ""
 
-#: src/PreferencesOverlay.vala:59
+#. TRANSLATORS: The left quotation mark symbol
+#: src/PreferencesOverlay.vala:61
+msgid "“"
+msgstr ""
+
+#. TRANSLATORS: The right quotation mark symbol
+#: src/PreferencesOverlay.vala:63
+msgid "”"
+msgstr ""
+
+#: src/PreferencesOverlay.vala:65
 msgid "Constant 1"
 msgstr ""
 
-#: src/PreferencesOverlay.vala:62 src/PreferencesOverlay.vala:76
+#: src/PreferencesOverlay.vala:68 src/PreferencesOverlay.vala:82
 #: src/Views/CalculusView.vala:556 src/Views/CalculusView.vala:598
 #: src/Views/ScientificView.vala:481 src/Views/ScientificView.vala:523
 msgid "Euler's constant (exponential)"
 msgstr ""
 
-#: src/PreferencesOverlay.vala:63 src/PreferencesOverlay.vala:77
+#: src/PreferencesOverlay.vala:69 src/PreferencesOverlay.vala:83
 #: src/Views/CalculusView.vala:520 src/Views/CalculusView.vala:562
 #: src/Views/ScientificView.vala:445 src/Views/ScientificView.vala:487
 msgid "Archimedes' constant (pi)"
 msgstr ""
 
-#: src/PreferencesOverlay.vala:64 src/PreferencesOverlay.vala:78
+#: src/PreferencesOverlay.vala:70 src/PreferencesOverlay.vala:84
 msgid "Parabolic constant"
 msgstr ""
 
-#: src/PreferencesOverlay.vala:65 src/PreferencesOverlay.vala:79
+#: src/PreferencesOverlay.vala:71 src/PreferencesOverlay.vala:85
 #: src/Views/CalculusView.vala:528 src/Views/CalculusView.vala:570
 #: src/Views/ScientificView.vala:453 src/Views/ScientificView.vala:495
 msgid "Golden ratio (phi)"
 msgstr ""
 
-#: src/PreferencesOverlay.vala:66 src/PreferencesOverlay.vala:80
+#: src/PreferencesOverlay.vala:72 src/PreferencesOverlay.vala:86
 #: src/Views/CalculusView.vala:532 src/Views/CalculusView.vala:574
 #: src/Views/ScientificView.vala:457 src/Views/ScientificView.vala:499
 msgid "Euler–Mascheroni constant (gamma)"
 msgstr ""
 
-#: src/PreferencesOverlay.vala:67 src/PreferencesOverlay.vala:81
+#: src/PreferencesOverlay.vala:73 src/PreferencesOverlay.vala:87
 #: src/Views/CalculusView.vala:536 src/Views/CalculusView.vala:578
 #: src/Views/ScientificView.vala:461 src/Views/ScientificView.vala:503
 msgid "Conway's constant (lambda)"
 msgstr ""
 
-#: src/PreferencesOverlay.vala:68 src/PreferencesOverlay.vala:82
+#: src/PreferencesOverlay.vala:74 src/PreferencesOverlay.vala:88
 #: src/Views/CalculusView.vala:540 src/Views/CalculusView.vala:582
 #: src/Views/ScientificView.vala:465 src/Views/ScientificView.vala:507
 msgid "Khinchin's constant"
 msgstr ""
 
-#: src/PreferencesOverlay.vala:69 src/PreferencesOverlay.vala:83
+#: src/PreferencesOverlay.vala:75 src/PreferencesOverlay.vala:89
 #: src/Views/CalculusView.vala:544 src/Views/CalculusView.vala:586
 #: src/Views/ScientificView.vala:469 src/Views/ScientificView.vala:511
 msgid "The Feigenbaum constant alpha"
 msgstr ""
 
-#: src/PreferencesOverlay.vala:70 src/PreferencesOverlay.vala:84
+#: src/PreferencesOverlay.vala:76 src/PreferencesOverlay.vala:90
 #: src/Views/CalculusView.vala:548 src/Views/CalculusView.vala:590
 #: src/Views/ScientificView.vala:473 src/Views/ScientificView.vala:515
 msgid "The Feigenbaum constant delta"
 msgstr ""
 
-#: src/PreferencesOverlay.vala:71 src/PreferencesOverlay.vala:85
+#: src/PreferencesOverlay.vala:77 src/PreferencesOverlay.vala:91
 #: src/Views/CalculusView.vala:552 src/Views/CalculusView.vala:594
 #: src/Views/ScientificView.vala:477 src/Views/ScientificView.vala:519
 msgid "Apery's constant"
 msgstr ""
 
-#: src/PreferencesOverlay.vala:73
+#: src/PreferencesOverlay.vala:79
 msgid "Constant 2 (Hold Shift)"
 msgstr ""
 
-#: src/PreferencesOverlay.vala:102
+#: src/PreferencesOverlay.vala:108
 msgid "Currency Converter API Key"
 msgstr ""
 
-#: src/PreferencesOverlay.vala:105
+#: src/PreferencesOverlay.vala:111
 msgid "Get your own API key"
+msgstr ""
+
+#: src/PreferencesOverlay.vala:114 src/Views/StatisticsView.vala:144
+#: src/Views/BottomPopper.vala:40
+msgid "Reset"
+msgstr ""
+
+#: src/Views/Displays/CalculusDisplay.vala:67
+#: src/Views/Displays/ProgrammerDisplay.vala:106
+#: src/Views/Displays/ScientificDisplay.vala:65
+msgid "SHIFT"
 msgstr ""
 
 #: src/Views/MiniCalculator.vala:88 src/Views/CalculusView.vala:221
@@ -773,14 +815,6 @@ msgstr ""
 msgid "Infer Date"
 msgstr ""
 
-#: src/Views/DateView.vala:132
-msgid "AGE"
-msgstr ""
-
-#: src/Views/DateView.vala:133
-msgid "DUR"
-msgstr ""
-
 #: src/Views/DateView.vala:135
 msgid "From"
 msgstr ""
@@ -795,14 +829,6 @@ msgstr ""
 
 #: src/Views/DateView.vala:154 src/Views/DateView.vala:366
 msgid "Hey, it's the same date"
-msgstr ""
-
-#: src/Views/DateView.vala:186
-msgid "ADD"
-msgstr ""
-
-#: src/Views/DateView.vala:187
-msgid "SUB"
 msgstr ""
 
 #: src/Views/DateView.vala:189
@@ -909,10 +935,6 @@ msgstr ""
 
 #: src/Views/DateView.vala:426
 msgid "Sunday"
-msgstr ""
-
-#: src/Views/StatisticsView.vala:144 src/Views/BottomPopper.vala:40
-msgid "Reset"
 msgstr ""
 
 #: src/Views/StatisticsView.vala:144
@@ -1187,15 +1209,15 @@ msgstr ""
 msgid "Century"
 msgstr ""
 
-#: src/Views/ConvAngleView.vala:47 src/Views/HistoryView.vala:101
+#: src/Views/ConvAngleView.vala:47 src/Views/HistoryView.vala:102
 msgid "Degree"
 msgstr ""
 
-#: src/Views/ConvAngleView.vala:48 src/Views/HistoryView.vala:104
+#: src/Views/ConvAngleView.vala:48 src/Views/HistoryView.vala:105
 msgid "Radian"
 msgstr ""
 
-#: src/Views/ConvAngleView.vala:49 src/Views/HistoryView.vala:107
+#: src/Views/ConvAngleView.vala:49 src/Views/HistoryView.vala:108
 msgid "Gradian"
 msgstr ""
 
@@ -1503,6 +1525,14 @@ msgstr ""
 msgid "South African Rand"
 msgstr ""
 
+#: src/Views/ConvCurrView.vala:176
+msgid "Failed to update forex data!"
+msgstr ""
+
+#: src/Views/ConvCurrView.vala:178
+msgid "Updating foreign exchange data"
+msgstr ""
+
 #: src/Views/ControlsOverlay.vala:33
 msgid "Common"
 msgstr ""
@@ -1519,19 +1549,23 @@ msgstr ""
 msgid "Double click to recall, Right click to insert"
 msgstr ""
 
-#: src/Views/HistoryView.vala:88
-msgid "Input Expression"
+#: src/Views/HistoryView.vala:62
+msgid "Clear history"
 msgstr ""
 
 #: src/Views/HistoryView.vala:89
+msgid "Input Expression"
+msgstr ""
+
+#: src/Views/HistoryView.vala:90
 msgid "Type"
 msgstr ""
 
-#: src/Views/HistoryView.vala:117
+#: src/Views/HistoryView.vala:118
 msgid "Integral"
 msgstr ""
 
-#: src/Views/HistoryView.vala:120
+#: src/Views/HistoryView.vala:121
 msgid "Derivative"
 msgstr ""
 

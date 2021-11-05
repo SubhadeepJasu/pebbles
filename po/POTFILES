@@ -3,6 +3,10 @@ src/MainWindow.vala
 src/ControlsScheme.vala
 src/PreferencesOverlay.vala
 
+src/Views/Displays/CalculusDisplay.vala
+src/Views/Displays/ProgrammerDisplay.vala
+src/Views/Displays/ScientificDisplay.vala
+
 src/Views/MiniCalculator.vala
 src/Views/CalculusView.vala
 src/Views/ScientificView.vala

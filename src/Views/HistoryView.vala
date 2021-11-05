@@ -59,6 +59,7 @@ namespace Pebbles {
             scrolled_window.height_request = 400;
 
             clear_button = new Gtk.Button.from_icon_name ("edit-delete-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+            clear_button.tooltip_text = _("Clear history");
 
             var headerbar = new Gtk.HeaderBar ();
             headerbar.has_subtitle = false;

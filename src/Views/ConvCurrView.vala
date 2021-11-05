@@ -173,9 +173,9 @@ namespace Pebbles {
             
             add (main_grid);
             
-            toast = new Granite.Widgets.Toast ("Failed to update forex data!");
+            toast = new Granite.Widgets.Toast (_("Failed to update forex data!"));
             waiting_overlay_bar = new Granite.Widgets.OverlayBar (this);
-            waiting_overlay_bar.label = "Updating foreign exchange data";
+            waiting_overlay_bar.label = _("Updating foreign exchange data");
             waiting_overlay_bar.active = true;
             waiting_overlay_bar.opacity = 0.0;
             
