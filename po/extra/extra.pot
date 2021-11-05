@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extra\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-14 09:16+0100\n"
+"POT-Creation-Date: 2021-11-05 17:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,19 +41,19 @@ msgid ""
 "boolean;"
 msgstr ""
 
-#: data/com.github.subhadeepjasu.pebbles.desktop.in:17
+#: data/com.github.subhadeepjasu.pebbles.desktop.in:16
 msgid "Open in Mini Mode"
 msgstr ""
 
-#: data/com.github.subhadeepjasu.pebbles.desktop.in:19
+#: data/com.github.subhadeepjasu.pebbles.desktop.in:18
 msgid "accessories-calculator-symbolic"
 msgstr ""
 
-#: data/com.github.subhadeepjasu.pebbles.desktop.in:22
+#: data/com.github.subhadeepjasu.pebbles.desktop.in:21
 msgid "Open a New Window"
 msgstr ""
 
-#: data/com.github.subhadeepjasu.pebbles.desktop.in:23
+#: data/com.github.subhadeepjasu.pebbles.desktop.in:22
 msgid "window-new-symbolic"
 msgstr ""
 
@@ -72,7 +72,7 @@ msgid "Scientific mode"
 msgstr ""
 
 #: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:14
-msgid "Programmer mode (Coming Soon)"
+msgid "Programmer mode"
 msgstr ""
 
 #: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:15
@@ -108,56 +108,232 @@ msgid "Statistics Mode"
 msgstr ""
 
 #: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:50
-msgid "Date Mode"
+msgid "Programmer Mode"
 msgstr ""
 
 #: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:54
-msgid "Speed Unit Converter Mode"
+msgid "Date Mode"
 msgstr ""
 
 #: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:58
+msgid "Speed Unit Converter Mode"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:62
 msgid "Currency Unit Converter Mode"
 msgstr ""
 
-#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:65
-msgid "New:"
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:98
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:114
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:122
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:138
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:156
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:200
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:223
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:245
+msgid "Improved:"
 msgstr ""
 
-#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:67
-msgid "[UI] Auto switch to view that was used last time"
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:100
+msgid "[Programmer] Transition to integer-integer logic for all operations"
 msgstr ""
 
-#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:73
-#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:81
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:102
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:214
+msgid "Translations:"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:104
+msgid "Simplified Chinese (by Tommy He)"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:110
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:144
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:160
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:172
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:184
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:194
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:218
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:231
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:239
 msgid "Fixed:"
 msgstr ""
 
-#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:75
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:112
+msgid "[Converter] Fix multiple errors in the converters"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:116
+msgid "[UI] Scale button font with app width (a11y)"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:124
+msgid "[Core] Intelligently convert expression when there is a percentage sign"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:125
+msgid "[Core] Clean up useless debug prints, clean up console output"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:126
+msgid "[UI] Follow elementary theme even when run on another distro"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:132
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:152
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:168
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:208
+msgid "New:"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:134
+msgid "[UI] Make UI resizable and responsive with touch support"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:135
+msgid "[UI] Follow system-wide dark style preference"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:136
+msgid "[UI] Updated CSS to be in tune with style of elementary OS 6 Odin"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:140
+msgid "[Calculus] Prevent divide by zero errors, use \"tends to zero\" logic"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:141
+msgid "[Calculus] Add ability to input negative and fractional limits"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:142
+msgid "[Calculus] Add ability to modify integration accuracy"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:146
+msgid "[Programmer] Remove leading '0's correctly"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:154
+msgid "[Core] Insert result in history from any mode to any mode"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:158
+msgid "[Core] Persist History across invocations"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:162
+msgid "[Programmer] Better binary formatting"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:170
+msgid "[Programmer] Implement Programmer mode"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:174
+msgid "[UI] Fix minimode having wrong button label"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:175
+msgid "[UI] Allow changing currency converter API key"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:176
+msgid "[Core] Handle large factorials"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:177
+msgid "[Core] Replace imaginary number with universal parabolic constant"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:178
+msgid "[Core] Fix operator precedance"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:186
+msgid ""
+"[UI] Allow navigation left and right buttons to pass through selectively"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:187
+msgid "[Core] Better negative number handling"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:188
+msgid "[Core] Implicit multiplication on parenthesis and around variable (x)"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:196
+msgid "[UI] Comma and Radix symbols now obey Language &amp; Region settings"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:197
+msgid ""
+"[UI] Backspace button should now check if input entry has text on start up"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:198
+msgid "[Core] Fix precedance with proper PEMDAS rule"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:202
+msgid ""
+"[UI] Better clipboard system for Scientific, Calculus, Statistics and "
+"converters"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:210
+msgid "[UI] Save and restore calculator state across invocations"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:211
+msgid "[Converter] Save currency converter forex data after update"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:212
+msgid ""
+"[Calculus] Fix derivative accuracy bug which caused it to output zero "
+"everytime"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:216
+msgid "French (by Nathan Bonnemains)"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:220
+msgid "Code structure fixed and improved by Nathan Bonnemains"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:221
+msgid "[Calculus] Make Calculus button labels consistent with Scientific view"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:225
+msgid "[Controls] Use Escape Key to close dialogues"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:233
 msgid ""
 "[Converter] Override conversion precision based on unit for Currency and "
 "Data converter"
 msgstr ""
 
-#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:83
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:241
 msgid "[Controls] Use F7 for last answer and F8 for changing angle mode"
 msgstr ""
 
-#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:84
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:242
 msgid "[HeaderBar] Change 'GRD' to 'GRA'"
 msgstr ""
 
-#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:85
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:243
 msgid "[Date View] Enable counting date backwards"
 msgstr ""
 
-#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:87
-msgid "Improved:"
-msgstr ""
-
-#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:89
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:247
 msgid "[Translations] Add more translatable strings"
 msgstr ""
 
-#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:95
+#: data/com.github.subhadeepjasu.pebbles.appdata.xml.in:253
 msgid "Initial Release"
 msgstr ""
