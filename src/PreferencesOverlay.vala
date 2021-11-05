@@ -56,33 +56,39 @@ namespace Pebbles {
             var constant_button_label = new Gtk.Label (_("Scientific constants button:"));
             constant_button_label.get_style_context ().add_class ("h4");
             constant_button_label.halign = Gtk.Align.START;
+
+            // TRANSLATORS: The left quotation mark symbol
+            var laquo = _("“");
+            // TRANSLATORS: The right quotation mark symbol
+            var raquo = _("”");
+
             var constant_label1 = new Gtk.Label (_("Constant 1"));
             constant_label1.halign = Gtk.Align.START;
             constants_select_1 = new Gtk.ComboBoxText ();
-            constants_select_1.append_text (_("Euler's constant (exponential)") + "  \"e\"");
-            constants_select_1.append_text (_("Archimedes' constant (pi)") + "  \"\xCF\x80\"");
-            constants_select_1.append_text (_("Parabolic constant") + "  \"\xF0\x9D\x91\x83\"");
-            constants_select_1.append_text (_("Golden ratio (phi)") + "  \"\xCF\x86\"");
-            constants_select_1.append_text (_("Euler–Mascheroni constant (gamma)") + "  \"\xF0\x9D\x9B\xBE\"");
-            constants_select_1.append_text (_("Conway's constant (lambda)") + "  \"\xCE\xBB\"");
-            constants_select_1.append_text (_("Khinchin's constant") + "  \"K\"");
-            constants_select_1.append_text (_("The Feigenbaum constant alpha") + "  \"\xCE\xB1\"");
-            constants_select_1.append_text (_("The Feigenbaum constant delta") + "  \"\xCE\xB4\"");
-            constants_select_1.append_text (_("Apery's constant") + "  \"\xF0\x9D\x9B\x87(3)\"");
+            constants_select_1.append_text (_("Euler's constant (exponential)") + "  " + laquo + "e" + raquo);
+            constants_select_1.append_text (_("Archimedes' constant (pi)") + "  " + laquo + "\xCF\x80" + raquo);
+            constants_select_1.append_text (_("Parabolic constant") + "  " + laquo + "\xF0\x9D\x91\x83" + raquo);
+            constants_select_1.append_text (_("Golden ratio (phi)") + "  " + laquo + "\xCF\x86" + raquo);
+            constants_select_1.append_text (_("Euler–Mascheroni constant (gamma)") + "  " + laquo + "\xF0\x9D\x9B\xBE" + raquo);
+            constants_select_1.append_text (_("Conway's constant (lambda)") + "  " + laquo + "\xCE\xBB" + raquo);
+            constants_select_1.append_text (_("Khinchin's constant") + "  " + laquo + "K" + raquo);
+            constants_select_1.append_text (_("The Feigenbaum constant alpha") + "  " + laquo + "\xCE\xB1" + raquo);
+            constants_select_1.append_text (_("The Feigenbaum constant delta") + "  " + laquo + "\xCE\xB4" + raquo);
+            constants_select_1.append_text (_("Apery's constant") + "  " + laquo + "\xF0\x9D\x9B\x87(3)" + raquo);
 
             var constant_label2 = new Gtk.Label (_("Constant 2 (Hold Shift)"));
             constant_label2.halign = Gtk.Align.START;
             constants_select_2 = new Gtk.ComboBoxText ();
-            constants_select_2.append_text (_("Euler's constant (exponential)") + "  \"e\"");
-            constants_select_2.append_text (_("Archimedes' constant (pi)") + "  \"\xCF\x80\"");
-            constants_select_2.append_text (_("Parabolic constant") + "  \"\xF0\x9D\x91\x83\"");
-            constants_select_2.append_text (_("Golden ratio (phi)") + "  \"\xCF\x86\"");
-            constants_select_2.append_text (_("Euler–Mascheroni constant (gamma)") + "  \"\xF0\x9D\x9B\xBE\"");
-            constants_select_2.append_text (_("Conway's constant (lambda)") + "  \"\xCE\xBB\"");
-            constants_select_2.append_text (_("Khinchin's constant") + "  \"K\"");
-            constants_select_2.append_text (_("The Feigenbaum constant alpha") + "  \"\xCE\xB1\"");
-            constants_select_2.append_text (_("The Feigenbaum constant delta") + "  \"\xCE\xB4\"");
-            constants_select_2.append_text (_("Apery's constant") + "  \"\xF0\x9D\x9B\x87(3)\"");
+            constants_select_2.append_text (_("Euler's constant (exponential)") + "  " + laquo + "e" + raquo);
+            constants_select_2.append_text (_("Archimedes' constant (pi)") + "  " + laquo + "\xCF\x80" + raquo);
+            constants_select_2.append_text (_("Parabolic constant") + "  " + laquo + "\xF0\x9D\x91\x83" + raquo);
+            constants_select_2.append_text (_("Golden ratio (phi)") + "  " + laquo + "\xCF\x86" + raquo);
+            constants_select_2.append_text (_("Euler–Mascheroni constant (gamma)") + "  " + laquo + "\xF0\x9D\x9B\xBE" + raquo);
+            constants_select_2.append_text (_("Conway's constant (lambda)") + "  " + laquo + "\xCE\xBB" + raquo);
+            constants_select_2.append_text (_("Khinchin's constant") + "  " + laquo + "K" + raquo);
+            constants_select_2.append_text (_("The Feigenbaum constant alpha") + "  " + laquo + "\xCE\xB1" + raquo);
+            constants_select_2.append_text (_("The Feigenbaum constant delta") + "  " + laquo + "\xCE\xB4" + raquo);
+            constants_select_2.append_text (_("Apery's constant") + "  " + laquo + "\xF0\x9D\x9B\x87(3)" + raquo);
 
             this.delete_event.connect (() => {
                 save_settings ();
@@ -105,6 +111,7 @@ namespace Pebbles {
             forex_api_link = new Gtk.LinkButton.with_label ("https://free.currencyconverterapi.com/", _("Get your own API key"));
             forex_api_key = new Gtk.Entry ();
             forex_api_key.set_icon_from_icon_name (Gtk.EntryIconPosition.SECONDARY,"edit-undo-symbolic");
+            forex_api_key.set_icon_tooltip_markup (Gtk.EntryIconPosition.SECONDARY, _("Reset"));
             forex_api_key.placeholder_text = "03eb97e97cbf3fa3e228";
             
             main_grid.attach (forex_label, 0, 9, 1, 1);

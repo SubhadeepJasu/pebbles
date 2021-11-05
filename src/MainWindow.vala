@@ -176,7 +176,7 @@ namespace Pebbles {
             leaflet_back_button = new StyledButton (_("All Categories"));
             leaflet_back_button.valign = Gtk.Align.CENTER;
             leaflet_back_button.set_image (new Gtk.Image.from_icon_name ("view-more-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
-            leaflet_back_button.tooltip_text = "Pebbles Menu";
+            leaflet_back_button.tooltip_text = _("Pebbles Menu");
             leaflet_back_button.clicked.connect (() => {
                 if (main_leaflet.get_visible_child () == common_view)
                     main_leaflet.set_visible_child (item_list);
@@ -213,8 +213,8 @@ namespace Pebbles {
 
             // Make Date Switcher ///////////////////////////////////////
             date_mode_stack = new Gtk.Stack ();
-            date_age_label = new Gtk.Label ("AGE");
-            date_dur_label = new Gtk.Label ("DUR");
+            date_age_label = new Gtk.Label (_("AGE"));
+            date_dur_label = new Gtk.Label (_("DUR"));
             diff_mode_switch = new Gtk.Switch ();
             diff_mode_switch.get_style_context ().add_class ("mode-switch");
             date_diff_grid = new Gtk.Grid ();
@@ -224,8 +224,8 @@ namespace Pebbles {
             date_diff_grid.attach (date_dur_label, 2, 0, 1, 1);
             date_diff_grid.valign = Gtk.Align.CENTER;
 
-            date_add_label = new Gtk.Label ("ADD");
-            date_sub_label = new Gtk.Label ("SUB");
+            date_add_label = new Gtk.Label (_("ADD"));
+            date_sub_label = new Gtk.Label (_("SUB"));
             add_mode_switch = new Gtk.Switch ();
             add_mode_switch.get_style_context ().add_class ("mode-switch");
             date_add_grid = new Gtk.Grid ();
@@ -281,7 +281,7 @@ namespace Pebbles {
             app_menu.set_margin_top (8);
             app_menu.set_margin_bottom (8);
             app_menu.set_image (new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
-            app_menu.tooltip_text = "Pebbles Menu";
+            app_menu.tooltip_text = _("Pebbles Menu");
 
             var settings_menu = new Gtk.Menu ();
             var controls_overlay_item = new Gtk.MenuItem();
