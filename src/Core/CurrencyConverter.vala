@@ -41,14 +41,17 @@ namespace Pebbles {
             "JPY",
             "RUB",
             "ZAR",
+            "ARS",
         };
+
+        public int currencyCount = currency.length;
         public double[] muliplier_info; 
 
         public signal void currency_updated (double[] currency_multipliers);
         public signal void update_failed ();
 
         public CurrencyConverter () {
-            muliplier_info = new double [11];
+            muliplier_info = new double [currencyCount];
         }
 
         public bool request_update () {
@@ -70,7 +73,7 @@ namespace Pebbles {
         }
         int update_currency_thread () {
             int cnt = 0;
-            for (int i = 0; i < 11; i++) {
+            for (int i = 0; i < currencyCount; i++) {
                 for (int j = 0; j < 2; j++) {
                     if (request_multiplier ("USD", currency [i], i)) {
                         cnt++;
@@ -78,7 +81,7 @@ namespace Pebbles {
                     }
                 }
             }
-            if (cnt < 11) {
+            if (cnt < currencyCount) {
                 warning (_("Failed to connect to currency exchange service"));
                 update_failed ();
             }
