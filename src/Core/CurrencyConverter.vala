@@ -44,7 +44,7 @@ namespace Pebbles {
             "ARS",
         };
 
-        public int currencyCount = currency.length;
+        private int currencyCount = 12;
         public double[] muliplier_info; 
 
         public signal void currency_updated (double[] currency_multipliers);
