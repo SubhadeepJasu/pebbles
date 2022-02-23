@@ -68,6 +68,7 @@ namespace Pebbles {
             (_("Japanese Yen") + ": ¥"),
             (_("Russian Ruble") + ": руб"),
             (_("South African Rand") + ": R"),
+            (_("Argentine Peso") + ": $"),
         };
 
         private const int[] precision_override_structure = {
@@ -80,6 +81,7 @@ namespace Pebbles {
             2,
             2,
             3,
+            2,
             2,
             2
         };
