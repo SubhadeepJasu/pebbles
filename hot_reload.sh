@@ -1,4 +1,3 @@
 meson _build --prefix=/usr
-cd _build/
-sudo ninja install
+sudo ninja -C _build install
 com.github.subhadeepjasu.pebbles
