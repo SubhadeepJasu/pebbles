@@ -93,6 +93,15 @@
     <content_attribute id="money-gambling">none</content_attribute>
   </content_rating>
   <releases>
+    <release date="2022-03-06" version="2.0.5">
+      <description>
+        <p>Improved:</p>
+        <ul>
+          <li>[Converter] Upgrade to v7 of free currency converter API</li>
+          <li>[Converter] Added Argentina Peso currency</li>
+        </ul>
+      </description>
+    </release>
     <release date="2021-12-23" version="2.0.4">
       <description>
         <p>Translations:</p>
