@@ -12,7 +12,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License 
+ * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  *
  * Authored by: Subhadeep Jasu <subhajasu@gmail.com>
@@ -45,7 +45,7 @@ namespace Pebbles {
         };
 
         private int currencyCount = 12;
-        public double[] muliplier_info; 
+        public double[] muliplier_info;
 
         public signal void currency_updated (double[] currency_multipliers);
         public signal void update_failed ();
@@ -94,7 +94,7 @@ namespace Pebbles {
         public bool request_multiplier (string coin_iso_a, string coin_iso_b, int index) {
             var settings = Settings.get_default ();
             var api_key = settings.forex_api_key;
-            var uri = """https://free.currencyconverterapi.com/api/v6/convert?q=%s_%s&compact=y&apiKey=%s""".printf(coin_iso_a, coin_iso_b, api_key);
+            var uri = """https://free.currconv.com/api/v7/convert?q=%s_%s&compact=y&apiKey=%s""".printf(coin_iso_a, coin_iso_b, api_key);
             var session = new Soup.Session ();
             var message = new Soup.Message ("GET", uri);
             double avg = 0.0;
