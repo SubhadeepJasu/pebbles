@@ -9,7 +9,6 @@ finish-args:
   - '--socket=wayland'
   - '--share=network'
   # needed for perfers-color-scheme
-  - '--system-talk-name=org.freedesktop.Accounts'
   - '--metadata=X-DConf=migrate-path=/com/github/subhadeepjasu/pebbles'
 modules:
   - name: gsl
