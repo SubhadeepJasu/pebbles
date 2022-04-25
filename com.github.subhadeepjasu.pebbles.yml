@@ -1,6 +1,6 @@
 app-id: com.github.subhadeepjasu.pebbles
 runtime: io.elementary.Platform
-runtime-version: '6.1'
+runtime-version: 'daily'
 sdk: io.elementary.Sdk
 command: com.github.subhadeepjasu.pebbles
 finish-args:

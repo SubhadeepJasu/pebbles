@@ -12,11 +12,12 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License 
+ * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  *
  * Authored by: Subhadeep Jasu <subhajasu@gmail.com>
  */
+
 using Gsl;
 namespace Pebbles {
 
@@ -34,7 +35,7 @@ namespace Pebbles {
 
         public static string get_derivative (string exp, GlobalAngleUnit angle_mode_in, double val) {
             double result, error;
-            
+
             string revised_exp = Utils.st_tokenize (exp);
             revised_exp = Utils.algebraic_variable_product_convert (revised_exp);
             char* user_func = new char [revised_exp.length];
@@ -49,17 +50,17 @@ namespace Pebbles {
             else {
                 Deriv.forward (&scientific_function, val, 1e-8, out result, out error);
             }
-            
+
             Settings accuracy_settings = Settings.get_default ();
             return Utils.manage_decimal_places (result, accuracy_settings.decimal_places);
         }
 
 
-/////// INTEGRATION /////////////////////////////////////////////////////////////////////////////////////////////////////// 
+/////// INTEGRATION ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
         public static string get_definite_integral (string exp, GlobalAngleUnit angle_mode_in, double lower_limit, double upper_limit) {
             // Using Simpson's 3/8 method
-            
+
             string revised_exp = Utils.st_tokenize (exp);
             revised_exp = Utils.algebraic_variable_product_convert (revised_exp);
             ScientificCalculator sci_calc = new ScientificCalculator (true);
@@ -68,7 +69,7 @@ namespace Pebbles {
             double interval_size = (upper_limit - lower_limit) / accuracy;
             string exp1 = sci_calc.get_result (revised_exp.replace ("x", lower_limit.to_string()), angle_mode_in);
             string exp2 = sci_calc.get_result (revised_exp.replace ("x", upper_limit.to_string()), angle_mode_in);
-            
+
             if (exp1 != "E" && exp2 != "E") {
                 double sum = 0.0;
                 if (exp1 == "∞" && exp2 == "∞") {
@@ -83,7 +84,7 @@ namespace Pebbles {
                 else {
                     sum = double.parse (exp1) - double.parse (exp2);
                 }
-                
+
                 // Calculate value till integral limit is reached
                 for (int i = 1; i < accuracy; i++) {
                     if (i % 3 == 0) {

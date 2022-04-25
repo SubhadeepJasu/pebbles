@@ -67,6 +67,7 @@ namespace Pebbles {
         Pebbles.CalculusView   calculus_view;
         Pebbles.DateView       date_view;
         Pebbles.StatisticsView statistics_view;
+        Pebbles.GraphView      graph_view;
 
         Pebbles.ConvLengthView conv_length_view;
         Pebbles.ConvAreaView   conv_area_view;
@@ -87,6 +88,7 @@ namespace Pebbles {
         Granite.Widgets.SourceList.Item date_item;
         Granite.Widgets.SourceList.Item stats_item;
         Granite.Widgets.SourceList.Item finance_item;
+        Granite.Widgets.SourceList.Item graph_item;
         Granite.Widgets.SourceList.Item conv_length_item;
         Granite.Widgets.SourceList.Item conv_area_item;
         Granite.Widgets.SourceList.Item conv_volume_item;
@@ -360,6 +362,7 @@ namespace Pebbles {
             date_item        = new Granite.Widgets.SourceList.Item (_("Date"));
             stats_item       = new Granite.Widgets.SourceList.Item (_("Statistics"));
             finance_item     = new Granite.Widgets.SourceList.Item (_("Financial"));
+            graph_item       = new Granite.Widgets.SourceList.Item (_("Graphs"));
             conv_length_item = new Granite.Widgets.SourceList.Item (_("Length"));
             conv_area_item   = new Granite.Widgets.SourceList.Item (_("Area"));
             conv_volume_item = new Granite.Widgets.SourceList.Item (_("Volume"));
@@ -382,6 +385,7 @@ namespace Pebbles {
             calc_category.add (programmer_item); // Will be added in a future update
             calc_category.add (date_item);
             calc_category.add (stats_item);
+            calc_category.add (graph_item);
             //calc_category.add (finance_item);
             // Converters
             var conv_category = new Granite.Widgets.SourceList.ExpandableItem (_("Converter"));
@@ -413,6 +417,7 @@ namespace Pebbles {
             calculus_view    = new Pebbles.CalculusView (this);
             date_view        = new Pebbles.DateView (this);
             statistics_view  = new Pebbles.StatisticsView ();
+            graph_view       = new Pebbles.GraphView ();
             conv_length_view = new Pebbles.ConvLengthView ();
             conv_area_view   = new Pebbles.ConvAreaView ();
             conv_volume_view = new Pebbles.ConvVolumeView ();
@@ -497,6 +502,7 @@ namespace Pebbles {
             common_view.add_named (programmer_view, "Programmer");
             common_view.add_named (date_view, "Date");
             common_view.add_named (statistics_view, "Statistics");
+            common_view.add_named (graph_view, "Graphs");
             common_view.add_named (conv_length_view, "Length");
             common_view.add_named (conv_area_view, "Area");
             common_view.add_named (conv_volume_view, "Volume");
@@ -547,44 +553,47 @@ namespace Pebbles {
                 else if (item == stats_item) {
                     settings.view_index = 4;
                 }
-                else if (item == conv_length_item) {
+                else if (item == graph_item) {
                     settings.view_index = 5;
                 }
-                else if (item == conv_area_item) {
+                else if (item == conv_length_item) {
                     settings.view_index = 6;
                 }
-                else if (item == conv_volume_item) {
+                else if (item == conv_area_item) {
                     settings.view_index = 7;
                 }
-                else if (item == conv_time_item) {
+                else if (item == conv_volume_item) {
                     settings.view_index = 8;
                 }
-                else if (item == conv_angle_item) {
+                else if (item == conv_time_item) {
                     settings.view_index = 9;
                 }
-                else if (item == conv_speed_item) {
+                else if (item == conv_angle_item) {
                     settings.view_index = 10;
                 }
-                else if (item == conv_mass_item) {
+                else if (item == conv_speed_item) {
                     settings.view_index = 11;
                 }
-                else if (item == conv_press_item) {
+                else if (item == conv_mass_item) {
                     settings.view_index = 12;
                 }
-                else if (item == conv_energy_item) {
+                else if (item == conv_press_item) {
                     settings.view_index = 13;
                 }
-                else if (item == conv_power_item) {
+                else if (item == conv_energy_item) {
                     settings.view_index = 14;
                 }
-                else if (item == conv_temp_item) {
+                else if (item == conv_power_item) {
                     settings.view_index = 15;
                 }
-                else if (item == conv_data_item) {
+                else if (item == conv_temp_item) {
                     settings.view_index = 16;
                 }
-                else if (item == conv_curr_item) {
+                else if (item == conv_data_item) {
                     settings.view_index = 17;
+                }
+                else if (item == conv_curr_item) {
+                    settings.view_index = 18;
                 }
                 set_view ();
             });
@@ -650,13 +659,6 @@ namespace Pebbles {
 
         private void set_view () {
             switch (settings.view_index) {
-                case 0:
-                common_view.set_visible_child (scientific_view);
-                header_switcher.set_visible_child (scientific_header_grid);
-                if (item_list.selected != scientific_item) {
-                    item_list.selected = scientific_item;
-                }
-                break;
                 case 1:
                 common_view.set_visible_child (programmer_view);
                 header_switcher.set_visible_child (programmer_header_grid);
@@ -686,90 +688,97 @@ namespace Pebbles {
                 }
                 break;
                 case 5:
+                common_view.set_visible_child (graph_view);
+                header_switcher.set_visible_child (null_switcher);
+                if (item_list.selected != graph_item) {
+                    item_list.selected = graph_item;
+                }
+                break;
+                case 6:
                 common_view.set_visible_child (conv_length_view);
                 header_switcher.set_visible_child (null_switcher);
                 if (item_list.selected != conv_length_item) {
                     item_list.selected = conv_length_item;
                 }
                 break;
-                case 6:
+                case 7:
                 common_view.set_visible_child (conv_area_view);
                 header_switcher.set_visible_child (null_switcher);
                 if (item_list.selected != conv_area_item) {
                     item_list.selected = conv_area_item;
                 }
                 break;
-                case 7:
+                case 8:
                 common_view.set_visible_child (conv_volume_view);
                 header_switcher.set_visible_child (null_switcher);
                 if (item_list.selected != conv_volume_item) {
                     item_list.selected = conv_volume_item;
                 }
                 break;
-                case 8:
+                case 9:
                 common_view.set_visible_child (conv_time_view);
                 header_switcher.set_visible_child (null_switcher);
                 if (item_list.selected != conv_time_item) {
                     item_list.selected = conv_time_item;
                 }
                 break;
-                case 9:
+                case 10:
                 common_view.set_visible_child (conv_angle_view);
                 header_switcher.set_visible_child (null_switcher);
                 if (item_list.selected != conv_angle_item) {
                     item_list.selected = conv_angle_item;
                 }
                 break;
-                case 10:
+                case 11:
                 common_view.set_visible_child (conv_speed_view);
                 header_switcher.set_visible_child (null_switcher);
                 if (item_list.selected != conv_speed_item) {
                     item_list.selected = conv_speed_item;
                 }
                 break;
-                case 11:
+                case 12:
                 common_view.set_visible_child (conv_mass_view);
                 header_switcher.set_visible_child (null_switcher);
                 if (item_list.selected != conv_mass_item) {
                     item_list.selected = conv_mass_item;
                 }
                 break;
-                case 12:
+                case 13:
                 common_view.set_visible_child (conv_press_view);
                 header_switcher.set_visible_child (null_switcher);
                 if (item_list.selected != conv_press_item) {
                     item_list.selected = conv_press_item;
                 }
                 break;
-                case 13:
+                case 14:
                 common_view.set_visible_child (conv_energy_view);
                 header_switcher.set_visible_child (null_switcher);
                 if (item_list.selected != conv_energy_item) {
                     item_list.selected = conv_energy_item;
                 }
                 break;
-                case 14:
+                case 15:
                 common_view.set_visible_child (conv_power_view);
                 header_switcher.set_visible_child (null_switcher);
                 if (item_list.selected != conv_power_item) {
                     item_list.selected = conv_power_item;
                 }
                 break;
-                case 15:
+                case 16:
                 common_view.set_visible_child (conv_temp_view);
                 header_switcher.set_visible_child (null_switcher);
                 if (item_list.selected != conv_temp_item) {
                     item_list.selected = conv_temp_item;
                 }
                 break;
-                case 16:
+                case 17:
                 common_view.set_visible_child (conv_data_view);
                 header_switcher.set_visible_child (null_switcher);
                 if (item_list.selected != conv_data_item) {
                     item_list.selected = conv_data_item;
                 }
                 break;
-                case 17:
+                case 18:
                 common_view.set_visible_child (conv_curr_view);
                 header_switcher.set_visible_child (update_button);
                 if (!currency_view_visited) {
@@ -779,6 +788,13 @@ namespace Pebbles {
                 }
                 if (item_list.selected != conv_curr_item) {
                     item_list.selected = conv_curr_item;
+                }
+                break;
+                default:
+                common_view.set_visible_child (scientific_view);
+                header_switcher.set_visible_child (scientific_header_grid);
+                if (item_list.selected != scientific_item) {
+                    item_list.selected = scientific_item;
                 }
                 break;
             }

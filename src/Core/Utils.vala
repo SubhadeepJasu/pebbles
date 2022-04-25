@@ -12,7 +12,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License 
+ * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  *
  * Authored by: Subhadeep Jasu <subhajasu@gmail.com>
@@ -58,7 +58,7 @@ namespace Pebbles {
             for (int i = decimalPos - 3; i > end_position; i -= 3) {
                 output_builder.insert (i, Utils.get_local_separator_symbol ());
             }
-            
+
             if (output_builder.str == "-0") {
                 return "0";
             }
@@ -80,7 +80,7 @@ namespace Pebbles {
             }
             return (bracket_balance >= 0);
         }
-        
+
         public static string preformat (string exp) {
             string formatted_str;
             formatted_str = exp.replace ("/", "\xC3\xB7");
@@ -92,7 +92,7 @@ namespace Pebbles {
             if (check_parenthesis (input)) {
                 var exp = input;
 
-               /* 
+               /*
                 * Certain UTF-8 escape characters require a space
                 * after it to seperate it from the next character.
                 * This is only during testing. This is however not
@@ -111,9 +111,9 @@ namespace Pebbles {
                 exp = exp.replace ("\xF0\x9D\x91\x83", " ( 2.29558714939 ) ");
                 exp = exp.replace ("E", " * 10 ^ ");
                 exp = exp.replace ("pi", " ( 3.1415926535897932 ) ");
-                
+
                 exp = exp.down ();
-                
+
                 // Convert to lexemes
                 exp = exp.replace ("isinh", " [0] ");
                 exp = exp.replace ("icosh", " [1] ");
@@ -173,12 +173,18 @@ namespace Pebbles {
 
                 exp = exp.strip ();
                 exp = space_removal (exp);
-                
+
                 // Intelligently convert expressions based on common rules
                 exp = algebraic_parenthesis_product_convert (exp);
                 exp = unary_minus_convert (exp);
-                while (exp.contains("%")) {
+                var regex = new Regex (".+ [+|-] .+%");
+                bool percent_pattern_matched = regex.match (exp, 0);
+                while (percent_pattern_matched) {
                     exp = relative_percentage_convert(exp);
+                    percent_pattern_matched = regex.match (exp, 0);
+                }
+                if (!percent_pattern_matched) {
+                    exp = exp.replace ("%", "/ 100");
                 }
 
                 exp = space_removal (exp.strip ());
@@ -526,7 +532,7 @@ namespace Pebbles {
             }
             return exp;
         }
-        
+
         private static bool is_number (string exp) {
             if (exp.has_suffix ("0") ||
                 exp.has_suffix ("1") ||

@@ -22,6 +22,7 @@ sources = files (
     'Core/Converter.vala',
     'Core/CurrencyConverter.vala',
     'Core/DateCalculator.vala',
+    'Core/Graph.vala',
 
     'Core/CharStack.vala',
     'Core/BoolArrayStack.vala',
@@ -32,6 +33,7 @@ sources = files (
     'Views/ScientificView.vala',
     'Views/DateView.vala',
     'Views/StatisticsView.vala',
+    'Views/GraphView.vala',
     'Views/CommonNumericKeypad.vala',
     'Views/CommonKeyPadConverter.vala',
     'Views/ConvLengthView.vala',
