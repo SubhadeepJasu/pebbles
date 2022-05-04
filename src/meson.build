@@ -58,5 +58,6 @@ sources = files (
     'Views/Displays/CalculusDisplay.vala',
     'Views/Displays/ProgrammerDisplay.vala',
     'Views/Displays/StatisticsDisplay.vala',
-    'Views/Displays/StatisticsGraph.vala'
+    'Views/Displays/StatisticsGraph.vala',
+    'Views/Displays/GraphDisplay.vala'
 )
