@@ -1050,42 +1050,45 @@ namespace Pebbles {
                         statistics_view.key_pressed (event);
                         break;
                     case 5:
-                        conv_length_view.key_press_event (event);
+                        graph_view.key_press_event (event);
                         break;
                     case 6:
-                        conv_area_view.key_press_event (event);
+                        conv_length_view.key_press_event (event);
                         break;
                     case 7:
-                        conv_volume_view.key_press_event (event);
+                        conv_area_view.key_press_event (event);
                         break;
                     case 8:
-                        conv_time_view.key_press_event (event);
+                        conv_volume_view.key_press_event (event);
                         break;
                     case 9:
-                        conv_angle_view.key_press_event (event);
+                        conv_time_view.key_press_event (event);
                         break;
                     case 10:
-                        conv_speed_view.key_press_event (event);
+                        conv_angle_view.key_press_event (event);
                         break;
                     case 11:
-                        conv_mass_view.key_press_event (event);
+                        conv_speed_view.key_press_event (event);
                         break;
                     case 12:
-                        conv_press_view.key_press_event (event);
+                        conv_mass_view.key_press_event (event);
                         break;
                     case 13:
-                        conv_energy_view.key_press_event (event);
+                        conv_press_view.key_press_event (event);
                         break;
                     case 14:
-                        conv_power_view.key_press_event (event);
+                        conv_energy_view.key_press_event (event);
                         break;
                     case 15:
-                        conv_temp_view.key_press_event (event);
+                        conv_power_view.key_press_event (event);
                         break;
                     case 16:
-                        conv_data_view.key_press_event (event);
+                        conv_temp_view.key_press_event (event);
                         break;
                     case 17:
+                        conv_data_view.key_press_event (event);
+                        break;
+                    case 18:
                         conv_curr_view.key_press_event (event);
                         break;
                 }
@@ -1135,42 +1138,45 @@ namespace Pebbles {
                         statistics_view.key_released (event);
                         break;
                     case 5:
-                        conv_length_view.key_release_event (event);
+                        graph_view.key_release_event (event);
                         break;
                     case 6:
-                        conv_area_view.key_release_event (event);
+                        conv_length_view.key_release_event (event);
                         break;
                     case 7:
-                        conv_volume_view.key_release_event (event);
+                        conv_area_view.key_release_event (event);
                         break;
                     case 8:
-                        conv_time_view.key_release_event (event);
+                        conv_volume_view.key_release_event (event);
                         break;
                     case 9:
-                        conv_angle_view.key_release_event (event);
+                        conv_time_view.key_release_event (event);
                         break;
                     case 10:
-                        conv_speed_view.key_release_event (event);
+                        conv_angle_view.key_release_event (event);
                         break;
                     case 11:
-                        conv_mass_view.key_release_event (event);
+                        conv_speed_view.key_release_event (event);
                         break;
                     case 12:
-                        conv_press_view.key_release_event (event);
+                        conv_mass_view.key_release_event (event);
                         break;
                     case 13:
-                        conv_energy_view.key_release_event (event);
+                        conv_press_view.key_release_event (event);
                         break;
                     case 14:
-                        conv_power_view.key_release_event (event);
+                        conv_energy_view.key_release_event (event);
                         break;
                     case 15:
-                        conv_temp_view.key_release_event (event);
+                        conv_power_view.key_release_event (event);
                         break;
                     case 16:
-                        conv_data_view.key_release_event (event);
+                        conv_temp_view.key_release_event (event);
                         break;
                     case 17:
+                        conv_data_view.key_release_event (event);
+                        break;
+                    case 18:
                         conv_curr_view.key_release_event (event);
                         break;
                 }

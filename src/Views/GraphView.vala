@@ -24,7 +24,6 @@ namespace Pebbles {
         StyledButton[] numpad_buttons;
         Gtk.Button del_button;
         StyledButton radix_button;
-        StyledButton variable_x_button;
         StyledButton divide_button;
         StyledButton multiply_button;
         StyledButton subtract_button;
@@ -42,11 +41,13 @@ namespace Pebbles {
         StyledButton log_mod_button;
         StyledButton tan_button;
         StyledButton tanh_button;
-        StyledButton perm_comb_button;
-        StyledButton fact_button;
         StyledButton constant_button;
         StyledButton left_parenthesis_button;
         StyledButton right_parenthesis_button;
+        StyledButton variable_x_button;
+        StyledButton add_to_function_list_button;
+
+        Settings settings;
 
         Gtk.ListBox function_list;
         Gtk.MenuBar graph_controls;
@@ -63,6 +64,8 @@ namespace Pebbles {
         string constant_desc_1 = "";
         string constant_label_2 = "";
         string constant_desc_2 = "";
+
+        public bool shift_held = false;
 
         construct {
             halign = Gtk.Align.FILL;
@@ -86,7 +89,10 @@ namespace Pebbles {
 
             function_list = new Gtk.ListBox () {
                 width_request = 248,
-                height_request = 300
+                height_request = 300,
+                margin_top = 8,
+                margin_bottom = 8,
+                margin_end = 8
             };
 
             var button_container_left = new Gtk.Grid () {
@@ -209,19 +215,14 @@ namespace Pebbles {
             tanh_button.get_style_context ().add_class ("pebbles_button_font_size");
             button_container_right.attach (tanh_button, 1, 3);
 
-            perm_comb_button = new StyledButton ("<sup>n</sup>P\xE1\xB5\xA3", _("Permutations"), {"P"});
-            perm_comb_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            perm_comb_button.get_style_context ().add_class ("pebbles_button_font_size");
-            button_container_right.attach (perm_comb_button, 2, 3);
-
-            fact_button = new StyledButton ("!", _("Factorial"), {"F"});
-            fact_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
-            fact_button.get_style_context ().add_class ("pebbles_button_font_size");
             constant_button = new StyledButton (constant_label_1, constant_desc_1, {"R"});
             constant_button.get_style_context ().add_class ("Pebbles_Buttons_Function");
             constant_button.get_style_context ().add_class ("pebbles_button_font_size");
-            button_container_right.attach (fact_button, 3, 2);
-            button_container_right.attach (constant_button, 3, 3);
+            button_container_right.attach (constant_button, 2, 3);
+
+            variable_x_button = new StyledButton ("𝑥", _("Variable for linear expressions"), {"X"});
+            variable_x_button.get_style_context ().add_class ("pebbles_button_font_size");
+            button_container_right.attach (variable_x_button, 3, 2);
 
             left_parenthesis_button = new StyledButton ("(");
             left_parenthesis_button.get_style_context ().add_class ("pebbles_button_font_size");
@@ -230,10 +231,16 @@ namespace Pebbles {
             button_container_right.attach (left_parenthesis_button, 3, 0);
             button_container_right.attach (right_parenthesis_button, 3, 1);
 
+            add_to_function_list_button = new StyledButton ("𝑓 (𝑥)<sup>+</sup>");
+            add_to_function_list_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
+            add_to_function_list_button.get_style_context ().add_class ("pebbles_button_font_size_h3");
+            button_container_right.attach (add_to_function_list_button, 3, 3);
+
             button_leaflet = new Hdy.Leaflet () {
                 hhomogeneous_unfolded = true,
                 can_swipe_back = true,
                 can_swipe_forward = true,
+                margin_bottom = 8
             };
             button_leaflet.add (button_container_left);
             button_leaflet.add (button_container_right);
@@ -248,6 +255,129 @@ namespace Pebbles {
             // Put it together
             attach (function_graph_leaflet, 0, 0);
             attach (button_leaflet, 0, 1);
+
+            load_constant_button_settings ();
+        }
+
+        public void load_constant_button_settings () {
+            settings = Pebbles.Settings.get_default ();
+            switch (settings.constant_key_value1) {
+                case ConstantKeyIndex.ARCHIMEDES:
+                    constant_label_1 = "\xCF\x80";
+                    constant_desc_1 = _("Archimedes' constant (pi)");
+                    break;
+                case ConstantKeyIndex.PARABOLIC:
+                    constant_label_1 = "\xF0\x9D\x91\x83";
+                    constant_desc_1 = _("Parabolic constant (\xF0\x9D\x91\x83)");
+                    break;
+                case ConstantKeyIndex.GOLDEN_RATIO:
+                    constant_label_1 = "\xCF\x86";
+                    constant_desc_1 = _("Golden ratio (phi)");
+                    break;
+                case ConstantKeyIndex.EULER_MASCH:
+                    constant_label_1 = "\xF0\x9D\x9B\xBE";
+                    constant_desc_1 = _("Euler–Mascheroni constant (gamma)");
+                    break;
+                case ConstantKeyIndex.CONWAY:
+                    constant_label_1 = "\xCE\xBB";
+                    constant_desc_1 = _("Conway's constant (lambda)");
+                    break;
+                case ConstantKeyIndex.KHINCHIN:
+                    constant_label_1 = "K";
+                    constant_desc_1 = _("Khinchin's constant");
+                    break;
+                case ConstantKeyIndex.FEIGEN_ALPHA:
+                    constant_label_1 = "\xCE\xB1";
+                    constant_desc_1 = _("The Feigenbaum constant alpha");
+                    break;
+                case ConstantKeyIndex.FEIGEN_DELTA:
+                    constant_label_1 = "\xCE\xB4";
+                    constant_desc_1 = _("The Feigenbaum constant delta");
+                    break;
+                case ConstantKeyIndex.APERY:
+                    constant_label_1 = "\xF0\x9D\x9B\x87(3)";
+                    constant_desc_1 = _("Apery's constant");
+                    break;
+                default:
+                    constant_label_1 = "e";
+                    constant_desc_1 = _("Euler's constant (exponential)");
+                    break;
+            }
+            switch (settings.constant_key_value2) {
+                case ConstantKeyIndex.ARCHIMEDES:
+                    constant_label_2 = "\xCF\x80";
+                    constant_desc_2 = _("Archimedes' constant (pi)");
+                    break;
+                case ConstantKeyIndex.PARABOLIC:
+                    constant_label_2 = "\xF0\x9D\x91\x83";
+                    constant_desc_2 = _("Parabolic constant (\xF0\x9D\x91\x83)");
+                    break;
+                case ConstantKeyIndex.GOLDEN_RATIO:
+                    constant_label_2 = "\xCF\x86";
+                    constant_desc_2 = _("Golden ratio (phi)");
+                    break;
+                case ConstantKeyIndex.EULER_MASCH:
+                    constant_label_2 = "\xF0\x9D\x9B\xBE";
+                    constant_desc_2 = _("Euler–Mascheroni constant (gamma)");
+                    break;
+                case ConstantKeyIndex.CONWAY:
+                    constant_label_2 = "\xCE\xBB";
+                    constant_desc_2 = _("Conway's constant (lambda)");
+                    break;
+                case ConstantKeyIndex.KHINCHIN:
+                    constant_label_2 = "K";
+                    constant_desc_2 = _("Khinchin's constant");
+                    break;
+                case ConstantKeyIndex.FEIGEN_ALPHA:
+                    constant_label_2 = "\xCE\xB1";
+                    constant_desc_2 = _("The Feigenbaum constant alpha");
+                    break;
+                case ConstantKeyIndex.FEIGEN_DELTA:
+                    constant_label_2 = "\xCE\xB4";
+                    constant_desc_2 = _("The Feigenbaum constant delta");
+                    break;
+                case ConstantKeyIndex.APERY:
+                    constant_label_2 = "\xF0\x9D\x9B\x87(3)";
+                    constant_desc_2 = _("Apery's constant");
+                    break;
+                default:
+                    constant_label_2 = "e";
+                    constant_desc_2 = _("Euler's constant (exponential)");
+                    break;
+            }
+            if (constant_button != null) {
+                set_alternative_button ();
+            }
+        }
+
+        public void set_alternative_button () {
+            if (shift_held) {
+                sqr_button.update_label ("\xE2\x88\x9A", _("Square root over number"), {"Q"});
+                pow_root_button.update_label ("<sup>n</sup>\xE2\x88\x9A", _("nth root over number"), {"Z"});
+                expo_power_button.update_label ("e<sup>x</sup>", _("e raised to the power x"), {"W"});
+                sin_button.update_label ("sin<sup>-1</sup>", _("Inverse Sine"), {"S"});
+                cos_button.update_label ("cos<sup>-1</sup>", _("Inverse Cosine"), {"C"});
+                tan_button.update_label ("tan<sup>-1</sup>", _("Inverse Tangent"), {"T"});
+                sinh_button.update_label ("sinh<sup>-1</sup>", _("Inverse Hyperbolic Sine"), {"H"});
+                cosh_button.update_label ("cosh<sup>-1</sup>", _("Inverse Hyperbolic Cosine"), {"O"});
+                tanh_button.update_label ("tanh<sup>-1</sup>", _("Inverse Hyperbolic Tangent"), {"A"});
+                log_mod_button.update_label ("log\xE2\x82\x93y", _("Log base x"), {"M"});
+                log_cont_base_button.update_label ("ln x", _("Natural Logarithm"), {"L"});
+                constant_button.update_label (constant_label_2, constant_desc_2, {"R"});
+            } else {
+                sqr_button.update_label ("x<sup>2</sup>", _("Square a number"), {"Q"});
+                pow_root_button.update_label ("x<sup>y</sup>", _("x raised to the power y"), {"Z"});
+                expo_power_button.update_label ("10<sup>x</sup>", _("10 raised to the power x"), {"W"});
+                sin_button.update_label ("sin", _("Sine"), {"S"});
+                cos_button.update_label ("cos", _("Cosine"), {"C"});
+                tan_button.update_label ("tan", _("Tangent"), {"T"});
+                sinh_button.update_label ("sinh", _("Hyperbolic Sine"), {"H"});
+                cosh_button.update_label ("cosh", _("Hyperbolic Cosine"), {"O"});
+                tanh_button.update_label ("tanh", _("Hyperbolic Tangent"), {"A"});
+                log_mod_button.update_label ("Mod", _("Modulus"), {"M"});
+                log_cont_base_button.update_label ("log x", _("Log base 10"), {"L"});
+                constant_button.update_label (constant_label_1, constant_desc_1, {"R"});
+            }
         }
     }
 }

@@ -22,19 +22,24 @@ namespace Pebbles {
     public class Graph {
         Settings settings;
         ScientificCalculator sci_calc;
+        string expression;
 
-        public Graph () {
+        public Graph (string function_expression) {
             settings = Settings.get_default ();
             sci_calc = new ScientificCalculator ();
+
+            expression = function_expression;
         }
 
-        public long plot_y (long x, double zoom_factor, string expression) {
-            string res = sci_calc.get_result (expression.replace ("x", x.to_string ()), settings.global_angle_unit, -1, false).replace (",", "");
-            long _x;
-            if (long.try_parse (res, out _x)) {
-                return _x;
+        public double plot_y (double x, double zoom_factor) {
+            string res = sci_calc.get_result (expression.replace ("x", x.to_string ()), settings.global_angle_unit, -1, true).replace (",", "");
+            double _x;
+            if (double.try_parse (res, out _x)) {
+                return _x * zoom_factor;
             }
             return long.MIN;
         }
+
+
     }
 }

@@ -26,6 +26,20 @@ namespace Pebbles {
         Gtk.Label grad_label;
         Gtk.Label shift_label;
 
+        // Graphs
+        List<Graph> graphs;
+
+        // Drawing area
+        Gtk.DrawingArea drawing_area;
+        double x_offset = 0;
+        double y_offset = 0;
+
+        bool dragging = false;
+        double _x = 0;
+        double _y = 0;
+        double _last_x = 0;
+        double _last_y = 0;
+
         public GraphDisplay () {
             // Stylize background;
             get_style_context ().add_class ("Pebbles_Display_Unit_Bg");
@@ -57,9 +71,88 @@ namespace Pebbles {
             lcd_status_bar.set_halign (Gtk.Align.FILL);
             lcd_status_bar.hexpand = true;
 
+            var drawing_area_overlay = new Gtk.Overlay ();
+
+            drawing_area = new Gtk.DrawingArea () {
+                hexpand = true,
+                vexpand = true
+            };
+            drawing_area_overlay.add (drawing_area);
+            drawing_area.draw.connect(draw_graph);
+
+            var event_box = new Gtk.EventBox ();
+            drawing_area_overlay.add_overlay (event_box);
+
+            event_box.button_press_event.connect((event) => {
+                dragging = true;
+                _last_x = x_offset;
+                _last_y = y_offset;
+                _x = event.x;
+                _y = event.y;
+                return false;
+            });
+
+            event_box.button_release_event.connect((event) => {
+                dragging = false;
+                return false;
+            });
+
+            event_box.motion_notify_event.connect((event) => {
+                if (dragging) {
+                    x_offset = _last_x + (event.x - _x) ;
+                    y_offset = _last_y + (event.y - _y);
+                }
+
+                drawing_area.queue_draw();
+                return false;
+            });
+
             // Put it together
             attach (lcd_status_bar, 0, 0, 1, 1);
+            attach (drawing_area_overlay, 0, 1, 1, 1);
             width_request = 320;
+
+            graphs = new List<Graph>();
+
+            graphs.append(new Graph("sin x"));
+        }
+
+
+        private bool draw_graph(Cairo.Context context) {
+            int width = drawing_area.get_allocated_width ();
+            int height = drawing_area.get_allocated_height ();
+
+            context.set_source_rgba (0.152941176, 0.156862745, 0.388235294, 0.8);
+	        context.set_line_width (1);
+            context.set_dash ({4, 1}, 0);
+
+	        context.move_to (x_offset + width / 2, 0);
+	        context.line_to (x_offset + width / 2, height);
+	        context.stroke ();
+
+	        context.move_to (0, y_offset + height / 2);
+	        context.line_to (width, y_offset + height / 2);
+	        context.stroke ();
+
+	        context.set_source_rgba (1, 0, 0, 1);
+	        context.set_dash ({1, 0}, 0);
+
+	        double plot_x = 0;
+	        double plot_y = 0;
+
+	        double zoomLevel = 50;
+
+	        foreach (var graph in graphs) {
+	            context.move_to (0, y_offset + height / 2);
+	            for (double x = 0; x < width; x++) {
+	                var y = graph.plot_y((x - (width / 2) - x_offset) / zoomLevel, zoomLevel);
+	                // print("%lf>%lf ", x - width / 2, y);
+	                context.line_to (x, y_offset + (height / 2) - y);
+	            }
+	            context.stroke ();
+	        }
+
+	        return false;
         }
     }
 }
