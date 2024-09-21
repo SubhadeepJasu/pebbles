@@ -347,5 +347,10 @@
 			<summary>Saved history</summary>
 			<description>History Table saved in csv format</description>
 		</key>
+		<key name="load-last-values" type="b">
+			<default>true</default>
+			<summary>Load Last Values on Startup</summary>
+			<description>Load last values from previous session on startup</description>
+		</key>
 		</schema>
 </schemalist>
