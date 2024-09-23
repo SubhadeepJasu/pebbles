@@ -42,6 +42,12 @@ namespace Pebbles {
             main_grid.halign = Gtk.Align.CENTER;
             main_grid.row_spacing = 8;
 
+            var load_last_display_values_label = new Gtk.Label (_("Load Last Values on Startup:"));
+            load_last_display_values_label.halign = Gtk.Align.START;
+            load_last_display_values_label.get_style_context ().add_class ("h4");
+            load_last_display_values_switch = new Gtk.Switch ();
+            load_last_display_values_switch.halign = Gtk.Align.START;
+
             var precision_label = new Gtk.Label (_("Number of decimal places:"));
             precision_label.get_style_context ().add_class ("h4");
             precision_label.halign = Gtk.Align.START;
@@ -92,12 +98,6 @@ namespace Pebbles {
             constants_select_2.append_text (_("The Feigenbaum constant alpha") + "  " + laquo + "\xCE\xB1" + raquo);
             constants_select_2.append_text (_("The Feigenbaum constant delta") + "  " + laquo + "\xCE\xB4" + raquo);
             constants_select_2.append_text (_("Apery's constant") + "  " + laquo + "\xF0\x9D\x9B\x87(3)" + raquo);
-
-            var load_last_display_values_label = new Gtk.Label (_("Load Last Values on Startup:"));
-            load_last_display_values_label.halign = Gtk.Align.START;
-            load_last_display_values_label.get_style_context ().add_class ("h4");
-            load_last_display_values_switch = new Gtk.Switch ();
-            load_last_display_values_switch.halign = Gtk.Align.START;
 
             this.delete_event.connect (() => {
                 save_settings ();
@@ -158,6 +158,7 @@ namespace Pebbles {
         }
 
         private void save_settings () {
+            settings.load_last_display_values = load_last_display_values_switch.get_active ();
             if (precision_entry.get_value_as_int () != 0) {
                 settings.decimal_places = precision_entry.get_value_as_int ();
             }
@@ -170,16 +171,15 @@ namespace Pebbles {
                 settings.forex_api_key = "03eb97e97cbf3fa3e228";
 
             settings.integration_accuracy = (int)(accuracy_scale.get_value ());
-            settings.load_last_display_values = load_last_display_values_switch.get_active ();
             this.update_settings ();
         }
 
         private void load_settings () {
+            load_last_display_values_switch.set_active (settings.load_last_display_values);
             precision_entry.set_value ((double)settings.decimal_places);
             load_constant_button_settings ();
             forex_api_key.set_text (settings.forex_api_key);
             accuracy_scale.set_value ((double)settings.integration_accuracy);
-            load_last_display_values_switch.set_active (settings.load_last_display_values);
         }
 
         private void load_constant_button_settings () {
