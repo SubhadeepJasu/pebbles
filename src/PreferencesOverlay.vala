@@ -29,6 +29,7 @@ namespace Pebbles {
         Gtk.ComboBoxText constants_select_1;
         Gtk.ComboBoxText constants_select_2;
         Gtk.Scale accuracy_scale;
+        Gtk.Switch load_last_display_values_switch;
 
         public signal void update_settings ();
 
@@ -92,20 +93,28 @@ namespace Pebbles {
             constants_select_2.append_text (_("The Feigenbaum constant delta") + "  " + laquo + "\xCE\xB4" + raquo);
             constants_select_2.append_text (_("Apery's constant") + "  " + laquo + "\xF0\x9D\x9B\x87(3)" + raquo);
 
+            var load_last_display_values_label = new Gtk.Label (_("Load Last Values on Startup:"));
+            load_last_display_values_label.halign = Gtk.Align.START;
+            load_last_display_values_label.get_style_context ().add_class ("h4");
+            load_last_display_values_switch = new Gtk.Switch ();
+            load_last_display_values_switch.halign = Gtk.Align.START;
+
             this.delete_event.connect (() => {
                 save_settings ();
                 return false;
             });
 
-            main_grid.attach (precision_label, 0, 0, 1, 1);
-            main_grid.attach (precision_entry, 0, 1, 1, 1);
-            main_grid.attach (accuracy_label,  0, 2, 1, 1);
-            main_grid.attach (accuracy_scale,  0, 3, 1, 1);
-            main_grid.attach (constant_button_label, 0, 4, 1, 1);
-            main_grid.attach (constant_label1, 0, 5, 1, 1);
-            main_grid.attach (constants_select_1, 0, 6, 1, 1);
-            main_grid.attach (constant_label2, 0, 7, 1, 1);
-            main_grid.attach (constants_select_2, 0, 8, 1, 1);
+            main_grid.attach (load_last_display_values_label, 0, 0, 1, 1);
+            main_grid.attach (load_last_display_values_switch, 0, 1, 1,1);
+            main_grid.attach (precision_label, 0, 2, 1, 1);
+            main_grid.attach (precision_entry, 0, 3, 1, 1);
+            main_grid.attach (accuracy_label,  0, 4, 1, 1);
+            main_grid.attach (accuracy_scale,  0, 5, 1, 1);
+            main_grid.attach (constant_button_label, 0, 6, 1, 1);
+            main_grid.attach (constant_label1, 0, 7, 1, 1);
+            main_grid.attach (constants_select_1, 0, 8, 1, 1);
+            main_grid.attach (constant_label2, 0, 9, 1, 1);
+            main_grid.attach (constants_select_2, 0, 10, 1, 1);
 
             var forex_label = new Gtk.Label (_("Currency Converter API Key"));
             forex_label.halign = Gtk.Align.START;
@@ -116,9 +125,9 @@ namespace Pebbles {
             forex_api_key.set_icon_tooltip_markup (Gtk.EntryIconPosition.SECONDARY, _("Reset"));
             forex_api_key.placeholder_text = "03eb97e97cbf3fa3e228";
 
-            main_grid.attach (forex_label, 0, 9, 1, 1);
-            main_grid.attach (forex_api_key, 0, 10, 1, 1);
-            main_grid.attach (forex_api_link, 0, 11, 1, 1);
+            main_grid.attach (forex_label, 0, 11, 1, 1);
+            main_grid.attach (forex_api_key, 0, 12, 1, 1);
+            main_grid.attach (forex_api_link, 0, 13, 1, 1);
 
             scrolled_window.add (main_grid);
 
@@ -161,6 +170,7 @@ namespace Pebbles {
                 settings.forex_api_key = "03eb97e97cbf3fa3e228";
 
             settings.integration_accuracy = (int)(accuracy_scale.get_value ());
+            settings.load_last_display_values = load_last_display_values_switch.get_active ();
             this.update_settings ();
         }
 
@@ -169,6 +179,7 @@ namespace Pebbles {
             load_constant_button_settings ();
             forex_api_key.set_text (settings.forex_api_key);
             accuracy_scale.set_value ((double)settings.integration_accuracy);
+            load_last_display_values_switch.set_active (settings.load_last_display_values);
         }
 
         private void load_constant_button_settings () {
@@ -244,6 +255,7 @@ namespace Pebbles {
                 }
                 return false;
             });
+
             this.forex_api_key.icon_release.connect ((pos, event) => {
                 settings.forex_api_key = "03eb97e97cbf3fa3e228";
                 this.forex_api_key.set_text ("03eb97e97cbf3fa3e228");
