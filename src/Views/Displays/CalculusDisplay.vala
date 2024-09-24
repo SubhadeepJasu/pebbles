@@ -85,7 +85,7 @@ namespace Pebbles {
             lcd_status_bar.hexpand = true;
 
             // Make LCD Answer label
-            answer_label = new Gtk.Label (settings.cal_output_text);
+            answer_label = new Gtk.Label (settings.load_last_display_values ? settings.cal_output_text : "");
             answer_label.set_halign (Gtk.Align.END);
             answer_label.set_valign (Gtk.Align.END);
             answer_label.vexpand = true;
@@ -99,7 +99,7 @@ namespace Pebbles {
             input_entry = new Gtk.Entry ();
 
             input_entry.set_has_frame (false);
-            input_entry.set_text (settings.cal_input_text);
+            input_entry.set_text (settings.load_last_display_values ? settings.cal_input_text : "0");
             input_entry.get_style_context ().add_class ("pebbles_h2");
             input_entry.set_halign (Gtk.Align.FILL);
             input_entry.hexpand = true;

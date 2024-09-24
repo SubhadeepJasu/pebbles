@@ -12,7 +12,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License 
+ * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  *
  * Authored by: Subhadeep Jasu <subhajasu@gmail.com>
@@ -30,7 +30,7 @@ namespace Pebbles {
         Gtk.Label byt_label;
         Gtk.Label memory_label;
         Gtk.Label shift_label;
-        
+
         // Number System label
         Gtk.Grid number_system_grid;
 
@@ -38,22 +38,22 @@ namespace Pebbles {
         public Gtk.Label dec_label;
         public Gtk.Label oct_label;
         public Gtk.Label bin_label;
-        
+
         Gtk.Label hex_number_label;
         Gtk.Label dec_number_label;
         Gtk.Label oct_number_label;
         Gtk.Label bin_number_label;
-        
+
         // Answer label
         public Gtk.Label answer_label;
-        
+
         // Input entry
         public Gtk.Entry input_entry;
-        
+
         // Word length mode
         GlobalWordLength word_mode;
 
-        // 
+        //
         ProgrammerCalculator programmer_calculator_front_end;
         bool[] answer_array;
         ProgrammerView prog_view;
@@ -88,7 +88,7 @@ namespace Pebbles {
         private void prog_display_make_ui () {
             // Stylize background;
             get_style_context ().add_class ("Pebbles_Display_Unit_Bg");
-            
+
             // Make status bar
             lcd_status_bar = new Gtk.Grid ();
             qwd_label      = new Gtk.Label ("QWD");
@@ -106,36 +106,36 @@ namespace Pebbles {
             shift_label    = new Gtk.Label (_("SHIFT"));
             shift_label.get_style_context ().add_class ("pebbles_h4");
             shift_label.set_opacity (0.2);
-            
-            
+
+
             var word_mode_display = new Gtk.Grid ();
             word_mode_display.attach (qwd_label, 0, 0, 1, 1);
             word_mode_display.attach (dwd_label, 1, 0, 1, 1);
             word_mode_display.attach (wrd_label, 2, 0, 1, 1);
             word_mode_display.attach (byt_label, 3, 0, 1, 1);
             word_mode_display.column_spacing = 10;
-            
+
             lcd_status_bar.attach (word_mode_display, 0, 0, 1, 1);
             lcd_status_bar.attach (memory_label, 1, 0, 1, 1);
             lcd_status_bar.attach (shift_label, 2, 0, 1, 1);
             lcd_status_bar.width_request = 200;
             lcd_status_bar.set_halign (Gtk.Align.FILL);
             lcd_status_bar.hexpand = true;
-            
+
             // Make number system view
             number_system_grid = new Gtk.Grid ();
             hex_label = new Gtk.Label ("HEX");
             dec_label = new Gtk.Label ("DEC");
             oct_label = new Gtk.Label ("OCT");
             bin_label = new Gtk.Label ("BIN");
-            
+
             hex_label.get_style_context ().add_class ("PebblesLCDSwitch");
             dec_label.get_style_context ().add_class ("PebblesLCDSwitch");
             oct_label.get_style_context ().add_class ("PebblesLCDSwitch");
             bin_label.get_style_context ().add_class ("PebblesLCDSwitch");
             bin_label.set_yalign (0);
             bin_label.set_margin_bottom (12);
-            
+
             hex_number_label  = new Gtk.Label ("0");
             dec_number_label  = new Gtk.Label ("0");
             oct_number_label  = new Gtk.Label ("0");
@@ -148,18 +148,18 @@ namespace Pebbles {
             bin_number_label.single_line_mode = false;
             bin_number_label.set_xalign (0);
             bin_number_label.set_yalign (0);
-            
+
             hex_number_label.halign = Gtk.Align.START;
             dec_number_label.halign = Gtk.Align.START;
             oct_number_label.halign = Gtk.Align.START;
             bin_number_label.halign = Gtk.Align.START;
-            
+
             hex_number_label.get_style_context ().add_class ("PebblesLCDLabelSmall");
             dec_number_label.get_style_context ().add_class ("PebblesLCDLabelSmall");
             oct_number_label.get_style_context ().add_class ("PebblesLCDLabelSmall");
             bin_number_label.get_style_context ().add_class ("PebblesLCDLabelSmall");
-            
-            
+
+
             number_system_grid.attach (hex_label,      0, 0, 1, 1);
             number_system_grid.attach (hex_number_label, 1, 0, 1, 1);
             number_system_grid.attach (dec_label,      0, 1, 1, 1);
@@ -171,10 +171,10 @@ namespace Pebbles {
             number_system_grid.column_spacing = 8;
             number_system_grid.row_spacing    = 4;
             number_system_grid.margin_top     = 8;
-            
-            
+
+
             // Make LCD Answer label
-            answer_label = new Gtk.Label (settings.prog_output_text);
+            answer_label = new Gtk.Label (settings.load_last_display_values ? settings.prog_output_text : "0");
             answer_label.set_halign (Gtk.Align.END);
             answer_label.set_valign (Gtk.Align.END);
             answer_label.vexpand = true;
@@ -184,7 +184,7 @@ namespace Pebbles {
             scrollable.propagate_natural_height = true;
             scrollable.shadow_type = Gtk.ShadowType.NONE;
             scrollable.get_style_context ().add_class ("pebbles_h1");
-            
+
             // Make Input Entry
             input_entry = new Gtk.Entry ();
             input_entry.set_has_frame (false);
@@ -195,8 +195,8 @@ namespace Pebbles {
             input_entry.margin_bottom = 1;
             input_entry.width_request = 200;
             input_entry.max_width_chars = 20;
-            
-            
+
+
             // Make seperator
             Gtk.Separator lcd_separator_h = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
             lcd_separator_h.set_opacity (0.6);
@@ -222,7 +222,7 @@ namespace Pebbles {
             display_leafet.add (leaflet_grid_right);
 
             display_leafet.set_visible_child (leaflet_grid_right);
-            
+
             // Put it together
             attach (lcd_status_bar,     0, 0, 1, 1);
             attach (display_leafet,     0, 1, 1, 1);
@@ -253,13 +253,13 @@ namespace Pebbles {
             }
             else {
                 if (dont_push_history != true) {
-                    this.prog_view.window.history_manager.append_from_strings (EvaluationResult.ResultSource.PROG, 
-                                                                        input_entry.get_text (), 
-                                                                        result, 
-                                                                        null, 
-                                                                        null, 
-                                                                        0, 
-                                                                        0, 
+                    this.prog_view.window.history_manager.append_from_strings (EvaluationResult.ResultSource.PROG,
+                                                                        input_entry.get_text (),
+                                                                        result,
+                                                                        null,
+                                                                        null,
+                                                                        0,
+                                                                        0,
                                                                         0,
                                                                         programmer_calculator_front_end.get_token_array(),
                                                                         answer_array,
@@ -321,7 +321,7 @@ namespace Pebbles {
                 if (input_entry.get_text ().chug () != "")
                     programmer_calculator_front_end.populate_token_array (input_entry.get_text ());
                 display_all_number_systems ();
-                
+
             });
         }
         private void display_all_number_systems () {
@@ -355,7 +355,7 @@ namespace Pebbles {
                     octal_value = current_input.token;
                     hex_value = programmer_calculator_front_end.convert_octal_to_hexadecimal (current_input.token, settings.global_word_length);
                 }
-                
+
             }
             hex_number_label.set_text (hex_value);
             dec_number_label.set_text (decimal_value);
