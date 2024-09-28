@@ -12,7 +12,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License 
+ * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  *
  * Authored by: Subhadeep Jasu <subhajasu@gmail.com>
@@ -61,7 +61,7 @@ namespace Pebbles {
         construct {
             settings = Pebbles.Settings.get_default ();
             stats_display_make_ui ();
-            set_result_type (settings.stat_mode_previous);
+            set_result_type (settings.load_last_session ? settings.stat_mode_previous : -1);
             load_saved_sample ();
         }
 
@@ -129,7 +129,7 @@ namespace Pebbles {
             lcd_status_bar.column_homogeneous = true;
 
 
-            answer_label = new Gtk.Label (settings.stat_output_text);
+            answer_label = new Gtk.Label (settings.load_last_session ? settings.stat_output_text : "0");
             answer_label.halign = Gtk.Align.END;
             answer_label.valign = Gtk.Align.END;
             answer_label.vexpand = true;
@@ -142,7 +142,7 @@ namespace Pebbles {
 
             bar_graph = new StatisticsGraph ();
 
-            
+
             input_table = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
             input_table.get_style_context ().add_class ("stats_table");
             var input_table_scrollable = new Gtk.ScrolledWindow (null, null);
@@ -157,8 +157,8 @@ namespace Pebbles {
             display_overlay.add_overlay (input_table_scrollable);
             display_overlay.height_request = 40;
 
-            
-            
+
+
 
             // Make seperator
             Gtk.Separator lcd_separator_horizontal = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
@@ -176,7 +176,7 @@ namespace Pebbles {
             attach (display_overlay, 0, 3, 3, 1);
 
             width_request = 300;
-            
+
         }
 
         public void set_result_type (int type) {
@@ -552,7 +552,7 @@ namespace Pebbles {
         }
 
         private void load_saved_sample () {
-            string tokens = settings.stat_input_array;
+            string tokens = settings.load_last_session ? settings.stat_input_array : "";
             string[] data = tokens.split ("[&&]");
             for (int i = 0; i < data.length; i++) {
                 insert_cell (true, data[i]);
@@ -603,7 +603,7 @@ namespace Pebbles {
                 memory_label.set_opacity (1.0);
             } else {
                 memory_label.set_opacity (0.2);
-            } 
+            }
         }
 
         public void set_answer_label (string text) {
