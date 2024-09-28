@@ -132,7 +132,7 @@ namespace Pebbles {
         public string date_year_entry {get; set;}
         public string forex_api_key {get; set;}
         public string saved_history {get; set;}
-        public bool load_last_display_values {get; set;}
+        public bool load_last_session {get; set;}
 
         private Settings () {
             base ("com.github.subhadeepjasu.pebbles");

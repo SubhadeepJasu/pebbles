@@ -29,7 +29,7 @@ namespace Pebbles {
         Gtk.ComboBoxText constants_select_1;
         Gtk.ComboBoxText constants_select_2;
         Gtk.Scale accuracy_scale;
-        Gtk.Switch load_last_display_values_switch;
+        Gtk.Switch load_last_session_switch;
 
         public signal void update_settings ();
 
@@ -42,11 +42,11 @@ namespace Pebbles {
             main_grid.halign = Gtk.Align.CENTER;
             main_grid.row_spacing = 8;
 
-            var load_last_display_values_label = new Gtk.Label (_("Load Last Values on Startup:"));
-            load_last_display_values_label.halign = Gtk.Align.START;
-            load_last_display_values_label.get_style_context ().add_class ("h4");
-            load_last_display_values_switch = new Gtk.Switch ();
-            load_last_display_values_switch.halign = Gtk.Align.START;
+            var load_last_session_label = new Gtk.Label (_("Load Last Session on Startup:"));
+            load_last_session_label.halign = Gtk.Align.START;
+            load_last_session_label.get_style_context ().add_class ("h4");
+            load_last_session_switch = new Gtk.Switch ();
+            load_last_session_switch.halign = Gtk.Align.START;
 
             var precision_label = new Gtk.Label (_("Number of decimal places:"));
             precision_label.get_style_context ().add_class ("h4");
@@ -104,8 +104,8 @@ namespace Pebbles {
                 return false;
             });
 
-            main_grid.attach (load_last_display_values_label, 0, 0, 1, 1);
-            main_grid.attach (load_last_display_values_switch, 0, 1, 1,1);
+            main_grid.attach (load_last_session_label, 0, 0, 1, 1);
+            main_grid.attach (load_last_session_switch, 0, 1, 1,1);
             main_grid.attach (precision_label, 0, 2, 1, 1);
             main_grid.attach (precision_entry, 0, 3, 1, 1);
             main_grid.attach (accuracy_label,  0, 4, 1, 1);
@@ -158,7 +158,7 @@ namespace Pebbles {
         }
 
         private void save_settings () {
-            settings.load_last_display_values = load_last_display_values_switch.get_active ();
+            settings.load_last_session = load_last_session_switch.get_active ();
             if (precision_entry.get_value_as_int () != 0) {
                 settings.decimal_places = precision_entry.get_value_as_int ();
             }
@@ -175,7 +175,7 @@ namespace Pebbles {
         }
 
         private void load_settings () {
-            load_last_display_values_switch.set_active (settings.load_last_display_values);
+            load_last_session_switch.set_active (settings.load_last_session);
             precision_entry.set_value ((double)settings.decimal_places);
             load_constant_button_settings ();
             forex_api_key.set_text (settings.forex_api_key);

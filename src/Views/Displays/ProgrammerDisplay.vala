@@ -174,7 +174,7 @@ namespace Pebbles {
 
 
             // Make LCD Answer label
-            answer_label = new Gtk.Label (settings.load_last_display_values ? settings.prog_output_text : "0");
+            answer_label = new Gtk.Label (settings.load_last_session ? settings.prog_output_text : "0");
             answer_label.set_halign (Gtk.Align.END);
             answer_label.set_valign (Gtk.Align.END);
             answer_label.vexpand = true;
