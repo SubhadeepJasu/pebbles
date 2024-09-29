@@ -12,7 +12,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License 
+ * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  *
  * Authored by: Subhadeep Jasu <subhajasu@gmail.com>
@@ -43,17 +43,17 @@ namespace Pebbles {
             settings = Settings.get_default ();
 
             keypad = new CommonKeyPadConverter ();
-            
+
             // Make Header Label
             var header_title = new Gtk.Label (_("Temperature"));
             header_title.get_style_context ().add_class ("h2");
             header_title.set_justify (Gtk.Justification.LEFT);
             header_title.halign = Gtk.Align.START;
             header_title.margin_start = 8;
-            
+
             // Make Upper Unit Box
             from_entry = new Gtk.Entry ();
-            from_entry.set_text (settings.conv_temp_from_entry);
+            from_entry.set_text (settings.load_last_session ? settings.conv_temp_from_entry : "0");
             from_entry.get_style_context ().add_class ("Pebbles_Conversion_Text_Box");
             from_entry.max_width_chars = 35;
             from_unit = new Gtk.ComboBoxText ();
@@ -64,7 +64,7 @@ namespace Pebbles {
 
             // Make Lower Unit Box
             to_entry = new Gtk.Entry ();
-            to_entry.set_text (settings.conv_temp_to_entry);
+            to_entry.set_text (settings.load_last_session ? settings.conv_temp_to_entry : "32");
             to_entry.get_style_context ().add_class ("Pebbles_Conversion_Text_Box");
             to_entry.max_width_chars = 35;
             to_unit = new Gtk.ComboBoxText ();
@@ -72,7 +72,7 @@ namespace Pebbles {
                 to_unit.append_text (units [i]);
             }
             to_unit.active = 1;
-            
+
             // Create Conversion active section
             interchange_button = new Gtk.Button ();
             var up_button = new Gtk.Image.from_icon_name ("go-up-symbolic", Gtk.IconSize.BUTTON);
@@ -87,7 +87,7 @@ namespace Pebbles {
             interchange_button.margin_bottom = 8;
             interchange_button.margin_start = 100;
             interchange_button.margin_end   = 100;
-            
+
             Gtk.Grid conversion_grid = new Gtk.Grid ();
             conversion_grid.attach (from_unit, 0, 0, 1, 1);
             conversion_grid.attach (from_entry, 0, 1, 1, 1);
@@ -102,12 +102,12 @@ namespace Pebbles {
             conversion_grid.margin_end = 8;
             conversion_grid.valign = Gtk.Align.CENTER;
             conversion_grid.row_spacing = 8;
-            
+
             ResponsiveBox wrapbox = new ResponsiveBox (8);
             wrapbox.margin_bottom = 8;
             wrapbox.pack_end (keypad, true, true, 0);
             wrapbox.pack_start (conversion_grid, true, true, 0);
-            
+
             halign = Gtk.Align.FILL;
             valign = Gtk.Align.CENTER;
             attach (header_title, 0, 0, 1, 1);
@@ -222,7 +222,7 @@ namespace Pebbles {
                 to_entry.set_text (result);
                 allow_change = true;
             });
-            
+
             keypad.button_clicked.connect ((val) => {
                 if (from_to == 0) {
                     if (val == "C") {
@@ -272,7 +272,7 @@ namespace Pebbles {
 
         public void grab_focus_on_view_switch () {
             switch (from_to) {
-                case 0: 
+                case 0:
                     this.from_entry.grab_focus_without_selecting ();
                     break;
                 case 1:
@@ -294,7 +294,7 @@ namespace Pebbles {
             } else {
                 string last_answer = from_entry.get_text().replace(Utils.get_local_separator_symbol(), "");
                 clipboard.set_text (last_answer, -1);
-            } 
+            }
         }
     }
     public class TempConverter {
@@ -373,5 +373,5 @@ namespace Pebbles {
             }
             return output;
         }
-    } 
+    }
 }
