@@ -12,7 +12,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License 
+ * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  *
  * Authored by: Subhadeep Jasu <subhajasu@gmail.com>
@@ -76,7 +76,7 @@ namespace Pebbles {
 
             // Make Upper Unit Box
             from_entry = new Gtk.Entry ();
-            from_entry.set_text (settings.conv_length_from_entry);
+            from_entry.set_text (settings.load_last_session ? settings.conv_length_from_entry : "0");
             from_entry.get_style_context ().add_class ("Pebbles_Conversion_Text_Box");
             from_entry.max_width_chars = 35;
             from_unit = new Gtk.ComboBoxText ();
@@ -87,7 +87,7 @@ namespace Pebbles {
 
             // Make Lower Unit Box
             to_entry = new Gtk.Entry ();
-            to_entry.set_text (settings.conv_length_to_entry);
+            to_entry.set_text (settings.load_last_session ? settings.conv_length_to_entry : "0");
             to_entry.get_style_context ().add_class ("Pebbles_Conversion_Text_Box");
             to_entry.max_width_chars = 35;
             to_unit = new Gtk.ComboBoxText ();
@@ -110,7 +110,7 @@ namespace Pebbles {
             interchange_button.margin_bottom = 8;
             interchange_button.margin_start = 100;
             interchange_button.margin_end   = 100;
-            
+
             Gtk.Grid conversion_grid = new Gtk.Grid ();
             conversion_grid.attach (from_unit, 0, 0, 1, 1);
             conversion_grid.attach (from_entry, 0, 1, 1, 1);
@@ -130,7 +130,7 @@ namespace Pebbles {
             wrapbox.margin_bottom = 8;
             wrapbox.pack_end (keypad, true, true, 0);
             wrapbox.pack_start (conversion_grid, true, true, 0);
-            
+
             halign = Gtk.Align.FILL;
             valign = Gtk.Align.CENTER;
             attach (header_title, 0, 0, 1, 1);
@@ -237,7 +237,7 @@ namespace Pebbles {
             interchange_button.clicked.connect (() => {
                 interchange_entries ();
             });
-            
+
             keypad.button_clicked.connect ((val) => {
                 if (from_to == 0) {
                     if (val == "C") {
@@ -288,7 +288,7 @@ namespace Pebbles {
 
         public void grab_focus_on_view_switch () {
             switch (from_to) {
-                case 0: 
+                case 0:
                     this.from_entry.grab_focus_without_selecting ();
                     break;
                 case 1:
@@ -311,7 +311,7 @@ namespace Pebbles {
             } else {
                 string last_answer = from_entry.get_text().replace(Utils.get_local_separator_symbol(), "");
                 clipboard.set_text (last_answer, -1);
-            } 
+            }
         }
     }
 }
