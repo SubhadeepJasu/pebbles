@@ -12,7 +12,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License 
+ * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  *
  * Authored by: Subhadeep Jasu <subhajasu@gmail.com>
@@ -85,7 +85,7 @@ namespace Pebbles {
         public int integration_accuracy {get; set;}
         public string sci_input_text {get; set;}
         public string sci_output_text {get; set;}
-        public string sci_memory_value {get; set;} 
+        public string sci_memory_value {get; set;}
         public string prog_input_text {get; set;}
         public string prog_output_text {get; set;}
         public string cal_input_text {get; set;}
@@ -132,11 +132,12 @@ namespace Pebbles {
         public string date_year_entry {get; set;}
         public string forex_api_key {get; set;}
         public string saved_history {get; set;}
-        
+        public bool load_last_session {get; set;}
+
         private Settings () {
             base ("com.github.subhadeepjasu.pebbles");
         }
-        
+
         public void switch_angle_unit () {
             switch (settings.global_angle_unit) {
                 case GlobalAngleUnit.RAD:
@@ -150,7 +151,7 @@ namespace Pebbles {
                     break;
             }
         }
-        
+
         public void switch_word_length () {
             switch (settings.global_word_length) {
                 case GlobalWordLength.DWD:

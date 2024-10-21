@@ -12,7 +12,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License 
+ * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  *
  * Authored by: Subhadeep Jasu <subhajasu@gmail.com>
@@ -20,7 +20,7 @@
  */
 
 
-namespace Pebbles { 
+namespace Pebbles {
     public class PreferencesOverlay : Gtk.Window {
         Pebbles.Settings settings;
         Gtk.SpinButton precision_entry;
@@ -29,15 +29,24 @@ namespace Pebbles {
         Gtk.ComboBoxText constants_select_1;
         Gtk.ComboBoxText constants_select_2;
         Gtk.Scale accuracy_scale;
+        Gtk.Switch load_last_session_switch;
 
         public signal void update_settings ();
 
         public PreferencesOverlay () {
             settings = Pebbles.Settings.get_default ();
+
+            var scrolled_window = new Gtk.ScrolledWindow (null, null);
+
             var main_grid = new Gtk.Grid ();
             main_grid.halign = Gtk.Align.CENTER;
             main_grid.row_spacing = 8;
-            
+
+            var load_last_session_label = new Gtk.Label (_("Load Last Session on Startup:"));
+            load_last_session_label.halign = Gtk.Align.START;
+            load_last_session_label.get_style_context ().add_class ("h4");
+            load_last_session_switch = new Gtk.Switch ();
+            load_last_session_switch.halign = Gtk.Align.START;
 
             var precision_label = new Gtk.Label (_("Number of decimal places:"));
             precision_label.get_style_context ().add_class ("h4");
@@ -95,15 +104,17 @@ namespace Pebbles {
                 return false;
             });
 
-            main_grid.attach (precision_label, 0, 0, 1, 1);
-            main_grid.attach (precision_entry, 0, 1, 1, 1);
-            main_grid.attach (accuracy_label,  0, 2, 1, 1);
-            main_grid.attach (accuracy_scale,  0, 3, 1, 1);
-            main_grid.attach (constant_button_label, 0, 4, 1, 1);
-            main_grid.attach (constant_label1, 0, 5, 1, 1);
-            main_grid.attach (constants_select_1, 0, 6, 1, 1);
-            main_grid.attach (constant_label2, 0, 7, 1, 1);
-            main_grid.attach (constants_select_2, 0, 8, 1, 1);
+            main_grid.attach (load_last_session_label, 0, 0, 1, 1);
+            main_grid.attach (load_last_session_switch, 0, 1, 1,1);
+            main_grid.attach (precision_label, 0, 2, 1, 1);
+            main_grid.attach (precision_entry, 0, 3, 1, 1);
+            main_grid.attach (accuracy_label,  0, 4, 1, 1);
+            main_grid.attach (accuracy_scale,  0, 5, 1, 1);
+            main_grid.attach (constant_button_label, 0, 6, 1, 1);
+            main_grid.attach (constant_label1, 0, 7, 1, 1);
+            main_grid.attach (constants_select_1, 0, 8, 1, 1);
+            main_grid.attach (constant_label2, 0, 9, 1, 1);
+            main_grid.attach (constants_select_2, 0, 10, 1, 1);
 
             var forex_label = new Gtk.Label (_("Currency Converter API Key"));
             forex_label.halign = Gtk.Align.START;
@@ -113,13 +124,15 @@ namespace Pebbles {
             forex_api_key.set_icon_from_icon_name (Gtk.EntryIconPosition.SECONDARY,"edit-undo-symbolic");
             forex_api_key.set_icon_tooltip_markup (Gtk.EntryIconPosition.SECONDARY, _("Reset"));
             forex_api_key.placeholder_text = "03eb97e97cbf3fa3e228";
-            
-            main_grid.attach (forex_label, 0, 9, 1, 1);
-            main_grid.attach (forex_api_key, 0, 10, 1, 1);
-            main_grid.attach (forex_api_link, 0, 11, 1, 1);
 
-            this.add (main_grid);
-            main_grid.margin_bottom = 8;
+            main_grid.attach (forex_label, 0, 11, 1, 1);
+            main_grid.attach (forex_api_key, 0, 12, 1, 1);
+            main_grid.attach (forex_api_link, 0, 13, 1, 1);
+
+            scrolled_window.add (main_grid);
+
+            this.add (scrolled_window);
+            main_grid.margin_bottom = 16;
 
             var headerbar = new Gtk.HeaderBar ();
             headerbar.has_subtitle = false;
@@ -145,6 +158,7 @@ namespace Pebbles {
         }
 
         private void save_settings () {
+            settings.load_last_session = load_last_session_switch.get_active ();
             if (precision_entry.get_value_as_int () != 0) {
                 settings.decimal_places = precision_entry.get_value_as_int ();
             }
@@ -155,12 +169,13 @@ namespace Pebbles {
                 settings.forex_api_key = forex_api_key.get_text ();
             else
                 settings.forex_api_key = "03eb97e97cbf3fa3e228";
-            
+
             settings.integration_accuracy = (int)(accuracy_scale.get_value ());
             this.update_settings ();
         }
 
         private void load_settings () {
+            load_last_session_switch.set_active (settings.load_last_session);
             precision_entry.set_value ((double)settings.decimal_places);
             load_constant_button_settings ();
             forex_api_key.set_text (settings.forex_api_key);
@@ -240,6 +255,7 @@ namespace Pebbles {
                 }
                 return false;
             });
+
             this.forex_api_key.icon_release.connect ((pos, event) => {
                 settings.forex_api_key = "03eb97e97cbf3fa3e228";
                 this.forex_api_key.set_text ("03eb97e97cbf3fa3e228");

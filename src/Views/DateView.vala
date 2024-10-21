@@ -12,7 +12,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License 
+ * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  *
  * Authored by: Subhadeep Jasu <subhajasu@gmail.com>
@@ -23,7 +23,7 @@ namespace Pebbles {
     public class DateView : Gtk.Grid {
         // Make Date Calculation Mode Switcher
         Granite.Widgets.ModeButton date_mode;
-        
+
         // Make Date Difference View
         Gtk.Grid date_difference_view;
         Granite.Widgets.DatePicker datepicker_diff_from;
@@ -32,7 +32,7 @@ namespace Pebbles {
         DateTime datetime_diff_to;
         Gtk.Label date_diff_label;
         Gtk.Label days_diff_label;
-        
+
         // Make Add Date View
         Gtk.Grid date_add_view;
         Granite.Widgets.DatePicker datepicker_add_sub;
@@ -43,24 +43,24 @@ namespace Pebbles {
         Gtk.Entry add_entry_month;
         Gtk.Entry add_entry_year;
         Gtk.Calendar main_calendar;
-        
+
         // Header Bar Controls
         Gtk.Stack date_mode_stack;
         Gtk.Switch diff_mode_switch;
         Gtk.Switch add_mode_switch;
-        
+
         Gtk.Grid date_diff_grid;
         Gtk.Grid date_add_grid;
 
         Gtk.Label add_header;
 
         Pebbles.Settings settings;
-        
+
         DateCalculator date_calculator_object;
 
         public Granite.Widgets.ModeButton diff_mode_button;
         public Granite.Widgets.ModeButton add_mode_button;
-        
+
         public DateView (MainWindow window) {
             settings = Settings.get_default ();
             build_ui ();
@@ -117,14 +117,14 @@ namespace Pebbles {
             });
             load_date ();
         }
-        
+
         private void build_ui () {
             // Make Date Mode Switcher ////////////////////////////////////////////////////
             date_mode = new Granite.Widgets.ModeButton ();
             date_mode.append_text (_("Find Difference"));
             date_mode.append_text (_("Infer Date"));
             date_mode.margin = 8;
-            
+
             // Make Date Difference View
             // ---------------------------------------------------------------------------
             date_difference_view = new Gtk.Grid ();
@@ -146,11 +146,11 @@ namespace Pebbles {
             date_difference_view.attach (datepicker_diff_from, 0, 2, 1, 1);
             date_difference_view.attach (to_label, 0, 3, 1, 1);
             date_difference_view.attach (datepicker_diff_to, 0, 4, 1, 1);
-            
+
             var diff_header = new Gtk.Label (_("Difference"));
             diff_header.xalign = 0;
             diff_header.get_style_context ().add_class (Granite.STYLE_CLASS_H4_LABEL);
-            
+
             date_diff_label = new Gtk.Label (_("Hey, it's the same date") + "\n");
             date_diff_label.xalign = 0;
             date_diff_label.hexpand = true;
@@ -163,22 +163,22 @@ namespace Pebbles {
             diff_grid.attach (diff_header,0, 0, 1, 1);
             diff_grid.attach (date_diff_label,0, 1, 1, 1);
             diff_grid.attach (days_diff_label,0, 2, 1, 1);
-            
-            
+
+
             var separator_diff = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
             separator_diff.margin = 28;
             separator_diff.hexpand = true;
-            
+
             date_difference_view.attach (separator_diff, 0, 5, 1, 1);
             date_difference_view.attach (diff_grid, 0, 6, 1, 1);
-            
+
             date_difference_view.height_request = 200;
             date_difference_view.margin_start = 8;
             date_difference_view.margin_end = 8;
             date_difference_view.margin_bottom = 8;
             date_difference_view.column_spacing = 8;
             date_difference_view.row_spacing = 4;
-            
+
             // Make Add Date View
             // ----------------------------------------------------------------------------
             date_add_view = new Gtk.Grid ();
@@ -192,12 +192,12 @@ namespace Pebbles {
             add_label = new Gtk.Label (_("Add"));
             add_label.xalign = 0;
             add_label.get_style_context ().add_class (Granite.STYLE_CLASS_H4_LABEL);
-            
+
             var date_input_grid = new Gtk.Grid ();
-            
+
             add_entry_day   = new Gtk.Entry ();
             add_entry_day.placeholder_text = _("Day");
-            add_entry_day.set_text (settings.date_day_entry);
+            add_entry_day.set_text (settings.load_last_session ? settings.date_day_entry : "");
             add_entry_day.max_length  = 3;
             add_entry_day.width_chars = 6;
             add_entry_day.set_icon_from_icon_name (Gtk.EntryIconPosition.SECONDARY,"view-more-symbolic");
@@ -210,10 +210,10 @@ namespace Pebbles {
                 find_date (add_mode_switch.get_active ());
                 settings.date_day_entry = add_entry_day.get_text ();
             });
-            
+
             add_entry_month = new Gtk.Entry ();
             add_entry_month.placeholder_text = _("Month");
-            add_entry_month.set_text (settings.date_month_entry);
+            add_entry_month.set_text (settings.load_last_session ? settings.date_month_entry : "");
             add_entry_month.max_length  = 3;
             add_entry_month.width_chars = 6;
             add_entry_month.set_icon_from_icon_name (Gtk.EntryIconPosition.SECONDARY,"view-more-symbolic");
@@ -226,10 +226,10 @@ namespace Pebbles {
                 find_date (add_mode_switch.get_active ());
                 settings.date_month_entry = add_entry_month.get_text ();
             });
-            
+
             add_entry_year  = new Gtk.Entry ();
             add_entry_year.placeholder_text = _("Year");
-            add_entry_year.set_text (settings.date_year_entry);
+            add_entry_year.set_text (settings.load_last_session ? settings.date_year_entry : "");
             add_entry_year.max_length  = 3;
             add_entry_year.width_chars = 6;
             add_entry_year.set_icon_from_icon_name (Gtk.EntryIconPosition.SECONDARY,"view-more-symbolic");
@@ -247,28 +247,28 @@ namespace Pebbles {
             date_input_grid.attach (add_entry_year, 2, 0, 1, 1);
             date_input_grid.column_spacing = 4;
             date_input_grid.column_homogeneous = true;
-            
+
             datepicker_add_sub  = new Granite.Widgets.DatePicker ();
             date_add_view.attach (add_mode_button, 0, 0, 1, 1);
             date_add_view.attach (start_label, 0, 1, 1, 1);
             date_add_view.attach (datepicker_add_sub, 0, 2, 1, 1);
             date_add_view.attach (add_label, 0, 3, 1, 1);
             date_add_view.attach (date_input_grid, 0, 4, 1, 1);
-            
-            
+
+
             date_add_view.height_request = 200;
             date_add_view.margin_start = 8;
             date_add_view.margin_end = 8;
             date_add_view.margin_bottom = 8;
             date_add_view.column_spacing = 8;
             date_add_view.row_spacing = 4;
-            
+
             add_header = new Gtk.Label (_("The Date will be"));
             add_header.xalign = 0;
             add_header.valign = Gtk.Align.START;
             add_header.width_request = 160;
             add_header.get_style_context ().add_class (Granite.STYLE_CLASS_H4_LABEL);
-            
+
             week_day_label = new Gtk.Label (_("Set a duration"));
             //week_day_label.xalign = 0;
             week_day_label.valign = Gtk.Align.END;
@@ -282,7 +282,7 @@ namespace Pebbles {
             add_grid.attach (add_header,0, 0, 1, 1);
             add_grid.attach (week_day_label,0, 1, 1, 1);
             add_grid.attach (date_dmy_label,0, 2, 1, 1);
-            
+
             main_calendar = new Gtk.Calendar ();
             main_calendar.set_display_options (Gtk.CalendarDisplayOptions.NO_MONTH_CHANGE);
             main_calendar.get_style_context ().add_class ("pebbles-calendar-box");
@@ -291,14 +291,14 @@ namespace Pebbles {
             main_calendar.hexpand = true;
             main_calendar.margin_top = 8;
             add_grid.attach (main_calendar, 0, 3, 1, 1);
-            
-            date_add_view.attach (add_grid, 0, 5, 1, 1);            
-            
+
+            date_add_view.attach (add_grid, 0, 5, 1, 1);
+
             var date_calc_holder = new Gtk.Stack ();
             date_calc_holder.add_named (date_difference_view, _("Difference Between Dates"));
             date_calc_holder.add_named (date_add_view, _("Add or Subtract Dates"));
             date_calc_holder.set_transition_type (Gtk.StackTransitionType.SLIDE_LEFT_RIGHT);
-            
+
             // Add events to Mode Button
             date_mode.set_active (0);
             date_mode.mode_changed.connect (() => {
@@ -312,9 +312,9 @@ namespace Pebbles {
                 }
                 //stdout.printf ("%d\n", date_mode.selected);
             });
-            
+
             date_calculator_object = new DateCalculator();
-            
+
             datepicker_diff_from.changed.connect (() => {
                 do_calculations ();
                 settings.date_diff_from = datepicker_diff_from.date.format ("%FT%T");
@@ -327,14 +327,14 @@ namespace Pebbles {
                 find_date (add_mode_switch.get_active ());
                 settings.date_add_sub = datepicker_add_sub.date.format ("%FT%T");
             });
-            
+
             attach (date_mode, 0, 0, 2, 1);
             attach (date_calc_holder, 0, 1, 1, 1);
             row_spacing = 54;
             valign = Gtk.Align.CENTER;
             vexpand = true;
         }
-        
+
         private void do_calculations () {
             datetime_diff_from = datepicker_diff_from.date;
             datetime_diff_to = datepicker_diff_to.date;
@@ -352,13 +352,13 @@ namespace Pebbles {
             string result_days = date_calculator_object.date_difference( datetime_diff_from , datetime_diff_to );
             result_days += (result_days == "1") ? (" " + _("day")) : (" " + _("days"));
             days_diff_label.set_text (_("A total of %s").printf (result_days));
-            
+
             DateFormatted formatted_date_difference = date_calculator_object.difference_formatter(datetime_diff_from , datetime_diff_to);
             string res_day = (formatted_date_difference.day).to_string ();
             string res_wek = (formatted_date_difference.week).to_string ();
             string res_mon = (formatted_date_difference.month).to_string ();
             string res_yar = (formatted_date_difference.year).to_string ();
-            
+
             // Present the data with some LOVE
             string result_date = "";
             int part = 0;
@@ -470,14 +470,14 @@ namespace Pebbles {
             } else {
                 date = new DateTime.now_local ();
             }
-            
+
             return date;
         }
 
         private void load_date () {
-            datepicker_diff_from.date = get_date_from_string (settings.date_diff_from);
-            datepicker_diff_to.date = get_date_from_string (settings.date_diff_to);
-            datepicker_add_sub.date = get_date_from_string (settings.date_add_sub);
+            datepicker_diff_from.date = get_date_from_string (settings.load_last_session ? settings.date_diff_from : "");
+            datepicker_diff_to.date = get_date_from_string (settings.load_last_session ? settings.date_diff_to : "");
+            datepicker_add_sub.date = get_date_from_string (settings.load_last_session ? settings.date_add_sub : "");
         }
     }
 }

@@ -1,7 +1,7 @@
 /*-
  * Copyright (c) 2017-2020 Subhadeep Jasu <subhajasu@gmail.com>
  * Copyright (c) 2017-2020 Saunak Biswas  <saunakbis97@gmail.com>
- * 
+ *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public
  * License as published by the Free Software Foundation; either
@@ -12,7 +12,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License 
+ * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  *
  * Authored by: Subhadeep Jasu <subhajasu@gmail.com>
@@ -37,7 +37,7 @@ namespace Pebbles {
 
         // Angle mode
         GlobalAngleUnit angle_mode;
-        
+
         ScientificView sci_view;
         public ScientificDisplay (ScientificView view) {
             this.sci_view = view;
@@ -83,7 +83,7 @@ namespace Pebbles {
             lcd_status_bar.hexpand = true;
 
             // Make LCD Answer label
-            answer_label = new Gtk.Label (settings.sci_output_text);
+            answer_label = new Gtk.Label (settings.load_last_session ? settings.sci_output_text : "0");
             answer_label.set_halign (Gtk.Align.END);
             answer_label.set_valign (Gtk.Align.END);
             answer_label.vexpand = true;
@@ -95,9 +95,9 @@ namespace Pebbles {
 
             // Make Input entry
             input_entry = new Gtk.Entry ();
-            
+
             input_entry.set_has_frame (false);
-            input_entry.set_text (settings.sci_input_text);
+            input_entry.set_text (settings.load_last_session ? settings.sci_input_text : "0");
             input_entry.get_style_context ().add_class ("pebbles_h2");
             input_entry.set_halign (Gtk.Align.FILL);
             input_entry.hexpand = true;
@@ -119,11 +119,11 @@ namespace Pebbles {
             input_entry.key_release_event.connect (() => {
                 display_on ();
                 return false;
-            }); 
+            });
             input_entry.copy_clipboard.connect(() => {
                 this.write_answer_to_clipboard();
             });
-            
+
             // Make seperator
             Gtk.Separator lcd_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
             lcd_separator.set_opacity (0.6);
@@ -145,7 +145,7 @@ namespace Pebbles {
                 shift_label.set_opacity (0.2);
             }
         }
-        
+
         public void set_angle_status (int state) {
             switch (state) {
                 case 1 :
