@@ -1,0 +1,48 @@
+#!/usr/bin/env python3
+# SPDX-License-Identifier: GPL-3.0-or-later
+# SPDX-FileCopyrightText: 2024 Subhadeep Jasu <subhadeep107@proton.me>, 2020 Saunak Biswas <saunakbis97@gmail.com>
+
+"""
+This is the main python executable file of this app
+This usually goes in the "bin" folder of the OS and
+requires execute permissions for the user
+"""
+
+import gettext
+import locale
+import logging
+import os
+import signal
+import sys
+
+
+if __name__ == "__main__":
+    import gi
+
+    gi.require_version("Adw", "1")
+    gi.require_version("Gtk", "4.0")
+    gi.require_version("Pebbles", "3")
+
+
+    data_dir = "@PKGDATADIR@"
+    sys.path.insert(1, data_dir)
+    signal.signal(signal.SIGINT, signal.SIG_DFL)
+    localedir = "@LOCALEDIR@"
+    locale.bindtextdomain("@GETTEXT_PACKAGE@", localedir)
+    locale.textdomain("@GETTEXT_PACKAGE@")
+    gettext.bindtextdomain("@GETTEXT_PACKAGE@", localedir)
+    gettext.textdomain("@GETTEXT_PACKAGE@")
+
+    from gi.repository import Gio
+    gresource_location = os.path.join("@PKGDATADIR@", "@APPLICATION_ID@.gresource")
+    resource = Gio.Resource.load(gresource_location)
+    resource._register()
+
+    debug = True
+
+    loglevel = logging.DEBUG if debug else logging.INFO
+    logging.basicConfig(format="%(levelname)s: %(message)s", level=loglevel)
+    logging.getLogger("matplotlib.font_manager").disabled = True
+
+    from pebbles.application import PythonApplication
+    sys.exit(PythonApplication("@APPLICATION_ID@", debug=debug).run(sys.argv))
