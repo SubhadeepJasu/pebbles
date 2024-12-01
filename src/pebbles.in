@@ -33,6 +33,9 @@ if __name__ == "__main__":
     gettext.bindtextdomain("@GETTEXT_PACKAGE@", localedir)
     gettext.textdomain("@GETTEXT_PACKAGE@")
 
+    shell_path = os.path.join(data_dir, 'pebbles', 'shell')
+    sys.path.insert(1, shell_path)
+    
     from gi.repository import Gio
     gresource_location = os.path.join("@PKGDATADIR@", "@APPLICATION_ID@.gresource")
     resource = Gio.Resource.load(gresource_location)

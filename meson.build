@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 project('com.github.subhadeepjasu.pebbles', 'c', 'vala',
         version: '3.0.0',
-        meson_version: '>= 0.61.2',
+        meson_version: '>= 1.3.2',
         default_options: [ 'warning_level=2', 'werror=false', ],
 )
 
@@ -10,7 +10,8 @@ dependencies = [
   dependency('gobject-2.0'),
   dependency('gio-2.0'),
   dependency('gtk4'),
-  dependency('libadwaita-1', version: '>= 1.1.7'),
+  dependency('granite-7'),
+  dependency('libadwaita-1', version: '>= 1.5'),
   dependency('gee-0.8'),
 ]
 

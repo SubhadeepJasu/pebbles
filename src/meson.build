@@ -12,7 +12,15 @@ python.install_sources(
   files(
     'application.py'
   ),
-  subdir: meson.project_name(),
+  subdir: 'pebbles',
+)
+
+python.install_sources(
+  files(
+    'shell/__init__.py',
+    'shell/window.py'
+  ),
+  subdir: 'pebbles/shell',
 )
 
 configure_file(
@@ -26,7 +34,8 @@ config_dep = valac.find_library('config',
 pebbles_lib = shared_library('pebbles',
   gresource_bundle,
   files(
-    'Application.vala'
+    'Application.vala',
+    'shell/Window.vala'
   ),
              vala_gir: 'Pebbles-3.gir',
          dependencies: dependencies + config_dep,

@@ -4,6 +4,7 @@
 """Main Application"""
 
 from gi.repository import Gio, Pebbles
+from pebbles.window import PythonWindow
 
 class PythonApplication(Pebbles.Application):
     """The main application singleton class."""
@@ -17,13 +18,18 @@ class PythonApplication(Pebbles.Application):
             flags=Gio.ApplicationFlags.HANDLES_OPEN,
             **kwargs,
         )
+        self.connect("create_window_request", PythonApplication._on_create_window_request)
 
 
     def setup(self):
         import logging
         from gettext import gettext as _
 
-        from matplotlib import font_manager
-
         settings = Gio.Settings(self.props.application_id)
         self.props.settings = settings
+
+
+    @staticmethod
+    def _on_create_window_request(self) -> Pebbles.Window:
+        print("Creating Window")
+        return PythonWindow(self)
