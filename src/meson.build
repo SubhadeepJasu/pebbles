@@ -43,6 +43,9 @@ pebbles_lib = shared_library('pebbles',
             link_args: ['-lm',],
               install: true,
           install_dir: [true],
+          vala_args: [
+            '--gresourcesdir=' + meson.project_build_root() + '/data/'
+          ]
 )
 
 custom_target('pebbles typelib',

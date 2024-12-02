@@ -2,5 +2,6 @@
 <gresources>
   <gresource prefix="/com/github/subhadeepjasu/pebbles">
     <file alias="style.css" compressed="true">style.css</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/window.ui</file>
   </gresource>
 </gresources>
