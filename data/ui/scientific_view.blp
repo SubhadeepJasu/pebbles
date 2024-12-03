@@ -1,0 +1,232 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: 2024 Subhadeep Jasu <subhadeep107@proton.me>
+using Gtk 4.0;
+using Adw 1;
+
+template $PebblesScientificView: Gtk.Grid {
+  $PebblesDisplay display {
+    layout {
+      column: 0;
+      row: 0;
+    }
+  }
+
+  Adw.NavigationSplitView sci_nav_split_view {
+    layout {
+      column: 0;
+      row: 1;
+    }
+
+    margin-start: 12;
+    margin-end: 12;
+    margin-bottom: 12;
+    vexpand: true;
+    sidebar-width-fraction: 0.5;
+
+    sidebar: Adw.NavigationPage button_container_left {
+      title: "Numerical Input";
+
+      Grid {
+        row-homogeneous: true;
+        column-homogeneous: true;
+        row-spacing: 4;
+        column-spacing: 4;
+        vexpand: true;
+        hexpand: true;
+
+        $PebblesStyledButton all_clear_button {
+          label_text: _("AC");
+          tooltip_desc: _("All Clear");
+          accel_markup: "Delete";
+
+          styles [
+            "destructive-action"
+          ]
+
+          layout {
+            row: 0;
+            column: 0;
+          }
+        }
+
+        Button del_button {
+          icon-name: "edit-clear-symbolic";
+          tooltip-text: _("Backspace");
+
+          layout {
+            row: 0;
+            column: 1;
+          }
+        }
+
+        $PebblesStyledButton percent_button {
+          label_text: "%";
+          tooltip_desc: _("Percentage");
+
+          layout {
+            row: 0;
+            column: 2;
+          }
+        }
+
+        $PebblesStyledButton divide_button {
+          label_text: "÷";
+          tooltip_desc: _("Divide");
+
+          layout {
+            row: 0;
+            column: 3;
+          }
+        }
+
+        $PebblesStyledButton seven_button {
+          label_text: "7";
+
+          layout {
+            row: 1;
+            column: 0;
+          }
+        }
+
+        $PebblesStyledButton eight_button {
+          label_text: "8";
+
+          layout {
+            row: 1;
+            column: 1;
+          }
+        }
+
+        $PebblesStyledButton nine_button {
+          label_text: "9";
+
+          layout {
+            row: 1;
+            column: 2;
+          }
+        }
+
+        $PebblesStyledButton multiply_button {
+          label_text: "×";
+
+          layout {
+            row: 1;
+            column: 3;
+          }
+        }
+
+        $PebblesStyledButton four_button {
+          label_text: "4";
+
+          layout {
+            row: 2;
+            column: 0;
+          }
+        }
+
+        $PebblesStyledButton five_button {
+          label_text: "5";
+
+          layout {
+            row: 2;
+            column: 1;
+          }
+        }
+
+        $PebblesStyledButton six_button {
+          label_text: "6";
+
+          layout {
+            row: 2;
+            column: 2;
+          }
+        }
+
+        $PebblesStyledButton subtract_button {
+          label_text: "-";
+
+          layout {
+            row: 2;
+            column: 3;
+          }
+        }
+
+        $PebblesStyledButton one_button {
+          label_text: "1";
+
+          layout {
+            row: 3;
+            column: 0;
+          }
+        }
+
+        $PebblesStyledButton two_button {
+          label_text: "2";
+
+          layout {
+            row: 3;
+            column: 1;
+          }
+        }
+
+        $PebblesStyledButton three_button {
+          label_text: "3";
+
+          layout {
+            row: 3;
+            column: 2;
+          }
+        }
+
+        $PebblesStyledButton addition_button {
+          label_text: "+";
+
+          layout {
+            row: 3;
+            column: 3;
+          }
+        }
+
+        $PebblesStyledButton zero_button {
+          label_text: "0";
+
+          layout {
+            row: 4;
+            column: 0;
+          }
+        }
+
+        $PebblesStyledButton point_button {
+          label_text: ".";
+
+          layout {
+            row: 4;
+            column: 1;
+          }
+        }
+
+        $PebblesStyledButton paren_start_button {
+          label_text: "(";
+
+          layout {
+            row: 4;
+            column: 2;
+          }
+        }
+
+        $PebblesStyledButton paren_end_button {
+          label_text: ")";
+
+          layout {
+            row: 4;
+            column: 3;
+          }
+        }
+      }
+    };
+
+    content: Adw.NavigationPage button_container_right {
+      title: "Functional Input";
+    };
+  }
+}

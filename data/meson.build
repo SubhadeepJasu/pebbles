@@ -17,7 +17,10 @@ stylesheet_deps = custom_target(
 )
 
 blueprint_files = [
-  'ui/window.blp'
+  'ui/window.blp',
+  'ui/styled_button.blp',
+  'ui/display.blp',
+  'ui/scientific_view.blp'
 ]
 
 blueprints_ui = []

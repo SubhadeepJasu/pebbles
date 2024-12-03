@@ -3,5 +3,8 @@
   <gresource prefix="/com/github/subhadeepjasu/pebbles">
     <file alias="style.css" compressed="true">style.css</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/window.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/styled_button.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/display.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/scientific_view.ui</file>
   </gresource>
 </gresources>

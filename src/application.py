@@ -3,7 +3,7 @@
 
 """Main Application"""
 
-from gi.repository import Gio, Pebbles
+from gi.repository import Gio, Gtk, Gdk, Pebbles
 from pebbles.window import PythonWindow
 
 class PythonApplication(Pebbles.Application):
@@ -20,13 +20,22 @@ class PythonApplication(Pebbles.Application):
         )
         self.connect("create_window_request", PythonApplication._on_create_window_request)
 
+        self.setup()
+
 
     def setup(self):
         import logging
         from gettext import gettext as _
 
-        settings = Gio.Settings(self.props.application_id)
-        self.props.settings = settings
+        # settings = Gio.Settings(self.props.application_id)
+        # self.props.settings = settings
+
+         # Set CSS provider
+        css_provider = Gtk.CssProvider()
+        css_provider.load_from_resource("/com/github/subhadeepjasu/pebbles/style.css")
+        Gtk.StyleContext.add_provider_for_display(
+            Gdk.Display.get_default(), css_provider, 800)
+
 
 
     @staticmethod
