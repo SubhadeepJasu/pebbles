@@ -86,20 +86,21 @@ template $PebblesScientificView: Gtk.Grid {
           }
         }
 
-        $PebblesStyledButton memory_plus_button_p {
-          label_text: "M+";
-          tooltip_desc: _("Add it to the value in Memory");
-          accel_markup: "F3";
+        $PebblesStyledButton fx_button {
+          label_text: "<i>f(x)</i>/M";
           visible: bind template.collapsed;
 
           styles [
-            "memory-action"
+            "special-action"
           ]
 
           layout {
             row: 0;
             column: 4;
+            row-span: 4;
           }
+
+          clicked => $on_expand_fx();
         }
 
         $PebblesStyledButton seven_button {
@@ -136,22 +137,6 @@ template $PebblesScientificView: Gtk.Grid {
           layout {
             row: 1;
             column: 3;
-          }
-        }
-
-        $PebblesStyledButton memory_minus_button_p {
-          label_text: _("M−");
-          tooltip_desc: _("Subtract it from the value in Memory");
-          accel_markup: "F4";
-          visible: bind template.collapsed;
-
-          styles [
-            "memory-action"
-          ]
-
-          layout {
-            row: 1;
-            column: 4;
           }
         }
 
@@ -192,22 +177,6 @@ template $PebblesScientificView: Gtk.Grid {
           }
         }
 
-        $PebblesStyledButton memory_recall_button_p {
-          label_text: _("MR");
-          tooltip_desc: _("Recall value from Memory");
-          accel_markup: "F5";
-          visible: bind template.collapsed;
-
-          styles [
-            "memory-action"
-          ]
-
-          layout {
-            row: 2;
-            column: 4;
-          }
-        }
-
         $PebblesStyledButton one_button {
           label_text: "1";
 
@@ -242,22 +211,6 @@ template $PebblesScientificView: Gtk.Grid {
           layout {
             row: 3;
             column: 3;
-          }
-        }
-
-        $PebblesStyledButton memory_clear_button_p {
-          label_text: _("MC");
-          tooltip_desc: _("Memory Clear");
-          accel_markup: "F6";
-          visible: bind template.collapsed;
-
-          styles [
-            "memory-action"
-          ]
-
-          layout {
-            row: 3;
-            column: 4;
           }
         }
 
@@ -617,6 +570,8 @@ template $PebblesScientificView: Gtk.Grid {
           tooltip_desc: _("Result");
           accel_markup: "Return";
 
+          visible: bind template.show_hide_fx_btn;
+
           styles [
             "suggested-action",
             "large-font-btn"
@@ -626,6 +581,23 @@ template $PebblesScientificView: Gtk.Grid {
             row: 4;
             column: 3;
           }
+        }
+
+        $PebblesStyledButton collapse_fx_button {
+          label_text: _("->");
+          visible: bind sci_nav_split_view.collapsed;
+
+          styles [
+            "suggested-action",
+            "large-font-btn"
+          ]
+
+          layout {
+            row: 4;
+            column: 3;
+          }
+
+          clicked => $on_collapse_fx();
         }
       }
     };
