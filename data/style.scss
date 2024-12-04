@@ -1,3 +1,7 @@
+$SLATE_500: #485a6c;
+$BANANA_500: #f9c440;
+$BANANA_900: #ad5f00;
+
 .display {
     background-image: linear-gradient(#d1ddd1, #bdc7bd);
     border-radius: 3px;
@@ -17,4 +21,20 @@
     row {
         padding-left: 28px;
     }
+}
+
+.special-action {
+    background-color: rgba($SLATE_500, 0.3);
+    border-color: #1115;
+}
+
+.memory-action {
+    background: $BANANA_500;
+    color: $BANANA_900;
+    font-weight: bold;
+    text-shadow: none;
+}
+
+.large-font-btn {
+    font-size: 22px;
 }

@@ -42,5 +42,9 @@ namespace Pebbles {
                 }
             }
         }
+
+        construct {
+            btn_label.set_use_markup (true);
+        }
     }
 }

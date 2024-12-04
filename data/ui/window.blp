@@ -72,6 +72,7 @@ template $PebblesWindow: Adw.ApplicationWindow {
                         show-start-title-buttons: true;
                         show-end-title-buttons: false;
                         show-title: false;
+                        height-request: 42;
                     }
 
                     Gtk.ScrolledWindow {
@@ -262,9 +263,12 @@ template $PebblesWindow: Adw.ApplicationWindow {
 
                         show-start-title-buttons: false;
                         show-end-title-buttons: true;
+                        height-request: 42;
 
-                        Stack {
+                        Stack header_stack {
                             margin-start: 6;
+                            margin-top: 4;
+                            valign: start;
 
                             Box scientific_header_box {
                                 spacing: 4;
@@ -274,10 +278,6 @@ template $PebblesWindow: Adw.ApplicationWindow {
                                     label_text: _("RAD");
                                     tooltip_desc: _("<b>Angle Mode</b>");
                                     accel_markup: "F8";
-                                }
-
-                                ToggleButton shift_mode {
-                                    label: _("Shift");
                                 }
                             }
 
