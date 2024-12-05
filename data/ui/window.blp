@@ -72,7 +72,7 @@ template $PebblesWindow: Adw.ApplicationWindow {
                         show-start-title-buttons: true;
                         show-end-title-buttons: false;
                         show-title: false;
-                        height-request: 42;
+                        height-request: 48;
                     }
 
                     Gtk.ScrolledWindow {
@@ -91,7 +91,7 @@ template $PebblesWindow: Adw.ApplicationWindow {
                                     "nav-item"
                                 ]
 
-                                ListBox {
+                                ListBox nav_list {
                                     styles [
                                         "sidebar-box"
                                     ]
@@ -101,6 +101,8 @@ template $PebblesWindow: Adw.ApplicationWindow {
                                             label: _("Scientific");
                                             halign: start;
                                         }
+
+                                        action-name: "win.open_scientific_mode";
                                     }
 
                                     ListBoxRow {
@@ -263,11 +265,11 @@ template $PebblesWindow: Adw.ApplicationWindow {
 
                         show-start-title-buttons: false;
                         show-end-title-buttons: true;
-                        height-request: 42;
+                        height-request: 48;
 
                         Stack header_stack {
                             margin-start: 6;
-                            margin-top: 4;
+                            margin-top: 6;
                             valign: start;
 
                             Box scientific_header_box {
@@ -285,7 +287,7 @@ template $PebblesWindow: Adw.ApplicationWindow {
                         }
                     }
 
-                    Adw.ViewStack {
+                    Adw.ViewStack view_stack {
                         Adw.ViewStackPage {
                             name: "scientific";
 

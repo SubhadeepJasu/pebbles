@@ -1,15 +1,79 @@
+/*-
+ * Copyright (c) 2018-2024 Subhadeep Jasu <subhajasu@gmail.com>
+ * Copyright (c) 2018-2019 Saunak Biswas  <saunakbis97@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License 
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ *
+ * Authored by: Subhadeep Jasu <subhajasu@gmail.com>
+ *
+ *                                                    
+ *   _____     _   _   _            _____ _____ _____ 
+ *  |  _  |___| |_| |_| |___ ___   |     |   __|   __|
+ *  |   __| -_| . | . | | -_|_ -|  |   --|__   |__   |
+ *  |__|  |___|___|___|_|___|___|  |_____|_____|_____|
+ *                                                    
+ */
+
+
 $SLATE_500: #485a6c;
 $BANANA_500: #f9c440;
 $BANANA_900: #ad5f00;
+$LCD_FG_COLOR: #272863bb;
 
-.display {
-    background-image: linear-gradient(#d1ddd1, #bdc7bd);
+.lcd {
+    background: linear-gradient(#d1ddd1, #bdc7bd);
     border-radius: 3px;
     border: 1px solid #0006;
     box-shadow:
         inset 0 1px 0 #fff4,
         inset 0 -1px 0 #fff2,
         0 12px 24px #545e5473;
+
+    color: $LCD_FG_COLOR;
+    padding: 8px;
+
+    &:backdrop {
+        background: #bdc7bd;
+        opacity: 0.5;
+    }
+
+    &-label {
+        font-family: DotGothic16, Inter, sans-serif;
+        font-size: 40px;
+        text-shadow: 0 2px 1px #0002;
+        margin-top: 6px;
+    }
+
+    &-seperator {
+        border-bottom: #27286344;
+        box-shadow: none;
+    }
+
+    &-entry {
+        background: none;
+        box-shadow: none;
+        border: none;
+        outline: 0;
+        font-size: x-large;
+        font-family: DotGothic16, Inter, sans-serif;
+        text-shadow: 0 2px 1px #0002;
+        caret-color: $LCD_FG_COLOR;
+
+        text {
+            color: $LCD_FG_COLOR;
+        }
+    }
 }
 
 .nav-item {
@@ -37,4 +101,19 @@ $BANANA_900: #ad5f00;
 
 .large-font-btn {
     font-size: 22px;
+    font-weight: 300;
+    padding-top: 2px;
+}
+
+.adaptive-btn-font {
+    label,
+    image {
+        transform: scale(1.0);
+    }
+}
+
+.status-bar {
+    label {
+        font-weight: bold;
+    }
 }

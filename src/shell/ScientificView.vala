@@ -2,13 +2,17 @@ namespace Pebbles {
     [GtkTemplate (ui = "/com/github/subhadeepjasu/pebbles/ui/scientific_view.ui")]
     public class ScientificView : Gtk.Grid {
         [GtkChild]
-        private unowned Display display;
+        private unowned ScientificDisplay display;
 
         // Buttons
         [GtkChild]
         private unowned StyledButton all_clear_button;
         [GtkChild]
         private unowned Gtk.Button del_button;
+        [GtkChild]
+        private unowned Gtk.ToggleButton shift_button;
+        [GtkChild]
+        private unowned StyledButton pow_root_button;
 
         private bool _collapsed;
         public bool collapsed {
@@ -39,6 +43,19 @@ namespace Pebbles {
         [GtkCallback]
         protected void on_collapse_fx () {
             sci_nav_split_view.show_content = false;
+        }
+
+        [GtkCallback]
+        protected void on_shift () {
+            if (shift_button.active) {
+                pow_root_button.label_text = "<sup>n</sup>√";
+                pow_root_button.tooltip_desc = _("Square root over number");
+                pow_root_button.accel_markup = "Q";
+            } else {
+                pow_root_button.label_text = "x<sup>y</sup>";
+                pow_root_button.tooltip_desc = _("x raised to the power y");
+                pow_root_button.accel_markup = "Z";
+            }
         }
     }
 }

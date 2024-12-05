@@ -20,6 +20,7 @@ blueprint_files = [
   'ui/window.blp',
   'ui/styled_button.blp',
   'ui/display.blp',
+  'ui/scientific_display.blp',
   'ui/scientific_view.blp'
 ]
 
@@ -49,4 +50,9 @@ gresource_bundle = gnome.compile_resources(
     install: true,
     install_dir: pkgdatadir,
     c_name: meson.project_name(),
+)
+
+install_data (
+    join_paths ('fonts', 'DotGothic16', 'DotGothic16-Regular.ttf'),
+    install_dir: join_paths (get_option ('datadir'), 'fonts', 'truetype', 'DotGothic16')
 )

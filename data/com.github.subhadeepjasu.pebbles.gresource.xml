@@ -6,5 +6,6 @@
     <file compressed="true" preprocess="xml-stripblanks">ui/styled_button.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/display.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/scientific_view.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/scientific_display.ui</file>
   </gresource>
 </gresources>

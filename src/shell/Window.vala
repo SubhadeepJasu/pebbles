@@ -6,6 +6,8 @@ namespace Pebbles {
     public class Window : Adw.ApplicationWindow {
         [GtkChild]
         private unowned Adw.ToastOverlay toast_overlay;
+        [GtkChild]
+        private unowned Adw.NavigationSplitView split_view;
         
         [GtkChild]
         private unowned Adw.HeaderBar main_headerbar;
@@ -13,7 +15,11 @@ namespace Pebbles {
         [GtkChild]
         private unowned Gtk.Box navigation_pane;
         [GtkChild]
+        private unowned Gtk.ListBox nav_list;
+        [GtkChild]
         private unowned Gtk.Box main_view;
+        [GtkChild]
+        private unowned Adw.ViewStack view_stack;
 
         [GtkChild]
         private unowned ScientificView scientific_view;
@@ -38,6 +44,18 @@ namespace Pebbles {
                 width_request = 28
             };
             main_headerbar.pack_end (history_button);
+
+            setup_actions ();
+        }
+
+        private void setup_actions () {
+            nav_list.select_row (nav_list.get_row_at_index (0));
+            var enable_scientific_mode_action = new SimpleAction ("open_scientific_mode", null);
+            enable_scientific_mode_action.activate.connect (() => {
+                view_stack.set_visible_child_name ("scientific");
+                split_view.show_content = true;
+            });
+            add_action (enable_scientific_mode_action);
         }
     }
 }

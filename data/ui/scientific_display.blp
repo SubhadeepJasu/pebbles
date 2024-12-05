@@ -1,0 +1,96 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: 2024 Subhadeep Jasu <subhadeep107@proton.me>
+using Gtk 4.0;
+
+template $PebblesScientificDisplay: $PebblesDisplay {
+    CenterBox lcd_status_bar {
+        layout {
+            row: 0;
+            column: 0;
+        }
+
+        hexpand: true;
+
+        styles [
+            "status-bar"
+        ]
+
+        start-widget: Box {
+            orientation: horizontal;
+            spacing: 8;
+
+            Label deg_label {
+                label: "DEG";
+                opacity: 1;
+            }
+
+            Label rad_label {
+                label: "RAD";
+                opacity: 0.2;
+            }
+
+            Label grad_label {
+                label: "GRAD";
+                opacity: 0.2;
+            }
+        };
+
+        center-widget: Label memory_label {
+            label: "M";
+            opacity: 0.2;
+        };
+
+        end-widget: Label shift_label {
+            label: _("SHIFT");
+            opacity: 0.2;
+        };
+    }
+
+    ScrolledWindow {
+        propagate-natural-height: true;
+
+        layout {
+          column: 0;
+          row: 1;
+        }
+
+        Label main_label {
+            styles [
+                "lcd-label"
+            ]
+
+            halign: end;
+            valign: end;
+            vexpand: true;
+
+            height-request: 72;
+        }
+    }
+
+    Separator {
+        orientation: horizontal;
+        margin-top: 4;
+        margin-bottom: 6;
+        valign: center;
+
+        layout {
+          column: 0;
+          row: 2;
+        }
+
+        styles ["lcd-seperator"]
+    }
+
+    Entry main_entry {
+        halign: fill;
+        hexpand: true;
+        margin-bottom: 1;
+        xalign: 1;
+        styles ["lcd-entry"]
+
+        layout {
+          column: 0;
+          row: 3;
+        }
+    }
+}

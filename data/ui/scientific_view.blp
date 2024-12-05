@@ -4,13 +4,14 @@ using Gtk 4.0;
 using Adw 1;
 
 template $PebblesScientificView: Gtk.Grid {
-  $PebblesDisplay display {
+  $PebblesScientificDisplay display {
     layout {
       column: 0;
       row: 0;
     }
 
     vexpand: true;
+    shift_on: bind shift_button.active;
   }
 
   Adw.NavigationSplitView sci_nav_split_view {
@@ -47,7 +48,8 @@ template $PebblesScientificView: Gtk.Grid {
           accel_markup: "Delete";
 
           styles [
-            "destructive-action"
+            "destructive-action",
+            "adaptive-btn-font"
           ]
 
           layout {
@@ -74,6 +76,10 @@ template $PebblesScientificView: Gtk.Grid {
             row: 0;
             column: 2;
           }
+
+          styles [
+            "adaptive-btn-font"
+          ]
         }
 
         $PebblesStyledButton divide_button {
@@ -84,20 +90,25 @@ template $PebblesScientificView: Gtk.Grid {
             row: 0;
             column: 3;
           }
+
+          styles [
+            "adaptive-btn-font",
+            "large-font-btn"
+          ]
         }
 
         $PebblesStyledButton fx_button {
-          label_text: "<i>f(x)</i>/M";
+          label_text: "← <i>f(x)</i>";
           visible: bind template.collapsed;
 
           styles [
-            "special-action"
+            "special-action",
+            "adaptive-btn-font"
           ]
 
           layout {
             row: 0;
             column: 4;
-            row-span: 4;
           }
 
           clicked => $on_expand_fx();
@@ -105,6 +116,10 @@ template $PebblesScientificView: Gtk.Grid {
 
         $PebblesStyledButton seven_button {
           label_text: "7";
+
+          styles [
+            "adaptive-btn-font"
+          ]
 
           layout {
             row: 1;
@@ -115,6 +130,10 @@ template $PebblesScientificView: Gtk.Grid {
         $PebblesStyledButton eight_button {
           label_text: "8";
 
+          styles [
+            "adaptive-btn-font"
+          ]
+
           layout {
             row: 1;
             column: 1;
@@ -123,6 +142,7 @@ template $PebblesScientificView: Gtk.Grid {
 
         $PebblesStyledButton nine_button {
           label_text: "9";
+          styles ["adaptive-btn-font"]
 
           layout {
             row: 1;
@@ -134,14 +154,37 @@ template $PebblesScientificView: Gtk.Grid {
           label_text: "×";
           tooltip_desc: _("Multiply");
 
+          styles [
+            "adaptive-btn-font",
+            "large-font-btn"
+          ]
+
           layout {
             row: 1;
             column: 3;
           }
         }
 
+        $PebblesStyledButton pow_button {
+          label_text: "x<sup>y</sup>";
+          tooltip_desc: _("x raised to the power y");
+          accel_markup: "Z";
+          visible: bind template.collapsed;
+
+          styles [
+            "special-action",
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 1;
+            column: 4;
+          }
+        }
+
         $PebblesStyledButton four_button {
           label_text: "4";
+          styles ["adaptive-btn-font"]
 
           layout {
             row: 2;
@@ -151,6 +194,7 @@ template $PebblesScientificView: Gtk.Grid {
 
         $PebblesStyledButton five_button {
           label_text: "5";
+          styles ["adaptive-btn-font"]
 
           layout {
             row: 2;
@@ -160,6 +204,7 @@ template $PebblesScientificView: Gtk.Grid {
 
         $PebblesStyledButton six_button {
           label_text: "6";
+          styles ["adaptive-btn-font"]
 
           layout {
             row: 2;
@@ -171,14 +216,37 @@ template $PebblesScientificView: Gtk.Grid {
           label_text: "−";
           tooltip_desc: _("Subtract");
 
+          styles [
+            "adaptive-btn-font",
+            "large-font-btn"
+          ]
+
           layout {
             row: 2;
             column: 3;
           }
         }
 
+        $PebblesStyledButton log_button {
+          label_text: "log x";
+          tooltip_desc: _("Log base 10");
+          accel_markup: "L";
+          visible: bind template.collapsed;
+
+          styles [
+            "special-action",
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 2;
+            column: 4;
+          }
+        }
+
         $PebblesStyledButton one_button {
           label_text: "1";
+          styles ["adaptive-btn-font"]
 
           layout {
             row: 3;
@@ -188,6 +256,7 @@ template $PebblesScientificView: Gtk.Grid {
 
         $PebblesStyledButton two_button {
           label_text: "2";
+          styles ["adaptive-btn-font"]
 
           layout {
             row: 3;
@@ -197,6 +266,7 @@ template $PebblesScientificView: Gtk.Grid {
 
         $PebblesStyledButton three_button {
           label_text: "3";
+          styles ["adaptive-btn-font"]
 
           layout {
             row: 3;
@@ -208,14 +278,37 @@ template $PebblesScientificView: Gtk.Grid {
           label_text: "+";
           tooltip_desc: _("Add");
 
+          styles [
+            "adaptive-btn-font",
+            "large-font-btn"
+          ]
+
           layout {
             row: 3;
             column: 3;
           }
         }
 
+        $PebblesStyledButton last_answer_button_p {
+          label_text: "Ans";
+          tooltip_desc: _("Insert last answer");
+          accel_markup: "F7";
+          visible: bind template.collapsed;
+
+          styles [
+            "special-action",
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 3;
+            column: 4;
+          }
+        }
+
         $PebblesStyledButton zero_button {
           label_text: "0";
+          styles ["adaptive-btn-font"]
 
           layout {
             row: 4;
@@ -226,6 +319,11 @@ template $PebblesScientificView: Gtk.Grid {
         $PebblesStyledButton point_button {
           label_text: ".";
 
+          styles [
+            "adaptive-btn-font",
+            "large-font-btn"
+          ]
+
           layout {
             row: 4;
             column: 1;
@@ -234,6 +332,7 @@ template $PebblesScientificView: Gtk.Grid {
 
         $PebblesStyledButton paren_start_button {
           label_text: "(";
+          styles ["adaptive-btn-font"]
 
           layout {
             row: 4;
@@ -243,6 +342,7 @@ template $PebblesScientificView: Gtk.Grid {
 
         $PebblesStyledButton paren_end_button {
           label_text: ")";
+          styles ["adaptive-btn-font"]
 
           layout {
             row: 4;
@@ -258,7 +358,8 @@ template $PebblesScientificView: Gtk.Grid {
 
           styles [
             "suggested-action",
-            "large-font-btn"
+            "large-font-btn",
+            "adaptive-btn-font"
           ]
 
           layout {
@@ -286,13 +387,16 @@ template $PebblesScientificView: Gtk.Grid {
           label: _("Shift");
 
           styles [
-            "special-action"
+            "special-action",
+            "adaptive-btn-font"
           ]
 
           layout {
             row: 0;
             column: 0;
           }
+
+          clicked => $on_shift();
         }
 
         $PebblesStyledButton pow_root_button {
@@ -301,7 +405,8 @@ template $PebblesScientificView: Gtk.Grid {
           accel_markup: "Z";
 
           styles [
-            "special-action"
+            "special-action",
+            "adaptive-btn-font"
           ]
 
           layout {
@@ -316,7 +421,8 @@ template $PebblesScientificView: Gtk.Grid {
           accel_markup: "W";
 
           styles [
-            "special-action"
+            "special-action",
+            "adaptive-btn-font"
           ]
 
           layout {
@@ -331,7 +437,8 @@ template $PebblesScientificView: Gtk.Grid {
           accel_markup: "F3";
 
           styles [
-            "memory-action"
+            "memory-action",
+            "adaptive-btn-font"
           ]
 
           layout {
@@ -346,7 +453,8 @@ template $PebblesScientificView: Gtk.Grid {
           accel_markup: "S";
 
           styles [
-            "special-action"
+            "special-action",
+            "adaptive-btn-font"
           ]
 
           layout {
@@ -361,7 +469,8 @@ template $PebblesScientificView: Gtk.Grid {
           accel_markup: "H";
 
           styles [
-            "special-action"
+            "special-action",
+            "adaptive-btn-font"
           ]
 
           layout {
@@ -376,7 +485,8 @@ template $PebblesScientificView: Gtk.Grid {
           accel_markup: "L";
 
           styles [
-            "special-action"
+            "special-action",
+            "adaptive-btn-font"
           ]
 
           layout {
@@ -391,7 +501,8 @@ template $PebblesScientificView: Gtk.Grid {
           accel_markup: "F4";
 
           styles [
-            "memory-action"
+            "memory-action",
+            "adaptive-btn-font"
           ]
 
           layout {
@@ -406,7 +517,8 @@ template $PebblesScientificView: Gtk.Grid {
           accel_markup: "C";
 
           styles [
-            "special-action"
+            "special-action",
+            "adaptive-btn-font"
           ]
 
           layout {
@@ -421,7 +533,8 @@ template $PebblesScientificView: Gtk.Grid {
           accel_markup: "O";
 
           styles [
-            "special-action"
+            "special-action",
+            "adaptive-btn-font"
           ]
 
           layout {
@@ -436,7 +549,8 @@ template $PebblesScientificView: Gtk.Grid {
           accel_markup: "M";
 
           styles [
-            "special-action"
+            "special-action",
+            "adaptive-btn-font"
           ]
 
           layout {
@@ -451,7 +565,8 @@ template $PebblesScientificView: Gtk.Grid {
           accel_markup: "F5";
 
           styles [
-            "memory-action"
+            "memory-action",
+            "adaptive-btn-font"
           ]
 
           layout {
@@ -466,7 +581,8 @@ template $PebblesScientificView: Gtk.Grid {
           accel_markup: "T";
 
           styles [
-            "special-action"
+            "special-action",
+            "adaptive-btn-font"
           ]
 
           layout {
@@ -481,7 +597,8 @@ template $PebblesScientificView: Gtk.Grid {
           accel_markup: "A";
 
           styles [
-            "special-action"
+            "special-action",
+            "adaptive-btn-font"
           ]
 
           layout {
@@ -496,7 +613,8 @@ template $PebblesScientificView: Gtk.Grid {
           accel_markup: "P";
 
           styles [
-            "special-action"
+            "special-action",
+            "adaptive-btn-font"
           ]
 
           layout {
@@ -511,7 +629,8 @@ template $PebblesScientificView: Gtk.Grid {
           accel_markup: "F6";
 
           styles [
-            "memory-action"
+            "memory-action",
+            "adaptive-btn-font"
           ]
 
           layout {
@@ -526,7 +645,8 @@ template $PebblesScientificView: Gtk.Grid {
           accel_markup: "F";
 
           styles [
-            "special-action"
+            "special-action",
+            "adaptive-btn-font"
           ]
 
           layout {
@@ -541,7 +661,8 @@ template $PebblesScientificView: Gtk.Grid {
           accel_markup: "R";
 
           styles [
-            "special-action"
+            "special-action",
+            "adaptive-btn-font"
           ]
 
           layout {
@@ -556,7 +677,8 @@ template $PebblesScientificView: Gtk.Grid {
           accel_markup: "F7";
 
           styles [
-            "special-action"
+            "special-action",
+            "adaptive-btn-font"
           ]
 
           layout {
@@ -569,12 +691,12 @@ template $PebblesScientificView: Gtk.Grid {
           label_text: _("=");
           tooltip_desc: _("Result");
           accel_markup: "Return";
-
           visible: bind template.show_hide_fx_btn;
 
           styles [
             "suggested-action",
-            "large-font-btn"
+            "large-font-btn",
+            "adaptive-btn-font"
           ]
 
           layout {
@@ -589,7 +711,8 @@ template $PebblesScientificView: Gtk.Grid {
 
           styles [
             "suggested-action",
-            "large-font-btn"
+            "large-font-btn",
+            "adaptive-btn-font"
           ]
 
           layout {

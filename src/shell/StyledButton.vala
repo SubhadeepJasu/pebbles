@@ -10,6 +10,7 @@ namespace Pebbles {
 
             set construct {
                 btn_label.set_text (value);
+                btn_label.use_markup = true;
             }
         }
 
