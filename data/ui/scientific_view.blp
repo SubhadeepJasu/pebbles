@@ -20,27 +20,32 @@ template $PebblesScientificView: Gtk.Grid {
       row: 1;
     }
 
-    margin-start: 12;
-    margin-bottom: 12;
     vexpand: true;
     height-request: 250;
     sidebar-width-fraction: 0.5;
     max-sidebar-width: 1000000;
     min-sidebar-width: 256;
+    margin-start: 7;
+    margin-end: 7;
+    margin-bottom: 7;
     collapsed: bind template.collapsed;
 
     sidebar: Adw.NavigationPage button_container_left {
       title: "Numerical Input";
       hexpand: true;
-      margin-end: 12;
+      overflow: visible;
 
       Grid {
         row-homogeneous: true;
         column-homogeneous: true;
-        row-spacing: 4;
-        column-spacing: 4;
+        row-spacing: 8;
+        column-spacing: 8;
         vexpand: true;
         hexpand: true;
+        margin-start: 6;
+        margin-end: 6;
+        margin-bottom: 6;
+        margin-top: 1;
 
         $PebblesStyledButton all_clear_button {
           label_text: _("AC");
@@ -373,15 +378,19 @@ template $PebblesScientificView: Gtk.Grid {
     content: Adw.NavigationPage button_container_right {
       title: "Functional Input";
       hexpand: true;
-      margin-end: 12;
+      overflow: visible;
 
       Grid {
         row-homogeneous: true;
         column-homogeneous: true;
-        row-spacing: 4;
-        column-spacing: 4;
+        row-spacing: 8;
+        column-spacing: 8;
         vexpand: true;
         hexpand: true;
+        margin-start: 6;
+        margin-end: 6;
+        margin-bottom: 6;
+        margin-top: 2;
 
         ToggleButton shift_button {
           label: _("Shift");

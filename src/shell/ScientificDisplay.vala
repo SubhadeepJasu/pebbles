@@ -18,28 +18,6 @@ namespace Pebbles {
         [GtkChild]
         private unowned Gtk.Entry main_entry;
 
-        private int animation_frame = 0;
-        private string[] animation_frames = {"⠋ |       ",
-                                             "⠙ P|      ",
-                                             "⠹ PE|     ",
-                                             "⠸ PEB|    ",
-                                             "⠼ PEBB|   ",
-                                             "⠴ PEBBL|  ",
-                                             "⠦ PEBBLE| ",
-                                             "⠧ PEBBLES|",
-                                             "⠇ PEBBLES|",
-                                             "⠏ PEBBLES|",
-                                             "⠋ PEBBLES ",
-                                             "⠙ PEBBLES ",
-                                             "⠹ PEBBLES ",
-                                             "⠸ PEBBLES|",
-                                             "⠼ PEBBLES|",
-                                             "⠴ PEBBLES|",
-                                             "⠦ BBLES ",
-                                             "⠧ LES ",
-                                             "⠇ S ",
-                                             "⠏"};
-
         construct {
             visible = true;
 
@@ -59,6 +37,12 @@ namespace Pebbles {
 
                 return false;
             }, Priority.LOW);
+        }
+
+
+        [GtkCallback]
+        public void input () {
+            on_input (main_entry.text);
         }
     }
 }

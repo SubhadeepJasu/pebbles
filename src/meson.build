@@ -18,9 +18,17 @@ python.install_sources(
 python.install_sources(
   files(
     'shell/__init__.py',
-    'shell/window.py'
+    'shell/window.py',
   ),
   subdir: 'pebbles/shell',
+)
+
+python.install_sources(
+  files(
+    'core/__init__.py',
+    'core/scientific_calculator.py',
+  ),
+  subdir: 'pebbles/core',
 )
 
 configure_file(

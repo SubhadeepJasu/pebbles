@@ -23,10 +23,13 @@ namespace Pebbles {
 
         [GtkChild]
         private unowned ScientificView scientific_view;
+
+
+        protected signal void on_evaluate (string data);
+        
         construct {
             navigation_pane.add_css_class (Granite.STYLE_CLASS_SIDEBAR);
-
-            var menu_button = new Gtk.MenuButton() {
+            var menu_button = new Gtk.MenuButton () {
                 icon_name = "preferences-system-symbolic",
                 height_request = 28,
                 width_request = 28
@@ -46,6 +49,7 @@ namespace Pebbles {
             main_headerbar.pack_end (history_button);
 
             setup_actions ();
+            setup_evaluators ();
         }
 
         private void setup_actions () {
@@ -56,6 +60,25 @@ namespace Pebbles {
                 split_view.show_content = true;
             });
             add_action (enable_scientific_mode_action);
+        }
+
+        private void setup_evaluators () {
+            scientific_view.on_evaluate.connect ((input) => {
+                var gen = new Json.Generator ();
+                var root = new Json.Node (Json.NodeType.OBJECT);
+                var object = new Json.Object ();
+                root.set_object (object);
+                gen.set_root (root);
+
+                object.set_string_member ("mode", "scientific");
+                object.set_string_member ("input", input);
+                object.set_int_member ("angleMode", 0);
+
+                size_t length;
+                string json = gen.to_data (out length);
+                print (json + "\n");
+                on_evaluate (json);
+            });
         }
     }
 }

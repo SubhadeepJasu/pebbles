@@ -43,7 +43,7 @@ template $PebblesWindow: Adw.ApplicationWindow {
     }
 
     Adw.Breakpoint {
-        condition ("max-width: 500sp")
+        condition ("max-width: 512sp")
 
         setters {
             scientific_view.collapsed: true;
@@ -51,6 +51,7 @@ template $PebblesWindow: Adw.ApplicationWindow {
             split_view.show-content: true;
             navigation_headerbar.show-back-button: true;
             main_headerbar.show-start-title-buttons: true;
+            main_headerbar.show-title: false;
         }
     }
 
@@ -73,6 +74,7 @@ template $PebblesWindow: Adw.ApplicationWindow {
                         show-end-title-buttons: false;
                         show-title: false;
                         height-request: 48;
+                        margin-end: 1;
                     }
 
                     Gtk.ScrolledWindow {
@@ -266,10 +268,11 @@ template $PebblesWindow: Adw.ApplicationWindow {
                         show-start-title-buttons: false;
                         show-end-title-buttons: true;
                         height-request: 48;
+                        show-title: true;
 
                         Stack header_stack {
-                            margin-start: 6;
-                            margin-top: 6;
+                            margin-start: 7;
+                            margin-top: 7;
                             valign: start;
 
                             Box scientific_header_box {
@@ -280,6 +283,7 @@ template $PebblesWindow: Adw.ApplicationWindow {
                                     label_text: _("RAD");
                                     tooltip_desc: _("<b>Angle Mode</b>");
                                     accel_markup: "F8";
+                                    width-request: 64;
                                 }
                             }
 

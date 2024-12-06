@@ -31,8 +31,11 @@ namespace Pebbles {
         [GtkChild]
         private unowned Adw.NavigationSplitView sci_nav_split_view;
 
+        public signal void on_evaluate (string input);
+
         construct {
             del_button.remove_css_class ("image-button");
+            display.on_input.connect (evaluate);
         }
 
         [GtkCallback]
@@ -56,6 +59,10 @@ namespace Pebbles {
                 pow_root_button.tooltip_desc = _("x raised to the power y");
                 pow_root_button.accel_markup = "Z";
             }
+        }            
+
+        public void evaluate (string text) {
+            on_evaluate (text);
         }
     }
 }
