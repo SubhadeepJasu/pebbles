@@ -11,16 +11,13 @@ import threading
 class PythonWindow(Pebbles.Window):
     """The main window class."""
 
-    _sci_result: str
-
     def __init__(self, application: Pebbles.Application):
         super().__init__(application=application)
 
-        self.connect("on_evaluate", PythonWindow._evaluate)
+        self.connect("on_evaluate", self._evaluate)
 
 
-    @staticmethod
-    def _evaluate(self, data:str):
+    def _evaluate(self, _, data:str):
         _th = threading.Thread(target=self._evaluation_thread, args=(data,))
         _th.start()
     
@@ -28,6 +25,6 @@ class PythonWindow(Pebbles.Window):
     def _evaluation_thread(self, data: str):
         data_dict = json.loads(data)
         if data_dict['mode'] == 'scientific':
-            sci_calc = ScientificCalculator()
-            self._sci_result = sci_calc.evaluate(data_dict['input'], data_dict['angleMode'])
-            print(self._sci_result)
+            sci_calc = ScientificCalculator(data)
+            result_data = sci_calc.evaluate()
+            self.on_evaluation_completed(result_data)

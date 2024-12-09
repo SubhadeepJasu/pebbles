@@ -18,7 +18,7 @@ class PythonApplication(Pebbles.Application):
             flags=Gio.ApplicationFlags.HANDLES_OPEN,
             **kwargs,
         )
-        self.connect("create_window_request", PythonApplication._on_create_window_request)
+        self.connect("create_window_request", self._on_create_window_request)
 
         self.setup()
 
@@ -37,7 +37,5 @@ class PythonApplication(Pebbles.Application):
             Gdk.Display.get_default(), css_provider, 800)
 
 
-
-    @staticmethod
-    def _on_create_window_request(self) -> Pebbles.Window:
-        return PythonWindow(self)
+    def _on_create_window_request(self, app) -> Pebbles.Window:
+        return PythonWindow(app)

@@ -37,6 +37,25 @@ namespace Pebbles {
 
                 return false;
             }, Priority.LOW);
+
+            main_entry.get_delegate ().insert_text.connect_after (() => {
+                if (main_entry.text.has_prefix ("0") && main_entry.text != null) {
+                    if (main_entry.text_length > 1) {
+                        main_entry.text = main_entry.text.slice (1, main_entry.text_length);
+                        main_entry.set_position ((int) main_entry.text_length);
+                    }
+                }
+            });
+
+            main_entry.get_delegate ().delete_text.connect_after (() => {
+                Idle.add (() => {
+                    if (main_entry.text_length == 0) {
+                        main_entry.text = "0";
+                        main_entry.set_position ((int) main_entry.text_length);
+                    }
+                    return false;
+                });
+            });
         }
 
 

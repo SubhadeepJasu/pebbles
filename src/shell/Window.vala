@@ -24,6 +24,8 @@ namespace Pebbles {
         [GtkChild]
         private unowned ScientificView scientific_view;
 
+        private Gtk.EventControllerKey key_event_controller;
+
 
         protected signal void on_evaluate (string data);
         
@@ -50,6 +52,7 @@ namespace Pebbles {
 
             setup_actions ();
             setup_evaluators ();
+            setup_key_events ();
         }
 
         private void setup_actions () {
@@ -78,6 +81,51 @@ namespace Pebbles {
                 string json = gen.to_data (out length);
                 print (json + "\n");
                 on_evaluate (json);
+            });
+        }
+
+        private void setup_key_events () {
+            key_event_controller = new Gtk.EventControllerKey ();
+            key_event_controller.key_pressed.connect ((keyval, _, modifier) => {
+                if ((
+                    modifier &
+                    (
+                        Gdk.ModifierType.SHIFT_MASK |
+                        Gdk.ModifierType.CONTROL_MASK |
+                        Gdk.ModifierType.ALT_MASK
+                    )) != 0) {
+                    return false;
+                }
+
+                if (view_stack.visible_child == scientific_view) {
+                    scientific_view.send_key_down (keyval);
+                }
+
+                return false;
+            });
+            key_event_controller.key_released.connect ((keyval, _, modifier) => {
+                if ((
+                    modifier &
+                    (
+                        Gdk.ModifierType.SHIFT_MASK |
+                        Gdk.ModifierType.CONTROL_MASK |
+                        Gdk.ModifierType.ALT_MASK
+                    )) != 0) {
+                    return;
+                }
+
+                if (view_stack.visible_child == scientific_view) {
+                    scientific_view.send_key_up (keyval);
+                }
+            });
+            key_event_controller.set_propagation_phase (Gtk.PropagationPhase.CAPTURE);
+            ((Gtk.Widget) this).add_controller (key_event_controller);
+        }
+
+        protected void on_evaluation_completed (string data) {
+            Idle.add (() => {
+                print (data + "\n");
+                return false;
             });
         }
     }

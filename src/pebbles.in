@@ -34,6 +34,7 @@ if __name__ == "__main__":
     gettext.textdomain("@GETTEXT_PACKAGE@")
 
     shell_path = os.path.join(data_dir, 'pebbles', 'shell')
+    shell_path = os.path.join(data_dir, 'pebbles', 'core')
     sys.path.insert(1, shell_path)
     
     from gi.repository import Gio

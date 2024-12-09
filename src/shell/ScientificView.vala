@@ -10,6 +10,28 @@ namespace Pebbles {
         [GtkChild]
         private unowned Gtk.Button del_button;
         [GtkChild]
+        private unowned StyledButton zero_button;
+        [GtkChild]
+        private unowned StyledButton one_button;
+        [GtkChild]
+        private unowned StyledButton two_button;
+        [GtkChild]
+        private unowned StyledButton three_button;
+        [GtkChild]
+        private unowned StyledButton four_button;
+        [GtkChild]
+        private unowned StyledButton five_button;
+        [GtkChild]
+        private unowned StyledButton six_button;
+        [GtkChild]
+        private unowned StyledButton seven_button;
+        [GtkChild]
+        private unowned StyledButton eight_button;
+        [GtkChild]
+        private unowned StyledButton nine_button;
+        [GtkChild]
+        private unowned StyledButton point_button;
+        [GtkChild]
         private unowned Gtk.ToggleButton shift_button;
         [GtkChild]
         private unowned StyledButton pow_root_button;
@@ -59,10 +81,91 @@ namespace Pebbles {
                 pow_root_button.tooltip_desc = _("x raised to the power y");
                 pow_root_button.accel_markup = "Z";
             }
-        }            
+        }
 
         public void evaluate (string text) {
             on_evaluate (text);
+        }
+
+        public void send_key_down (uint keyval) {
+            switch (keyval) {
+                case Gdk.Key.@0:
+                    zero_button.show_as_pressed ();
+                    break;
+                case Gdk.Key.@1:
+                    one_button.show_as_pressed ();
+                    break;
+                case Gdk.Key.@2:
+                    two_button.show_as_pressed ();
+                    break;
+                case Gdk.Key.@3:
+                    three_button.show_as_pressed ();
+                    break;
+                case Gdk.Key.@4:
+                    four_button.show_as_pressed ();
+                    break;
+                case Gdk.Key.@5:
+                    five_button.show_as_pressed ();
+                    break;
+                case Gdk.Key.@6:
+                    six_button.show_as_pressed ();
+                    break;
+                case Gdk.Key.@7:
+                    seven_button.show_as_pressed ();
+                    break;
+                case Gdk.Key.@8:
+                    eight_button.show_as_pressed ();
+                    break;
+                case Gdk.Key.@9:
+                    nine_button.show_as_pressed ();
+                    break;
+                case Gdk.Key.period:
+                    point_button.show_as_pressed ();
+                    break;
+                default:
+                break;
+            }
+        }
+
+        public void send_key_up (uint keyval) {
+            switch (keyval) {
+                case Gdk.Key.@0:
+                    zero_button.show_as_pressed (false);
+                    break;
+                case Gdk.Key.@1:
+                    one_button.show_as_pressed (false);
+                    break;
+                case Gdk.Key.@2:
+                    two_button.show_as_pressed (false);
+                    break;
+                case Gdk.Key.@3:
+                    three_button.show_as_pressed (false);
+                    break;
+                case Gdk.Key.@4:
+                    four_button.show_as_pressed (false);
+                    break;
+                case Gdk.Key.@5:
+                    five_button.show_as_pressed (false);
+                    break;
+                case Gdk.Key.@6:
+                    six_button.show_as_pressed (false);
+                    break;
+                case Gdk.Key.@7:
+                    seven_button.show_as_pressed (false);
+                    break;
+                case Gdk.Key.@8:
+                    eight_button.show_as_pressed (false);
+                    break;
+                case Gdk.Key.@9:
+                    nine_button.show_as_pressed (false);
+                    break;
+                case Gdk.Key.period:
+                case Gdk.Key.comma:
+                    point_button.show_as_pressed (false);
+                    break;
+                default:
+                break;
+            }
         }
     }
 }

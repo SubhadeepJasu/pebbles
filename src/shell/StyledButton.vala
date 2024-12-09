@@ -1,6 +1,8 @@
 namespace Pebbles {
     [GtkTemplate (ui = "/com/github/subhadeepjasu/pebbles/ui/styled_button.ui")]
     public class StyledButton : Gtk.Button {
+        public const string STYLE_BTN_PRESSED = "pressed";
+
         [GtkChild]
         private unowned Gtk.Label btn_label;
         public string label_text {
@@ -46,6 +48,14 @@ namespace Pebbles {
 
         construct {
             btn_label.set_use_markup (true);
+        }
+
+        public void show_as_pressed (bool? pressed = true) {
+            if (pressed) {
+                add_css_class (STYLE_BTN_PRESSED);
+            } else {
+                remove_css_class (STYLE_BTN_PRESSED);
+            }
         }
     }
 }
