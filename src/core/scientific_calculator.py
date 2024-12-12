@@ -14,7 +14,6 @@ class ScientificCalculator():
     """The scientific calculator."""
 
     MODE = 'scientific'
-
     GRAD_VAL = math.pi / 200
     DEG_VAL = math.pi / 180
     INV_GRAD_VAL = 200 / math.pi
@@ -40,21 +39,35 @@ class ScientificCalculator():
             print(answer)
             print("\n")
             if type(answer) == complex:
-                return json.dumps({'mode': self.MODE, 'result': f'{answer.real:.{self.float_accuracy}f} + {answer.imag:.{self.float_accuracy}f}j'})
+                return json.dumps({'mode': self.MODE, 'result': f'{self._format_float(answer.real)} + {self._format_float(answer.imag)}j'})
             elif type(answer) == float:
-                return json.dumps({'mode': self.MODE, 'result': f'{answer:.{self.float_accuracy}f}'})
+                return json.dumps({'mode': self.MODE, 'result': f'{self._format_float(answer)}'})
             else:
                 return json.dumps({'mode': self.MODE, 'result': 'E'})
         except Exception as e:
             print(e)
             print("\n")
             return json.dumps({'mode': self.MODE, 'result': 'E'})
+        
+    
+    def _format_float(self, x: float) -> str:
+        format_string = f"{{:.{self.float_accuracy}f}}"
+        rounded_value = format_string.format(x)
+        
+        # Remove trailing zeros and the decimal point if not needed
+        return rounded_value.rstrip('0').rstrip('.') if '.' in rounded_value else rounded_value
 
     
     def process(self) -> complex | float:
         is_complex = 'j' in self.tokens
 
         operand_stack = []
+        def operand_pop():
+            try:
+                return operand_stack.pop()
+            except:
+                return 0
+            
         operator_stack = []
         for token in self.tokens:
              # Current tokens is a number, push it to number stack
@@ -68,7 +81,14 @@ class ScientificCalculator():
             # If tokens is a closing brace, solve it till the previous '(' is encountered
             elif token == ')':
                 while operator_stack[-1] != '(':
-                    temp = self._apply_op(operator_stack.pop(), operand_stack.pop(), operand_stack.pop())
+                    b = operand_pop()
+                    a = operand_pop()
+                    if is_complex:
+                        if type(a) == float:
+                            a = complex(a, 0)
+                        if type(b) == float:
+                            b = complex(b, 0)
+                    temp = self._apply_op(operator_stack.pop(), a, b)
                     operand_stack.append(complex(temp) if is_complex else float(temp))
                 
                 operator_stack.pop()
@@ -76,25 +96,45 @@ class ScientificCalculator():
             # If token is an operator
             elif self._is_operator(token):
                 while (not self._is_r_l_associative(token)) and len(operator_stack) > 0 and self._has_precedence_pemdas(token, operator_stack[-1]):
-                    tmp = self._apply_op(operator_stack.pop(), operand_stack.pop(), operand_stack.pop())
+                    b = operand_pop()
+                    a = operand_pop()
+                    if is_complex:
+                        if type(a) == float:
+                            a = complex(a, 0)
+                        if type(b) == float:
+                            b = complex(b, 0)
+                    
+                    tmp = self._apply_op(operator_stack.pop(), a, b)
+                    print("tmp ", tmp)
                     operand_stack.append(complex(tmp) if is_complex else float(tmp))
                 
                 operator_stack.append(token)
 
-        print(operator_stack)
+        # print(operator_stack)
         while len(operator_stack) > 0:
-            tmp = self._apply_op(operator_stack.pop(), operand_stack.pop(), operand_stack.pop())
+            b = operand_pop()
+            a = operand_pop()
+            if is_complex:
+                if type(a) == float:
+                    a = complex(a, 0)
+                if type(b) == float:
+                    b = complex(b, 0)
+            
+            op = operator_stack.pop()
+            print (a, b, "hhhhhh", op)
+            tmp = self._apply_op(op, a, b)
+            print("temp ", tmp)
             operand_stack.append(complex(tmp) if is_complex else float(tmp))
             
-        print(operand_stack)
-        return operand_stack.pop()      
+        # print(operand_stack)
+        return operand_pop()      
 
 
     def _apply_op(self, op:chr, a:complex | float, b:complex | float):
         is_complex = type(a) == complex or type(b) == complex
         match op:
             case 'j':
-                return complex(0, b)
+                return complex(0, b.real)
             case '+':
                 return a + b
             case '-':
@@ -325,7 +365,7 @@ class ScientificCalculator():
 
 
     def _is_r_l_associative(self, op:str) -> bool:
-        return op in ['u', '^', '']
+        return op in ['u', '^']
 
 
     def _is_operator(self, ch:chr) -> bool:
@@ -345,6 +385,7 @@ class ScientificCalculator():
         if op2 in ['(', ')']:
             return False
         
+        print("Comparing " + op1 + " and " + op2)
         # Following the PEMDAS rule: <http://mathworld.wolfram.com/PEMDAS.html>
         PRECENDANCE = [
             ['j'],
@@ -359,18 +400,11 @@ class ScientificCalculator():
             ['+', '-']
         ]
 
-        n = len(PRECENDANCE)
-
-        m1 = n
-        for i in range(n):
-            if m1 == n and op1 in PRECENDANCE[i]:
-                m1 = i
-
-            if m1 != n and op2 in PRECENDANCE[i]:
-                m2 = i
-                break
+        # Find the precedence index of each operator
+        op1_index = next((i for i, ops in enumerate(PRECENDANCE) if op1 in ops), float('inf'))
+        op2_index = next((i for i, ops in enumerate(PRECENDANCE) if op2 in ops), float('inf'))
         
-        return m1 < m2
+        return op1_index > op2_index
             
             
 

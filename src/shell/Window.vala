@@ -124,7 +124,25 @@ namespace Pebbles {
 
         protected void on_evaluation_completed (string data) {
             Idle.add (() => {
-                print (data + "\n");
+                var parser = new Json.Parser ();
+                try {
+                    parser.load_from_data (data, -1);
+
+                    var root_object = parser.get_root ().get_object ();
+                    var mode = root_object.get_string_member ("mode");
+                    
+                    switch (mode) {
+                        case "scientific":
+                            var result = root_object.get_string_member ("result");
+                            scientific_view.show_result (result);
+                            break;
+                        default:
+                        break;
+                    }
+                }
+                catch (Error e) {
+                    warning (e.message);
+                }
                 return false;
             });
         }

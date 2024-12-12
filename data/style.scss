@@ -75,6 +75,10 @@ $LCD_FG_COLOR: #272863bb;
             color: $LCD_FG_COLOR;
         }
     }
+
+    &.fade > * {
+        opacity: 0.2;
+    }
 }
 
 .nav-item {

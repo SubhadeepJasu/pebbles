@@ -87,6 +87,10 @@ namespace Pebbles {
             on_evaluate (text);
         }
 
+        public void show_result (string result) {
+            display.show_result (result);
+        }
+
         public void send_key_down (uint keyval) {
             switch (keyval) {
                 case Gdk.Key.@0:

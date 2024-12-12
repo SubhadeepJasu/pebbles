@@ -63,5 +63,16 @@ namespace Pebbles {
         public void input () {
             on_input (main_entry.text);
         }
+
+        public void show_result (string result) {
+            if (result != "E") {
+                add_css_class ("fade");
+                Timeout.add (100, () => {
+                    main_label.set_text (result);
+                    remove_css_class ("fade");
+                    return false;
+                });
+            }
+        }
     }
 }

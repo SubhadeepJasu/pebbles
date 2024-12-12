@@ -236,6 +236,7 @@ class Tokenizer():
             # Convert to symbolic terms and introduce additional spaces
             exp = exp.replace('e', ' ( 2.718281828 ) ')
             exp = exp.replace('i', ' j ')                   # Imaginary
+            exp = exp.replace('j', ' j ')
             exp = exp.replace('[0]', ' 0 r ')
             exp = exp.replace('[1]', ' 0 z ')
             exp = exp.replace('[2]', ' 0 k ')
