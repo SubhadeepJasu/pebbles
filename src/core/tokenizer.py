@@ -185,7 +185,7 @@ class Tokenizer():
 
 
     @staticmethod
-    def st_tokenize(input:str) -> str:
+    def st_tokenize(input:str) -> list[str]:
         if Tokenizer._check_parenthesis(input):
             exp:str = input
             
@@ -277,7 +277,7 @@ class Tokenizer():
             exp = Tokenizer._relative_percentage_convert(exp)
             exp = Tokenizer._space_removal(exp.strip())
 
-            return exp
+            return exp.split(' ')
         else:
-            return 'E'
+            return []
 
