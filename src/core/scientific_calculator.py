@@ -31,22 +31,16 @@ class ScientificCalculator():
 
     def evaluate(self) -> str:
         try:
-            print("Tokens: ")
-            print(self.tokens)
-            print("\n")
             answer = self.process()
-            print("Answer: ")
-            print(answer)
-            print("\n")
             if type(answer) == complex:
+                if answer.imag < 0:
+                    return json.dumps({'mode': self.MODE, 'result': f'{self._format_float(answer.real)} - {self._format_float(-answer.imag)}j'})
                 return json.dumps({'mode': self.MODE, 'result': f'{self._format_float(answer.real)} + {self._format_float(answer.imag)}j'})
             elif type(answer) == float:
                 return json.dumps({'mode': self.MODE, 'result': f'{self._format_float(answer)}'})
             else:
                 return json.dumps({'mode': self.MODE, 'result': 'E'})
         except Exception as e:
-            print(e)
-            print("\n")
             return json.dumps({'mode': self.MODE, 'result': 'E'})
         
     
@@ -59,8 +53,6 @@ class ScientificCalculator():
 
     
     def process(self) -> complex | float:
-        is_complex = 'j' in self.tokens
-
         operand_stack = []
         def operand_pop():
             try:
@@ -72,7 +64,7 @@ class ScientificCalculator():
         for token in self.tokens:
              # Current tokens is a number, push it to number stack
             if (not self._is_operator(token)) and token not in ['(', ')']:
-                operand_stack.append(complex(float(token), 0) if is_complex else float(token))
+                operand_stack.append(float(token))
             
             # If tokens is an opening brace, push it to 'ops'
             elif token == '(':
@@ -83,13 +75,11 @@ class ScientificCalculator():
                 while operator_stack[-1] != '(':
                     b = operand_pop()
                     a = operand_pop()
-                    if is_complex:
-                        if type(a) == float:
-                            a = complex(a, 0)
-                        if type(b) == float:
-                            b = complex(b, 0)
-                    temp = self._apply_op(operator_stack.pop(), a, b)
-                    operand_stack.append(complex(temp) if is_complex else float(temp))
+                    op = operator_stack.pop()
+                    print(a, b, op)
+                    temp = self._apply_op(op, a, b)
+                    print("res ", temp)
+                    operand_stack.append(temp)
                 
                 operator_stack.pop()
 
@@ -98,15 +88,11 @@ class ScientificCalculator():
                 while (not self._is_r_l_associative(token)) and len(operator_stack) > 0 and self._has_precedence_pemdas(token, operator_stack[-1]):
                     b = operand_pop()
                     a = operand_pop()
-                    if is_complex:
-                        if type(a) == float:
-                            a = complex(a, 0)
-                        if type(b) == float:
-                            b = complex(b, 0)
-                    
-                    tmp = self._apply_op(operator_stack.pop(), a, b)
-                    print("tmp ", tmp)
-                    operand_stack.append(complex(tmp) if is_complex else float(tmp))
+                    op = operator_stack.pop()
+                    print(a, b, op)
+                    tmp = self._apply_op(op, a, b)
+                    print("res ", tmp)
+                    operand_stack.append(tmp)
                 
                 operator_stack.append(token)
 
@@ -114,49 +100,44 @@ class ScientificCalculator():
         while len(operator_stack) > 0:
             b = operand_pop()
             a = operand_pop()
-            if is_complex:
-                if type(a) == float:
-                    a = complex(a, 0)
-                if type(b) == float:
-                    b = complex(b, 0)
             
+            print("hi")
             op = operator_stack.pop()
-            print (a, b, "hhhhhh", op)
+            print(a, b, op)
             tmp = self._apply_op(op, a, b)
-            print("temp ", tmp)
-            operand_stack.append(complex(tmp) if is_complex else float(tmp))
+            print("res ", tmp)
+            operand_stack.append(tmp)
             
         # print(operand_stack)
         return operand_pop()      
 
 
     def _apply_op(self, op:chr, a:complex | float, b:complex | float):
-        is_complex = type(a) == complex or type(b) == complex
         match op:
             case 'j':
-                return complex(0, b.real)
+                if type(a) == complex:
+                    return a
+
+                return complex(0, a)
             case '+':
+                if type(a) == float and type(b) == complex:
+                    return complex(a, 0) + b
+                elif type(a) == complex and type(b) == float:
+                    return a + complex(b, 0)
                 return a + b
             case '-':
+                if type(a) == float and type(b) == complex:
+                    return complex(a - b.real, -b.imag)
+                elif type(a) == complex and type(b) == float:
+                    return a - complex(b, 0)
                 return a - b
             case 'u':
-                if is_complex:
-                    return b * complex(-1, 0)
-                else:
                     return b * -1
             case '*':
                 return a * b
             case '/':
-                if self.zero_limit:
-                    if b == 0:
-                        b = complex(sys.float_info.min, 0) if is_complex else sys.float_info.min
-                        if a == 0:
-                            a = complex(sys.float_info.min, 0) if is_complex else sys.float_info.min
-                
-                if b == 0:
-                    raise ArithmeticError()
-                
                 return a / b
+
             case 'q':
                 return b ** (1 / a)
             case '^':
@@ -164,18 +145,27 @@ class ScientificCalculator():
             case 'm':
                 return a % b
             case 'l':
-                if is_complex:
-                    return cmath.log(b) / cmath.log(a)
+                _x = a
+                _y = b
+                if type(_x) == complex:
+                    _X = cmath.log(_x)
+                else:
+                    _x = math.log(_x)
                 
-                return math.log(b) / math.log(a)
+                if type(_y) == complex:
+                    _y = cmath.log(_y)
+                else:
+                    _y = math.log(_y)
+                
+                return _x / _y
             case '!':
-                return math.factorial(int(b))
+                return float(math.factorial(int(a)))
             case 'p':
-                return math.perm(int(a), int(b))
+                return float(math.perm(int(a), int(b)))
             case 'b':
-                return math.comb(int(a), int(b))
+                return float(math.comb(int(a), int(b)))
             case 's':
-                if is_complex:
+                if type(b) == complex:
                     if self.angle_mode == 0:
                         return cmath.sin(b * self.DEG_VAL)
                     elif self.angle_mode == 1:
@@ -190,7 +180,7 @@ class ScientificCalculator():
                     else:
                         return math.sin(b * self.GRAD_VAL)
             case 'c':
-                if is_complex:
+                if type(b) == complex:
                     if self.angle_mode == 0:
                         return cmath.cos(b * self.DEG_VAL)
                     elif self.angle_mode == 1:
@@ -205,7 +195,7 @@ class ScientificCalculator():
                     else:
                         return math.cos(b * self.GRAD_VAL)
             case 't':
-                if is_complex:
+                if type(b) == complex:
                     if self.angle_mode == 0:
                         return cmath.tan(b * self.DEG_VAL)
                     elif self.angle_mode == 1:
@@ -223,7 +213,7 @@ class ScientificCalculator():
                 if b < -1 or b > 1:
                     raise ArithmeticError
                 
-                if is_complex:
+                if type(b) == complex:
                     if self.angle_mode == 0:
                         return cmath.asin(b * self.INV_DEG_VAL)
                     elif self.angle_mode == 1:
@@ -241,7 +231,7 @@ class ScientificCalculator():
                 if b < -1 or b > 1:
                     raise ArithmeticError
                 
-                if is_complex:
+                if type(b) == complex:
                     if self.angle_mode == 0:
                         return cmath.acos(b * self.INV_DEG_VAL)
                     elif self.angle_mode == 1:
@@ -256,7 +246,7 @@ class ScientificCalculator():
                     else:
                         return math.acos(b * self.INV_GRAD_VAL)
             case 'a':
-                if is_complex:
+                if type(b) == complex:
                     if self.angle_mode == 0:
                         return cmath.atan(b * self.INV_DEG_VAL)
                     elif self.angle_mode == 1:
@@ -271,7 +261,7 @@ class ScientificCalculator():
                     else:
                         return math.atan(b * self.INV_GRAD_VAL)
             case 'h':
-                if is_complex:
+                if type(b) == complex:
                     if self.angle_mode == 0:
                         return cmath.sinh(b * self.DEG_VAL)
                     elif self.angle_mode == 1:
@@ -286,7 +276,7 @@ class ScientificCalculator():
                     else:
                         return math.sinh(b * self.GRAD_VAL)
             case 'y':
-                if is_complex:
+                if type(b) == complex:
                     if self.angle_mode == 0:
                         return cmath.cosh(b * self.DEG_VAL)
                     elif self.angle_mode == 1:
@@ -301,7 +291,7 @@ class ScientificCalculator():
                     else:
                         return math.cosh(b * self.GRAD_VAL)
             case 'e':
-                if is_complex:
+                if type(b) == complex:
                     if self.angle_mode == 0:
                         return cmath.tanh(b * self.DEG_VAL)
                     elif self.angle_mode == 1:
@@ -316,7 +306,7 @@ class ScientificCalculator():
                     else:
                         return math.tanh(b * self.GRAD_VAL)
             case 'r':
-                if is_complex:
+                if type(b) == complex:
                     if self.angle_mode == 0:
                         return cmath.asinh(b * self.INV_DEG_VAL)
                     elif self.angle_mode == 1:
@@ -331,7 +321,7 @@ class ScientificCalculator():
                     else:
                         return math.asinh(b * self.INV_GRAD_VAL)
             case 'z':
-                if is_complex:
+                if type(b) == complex:
                     if self.angle_mode == 0:
                         return cmath.acosh(b * self.INV_DEG_VAL)
                     elif self.angle_mode == 1:
@@ -346,7 +336,7 @@ class ScientificCalculator():
                     else:
                         return math.acosh(b * self.INV_GRAD_VAL)
             case 'k':
-                if is_complex:
+                if type(b) == complex:
                     if self.angle_mode == 0:
                         return cmath.atanh(b * self.INV_DEG_VAL)
                     elif self.angle_mode == 1:
