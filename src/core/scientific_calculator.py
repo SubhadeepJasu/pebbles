@@ -33,6 +33,8 @@ class ScientificCalculator():
         try:
             answer = self.process()
             if type(answer) == complex:
+                if answer.real == 0 and answer.imag == 0:
+                    return json.dumps({'mode': self.MODE, 'result': '0'})
                 if answer.imag < 0:
                     return json.dumps({'mode': self.MODE, 'result': f'{self._format_float(answer.real)} - {self._format_float(-answer.imag)}j'})
                 return json.dumps({'mode': self.MODE, 'result': f'{self._format_float(answer.real)} + {self._format_float(answer.imag)}j'})

@@ -38,12 +38,84 @@ namespace Pebbles {
                 return false;
             }, Priority.LOW);
 
-            main_entry.get_delegate ().insert_text.connect_after (() => {
+            main_entry.get_delegate ().insert_text.connect_after ((ch, length) => {
                 if (main_entry.text.has_prefix ("0") && main_entry.text != null) {
                     if (main_entry.text_length > 1) {
                         main_entry.text = main_entry.text.slice (1, main_entry.text_length);
                         main_entry.set_position ((int) main_entry.text_length);
                     }
+                }
+
+                if (main_entry.text.contains ("*")) {
+                    Idle.add (() => {
+                        main_entry.text = main_entry.text.replace ("*", " × ");
+                        main_entry.set_position ((int) main_entry.text_length);
+                        return false;
+                    });
+                }
+
+                if (main_entry.text.contains ("/")) {
+                    Idle.add (() => {
+                        main_entry.text = main_entry.text.replace ("/", " ÷ ");
+                        main_entry.set_position ((int) main_entry.text_length);
+                        return false;
+                    });
+                }
+
+                if (length > 1) {
+                    return;
+                }
+
+                var _ch =ch.down () ;
+
+                if (ch == "+") {
+                    Idle.add (() => {
+                        main_entry.text = main_entry.text.substring (0, main_entry.text_length - 1) + " + ";
+                        main_entry.set_position ((int) main_entry.text_length);
+                        return false;
+                    });
+                } else if (ch == "-") {
+                    Idle.add (() => {
+                        main_entry.text = main_entry.text.substring (0, main_entry.text_length - 1) + " − ";
+                        main_entry.set_position ((int) main_entry.text_length);
+                        return false;
+                    });
+                } else if (_ch == "s" && !main_entry.text.has_suffix ("sin ")) { // Typing 'sin'
+                    Idle.add (() => {
+                        main_entry.text += "in ";
+                        main_entry.set_position ((int) main_entry.text_length);
+                        return false;
+                    });
+                } else if (_ch == "h" && !main_entry.text.has_suffix ("sinh ")) {
+                    Idle.add (() => {
+                        main_entry.text = main_entry.text.substring (0, main_entry.text_length - 1) + "sinh ";
+                        main_entry.set_position ((int) main_entry.text_length);
+                        return false;
+                    });
+                } else if (_ch == "c" && !main_entry.text.has_suffix ("cos ")) { // Typing 'cos'
+                    Idle.add (() => {
+                        main_entry.text += "os ";
+                        main_entry.set_position ((int) main_entry.text_length);
+                        return false;
+                    });
+                } else if (_ch == "o" && !main_entry.text.has_suffix ("cosh ")) {
+                    Idle.add (() => {
+                        main_entry.text = main_entry.text.substring (0, main_entry.text_length - 1) + "cosh ";
+                        main_entry.set_position ((int) main_entry.text_length);
+                        return false;
+                    });
+                } else if (_ch == "t" && !main_entry.text.has_suffix ("tan ")) { // Typing 'tan'
+                    Idle.add (() => {
+                        main_entry.text += "an ";
+                        main_entry.set_position ((int) main_entry.text_length);
+                        return false;
+                    });
+                } else if (_ch == "a" && !main_entry.text.has_suffix ("tanh ")) {
+                    Idle.add (() => {
+                        main_entry.text = main_entry.text.substring (0, main_entry.text_length - 1) + "tanh ";
+                        main_entry.set_position ((int) main_entry.text_length);
+                        return false;
+                    });
                 }
             });
 

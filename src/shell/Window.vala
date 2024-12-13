@@ -34,7 +34,9 @@ namespace Pebbles {
             var menu_button = new Gtk.MenuButton () {
                 icon_name = "preferences-system-symbolic",
                 height_request = 28,
-                width_request = 28
+                width_request = 28,
+                focusable = false,
+                focus_on_click = false
             };
             main_headerbar.pack_end (menu_button);
 
@@ -42,11 +44,14 @@ namespace Pebbles {
             menu_button.menu_model = app_menu;
 
             app_menu.append (_("Preferences"), "app.preferences");
+            app_menu.append ("Keyboard Shortcuts", "app.keymap");
 
 
             var history_button = new Gtk.Button.from_icon_name ("document-open-recent-symbolic") {
                 height_request = 28,
-                width_request = 28
+                width_request = 28,
+                focusable = false,
+                focus_on_click = false
             };
             main_headerbar.pack_end (history_button);
 
