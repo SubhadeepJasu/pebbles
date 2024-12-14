@@ -171,5 +171,10 @@ namespace Pebbles {
                 break;
             }
         }
+
+        public void send_shift_modifier (bool shifted) {
+            shift_button.active = shifted;
+            on_shift ();
+        }
     }
 }

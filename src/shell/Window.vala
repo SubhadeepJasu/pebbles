@@ -92,13 +92,17 @@ namespace Pebbles {
         private void setup_key_events () {
             key_event_controller = new Gtk.EventControllerKey ();
             key_event_controller.key_pressed.connect ((keyval, _, modifier) => {
+                var shift_key = keyval == Gdk.Key.Shift_L || keyval == Gdk.Key.Shift_R;
+                if (shift_key) {
+                    set_shift_on (true);
+                }
+
                 if ((
                     modifier &
                     (
-                        Gdk.ModifierType.SHIFT_MASK |
                         Gdk.ModifierType.CONTROL_MASK |
                         Gdk.ModifierType.ALT_MASK
-                    )) != 0) {
+                    )) != 0 || shift_key) {
                     return false;
                 }
 
@@ -109,13 +113,17 @@ namespace Pebbles {
                 return false;
             });
             key_event_controller.key_released.connect ((keyval, _, modifier) => {
+                var shift_key = keyval == Gdk.Key.Shift_L || keyval == Gdk.Key.Shift_R;
+                if (shift_key) {
+                    set_shift_on (false);
+                }
+
                 if ((
                     modifier &
                     (
-                        Gdk.ModifierType.SHIFT_MASK |
                         Gdk.ModifierType.CONTROL_MASK |
                         Gdk.ModifierType.ALT_MASK
-                    )) != 0) {
+                    )) != 0 || shift_key) {
                     return;
                 }
 
@@ -135,7 +143,6 @@ namespace Pebbles {
 
                     var root_object = parser.get_root ().get_object ();
                     var mode = root_object.get_string_member ("mode");
-                    
                     switch (mode) {
                         case "scientific":
                             var result = root_object.get_string_member ("result");
@@ -150,6 +157,10 @@ namespace Pebbles {
                 }
                 return false;
             });
+        }
+
+        private void set_shift_on (bool on) {
+            scientific_view.send_shift_modifier (on);
         }
     }
 }

@@ -66,56 +66,129 @@ namespace Pebbles {
                     return;
                 }
 
-                var _ch =ch.down () ;
-
-                if (ch == "+") {
-                    Idle.add (() => {
-                        main_entry.text = main_entry.text.substring (0, main_entry.text_length - 1) + " + ";
-                        main_entry.set_position ((int) main_entry.text_length);
-                        return false;
-                    });
-                } else if (ch == "-") {
-                    Idle.add (() => {
-                        main_entry.text = main_entry.text.substring (0, main_entry.text_length - 1) + " − ";
-                        main_entry.set_position ((int) main_entry.text_length);
-                        return false;
-                    });
-                } else if (_ch == "s" && !main_entry.text.has_suffix ("sin ")) { // Typing 'sin'
-                    Idle.add (() => {
-                        main_entry.text += "in ";
-                        main_entry.set_position ((int) main_entry.text_length);
-                        return false;
-                    });
-                } else if (_ch == "h" && !main_entry.text.has_suffix ("sinh ")) {
-                    Idle.add (() => {
-                        main_entry.text = main_entry.text.substring (0, main_entry.text_length - 1) + "sinh ";
-                        main_entry.set_position ((int) main_entry.text_length);
-                        return false;
-                    });
-                } else if (_ch == "c" && !main_entry.text.has_suffix ("cos ")) { // Typing 'cos'
-                    Idle.add (() => {
-                        main_entry.text += "os ";
-                        main_entry.set_position ((int) main_entry.text_length);
-                        return false;
-                    });
-                } else if (_ch == "o" && !main_entry.text.has_suffix ("cosh ")) {
-                    Idle.add (() => {
-                        main_entry.text = main_entry.text.substring (0, main_entry.text_length - 1) + "cosh ";
-                        main_entry.set_position ((int) main_entry.text_length);
-                        return false;
-                    });
-                } else if (_ch == "t" && !main_entry.text.has_suffix ("tan ")) { // Typing 'tan'
-                    Idle.add (() => {
-                        main_entry.text += "an ";
-                        main_entry.set_position ((int) main_entry.text_length);
-                        return false;
-                    });
-                } else if (_ch == "a" && !main_entry.text.has_suffix ("tanh ")) {
-                    Idle.add (() => {
-                        main_entry.text = main_entry.text.substring (0, main_entry.text_length - 1) + "tanh ";
-                        main_entry.set_position ((int) main_entry.text_length);
-                        return false;
-                    });
+                switch (ch) {
+                    case "+":
+                        Idle.add (() => {
+                            main_entry.text = main_entry.text.substring (0, main_entry.text_length - 1) + " + ";
+                            main_entry.set_position ((int) main_entry.text_length);
+                            return false;
+                        });
+                        break;
+                    case "-":
+                        Idle.add (() => {
+                            main_entry.text = main_entry.text.substring (0, main_entry.text_length - 1) + " − ";
+                            main_entry.set_position ((int) main_entry.text_length);
+                            return false;
+                        });
+                        break;
+                    case "s":
+                        if (!main_entry.text.has_suffix ("sin ")) {
+                            Idle.add (() => {
+                                main_entry.text += "in ";
+                                main_entry.set_position ((int) main_entry.text_length);
+                                return false;
+                            });
+                        }
+                        break;
+                    case "S":
+                        if (!main_entry.text.has_suffix ("isin ")) {
+                            Idle.add (() => {
+                                main_entry.text = main_entry.text.substring (0, main_entry.text_length - 1) + "isin ";
+                                main_entry.set_position ((int) main_entry.text_length);
+                                return false;
+                            });
+                        }
+                        break;
+                    case "h":
+                        if (!main_entry.text.has_suffix ("sinh ")) {
+                            Idle.add (() => {
+                                main_entry.text = main_entry.text.substring (0, main_entry.text_length - 1) + "sinh ";
+                                main_entry.set_position ((int) main_entry.text_length);
+                                return false;
+                            });
+                        }
+                        break;
+                    case "H":
+                        if (!main_entry.text.has_suffix ("isinh ")) {
+                            Idle.add (() => {
+                                main_entry.text = main_entry.text.substring (0, main_entry.text_length - 1) + "isinh ";
+                                main_entry.set_position ((int) main_entry.text_length);
+                                return false;
+                            });
+                        }
+                        break;
+                    case "c":
+                        if (!main_entry.text.has_suffix ("cos ")) {
+                            Idle.add (() => {
+                                main_entry.text += "os ";
+                                main_entry.set_position ((int) main_entry.text_length);
+                                return false;
+                            });
+                        }
+                        break;
+                    case "C":
+                        if (!main_entry.text.has_suffix ("icos ")) {
+                            Idle.add (() => {
+                                main_entry.text = main_entry.text.substring (0, main_entry.text_length - 1) + "icos ";
+                                main_entry.set_position ((int) main_entry.text_length);
+                                return false;
+                            });
+                        }
+                        break;
+                    case "o":
+                        if (!main_entry.text.has_suffix ("cosh ")) {
+                            Idle.add (() => {
+                                main_entry.text = main_entry.text.substring (0, main_entry.text_length - 1) + "cosh ";
+                                main_entry.set_position ((int) main_entry.text_length);
+                                return false;
+                            });
+                        }
+                        break;
+                    case "O":
+                        if (!main_entry.text.has_suffix ("icosh ")) {
+                            Idle.add (() => {
+                                main_entry.text = main_entry.text.substring (0, main_entry.text_length - 1) + "icosh ";
+                                main_entry.set_position ((int) main_entry.text_length);
+                                return false;
+                            });
+                        }
+                        break;
+                    case "t":
+                        if (!main_entry.text.has_suffix ("tan ")) {
+                            Idle.add (() => {
+                                main_entry.text += "an ";
+                                main_entry.set_position ((int) main_entry.text_length);
+                                return false;
+                            });
+                        }
+                        break;
+                    case "T":
+                        if (!main_entry.text.has_suffix ("itan ")) {
+                            Idle.add (() => {
+                                main_entry.text = main_entry.text.substring (0, main_entry.text_length - 1) + "itan ";
+                                main_entry.set_position ((int) main_entry.text_length);
+                                return false;
+                            });
+                        }
+                        break;
+                    case "a":
+                        if (!main_entry.text.has_suffix ("tanh ")) {
+                            Idle.add (() => {
+                                main_entry.text = main_entry.text.substring (0, main_entry.text_length - 1) + "tanh ";
+                                main_entry.set_position ((int) main_entry.text_length);
+                                return false;
+                            });
+                        }
+                        break;
+                    case "A":
+                        if (!main_entry.text.has_suffix ("itanh ")) {
+                            Idle.add (() => {
+                                main_entry.text = main_entry.text.substring (0, main_entry.text_length - 1) + "itanh ";
+                                main_entry.set_position ((int) main_entry.text_length);
+                                return false;
+                            });
+                        }
+                        break;
                 }
             });
 
