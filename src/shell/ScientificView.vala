@@ -35,6 +35,30 @@ namespace Pebbles {
         private unowned Gtk.ToggleButton shift_button;
         [GtkChild]
         private unowned StyledButton pow_root_button;
+        [GtkChild]
+        private unowned StyledButton expo_power_button;
+        [GtkChild]
+        private unowned StyledButton sin_button;
+        [GtkChild]
+        private unowned StyledButton sinh_button;
+        [GtkChild]
+        private unowned StyledButton log_cont_base_button;
+        [GtkChild]
+        private unowned StyledButton cos_button;
+        [GtkChild]
+        private unowned StyledButton cosh_button;
+        [GtkChild]
+        private unowned StyledButton log_mod_button;
+        [GtkChild]
+        private unowned StyledButton tan_button;
+        [GtkChild]
+        private unowned StyledButton tanh_button;
+        [GtkChild]
+        private unowned StyledButton perm_comb_button;
+        [GtkChild]
+        private unowned StyledButton fact_button;
+        [GtkChild]
+        private unowned StyledButton constant_button;
 
         private bool _collapsed;
         public bool collapsed {
@@ -75,11 +99,49 @@ namespace Pebbles {
             if (shift_button.active) {
                 pow_root_button.label_text = "<sup>n</sup>√";
                 pow_root_button.tooltip_desc = _("Square root over number");
-                pow_root_button.accel_markup = "Q";
+                expo_power_button.label_text = "e<sup>x</sup>";
+                expo_power_button.tooltip_desc = _("e raised to the power x");
+                sin_button.label_text = "sin<sup>-1</sup>";
+                sin_button.tooltip_desc = _("Inverse Sine");
+                cos_button.label_text = "cos<sup>-1</sup>";
+                cos_button.tooltip_desc = _("Inverse Cosine");
+                tan_button.label_text = "tan<sup>-1</sup>";
+                tan_button.tooltip_desc = _("Inverse Tangent");
+                sinh_button.label_text = "sinh<sup>-1</sup>";
+                sinh_button.tooltip_desc = _("Inverse Hyperbolic Sine");
+                cosh_button.label_text = "cosh<sup>-1</sup>";
+                cosh_button.tooltip_desc = _("Inverse Hyperbolic Cosine");
+                tanh_button.label_text = "tanh<sup>-1</sup>";
+                tanh_button.tooltip_desc = _("Inverse Hyperbolic Tangent");
+                log_mod_button.label_text = "log<sub>x</sub>y";
+                log_mod_button.tooltip_desc = _("Log Base x");
+                log_cont_base_button.label_text = "ln x";
+                log_cont_base_button.tooltip_desc = _("Natural Logarithm");
+                perm_comb_button.label_text = "<sup>n</sup>C<sub>r</sub>";
+                perm_comb_button.tooltip_desc = _("Combinations");
             } else {
                 pow_root_button.label_text = "x<sup>y</sup>";
                 pow_root_button.tooltip_desc = _("x raised to the power y");
-                pow_root_button.accel_markup = "Z";
+                expo_power_button.label_text = "10<sup>x</sup>";
+                expo_power_button.tooltip_desc = _("10 raised to the power x");
+                sin_button.label_text = "sin";
+                sin_button.tooltip_desc = _("Sine");
+                cos_button.label_text = "cos";
+                cos_button.tooltip_desc = _("Cosine");
+                tan_button.label_text = "tan";
+                tan_button.tooltip_desc = _("Tangent");
+                sinh_button.label_text = "sinh";
+                sinh_button.tooltip_desc = _("Hyperbolic Sine");
+                cosh_button.label_text = "cosh";
+                cosh_button.tooltip_desc = _("Hyperbolic Cosine");
+                tanh_button.label_text = "tanh";
+                tanh_button.tooltip_desc = _("Hyperbolic Tangent");
+                log_mod_button.label_text = "|Mod|";
+                log_mod_button.tooltip_desc = _("Modulus");
+                log_cont_base_button.label_text = "log x";
+                log_cont_base_button.tooltip_desc = _("Log Base 10");
+                perm_comb_button.label_text = "<sup>n</sup>P<sub>r</sub>";
+                perm_comb_button.tooltip_desc = _("Permutations");
             }
         }
 
