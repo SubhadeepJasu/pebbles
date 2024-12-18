@@ -238,5 +238,65 @@ namespace Pebbles {
             shift_button.active = shifted;
             on_shift ();
         }
+
+        [GtkCallback]
+        public void on_pow_root_button () {
+            display.write (shift_button.active ? "Q" : "q");
+        }
+
+        [GtkCallback]
+        public void on_expo_power_button () {
+            display.write (shift_button.active ? "Z" : "z");
+        }
+
+        [GtkCallback]
+        public void on_sin_button () {
+            display.write (shift_button.active ? "S" : "s");
+        }
+
+        [GtkCallback]
+        public void on_sinh_button () {
+            display.write (shift_button.active ? "H" : "h");
+        }
+
+        [GtkCallback]
+        public void on_log_cont_base_button () {
+            display.write (shift_button.active ? "L" : "l");
+        }
+
+        [GtkCallback]
+        public void on_cos_button () {
+            display.write (shift_button.active ? "C" : "c");
+        }
+
+        [GtkCallback]
+        public void on_cosh_button () {
+            display.write (shift_button.active ? "O" : "o");
+        }
+
+        [GtkCallback]
+        public void on_log_mod_button () {
+            display.write (shift_button.active ? "M" : "m");
+        }
+
+        [GtkCallback]
+        public void on_tan_button () {
+            display.write (shift_button.active ? "T" : "t");
+        }
+
+        [GtkCallback]
+        public void on_tanh_button () {
+            display.write (shift_button.active ? "A" : "a");
+        }
+
+        [GtkCallback]
+        public void on_perm_comb_button () {
+            display.write (shift_button.active ? "P" : "p");
+        }
+
+        [GtkCallback]
+        public void on_fact_button () {
+            display.write ("F");
+        }
     }
 }

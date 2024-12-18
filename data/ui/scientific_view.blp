@@ -394,6 +394,7 @@ template $PebblesScientificView: Gtk.Grid {
 
         ToggleButton shift_button {
           label: _("Shift");
+          focus-on-click: false;
 
           styles [
             "special-action",
@@ -412,6 +413,7 @@ template $PebblesScientificView: Gtk.Grid {
           label_text: "x<sup>y</sup>";
           tooltip_desc: _("x raised to the power y");
           accel_markup: "Z";
+          focus-on-click: false;
 
           styles [
             "special-action",
@@ -422,12 +424,15 @@ template $PebblesScientificView: Gtk.Grid {
             row: 0;
             column: 1;
           }
+
+          clicked => $on_pow_root_button();
         }
 
         $PebblesStyledButton expo_power_button {
           label_text: "10<sup>x</sup>";
           tooltip_desc: _("10 raised to the power x");
           accel_markup: "W";
+          focus-on-click: false;
 
           styles [
             "special-action",
@@ -438,12 +443,15 @@ template $PebblesScientificView: Gtk.Grid {
             row: 0;
             column: 2;
           }
+
+          clicked => $on_expo_power_button();
         }
 
         $PebblesStyledButton memory_plus_button {
           label_text: "M+";
           tooltip_desc: _("Add it to the value in Memory");
           accel_markup: "F3";
+          focus-on-click: false;
 
           styles [
             "memory-action",
@@ -460,6 +468,7 @@ template $PebblesScientificView: Gtk.Grid {
           label_text: "sin";
           tooltip_desc: _("Sine");
           accel_markup: "S";
+          focus-on-click: false;
 
           styles [
             "special-action",
@@ -470,12 +479,15 @@ template $PebblesScientificView: Gtk.Grid {
             row: 1;
             column: 0;
           }
+
+          clicked => $on_sin_button();
         }
 
         $PebblesStyledButton sinh_button {
           label_text: "sinh";
           tooltip_desc: _("Hyberbolic Sine");
           accel_markup: "H";
+          focus-on-click: false;
 
           styles [
             "special-action",
@@ -486,12 +498,15 @@ template $PebblesScientificView: Gtk.Grid {
             row: 1;
             column: 1;
           }
+
+          clicked => $on_sinh_button();
         }
 
         $PebblesStyledButton log_cont_base_button {
           label_text: "log x";
           tooltip_desc: _("Log base 10");
           accel_markup: "L";
+          focus-on-click: false;
 
           styles [
             "special-action",
@@ -502,12 +517,15 @@ template $PebblesScientificView: Gtk.Grid {
             row: 1;
             column: 2;
           }
+
+          clicked => $on_log_cont_base_button();
         }
 
         $PebblesStyledButton memory_minus_button {
           label_text: _("M−");
           tooltip_desc: _("Subtract it from the value in Memory");
           accel_markup: "F4";
+          focus-on-click: false;
 
           styles [
             "memory-action",
@@ -524,6 +542,7 @@ template $PebblesScientificView: Gtk.Grid {
           label_text: "cos";
           tooltip_desc: _("Cosine");
           accel_markup: "C";
+          focus-on-click: false;
 
           styles [
             "special-action",
@@ -534,12 +553,15 @@ template $PebblesScientificView: Gtk.Grid {
             row: 2;
             column: 0;
           }
+
+          clicked => $on_cos_button();
         }
 
         $PebblesStyledButton cosh_button {
           label_text: "cosh";
           tooltip_desc: _("Hyberbolic Cosine");
           accel_markup: "O";
+          focus-on-click: false;
 
           styles [
             "special-action",
@@ -550,12 +572,15 @@ template $PebblesScientificView: Gtk.Grid {
             row: 2;
             column: 1;
           }
+
+          clicked => $on_cosh_button();
         }
 
         $PebblesStyledButton log_mod_button {
           label_text: "|Mod|";
           tooltip_desc: _("Modulus");
           accel_markup: "M";
+          focus-on-click: false;
 
           styles [
             "special-action",
@@ -566,12 +591,15 @@ template $PebblesScientificView: Gtk.Grid {
             row: 2;
             column: 2;
           }
+
+          clicked => $on_log_mod_button();
         }
 
         $PebblesStyledButton memory_recall_button {
           label_text: _("MR");
           tooltip_desc: _("Recall value from Memory");
           accel_markup: "F5";
+          focus-on-click: false;
 
           styles [
             "memory-action",
@@ -588,6 +616,7 @@ template $PebblesScientificView: Gtk.Grid {
           label_text: "tan";
           tooltip_desc: _("Tangent");
           accel_markup: "T";
+          focus-on-click: false;
 
           styles [
             "special-action",
@@ -598,12 +627,15 @@ template $PebblesScientificView: Gtk.Grid {
             row: 3;
             column: 0;
           }
+
+          clicked => $on_tan_button();
         }
 
         $PebblesStyledButton tanh_button {
           label_text: "tanh";
           tooltip_desc: _("Hyberbolic Tangent");
           accel_markup: "A";
+          focus-on-click: false;
 
           styles [
             "special-action",
@@ -614,12 +646,15 @@ template $PebblesScientificView: Gtk.Grid {
             row: 3;
             column: 1;
           }
+
+          clicked => $on_tanh_button();
         }
 
         $PebblesStyledButton perm_comb_button {
           label_text: "<sup>n</sup>P<sub>r</sub>";
           tooltip_desc: _("Permutations");
           accel_markup: "P";
+          focus-on-click: false;
 
           styles [
             "special-action",
@@ -630,12 +665,15 @@ template $PebblesScientificView: Gtk.Grid {
             row: 3;
             column: 2;
           }
+
+          clicked => $on_perm_comb_button();
         }
 
         $PebblesStyledButton memory_clear_button {
           label_text: _("MC");
           tooltip_desc: _("Memory Clear");
           accel_markup: "F6";
+          focus-on-click: false;
 
           styles [
             "memory-action",
@@ -652,6 +690,7 @@ template $PebblesScientificView: Gtk.Grid {
           label_text: "!";
           tooltip_desc: _("Factorial");
           accel_markup: "F";
+          focus-on-click: false;
 
           styles [
             "special-action",
@@ -662,12 +701,15 @@ template $PebblesScientificView: Gtk.Grid {
             row: 4;
             column: 0;
           }
+
+          clicked => $on_fact_button();
         }
 
         $PebblesStyledButton constant_button {
           label_text: "C";
           tooltip_desc: _("Some Constant");
           accel_markup: "R";
+          focus-on-click: false;
 
           styles [
             "special-action",
@@ -684,6 +726,7 @@ template $PebblesScientificView: Gtk.Grid {
           label_text: "Ans";
           tooltip_desc: _("Insert last answer");
           accel_markup: "F7";
+          focus-on-click: false;
 
           styles [
             "special-action",
@@ -701,6 +744,7 @@ template $PebblesScientificView: Gtk.Grid {
           tooltip_desc: _("Result");
           accel_markup: "Return";
           visible: bind template.show_hide_fx_btn;
+          focus-on-click: false;
 
           styles [
             "suggested-action",
@@ -717,6 +761,7 @@ template $PebblesScientificView: Gtk.Grid {
         $PebblesStyledButton collapse_fx_button {
           label_text: _("->");
           visible: bind sci_nav_split_view.collapsed;
+          focus-on-click: false;
 
           styles [
             "suggested-action",
