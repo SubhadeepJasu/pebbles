@@ -27,6 +27,7 @@ python.install_sources(
   files(
     'core/__init__.py',
     'core/tokenizer.py',
+    'core/memory.py',
     'core/scientific_calculator.py',
   ),
   subdir: 'pebbles/core',

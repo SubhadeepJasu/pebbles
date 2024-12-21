@@ -30,6 +30,7 @@ namespace Pebbles {
                     }
 
                     main_label.label = "0";
+                    main_entry.text = "0";
                     main_entry.grab_focus_without_selecting ();
                     main_entry.set_position (1);
 
@@ -87,7 +88,6 @@ namespace Pebbles {
             });
         }
 
-
         [GtkCallback]
         public void input () {
             on_input (main_entry.text);
@@ -102,6 +102,17 @@ namespace Pebbles {
                     return false;
                 });
             }
+        }
+
+        public void all_clear () {
+            show_result ("0");
+            main_entry.text = "0";
+            main_entry.set_position (1);
+        }
+
+        public void backspace () {
+            main_entry.text = main_entry.text.substring (0, main_entry.text.length - 1);
+            main_entry.set_position ((int) main_entry.text_length);
         }
 
         public void write (string str) {
@@ -215,6 +226,16 @@ namespace Pebbles {
                         main_entry.text = main_entry.text.substring (0, main_entry.text_length - 1) + "e ^ ";
                         main_entry.set_position ((int) main_entry.text_length);
                     }
+                    break;
+                case "F":
+                case "f":
+                    if (!main_entry.text.has_suffix ("!")) {
+                        main_entry.text = main_entry.text.substring (0, main_entry.text_length - 1) + "!";
+                        main_entry.set_position ((int) main_entry.text_length);
+                    }
+                    break;
+                default:
+                    main_entry.set_position ((int) main_entry.text_length);
                     break;
             }
         }

@@ -188,12 +188,20 @@ namespace Pebbles {
                 case Gdk.Key.period:
                     point_button.show_as_pressed ();
                     break;
+                case Gdk.Key.Delete:
+                case Gdk.Key.KP_Delete:
+                    all_clear_button.show_as_pressed ();
+                    break;
+                case Gdk.Key.BackSpace:
+                    del_button.add_css_class ("pressed");
+                    break;
                 default:
-                break;
+                    break;
             }
         }
 
         public void send_key_up (uint keyval) {
+            print ("%u\n", keyval);
             switch (keyval) {
                 case Gdk.Key.@0:
                     zero_button.show_as_pressed (false);
@@ -229,8 +237,17 @@ namespace Pebbles {
                 case Gdk.Key.comma:
                     point_button.show_as_pressed (false);
                     break;
+                case Gdk.Key.Delete:
+                case Gdk.Key.KP_Delete:
+                    all_clear_button.show_as_pressed (false);
+                    on_all_clear ();
+                    break;
+                case Gdk.Key.BackSpace:
+                    del_button.remove_css_class ("pressed");
+                    on_backspace ();
+                    break;
                 default:
-                break;
+                    break;
             }
         }
 
@@ -240,63 +257,58 @@ namespace Pebbles {
         }
 
         [GtkCallback]
-        public void on_pow_root_button () {
-            display.write (shift_button.active ? "Q" : "q");
+        public void on_all_clear () {
+            display.all_clear ();
         }
 
         [GtkCallback]
-        public void on_expo_power_button () {
-            display.write (shift_button.active ? "Z" : "z");
+        public void on_backspace () {
+            display.backspace ();
         }
 
         [GtkCallback]
-        public void on_sin_button () {
-            display.write (shift_button.active ? "S" : "s");
+        public void on_click_button (Gtk.Button btn) {
+            display.write (btn.name);
         }
 
         [GtkCallback]
-        public void on_sinh_button () {
-            display.write (shift_button.active ? "H" : "h");
+        public void on_click_add_button () {
+            display.write ("+");
         }
 
         [GtkCallback]
-        public void on_log_cont_base_button () {
-            display.write (shift_button.active ? "L" : "l");
+        public void on_click_sub_button () {
+            display.write ("−");
         }
 
         [GtkCallback]
-        public void on_cos_button () {
-            display.write (shift_button.active ? "C" : "c");
+        public void on_click_mul_button () {
+            display.write ("×");
         }
 
         [GtkCallback]
-        public void on_cosh_button () {
-            display.write (shift_button.active ? "O" : "o");
+        public void on_click_div_button () {
+            display.write ("÷");
         }
 
         [GtkCallback]
-        public void on_log_mod_button () {
-            display.write (shift_button.active ? "M" : "m");
+        public void on_click_function (Gtk.Button btn) {
+            display.write (shift_button.active ? btn.name.up () : btn.name);
         }
 
         [GtkCallback]
-        public void on_tan_button () {
-            display.write (shift_button.active ? "T" : "t");
+        public void on_click_fraction_point () {
+            display.write (".");
         }
 
         [GtkCallback]
-        public void on_tanh_button () {
-            display.write (shift_button.active ? "A" : "a");
+        public void on_click_memory_add () {
+            
         }
 
         [GtkCallback]
-        public void on_perm_comb_button () {
-            display.write (shift_button.active ? "P" : "p");
-        }
-
-        [GtkCallback]
-        public void on_fact_button () {
-            display.write ("F");
+        public void on_click_eval () {
+            display.input ();
         }
     }
 }
