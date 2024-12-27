@@ -35,9 +35,19 @@ template $PebblesScientificDisplay: $PebblesDisplay {
             }
         };
 
-        center-widget: Label memory_label {
-            label: "M";
-            opacity: 0.2;
+        center-widget: Box {
+            orientation: horizontal;
+            spacing: 8;
+
+            Label memory_label {
+                label: "M";
+                opacity: 0.2;
+            }
+
+            Label global_memory_label {
+                label: "GM";
+                opacity: 0.2;
+            }
         };
 
         end-widget: Label shift_label {

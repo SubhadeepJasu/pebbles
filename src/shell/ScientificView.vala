@@ -59,6 +59,8 @@ namespace Pebbles {
         private unowned StyledButton fact_button;
         [GtkChild]
         private unowned StyledButton constant_button;
+        [GtkChild]
+        private unowned StyledButton memory_plus_button;
 
         private bool _collapsed;
         public bool collapsed {
@@ -77,7 +79,7 @@ namespace Pebbles {
         [GtkChild]
         private unowned Adw.NavigationSplitView sci_nav_split_view;
 
-        public signal void on_evaluate (string input);
+        public signal void on_evaluate (string input, int memory_op = 0);
 
         construct {
             del_button.remove_css_class ("image-button");
@@ -119,6 +121,8 @@ namespace Pebbles {
                 log_cont_base_button.tooltip_desc = _("Natural Logarithm");
                 perm_comb_button.label_text = "<sup>n</sup>C<sub>r</sub>";
                 perm_comb_button.tooltip_desc = _("Combinations");
+                memory_plus_button.label_text = "GM+";
+                memory_plus_button.tooltip_desc = _("Add it to the value in Global Memory");
             } else {
                 pow_root_button.label_text = "x<sup>y</sup>";
                 pow_root_button.tooltip_desc = _("x raised to the power y");
@@ -142,6 +146,8 @@ namespace Pebbles {
                 log_cont_base_button.tooltip_desc = _("Log Base 10");
                 perm_comb_button.label_text = "<sup>n</sup>P<sub>r</sub>";
                 perm_comb_button.tooltip_desc = _("Permutations");
+                memory_plus_button.label_text = "M+";
+                memory_plus_button.tooltip_desc = _("Add it to the value in Memory");
             }
         }
 
@@ -151,6 +157,14 @@ namespace Pebbles {
 
         public void show_result (string result) {
             display.show_result (result);
+        }
+
+        public void set_memory_present (bool present) {
+            display.set_memory_present (present);
+        }
+
+        public void set_global_memory_present (bool present) {
+            display.set_global_memory_present (present);
         }
 
         public void send_key_down (uint keyval) {
@@ -303,7 +317,7 @@ namespace Pebbles {
 
         [GtkCallback]
         public void on_click_memory_add () {
-            
+            on_evaluate (display.main_entry.text, shift_button.active ? 2 : 1); // 1: Memory, 2: Global Memory
         }
 
         [GtkCallback]

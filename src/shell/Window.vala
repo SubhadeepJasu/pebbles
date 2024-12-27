@@ -8,7 +8,7 @@ namespace Pebbles {
         private unowned Adw.ToastOverlay toast_overlay;
         [GtkChild]
         private unowned Adw.NavigationSplitView split_view;
-        
+
         [GtkChild]
         private unowned Adw.HeaderBar main_headerbar;
 
@@ -28,7 +28,7 @@ namespace Pebbles {
 
 
         protected signal void on_evaluate (string data);
-        
+
         construct {
             navigation_pane.add_css_class (Granite.STYLE_CLASS_SIDEBAR);
             var menu_button = new Gtk.MenuButton () {
@@ -71,7 +71,7 @@ namespace Pebbles {
         }
 
         private void setup_evaluators () {
-            scientific_view.on_evaluate.connect ((input) => {
+            scientific_view.on_evaluate.connect ((input, memory_op) => {
                 var gen = new Json.Generator ();
                 var root = new Json.Node (Json.NodeType.OBJECT);
                 var object = new Json.Object ();
@@ -81,6 +81,7 @@ namespace Pebbles {
                 object.set_string_member ("mode", "scientific");
                 object.set_string_member ("input", input);
                 object.set_int_member ("angleMode", 0);
+                object.set_int_member ("memoryOp", memory_op);
 
                 size_t length;
                 string json = gen.to_data (out length);
@@ -151,12 +152,23 @@ namespace Pebbles {
                         default:
                         break;
                     }
-                }
-                catch (Error e) {
+                } catch (Error e) {
                     warning (e.message);
                 }
+
                 return false;
             });
+        }
+
+        protected void on_memory_change (string context, bool present) {
+            switch (context) {
+                case "sci":
+                    scientific_view.set_memory_present (present);
+                    break;
+                default:
+                    scientific_view.set_global_memory_present (present);
+                    break;
+            }
         }
 
         private void set_shift_on (bool on) {
