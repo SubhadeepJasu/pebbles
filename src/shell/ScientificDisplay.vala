@@ -144,6 +144,11 @@ namespace Pebbles {
                     main_entry.text = entry_text.substring (0, text_length_special - 1) + " ÷ ";
                     main_entry.set_position ((int) main_entry.text_length);
                     break;
+                case "×":
+                case "*":
+                    main_entry.text = entry_text.substring (0, text_length_special - 1) + " × ";
+                    main_entry.set_position ((int) main_entry.text_length);
+                    break;
                 case "s":
                     if (!entry_text.has_suffix ("sin ")) {
                         main_entry.text += "in ";

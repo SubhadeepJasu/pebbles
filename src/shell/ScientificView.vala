@@ -60,6 +60,10 @@ namespace Pebbles {
         [GtkChild]
         private unowned StyledButton constant_button;
         [GtkChild]
+        private unowned StyledButton last_answer_button_p;
+        [GtkChild]
+        private unowned StyledButton last_answer_button;
+        [GtkChild]
         private unowned StyledButton memory_plus_button;
 
         private bool _collapsed;
@@ -123,6 +127,10 @@ namespace Pebbles {
                 perm_comb_button.tooltip_desc = _("Combinations");
                 memory_plus_button.label_text = "GM+";
                 memory_plus_button.tooltip_desc = _("Add it to the value in Global Memory");
+                last_answer_button.label_text = "Gans";
+                last_answer_button.tooltip_desc = _("Insert global last answer");
+                last_answer_button_p.label_text = "Gans";
+                last_answer_button_p.tooltip_desc = _("Insert global last answer");
             } else {
                 pow_root_button.label_text = "x<sup>y</sup>";
                 pow_root_button.tooltip_desc = _("x raised to the power y");
@@ -148,6 +156,10 @@ namespace Pebbles {
                 perm_comb_button.tooltip_desc = _("Permutations");
                 memory_plus_button.label_text = "M+";
                 memory_plus_button.tooltip_desc = _("Add it to the value in Memory");
+                last_answer_button.label_text = "Ans";
+                last_answer_button.tooltip_desc = _("Insert last answer");
+                last_answer_button_p.label_text = "Ans";
+                last_answer_button_p.tooltip_desc = _("Insert last answer");
             }
         }
 
@@ -313,6 +325,11 @@ namespace Pebbles {
         [GtkCallback]
         public void on_click_fraction_point () {
             display.write (".");
+        }
+
+        [GtkCallback]
+        public void on_click_last_ans () {
+            display.write (shift_button.active ? "Gans" : "ans");
         }
 
         [GtkCallback]

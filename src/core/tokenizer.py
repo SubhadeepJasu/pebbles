@@ -38,9 +38,9 @@ class Tokenizer():
             else:
                 result += original[i]
                 i += 1
-        
+
         return result
-    
+
 
     @staticmethod
     def _is_number(exp: str) -> bool:
@@ -54,7 +54,7 @@ class Tokenizer():
         for i in range(1, len(tokens)):
             if tokens[i] == 'x' and Tokenizer._is_number(tokens[i - 1]) and tokens[i - 1] != "(":
                 tokens[i] = '* x'
-            
+
         converted_exp = Tokenizer._space_removal(' '.join(tokens))
         return converted_exp
 
@@ -66,13 +66,13 @@ class Tokenizer():
             if tokens[i] == ' ':
                 if Tokenizer._is_number(tokens[i - 1]):
                     tokens[i] = '* ()'
-            
+
             if tokens[i] == ' ':
                 if Tokenizer._is_number(tokens[i + 1]) or tokens[i + 1] == '(':
                     tokens[i] = ') *'
-        
+
         return Tokenizer._space_removal(' '.join(tokens))
-    
+
 
     @staticmethod
     def _unary_minus_convert(exp: str):
@@ -90,7 +90,7 @@ class Tokenizer():
                     if i < len(tokens):
                         tokens [i] = '( 0 u'
                         tokens [i + 1] = tokens [i + 1] + ' )'
-        
+
         uniminus_converted = ' '.join(tokens)
         return uniminus_converted
 
@@ -120,7 +120,7 @@ class Tokenizer():
                                     paren_balance += 1
                                 elif tokens[i] == ')':
                                     paren_balance -= 1
-                                
+
                                 if paren_balance == 0:
                                     paren_start_index = i;
                                     break
@@ -147,7 +147,7 @@ class Tokenizer():
                     if paren_balance_b == 0:
                         paren_start_index_b = i
                         break
-                
+
                 if paren_start_index_b >= 0:
                     tokens_in_range = tokens[paren_start_index_b:percentage_index - 2]
                     exp_b += Tokenizer._space_removal(' '.join(tokens_in_range))
@@ -165,7 +165,7 @@ class Tokenizer():
                                 if paren_balance == 0:
                                     paren_start_index = i
                                     break
-                                
+
                             if paren_start_index >= 0:
                                 tokens_in_range = tokens[paren_start_index:paren_start_index_b - 1]
                                 exp_a = Tokenizer._space_removal(' '.join(tokens_in_range))
@@ -188,7 +188,7 @@ class Tokenizer():
     def st_tokenize(input:str) -> list[str]:
         if Tokenizer._check_parenthesis(input):
             exp:str = input
-            
+
             """
             Certain UTF-8 escape characters require a space
             after it to seperate it from the next character.
@@ -212,6 +212,8 @@ class Tokenizer():
             exp = exp.lower()
 
             # Convert to lexemes
+            exp = exp.replace('Gans', '#')
+            exp = exp.replace('ans', '@')
             exp = exp.replace('isinh', ' [0] ')
             exp = exp.replace('icosh', ' [1] ')
             exp = exp.replace('itanh', ' [2] ')

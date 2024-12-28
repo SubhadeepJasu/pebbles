@@ -27,7 +27,7 @@ class PythonWindow(Pebbles.Window):
     def _evaluation_thread(self, data: str):
         data_dict = json.loads(data)
         if data_dict['mode'] == 'scientific':
-            sci_calc = ScientificCalculator(data)
+            sci_calc = ScientificCalculator(data, self._memory)
             result_data, result = sci_calc.evaluate()
             self.on_evaluation_completed(result_data)
 

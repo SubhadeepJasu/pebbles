@@ -5,6 +5,7 @@
 
 from gi.repository import Pebbles
 from pebbles.core.tokenizer import Tokenizer
+from pebbles.core.memory import ContextualMemory
 import json
 import math
 import cmath
@@ -20,12 +21,20 @@ class ScientificCalculator():
     INV_DEG_VAL = 180 / math.pi
 
 
-    def __init__(self, data: str, float_accuracy: int=2, tokenize: bool=True, zero_limit: bool=False):
+    def __init__(self, data: str, memory: ContextualMemory, float_accuracy: int=2, tokenize: bool=True):
         self.input_dict = json.loads(data)
+        self.memory = memory
         self.float_accuracy = float_accuracy
         self.angle_mode = self.input_dict['angleMode']
         if tokenize:
             self.tokens = Tokenizer.st_tokenize(self.input_dict['input'])
+
+        self.substitute_value: float | complex = 0
+        self.zero_limit = False
+
+
+    def set_substitute_value(self, value, zero_limit=False):
+        self.substitute_value = value
         self.zero_limit = zero_limit
 
 
@@ -33,12 +42,14 @@ class ScientificCalculator():
         try:
             answer = self.process()
             if type(answer) == complex:
+                self.memory.set_last_ans(answer, 'sci')
                 if answer.real == 0 and answer.imag == 0:
                     return json.dumps({'mode': self.MODE, 'result': '0'}), 0
                 if answer.imag < 0:
                     return json.dumps({'mode': self.MODE, 'result': f'{self._format_float(answer.real)} - {self._format_float(-answer.imag)}j'}), answer
                 return json.dumps({'mode': self.MODE, 'result': f'{self._format_float(answer.real)} + {self._format_float(answer.imag)}j'}), answer
             elif type(answer) == float:
+                self.memory.set_last_ans(answer, 'sci')
                 return json.dumps({'mode': self.MODE, 'result': f'{self._format_float(answer)}'}), answer
             else:
                 return json.dumps({'mode': self.MODE, 'result': 'E'}), None
@@ -66,7 +77,14 @@ class ScientificCalculator():
         for token in self.tokens:
              # Current tokens is a number, push it to number stack
             if (not self._is_operator(token)) and token not in ['(', ')']:
-                operand_stack.append(float(token))
+                if token == '@':
+                    operand_stack.append(self.memory.get_last_ans('sci'))
+                elif token == '#':
+                    operand_stack.append(self.memory.get_last_ans())
+                elif token == 'x':
+                    operand_stack.append(self.substitute_value)
+                else:
+                    operand_stack.append(float(token))
 
             # If tokens is an opening brace, push it to 'ops'
             elif token == '(':
@@ -139,7 +157,6 @@ class ScientificCalculator():
                 return a * b
             case '/':
                 return a / b
-
             case 'q':
                 return b ** (1 / a)
             case '^':

@@ -267,7 +267,7 @@ template $PebblesScientificView: Gtk.Grid {
         }
 
         $PebblesStyledButton subtract_button {
-          label_text: "－";
+          label_text: "−";
           tooltip_desc: _("Subtract");
           focus-on-click: false;
 
@@ -382,6 +382,8 @@ template $PebblesScientificView: Gtk.Grid {
             row: 3;
             column: 4;
           }
+
+          clicked => $on_click_last_ans();
         }
 
         $PebblesStyledButton zero_button {
@@ -843,6 +845,8 @@ template $PebblesScientificView: Gtk.Grid {
             row: 4;
             column: 2;
           }
+
+          clicked => $on_click_last_ans();
         }
 
         $PebblesStyledButton result_button {
