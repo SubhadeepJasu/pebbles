@@ -28,6 +28,8 @@ namespace Pebbles {
 
 
         protected signal void on_evaluate (string data);
+        protected signal string on_memory_recall (string mode);
+        protected signal void on_memory_clear (string mode);
 
         construct {
             navigation_pane.add_css_class (Granite.STYLE_CLASS_SIDEBAR);
@@ -58,13 +60,14 @@ namespace Pebbles {
             setup_actions ();
             setup_evaluators ();
             setup_key_events ();
+            setup_memory_events ();
         }
 
         private void setup_actions () {
             nav_list.select_row (nav_list.get_row_at_index (0));
             var enable_scientific_mode_action = new SimpleAction ("open_scientific_mode", null);
             enable_scientific_mode_action.activate.connect (() => {
-                view_stack.set_visible_child_name ("scientific");
+                view_stack.set_visible_child_name ("sci");
                 split_view.show_content = true;
             });
             add_action (enable_scientific_mode_action);
@@ -78,7 +81,7 @@ namespace Pebbles {
                 root.set_object (object);
                 gen.set_root (root);
 
-                object.set_string_member ("mode", "scientific");
+                object.set_string_member ("mode", "sci");
                 object.set_string_member ("input", input);
                 object.set_int_member ("angleMode", 0);
                 object.set_int_member ("memoryOp", memory_op);
@@ -136,6 +139,12 @@ namespace Pebbles {
             ((Gtk.Widget) this).add_controller (key_event_controller);
         }
 
+        private void setup_memory_events () {
+            scientific_view.on_memory_recall.connect ((global) => {
+                return on_memory_recall (global ? "global" : "sci");
+            });
+        }
+
         protected void on_evaluation_completed (string data) {
             Idle.add (() => {
                 var parser = new Json.Parser ();
@@ -145,7 +154,7 @@ namespace Pebbles {
                     var root_object = parser.get_root ().get_object ();
                     var mode = root_object.get_string_member ("mode");
                     switch (mode) {
-                        case "scientific":
+                        case "sci":
                             var result = root_object.get_string_member ("result");
                             scientific_view.show_result (result);
                             break;

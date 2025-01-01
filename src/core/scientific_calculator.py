@@ -6,6 +6,7 @@
 from gi.repository import Pebbles
 from pebbles.core.tokenizer import Tokenizer
 from pebbles.core.memory import ContextualMemory
+from pebbles.core.utils import Utils
 import json
 import math
 import cmath
@@ -14,17 +15,16 @@ import sys
 class ScientificCalculator():
     """The scientific calculator."""
 
-    MODE = 'scientific'
+    MODE = 'sci'
     GRAD_VAL = math.pi / 200
     DEG_VAL = math.pi / 180
     INV_GRAD_VAL = 200 / math.pi
     INV_DEG_VAL = 180 / math.pi
 
 
-    def __init__(self, data: str, memory: ContextualMemory, float_accuracy: int=2, tokenize: bool=True):
+    def __init__(self, data: str, memory: ContextualMemory, tokenize: bool=True):
         self.input_dict = json.loads(data)
         self.memory = memory
-        self.float_accuracy = float_accuracy
         self.angle_mode = self.input_dict['angleMode']
         if tokenize:
             self.tokens = Tokenizer.st_tokenize(self.input_dict['input'])
@@ -41,28 +41,22 @@ class ScientificCalculator():
     def evaluate(self) -> str:
         try:
             answer = self.process()
+            print (answer)
             if type(answer) == complex:
                 self.memory.set_last_ans(answer, 'sci')
                 if answer.real == 0 and answer.imag == 0:
                     return json.dumps({'mode': self.MODE, 'result': '0'}), 0
                 if answer.imag < 0:
-                    return json.dumps({'mode': self.MODE, 'result': f'{self._format_float(answer.real)} - {self._format_float(-answer.imag)}j'}), answer
-                return json.dumps({'mode': self.MODE, 'result': f'{self._format_float(answer.real)} + {self._format_float(answer.imag)}j'}), answer
+                    return json.dumps({'mode': self.MODE, 'result': f'{Utils.format_float(answer.real)} - {Utils.format_float(-answer.imag)}j'}), answer
+                return json.dumps({'mode': self.MODE, 'result': f'{Utils.format_float(answer.real)} + {Utils.format_float(answer.imag)}j'}), answer
             elif type(answer) == float:
                 self.memory.set_last_ans(answer, 'sci')
-                return json.dumps({'mode': self.MODE, 'result': f'{self._format_float(answer)}'}), answer
+                return json.dumps({'mode': self.MODE, 'result': Utils.format_float(answer)}), answer
             else:
                 return json.dumps({'mode': self.MODE, 'result': 'E'}), None
         except Exception as e:
+            print ("Error: ", e)
             return json.dumps({'mode': self.MODE, 'result': 'E'}), None
-
-
-    def _format_float(self, x: float) -> str:
-        format_string = f"{{:.{self.float_accuracy}f}}"
-        rounded_value = format_string.format(x)
-
-        # Remove trailing zeros and the decimal point if not needed
-        return rounded_value.rstrip('0').rstrip('.') if '.' in rounded_value else rounded_value
 
 
     def process(self) -> complex | float:

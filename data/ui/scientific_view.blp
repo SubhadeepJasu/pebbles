@@ -623,7 +623,7 @@ template $PebblesScientificView: Gtk.Grid {
         }
 
         $PebblesStyledButton memory_minus_button {
-          label_text: _("M－");
+          label_text: _("M−");
           tooltip_desc: _("Subtract it from the value in Memory");
           accel_markup: "F4";
           focus-on-click: false;
@@ -637,6 +637,8 @@ template $PebblesScientificView: Gtk.Grid {
             row: 1;
             column: 3;
           }
+
+          clicked => $on_click_memory_subtract();
         }
 
         $PebblesStyledButton cos_button {
@@ -714,6 +716,8 @@ template $PebblesScientificView: Gtk.Grid {
             row: 2;
             column: 3;
           }
+
+          clicked => $on_click_memory_recall();
         }
 
         $PebblesStyledButton tan_button {
@@ -791,6 +795,8 @@ template $PebblesScientificView: Gtk.Grid {
             row: 3;
             column: 3;
           }
+
+          clicked => $on_click_memory_clear();
         }
 
         $PebblesStyledButton fact_button {

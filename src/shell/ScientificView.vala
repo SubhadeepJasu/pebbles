@@ -65,6 +65,12 @@ namespace Pebbles {
         private unowned StyledButton last_answer_button;
         [GtkChild]
         private unowned StyledButton memory_plus_button;
+        [GtkChild]
+        private unowned StyledButton memory_minus_button;
+        [GtkChild]
+        private unowned StyledButton memory_recall_button;
+        [GtkChild]
+        private unowned StyledButton memory_clear_button;
 
         private bool _collapsed;
         public bool collapsed {
@@ -84,6 +90,8 @@ namespace Pebbles {
         private unowned Adw.NavigationSplitView sci_nav_split_view;
 
         public signal void on_evaluate (string input, int memory_op = 0);
+        public signal string on_memory_recall (bool global);
+        public signal void on_memory_clear (bool global);
 
         construct {
             del_button.remove_css_class ("image-button");
@@ -127,9 +135,15 @@ namespace Pebbles {
                 perm_comb_button.tooltip_desc = _("Combinations");
                 memory_plus_button.label_text = "GM+";
                 memory_plus_button.tooltip_desc = _("Add it to the value in Global Memory");
-                last_answer_button.label_text = "Gans";
+                memory_minus_button.label_text = "GM−";
+                memory_minus_button.tooltip_desc = _("Subtract it from the value in Global Memory");
+                memory_recall_button.label_text = "GMR";
+                memory_recall_button.tooltip_desc = _("Recall value from Global Memory");
+                memory_clear_button.label_text = "GMC";
+                memory_clear_button.tooltip_desc = _("Global Memory Clear");
+                last_answer_button.label_text = "GAns";
                 last_answer_button.tooltip_desc = _("Insert global last answer");
-                last_answer_button_p.label_text = "Gans";
+                last_answer_button_p.label_text = "GAns";
                 last_answer_button_p.tooltip_desc = _("Insert global last answer");
             } else {
                 pow_root_button.label_text = "x<sup>y</sup>";
@@ -156,6 +170,12 @@ namespace Pebbles {
                 perm_comb_button.tooltip_desc = _("Permutations");
                 memory_plus_button.label_text = "M+";
                 memory_plus_button.tooltip_desc = _("Add it to the value in Memory");
+                memory_minus_button.label_text = "M−";
+                memory_minus_button.tooltip_desc = _("Subtract it from the value in Memory");
+                memory_recall_button.label_text = "MR";
+                memory_recall_button.tooltip_desc = _("Recall value from Memory");
+                memory_clear_button.label_text = "MC";
+                memory_clear_button.tooltip_desc = _("Memory Clear");
                 last_answer_button.label_text = "Ans";
                 last_answer_button.tooltip_desc = _("Insert last answer");
                 last_answer_button_p.label_text = "Ans";
@@ -335,6 +355,22 @@ namespace Pebbles {
         [GtkCallback]
         public void on_click_memory_add () {
             on_evaluate (display.main_entry.text, shift_button.active ? 2 : 1); // 1: Memory, 2: Global Memory
+        }
+
+        [GtkCallback]
+        public void on_click_memory_subtract () {
+            on_evaluate (display.main_entry.text, shift_button.active ? -2 : -1); // -1: Memory, -2: Global Memory
+        }
+
+        [GtkCallback]
+        public void on_click_memory_recall () {
+            var text = on_memory_recall (shift_button.active);
+            display.write (text);
+        }
+
+        [GtkCallback]
+        public void on_click_memory_clear () {
+            on_memory_clear (shift_button.active);
         }
 
         [GtkCallback]
