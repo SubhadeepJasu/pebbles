@@ -203,7 +203,6 @@ namespace Pebbles {
         protected void set_theme (Gtk.CheckButton button) {
             if (button.active) {
                 Pebbles.Settings.get_default ().theme = button.name;
-
                 setup_theme ();
             }
         }
