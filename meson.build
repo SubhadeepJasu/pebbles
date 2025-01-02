@@ -22,6 +22,7 @@ application_id = 'com.github.subhadeepjasu.pebbles'
 copyright = '2019 - 2024'
 homepage_url = 'https://github.com/subhadeepjasu/pebbles'
 vcs_url = 'https://github.com/subhadeepjasu/pebbles'
+schema_id = '/com/github/subhadeepjasu/pebbles/'
 issue_url = vcs_url + '/issues'
 help_url = issue_url
 author = 'Subhadeep Jasu'
@@ -64,6 +65,7 @@ vala_conf.set_quoted('VERSION', version)
 vala_conf.set_quoted('AUTHOR', author)
 vala_conf.set_quoted('HOMEPAGE_URL', homepage_url)
 vala_conf.set_quoted('ISSUE_URL', issue_url)
+vala_conf.set_quoted('SCHEMA_ID', application_id)
 
 add_project_arguments (
   '-DGETTEXT_PACKAGE="' + meson.project_name() + '"',

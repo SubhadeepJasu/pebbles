@@ -56,3 +56,16 @@ install_data (
     join_paths ('fonts', 'DotGothic16', 'DotGothic16-Regular.ttf'),
     install_dir: join_paths (get_option ('datadir'), 'fonts', 'truetype', 'DotGothic16')
 )
+
+# Install Settings schema
+schemas_conf = configuration_data()
+schemas_conf.set('SCHEMA_ID', application_id)
+schemas_conf.set('SCHEMA_PATH', schema_id)
+schemas_conf.set('GETTEXT_PACKAGE', application_id)
+
+configure_file(
+    input: application_id + '.gschema.xml.in',
+    output: application_id + '.gschema.xml',
+    configuration: schemas_conf,
+    install_dir: join_paths(datadir, 'glib-2.0', 'schemas')
+)

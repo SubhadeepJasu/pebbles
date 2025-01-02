@@ -54,9 +54,9 @@ class PythonWindow(Pebbles.Window):
                 self._memory.peek()
 
 
-    def memory_recall(self, _, mode: str):
-        if mode in ['sci', 'calc']:
-            answer = self._memory.recall(mode)
+    def memory_recall(self, _, context: str):
+        if context in ['sci', 'calc']:
+            answer = self._memory.recall(context)
             if type(answer) == complex:
                 if answer.real == 0 and answer.imag == 0:
                     return '0'
@@ -69,6 +69,5 @@ class PythonWindow(Pebbles.Window):
         return ''
 
 
-    def memory_clear(self, _, mode: str):
-        if mode == 'sci':
-            self._memory.clear(mode)
+    def memory_clear(self, _, context: str):
+        self._memory.clear(context)

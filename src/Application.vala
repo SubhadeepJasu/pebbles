@@ -4,7 +4,7 @@
 namespace Pebbles {
     public class Application : Gtk.Application {
         public bool debug { get; construct set; default = false; }
-        public GLib.Settings settings { get; protected set; }
+        public Pebbles.Settings settings { get; protected set; }
 
         private List<Window> main_windows;
 
@@ -20,8 +20,6 @@ namespace Pebbles {
          */
         public override void startup () {
             base.startup ();
-
-
         }
 
         /**

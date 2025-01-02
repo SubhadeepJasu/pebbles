@@ -46,6 +46,7 @@ pebbles_lib = shared_library('pebbles',
   gresource_bundle,
   files(
     'Application.vala',
+    'Settings.vala',
     'shell/Window.vala',
     'shell/StyledButton.vala',
     'shell/Display.vala',

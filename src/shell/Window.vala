@@ -11,6 +11,12 @@ namespace Pebbles {
 
         [GtkChild]
         private unowned Adw.HeaderBar main_headerbar;
+        [GtkChild]
+        private unowned Gtk.CheckButton color_button_light;
+        [GtkChild]
+        private unowned Gtk.CheckButton color_button_dark;
+        [GtkChild]
+        private unowned Gtk.CheckButton color_button_system;
 
         [GtkChild]
         private unowned Gtk.Box navigation_pane;
@@ -33,34 +39,43 @@ namespace Pebbles {
 
         construct {
             navigation_pane.add_css_class (Granite.STYLE_CLASS_SIDEBAR);
-            var menu_button = new Gtk.MenuButton () {
-                icon_name = "preferences-system-symbolic",
-                height_request = 28,
-                width_request = 28,
-                focusable = false,
-                focus_on_click = false
-            };
-            main_headerbar.pack_end (menu_button);
 
-            var app_menu = new Menu ();
-            menu_button.menu_model = app_menu;
-
-            app_menu.append (_("Preferences"), "app.preferences");
-            app_menu.append ("Keyboard Shortcuts", "app.keymap");
-
-
-            var history_button = new Gtk.Button.from_icon_name ("document-open-recent-symbolic") {
-                height_request = 28,
-                width_request = 28,
-                focusable = false,
-                focus_on_click = false
-            };
-            main_headerbar.pack_end (history_button);
-
+            setup_theme ();
             setup_actions ();
             setup_evaluators ();
             setup_key_events ();
             setup_memory_events ();
+        }
+
+        private void setup_theme () {
+            var gtk_settings = Gtk.Settings.get_default ();
+            var granite_settings = Granite.Settings.get_default ();
+            var pebbles_settings = Pebbles.Settings.get_default ();
+
+            switch (pebbles_settings.theme) {
+                case "dark":
+                    gtk_settings.gtk_application_prefer_dark_theme = true;
+                    color_button_dark.active = true;
+                    break;
+                case "light":
+                    gtk_settings.gtk_application_prefer_dark_theme = false;
+                    color_button_light.active = true;
+                    break;
+                default:
+                    gtk_settings.gtk_application_prefer_dark_theme = (
+                        granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK
+                    );
+                    color_button_system.active = true;
+                    break;
+            }
+
+            granite_settings.notify["prefers-color-scheme"].connect (() => {
+                if (pebbles_settings.get_string ("theme") == "system") {
+                    gtk_settings.gtk_application_prefer_dark_theme = (
+                        granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK
+                    );
+                }
+            });
         }
 
         private void setup_actions () {
@@ -182,6 +197,15 @@ namespace Pebbles {
 
         private void set_shift_on (bool on) {
             scientific_view.send_shift_modifier (on);
+        }
+
+        [GtkCallback]
+        protected void set_theme (Gtk.CheckButton button) {
+            if (button.active) {
+                Pebbles.Settings.get_default ().theme = button.name;
+
+                setup_theme ();
+            }
         }
     }
 }

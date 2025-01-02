@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+     <schema id="@SCHEMA_ID@" path="@SCHEMA_PATH@" gettext-domain="@GETTEXT_PACKAGE@">
+        <key name="version" type="s">
+            <default>'0.0.0'</default>
+            <summary>The currently installed version.</summary>
+            <description>The currently installed version of Pebbles, updated only after the user launched the app. This is used to know when to trigger the Release Dialog.</description>
+        </key>
+
+        <key name="theme" type="s">
+            <default>"system"</default>
+            <summary>App Theme</summary>
+        </key>
+     </schema>
+</schemalist>

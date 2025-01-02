@@ -291,11 +291,76 @@ template $PebblesWindow: Adw.ApplicationWindow {
 
                             visible-child: scientific_header_box;
                         }
+
+                        [end]
+                        MenuButton menu_button {
+                            icon-name: "preferences-system-symbolic";
+                            height-request: 28;
+                            width-request: 28;
+                            focusable: false;
+                            focus-on-click: false;
+
+                            popover: Popover menu {
+                                Box menu_box {
+                                    orientation: vertical;
+                                    spacing: 0;
+
+                                    Box color_box {
+                                        orientation: horizontal;
+                                        spacing: 8;
+                                        homogeneous: true;
+                                        margin-start: 12;
+                                        margin-end: 12;
+                                        margin-top: 12;
+                                        margin-bottom: 12;
+
+                                        CheckButton color_button_light {
+                                            name: "light";
+                                            halign: center;
+                                            tooltip-text: _("Light Mode");
+                                            styles ["color-button", "color-button-light"]
+
+                                            toggled => $set_theme();
+                                        }
+
+                                        CheckButton color_button_dark {
+                                            name: "dark";
+                                            halign: center;
+                                            group: color_button_light;
+                                            tooltip-text: _("Dark Mode");
+                                            styles ["color-button", "color-button-dark"]
+
+                                            toggled => $set_theme();
+                                        }
+
+                                        CheckButton color_button_system {
+                                            name: "system";
+                                            halign: center;
+                                            group: color_button_light;
+                                            tooltip-text: _("Follow System Theme");
+                                            styles ["color-button", "color-button-system"]
+
+                                            toggled => $set_theme();
+                                        }
+                                    }
+                                }
+                            };
+                        }
+
+                        [end]
+                        Button history_button {
+                            icon-name: "document-open-recent-symbolic";
+                            height-request: 28;
+                            width-request: 28;
+                            focusable: false;
+                            focus-on-click: false;
+                            tooltip-text: _("History");
+                        }
                     }
 
                     Adw.ViewStack view_stack {
                         Adw.ViewStackPage {
-                            name: "scientific";
+                            name: "sci";
 
                             child: $PebblesScientificView scientific_view {};
                         }
