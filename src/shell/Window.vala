@@ -12,6 +12,8 @@ namespace Pebbles {
         [GtkChild]
         private unowned Adw.HeaderBar main_headerbar;
         [GtkChild]
+        private unowned StyledButton angle_mode;
+        [GtkChild]
         private unowned Gtk.CheckButton color_button_light;
         [GtkChild]
         private unowned Gtk.CheckButton color_button_dark;
@@ -32,6 +34,8 @@ namespace Pebbles {
 
         private Gtk.EventControllerKey key_event_controller;
 
+        private Pebbles.Settings settings;
+
 
         protected signal void on_evaluate (string data);
         protected signal string on_memory_recall (string mode);
@@ -39,6 +43,8 @@ namespace Pebbles {
 
         construct {
             navigation_pane.add_css_class (Granite.STYLE_CLASS_SIDEBAR);
+
+            settings = Pebbles.Settings.get_default ();
 
             setup_theme ();
             setup_actions ();
@@ -98,7 +104,7 @@ namespace Pebbles {
 
                 object.set_string_member ("mode", "sci");
                 object.set_string_member ("input", input);
-                object.set_int_member ("angleMode", 0);
+                object.set_int_member ("angleMode", (int) Pebbles.Settings.get_default ().global_angle_unit);
                 object.set_int_member ("memoryOp", memory_op);
 
                 size_t length;
@@ -202,8 +208,31 @@ namespace Pebbles {
         [GtkCallback]
         protected void set_theme (Gtk.CheckButton button) {
             if (button.active) {
-                Pebbles.Settings.get_default ().theme = button.name;
+                settings.theme = button.name;
                 setup_theme ();
+            }
+        }
+
+        [GtkCallback]
+        protected void on_change_mode () {
+            switch (view_stack.visible_child_name) {
+                case "sci":
+                case "calc":
+                    switch (settings.global_angle_unit) {
+                        case DEG:
+                            settings.global_angle_unit = RAD;
+                            angle_mode.label_text = "RAD";
+                            break;
+                        case RAD:
+                            settings.global_angle_unit = GRAD;
+                            angle_mode.label_text = "GRA";
+                            break;
+                        case GRAD:
+                            settings.global_angle_unit = DEG;
+                            angle_mode.label_text = "DEG";
+                            break;
+                    }
+                    break;
             }
         }
     }

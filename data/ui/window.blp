@@ -280,12 +280,14 @@ template $PebblesWindow: Adw.ApplicationWindow {
                                 orientation: horizontal;
 
                                 $PebblesStyledButton angle_mode {
-                                    label_text: _("RAD");
-                                    tooltip_desc: _("<b>Angle Mode</b>");
+                                    label_text: _("DEG");
+                                    tooltip_desc: _("Switch angle mode");
                                     accel_markup: "F8";
                                     width-request: 64;
                                     focusable: false;
                                     focus-on-click: false;
+
+                                    clicked => $on_change_mode();
                                 }
                             }
 

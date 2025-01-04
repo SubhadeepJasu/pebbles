@@ -45,6 +45,7 @@ config_dep = valac.find_library('config',
 pebbles_lib = shared_library('pebbles',
   gresource_bundle,
   files(
+    'Common.vala',
     'Application.vala',
     'Settings.vala',
     'shell/Window.vala',

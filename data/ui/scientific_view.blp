@@ -820,8 +820,8 @@ template $PebblesScientificView: Gtk.Grid {
         }
 
         $PebblesStyledButton constant_button {
-          label_text: "C";
-          tooltip_desc: _("Some Constant");
+          label_text: bind template.constant_label;
+          tooltip_desc: bind template.constant_desc;
           accel_markup: "R";
           focus-on-click: false;
 
@@ -834,6 +834,8 @@ template $PebblesScientificView: Gtk.Grid {
             row: 4;
             column: 1;
           }
+
+          clicked => $on_click_constant();
         }
 
         $PebblesStyledButton last_answer_button {

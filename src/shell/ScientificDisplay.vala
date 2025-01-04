@@ -1,6 +1,7 @@
 namespace Pebbles {
     [GtkTemplate (ui = "/com/github/subhadeepjasu/pebbles/ui/scientific_display.ui")]
     public class ScientificDisplay : Display {
+        private Pebbles.Settings settings;
         private bool _shift_on;
         public bool shift_on {
             get {
@@ -11,6 +12,12 @@ namespace Pebbles {
             }
         }
 
+        [GtkChild]
+        private unowned Gtk.Label deg_label;
+        [GtkChild]
+        private unowned Gtk.Label rad_label;
+        [GtkChild]
+        private unowned Gtk.Label grad_label;
         [GtkChild]
         private unowned Gtk.Label shift_label;
         [GtkChild]
@@ -90,6 +97,27 @@ namespace Pebbles {
                     return false;
                 });
             });
+
+            settings = Pebbles.Settings.get_default ();
+            settings.changed["global-angle-unit"].connect ((key) => {
+                switch (settings.global_angle_unit) {
+                    case DEG:
+                        deg_label.opacity = 1;
+                        rad_label.opacity = 0.2;
+                        grad_label.opacity = 0.2;
+                        break;
+                    case RAD:
+                        deg_label.opacity = 0.2;
+                        rad_label.opacity = 1;
+                        grad_label.opacity = 0.2;
+                        break;
+                    case GRAD:
+                        deg_label.opacity = 0.2;
+                        rad_label.opacity = 0.2;
+                        grad_label.opacity = 1;
+                        break;
+                }
+            });
         }
 
         [GtkCallback]
@@ -128,25 +156,24 @@ namespace Pebbles {
         public void send_fx_symbol (string? ch) {
             var entry_text = main_entry.text;
             var text_length = entry_text.length;
-            var text_length_special = (int) main_entry.text_length;
             switch (ch) {
                 case "+":
-                    main_entry.text = entry_text.substring (0, text_length - 1) + " + ";
+                    main_entry.text = entry_text.substring (0, text_length - ch.length) + " + ";
                     main_entry.set_position ((int) main_entry.text_length);
                     break;
                 case "−":
                 case "-":
-                    main_entry.text = entry_text.substring (0, text_length_special - 1) + " − ";
+                    main_entry.text = entry_text.substring (0, text_length - ch.length) + " − ";
                     main_entry.set_position ((int) main_entry.text_length);
                     break;
                 case "÷":
                 case "/":
-                    main_entry.text = entry_text.substring (0, text_length_special - 1) + " ÷ ";
+                    main_entry.text = entry_text.substring (0, text_length - ch.length) + " ÷ ";
                     main_entry.set_position ((int) main_entry.text_length);
                     break;
                 case "×":
                 case "*":
-                    main_entry.text = entry_text.substring (0, text_length_special - 1) + " × ";
+                    main_entry.text = entry_text.substring (0, text_length - ch.length) + " × ";
                     main_entry.set_position ((int) main_entry.text_length);
                     break;
                 case "s":
@@ -157,19 +184,19 @@ namespace Pebbles {
                     break;
                 case "S":
                     if (!entry_text.has_suffix ("isin ")) {
-                        main_entry.text = entry_text.substring (0, text_length - 1) + "isin ";
+                        main_entry.text = entry_text.substring (0, text_length - ch.length) + "isin ";
                         main_entry.set_position ((int) main_entry.text_length);
                     }
                     break;
                 case "h":
                     if (!entry_text.has_suffix ("sinh ")) {
-                        main_entry.text = entry_text.substring (0, text_length - 1) + "sinh ";
+                        main_entry.text = entry_text.substring (0, text_length - ch.length) + "sinh ";
                         main_entry.set_position ((int) main_entry.text_length);
                     }
                     break;
                 case "H":
                     if (!entry_text.has_suffix ("isinh ")) {
-                        main_entry.text = entry_text.substring (0, text_length - 1) + "isinh ";
+                        main_entry.text = entry_text.substring (0, text_length - ch.length) + "isinh ";
                         main_entry.set_position ((int) main_entry.text_length);
                     }
                     break;
@@ -181,19 +208,19 @@ namespace Pebbles {
                     break;
                 case "C":
                     if (!entry_text.has_suffix ("icos ")) {
-                        main_entry.text = entry_text.substring (0, text_length - 1) + "icos ";
+                        main_entry.text = entry_text.substring (0, text_length - ch.length) + "icos ";
                         main_entry.set_position ((int) main_entry.text_length);
                     }
                     break;
                 case "o":
                     if (!entry_text.has_suffix ("cosh ")) {
-                        main_entry.text = entry_text.substring (0, text_length - 1) + "cosh ";
+                        main_entry.text = entry_text.substring (0, text_length - ch.length) + "cosh ";
                         main_entry.set_position ((int) main_entry.text_length);
                     }
                     break;
                 case "O":
                     if (!entry_text.has_suffix ("icosh ")) {
-                        main_entry.text = entry_text.substring (0, text_length - 1) + "icosh ";
+                        main_entry.text = entry_text.substring (0, text_length - ch.length) + "icosh ";
                         main_entry.set_position ((int) main_entry.text_length);
                     }
                     break;
@@ -205,50 +232,50 @@ namespace Pebbles {
                     break;
                 case "T":
                     if (!entry_text.has_suffix ("itan ")) {
-                        main_entry.text = entry_text.substring (0, text_length - 1) + "itan ";
+                        main_entry.text = entry_text.substring (0, text_length - ch.length) + "itan ";
                         main_entry.set_position ((int) main_entry.text_length);
                     }
                     break;
                 case "a":
                     if (!entry_text.has_suffix ("tanh ")) {
-                        main_entry.text = entry_text.substring (0, text_length - 1) + "tanh ";
+                        main_entry.text = entry_text.substring (0, text_length - ch.length) + "tanh ";
                         main_entry.set_position ((int) main_entry.text_length);
                     }
                     break;
                 case "A":
                     if (!entry_text.has_suffix ("itanh ")) {
-                        main_entry.text = entry_text.substring (0, text_length - 1) + "itanh ";
+                        main_entry.text = entry_text.substring (0, text_length - ch.length) + "itanh ";
                         main_entry.set_position ((int) main_entry.text_length);
                     }
                     break;
                 case "q":
                     if (!entry_text.has_suffix ("^ ")) {
-                        main_entry.text = entry_text.substring (0, text_length - 1) + " ^ ";
+                        main_entry.text = entry_text.substring (0, text_length - ch.length) + " ^ ";
                         main_entry.set_position ((int) main_entry.text_length);
                     }
                     break;
                 case "Q":
                     if (!entry_text.has_suffix ("√")) {
-                        main_entry.text = entry_text.substring (0, text_length - 1) + "√";
+                        main_entry.text = entry_text.substring (0, text_length - ch.length) + "√";
                         main_entry.set_position ((int) main_entry.text_length);
                     }
                     break;
                 case "z":
                     if (!entry_text.has_suffix ("10 ^ ")) {
-                        main_entry.text = entry_text.substring (0, text_length - 1) + "10 ^ ";
+                        main_entry.text = entry_text.substring (0, text_length - ch.length) + "10 ^ ";
                         main_entry.set_position ((int) main_entry.text_length);
                     }
                     break;
                 case "Z":
                     if (!entry_text.has_suffix ("e ^ ")) {
-                        main_entry.text = entry_text.substring (0, text_length - 1) + "e ^ ";
+                        main_entry.text = entry_text.substring (0, text_length - ch.length) + "e ^ ";
                         main_entry.set_position ((int) main_entry.text_length);
                     }
                     break;
                 case "F":
                 case "f":
                     if (!entry_text.has_suffix ("!")) {
-                        main_entry.text = entry_text.substring (0, text_length - 1) + "!";
+                        main_entry.text = entry_text.substring (0, text_length - ch.length) + "!";
                         main_entry.set_position ((int) main_entry.text_length);
                     }
                     break;

@@ -198,7 +198,7 @@ class Tokenizer():
             """
 
             # Detect constants
-            exp = exp.replace('\xCF\x80', ' ( 3.1415926535897932 ) ')
+            exp = exp.replace('π', ' ( 3.1415926535897932 ) ')
             exp = exp.replace('\xCF\x86', ' ( 1.618033989 ) ')
             exp = exp.replace('\xF0\x9D\x9B\xBE', ' ( 0.5772156649 ) ')
             exp = exp.replace('\xCE\xBB', ' ( 1.30357 ) ')

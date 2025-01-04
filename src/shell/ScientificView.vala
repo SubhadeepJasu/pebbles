@@ -85,6 +85,8 @@ namespace Pebbles {
         }
 
         protected bool show_hide_fx_btn { get; set; }
+        protected string constant_label { get; private set; default = "C"; }
+        protected string constant_desc { get; private set; default = ""; }
 
         [GtkChild]
         private unowned Adw.NavigationSplitView sci_nav_split_view;
@@ -96,6 +98,7 @@ namespace Pebbles {
         construct {
             del_button.remove_css_class ("image-button");
             display.on_input.connect (evaluate);
+            load_constant_button ();
         }
 
         [GtkCallback]
@@ -110,77 +113,51 @@ namespace Pebbles {
 
         [GtkCallback]
         protected void on_shift () {
-            if (shift_button.active) {
-                pow_root_button.label_text = "<sup>n</sup>√";
-                pow_root_button.tooltip_desc = _("Square root over number");
-                expo_power_button.label_text = "e<sup>x</sup>";
-                expo_power_button.tooltip_desc = _("e raised to the power x");
-                sin_button.label_text = "sin<sup>-1</sup>";
-                sin_button.tooltip_desc = _("Inverse Sine");
-                cos_button.label_text = "cos<sup>-1</sup>";
-                cos_button.tooltip_desc = _("Inverse Cosine");
-                tan_button.label_text = "tan<sup>-1</sup>";
-                tan_button.tooltip_desc = _("Inverse Tangent");
-                sinh_button.label_text = "sinh<sup>-1</sup>";
-                sinh_button.tooltip_desc = _("Inverse Hyperbolic Sine");
-                cosh_button.label_text = "cosh<sup>-1</sup>";
-                cosh_button.tooltip_desc = _("Inverse Hyperbolic Cosine");
-                tanh_button.label_text = "tanh<sup>-1</sup>";
-                tanh_button.tooltip_desc = _("Inverse Hyperbolic Tangent");
-                log_mod_button.label_text = "log<sub>x</sub>y";
-                log_mod_button.tooltip_desc = _("Log Base x");
-                log_cont_base_button.label_text = "ln x";
-                log_cont_base_button.tooltip_desc = _("Natural Logarithm");
-                perm_comb_button.label_text = "<sup>n</sup>C<sub>r</sub>";
-                perm_comb_button.tooltip_desc = _("Combinations");
-                memory_plus_button.label_text = "GM+";
-                memory_plus_button.tooltip_desc = _("Add it to the value in Global Memory");
-                memory_minus_button.label_text = "GM−";
-                memory_minus_button.tooltip_desc = _("Subtract it from the value in Global Memory");
-                memory_recall_button.label_text = "GMR";
-                memory_recall_button.tooltip_desc = _("Recall value from Global Memory");
-                memory_clear_button.label_text = "GMC";
-                memory_clear_button.tooltip_desc = _("Global Memory Clear");
-                last_answer_button.label_text = "GAns";
-                last_answer_button.tooltip_desc = _("Insert global last answer");
-                last_answer_button_p.label_text = "GAns";
-                last_answer_button_p.tooltip_desc = _("Insert global last answer");
-            } else {
-                pow_root_button.label_text = "x<sup>y</sup>";
-                pow_root_button.tooltip_desc = _("x raised to the power y");
-                expo_power_button.label_text = "10<sup>x</sup>";
-                expo_power_button.tooltip_desc = _("10 raised to the power x");
-                sin_button.label_text = "sin";
-                sin_button.tooltip_desc = _("Sine");
-                cos_button.label_text = "cos";
-                cos_button.tooltip_desc = _("Cosine");
-                tan_button.label_text = "tan";
-                tan_button.tooltip_desc = _("Tangent");
-                sinh_button.label_text = "sinh";
-                sinh_button.tooltip_desc = _("Hyperbolic Sine");
-                cosh_button.label_text = "cosh";
-                cosh_button.tooltip_desc = _("Hyperbolic Cosine");
-                tanh_button.label_text = "tanh";
-                tanh_button.tooltip_desc = _("Hyperbolic Tangent");
-                log_mod_button.label_text = "|Mod|";
-                log_mod_button.tooltip_desc = _("Modulus");
-                log_cont_base_button.label_text = "log x";
-                log_cont_base_button.tooltip_desc = _("Log Base 10");
-                perm_comb_button.label_text = "<sup>n</sup>P<sub>r</sub>";
-                perm_comb_button.tooltip_desc = _("Permutations");
-                memory_plus_button.label_text = "M+";
-                memory_plus_button.tooltip_desc = _("Add it to the value in Memory");
-                memory_minus_button.label_text = "M−";
-                memory_minus_button.tooltip_desc = _("Subtract it from the value in Memory");
-                memory_recall_button.label_text = "MR";
-                memory_recall_button.tooltip_desc = _("Recall value from Memory");
-                memory_clear_button.label_text = "MC";
-                memory_clear_button.tooltip_desc = _("Memory Clear");
-                last_answer_button.label_text = "Ans";
-                last_answer_button.tooltip_desc = _("Insert last answer");
-                last_answer_button_p.label_text = "Ans";
-                last_answer_button_p.tooltip_desc = _("Insert last answer");
-            }
+            pow_root_button.label_text = shift_button.active ? "<sup>n</sup>√" : "x<sup>y</sup>";
+            pow_root_button.tooltip_desc = shift_button.active
+            ? _("Square root over number") : _("x raised to the power y");
+            expo_power_button.label_text = shift_button.active ? "e<sup>x</sup>" : "10<sup>x</sup>";
+            expo_power_button.tooltip_desc = shift_button.active
+            ? _("e raised to the power x") : _("10 raised to the power x");
+            sin_button.label_text = shift_button.active ? "sin<sup>-1</sup>" : "sin";
+            sin_button.tooltip_desc = shift_button.active ? _("Inverse Sine") : _("Sine");
+            cos_button.label_text = shift_button.active ? "cos<sup>-1</sup>" : "cos";
+            cos_button.tooltip_desc = shift_button.active ? _("Inverse Cosine") : _("Cosine");
+            tan_button.label_text = shift_button.active ? "tan<sup>-1</sup>" : "tan";
+            tan_button.tooltip_desc = shift_button.active ? _("Inverse Tangent") : _("Tangent");
+            sinh_button.label_text = shift_button.active ? "sinh<sup>-1</sup>" : "sinh";
+            sinh_button.tooltip_desc = shift_button.active ? _("Inverse Hyperbolic Sine") : _("Hyperbolic Sine");
+            cosh_button.label_text = shift_button.active ? "cosh<sup>-1</sup>" : "cosh";
+            cosh_button.tooltip_desc = shift_button.active ? _("Inverse Hyperbolic Cosine") : _("Hyperbolic Cosine");
+            tanh_button.label_text = shift_button.active ? "tanh<sup>-1</sup>" : "tan";
+            tanh_button.tooltip_desc = shift_button.active ? _("Inverse Hyperbolic Tangent") : _("Hyperbolic Tangent");
+            log_mod_button.label_text = shift_button.active ? "log<sub>x</sub>y" : "|Mod|";
+            log_mod_button.tooltip_desc = shift_button.active ? _("Log Base x") : _("Modulus");
+            log_cont_base_button.label_text = shift_button.active ? "ln x" : "log x";
+            log_cont_base_button.tooltip_desc = shift_button.active ? _("Natural Logarithm") : _("Log Base 10");
+            perm_comb_button.label_text = shift_button.active
+            ? "<sup>n</sup>C<sub>r</sub>" : "<sup>n</sup>P<sub>r</sub>";
+            perm_comb_button.tooltip_desc = shift_button.active ? _("Combinations") : _("Permutations");
+            memory_plus_button.label_text = shift_button.active ? "GM+" : "M+";
+            memory_plus_button.tooltip_desc = shift_button.active
+            ? _("Add it to the value in Global Memory") : _("Add it to the value in Memory");
+            memory_minus_button.label_text = shift_button.active ? "GM−" : "M−";
+            memory_minus_button.tooltip_desc = shift_button.active
+            ? _("Subtract it from the value in Global Memory")
+            : _("Subtract it from the value in Memory");
+            memory_recall_button.label_text = shift_button.active ? "GMR" : "MR";
+            memory_recall_button.tooltip_desc = shift_button.active
+            ? _("Recall value from Global Memory") : _("Recall value from Memory");
+            memory_clear_button.label_text = shift_button.active ? "GMC" : "MC";
+            memory_clear_button.tooltip_desc = shift_button.active ? _("Global Memory Clear") : _("Memory Clear");
+            last_answer_button.label_text = shift_button.active ? "GAns" : "Ans";
+            last_answer_button.tooltip_desc = shift_button.active
+            ? _("Insert global last answer") : _("Insert last answer");
+            last_answer_button_p.label_text = shift_button.active ? "GAns" : "Ans";
+            last_answer_button_p.tooltip_desc = shift_button.active
+            ? _("Insert global last answer") : _("Insert last answer");
+
+            load_constant_button ();
         }
 
         public void evaluate (string text) {
@@ -302,6 +279,54 @@ namespace Pebbles {
             on_shift ();
         }
 
+        private void load_constant_button () {
+            var settings = Pebbles.Settings.get_default ();
+
+            var key = shift_button.active ? settings.constant_key_value2 : settings.constant_key_value1;
+            switch (key) {
+                case ARCHIMEDES:
+                    constant_label = "π";
+                    constant_desc = _("Archimedes' constant (pi)");
+                    break;
+                case IMAGINARY:
+                    constant_label = "j";
+                    constant_desc = _("Imaginary Number (√-1)");
+                    break;
+                case GOLDEN_RATIO:
+                    constant_label = "\xCF\x86";
+                    constant_desc = _("Golden ratio (phi)");
+                    break;
+                case EULER_MASCH:
+                    constant_label = "\xF0\x9D\x9B\xBE";
+                    constant_desc = _("Euler–Mascheroni constant (gamma)");
+                    break;
+                case CONWAY:
+                    constant_label = "\xCE\xBB";
+                    constant_desc = _("Conway's constant (lambda)");
+                    break;
+                case KHINCHIN:
+                    constant_label = "K";
+                    constant_desc = _("Khinchin's constant");
+                    break;
+                case FEIGEN_ALPHA:
+                    constant_label = "\xCE\xB1";
+                    constant_desc = _("The Feigenbaum constant alpha");
+                    break;
+                case FEIGEN_DELTA:
+                    constant_label = "\xCE\xB4";
+                    constant_desc = _("The Feigenbaum constant delta");
+                    break;
+                case APERY:
+                    constant_label = "\xF0\x9D\x9B\x87(3)";
+                    constant_desc = _("Apery's constant");
+                    break;
+                default:
+                    constant_label = "e";
+                    constant_desc = _("Euler's constant (exponential)");
+                    break;
+            }
+        }
+
         [GtkCallback]
         public void on_all_clear () {
             display.all_clear ();
@@ -318,33 +343,38 @@ namespace Pebbles {
         }
 
         [GtkCallback]
-        public void on_click_add_button () {
+        protected void on_click_add_button () {
             display.write ("+");
         }
 
         [GtkCallback]
-        public void on_click_sub_button () {
+        protected void on_click_sub_button () {
             display.write ("−");
         }
 
         [GtkCallback]
-        public void on_click_mul_button () {
+        protected void on_click_mul_button () {
             display.write ("×");
         }
 
         [GtkCallback]
-        public void on_click_div_button () {
+        protected void on_click_div_button () {
             display.write ("÷");
         }
 
         [GtkCallback]
-        public void on_click_function (Gtk.Button btn) {
+        protected void on_click_function (Gtk.Button btn) {
             display.write (shift_button.active ? btn.name.up () : btn.name);
         }
 
         [GtkCallback]
-        public void on_click_fraction_point () {
-            display.write (".");
+        protected void on_click_fraction_point () {
+            display.write (_("."));
+        }
+
+        [GtkCallback]
+        protected void on_click_constant (Gtk.Button button) {
+            display.write (((StyledButton) button).label_text);
         }
 
         [GtkCallback]
