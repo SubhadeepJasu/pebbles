@@ -51,29 +51,14 @@ namespace Pebbles {
                 return false;
             }, Priority.LOW);
 
+            // TODO: Do token check before inserting any character
             main_entry.get_delegate ().insert_text.connect_after ((ch, length) => {
+                var text = main_entry.text;
                 Idle.add (() => {
-                    if (main_entry.text.has_prefix ("0") && main_entry.text != null) {
-                        if (main_entry.text_length > 1) {
-                            main_entry.text = main_entry.text.slice (1, main_entry.text_length);
-                            main_entry.set_position ((int) main_entry.text_length);
-                        }
-                    }
-
-                    if (main_entry.text.contains ("*")) {
-                        Idle.add (() => {
-                            main_entry.text = main_entry.text.replace ("*", " × ");
-                            main_entry.set_position ((int) main_entry.text_length);
-                            return false;
-                        });
-                    }
-
-                    if (main_entry.text.contains ("/")) {
-                        Idle.add (() => {
-                            main_entry.text = main_entry.text.replace ("/", " ÷ ");
-                            main_entry.set_position ((int) main_entry.text_length);
-                            return false;
-                        });
+                    if (text.length > 1 && text.has_prefix ("0")) {
+                        main_entry.text = text.substring (1);
+                        main_entry.set_position (1);
+                        return false;
                     }
 
                     if (length > 1) {
@@ -100,24 +85,30 @@ namespace Pebbles {
 
             settings = Pebbles.Settings.get_default ();
             settings.changed["global-angle-unit"].connect ((key) => {
-                switch (settings.global_angle_unit) {
-                    case DEG:
-                        deg_label.opacity = 1;
-                        rad_label.opacity = 0.2;
-                        grad_label.opacity = 0.2;
-                        break;
-                    case RAD:
-                        deg_label.opacity = 0.2;
-                        rad_label.opacity = 1;
-                        grad_label.opacity = 0.2;
-                        break;
-                    case GRAD:
-                        deg_label.opacity = 0.2;
-                        rad_label.opacity = 0.2;
-                        grad_label.opacity = 1;
-                        break;
-                }
+                set_angle_unit (settings.global_angle_unit);
             });
+
+            set_angle_unit (settings.global_angle_unit);
+        }
+
+        public void set_angle_unit (GlobalAngleUnit unit) {
+            switch (unit) {
+                case DEG:
+                    deg_label.opacity = 1;
+                    rad_label.opacity = 0.2;
+                    grad_label.opacity = 0.2;
+                    break;
+                case RAD:
+                    deg_label.opacity = 0.2;
+                    rad_label.opacity = 1;
+                    grad_label.opacity = 0.2;
+                    break;
+                case GRAD:
+                    deg_label.opacity = 0.2;
+                    rad_label.opacity = 0.2;
+                    grad_label.opacity = 1;
+                    break;
+            }
         }
 
         [GtkCallback]

@@ -51,6 +51,7 @@ namespace Pebbles {
             setup_evaluators ();
             setup_key_events ();
             setup_memory_events ();
+            load_settings ();
         }
 
         private void setup_theme () {
@@ -164,6 +165,20 @@ namespace Pebbles {
             scientific_view.on_memory_recall.connect ((global) => {
                 return on_memory_recall (global ? "global" : "sci");
             });
+        }
+
+        private void load_settings () {
+            switch (settings.global_angle_unit) {
+                case DEG:
+                    angle_mode.label_text = "DEG";
+                    break;
+                case RAD:
+                    angle_mode.label_text = "RAD";
+                    break;
+                case GRAD:
+                    angle_mode.label_text = "GRA";
+                    break;
+            }
         }
 
         protected void on_evaluation_completed (string data) {
