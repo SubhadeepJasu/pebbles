@@ -16,5 +16,16 @@
     <file alias="scalable/emblems/programmer-mode-symbolic.svg">icons/scalable/emblems/programmer-mode-symbolic.svg</file>
     <file alias="scalable/emblems/statistics-mode-symbolic.svg">icons/scalable/emblems/statistics-mode-symbolic.svg</file>
     <file alias="scalable/emblems/graphing-mode-symbolic.svg">icons/scalable/emblems/graphing-mode-symbolic.svg</file>
+    <file alias="scalable/emblems/length-conv-symbolic.svg">icons/scalable/emblems/length-conv-symbolic.svg</file>
+    <file alias="scalable/emblems/area-conv-symbolic.svg">icons/scalable/emblems/area-conv-symbolic.svg</file>
+    <file alias="scalable/emblems/volume-conv-symbolic.svg">icons/scalable/emblems/volume-conv-symbolic.svg</file>
+    <file alias="scalable/emblems/angle-conv-symbolic.svg">icons/scalable/emblems/angle-conv-symbolic.svg</file>
+    <file alias="scalable/emblems/speed-conv-symbolic.svg">icons/scalable/emblems/speed-conv-symbolic.svg</file>
+    <file alias="scalable/emblems/mass-conv-symbolic.svg">icons/scalable/emblems/mass-conv-symbolic.svg</file>
+    <file alias="scalable/emblems/pressure-conv-symbolic.svg">icons/scalable/emblems/pressure-conv-symbolic.svg</file>
+    <file alias="scalable/emblems/energy-conv-symbolic.svg">icons/scalable/emblems/energy-conv-symbolic.svg</file>
+    <file alias="scalable/emblems/power-conv-symbolic.svg">icons/scalable/emblems/power-conv-symbolic.svg</file>
+    <file alias="scalable/emblems/temp-conv-symbolic.svg">icons/scalable/emblems/temp-conv-symbolic.svg</file>
+    <file alias="scalable/emblems/currency-conv-symbolic.svg">icons/scalable/emblems/currency-conv-symbolic.svg</file>
   </gresource>
 </gresources>
