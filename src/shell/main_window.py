@@ -10,7 +10,7 @@ from pebbles.core.utils import Utils
 import json
 import threading
 
-class PythonWindow(Pebbles.Window):
+class PythonWindow(Pebbles.MainWindow):
     """The main window class."""
 
     def __init__(self, application: Pebbles.Application):

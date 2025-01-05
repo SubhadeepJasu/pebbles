@@ -31,6 +31,15 @@ $BANANA_500: #f9c440;
 $BANANA_900: #ad5f00;
 $LCD_FG_COLOR: #272863bb;
 
+.headerbar {
+    &-left {
+	    border-radius: 6px 0 0 0;
+    }
+
+    &-right {
+        border-radius: 0 6px 0 0;
+    }
+}
 
 .lcd {
     background: linear-gradient(#d1ddd1, #bdc7bd);

@@ -18,7 +18,7 @@ python.install_sources(
 python.install_sources(
   files(
     'shell/__init__.py',
-    'shell/window.py',
+    'shell/main_window.py',
   ),
   subdir: 'pebbles/shell',
 )
@@ -48,11 +48,12 @@ pebbles_lib = shared_library('pebbles',
     'Common.vala',
     'Application.vala',
     'Settings.vala',
-    'shell/Window.vala',
-    'shell/StyledButton.vala',
-    'shell/Display.vala',
-    'shell/ScientificDisplay.vala',
-    'shell/ScientificView.vala'
+    'shell/MainWindow.vala',
+    'shell/widgets/StyledButton.vala',
+    'shell/widgets/PopoverMenuItem.vala',
+    'shell/widgets/Display.vala',
+    'shell/widgets/ScientificDisplay.vala',
+    'shell/views/ScientificView.vala'
   ),
              vala_gir: 'Pebbles-3.gir',
          dependencies: dependencies + config_dep,

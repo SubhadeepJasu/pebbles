@@ -2,8 +2,8 @@
 // SPDX-FileCopyrightText: 2024 Subhadeep Jasu <subhadeep107@proton.me>, 2020 Saunak Biswas <saunakbis97@gmail.com>
 
 namespace Pebbles {
-    [GtkTemplate (ui = "/com/github/subhadeepjasu/pebbles/ui/window.ui")]
-    public class Window : Adw.ApplicationWindow {
+    [GtkTemplate (ui = "/com/github/subhadeepjasu/pebbles/ui/main_window.ui")]
+    public class MainWindow : Adw.ApplicationWindow {
         [GtkChild]
         private unowned Adw.ToastOverlay toast_overlay;
         [GtkChild]
@@ -13,6 +13,8 @@ namespace Pebbles {
         private unowned Adw.HeaderBar main_headerbar;
         [GtkChild]
         private unowned StyledButton angle_mode;
+        [GtkChild]
+        private unowned Gtk.Box menu_box;
         [GtkChild]
         private unowned Gtk.CheckButton color_button_light;
         [GtkChild]
@@ -47,6 +49,7 @@ namespace Pebbles {
             settings = Pebbles.Settings.get_default ();
 
             setup_theme ();
+            //  build_ui ();
             setup_actions ();
             setup_evaluators ();
             setup_key_events ();
@@ -87,6 +90,12 @@ namespace Pebbles {
 
         private void setup_actions () {
             nav_list.select_row (nav_list.get_row_at_index (0));
+            var open_controls_action = new SimpleAction ("controls", null);
+            add_action (open_controls_action);
+
+            var open_preferences_action = new SimpleAction ("preferences", null);
+            add_action (open_preferences_action);
+
             var enable_scientific_mode_action = new SimpleAction ("open_scientific_mode", null);
             enable_scientific_mode_action.activate.connect (() => {
                 view_stack.set_visible_child_name ("sci");

@@ -2,10 +2,19 @@
 <gresources>
   <gresource prefix="/com/github/subhadeepjasu/pebbles">
     <file alias="style.css" compressed="true">style.css</file>
-    <file compressed="true" preprocess="xml-stripblanks">ui/window.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/main_window.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/styled_button.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/popover_menu_item.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/display.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/scientific_view.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/scientific_display.ui</file>
+  </gresource>
+
+  <gresource prefix="/com/github/subhadeepjasu/pebbles/icons">
+    <file alias="scalable/emblems/scientific-mode-symbolic.svg">icons/scalable/emblems/scientific-mode-symbolic.svg</file>
+    <file alias="scalable/emblems/calculus-mode-symbolic.svg">icons/scalable/emblems/calculus-mode-symbolic.svg</file>
+    <file alias="scalable/emblems/programmer-mode-symbolic.svg">icons/scalable/emblems/programmer-mode-symbolic.svg</file>
+    <file alias="scalable/emblems/statistics-mode-symbolic.svg">icons/scalable/emblems/statistics-mode-symbolic.svg</file>
+    <file alias="scalable/emblems/graphing-mode-symbolic.svg">icons/scalable/emblems/graphing-mode-symbolic.svg</file>
   </gresource>
 </gresources>

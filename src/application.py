@@ -4,7 +4,7 @@
 """Main Application"""
 
 from gi.repository import Gio, Gtk, Gdk, Pebbles
-from pebbles.shell.window import PythonWindow
+from pebbles.shell.main_window import PythonWindow
 
 class PythonApplication(Pebbles.Application):
     """The main application singleton class."""
@@ -37,5 +37,5 @@ class PythonApplication(Pebbles.Application):
             Gdk.Display.get_default(), css_provider, 800)
 
 
-    def _on_create_window_request(self, app) -> Pebbles.Window:
+    def _on_create_window_request(self, app) -> Pebbles.MainWindow:
         return PythonWindow(app)

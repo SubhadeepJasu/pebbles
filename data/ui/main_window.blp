@@ -3,7 +3,7 @@
 using Gtk 4.0;
 using Adw 1;
 
-template $PebblesWindow: Adw.ApplicationWindow {
+template $PebblesMainWindow: Adw.ApplicationWindow {
     default-width: 800;
     default-height: 600;
     width-request: 360;
@@ -12,7 +12,7 @@ template $PebblesWindow: Adw.ApplicationWindow {
 
     ShortcutController {
         Shortcut {
-            trigger: "<control>w";
+            trigger: "<control>q";
             action: "action(window.close)";
         }
 
@@ -67,7 +67,9 @@ template $PebblesWindow: Adw.ApplicationWindow {
 
                     Adw.HeaderBar navigation_headerbar {
                         styles [
-                            "flat"
+                            "flat",
+                            "headerbar",
+                            "headerbar-left"
                         ]
 
                         show-start-title-buttons: true;
@@ -99,46 +101,100 @@ template $PebblesWindow: Adw.ApplicationWindow {
                                     ]
 
                                     ListBoxRow {
-                                        Label {
-                                            label: _("Scientific");
-                                            halign: start;
+                                        Box {
+                                            orientation: horizontal;
+                                            spacing: 4;
+
+                                            Image {
+                                                icon-name: "scientific-mode-symbolic";
+                                            }
+
+                                            Label {
+                                                label: _("Scientific");
+                                                halign: start;
+                                            }
                                         }
 
                                         action-name: "win.open_scientific_mode";
                                     }
 
                                     ListBoxRow {
-                                        Label {
-                                            label: _("Calculus");
-                                            halign: start;
+                                        Box {
+                                            orientation: horizontal;
+                                            spacing: 4;
+
+                                            Image {
+                                                icon-name: "calculus-mode-symbolic";
+                                            }
+
+                                            Label {
+                                                label: _("Calculus");
+                                                halign: start;
+                                            }
                                         }
                                     }
 
                                     ListBoxRow {
-                                        Label {
-                                            label: _("Programmer");
-                                            halign: start;
+                                        Box {
+                                            orientation: horizontal;
+                                            spacing: 4;
+
+                                            Image {
+                                                icon-name: "programmer-mode-symbolic";
+                                            }
+
+                                            Label {
+                                                label: _("Programmer");
+                                                halign: start;
+                                            }
                                         }
                                     }
 
                                     ListBoxRow {
-                                        Label {
-                                            label: _("Date");
-                                            halign: start;
+                                        Box {
+                                            orientation: horizontal;
+                                            spacing: 4;
+
+                                            Image {
+                                                icon-name: "statistics-mode-symbolic";
+                                            }
+
+                                            Label {
+                                                label: _("Statistics");
+                                                halign: start;
+                                            }
                                         }
                                     }
 
                                     ListBoxRow {
-                                        Label {
-                                            label: _("Statistics");
-                                            halign: start;
+                                        Box {
+                                            orientation: horizontal;
+                                            spacing: 4;
+
+                                            Image {
+                                                icon-name: "graphing-mode-symbolic";
+                                            }
+
+                                            Label {
+                                                label: _("Graphing");
+                                                halign: start;
+                                            }
                                         }
                                     }
 
                                     ListBoxRow {
-                                        Label {
-                                            label: _("Graphing");
-                                            halign: start;
+                                        Box {
+                                            orientation: horizontal;
+                                            spacing: 4;
+
+                                            Image {
+                                                icon-name: "x-office-calendar-symbolic";
+                                            }
+
+                                            Label {
+                                                label: _("Date");
+                                                halign: start;
+                                            }
                                         }
                                     }
                                 }
@@ -262,7 +318,9 @@ template $PebblesWindow: Adw.ApplicationWindow {
 
                     Adw.HeaderBar main_headerbar {
                         styles [
-                            "flat"
+                            "flat",
+                            "headerbar",
+                            "headerbar-right"
                         ]
 
                         show-start-title-buttons: false;
@@ -344,6 +402,32 @@ template $PebblesWindow: Adw.ApplicationWindow {
 
                                             toggled => $set_theme();
                                         }
+                                    }
+
+                                    Separator {
+                                        orientation: horizontal;
+                                    }
+
+                                    $PebblesPopoverMenuItem controls_item {
+                                        text: _("Controls");
+                                        accel: "F1";
+                                        action_name: "win.controls";
+                                    }
+
+                                    $PebblesPopoverMenuItem preferences_item {
+                                        text: _("Preferences");
+                                        accel: "F2";
+                                        action_name: "win.preferences";
+                                    }
+
+                                    Separator {
+                                        orientation: horizontal;
+                                    }
+
+                                    $PebblesPopoverMenuItem quit_item {
+                                        text: _("Quit");
+                                        accel: "<control>q";
+                                        action_name: "window.close";
                                     }
                                 }
                             };

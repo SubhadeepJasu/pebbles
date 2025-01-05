@@ -6,13 +6,13 @@ namespace Pebbles {
         public bool debug { get; construct set; default = false; }
         public Pebbles.Settings settings { get; protected set; }
 
-        private List<Window> main_windows;
+        private List<MainWindow> main_windows;
 
-        protected signal Window create_window_request ();
+        protected signal MainWindow create_window_request ();
 
         construct {
             this.version = Config.VERSION;
-            main_windows = new List<Window> ();
+            main_windows = new List<MainWindow> ();
         }
 
         /**
@@ -30,8 +30,8 @@ namespace Pebbles {
             create_main_window ();
         }
 
-        public Window create_main_window () {
-            Window window = create_window_request ();
+        public MainWindow create_main_window () {
+            MainWindow window = create_window_request ();
             main_windows.append (window);
             window.present ();
             return window;
