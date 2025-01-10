@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // SPDX-FileCopyrightText: 2024 Subhadeep Jasu <subhadeep107@proton.me>
 using Gtk 4.0;
+using Gdk 4.0;
 using Adw 1;
 
 template $PebblesScientificView: Gtk.Grid {
@@ -47,11 +48,12 @@ template $PebblesScientificView: Gtk.Grid {
         margin-bottom: 6;
         margin-top: 1;
 
-        $PebblesStyledButton all_clear_button {
+        $PebblesButton all_clear_button {
           label_text: _("AC");
           tooltip_desc: _("All Clear");
           accel_markup: "Delete";
           focus-on-click: false;
+          key: "delete";
 
           styles [
             "destructive-action",
@@ -66,10 +68,11 @@ template $PebblesScientificView: Gtk.Grid {
           clicked => $on_all_clear();
         }
 
-        Button del_button {
-          icon-name: "edit-clear-symbolic";
-          tooltip-text: _("Backspace");
+        $PebblesButton del_button {
+          icon: "edit-clear-symbolic";
+          tooltip_desc: _("Backspace");
           focus-on-click: false;
+          key: "BackSpace";
 
           layout {
             row: 0;
@@ -79,11 +82,12 @@ template $PebblesScientificView: Gtk.Grid {
           clicked => $on_backspace();
         }
 
-        $PebblesStyledButton percent_button {
+        $PebblesButton percent_button {
           name: "%";
           label_text: "%";
           tooltip_desc: _("Percentage");
           focus-on-click: false;
+          key: "percent";
 
           layout {
             row: 0;
@@ -97,10 +101,11 @@ template $PebblesScientificView: Gtk.Grid {
           clicked => $on_click_function();
         }
 
-        $PebblesStyledButton divide_button {
+        $PebblesButton divide_button {
           label_text: "÷";
           tooltip_desc: _("Divide");
           focus-on-click: false;
+          key: "/";
 
           layout {
             row: 0;
@@ -115,7 +120,7 @@ template $PebblesScientificView: Gtk.Grid {
           clicked => $on_click_div_button();
         }
 
-        $PebblesStyledButton fx_button {
+        $PebblesButton fx_button {
           label_text: "← <i>f(x)</i>";
           visible: bind template.collapsed;
           focus-on-click: false;
@@ -133,10 +138,11 @@ template $PebblesScientificView: Gtk.Grid {
           clicked => $on_expand_fx();
         }
 
-        $PebblesStyledButton seven_button {
+        $PebblesButton seven_button {
           name: "7";
           label_text: "7";
           focus-on-click: false;
+          key: "7";
 
           styles [
             "adaptive-btn-font"
@@ -150,10 +156,11 @@ template $PebblesScientificView: Gtk.Grid {
           clicked => $on_click_button();
         }
 
-        $PebblesStyledButton eight_button {
+        $PebblesButton eight_button {
           name: "8";
           label_text: "8";
           focus-on-click: false;
+          key: "8";
 
           styles [
             "adaptive-btn-font"
@@ -167,10 +174,11 @@ template $PebblesScientificView: Gtk.Grid {
           clicked => $on_click_button();
         }
 
-        $PebblesStyledButton nine_button {
+        $PebblesButton nine_button {
           name: "9";
           label_text: "9";
           focus-on-click: false;
+          key: "9";
 
           styles ["adaptive-btn-font"]
 
@@ -182,10 +190,11 @@ template $PebblesScientificView: Gtk.Grid {
           clicked => $on_click_button();
         }
 
-        $PebblesStyledButton multiply_button {
+        $PebblesButton multiply_button {
           label_text: "×";
           tooltip_desc: _("Multiply");
           focus-on-click: false;
+          key: "*";
 
           styles [
             "adaptive-btn-font",
@@ -200,13 +209,14 @@ template $PebblesScientificView: Gtk.Grid {
           clicked => $on_click_mul_button();
         }
 
-        $PebblesStyledButton pow_button {
+        $PebblesButton pow_button {
           name: "q";
           label_text: "x<sup>y</sup>";
           tooltip_desc: _("x raised to the power y");
           accel_markup: "Q";
           visible: bind template.collapsed;
           focus-on-click: false;
+          key: "q";
 
           styles [
             "special-action",
@@ -221,10 +231,11 @@ template $PebblesScientificView: Gtk.Grid {
           clicked => $on_click_function();
         }
 
-        $PebblesStyledButton four_button {
+        $PebblesButton four_button {
           name: "4";
           label_text: "4";
           focus-on-click: false;
+          key: "4";
 
           styles ["adaptive-btn-font"]
 
@@ -236,10 +247,11 @@ template $PebblesScientificView: Gtk.Grid {
           clicked => $on_click_button();
         }
 
-        $PebblesStyledButton five_button {
+        $PebblesButton five_button {
           name: "5";
           label_text: "5";
           focus-on-click: false;
+          key: "5";
 
           styles ["adaptive-btn-font"]
 
@@ -251,10 +263,11 @@ template $PebblesScientificView: Gtk.Grid {
           clicked => $on_click_button();
         }
 
-        $PebblesStyledButton six_button {
+        $PebblesButton six_button {
           name: "6";
           label_text: "6";
           focus-on-click: false;
+          key: "6";
 
           styles ["adaptive-btn-font"]
 
@@ -266,10 +279,11 @@ template $PebblesScientificView: Gtk.Grid {
           clicked => $on_click_button();
         }
 
-        $PebblesStyledButton subtract_button {
+        $PebblesButton subtract_button {
           label_text: "−";
           tooltip_desc: _("Subtract");
           focus-on-click: false;
+          key: "-";
 
           styles [
             "adaptive-btn-font",
@@ -284,13 +298,14 @@ template $PebblesScientificView: Gtk.Grid {
           clicked => $on_click_sub_button();
         }
 
-        $PebblesStyledButton log_button {
+        $PebblesButton log_button {
           name: "l";
           label_text: "log x";
           tooltip_desc: _("Log base 10");
           accel_markup: "L";
           visible: bind template.collapsed;
           focus-on-click: false;
+          key: "l";
 
           styles [
             "special-action",
@@ -303,10 +318,11 @@ template $PebblesScientificView: Gtk.Grid {
           }
         }
 
-        $PebblesStyledButton one_button {
+        $PebblesButton one_button {
           name: "1";
           label_text: "1";
           focus-on-click: false;
+          key: "1";
 
           styles ["adaptive-btn-font"]
 
@@ -318,10 +334,11 @@ template $PebblesScientificView: Gtk.Grid {
           clicked => $on_click_button();
         }
 
-        $PebblesStyledButton two_button {
+        $PebblesButton two_button {
           name: "2";
           label_text: "2";
           focus-on-click: false;
+          key: "2";
 
           styles ["adaptive-btn-font"]
 
@@ -333,10 +350,11 @@ template $PebblesScientificView: Gtk.Grid {
           clicked => $on_click_button();
         }
 
-        $PebblesStyledButton three_button {
+        $PebblesButton three_button {
           name: "3";
           label_text: "3";
           focus-on-click: false;
+          key: "3";
 
           styles ["adaptive-btn-font"]
 
@@ -348,10 +366,11 @@ template $PebblesScientificView: Gtk.Grid {
           clicked => $on_click_button();
         }
 
-        $PebblesStyledButton addition_button {
+        $PebblesButton addition_button {
           label_text: "+";
           tooltip_desc: _("Add");
           focus-on-click: false;
+          key: "+";
 
           styles [
             "adaptive-btn-font",
@@ -366,12 +385,13 @@ template $PebblesScientificView: Gtk.Grid {
           clicked => $on_click_add_button();
         }
 
-        $PebblesStyledButton last_answer_button_p {
+        $PebblesButton last_answer_button_p {
           label_text: "Ans";
           tooltip_desc: _("Insert last answer");
           accel_markup: "F7";
           visible: bind template.collapsed;
           focus-on-click: false;
+          key: "F7";
 
           styles [
             "special-action",
@@ -386,11 +406,12 @@ template $PebblesScientificView: Gtk.Grid {
           clicked => $on_click_last_ans();
         }
 
-        $PebblesStyledButton zero_button {
+        $PebblesButton zero_button {
           name: "0";
           label_text: "0";
           styles ["adaptive-btn-font"]
           focus-on-click: false;
+          key: "0";
 
           layout {
             row: 4;
@@ -400,10 +421,11 @@ template $PebblesScientificView: Gtk.Grid {
           clicked => $on_click_button();
         }
 
-        $PebblesStyledButton point_button {
+        $PebblesButton point_button {
           name: "fraction-point-button";
           label_text: _(".");
           focus-on-click: false;
+          key: ".";
 
           styles [
             "adaptive-btn-font",
@@ -418,11 +440,12 @@ template $PebblesScientificView: Gtk.Grid {
           clicked => $on_click_fraction_point();
         }
 
-        $PebblesStyledButton paren_start_button {
+        $PebblesButton paren_start_button {
           name: "(";
           label_text: "(";
           styles ["adaptive-btn-font"]
           focus-on-click: false;
+          key: "(, {, [";
 
           layout {
             row: 4;
@@ -432,11 +455,12 @@ template $PebblesScientificView: Gtk.Grid {
           clicked => $on_click_button();
         }
 
-        $PebblesStyledButton paren_end_button {
+        $PebblesButton paren_end_button {
           name: ")";
           label_text: ")";
           styles ["adaptive-btn-font"]
           focus-on-click: false;
+          key: "), }, ]";
 
           layout {
             row: 4;
@@ -446,7 +470,7 @@ template $PebblesScientificView: Gtk.Grid {
           clicked => $on_click_button();
         }
 
-        $PebblesStyledButton result_button_p {
+        $PebblesButton result_button_p {
           label_text: _("=");
           tooltip_desc: _("Result");
           accel_markup: "Return";
@@ -503,7 +527,7 @@ template $PebblesScientificView: Gtk.Grid {
           clicked => $on_shift();
         }
 
-        $PebblesStyledButton pow_root_button {
+        $PebblesButton pow_root_button {
           name: "q";
           label_text: "x<sup>y</sup>";
           tooltip_desc: _("x raised to the power y");
@@ -523,7 +547,7 @@ template $PebblesScientificView: Gtk.Grid {
           clicked => $on_click_function();
         }
 
-        $PebblesStyledButton expo_power_button {
+        $PebblesButton expo_power_button {
           name: "z";
           label_text: "10<sup>x</sup>";
           tooltip_desc: _("10 raised to the power x");
@@ -543,7 +567,7 @@ template $PebblesScientificView: Gtk.Grid {
           clicked => $on_click_function();
         }
 
-        $PebblesStyledButton memory_plus_button {
+        $PebblesButton memory_plus_button {
           label_text: "M+";
           tooltip_desc: _("Add it to the value in Memory");
           accel_markup: "F3";
@@ -562,7 +586,7 @@ template $PebblesScientificView: Gtk.Grid {
           clicked => $on_click_memory_add();
         }
 
-        $PebblesStyledButton sin_button {
+        $PebblesButton sin_button {
           name: "s";
           label_text: "sin";
           tooltip_desc: _("Sine");
@@ -582,7 +606,7 @@ template $PebblesScientificView: Gtk.Grid {
           clicked => $on_click_function();
         }
 
-        $PebblesStyledButton sinh_button {
+        $PebblesButton sinh_button {
           name: "h";
           label_text: "sinh";
           tooltip_desc: _("Hyberbolic Sine");
@@ -602,7 +626,7 @@ template $PebblesScientificView: Gtk.Grid {
           clicked => $on_click_function();
         }
 
-        $PebblesStyledButton log_cont_base_button {
+        $PebblesButton log_cont_base_button {
           name: "l";
           label_text: "log x";
           tooltip_desc: _("Log base 10");
@@ -622,7 +646,7 @@ template $PebblesScientificView: Gtk.Grid {
           clicked => $on_click_function();
         }
 
-        $PebblesStyledButton memory_minus_button {
+        $PebblesButton memory_minus_button {
           label_text: _("M−");
           tooltip_desc: _("Subtract it from the value in Memory");
           accel_markup: "F4";
@@ -641,7 +665,7 @@ template $PebblesScientificView: Gtk.Grid {
           clicked => $on_click_memory_subtract();
         }
 
-        $PebblesStyledButton cos_button {
+        $PebblesButton cos_button {
           name: "c";
           label_text: "cos";
           tooltip_desc: _("Cosine");
@@ -661,7 +685,7 @@ template $PebblesScientificView: Gtk.Grid {
           clicked => $on_click_function();
         }
 
-        $PebblesStyledButton cosh_button {
+        $PebblesButton cosh_button {
           name: "o";
           label_text: "cosh";
           tooltip_desc: _("Hyberbolic Cosine");
@@ -681,7 +705,7 @@ template $PebblesScientificView: Gtk.Grid {
           clicked => $on_click_function();
         }
 
-        $PebblesStyledButton log_mod_button {
+        $PebblesButton log_mod_button {
           name: "m";
           label_text: "|Mod|";
           tooltip_desc: _("Modulus");
@@ -701,7 +725,7 @@ template $PebblesScientificView: Gtk.Grid {
           clicked => $on_click_function();
         }
 
-        $PebblesStyledButton memory_recall_button {
+        $PebblesButton memory_recall_button {
           label_text: _("MR");
           tooltip_desc: _("Recall value from Memory");
           accel_markup: "F5";
@@ -720,7 +744,7 @@ template $PebblesScientificView: Gtk.Grid {
           clicked => $on_click_memory_recall();
         }
 
-        $PebblesStyledButton tan_button {
+        $PebblesButton tan_button {
           name: "t";
           label_text: "tan";
           tooltip_desc: _("Tangent");
@@ -740,7 +764,7 @@ template $PebblesScientificView: Gtk.Grid {
           clicked => $on_click_function();
         }
 
-        $PebblesStyledButton tanh_button {
+        $PebblesButton tanh_button {
           name: "a";
           label_text: "tanh";
           tooltip_desc: _("Hyberbolic Tangent");
@@ -760,7 +784,7 @@ template $PebblesScientificView: Gtk.Grid {
           clicked => $on_click_function();
         }
 
-        $PebblesStyledButton perm_comb_button {
+        $PebblesButton perm_comb_button {
           name: "p";
           label_text: "<sup>n</sup>P<sub>r</sub>";
           tooltip_desc: _("Permutations");
@@ -780,7 +804,7 @@ template $PebblesScientificView: Gtk.Grid {
           clicked => $on_click_function();
         }
 
-        $PebblesStyledButton memory_clear_button {
+        $PebblesButton memory_clear_button {
           label_text: _("MC");
           tooltip_desc: _("Memory Clear");
           accel_markup: "F6";
@@ -799,7 +823,7 @@ template $PebblesScientificView: Gtk.Grid {
           clicked => $on_click_memory_clear();
         }
 
-        $PebblesStyledButton fact_button {
+        $PebblesButton fact_button {
           name: "f";
           label_text: "!";
           tooltip_desc: _("Factorial");
@@ -819,7 +843,7 @@ template $PebblesScientificView: Gtk.Grid {
           clicked => $on_click_function();
         }
 
-        $PebblesStyledButton constant_button {
+        $PebblesButton constant_button {
           label_text: bind template.constant_label;
           tooltip_desc: bind template.constant_desc;
           accel_markup: "R";
@@ -838,7 +862,7 @@ template $PebblesScientificView: Gtk.Grid {
           clicked => $on_click_constant();
         }
 
-        $PebblesStyledButton last_answer_button {
+        $PebblesButton last_answer_button {
           label_text: "Ans";
           tooltip_desc: _("Insert last answer");
           accel_markup: "F7";
@@ -857,7 +881,7 @@ template $PebblesScientificView: Gtk.Grid {
           clicked => $on_click_last_ans();
         }
 
-        $PebblesStyledButton result_button {
+        $PebblesButton result_button {
           label_text: _("=");
           tooltip_desc: _("Result");
           accel_markup: "Return";
@@ -878,7 +902,7 @@ template $PebblesScientificView: Gtk.Grid {
           clicked => $on_click_eval();
         }
 
-        $PebblesStyledButton collapse_fx_button {
+        $PebblesButton collapse_fx_button {
           label_text: _("->");
           visible: bind sci_nav_split_view.collapsed;
           focus-on-click: false;

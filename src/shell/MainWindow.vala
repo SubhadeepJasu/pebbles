@@ -12,7 +12,7 @@ namespace Pebbles {
         [GtkChild]
         private unowned Adw.HeaderBar main_headerbar;
         [GtkChild]
-        private unowned StyledButton angle_mode;
+        private unowned Button angle_mode;
         [GtkChild]
         private unowned Gtk.Box menu_box;
         [GtkChild]
@@ -42,6 +42,9 @@ namespace Pebbles {
         protected signal void on_evaluate (string data);
         protected signal string on_memory_recall (string mode);
         protected signal void on_memory_clear (string mode);
+
+        public signal void on_key_down (string? mode, uint keyval);
+        public signal void on_key_up (string? mode, uint keyval);
 
         construct {
             navigation_pane.add_css_class (Granite.STYLE_CLASS_SIDEBAR);
@@ -141,10 +144,7 @@ namespace Pebbles {
                     return false;
                 }
 
-                if (view_stack.visible_child == scientific_view) {
-                    scientific_view.send_key_down (keyval);
-                }
-
+                on_key_down (view_stack.visible_child_name, keyval);
                 return false;
             });
             key_event_controller.key_released.connect ((keyval, _, modifier) => {
@@ -162,9 +162,7 @@ namespace Pebbles {
                     return;
                 }
 
-                if (view_stack.visible_child == scientific_view) {
-                    scientific_view.send_key_up (keyval);
-                }
+                on_key_up (view_stack.visible_child_name, keyval);
             });
             key_event_controller.set_propagation_phase (Gtk.PropagationPhase.CAPTURE);
             ((Gtk.Widget) this).add_controller (key_event_controller);
@@ -173,6 +171,10 @@ namespace Pebbles {
         private void setup_memory_events () {
             scientific_view.on_memory_recall.connect ((global) => {
                 return on_memory_recall (global ? "global" : "sci");
+            });
+
+            scientific_view.on_memory_clear.connect ((global) => {
+                on_memory_clear (global ? "global" : "sci");
             });
         }
 

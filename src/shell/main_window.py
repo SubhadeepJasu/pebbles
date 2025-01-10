@@ -71,3 +71,4 @@ class PythonWindow(Pebbles.MainWindow):
 
     def memory_clear(self, _, context: str):
         self._memory.clear(context)
+        self.on_memory_change(context, self._memory.any(context))

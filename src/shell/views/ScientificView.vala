@@ -6,71 +6,73 @@ namespace Pebbles {
 
         // Buttons
         [GtkChild]
-        private unowned StyledButton all_clear_button;
+        private unowned Button all_clear_button;
         [GtkChild]
-        private unowned Gtk.Button del_button;
+        private unowned Button del_button;
         [GtkChild]
-        private unowned StyledButton zero_button;
+        private unowned Button zero_button;
         [GtkChild]
-        private unowned StyledButton one_button;
+        private unowned Button one_button;
         [GtkChild]
-        private unowned StyledButton two_button;
+        private unowned Button two_button;
         [GtkChild]
-        private unowned StyledButton three_button;
+        private unowned Button three_button;
         [GtkChild]
-        private unowned StyledButton four_button;
+        private unowned Button four_button;
         [GtkChild]
-        private unowned StyledButton five_button;
+        private unowned Button five_button;
         [GtkChild]
-        private unowned StyledButton six_button;
+        private unowned Button six_button;
         [GtkChild]
-        private unowned StyledButton seven_button;
+        private unowned Button seven_button;
         [GtkChild]
-        private unowned StyledButton eight_button;
+        private unowned Button eight_button;
         [GtkChild]
-        private unowned StyledButton nine_button;
+        private unowned Button nine_button;
         [GtkChild]
-        private unowned StyledButton point_button;
+        private unowned Button point_button;
         [GtkChild]
         private unowned Gtk.ToggleButton shift_button;
         [GtkChild]
-        private unowned StyledButton pow_root_button;
+        private unowned Button pow_root_button;
         [GtkChild]
-        private unowned StyledButton expo_power_button;
+        private unowned Button expo_power_button;
         [GtkChild]
-        private unowned StyledButton sin_button;
+        private unowned Button sin_button;
         [GtkChild]
-        private unowned StyledButton sinh_button;
+        private unowned Button sinh_button;
         [GtkChild]
-        private unowned StyledButton log_cont_base_button;
+        private unowned Button log_cont_base_button;
         [GtkChild]
-        private unowned StyledButton cos_button;
+        private unowned Button cos_button;
         [GtkChild]
-        private unowned StyledButton cosh_button;
+        private unowned Button cosh_button;
         [GtkChild]
-        private unowned StyledButton log_mod_button;
+        private unowned Button log_mod_button;
         [GtkChild]
-        private unowned StyledButton tan_button;
+        private unowned Button tan_button;
         [GtkChild]
-        private unowned StyledButton tanh_button;
+        private unowned Button tanh_button;
         [GtkChild]
-        private unowned StyledButton perm_comb_button;
+        private unowned Button perm_comb_button;
         [GtkChild]
-        private unowned StyledButton fact_button;
+        private unowned Button fact_button;
         [GtkChild]
-        private unowned StyledButton constant_button;
+        private unowned Button constant_button;
         [GtkChild]
-        private unowned StyledButton last_answer_button_p;
+        private unowned Button last_answer_button_p;
         [GtkChild]
-        private unowned StyledButton last_answer_button;
+        private unowned Button last_answer_button;
         [GtkChild]
-        private unowned StyledButton memory_plus_button;
+        private unowned Button memory_plus_button;
         [GtkChild]
-        private unowned StyledButton memory_minus_button;
+        private unowned Button memory_minus_button;
         [GtkChild]
-        private unowned StyledButton memory_recall_button;
+        private unowned Button memory_recall_button;
         [GtkChild]
-        private unowned StyledButton memory_clear_button;
+        private unowned Button memory_clear_button;
+        [GtkChild]
+        private unowned Button result_button;
 
         private bool _collapsed;
         public bool collapsed {
@@ -96,7 +98,6 @@ namespace Pebbles {
         public signal void on_memory_clear (bool global);
 
         construct {
-            del_button.remove_css_class ("image-button");
             display.on_input.connect (evaluate);
             load_constant_button ();
         }
@@ -174,104 +175,6 @@ namespace Pebbles {
 
         public void set_global_memory_present (bool present) {
             display.set_global_memory_present (present);
-        }
-
-        public void send_key_down (uint keyval) {
-            switch (keyval) {
-                case Gdk.Key.@0:
-                    zero_button.show_as_pressed ();
-                    break;
-                case Gdk.Key.@1:
-                    one_button.show_as_pressed ();
-                    break;
-                case Gdk.Key.@2:
-                    two_button.show_as_pressed ();
-                    break;
-                case Gdk.Key.@3:
-                    three_button.show_as_pressed ();
-                    break;
-                case Gdk.Key.@4:
-                    four_button.show_as_pressed ();
-                    break;
-                case Gdk.Key.@5:
-                    five_button.show_as_pressed ();
-                    break;
-                case Gdk.Key.@6:
-                    six_button.show_as_pressed ();
-                    break;
-                case Gdk.Key.@7:
-                    seven_button.show_as_pressed ();
-                    break;
-                case Gdk.Key.@8:
-                    eight_button.show_as_pressed ();
-                    break;
-                case Gdk.Key.@9:
-                    nine_button.show_as_pressed ();
-                    break;
-                case Gdk.Key.period:
-                    point_button.show_as_pressed ();
-                    break;
-                case Gdk.Key.Delete:
-                case Gdk.Key.KP_Delete:
-                    all_clear_button.show_as_pressed ();
-                    break;
-                case Gdk.Key.BackSpace:
-                    del_button.add_css_class ("pressed");
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        public void send_key_up (uint keyval) {
-            print ("%u\n", keyval);
-            switch (keyval) {
-                case Gdk.Key.@0:
-                    zero_button.show_as_pressed (false);
-                    break;
-                case Gdk.Key.@1:
-                    one_button.show_as_pressed (false);
-                    break;
-                case Gdk.Key.@2:
-                    two_button.show_as_pressed (false);
-                    break;
-                case Gdk.Key.@3:
-                    three_button.show_as_pressed (false);
-                    break;
-                case Gdk.Key.@4:
-                    four_button.show_as_pressed (false);
-                    break;
-                case Gdk.Key.@5:
-                    five_button.show_as_pressed (false);
-                    break;
-                case Gdk.Key.@6:
-                    six_button.show_as_pressed (false);
-                    break;
-                case Gdk.Key.@7:
-                    seven_button.show_as_pressed (false);
-                    break;
-                case Gdk.Key.@8:
-                    eight_button.show_as_pressed (false);
-                    break;
-                case Gdk.Key.@9:
-                    nine_button.show_as_pressed (false);
-                    break;
-                case Gdk.Key.period:
-                case Gdk.Key.comma:
-                    point_button.show_as_pressed (false);
-                    break;
-                case Gdk.Key.Delete:
-                case Gdk.Key.KP_Delete:
-                    all_clear_button.show_as_pressed (false);
-                    on_all_clear ();
-                    break;
-                case Gdk.Key.BackSpace:
-                    del_button.remove_css_class ("pressed");
-                    on_backspace ();
-                    break;
-                default:
-                    break;
-            }
         }
 
         public void send_shift_modifier (bool shifted) {
@@ -374,7 +277,7 @@ namespace Pebbles {
 
         [GtkCallback]
         protected void on_click_constant (Gtk.Button button) {
-            display.write (((StyledButton) button).label_text);
+            display.write (((Button) button).label_text);
         }
 
         [GtkCallback]
