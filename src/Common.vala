@@ -34,8 +34,8 @@ namespace Pebbles {
     public enum ConstantKeyIndex {
         EULER,
         ARCHIMEDES,
-        IMAGINARY,
         GOLDEN_RATIO,
+        IMAGINARY,
         EULER_MASCH,
         CONWAY,
         KHINCHIN,

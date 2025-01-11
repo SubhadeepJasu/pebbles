@@ -52,6 +52,8 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
             navigation_headerbar.show-back-button: true;
             main_headerbar.show-start-title-buttons: true;
             main_headerbar.show-title: false;
+            history_button.visible: false;
+            history_item.visible: true;
         }
     }
 
@@ -525,6 +527,12 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                         orientation: horizontal;
                                     }
 
+                                    $PebblesPopoverMenuItem history_item {
+                                        text: _("History");
+                                        action_name: "win.history";
+                                        visible: false;
+                                    }
+
                                     $PebblesPopoverMenuItem controls_item {
                                         text: _("Controls");
                                         accel: "F1";
@@ -558,6 +566,12 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                             focusable: false;
                             focus-on-click: false;
                             tooltip-text: _("History");
+                            action-name: "win.history";
+                        }
+
+                        [end]
+                        Box spinner_box {
+                            Spinner spinner {}
                         }
                     }
 

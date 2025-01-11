@@ -20,8 +20,8 @@
     <enum id="@SCHEMA_ID@.constant-key-index">
 		<value nick="euler"  		value="0" />
 		<value nick="archimedes"  	value="1" />
-		<value nick="imaginary" 	value="2" />
-		<value nick="golden_ratio"  value="3" />
+		<value nick="golden_ratio"  value="2" />
+		<value nick="imaginary" 	value="3" />
 		<value nick="euler_masch"	value="4" />
 		<value nick="conway"		value="5" />
 		<value nick="khinchin"		value="6" />

@@ -4,6 +4,7 @@
 namespace Pebbles {
     [GtkTemplate (ui = "/com/github/subhadeepjasu/pebbles/ui/main_window.ui")]
     public class MainWindow : Adw.ApplicationWindow {
+        private PreferencesDialog preferences_dialog;
         [GtkChild]
         private unowned Adw.ToastOverlay toast_overlay;
         [GtkChild]
@@ -11,6 +12,8 @@ namespace Pebbles {
 
         [GtkChild]
         private unowned Adw.HeaderBar main_headerbar;
+        [GtkChild]
+        private unowned Gtk.Spinner spinner;
         [GtkChild]
         private unowned Button angle_mode;
         [GtkChild]
@@ -97,6 +100,10 @@ namespace Pebbles {
             add_action (open_controls_action);
 
             var open_preferences_action = new SimpleAction ("preferences", null);
+            open_preferences_action.activate.connect (() => {
+                preferences_dialog = new PreferencesDialog ();
+                preferences_dialog.present (this);
+            });
             add_action (open_preferences_action);
 
             var enable_scientific_mode_action = new SimpleAction ("open_scientific_mode", null);
@@ -123,6 +130,8 @@ namespace Pebbles {
                 size_t length;
                 string json = gen.to_data (out length);
                 print (json + "\n");
+
+                spinner.spinning = true;
                 on_evaluate (json);
             });
         }
@@ -140,7 +149,7 @@ namespace Pebbles {
                     (
                         Gdk.ModifierType.CONTROL_MASK |
                         Gdk.ModifierType.ALT_MASK
-                    )) != 0 || shift_key) {
+                    )) != 0 || shift_key || preferences_dialog.visible) {
                     return false;
                 }
 
@@ -158,7 +167,7 @@ namespace Pebbles {
                     (
                         Gdk.ModifierType.CONTROL_MASK |
                         Gdk.ModifierType.ALT_MASK
-                    )) != 0 || shift_key) {
+                    )) != 0 || shift_key || preferences_dialog.visible) {
                     return;
                 }
 
@@ -194,6 +203,7 @@ namespace Pebbles {
 
         protected void on_evaluation_completed (string data) {
             Idle.add (() => {
+                spinner.spinning = false;
                 var parser = new Json.Parser ();
                 try {
                     parser.load_from_data (data, -1);
@@ -217,6 +227,7 @@ namespace Pebbles {
         }
 
         protected void on_memory_change (string context, bool present) {
+            spinner.spinning = false;
             switch (context) {
                 case "sci":
                     scientific_view.set_memory_present (present);

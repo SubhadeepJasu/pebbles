@@ -88,6 +88,15 @@ namespace Pebbles {
                 set_angle_unit (settings.global_angle_unit);
             });
 
+            realize.connect_after (() => {
+                var window = (MainWindow) get_ancestor (typeof (MainWindow));
+                window.on_key_down.connect ((mode) => {
+                    if (mode == "sci" && !main_entry.has_focus) {
+                        main_entry.grab_focus_without_selecting ();
+                    }
+                });
+            });
+
             set_angle_unit (settings.global_angle_unit);
         }
 

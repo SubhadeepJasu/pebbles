@@ -1,0 +1,97 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: 2024 Subhadeep Jasu <subhadeep107@proton.me>
+using Gtk 4.0;
+using Adw 1;
+
+template $PebblesPreferencesDialog: Adw.PreferencesDialog {
+    Adw.PreferencesPage {
+        Adw.PreferencesGroup {
+            title: _("General");
+            styles ["preferences-group"]
+
+            Adw.SwitchRow {
+                title: _("Save State");
+                subtitle: _("Load last session on startup");
+                focus-on-click: false;
+                focusable: false;
+            }
+
+            Adw.ActionRow float_accuracy {
+                title: _("Precision");
+                subtitle: _("Number of decimal places");
+                focus-on-click: false;
+                focusable: false;
+
+                SpinButton {
+                    width-request: 100;
+                    adjustment: Adjustment {
+                        lower: 0;
+                        upper: 9;
+                        step-increment: 1;
+                    };
+                    focus-on-click: false;
+                    focusable: false;
+                    can-focus: false;
+                }
+            }
+
+            Adw.ExpanderRow {
+                title: _("Scientific Constants Button");
+                subtitle: _("The scientific constants to insert when the 'Constants' button is clicked");
+                focus-on-click: false;
+                focusable: false;
+                can-focus: false;
+
+                Adw.ComboRow constants_select_1 {
+                    title: _("Constants Button Default");
+                    use-subtitle: true;
+                    model: bind template.constant_button_model;
+                    focus-on-click: false;
+                    focusable: false;
+                }
+
+                Adw.ComboRow constants_select_2 {
+                    title: _("Constants Button Shifted");
+                    use-subtitle: true;
+                    model: bind template.constant_button_model;
+                    focus-on-click: false;
+                    focusable: false;
+                }
+            }
+        }
+
+        Adw.PreferencesGroup {
+            title: _("Calculus");
+            styles ["preferences-group"]
+
+            Adw.ActionRow {
+                title: _("Integration Resolution");
+                subtitle: _("Higher resolution means more time to process");
+                focus-on-click: false;
+                focusable: false;
+
+                Scale {
+                    width-request: 200;
+                    adjustment: Adjustment {
+                        lower: 0;
+                        upper: 9;
+                        step-increment: 1;
+                    };
+                    focus-on-click: false;
+                    focusable: false;
+                }
+            }
+        }
+
+        Adw.PreferencesGroup {
+            title: _("Converters");
+            styles ["preferences-group"]
+
+            Adw.EntryRow {
+                title: _("Currency Converter API Key");
+                focus-on-click: false;
+                focusable: false;
+            }
+        }
+    }
+}
