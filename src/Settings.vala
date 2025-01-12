@@ -63,5 +63,25 @@ namespace Pebbles {
             get { return get_enum ("constant-key-value2"); }
             set { set_enum ("constant-key-value2", value); }
         }
+
+        public uint decimal_places {
+            get { return get_uint ("decimal-places"); }
+            set { set_uint ("decimal-places", value); }
+        }
+
+        public bool use_exponential_form {
+            get { return get_boolean ("use-exponential-form"); }
+            set { set_boolean ("use-exponential-form", value); }
+        }
+
+        public uint integration_resolution {
+            get { return get_uint ("integration-resolution"); }
+            set { set_uint ("integration-resolution", value); }
+        }
+
+        public string forex_api_key {
+            owned get { return get_string ("forex-api-key"); }
+            set { set_string ("forex-api-key", value); }
+        }
     }
 }

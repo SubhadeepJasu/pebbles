@@ -14,11 +14,13 @@ template $PebblesPreferencesDialog: Adw.PreferencesDialog {
                 subtitle: _("Load last session on startup");
                 focus-on-click: false;
                 focusable: false;
+                active: bind template.settings as <$PebblesSettings>.load_last_session;
+                notify::active => $load_session_notify_active_cb();
             }
 
-            Adw.ActionRow float_accuracy {
-                title: _("Precision");
-                subtitle: _("Number of decimal places");
+            Adw.ActionRow decimal_places {
+                title: _("Decimal Places");
+                subtitle: _("Number of decimal places afte radix symbol");
                 focus-on-click: false;
                 focusable: false;
 
@@ -32,6 +34,8 @@ template $PebblesPreferencesDialog: Adw.PreferencesDialog {
                     focus-on-click: false;
                     focusable: false;
                     can-focus: false;
+                    value: bind template.settings as <$PebblesSettings>.decimal_places;
+                    notify::value => $precision_notify_active_cb();
                 }
             }
 
@@ -48,6 +52,8 @@ template $PebblesPreferencesDialog: Adw.PreferencesDialog {
                     model: bind template.constant_button_model;
                     focus-on-click: false;
                     focusable: false;
+                    selected: bind template.settings as <$PebblesSettings>.constant_key_value1 as <$PebblesConstantKeyIndex>;
+                    notify::selected => $constant_button_1_cb();
                 }
 
                 Adw.ComboRow constants_select_2 {
@@ -56,6 +62,8 @@ template $PebblesPreferencesDialog: Adw.PreferencesDialog {
                     model: bind template.constant_button_model;
                     focus-on-click: false;
                     focusable: false;
+                    selected: bind template.settings as <$PebblesSettings>.constant_key_value2 as <$PebblesConstantKeyIndex>;
+                    notify::selected => $constant_button_2_cb();
                 }
             }
         }
@@ -70,12 +78,12 @@ template $PebblesPreferencesDialog: Adw.PreferencesDialog {
                 focus-on-click: false;
                 focusable: false;
 
-                Scale {
+                Scale integration_resolution_scale {
                     width-request: 200;
                     adjustment: Adjustment {
-                        lower: 0;
-                        upper: 9;
-                        step-increment: 1;
+                        lower: 500;
+                        upper: 100000;
+                        step-increment: 100;
                     };
                     focus-on-click: false;
                     focusable: false;
@@ -91,6 +99,8 @@ template $PebblesPreferencesDialog: Adw.PreferencesDialog {
                 title: _("Currency Converter API Key");
                 focus-on-click: false;
                 focusable: false;
+                text: bind template.settings as <$PebblesSettings>.forex_api_key;
+                notify::text => $forex_api_key_cb();
             }
         }
     }

@@ -100,6 +100,11 @@ namespace Pebbles {
         construct {
             display.on_input.connect (evaluate);
             load_constant_button ();
+            Settings.get_default ().changed.connect ((key) => {
+                if (key == "constant-key-value1" || key == "constant-key-value2") {
+                    load_constant_button ();
+                }
+            });
         }
 
         [GtkCallback]
