@@ -1,1 +1,0 @@
-schemadir	post_install.py	/^schemadir = os.path.join(os.environ['MESON_INSTALL_PREFIX'], 'share', 'glib-2.0', 'schemas')$/;"	v
