@@ -44,7 +44,7 @@ class Tokenizer():
 
     @staticmethod
     def _is_number(exp: str) -> bool:
-        return exp.endswith(tuple([str(i) for i in range(1, 10)] + ['.', 'x']))
+        return exp.endswith(tuple([str(i) for i in range(0, 10)] + ['.', 'x']))
 
 
     @staticmethod
@@ -84,7 +84,7 @@ class Tokenizer():
                     if i < len(tokens):
                         tokens [i] = '( 0 u'
                         tokens [i + 1] = tokens [i + 1] + " )"
-                elif tokens [i - 1] == ')' or tokens [i - 1] == 'x' or Tokenizer._is_number (tokens [i - 1]):
+                elif tokens [i - 1] == ')' or tokens [i - 1] == 'x' or Tokenizer._is_number (tokens [i - 1].strip()):
                     tokens [i] = '-'
                 else:
                     if i < len(tokens):
@@ -275,8 +275,11 @@ class Tokenizer():
 
             # Intelligently convert expressions based on common rules
             exp = Tokenizer._algebraic_parenthesis_product_convert(exp)
-            exp = Tokenizer._unary_minus_convert(exp)
+            print(exp)
             exp = Tokenizer._relative_percentage_convert(exp)
+            print(exp)
+            exp = Tokenizer._unary_minus_convert(exp)
+            print(exp)
             exp = Tokenizer._space_removal(exp.strip())
 
             return exp.split(' ')

@@ -28,6 +28,7 @@ class ScientificCalculator():
         self.angle_mode = self.input_dict['angleMode']
         if tokenize:
             self.tokens = Tokenizer.st_tokenize(self.input_dict['input'])
+            print ('Tokens: ', self.tokens)
 
         self.substitute_value: float | complex = 0
         self.zero_limit = False
