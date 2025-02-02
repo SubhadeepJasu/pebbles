@@ -149,7 +149,7 @@ namespace Pebbles {
                     (
                         Gdk.ModifierType.CONTROL_MASK |
                         Gdk.ModifierType.ALT_MASK
-                    )) != 0 || shift_key || preferences_dialog.visible) {
+                    )) != 0 || shift_key || (preferences_dialog != null && preferences_dialog.visible)) {
                     return false;
                 }
 
@@ -167,7 +167,7 @@ namespace Pebbles {
                     (
                         Gdk.ModifierType.CONTROL_MASK |
                         Gdk.ModifierType.ALT_MASK
-                    )) != 0 || shift_key || preferences_dialog.visible) {
+                    )) != 0 || shift_key || (preferences_dialog != null && preferences_dialog.visible)) {
                     return;
                 }
 

@@ -30,8 +30,6 @@ namespace Pebbles {
         public unowned Gtk.Entry main_entry;
 
         construct {
-            visible = true;
-
             Idle.add (()=> {
                 Timeout.add (60, ()=> {
                     if (animation_frame < animation_frames.length) {
@@ -131,6 +129,13 @@ namespace Pebbles {
                 Timeout.add (100, () => {
                     main_label.set_text (result);
                     remove_css_class ("fade");
+                    return false;
+                });
+            } else {
+                main_label.set_text (_("Error"));
+                add_css_class ("shake");
+                Timeout.add (400, () => {
+                    remove_css_class ("shake");
                     return false;
                 });
             }
