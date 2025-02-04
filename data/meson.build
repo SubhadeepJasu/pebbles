@@ -19,6 +19,7 @@ stylesheet_deps = custom_target(
 blueprint_files = [
   'ui/main_window.blp',
   'ui/preferences_dialog.blp',
+  'ui/shortcuts_dialog.blp',
   'ui/button.blp',
   'ui/popover_menu_item.blp',
   'ui/display.blp',

@@ -4,6 +4,7 @@
 namespace Pebbles {
     [GtkTemplate (ui = "/com/github/subhadeepjasu/pebbles/ui/main_window.ui")]
     public class MainWindow : Adw.ApplicationWindow {
+        private ShortcutsDialog shortcuts_dialog;
         private PreferencesDialog preferences_dialog;
         [GtkChild]
         private unowned Adw.ToastOverlay toast_overlay;
@@ -97,6 +98,10 @@ namespace Pebbles {
         private void setup_actions () {
             nav_list.select_row (nav_list.get_row_at_index (0));
             var open_controls_action = new SimpleAction ("controls", null);
+            open_controls_action.activate.connect (() => {
+                shortcuts_dialog = new ShortcutsDialog ();
+                shortcuts_dialog.present (this);
+            });
             add_action (open_controls_action);
 
             var open_preferences_action = new SimpleAction ("preferences", null);
@@ -168,6 +173,11 @@ namespace Pebbles {
                         Gdk.ModifierType.CONTROL_MASK |
                         Gdk.ModifierType.ALT_MASK
                     )) != 0 || shift_key || (preferences_dialog != null && preferences_dialog.visible)) {
+                    return;
+                }
+
+                if (keyval == Gdk.Key.F8) {
+                    on_change_mode ();
                     return;
                 }
 
@@ -255,6 +265,7 @@ namespace Pebbles {
             switch (view_stack.visible_child_name) {
                 case "sci":
                 case "calc":
+                case "graph":
                     switch (settings.global_angle_unit) {
                         case DEG:
                             settings.global_angle_unit = RAD;
