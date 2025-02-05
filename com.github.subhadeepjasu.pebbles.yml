@@ -11,7 +11,7 @@ finish-args:
   - '--metadata=X-DConf=migrate-path=/com/github/subhadeepjasu/pebbles'
 modules:
   - name: sassc
-    buildsystem: meson
+    buildsystem: cmake
     sources:
       - type: archive
         url: https://github.com/sass/sassc/archive/refs/tags/3.6.2.tar.gz
