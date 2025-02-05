@@ -10,12 +10,32 @@ finish-args:
   - '--share=network'
   - '--metadata=X-DConf=migrate-path=/com/github/subhadeepjasu/pebbles'
 modules:
-  - name: sassc
-    buildsystem: cmake
+  - name: libsass
+    cleanup:
+      - "*"
     sources:
       - type: archive
-        url: https://github.com/sass/sassc/archive/refs/tags/3.6.2.tar.gz
-        sha256: 608dc9002b45a91d11ed59e352469ecc05e4f58fc1259fc9a9f5b8f0f8348a03
+        url: https://github.com/sass/libsass/archive/3.5.4.tar.gz
+        sha256: 5f61cbcddaf8e6ef7a725fcfa5d05297becd7843960f245197ebb655ff868770
+
+      - type: script
+        dest-filename: autogen.sh
+        commands:
+          - autoreconf -si
+
+  - name: sassc
+    cleanup:
+      - "*"
+    sources:
+      - type: archive
+        url: https://github.com/sass/sassc/archive/3.5.0.tar.gz
+        sha256: 26f54e31924b83dd706bc77df5f8f5553a84d51365f0e3c566df8de027918042
+
+      - type: script
+        dest-filename: autogen.sh
+        commands:
+          - autoreconf -si
+
 
   - name: pebbles
     buildsystem: meson
