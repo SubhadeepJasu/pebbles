@@ -3,7 +3,22 @@ name: Pylint
 on: [push]
 
 jobs:
-  build:
+  vala-lint:
+    name: Vala LINT
+    runs-on: ubuntu-latest
+
+    container:
+      image: valalang/lint
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Lint
+        run: io.elementary.vala-lint -d .
+
+  pylint:
+    name: PyLINT
     runs-on: ubuntu-latest
     strategy:
       matrix:
