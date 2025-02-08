@@ -1,16 +1,15 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
-# SPDX-FileCopyrightText: 2024 Subhadeep Jasu <subhadeep107@proton.me>, 2020 Saunak Biswas <saunakbis97@gmail.com>
+# SPDX-FileCopyrightText: 2024 Subhadeep Jasu <subhadeep107@proton.me>
+# SPDX-FileCopyrightText: 2020 Saunak Biswas <saunakbis97@gmail.com>
 
 """Scientific Calculator"""
 
-from gi.repository import Pebbles
-from pebbles.core.tokenizer import Tokenizer
-from pebbles.core.memory import ContextualMemory
-from pebbles.core.utils import Utils
 import json
 import math
 import cmath
-import sys
+from pebbles.core.tokenizer import Tokenizer
+from pebbles.core.memory import ContextualMemory
+from pebbles.core.utils import Utils
 
 class ScientificCalculator():
     """The scientific calculator."""
@@ -20,6 +19,20 @@ class ScientificCalculator():
     DEG_VAL = math.pi / 180
     INV_GRAD_VAL = 200 / math.pi
     INV_DEG_VAL = 180 / math.pi
+
+    # Following the PEMDAS rule: <http://mathworld.wolfram.com/PEMDAS.html>
+    PRECENDANCE = [
+        ['j'],
+        ['s', 'c', 't', 'i', 'o', 'a', 'h', 'y', 'e', 'r'],
+        ['!'],
+        ['p', 'b'],
+        ['l'],
+        ['u'],
+        ['^', 'q'],
+        ['m'],
+        ['/', '*'],
+        ['+', '-']
+    ]
 
 
     def __init__(self, data: str, memory: ContextualMemory, tokenize: bool=True):
@@ -35,37 +48,55 @@ class ScientificCalculator():
 
 
     def set_substitute_value(self, value, zero_limit=False):
+        """
+        Set Calculus substitute value for "x" and if zero is actually "tends to zero".
+        """
         self.substitute_value = value
         self.zero_limit = zero_limit
 
 
     def evaluate(self) -> str:
+        """
+        Evaluate given scientific expression.
+        """
         try:
             answer = self.process()
-            print (answer)
-            if type(answer) == complex:
+            print(answer)
+            if isinstance(answer, complex):
                 self.memory.set_last_ans(answer, 'sci')
                 if answer.real == 0 and answer.imag == 0:
                     return json.dumps({'mode': self.MODE, 'result': '0'}), 0
                 if answer.imag < 0:
-                    return json.dumps({'mode': self.MODE, 'result': f'{Utils.format_float(answer.real)} - {Utils.format_float(-answer.imag)}j'}), answer
-                return json.dumps({'mode': self.MODE, 'result': f'{Utils.format_float(answer.real)} + {Utils.format_float(answer.imag)}j'}), answer
-            elif type(answer) == float:
+                    return json.dumps({
+                        'mode': self.MODE,
+                        'result': f'{Utils.format_float(answer.real)} - \
+                            {Utils.format_float(0 - answer.imag)}j'
+                    }), answer
+                return json.dumps({
+                    'mode': self.MODE,
+                    'result': f'{Utils.format_float(answer.real)} + \
+                        {Utils.format_float(answer.imag)}j'
+                }), answer
+
+            if isinstance(answer, float):
                 self.memory.set_last_ans(answer, 'sci')
                 return json.dumps({'mode': self.MODE, 'result': Utils.format_float(answer)}), answer
-            else:
-                return json.dumps({'mode': self.MODE, 'result': 'E'}), None
-        except Exception as e:
+
+            return json.dumps({'mode': self.MODE, 'result': 'E'}), None
+        except (ZeroDivisionError, ArithmeticError, TypeError, IndexError) as e:
             print ("Error: ", e)
             return json.dumps({'mode': self.MODE, 'result': 'E'}), None
 
 
     def process(self) -> complex | float:
+        """
+        Process the data to find out a result.
+        """
         operand_stack = []
         def operand_pop():
             try:
                 return operand_stack.pop()
-            except:
+            except IndexError:
                 return 0
 
         operator_stack = []
@@ -100,7 +131,8 @@ class ScientificCalculator():
 
             # If token is an operator
             elif self._is_operator(token):
-                while (not self._is_r_l_associative(token)) and len(operator_stack) > 0 and self._has_precedence_pemdas(token, operator_stack[-1]):
+                while (not self._is_r_l_associative(token)) and len(operator_stack) > 0 and \
+                    self._has_precedence_pemdas(token, operator_stack[-1]):
                     b = operand_pop()
                     a = operand_pop()
                     op = operator_stack.pop()
@@ -128,244 +160,62 @@ class ScientificCalculator():
 
 
     def _apply_op(self, op:chr, a:complex | float, b:complex | float):
+        """
+        Apply an operation "op" on two operands "a" and "b" and return the result.
+        """
         match op:
             case 'j':
-                if type(a) == complex:
-                    return a
-
-                return complex(0, a)
+                result = self._op_imaginary(a)
             case '+':
-                if type(a) == float and type(b) == complex:
-                    return complex(a, 0) + b
-                elif type(a) == complex and type(b) == float:
-                    return a + complex(b, 0)
-                return a + b
+                result = self._op_add(a, b)
             case '-':
-                if type(a) == float and type(b) == complex:
-                    return complex(a - b.real, -b.imag)
-                elif type(a) == complex and type(b) == float:
-                    return a - complex(b, 0)
-                return a - b
+                result = self._op_subtract(a, b)
             case 'u':
-                    return b * -1
+                result = b * -1
             case '*':
-                return a * b
+                result = a * b
             case '/':
-                return a / b
+                result = a / b
             case 'q':
-                return b ** (1 / a)
+                result = b ** (1 / a)
             case '^':
-                return a ** b
+                result = a ** b
             case 'm':
-                return a % b
+                result = a % b
             case 'l':
-                _x = a
-                _y = b
-                if type(_x) == complex:
-                    _X = cmath.log(_x)
-                else:
-                    _x = math.log(_x)
-
-                if type(_y) == complex:
-                    _y = cmath.log(_y)
-                else:
-                    _y = math.log(_y)
-
-                return _x / _y
+                result = self._op_log(a, b)
             case '!':
-                return float(math.factorial(int(a)))
+                result = float(math.factorial(int(a)))
             case 'p':
-                return float(math.perm(int(a), int(b)))
+                result = float(math.perm(int(a), int(b)))
             case 'b':
-                return float(math.comb(int(a), int(b)))
+                result = float(math.comb(int(a), int(b)))
             case 's':
-                if type(b) == complex:
-                    if self.angle_mode == 0:
-                        return cmath.sin(b * self.DEG_VAL)
-                    elif self.angle_mode == 1:
-                        return cmath.sin(b)
-                    else:
-                        return cmath.sin(b * self.GRAD_VAL)
-                else:
-                    if self.angle_mode == 0:
-                        return math.sin(b * self.DEG_VAL)
-                    elif self.angle_mode == 1:
-                        return math.sin(b)
-                    else:
-                        return math.sin(b * self.GRAD_VAL)
+                result = self._op_sin(b)
             case 'c':
-                if type(b) == complex:
-                    if self.angle_mode == 0:
-                        return cmath.cos(b * self.DEG_VAL)
-                    elif self.angle_mode == 1:
-                        return cmath.cos(b)
-                    else:
-                        return cmath.cos(b * self.GRAD_VAL)
-                else:
-                    if self.angle_mode == 0:
-                        return math.cos(b * self.DEG_VAL)
-                    elif self.angle_mode == 1:
-                        return math.cos(b)
-                    else:
-                        return math.cos(b * self.GRAD_VAL)
+                result = self._op_cos(b)
             case 't':
-                if type(b) == complex:
-                    if self.angle_mode == 0:
-                        return cmath.tan(b * self.DEG_VAL)
-                    elif self.angle_mode == 1:
-                        return cmath.tan(b)
-                    else:
-                        return cmath.tan(b * self.GRAD_VAL)
-                else:
-                    if self.angle_mode == 0:
-                        return math.tan(b * self.DEG_VAL)
-                    elif self.angle_mode == 1:
-                        return math.tan(b)
-                    else:
-                        return math.tan(b * self.GRAD_VAL)
+                result = self._op_tan(b)
             case 'i':
-                if b < -1 or b > 1:
-                    raise ArithmeticError
-
-                if type(b) == complex:
-                    if self.angle_mode == 0:
-                        return cmath.asin(b * self.INV_DEG_VAL)
-                    elif self.angle_mode == 1:
-                        return cmath.asin(b)
-                    else:
-                        return cmath.asin(b * self.INV_GRAD_VAL)
-                else:
-                    if self.angle_mode == 0:
-                        return math.asin(b * self.INV_DEG_VAL)
-                    elif self.angle_mode == 1:
-                        return math.asin(b)
-                    else:
-                        return math.asin(b * self.INV_GRAD_VAL)
+                result = self._op_sin(b, inv=True)
             case 'o':
-                if b < -1 or b > 1:
-                    raise ArithmeticError
-
-                if type(b) == complex:
-                    if self.angle_mode == 0:
-                        return cmath.acos(b * self.INV_DEG_VAL)
-                    elif self.angle_mode == 1:
-                        return cmath.acos(b)
-                    else:
-                        return cmath.acos(b * self.INV_GRAD_VAL)
-                else:
-                    if self.angle_mode == 0:
-                        return math.acos(b * self.INV_DEG_VAL)
-                    elif self.angle_mode == 1:
-                        return math.acos(b)
-                    else:
-                        return math.acos(b * self.INV_GRAD_VAL)
+                result = self._op_cos(b, inv=True)
             case 'a':
-                if type(b) == complex:
-                    if self.angle_mode == 0:
-                        return cmath.atan(b * self.INV_DEG_VAL)
-                    elif self.angle_mode == 1:
-                        return cmath.atan(b)
-                    else:
-                        return cmath.atan(b * self.INV_GRAD_VAL)
-                else:
-                    if self.angle_mode == 0:
-                        return math.atan(b * self.INV_DEG_VAL)
-                    elif self.angle_mode == 1:
-                        return math.atan(b)
-                    else:
-                        return math.atan(b * self.INV_GRAD_VAL)
+                result = self._op_tan(b, inv=True)
             case 'h':
-                if type(b) == complex:
-                    if self.angle_mode == 0:
-                        return cmath.sinh(b * self.DEG_VAL)
-                    elif self.angle_mode == 1:
-                        return cmath.sinh(b)
-                    else:
-                        return cmath.sinh(b * self.GRAD_VAL)
-                else:
-                    if self.angle_mode == 0:
-                        return math.sinh(b * self.DEG_VAL)
-                    elif self.angle_mode == 1:
-                        return math.sinh(b)
-                    else:
-                        return math.sinh(b * self.GRAD_VAL)
+                result = self._op_sin(b, hyper=True)
             case 'y':
-                if type(b) == complex:
-                    if self.angle_mode == 0:
-                        return cmath.cosh(b * self.DEG_VAL)
-                    elif self.angle_mode == 1:
-                        return cmath.cosh(b)
-                    else:
-                        return cmath.cosh(b * self.GRAD_VAL)
-                else:
-                    if self.angle_mode == 0:
-                        return math.cosh(b * self.DEG_VAL)
-                    elif self.angle_mode == 1:
-                        return math.cosh(b)
-                    else:
-                        return math.cosh(b * self.GRAD_VAL)
+                result = self._op_cos(b, hyper=True)
             case 'e':
-                if type(b) == complex:
-                    if self.angle_mode == 0:
-                        return cmath.tanh(b * self.DEG_VAL)
-                    elif self.angle_mode == 1:
-                        return cmath.tanh(b)
-                    else:
-                        return cmath.tanh(b * self.GRAD_VAL)
-                else:
-                    if self.angle_mode == 0:
-                        return math.tanh(b * self.DEG_VAL)
-                    elif self.angle_mode == 1:
-                        return math.tanh(b)
-                    else:
-                        return math.tanh(b * self.GRAD_VAL)
+                result = self._op_tan(b, hyper=True)
             case 'r':
-                if type(b) == complex:
-                    if self.angle_mode == 0:
-                        return cmath.asinh(b * self.INV_DEG_VAL)
-                    elif self.angle_mode == 1:
-                        return cmath.asinh(b)
-                    else:
-                        return cmath.asinh(b * self.INV_GRAD_VAL)
-                else:
-                    if self.angle_mode == 0:
-                        return math.asinh(b * self.INV_DEG_VAL)
-                    elif self.angle_mode == 1:
-                        return math.asinh(b)
-                    else:
-                        return math.asinh(b * self.INV_GRAD_VAL)
+                result = self._op_sin(b, hyper=True, inv=True)
             case 'z':
-                if type(b) == complex:
-                    if self.angle_mode == 0:
-                        return cmath.acosh(b * self.INV_DEG_VAL)
-                    elif self.angle_mode == 1:
-                        return cmath.acosh(b)
-                    else:
-                        return cmath.acosh(b * self.INV_GRAD_VAL)
-                else:
-                    if self.angle_mode == 0:
-                        return math.acosh(b * self.INV_DEG_VAL)
-                    elif self.angle_mode == 1:
-                        return math.acosh(b)
-                    else:
-                        return math.acosh(b * self.INV_GRAD_VAL)
+                result = self._op_cos(b, hyper=True, inv=True)
             case 'k':
-                if type(b) == complex:
-                    if self.angle_mode == 0:
-                        return cmath.atanh(b * self.INV_DEG_VAL)
-                    elif self.angle_mode == 1:
-                        return cmath.atanh(b)
-                    else:
-                        return cmath.atanh(b * self.INV_GRAD_VAL)
-                else:
-                    if self.angle_mode == 0:
-                        return math.atanh(b * self.INV_DEG_VAL)
-                    elif self.angle_mode == 1:
-                        return math.atanh(b)
-                    else:
-                        return math.atanh(b * self.INV_GRAD_VAL)
+                result = self._op_tan(b, hyper=True, inv=True)
 
-        raise ArithmeticError
+        return result
 
 
     def _is_r_l_associative(self, op:str) -> bool:
@@ -390,22 +240,123 @@ class ScientificCalculator():
             return False
 
         print("Comparing " + op1 + " and " + op2)
-        # Following the PEMDAS rule: <http://mathworld.wolfram.com/PEMDAS.html>
-        PRECENDANCE = [
-            ['j'],
-            ['s', 'c', 't', 'i', 'o', 'a', 'h', 'y', 'e', 'r'],
-            ['!'],
-            ['p', 'b'],
-            ['l'],
-            ['u'],
-            ['^', 'q'],
-            ['m'],
-            ['/', '*'],
-            ['+', '-']
-        ]
 
         # Find the precedence index of each operator
-        op1_index = next((i for i, ops in enumerate(PRECENDANCE) if op1 in ops), float('inf'))
-        op2_index = next((i for i, ops in enumerate(PRECENDANCE) if op2 in ops), float('inf'))
+        op1_index = next((i for i, ops in enumerate(self.PRECENDANCE) if op1 in ops), float('inf'))
+        op2_index = next((i for i, ops in enumerate(self.PRECENDANCE) if op2 in ops), float('inf'))
 
         return op1_index > op2_index
+
+    #region Operations
+    def _op_imaginary(self, a: float|complex):
+        if isinstance(a, complex):
+            return a
+
+        return complex(0, a)
+
+
+    def _op_add(self, a: float|complex, b: float|complex):
+        if isinstance(a, float) and isinstance(b, complex):
+            return complex(a, 0) + b
+
+        if isinstance(a, complex) and isinstance(b, float):
+            return a + complex(b, 0)
+
+        return a + b
+
+
+    def _op_subtract(self, a: float|complex, b: float|complex):
+        if isinstance(a, float) and isinstance(b, complex):
+            return complex(a - b.real, -b.imag)
+
+        if isinstance(a, complex) and isinstance(b, float):
+            return a - complex(b, 0)
+
+        return a - b
+
+
+    def _op_log(self, a: float|complex, b: float|complex):
+        _x = a
+        _y = b
+        if isinstance(_x,complex):
+            _x = cmath.log(_x)
+        else:
+            _x = math.log(_x)
+
+        if isinstance(_y,complex):
+            _y = cmath.log(_y)
+        else:
+            _y = math.log(_y)
+
+        return _x / _y
+
+
+    # region Trignometric
+    def _get_angle_factor(self, inv=False):
+        angle_factor = 1
+        if inv:
+            if self.angle_mode == 0:
+                angle_factor = self.INV_DEG_VAL
+            elif self.angle_mode == 2:
+                angle_factor = self.INV_GRAD_VAL
+        else:
+            if self.angle_mode == 0:
+                angle_factor = self.DEG_VAL
+            elif self.angle_mode == 2:
+                angle_factor = self.GRAD_VAL
+
+        return angle_factor
+
+
+    def _op_sin(self, b: float|complex, hyper=False, inv=False):
+        if inv and (b < -1 or b > 1) and not hyper:
+            raise ArithmeticError
+
+        angle_factor = self._get_angle_factor()
+
+        if hyper:
+            if isinstance(b, complex):
+                return cmath.asinh(b * angle_factor) if inv else cmath.sinh(b * angle_factor)
+
+            return math.asinh(b * angle_factor) if inv else math.sinh(b * angle_factor)
+
+        if isinstance(b, complex):
+            return cmath.asin(b * angle_factor) if inv else cmath.sin(b * angle_factor)
+
+        return math.asin(b * angle_factor) if inv else math.sin(b * angle_factor)
+
+
+    def _op_cos(self, b: float|complex, hyper=False, inv=False):
+        if inv and (b < -1 or b > 1) and not hyper:
+            raise ArithmeticError
+
+        angle_factor = self._get_angle_factor()
+
+        if hyper:
+            if isinstance(b, complex):
+                return cmath.acosh(b * angle_factor) if inv else cmath.cosh(b * angle_factor)
+
+            return math.acosh(b * angle_factor) if inv else math.cosh(b * angle_factor)
+
+        if isinstance(b, complex):
+            return cmath.acos(b * angle_factor) if inv else cmath.cos(b * angle_factor)
+
+        return math.acos(b * angle_factor) if inv else math.cos(b * angle_factor)
+
+
+    def _op_tan(self, b: float|complex, hyper=False, inv=False):
+        angle_factor = self._get_angle_factor()
+
+        if hyper:
+            if isinstance(b, complex):
+                return cmath.atanh(b * angle_factor) if inv else cmath.tanh(b * angle_factor)
+
+            return math.atanh(b * angle_factor) if inv else math.tanh(b * angle_factor)
+
+        if isinstance(b, complex):
+            return cmath.atan(b * angle_factor) if inv else cmath.tan(b * angle_factor)
+
+        return math.atan(b * angle_factor) if inv else math.tan(b * angle_factor)
+    #endregion Trignometric
+
+    #endregion

@@ -21,15 +21,13 @@ class PythonApplication(Pebbles.Application):
         )
         self.connect("create_window_request", self._on_create_window_request)
 
-        self.setup()
+        self._setup_style()
 
 
-    def setup(self):
-        import logging
-        from gettext import gettext as _
-
-        # settings = Gio.Settings(self.props.application_id)
-        # self.props.settings = settings
+    def _setup_style(self):
+        """
+        Setup styling.
+        """
 
          # Set CSS provider
         css_provider = Gtk.CssProvider()

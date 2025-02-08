@@ -86,6 +86,16 @@ install_data(
   install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', 'symbolic', 'apps')
 )
 
+# Translate and install our .desktop file so the Applications Menu will see it
+i18n.merge_file (
+    input: meson.project_name () + '.desktop.in',
+    output: meson.project_name () + '.desktop',
+    po_dir: join_paths (meson.current_source_dir(), 'po', 'extra'),
+    type: 'desktop',
+    install: true,
+    install_dir: join_paths (get_option ('datadir'), 'applications')
+)
+
 # Install Settings schema
 schemas_conf = configuration_data()
 schemas_conf.set('SCHEMA_ID', application_id)

@@ -1,14 +1,15 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
-# SPDX-FileCopyrightText: 2024 Subhadeep Jasu <subhadeep107@proton.me>, 2020 Saunak Biswas <saunakbis97@gmail.com>
+# SPDX-FileCopyrightText: 2024 Subhadeep Jasu <subhadeep107@proton.me>
+# SPDX-FileCopyrightText: 2020 Saunak Biswas <saunakbis97@gmail.com>
 
 """Main window."""
 
+import json
+import threading
 from gi.repository import Pebbles
 from pebbles.core.memory import ContextualMemory
 from pebbles.core.scientific_calculator import ScientificCalculator
 from pebbles.core.utils import Utils
-import json
-import threading
 
 class PythonWindow(Pebbles.MainWindow):
     """The main window class."""
@@ -55,20 +56,28 @@ class PythonWindow(Pebbles.MainWindow):
 
 
     def memory_recall(self, _, context: str):
+        """
+        Recall value from memory with given context.
+        """
         if context in ['sci', 'calc']:
             answer = self._memory.recall(context)
-            if type(answer) == complex:
+            if isinstance(answer, complex):
                 if answer.real == 0 and answer.imag == 0:
                     return '0'
                 if answer.imag < 0:
-                    return f'{Utils.format_float(answer.real)} - {Utils.format_float(-answer.imag)}j'
+                    return f'{Utils.format_float(answer.real)} \
+                        - {Utils.format_float(0 - answer.imag)}j'
                 return f'{Utils.format_float(answer.real)} + {Utils.format_float(answer.imag)}j'
-            elif type(answer) == float:
+
+            if isinstance(answer, float):
                 return f'{Utils.format_float(answer)}'
 
         return ''
 
 
     def memory_clear(self, _, context: str):
+        """
+        Clear memory in given context.
+        """
         self._memory.clear(context)
         self.on_memory_change(context, self._memory.any(context))
