@@ -67,6 +67,25 @@ install_data (
     install_dir: join_paths (get_option ('datadir'), 'fonts', 'truetype', 'DotGothic16')
 )
 
+# Install icons
+icon_sizes = ['16', '24', '32', '48', '64', '128']
+
+foreach i : icon_sizes
+    install_data (
+        join_paths ('icons', i, meson.project_name () + '.svg'),
+        install_dir: join_paths (get_option ('datadir'), 'icons', 'hicolor', i + 'x' + i, 'apps')
+    )
+    install_data (
+        join_paths ('icons', i, meson.project_name() + '.svg'),
+        install_dir: join_paths (get_option ('datadir'), 'icons', 'hicolor', i + 'x' + i + '@2', 'apps')
+    )
+endforeach
+
+install_data(
+  join_paths('icons', 'symbolic', meson.project_name() + '.svg'),
+  install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', 'symbolic', 'apps')
+)
+
 # Install Settings schema
 schemas_conf = configuration_data()
 schemas_conf.set('SCHEMA_ID', application_id)
