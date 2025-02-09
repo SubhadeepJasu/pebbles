@@ -20,8 +20,8 @@ class ScientificCalculator():
     INV_GRAD_VAL = 200 / math.pi
     INV_DEG_VAL = 180 / math.pi
 
-    # Following the PEMDAS rule: <http://mathworld.wolfram.com/PEMDAS.html>
-    PRECENDANCE = [
+    # Ordered and grouped according to the PEMDAS rule: <http://mathworld.wolfram.com/PEMDAS.html>
+    OPERATORS = [
         ['j'],
         ['s', 'c', 't', 'i', 'o', 'a', 'h', 'y', 'e', 'r'],
         ['!'],
@@ -223,16 +223,16 @@ class ScientificCalculator():
 
 
     def _is_operator(self, ch:chr) -> bool:
-        return (ch in [
-            '+', '-', '/', '*', '^',
-            'm', 'l', '!', 'p', 'b',
-            'z', 'k', 'q', 'u', 'j'
-            ]) or self._is_angle_op(ch)
+        exists = False
+        for group in ScientificCalculator.OPERATORS:
+            if ch in group:
+                exists = True
+                break
+        return exists
 
 
     def _is_angle_op(self, op:chr):
-        return op in ['s', 'c', 't', 'i', 'o',
-            'a', 'h', 'y', 'e', 'r']
+        return op in ScientificCalculator.OPERATORS[1]
 
 
     def _has_precedence_pemdas(self, op1: chr, op2: chr) -> bool:
@@ -242,8 +242,8 @@ class ScientificCalculator():
         print("Comparing " + op1 + " and " + op2)
 
         # Find the precedence index of each operator
-        op1_index = next((i for i, ops in enumerate(self.PRECENDANCE) if op1 in ops), float('inf'))
-        op2_index = next((i for i, ops in enumerate(self.PRECENDANCE) if op2 in ops), float('inf'))
+        op1_index = next((i for i, ops in enumerate(self.OPERATORS) if op1 in ops), float('inf'))
+        op2_index = next((i for i, ops in enumerate(self.OPERATORS) if op2 in ops), float('inf'))
 
         return op1_index > op2_index
 
@@ -312,51 +312,51 @@ class ScientificCalculator():
         if inv and (b < -1 or b > 1) and not hyper:
             raise ArithmeticError
 
-        angle_factor = self._get_angle_factor()
+        angle_factor = self._get_angle_factor(inv)
 
         if hyper:
             if isinstance(b, complex):
-                return cmath.asinh(b * angle_factor) if inv else cmath.sinh(b * angle_factor)
+                return (cmath.asinh(b) * angle_factor) if inv else cmath.sinh(b * angle_factor)
 
-            return math.asinh(b * angle_factor) if inv else math.sinh(b * angle_factor)
+            return (math.asinh(b) * angle_factor) if inv else math.sinh(b * angle_factor)
 
         if isinstance(b, complex):
-            return cmath.asin(b * angle_factor) if inv else cmath.sin(b * angle_factor)
+            return (cmath.asin(b) * angle_factor) if inv else cmath.sin(b * angle_factor)
 
-        return math.asin(b * angle_factor) if inv else math.sin(b * angle_factor)
+        return (math.asin(b) * angle_factor) if inv else math.sin(b * angle_factor)
 
 
     def _op_cos(self, b: float|complex, hyper=False, inv=False):
         if inv and (b < -1 or b > 1) and not hyper:
             raise ArithmeticError
 
-        angle_factor = self._get_angle_factor()
+        angle_factor = self._get_angle_factor(inv)
 
         if hyper:
             if isinstance(b, complex):
-                return cmath.acosh(b * angle_factor) if inv else cmath.cosh(b * angle_factor)
+                return (cmath.acosh(b) * angle_factor) if inv else cmath.cosh(b * angle_factor)
 
-            return math.acosh(b * angle_factor) if inv else math.cosh(b * angle_factor)
+            return (math.acosh(b) * angle_factor) if inv else math.cosh(b * angle_factor)
 
         if isinstance(b, complex):
-            return cmath.acos(b * angle_factor) if inv else cmath.cos(b * angle_factor)
+            return (cmath.acos(b) * angle_factor) if inv else cmath.cos(b * angle_factor)
 
-        return math.acos(b * angle_factor) if inv else math.cos(b * angle_factor)
+        return (math.acos(b) * angle_factor) if inv else math.cos(b * angle_factor)
 
 
     def _op_tan(self, b: float|complex, hyper=False, inv=False):
-        angle_factor = self._get_angle_factor()
+        angle_factor = self._get_angle_factor(inv)
 
         if hyper:
             if isinstance(b, complex):
-                return cmath.atanh(b * angle_factor) if inv else cmath.tanh(b * angle_factor)
+                return (cmath.atanh(b) * angle_factor) if inv else cmath.tanh(b * angle_factor)
 
-            return math.atanh(b * angle_factor) if inv else math.tanh(b * angle_factor)
+            return (math.atanh(b) * angle_factor) if inv else math.tanh(b * angle_factor)
 
         if isinstance(b, complex):
-            return cmath.atan(b * angle_factor) if inv else cmath.tan(b * angle_factor)
+            return (cmath.atan(b) * angle_factor) if inv else cmath.tan(b * angle_factor)
 
-        return math.atan(b * angle_factor) if inv else math.tan(b * angle_factor)
+        return (math.atan(b) * angle_factor) if inv else math.tan(b * angle_factor)
     #endregion Trignometric
 
     #endregion
