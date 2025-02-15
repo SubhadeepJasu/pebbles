@@ -116,7 +116,6 @@ namespace Pebbles {
                 view_stack.set_visible_child_name ("sci");
                 split_view.show_content = true;
             });
-            add_action (enable_scientific_mode_action);
         }
 
         private void setup_evaluators () {

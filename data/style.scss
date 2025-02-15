@@ -112,7 +112,8 @@ $LCD_FG_COLOR: #272863bb;
 
             .activatable {
                 background: none;
-                border-bottom: 1px solid #545e5422;
+                border-bottom: 1px solid rgba($LCD_FG_COLOR, 0.5);
+                border-bottom-style: dashed;
                 opacity: 0.6;
                 margin-top: 0;
                 margin-bottom: 0;

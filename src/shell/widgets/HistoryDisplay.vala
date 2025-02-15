@@ -6,8 +6,12 @@ namespace Pebbles {
 
         [GtkChild]
         private unowned Gtk.ListBox list;
-
         private bool init = false;
+
+        public signal void on_copy_result (uint index);
+        public signal void on_insert_result (uint index);
+        public signal void on_recall (uint index);
+
         construct {
             realize.connect (() => {
                 if (!init) {
@@ -18,7 +22,7 @@ namespace Pebbles {
                             list.remove_all ();
                             for (int i = history.length - 1; i > 0; i--) {
                                 if (history[i].mode == mode) {
-                                    list.append (new HistoryDisplayItem (history[i]));
+                                    list.append (new HistoryDisplayItem ((uint) i, this, history[i]));
                                 }
                             }
 
@@ -26,7 +30,7 @@ namespace Pebbles {
                                 Idle.add (() => {
                                     if (viewport != null) {
                                         var v_adjustment = viewport.get_vadjustment ();
-                                        v_adjustment.value = v_adjustment.upper;
+                                        v_adjustment.value = v_adjustment.upper - v_adjustment.page_size;
 
                                         ((HistoryDisplayItem) list.get_last_child ()).pop_up ();
                                     }
@@ -49,13 +53,34 @@ namespace Pebbles {
                 mode: mode
             );
         }
+
+        public void copy_result (uint index) {
+            on_copy_result (index);
+        }
+
+        public void insert_result (uint index) {
+            on_insert_result (index);
+        }
+
+        public void recall (uint index) {
+            on_recall (index);
+        }
     }
 
     private class HistoryDisplayItem : Gtk.ListBoxRow {
-        public HistoryDisplayItem (HistoryViewModel model) {
+        private Gtk.GestureClick click_gesture;
+        public uint index { get; private set; }
+        public unowned HistoryDisplay history_display;
+        public unowned HistoryViewModel model;
+
+        public HistoryDisplayItem (uint index, HistoryDisplay history_display, HistoryViewModel model) {
             Object (
                 hexpand: true
             );
+
+            this.index = index;
+            this.history_display = history_display;
+            this.model = model;
 
             var box = new Gtk.Box (VERTICAL, 2);
             set_child (box);
@@ -71,6 +96,14 @@ namespace Pebbles {
             };
             output_label.add_css_class ("history-output");
             box.append (output_label);
+
+            click_gesture = new Gtk.GestureClick ();
+            click_gesture.set_button (Gdk.BUTTON_SECONDARY);
+            click_gesture.pressed.connect ((n_press, x, y) => {
+                show_context_menu (x, y);
+            });
+            click_gesture.propagation_phase = CAPTURE;
+            add_controller (click_gesture);
         }
 
         public void pop_up () {
@@ -78,6 +111,50 @@ namespace Pebbles {
             Timeout.add (500, () => {
                 remove_css_class ("pop-up");
                 return false;
+            });
+        }
+
+        private void show_context_menu (double x, double y) {
+            var popover = new Gtk.Popover ();
+            popover.set_has_arrow (false);
+            popover.set_pointing_to (Gdk.Rectangle () { x = (int) x, y = (int) y, height = 1, width = 1});
+            popover.set_parent (this);
+
+            var box = new Gtk.Box (HORIZONTAL, 0) {
+                width_request = 100,
+                homogeneous = true
+            };
+            popover.set_child (box);
+            var copy_result_item = new Gtk.Button.from_icon_name ("edit-copy-symbolic") {
+                tooltip_text = _("Copy Result"),
+                can_focus = false
+            };
+            box.append (copy_result_item);
+
+            var insert_result_item = new Gtk.Button.from_icon_name ("insert-text-symbolic") {
+                tooltip_text = _("Insert Result"),
+                can_focus = false
+            };
+            box.append (insert_result_item);
+
+            var recall_item = new Gtk.Button.from_icon_name ("document-open-recent-symbolic") {
+                tooltip_text = _("Recall"),
+                can_focus = false
+            };
+            box.append (recall_item);
+
+            popover.popup ();
+
+            copy_result_item.clicked.connect (() => {
+                history_display.copy_result (index);
+            });
+
+            insert_result_item.clicked.connect (() => {
+                history_display.insert_result (index);
+            });
+
+            recall_item.clicked.connect (() => {
+                history_display.recall (index);
             });
         }
     }
