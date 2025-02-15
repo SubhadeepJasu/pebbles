@@ -10,6 +10,7 @@ template $PebblesScientificDisplay: $PebblesDisplay {
         }
 
         hexpand: true;
+        margin-end: 8;
 
         styles [
             "status-bar"
@@ -56,24 +57,36 @@ template $PebblesScientificDisplay: $PebblesDisplay {
         };
     }
 
-    ScrolledWindow {
-        propagate-natural-height: true;
+    ScrolledWindow viewport {
+        propagate-natural-height: false;
+        vexpand: true;
+        window-placement: bottom_left;
+        min-content-height: 100;
 
         layout {
           column: 0;
           row: 1;
         }
 
-        Label main_label {
-            styles [
-                "lcd-label"
-            ]
-
-            halign: end;
+        Box {
+            orientation: vertical;
+            spacing: 4;
             valign: end;
-            vexpand: true;
+            margin-end: 8;
 
-            height-request: 72;
+            $PebblesHistoryDisplay history_display {
+                mode: "sci";
+                viewport: viewport;
+            }
+
+            Label main_label {
+                styles [
+                    "lcd-label"
+                ]
+
+                halign: end;
+                vexpand: true;
+            }
         }
     }
 
@@ -81,6 +94,7 @@ template $PebblesScientificDisplay: $PebblesDisplay {
         orientation: horizontal;
         margin-top: 4;
         margin-bottom: 6;
+        margin-end: 8;
         valign: center;
 
         layout {
@@ -95,6 +109,7 @@ template $PebblesScientificDisplay: $PebblesDisplay {
         halign: fill;
         hexpand: true;
         margin-bottom: 1;
+        margin-end: 8;
         xalign: 1;
         styles ["lcd-entry"]
 

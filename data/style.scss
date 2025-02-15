@@ -54,6 +54,7 @@ $LCD_FG_COLOR: #272863bb;
 
     color: $LCD_FG_COLOR;
     padding: 8px;
+    padding-right: 0;
 
     &:backdrop {
         background: #bdc7bd;
@@ -101,6 +102,54 @@ $LCD_FG_COLOR: #272863bb;
         50% { margin-left: -16px; margin-right: 16px; }
         75% { margin-left: 8px; margin-right: -8px; }
         100% { margin-left: 0; margin-right: 0;}
+    }
+
+    .history {
+        font-family: DotGothic16, Inter, sans-serif;
+
+        list {
+            background: none;
+
+            .activatable {
+                background: none;
+                border-bottom: 1px solid #545e5422;
+                opacity: 0.6;
+                margin-top: 0;
+                margin-bottom: 0;
+
+                &:hover {
+                    opacity: 1;
+                }
+
+                &.pop-up {
+                    animation: history-pop-up 0.4s cubic-bezier(0, 0, 0, 1);
+                }
+            }
+
+            @keyframes history-pop-up {
+                from {
+                    margin-top: 12px;
+                    margin-bottom: -12px;
+                    opacity: 0;
+                }
+
+                to {
+                    margin-top: 0;
+                    margin-bottom: 0;
+                    opacity: 1;
+                }
+            }
+        }
+
+        &-input {
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: -4px;
+        }
+
+        &-output {
+            font-size: 24px;
+        }
     }
 }
 

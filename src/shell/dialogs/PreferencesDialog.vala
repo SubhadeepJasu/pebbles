@@ -8,10 +8,6 @@ namespace Pebbles {
         public Pebbles.Settings settings { get; set construct; }
 
         [GtkChild]
-        private Adw.ComboRow constants_select_1;
-        [GtkChild]
-        private Adw.ComboRow constants_select_2;
-        [GtkChild]
         private unowned Gtk.Scale integration_resolution_scale;
 
         private bool loaded = false;

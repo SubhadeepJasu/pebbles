@@ -19,6 +19,7 @@ class PythonWindow(Pebbles.MainWindow):
 
         Utils.decimal_point_char = '.'
         self._memory = ContextualMemory()
+        self.history = []
 
         self.connect("on_evaluate", self._evaluate)
         self.connect("on_memory_recall", self.memory_recall)
@@ -52,7 +53,7 @@ class PythonWindow(Pebbles.MainWindow):
                     self._memory.subtract(result, 'global')
                     self.on_memory_change('global', self._memory.any('global'))
 
-                self._memory.peek()
+                self.set_history(self._memory.peek(include_view=True))
 
 
     def memory_recall(self, _, context: str):

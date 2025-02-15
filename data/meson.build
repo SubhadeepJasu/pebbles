@@ -5,6 +5,7 @@ blueprint_files = [
   'ui/button.blp',
   'ui/popover_menu_item.blp',
   'ui/display.blp',
+  'ui/history_display.blp',
   'ui/scientific_display.blp',
   'ui/scientific_view.blp'
 ]

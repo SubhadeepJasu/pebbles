@@ -8,6 +8,7 @@
     <file compressed="true" preprocess="xml-stripblanks">ui/button.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/popover_menu_item.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/display.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/history_display.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/scientific_view.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/scientific_display.ui</file>
   </gresource>

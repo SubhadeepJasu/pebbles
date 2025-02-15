@@ -41,7 +41,7 @@ namespace Pebbles {
         private Gtk.EventControllerKey key_event_controller;
 
         private Pebbles.Settings settings;
-
+        private HistoryViewModel[] history;
 
         protected signal void on_evaluate (string data);
         protected signal string on_memory_recall (string mode);
@@ -49,6 +49,7 @@ namespace Pebbles {
 
         public signal void on_key_down (string? mode, uint keyval);
         public signal void on_key_up (string? mode, uint keyval);
+        public signal void history_changed (HistoryViewModel[] history);
 
         construct {
             navigation_pane.add_css_class (Granite.STYLE_CLASS_SIDEBAR);
@@ -56,7 +57,6 @@ namespace Pebbles {
             settings = Pebbles.Settings.get_default ();
 
             setup_theme ();
-            //  build_ui ();
             setup_actions ();
             setup_evaluators ();
             setup_key_events ();
@@ -246,6 +246,22 @@ namespace Pebbles {
                     scientific_view.set_global_memory_present (present);
                     break;
             }
+        }
+
+        protected void set_history (HistoryViewModel[] _history) {
+            if (history == null) {
+                history = new HistoryViewModel[_history.length];
+            }
+
+            history.resize (_history.length);
+
+            for (int i = 0; i < _history.length; i++) {
+                history[i] = _history[i];
+            }
+
+            print ("Hi\n");
+
+            history_changed (history);
         }
 
         private void set_shift_on (bool on) {

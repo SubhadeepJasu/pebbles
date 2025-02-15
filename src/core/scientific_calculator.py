@@ -61,30 +61,26 @@ class ScientificCalculator():
         """
         try:
             answer = self.process()
-            print(answer)
             if isinstance(answer, complex):
-                self.memory.set_last_ans(answer, 'sci')
                 if answer.real == 0 and answer.imag == 0:
-                    return json.dumps({'mode': self.MODE, 'result': '0'}), 0
-                if answer.imag < 0:
-                    return json.dumps({
-                        'mode': self.MODE,
-                        'result': f'{Utils.format_float(answer.real)} - \
-                            {Utils.format_float(0 - answer.imag)}j'
-                    }), answer
-                return json.dumps({
-                    'mode': self.MODE,
-                    'result': f'{Utils.format_float(answer.real)} + \
+                    formatted_answer = "0"
+                    answer = 0
+                elif answer.imag < 0:
+                    formatted_answer = f'{Utils.format_float(answer.real)} - \
+                        {Utils.format_float(0 - answer.imag)}j'
+                else:
+                    formatted_answer = f'{Utils.format_float(answer.real)} + \
                         {Utils.format_float(answer.imag)}j'
-                }), answer
+            elif isinstance(answer, float):
+                formatted_answer = Utils.format_float(answer)
+            else:
+                return json.dumps({'mode': self.MODE, 'result': 'E'}), None
 
-            if isinstance(answer, float):
-                self.memory.set_last_ans(answer, 'sci')
-                return json.dumps({'mode': self.MODE, 'result': Utils.format_float(answer)}), answer
-
-            return json.dumps({'mode': self.MODE, 'result': 'E'}), None
+            self.memory.push_history(answer, formatted_answer, self.input_dict['input'])
+            result_json = json.dumps({'mode': self.MODE, 'result': formatted_answer})
+            return result_json, answer
         except (ZeroDivisionError, ArithmeticError, TypeError, IndexError) as e:
-            print ("Error: ", e)
+            print("Error: ", e)
             return json.dumps({'mode': self.MODE, 'result': 'E'}), None
 
 
