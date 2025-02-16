@@ -77,6 +77,9 @@ template $PebblesScientificDisplay: $PebblesDisplay {
             $PebblesHistoryDisplay history_display {
                 mode: "sci";
                 viewport: viewport;
+
+                on_insert_result => $insert_from_history();
+                on_recall => $recall_history();
             }
 
             Label main_label {

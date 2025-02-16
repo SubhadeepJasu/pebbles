@@ -297,5 +297,18 @@ namespace Pebbles {
         public void set_global_memory_present (bool present) {
             global_memory_label.opacity = present ? 1 : 0.2;
         }
+
+        [GtkCallback]
+        protected void insert_from_history (uint index, HistoryViewModel data) {
+             main_entry.set_text (main_entry.get_text () + " " + data.output);
+             main_entry.set_position ((int) main_entry.text_length);
+        }
+
+        [GtkCallback]
+        protected void recall_history (uint index, HistoryViewModel data) {
+            main_entry.set_text (data.input);
+            main_entry.set_position ((int) main_entry.text_length);
+            main_label.set_text (data.output);
+        }
     }
 }

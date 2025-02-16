@@ -8,9 +8,9 @@ namespace Pebbles {
         private unowned Gtk.ListBox list;
         private bool init = false;
 
-        public signal void on_copy_result (uint index);
-        public signal void on_insert_result (uint index);
-        public signal void on_recall (uint index);
+        public signal void on_copy_result (uint index, HistoryViewModel data);
+        public signal void on_insert_result (uint index, HistoryViewModel data);
+        public signal void on_recall (uint index, HistoryViewModel data);
 
         construct {
             realize.connect (() => {
@@ -54,16 +54,18 @@ namespace Pebbles {
             );
         }
 
-        public void copy_result (uint index) {
-            on_copy_result (index);
+        public void copy_result (uint index, HistoryViewModel data) {
+            on_copy_result (index, data);
+            var clip_board = get_clipboard ();
+            clip_board.set_text (data.output);
         }
 
-        public void insert_result (uint index) {
-            on_insert_result (index);
+        public void insert_result (uint index, HistoryViewModel data) {
+            on_insert_result (index, data);
         }
 
-        public void recall (uint index) {
-            on_recall (index);
+        public void recall (uint index, HistoryViewModel data) {
+            on_recall (index, data);
         }
     }
 
@@ -146,15 +148,18 @@ namespace Pebbles {
             popover.popup ();
 
             copy_result_item.clicked.connect (() => {
-                history_display.copy_result (index);
+                history_display.copy_result (index, model);
+                popover.hide ();
             });
 
             insert_result_item.clicked.connect (() => {
-                history_display.insert_result (index);
+                history_display.insert_result (index, model);
+                popover.hide ();
             });
 
             recall_item.clicked.connect (() => {
-                history_display.recall (index);
+                history_display.recall (index, model);
+                popover.hide ();
             });
         }
     }
