@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+    <enum id="@SCHEMA_ID@.global-angle-unit">
+		<value nick="deg"  value="0" />
+		<value nick="rad"  value="1" />
+		<value nick="grad" value="2" />
+    </enum>
+    <enum id="@SCHEMA_ID@.global-word-length">
+		<value nick="qwd"  value="0" />
+		<value nick="dwd"  value="1" />
+		<value nick="wrd"  value="2" />
+		<value nick="byt"  value="3" />
+    </enum>
+	<enum id="@SCHEMA_ID@.number-system">
+		<value nick="binary" value="0" />
+		<value nick="octal" value="1" />
+		<value nick="decimal" value="2" />
+		<value nick="hexadecimal" value="3" />
+	</enum>
+    <enum id="@SCHEMA_ID@.constant-key-index">
+		<value nick="euler"  		value="0" />
+		<value nick="archimedes"  	value="1" />
+		<value nick="golden_ratio"  value="2" />
+		<value nick="imaginary" 	value="3" />
+		<value nick="euler_masch"	value="4" />
+		<value nick="conway"		value="5" />
+		<value nick="khinchin"		value="6" />
+		<value nick="feigen_alpha"	value="7" />
+		<value nick="feigen_delta"	value="8" />
+		<value nick="apery"			value="9" />
+    </enum>
+     <schema id="@SCHEMA_ID@" path="@SCHEMA_PATH@" gettext-domain="@GETTEXT_PACKAGE@">
+        <key name="version" type="s">
+            <default>'0.0.0'</default>
+            <summary>The currently installed version.</summary>
+            <description>The currently installed version of Pebbles, updated only after the user launched the app. This is used to know when to trigger the Release Dialog.</description>
+        </key>
+
+        <key name="theme" type="s">
+            <default>"system"</default>
+            <summary>App Theme</summary>
+            <description>Dark style preference</description>
+        </key>
+        <key name="load-last-session" type="b">
+			<default>true</default>
+			<summary>Load Last Session on Startup</summary>
+			<description>Load last values from previous session on startup</description>
+		</key>
+        <key name="view-index" type="i">
+			<default>0</default>
+			<summary>The saved view index of main stack</summary>
+			<description>The saved view index of main stack</description>
+		</key>
+
+        <key name="global-angle-unit" enum="@SCHEMA_ID@.global-angle-unit">
+			<default>"deg"</default>
+			<summary>Choose the Global Angle Unit</summary>
+			<description>Select the angle unit to use in all modes of this app.</description>
+		</key>
+		<key name="global-word-length" enum="@SCHEMA_ID@.global-word-length">
+			<default>"qwd"</default>
+			<summary>Choose the Word Length</summary>
+			<description>Select the word length.</description>
+		</key>
+		<key name="number-system" enum="@SCHEMA_ID@.number-system">
+			<default>"decimal"</default>
+			<summary>Choose the number system</summary>
+			<description>Select the number system.</description>
+		</key>
+		<key name="constant-key-value1" enum="@SCHEMA_ID@.constant-key-index">
+			<default>"euler"</default>
+			<summary>Choose Constant 1</summary>
+			<description>Choose constant value for the button.</description>
+		</key>
+		<key name="constant-key-value2" enum="@SCHEMA_ID@.constant-key-index">
+			<default>"archimedes"</default>
+			<summary>Choose Constant 2</summary>
+			<description>Choose constant value for the button when shift is ON.</description>
+		</key>
+		<key name="decimal-places" type="u">
+			<range min="0" max="10"/>
+			<default>7</default>
+			<summary>Number of decimal places after radix</summary>
+			<description>Number of decimal places after radix point.</description>
+		</key>
+		<key name="integration-resolution" type="u">
+			<range min="500" max="100000"/>
+			<default>10000</default>
+			<summary>Accuracy of integratal caculus evaluation</summary>
+			<description>Number of cycles of Simpson's 3/8 evaluation</description>
+		</key>
+		<key name="forex-api-key" type="s">
+			<default>""</default>
+			<summary>Currency Converter API key</summary>
+			<description>Get your own API key from https://free.currencyconverterapi.com/</description>
+		</key>
+     </schema>
+</schemalist>

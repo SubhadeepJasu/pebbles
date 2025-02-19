@@ -6,9 +6,9 @@
 ![screenshot](screenshots/Screenshot.png)
 
 <br>
-Pebbles is an advanced calculator application based in Vala and Gtk.
-
-![elementary flatpak build status](https://github.com/SubhadeepJasu/pebbles/actions/workflows/ci.yml/badge.svg)
+Pebbles is an easy to use advanced calculator.
+<br><br>
+<a href="https://elementary.io"><img alt="Static Badge" src="data/badges/made_for_elementary_os_badge.svg"></a>
 
 ## Get it from store
 | elementary OS    | FlatHub       	|
@@ -17,14 +17,13 @@ Pebbles is an advanced calculator application based in Vala and Gtk.
 
 ## Install from source using meson
 You can install Pebbles by compiling it from source, here's a list of required dependencies:
- - `elementary-sdk`
- - `gtk+-3.0>=3.18`
- - `granite>=5.3.0`
- - `gsl>=2.4`
+ - `elementary-sdk 8`
+ - `gtk 4`
+ - `granite 7`
  - `glib-2.0`
  - `libsoup-2.4`
  - `gobject-2.0`
- - `libhandy-1`
+ - `libadwaita 1`
  - `meson`
 
 <i>For non-elementary distros, (such as Arch, Debian, etc) you are required to install "vala" as additional dependency.</i>
@@ -37,8 +36,8 @@ cd pebbles
 
 Compile, install and start Pebbles on your system
 ```
-meson _build --prefix=/usr
-ninja -C _build install
+meson setup build --prefix=/usr
+ninja -C build install
 com.github.subhadeepjasu.pebbles
 ```
 To run pebbles in testing mode
@@ -67,4 +66,4 @@ Feel free to send pull requests to this repository with your code.
 <br>
 <sup><b>License</b>: GNU GPLv3</sup>
 <br>
-<sup>© Copyright 2017-2022 Subhadeep Jasu</sup>
+<sup>© Copyright 2017-2024 Subhadeep Jasu</sup>

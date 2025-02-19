@@ -1,60 +1,81 @@
-# Listing files to compile
-sources = files (
+# SPDX-License-Identifier: GPL-3.0-or-later
+configure_file(
+          input: 'pebbles.in',
+         output: meson.project_name(),
+  configuration: conf,
+        install: true,
+   install_mode: 'rwxr-xr-x',
+    install_dir: bindir,
+)
+
+python.install_sources(
+  files(
+    'application.py',
+    'history.py'
+  ),
+  subdir: 'pebbles',
+)
+
+python.install_sources(
+  files(
+    'shell/__init__.py',
+    'shell/main_window.py',
+  ),
+  subdir: 'pebbles/shell',
+)
+
+python.install_sources(
+  files(
+    'core/__init__.py',
+    'core/utils.py',
+    'core/tokenizer.py',
+    'core/memory.py',
+    'core/scientific_calculator.py',
+  ),
+  subdir: 'pebbles/core',
+)
+
+configure_file(
+         output: 'config.h',
+  configuration: vala_conf
+)
+config_dep = valac.find_library('config',
+  dirs: meson.project_source_root () / 'src'
+)
+
+pebbles_lib = shared_library('pebbles',
+  gresource_bundle,
+  files(
+    'Common.vala',
     'Application.vala',
     'Settings.vala',
-    'MainWindow.vala',
-    'StyledButton.vala',
-    'KeyboardHandler.vala',
     'ControlsScheme.vala',
-    'PreferencesOverlay.vala',
+    'History.vala',
+    'shell/MainWindow.vala',
+    'shell/dialogs/PreferencesDialog.vala',
+    'shell/dialogs/ShortcutsDialog.vala',
+    'shell/widgets/Button.vala',
+    'shell/widgets/PopoverMenuItem.vala',
+    'shell/widgets/Display.vala',
+    'shell/widgets/HistoryDisplay.vala',
+    'shell/widgets/ScientificDisplay.vala',
+    'shell/views/ScientificView.vala'
+  ),
+             vala_gir: 'Pebbles-3.gir',
+         dependencies: dependencies + config_dep,
+  include_directories: include_directories('.'),
+            link_args: ['-lm',],
+              install: true,
+          install_dir: [true],
+          vala_args: [
+            '--gresourcesdir=' + meson.project_build_root() + '/data/'
+          ]
+)
 
-    'Test/TestUtil.vala',
-
-    'Common/ResponsiveBox.vala',
-
-    'Core/EvaluationResult.vala',
-    'Core/HistoryManager.vala',
-    'Core/ScientificCalculator.vala',
-    'Core/Calculus.vala',
-    'Core/ProgrammerCalculator.vala',
-    'Core/Statistics.vala',
-    'Core/Utils.vala',
-    'Core/Converter.vala',
-    'Core/CurrencyConverter.vala',
-    'Core/DateCalculator.vala',
-
-    'Core/CharStack.vala',
-    'Core/BoolArrayStack.vala',
-
-    'Views/MiniCalculator.vala',
-    'Views/CalculusView.vala',
-    'Views/ProgrammerView.vala',
-    'Views/ScientificView.vala',
-    'Views/DateView.vala',
-    'Views/StatisticsView.vala',
-    'Views/CommonNumericKeypad.vala',
-    'Views/CommonKeyPadConverter.vala',
-    'Views/ConvLengthView.vala',
-    'Views/ConvAreaView.vala',
-    'Views/ConvVolumeView.vala',
-    'Views/ConvTimeView.vala',
-    'Views/ConvAngleView.vala',
-    'Views/ConvSpeedView.vala',
-    'Views/ConvPressView.vala',
-    'Views/ConvMassView.vala',
-    'Views/ConvEnergyView.vala',
-    'Views/ConvPowerView.vala',
-    'Views/ConvTempView.vala',
-    'Views/ConvDataView.vala',
-    'Views/ConvCurrView.vala',
-    'Views/BitToggleGrid.vala',
-    'Views/ControlsOverlay.vala',
-    'Views/HistoryView.vala',
-    'Views/BottomPopper.vala',
-
-    'Views/Displays/ScientificDisplay.vala',
-    'Views/Displays/CalculusDisplay.vala',
-    'Views/Displays/ProgrammerDisplay.vala',
-    'Views/Displays/StatisticsDisplay.vala',
-    'Views/Displays/StatisticsGraph.vala'
+custom_target('pebbles typelib',
+      command: [find_program('g-ir-compiler'), '--shared-library', 'libpebbles.so', '--output', '@OUTPUT@', meson.current_build_dir() / 'Pebbles-3.gir'],
+       output: 'Pebbles-3.typelib',
+      depends: pebbles_lib,
+      install: true,
+  install_dir: get_option('libdir') / 'girepository-1.0',
 )

@@ -1,6 +1,6 @@
 app-id: com.github.subhadeepjasu.pebbles
 runtime: io.elementary.Platform
-runtime-version: '6.1'
+runtime-version: '8'
 sdk: io.elementary.Sdk
 command: com.github.subhadeepjasu.pebbles
 finish-args:
@@ -8,18 +8,43 @@ finish-args:
   - '--socket=fallback-x11'
   - '--socket=wayland'
   - '--share=network'
-  # needed for perfers-color-scheme
   - '--metadata=X-DConf=migrate-path=/com/github/subhadeepjasu/pebbles'
 modules:
-  - name: gsl
-    config-opts:
-      - --disable-static
+  - name: libsass
     cleanup:
-      - /bin
+      - "*"
     sources:
       - type: archive
-        url: https://ftp.gnu.org/gnu/gsl/gsl-2.6.tar.gz
-        sha256: b782339fc7a38fe17689cb39966c4d821236c28018b6593ddb6fd59ee40786a8
+        url: https://github.com/sass/libsass/archive/3.5.4.tar.gz
+        sha256: 5f61cbcddaf8e6ef7a725fcfa5d05297becd7843960f245197ebb655ff868770
+
+      - type: script
+        dest-filename: autogen.sh
+        commands:
+          - autoreconf -si
+
+  - name: sassc
+    cleanup:
+      - "*"
+    sources:
+      - type: archive
+        url: https://github.com/sass/sassc/archive/3.5.0.tar.gz
+        sha256: 26f54e31924b83dd706bc77df5f8f5553a84d51365f0e3c566df8de027918042
+
+      - type: script
+        dest-filename: autogen.sh
+        commands:
+          - autoreconf -si
+
+  - name: blueprint-compiler
+    buildsystem: meson
+    cleanup:
+      - "*"
+    sources:
+      - type: git
+        url: https://gitlab.gnome.org/jwestman/blueprint-compiler
+        tag: v0.14.0
+
 
   - name: pebbles
     buildsystem: meson

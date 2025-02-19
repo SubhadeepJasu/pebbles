@@ -1,0 +1,247 @@
+/*-
+ * Copyright (c) 2018-2024 Subhadeep Jasu <subhajasu@gmail.com>
+ * Copyright (c) 2018-2019 Saunak Biswas  <saunakbis97@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ *
+ * Authored by: Subhadeep Jasu <subhajasu@gmail.com>
+ *
+ *
+ *   _____     _   _   _            _____ _____ _____
+ *  |  _  |___| |_| |_| |___ ___   |     |   __|   __|
+ *  |   __| -_| . | . | | -_|_ -|  |   --|__   |__   |
+ *  |__|  |___|___|___|_|___|___|  |_____|_____|_____|
+ *
+ */
+
+
+$SLATE_500: #485a6c;
+$BANANA_500: #f9c440;
+$BANANA_900: #ad5f00;
+$LCD_FG_COLOR: #272863bb;
+
+.headerbar {
+    &-left {
+	    border-radius: 6px 0 0 0;
+    }
+
+    &-right {
+        border-radius: 0 6px 0 0;
+    }
+}
+
+.lcd {
+    background: linear-gradient(#d1ddd1, #bdc7bd);
+    border-radius: 3px;
+    border: none;
+    margin: 2px;
+    box-shadow:
+        0 0 0 1px #0006,
+        inset 0 1px 0 #fff4,
+        inset 0 -1px 0 #fff2,
+        0 12px 24px #545e5473;
+
+    color: $LCD_FG_COLOR;
+    padding: 8px;
+    padding-right: 0;
+
+    &:backdrop {
+        background: #bdc7bd;
+        opacity: 0.5;
+    }
+
+    &-label {
+        font-family: DotGothic16, Inter, sans-serif;
+        font-size: 40px;
+        text-shadow: 0 2px 1px #0002;
+        margin-top: 6px;
+    }
+
+    &-seperator {
+        border-bottom: #27286322;
+        box-shadow: none;
+    }
+
+    &-entry {
+        background: none;
+        box-shadow: none;
+        border: none;
+        outline: 0;
+        font-size: x-large;
+        font-family: DotGothic16, Inter, sans-serif;
+        text-shadow: 0 2px 1px #0002;
+        caret-color: $LCD_FG_COLOR;
+
+        text {
+            color: $LCD_FG_COLOR;
+        }
+    }
+
+    &.fade > * {
+        opacity: 0.2;
+    }
+
+    &.shake {
+        animation: shake 0.4s ease-in-out 1;
+    }
+
+    @keyframes shake {
+        0% { margin-left: -32px; margin-right: 32px; }
+        25% { margin-left: 24px; margin-right: -24px; }
+        50% { margin-left: -16px; margin-right: 16px; }
+        75% { margin-left: 8px; margin-right: -8px; }
+        100% { margin-left: 0; margin-right: 0;}
+    }
+
+    .history {
+        font-family: DotGothic16, Inter, sans-serif;
+
+        list {
+            background: none;
+
+            .activatable {
+                background: none;
+                border-bottom: 1px solid rgba($LCD_FG_COLOR, 0.5);
+                border-bottom-style: dashed;
+                opacity: 0.6;
+                margin-top: 0;
+                margin-bottom: 0;
+
+                &:hover {
+                    opacity: 1;
+                }
+
+                &.pop-up {
+                    animation: history-pop-up 0.4s cubic-bezier(0, 0, 0, 1);
+                }
+            }
+
+            @keyframes history-pop-up {
+                from {
+                    margin-top: 12px;
+                    margin-bottom: -12px;
+                    opacity: 0;
+                }
+
+                to {
+                    margin-top: 0;
+                    margin-bottom: 0;
+                    opacity: 1;
+                }
+            }
+        }
+
+        &-input {
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: -4px;
+        }
+
+        &-output {
+            font-size: 24px;
+        }
+    }
+}
+
+.nav-item {
+    title {
+        font-weight: bold;
+        padding: 4px 12px;
+    }
+
+    row {
+        padding-left: 28px;
+    }
+}
+
+
+button.pressed {
+    background: rgba(black, 0.05);
+    box-shadow: 0 1px 0 0 #{'alpha(@highlight_color, 0.3)'},
+    inset 0 1px 1px rgba(black, 0.05);
+}
+
+.special-action {
+    background-color: rgba($SLATE_500, 0.3);
+    border-color: #1115;
+}
+
+.memory-action {
+    background: $BANANA_500;
+    color: $BANANA_900;
+    font-weight: bold;
+    text-shadow: none;
+}
+
+.large-font-btn {
+    font-size: 22px;
+    font-weight: 300;
+    padding-top: 2px;
+}
+
+.adaptive-btn-font {
+    label,
+    image {
+        transform: scale(1.0);
+    }
+}
+
+.status-bar {
+    label {
+        font-weight: bold;
+    }
+}
+
+.color-button radio {
+    -gtk-icon-shadow: none;
+    padding: 10px;
+}
+
+.color-button {
+    &-light radio {
+        background-color: #fff;
+        color: #333;
+    }
+
+    &-dark radio {
+        background-color: #333;
+        color: #f8f8f8;
+    }
+
+    &-system radio {
+        background-image: linear-gradient(-45deg, #fff 50%, #333 51%);
+
+        &:checked {
+            background-image: linear-gradient(-45deg, #aaa 50%, #222 51%);
+        }
+    }
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.preferences-group {
+    margin: 8px;
+
+    .heading {
+        font-weight: bold;
+        margin-bottom: 8px;
+    }
+
+    .combo {
+        background: #0000000a;
+        border-top: 1px solid #0002;
+    }
+}

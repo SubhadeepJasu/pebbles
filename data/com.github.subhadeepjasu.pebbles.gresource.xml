@@ -1,9 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
   <gresource prefix="/com/github/subhadeepjasu/pebbles">
-    <file alias="Application.css">Application.css</file>
+    <file alias="style.css" compressed="true">style.css</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/main_window.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/preferences_dialog.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/shortcuts_dialog.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/button.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/popover_menu_item.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/display.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/history_display.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/scientific_view.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/scientific_display.ui</file>
   </gresource>
-  <gresource prefix="/com/github/subhadeepjasu/pebbles/images/textures">
-    <file alias="texture.png" compressed="true">images/texture.png</file>
+
+  <gresource prefix="/com/github/subhadeepjasu/pebbles/icons">
+    <file alias="scalable/emblems/scientific-mode-symbolic.svg">icons/scalable/emblems/scientific-mode-symbolic.svg</file>
+    <file alias="scalable/emblems/calculus-mode-symbolic.svg">icons/scalable/emblems/calculus-mode-symbolic.svg</file>
+    <file alias="scalable/emblems/programmer-mode-symbolic.svg">icons/scalable/emblems/programmer-mode-symbolic.svg</file>
+    <file alias="scalable/emblems/statistics-mode-symbolic.svg">icons/scalable/emblems/statistics-mode-symbolic.svg</file>
+    <file alias="scalable/emblems/graphing-mode-symbolic.svg">icons/scalable/emblems/graphing-mode-symbolic.svg</file>
+    <file alias="scalable/emblems/length-conv-symbolic.svg">icons/scalable/emblems/length-conv-symbolic.svg</file>
+    <file alias="scalable/emblems/area-conv-symbolic.svg">icons/scalable/emblems/area-conv-symbolic.svg</file>
+    <file alias="scalable/emblems/volume-conv-symbolic.svg">icons/scalable/emblems/volume-conv-symbolic.svg</file>
+    <file alias="scalable/emblems/angle-conv-symbolic.svg">icons/scalable/emblems/angle-conv-symbolic.svg</file>
+    <file alias="scalable/emblems/speed-conv-symbolic.svg">icons/scalable/emblems/speed-conv-symbolic.svg</file>
+    <file alias="scalable/emblems/mass-conv-symbolic.svg">icons/scalable/emblems/mass-conv-symbolic.svg</file>
+    <file alias="scalable/emblems/pressure-conv-symbolic.svg">icons/scalable/emblems/pressure-conv-symbolic.svg</file>
+    <file alias="scalable/emblems/energy-conv-symbolic.svg">icons/scalable/emblems/energy-conv-symbolic.svg</file>
+    <file alias="scalable/emblems/power-conv-symbolic.svg">icons/scalable/emblems/power-conv-symbolic.svg</file>
+    <file alias="scalable/emblems/temp-conv-symbolic.svg">icons/scalable/emblems/temp-conv-symbolic.svg</file>
+    <file alias="scalable/emblems/currency-conv-symbolic.svg">icons/scalable/emblems/currency-conv-symbolic.svg</file>
   </gresource>
 </gresources>

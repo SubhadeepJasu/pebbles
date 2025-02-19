@@ -1,0 +1,107 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: 2024 Subhadeep Jasu <subhadeep107@proton.me>
+using Gtk 4.0;
+using Adw 1;
+
+template $PebblesPreferencesDialog: Adw.PreferencesDialog {
+    Adw.PreferencesPage {
+        Adw.PreferencesGroup {
+            title: _("General");
+            styles ["preferences-group"]
+
+            Adw.SwitchRow {
+                title: _("Save State");
+                subtitle: _("Load last session on startup");
+                focus-on-click: false;
+                focusable: false;
+                active: bind template.settings as <$PebblesSettings>.load_last_session;
+                notify::active => $load_session_notify_active_cb();
+            }
+
+            Adw.ActionRow decimal_places {
+                title: _("Decimal Places");
+                subtitle: _("Number of decimal places afte radix symbol");
+                focus-on-click: false;
+                focusable: false;
+
+                SpinButton {
+                    width-request: 100;
+                    adjustment: Adjustment {
+                        lower: 0;
+                        upper: 9;
+                        step-increment: 1;
+                    };
+                    focus-on-click: false;
+                    focusable: false;
+                    can-focus: false;
+                    value: bind template.settings as <$PebblesSettings>.decimal_places;
+                    notify::value => $precision_notify_active_cb();
+                }
+            }
+
+            Adw.ExpanderRow {
+                title: _("Scientific Constants Button");
+                subtitle: _("The scientific constants to insert when the 'Constants' button is clicked");
+                focus-on-click: false;
+                focusable: false;
+                can-focus: false;
+
+                Adw.ComboRow constants_select_1 {
+                    title: _("Constants Button Default");
+                    use-subtitle: true;
+                    model: bind template.constant_button_model;
+                    focus-on-click: false;
+                    focusable: false;
+                    selected: bind template.settings as <$PebblesSettings>.constant_key_value1 as <$PebblesConstantKeyIndex>;
+                    notify::selected => $constant_button_1_cb();
+                }
+
+                Adw.ComboRow constants_select_2 {
+                    title: _("Constants Button Shifted");
+                    use-subtitle: true;
+                    model: bind template.constant_button_model;
+                    focus-on-click: false;
+                    focusable: false;
+                    selected: bind template.settings as <$PebblesSettings>.constant_key_value2 as <$PebblesConstantKeyIndex>;
+                    notify::selected => $constant_button_2_cb();
+                }
+            }
+        }
+
+        Adw.PreferencesGroup {
+            title: _("Calculus");
+            styles ["preferences-group"]
+
+            Adw.ActionRow {
+                title: _("Integration Resolution");
+                subtitle: _("Higher resolution means more time to process");
+                focus-on-click: false;
+                focusable: false;
+
+                Scale integration_resolution_scale {
+                    width-request: 200;
+                    adjustment: Adjustment {
+                        lower: 500;
+                        upper: 100000;
+                        step-increment: 100;
+                    };
+                    focus-on-click: false;
+                    focusable: false;
+                }
+            }
+        }
+
+        Adw.PreferencesGroup {
+            title: _("Converters");
+            styles ["preferences-group"]
+
+            Adw.EntryRow {
+                title: _("Currency Converter API Key");
+                focus-on-click: false;
+                focusable: false;
+                text: bind template.settings as <$PebblesSettings>.forex_api_key;
+                notify::text => $forex_api_key_cb();
+            }
+        }
+    }
+}
