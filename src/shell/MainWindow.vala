@@ -37,6 +37,15 @@ namespace Pebbles {
 
         [GtkChild]
         private unowned ScientificView scientific_view;
+        [GtkChild]
+        private unowned StatisticsView statistics_view;
+
+        [GtkChild]
+        private unowned Gtk.Stack header_stack;
+        [GtkChild]
+        private unowned Gtk.Box scientific_header_box;
+        [GtkChild]
+        private unowned Gtk.Box null_header_box;
 
         private Gtk.EventControllerKey key_event_controller;
 
@@ -115,8 +124,25 @@ namespace Pebbles {
             enable_scientific_mode_action.activate.connect (() => {
                 view_stack.set_visible_child_name ("sci");
                 split_view.show_content = true;
+                scientific_view.add_css_class ("animate");
+                Timeout.add_once (600, () => {
+                    scientific_view.remove_css_class ("animate");
+                });
+                header_stack.set_visible_child (scientific_header_box);
             });
             add_action (enable_scientific_mode_action);
+
+            var enable_statistics_mode_action = new SimpleAction ("open_statistics_mode", null);
+            enable_statistics_mode_action.activate.connect (() => {
+                view_stack.set_visible_child_name ("stat");
+                split_view.show_content = true;
+                statistics_view.add_css_class ("animate");
+                Timeout.add_once (600, () => {
+                    statistics_view.remove_css_class ("animate");
+                });
+                header_stack.set_visible_child (null_header_box);
+            });
+            add_action (enable_statistics_mode_action);
         }
 
         private void setup_evaluators () {

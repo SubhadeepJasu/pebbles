@@ -31,6 +31,7 @@ python.install_sources(
     'core/tokenizer.py',
     'core/memory.py',
     'core/scientific_calculator.py',
+    'core/statistics_calculator.py'
   ),
   subdir: 'pebbles/core',
 )
@@ -59,7 +60,9 @@ pebbles_lib = shared_library('pebbles',
     'shell/widgets/Display.vala',
     'shell/widgets/HistoryDisplay.vala',
     'shell/widgets/ScientificDisplay.vala',
-    'shell/views/ScientificView.vala'
+    'shell/widgets/StatisticsDisplay.vala',
+    'shell/views/ScientificView.vala',
+    'shell/views/StatisticsView.vala'
   ),
              vala_gir: 'Pebbles-3.gir',
          dependencies: dependencies + config_dep,

@@ -1,0 +1,131 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: 2024 Subhadeep Jasu <subhadeep107@proton.me>
+using Gtk 4.0;
+
+template $PebblesStatisticsDisplay: $PebblesDisplay {
+    CenterBox lcd_status_bar {
+        layout {
+            row: 0;
+            column: 0;
+        }
+
+        hexpand: true;
+        margin-end: 8;
+
+        styles [
+            "status-bar"
+        ]
+
+        start-widget: Box {
+            orientation: horizontal;
+            spacing: 0;
+            margin-end: 12;
+
+            Label result_type_label_g {
+                label: "g";
+                opacity: 1;
+            }
+
+            Label result_type_label_m {
+                label: "m";
+                opacity: 0.2;
+            }
+
+            Label result_type_label_edia {
+                label: "edia";
+                opacity: 0.2;
+            }
+
+            Label result_type_label_n {
+                label: "n";
+                opacity: 0.2;
+            }
+
+            Label result_type_label_mode {
+                label: "mode";
+                opacity: 0.2;
+            }
+
+            Label result_type_label_summation {
+                label: "Σ";
+                opacity: 0.2;
+            }
+
+            Label result_type_label_x_bar {
+                label: "x̄";
+                opacity: 0.2;
+            }
+
+            Label result_type_label_x_sqr {
+                label: "<sup>2</sup>";
+                opacity: 0.2;
+                use-markup: true;
+            }
+
+            Label result_type_label_sigma {
+                label: "σ";
+                opacity: 0.2;
+            }
+
+            Label result_type_label_sig_sqr {
+                label: "<sup>2</sup>";
+                opacity: 0.2;
+                use-markup: true;
+            }
+
+            Label result_type_label_sv {
+                label: "SV";
+                opacity: 0.2;
+            }
+
+            Label result_type_label_sd {
+                label: "SD";
+                opacity: 0.2;
+            }
+        };
+
+        center-widget: Box {
+            orientation: horizontal;
+            spacing: 8;
+
+            Label memory_label {
+                label: "M";
+                opacity: 0.2;
+            }
+
+            Label global_memory_label {
+                label: "GM";
+                opacity: 0.2;
+            }
+        };
+
+        end-widget: Label set_label {
+            label: _("Feature 1");
+            opacity: 0.2;
+        };
+    }
+
+    ScrolledWindow {
+        Box data_table {
+            orientation: horizontal;
+        }
+
+        layout {
+          column: 0;
+          row: 2;
+        }
+
+        visible: false;
+    }
+
+    Label add_cell_warning {
+        halign: center;
+        label: bind template.add_cell_warning_text;
+        styles ["h1"]
+
+        layout {
+          column: 0;
+          row: 2;
+        }
+    }
+}

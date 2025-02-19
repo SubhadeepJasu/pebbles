@@ -11,6 +11,8 @@
     <file compressed="true" preprocess="xml-stripblanks">ui/history_display.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/scientific_view.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/scientific_display.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/statistics_view.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/statistics_display.ui</file>
   </gresource>
 
   <gresource prefix="/com/github/subhadeepjasu/pebbles/icons">

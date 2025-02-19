@@ -41,6 +41,28 @@ $LCD_FG_COLOR: #272863bb;
     }
 }
 
+.view {
+    background: none;
+
+    &.animate {
+        animation: reveal-smooth 0.5s cubic-bezier(0, 0, 0, 1) forwards;
+    }
+
+    @keyframes reveal-smooth {
+        from {
+            transform: translateY(24px);
+            opacity: 0;
+            filter: blur(4px);
+        }
+
+        to {
+            transform: translateY(0);
+            opacity: 1;
+            filter: blur(0);
+        }
+    }
+}
+
 .lcd {
     background: linear-gradient(#d1ddd1, #bdc7bd);
     border-radius: 3px;
@@ -151,6 +173,11 @@ $LCD_FG_COLOR: #272863bb;
         &-output {
             font-size: 24px;
         }
+    }
+
+    .h1 {
+        font-size: x-large;
+        font-weight: 400;
     }
 }
 

@@ -164,6 +164,8 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                                 halign: start;
                                             }
                                         }
+
+                                        action-name: "win.open_statistics_mode";
                                     }
 
                                     ListBoxRow {
@@ -449,6 +451,8 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                             margin-start: 7;
                             margin-top: 7;
                             valign: start;
+                            transition-type: slide_up_down;
+                            transition-duration: 500;
 
                             Box scientific_header_box {
                                 spacing: 4;
@@ -464,6 +468,10 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
 
                                     clicked => $on_change_mode();
                                 }
+                            }
+
+                            Box null_header_box {
+
                             }
 
                             visible-child: scientific_header_box;
@@ -561,6 +569,12 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                             name: "sci";
 
                             child: $PebblesScientificView scientific_view {};
+                        }
+
+                        Adw.ViewStackPage {
+                            name: "stat";
+
+                            child: $PebblesStatisticsView statistics_view {};
                         }
                     }
                 }
