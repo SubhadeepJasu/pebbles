@@ -58,6 +58,11 @@ namespace Pebbles {
             on_copy_result (index, data);
             var clip_board = get_clipboard ();
             clip_board.set_text (data.output);
+
+            var window = get_ancestor (typeof (MainWindow)) as MainWindow;
+            if (window != null) {
+                window.send_toast (_("Answer copied to clipboard"));
+            }
         }
 
         public void insert_result (uint index, HistoryViewModel data) {
@@ -70,10 +75,12 @@ namespace Pebbles {
     }
 
     private class HistoryDisplayItem : Gtk.ListBoxRow {
-        private Gtk.GestureClick click_gesture;
         public uint index { get; private set; }
         public unowned HistoryDisplay history_display;
         public unowned HistoryViewModel model;
+
+        private Gtk.GestureClick right_click_gesture;
+        private Gtk.GestureClick middle_click_gesture;
 
         public HistoryDisplayItem (uint index, HistoryDisplay history_display, HistoryViewModel model) {
             Object (
@@ -99,13 +106,23 @@ namespace Pebbles {
             output_label.add_css_class ("history-output");
             box.append (output_label);
 
-            click_gesture = new Gtk.GestureClick ();
-            click_gesture.set_button (Gdk.BUTTON_SECONDARY);
-            click_gesture.pressed.connect ((n_press, x, y) => {
+            right_click_gesture = new Gtk.GestureClick ();
+            right_click_gesture.set_button (Gdk.BUTTON_SECONDARY);
+            right_click_gesture.pressed.connect ((n_press, x, y) => {
                 show_context_menu (x, y);
             });
-            click_gesture.propagation_phase = CAPTURE;
-            add_controller (click_gesture);
+            add_controller (right_click_gesture);
+
+            middle_click_gesture = new Gtk.GestureClick ();
+            middle_click_gesture.set_button (Gdk.BUTTON_MIDDLE);
+            middle_click_gesture.pressed.connect (() => {
+                history_display.copy_result (index, model);
+            });
+            add_controller (middle_click_gesture);
+
+            activate.connect (() => {
+                history_display.recall (index, model);
+            });
         }
 
         public void pop_up () {

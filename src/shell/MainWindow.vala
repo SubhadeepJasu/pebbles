@@ -299,5 +299,9 @@ namespace Pebbles {
                     break;
             }
         }
+
+        public void send_toast (string message) {
+            toast_overlay.add_toast (new Adw.Toast (message));
+        }
     }
 }

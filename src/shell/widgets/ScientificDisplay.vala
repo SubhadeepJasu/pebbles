@@ -29,6 +29,8 @@ namespace Pebbles {
         [GtkChild]
         public unowned Gtk.Entry main_entry;
 
+        private Gtk.GestureClick right_click_gesture;
+
         construct {
             Idle.add (()=> {
                 Timeout.add (60, ()=> {
@@ -96,6 +98,12 @@ namespace Pebbles {
             });
 
             set_angle_unit (settings.global_angle_unit);
+
+            right_click_gesture = new Gtk.GestureClick ();
+            right_click_gesture.set_button (Gdk.BUTTON_SECONDARY);
+            right_click_gesture.pressed.connect (() => {
+
+            });
         }
 
         public void set_angle_unit (GlobalAngleUnit unit) {
