@@ -45,6 +45,8 @@ namespace Pebbles {
         [GtkChild]
         private unowned Gtk.Box scientific_header_box;
         [GtkChild]
+        private unowned Gtk.Box statistics_header_box;
+        [GtkChild]
         private unowned Gtk.Box null_header_box;
 
         private Gtk.EventControllerKey key_event_controller;
@@ -140,7 +142,7 @@ namespace Pebbles {
                 Timeout.add_once (600, () => {
                     statistics_view.remove_css_class ("animate");
                 });
-                header_stack.set_visible_child (null_header_box);
+                header_stack.set_visible_child (statistics_header_box);
             });
             add_action (enable_statistics_mode_action);
         }

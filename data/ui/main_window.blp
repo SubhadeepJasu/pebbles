@@ -47,6 +47,7 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
 
         setters {
             scientific_view.collapsed: true;
+            statistics_view.collapsed: true;
             split_view.collapsed: true;
             split_view.show-content: true;
             navigation_headerbar.show-back-button: true;
@@ -467,6 +468,21 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                     focus-on-click: false;
 
                                     clicked => $on_change_mode();
+                                }
+                            }
+
+                            Box statistics_header_box {
+                                spacing: 4;
+                                orientation: horizontal;
+
+                                $PebblesButton import_button {
+                                    icon: "document-import-symbolic";
+                                    tooltip_desc: _("Import table from file");
+                                    width-request: 64;
+                                    focusable: false;
+                                    focus-on-click: false;
+
+                                    // clicked => $on_change_mode();
                                 }
                             }
 

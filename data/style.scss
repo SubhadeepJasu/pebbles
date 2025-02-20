@@ -50,15 +50,13 @@ $LCD_FG_COLOR: #272863bb;
 
     @keyframes reveal-smooth {
         from {
-            transform: translateY(24px);
+            transform: scale(0.9);
             opacity: 0;
-            filter: blur(4px);
         }
 
         to {
-            transform: translateY(0);
+            transform: scale(1);
             opacity: 1;
-            filter: blur(0);
         }
     }
 }
@@ -212,7 +210,7 @@ button.pressed {
 }
 
 .large-font-btn {
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 300;
     padding-top: 2px;
 }

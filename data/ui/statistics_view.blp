@@ -15,8 +15,176 @@ template $PebblesStatisticsView: Gtk.Grid {
     }
 
     vexpand: true;
-    // shift_on: bind shift_button.active;
   }
 
+  Adw.NavigationSplitView sci_nav_split_view {
+    layout {
+      column: 0;
+      row: 1;
+    }
 
+    vexpand: true;
+    height-request: 250;
+    sidebar-width-fraction: 0.5;
+    max-sidebar-width: 1000000;
+    min-sidebar-width: 256;
+    margin-start: 7;
+    margin-end: 7;
+    margin-bottom: 7;
+    collapsed: bind template.collapsed;
+
+    sidebar: Adw.NavigationPage button_container_left {
+      title: "Numerical Input";
+      hexpand: true;
+      overflow: visible;
+
+      Grid {
+        row-homogeneous: true;
+        column-homogeneous: true;
+        row-spacing: 8;
+        column-spacing: 8;
+        vexpand: true;
+        hexpand: true;
+        margin-start: 6;
+        margin-end: 6;
+        margin-bottom: 6;
+        margin-top: 1;
+
+        $PebblesButton all_clear_button {
+          label_text: _("AC");
+          tooltip_desc: _("All Clear");
+          accel_markup: "Delete";
+          focus-on-click: false;
+          key: "delete";
+
+          styles [
+            "destructive-action",
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 0;
+            column: 0;
+          }
+
+          // clicked => $on_all_clear();
+        }
+
+        $PebblesButton clear_row_button {
+          label_text: "RC";
+          tooltip_desc: _("Row Clear");
+          focus-on-click: false;
+          key: "End";
+          accel_markup: "End";
+
+          layout {
+            row: 0;
+            column: 1;
+          }
+
+          // clicked => $on_backspace();
+        }
+
+        $PebblesButton remove_cell_button {
+          label_text: "▭⁻";
+          tooltip_desc: _("Remove Cell");
+          focus-on-click: false;
+          key: "Shift_L,Tab";
+          accel_markup: "Shift_L,Tab";
+
+          layout {
+            row: 0;
+            column: 2;
+          }
+
+          styles [
+            "adaptive-btn-font",
+            "large-font-btn"
+          ]
+        }
+
+        $PebblesButton del_button {
+          icon: "edit-clear-symbolic";
+          tooltip_desc: _("Backspace");
+          focus-on-click: false;
+          key: "BackSpace";
+
+          layout {
+            row: 0;
+            column: 3;
+          }
+
+          // clicked => $on_backspace();
+        }
+
+        $PebblesButton add_cell_button {
+          label_text: "▭⁺";
+          tooltip_desc: _("Add Cell");
+          focus-on-click: false;
+          key: "Tab";
+          accel_markup: "Tab";
+
+          layout {
+            row: 1;
+            column: 3;
+          }
+
+          styles [
+            "adaptive-btn-font",
+            "large-font-btn"
+          ]
+        }
+
+
+
+        $PebblesButton add_row_button {
+          label_text: "⏎";
+          tooltip_desc: _("Add Row");
+          focus-on-click: false;
+          key: "Return";
+          accel_markup: "Return";
+
+          layout {
+            row: 2;
+            column: 3;
+          }
+
+          styles [
+            "adaptive-btn-font",
+            "large-font-btn"
+          ]
+        }
+
+        $PebblesButton switch_graph_button {
+          icon: "graphing-mode-symbolic";
+          tooltip_desc: _("Switch Visualization");
+          focus-on-click: false;
+
+          layout {
+            row: 3;
+            column: 3;
+          }
+
+          styles [
+            "adaptive-btn-font"
+          ]
+        }
+
+        $PebblesButton negative_button {
+          label_text: "+/−";
+          tooltip_desc: _("Negative");
+          focus-on-click: false;
+
+          layout {
+            row: 4;
+            column: 3;
+          }
+
+          styles [
+            "adaptive-btn-font",
+          ]
+        }
+      }
+    };
+  }
 }
