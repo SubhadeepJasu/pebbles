@@ -61,6 +61,7 @@ namespace Pebbles {
         public signal void on_key_down (string? mode, uint keyval);
         public signal void on_key_up (string? mode, uint keyval);
         public signal void history_changed (HistoryViewModel[] history);
+        public signal Gdk.Pixbuf on_stat_plot (double[] data, double width, double height);
 
         construct {
             navigation_pane.add_css_class (Granite.STYLE_CLASS_SIDEBAR);

@@ -105,8 +105,42 @@ template $PebblesStatisticsDisplay: $PebblesDisplay {
         };
     }
 
+    Box {
+        orientation: horizontal;
+        spacing: 2;
+
+        layout {
+          column: 0;
+          row: 1;
+        }
+
+        ScrolledWindow {
+            propagate-natural-height: true;
+            has-frame: false;
+
+            Label main_label {
+                valign: end;
+                halign: end;
+                vexpand: true;
+                hexpand: true;
+            }
+        }
+
+        Separator {
+            orientation: vertical;
+        }
+
+        DrawingArea plot {
+            width-request: 140;
+        }
+    }
+
     ScrolledWindow {
+        vscrollbar-policy: never;
+        hscrollbar-policy: automatic;
+
         Box data_table {
+            styles ["data-table"]
             orientation: horizontal;
         }
 
@@ -115,7 +149,7 @@ template $PebblesStatisticsDisplay: $PebblesDisplay {
           row: 2;
         }
 
-        visible: false;
+        visible: bind add_cell_warning.visible inverted;
     }
 
     Label add_cell_warning {
@@ -125,7 +159,7 @@ template $PebblesStatisticsDisplay: $PebblesDisplay {
 
         layout {
           column: 0;
-          row: 2;
+          row: 3;
         }
     }
 }

@@ -114,7 +114,7 @@ template $PebblesStatisticsView: Gtk.Grid {
             column: 3;
           }
 
-          // clicked => $on_backspace();
+          clicked => $confirm_data();
         }
 
         $PebblesButton add_cell_button {
@@ -133,9 +133,9 @@ template $PebblesStatisticsView: Gtk.Grid {
             "adaptive-btn-font",
             "large-font-btn"
           ]
+
+          clicked => $add_cell();
         }
-
-
 
         $PebblesButton add_row_button {
           label_text: "⏎";
@@ -183,6 +183,24 @@ template $PebblesStatisticsView: Gtk.Grid {
           styles [
             "adaptive-btn-font",
           ]
+        }
+
+        $PebblesButton results_button {
+          label_text: "← <b>=</b>";
+          visible: bind template.collapsed;
+          focus-on-click: false;
+
+          styles [
+            "special-action",
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 0;
+            column: 4;
+          }
+
+          // clicked => $on_expand_fx();
         }
       }
     };

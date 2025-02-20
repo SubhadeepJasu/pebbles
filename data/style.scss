@@ -270,3 +270,31 @@ button.pressed {
         border-top: 1px solid #0002;
     }
 }
+
+.data-table {
+    &-cell {
+        margin-top: 4px;
+        margin-bottom: 4px;
+        background: none;
+        color:#272863;
+        border: 1px solid #27286340;
+        border-top: 1px solid #0000;
+        border-bottom: 1px solid #0000;
+        box-shadow: none;
+        text-shadow: 0 0px #0000;
+        opacity: 0.8;
+        caret-color: #272863a0;
+
+        selection {
+            color: #C6D0C6;
+            background: #272863;
+            text-shadow: 0 0px #0000;
+            opacity: 0.8;
+        }
+
+        &:focus-within {
+            border: 1px solid #272863a0;
+            border-style: dashed;
+        }
+    }
+}

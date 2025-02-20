@@ -9,6 +9,7 @@ import threading
 from gi.repository import Pebbles
 from pebbles.core.memory import ContextualMemory
 from pebbles.core.scientific_calculator import ScientificCalculator
+from pebbles.core.statistics_calculator import StatisticsCalculator
 from pebbles.core.utils import Utils
 
 class PythonWindow(Pebbles.MainWindow):
@@ -24,6 +25,7 @@ class PythonWindow(Pebbles.MainWindow):
         self.connect("on_evaluate", self._evaluate)
         self.connect("on_memory_recall", self.memory_recall)
         self.connect("on_memory_clear", self.memory_clear)
+        self.connect("on_stat_plot", self._stat_plot)
 
 
     def _evaluate(self, _, data:str):
@@ -82,3 +84,8 @@ class PythonWindow(Pebbles.MainWindow):
         """
         self._memory.clear(context)
         self.on_memory_change(context, self._memory.any(context))
+
+
+    def _stat_plot(self, _, data:list[float], length:int, width:float, height:float):
+        stat_calc = StatisticsCalculator()
+        return stat_calc.plot(data, width, height)
