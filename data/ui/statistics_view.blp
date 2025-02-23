@@ -114,7 +114,7 @@ template $PebblesStatisticsView: Gtk.Grid {
             column: 3;
           }
 
-          clicked => $confirm_data();
+          // clicked => $confirm_data();
         }
 
         $PebblesButton add_cell_button {
@@ -168,6 +168,8 @@ template $PebblesStatisticsView: Gtk.Grid {
           styles [
             "adaptive-btn-font"
           ]
+
+          clicked => $switch_plot();
         }
 
         $PebblesButton negative_button {

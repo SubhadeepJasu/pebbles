@@ -21,11 +21,12 @@ class PythonWindow(Pebbles.MainWindow):
         Utils.decimal_point_char = '.'
         self._memory = ContextualMemory()
         self.history = []
+        self.stat_calc = StatisticsCalculator()
 
         self.connect("on_evaluate", self._evaluate)
         self.connect("on_memory_recall", self.memory_recall)
         self.connect("on_memory_clear", self.memory_clear)
-        self.connect("on_stat_plot", self._stat_plot)
+        self.connect("on_stat_plot", self.stat_plot_cb)
 
 
     def _evaluate(self, _, data:str):
@@ -56,6 +57,14 @@ class PythonWindow(Pebbles.MainWindow):
                     self.on_memory_change('global', self._memory.any('global'))
 
                 self.set_history(self._memory.peek(include_view=True))
+        elif data_dict['mode'] == 'stat':
+            if data_dict['op'] == 'set':
+                res = self.stat_calc.populate(data_dict['series'], data_dict['seriesIndex'])
+                self.on_evaluation_completed(res)
+
+
+    def stat_plot_cb(self, _, width:float, height:float, plot_type:Pebbles.StatPlotType, dpi: float):
+        return self.stat_calc.plot(width, height, plot_type, dpi)
 
 
     def memory_recall(self, _, context: str):
@@ -85,7 +94,3 @@ class PythonWindow(Pebbles.MainWindow):
         self._memory.clear(context)
         self.on_memory_change(context, self._memory.any(context))
 
-
-    def _stat_plot(self, _, data:list[float], length:int, width:float, height:float):
-        stat_calc = StatisticsCalculator()
-        return stat_calc.plot(data, width, height)

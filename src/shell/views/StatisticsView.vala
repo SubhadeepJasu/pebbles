@@ -20,16 +20,16 @@ namespace Pebbles {
 
         protected List<List<string>> table;
 
-        public signal Gdk.Pixbuf on_visualize (double[] data, double width, double height);
+        public signal void on_evaluate (string op, double[] series, int series_index, double width, double height);
 
         construct {
-            realize.connect (() => {
-                var window = get_ancestor (typeof (MainWindow)) as MainWindow;
-                on_visualize.connect ((data, width, height) => {
-                    print ("Drawing. Vala.\n");
-                    return window.on_stat_plot (data, width, height);
-                });
+            display.changed.connect ((series, series_index, width, height) => {
+                on_evaluate ("set", series, series_index, width, height);
             });
+        }
+
+        public void plot () {
+            display.plot ();
         }
 
         [GtkCallback]
@@ -38,12 +38,8 @@ namespace Pebbles {
         }
 
         [GtkCallback]
-        protected void confirm_data () {
-            double width;
-            double height;
-            var data = display.confirm_data (out width, out height);
-            var pixbuf = on_visualize (data, width, height);
-            display.plot_visualization (pixbuf);
+        protected void switch_plot () {
+            display.switch_plot ();
         }
     }
 }

@@ -100,8 +100,7 @@ template $PebblesStatisticsDisplay: $PebblesDisplay {
         };
 
         end-widget: Label set_label {
-            label: _("Feature 1");
-            opacity: 0.2;
+            label: bind template.series_label;
         };
     }
 
@@ -130,8 +129,10 @@ template $PebblesStatisticsDisplay: $PebblesDisplay {
             orientation: vertical;
         }
 
-        DrawingArea plot {
+        DrawingArea plot_area {
             width-request: 140;
+            margin-start: 8;
+            margin-end: 8;
         }
     }
 

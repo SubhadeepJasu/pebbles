@@ -61,7 +61,7 @@ namespace Pebbles {
         public signal void on_key_down (string? mode, uint keyval);
         public signal void on_key_up (string? mode, uint keyval);
         public signal void history_changed (HistoryViewModel[] history);
-        public signal Gdk.Pixbuf on_stat_plot (double[] data, double width, double height);
+        public signal Gdk.Pixbuf on_stat_plot (double width, double height, StatPlotType plot_type, double dpi);
 
         construct {
             navigation_pane.add_css_class (Granite.STYLE_CLASS_SIDEBAR);
@@ -168,6 +168,32 @@ namespace Pebbles {
                 spinner.spinning = true;
                 on_evaluate (json);
             });
+            statistics_view.on_evaluate.connect ((op, series, series_index, width, height) => {
+                var gen = new Json.Generator ();
+                var root = new Json.Node (Json.NodeType.OBJECT);
+                var object = new Json.Object ();
+                root.set_object (object);
+                gen.set_root (root);
+
+                object.set_string_member ("mode", "stat");
+                object.set_string_member ("op", op);
+                var json_array = new Json.Array ();
+                for (int i = 0; i < series.length; i++) {
+                    json_array.add_double_element (series[i]);
+                }
+
+                object.set_array_member ("series", json_array);
+                object.set_int_member ("seriesIndex", series_index);
+                object.set_double_member ("plotWidth", width);
+                object.set_double_member ("plotHeight", height);
+
+                size_t length;
+                string json = gen.to_data (out length);
+                print (json + "\n");
+
+                spinner.spinning = true;
+                on_evaluate (json);
+            });
         }
 
         private void setup_key_events () {
@@ -253,6 +279,9 @@ namespace Pebbles {
                         case "sci":
                             var result = root_object.get_string_member ("result");
                             scientific_view.show_result (result);
+                            break;
+                        case "stat":
+                            statistics_view.plot ();
                             break;
                         default:
                         break;

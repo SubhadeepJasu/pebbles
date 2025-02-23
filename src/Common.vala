@@ -43,4 +43,15 @@ namespace Pebbles {
         FEIGEN_DELTA,
         APERY
     }
+
+    /**
+     * Specify the kind of plot to query from
+     * matplotlib for Statistics mode.
+     */
+    public enum StatPlotType {
+        LINE = 0,
+        PIE = 1,
+        BAR = 2,
+        SCATTER = 3
+    }
 }
