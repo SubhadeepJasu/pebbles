@@ -22,13 +22,14 @@ class PythonWindow(Pebbles.MainWindow):
         self._memory = ContextualMemory()
         self.history = []
         self.stat_calc = StatisticsCalculator()
+        self.stat_calc.set_plot_ready_callback(self._stat_plot_ready_cb)
 
         self.connect("on_evaluate", self._evaluate)
-        self.connect("on_memory_recall", self.memory_recall)
-        self.connect("on_memory_clear", self.memory_clear)
-        self.connect("on_stat_plot", self.stat_plot_cb)
-        self.connect("on_stat_fetch_series", self.stat_fetch_series_cb)
-        self.connect("on_stat_fetch_table_shape", self.stat_fetch_table_shape_cb)
+        self.connect("on_memory_recall", self._memory_recall)
+        self.connect("on_memory_clear", self._memory_clear)
+        self.connect("on_stat_plot", self._stat_plot_cb)
+        self.connect("on_stat_cell_update", self._stat_cell_update_cb)
+        self.connect("on_stat_cell_query", self._stat_cell_query_cb)
 
 
     def _evaluate(self, _, data:str):
@@ -60,30 +61,32 @@ class PythonWindow(Pebbles.MainWindow):
 
                 self.set_history(self._memory.peek(include_view=True))
         elif data_dict['mode'] == 'stat':
-            if data_dict['op'] == 'set':
-                res = self.stat_calc.populate(
-                    data_dict['options']['series'], data_dict['options']['seriesIndex'])
-                self.on_evaluation_completed(res)
-            elif data_dict['op'] == 'set-all':
+            if data_dict['op'] == 'set-all':
                 res = self.stat_calc.load_csv_data(data_dict['options']['csv'])
                 self.on_evaluation_completed(res)
 
 
-    def stat_plot_cb(self, _, width:float, height:float, plot_type:Pebbles.StatPlotType, dpi: float):
-        return self.stat_calc.plot(width, height, plot_type, dpi)
+    def _stat_cell_update_cb(self, _, value:float, index:int, series_index:int):
+        self.stat_calc.update_value (value, index, series_index)
 
 
-    def stat_fetch_series_cb(self, _, series_index):
-        data = self.stat_calc.fetch_series(series_index)
-        return ";".join(f"{num:g}" for num in data)
+    def _stat_cell_query_cb(self, _, index:int, series_index:int):
+        value = self.stat_calc.get_value(index, series_index)
+        if value is not None:
+            return f"{value:.16g}"
+
+        return ""
 
 
-    def stat_fetch_table_shape_cb(self, _):
-        data = self.stat_calc.fetch_table_shape()
-        return ",".join(map(str, data))
+    def _stat_plot_ready_cb(self, pixbuf):
+        self.on_plot_ready (pixbuf)
+
+    def _stat_plot_cb(
+            self, _, width:float, height:float, plot_type:Pebbles.StatPlotType, dpi: float):
+        self.stat_calc.set_plot_params_and_plot(width, height, plot_type, dpi)
 
 
-    def memory_recall(self, _, context: str):
+    def _memory_recall(self, _, context: str):
         """
         Recall value from memory with given context.
         """
@@ -103,10 +106,9 @@ class PythonWindow(Pebbles.MainWindow):
         return ''
 
 
-    def memory_clear(self, _, context: str):
+    def _memory_clear(self, _, context: str):
         """
         Clear memory in given context.
         """
         self._memory.clear(context)
         self.on_memory_change(context, self._memory.any(context))
-

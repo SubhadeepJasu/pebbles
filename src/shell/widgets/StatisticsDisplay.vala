@@ -1,118 +1,163 @@
 namespace Pebbles {
     [GtkTemplate (ui = "/com/github/subhadeepjasu/pebbles/ui/statistics_display.ui")]
     public class StatisticsDisplay : Display {
-        public string add_cell_warning_text { get; construct; }
+        private const uint8 CELL_WIDTH = 72;
+
         private int _series_index = 0;
         public int series_index {
             get {
                 return _series_index;
             }
 
-            set {
+            private set {
                 _series_index = value;
                 series_label = _("Series %d").printf (value);
             }
         }
 
-        public int table_length { get; set; }
-
+        public int table_length { get; private set; }
+        public int max_series_length { get; private set; }
         public string series_label { get; private set; default = _("Series 0") ;}
+        public int query_offset { get; private set; }
 
         [GtkChild]
-        private unowned Gtk.Box data_table;
+        private unowned Gtk.ScrolledWindow viewport;
         [GtkChild]
-        private unowned Gtk.Label add_cell_warning;
+        private unowned Gtk.Box cell_box;
+        [GtkChild]
+        private unowned Gtk.Box placeholder_l;
+        [GtkChild]
+        private unowned Gtk.Box placeholder_r;
         [GtkChild]
         private unowned Gtk.DrawingArea plot_area;
 
-        private List<Gtk.Entry?> cells;
+        private List<StatCell?> cells;
         private double plot_height;
+        private double plot_width;
+        private double viewport_width;
         private unowned MainWindow main_window;
         private StatPlotType plot_type = BAR;
         private Gdk.Pixbuf figure;
         private unowned Gtk.Entry selected_cell = null;
+        private bool updating = true;
 
         public signal void changed (double[] series, int series_index, double width, double height);
 
         construct {
-            add_cell_warning_text = "▭+  " + _("Enter data by adding new cell");
-            plot_area.set_draw_func (draw);
+            plot_area.set_draw_func (draw_figure);
 
             add_tick_callback (() => {
-                if (plot_height != plot_area.get_height ()) {
+                if (plot_width != plot_area.get_width () || plot_height != plot_area.get_height ()) {
+                    plot_width = plot_area.get_width ();
                     plot_height = plot_area.get_height ();
-                    data_change_cb ();
+
+                    start_plot ();
                 }
+
+                if (viewport_width != viewport.get_width ()) {
+                    viewport_width = viewport.get_width ();
+
+                    draw_cells ();
+                }
+
+                return updating;
             });
 
             realize.connect (() => {
                 main_window = get_ancestor (typeof (MainWindow)) as MainWindow;
+                Idle.add_once (() => {
+                    draw_cells ();
+                });
             });
         }
 
-        public void insert_cell (string? data = null) {
-            if (cells == null) {
-                cells = new List<Gtk.Entry?> ();
+        ~StatisticsDisplay () {
+            updating = false;
+        }
+
+        private void draw_cells () {
+            if (viewport == null || cell_box == null) {
+                return;
             }
 
-            var cell = new Gtk.Entry () {
-                has_frame = false,
-                max_length = 20,
-                input_purpose = NUMBER,
-                width_request = 72
-            };
-            cells.append (cell);
-            cell.add_css_class ("data-table-cell");
-            cell.changed.connect (data_change_cb);
-            var focus = new Gtk.EventControllerFocus ();
-            cell.add_controller (focus);
-            focus.enter.connect (() => {
-                selected_cell = cell;
-            });
-            data_table.append (cell);
-            if (data != null) {
-                cell.text = data;
-            } else {
-                get_table_shape ();
-            }
+            uint num_visible_cells = (uint) Math.floor (viewport_width / CELL_WIDTH);
+            uint current_cells = cells.length ();
 
-            add_cell_warning.visible = false;
-            Idle.add (() => {
-                cell.grab_focus ();
-                return false;
-            });
+            if (current_cells < num_visible_cells) {
+                // Add the missing cells when more can fit
+                for (uint i = current_cells; i < num_visible_cells; i++) {
+                    uint index = query_offset + i; // Adjust index based on query_offset
+                    var cell = new StatCell (index, series_index) {
+                        width_request = CELL_WIDTH
+                    };
+                    cell_box.append (cell);
+                    cells.append (cell);
+                    cell.refresh ();
+                }
+            } else if (current_cells > num_visible_cells) {
+                // Remove extra cells that are outside the visible area
+                for (uint i = num_visible_cells; i < current_cells; i++) {
+                    var last_child = (StatCell?) cell_box.get_last_child ();
+                    if (last_child != null) {
+                        cell_box.remove (last_child);
+                        cells.remove (last_child);
+                    }
+                }
+            }
         }
 
         public void clear_cells () {
-            // Remove all child widgets from the container
-            foreach (Gtk.Entry cell in cells) {
-                data_table.remove (cell);
+        }
+
+        public void navigate (int direction) {
+            switch (direction) {
+                case 0:
+                break;
+                case 1:
+
+                break;
+                case 2:
+                    if (series_index > 0) {
+                        series_index = series_index - 1;
+                        refresh_all_cells ();
+                    }
+                break;
+                case 3:
+                    series_index = series_index + 1;
+                    refresh_all_cells ();
+                break;
             }
-
-            // Clear the list of stored cells
-            cells = null; // Free the list
-            cells = new GLib.List<Gtk.Entry> (); // Reinitialize an empty list
         }
 
-        public int[] get_table_shape () {
-            var shape = main_window.on_stat_fetch_table_shape ().split (",");
-            table_length = int.parse (shape[0]);
-            var table_width = int.parse (shape[1]);
-            return new int[] {table_length, table_width};
-        }
-
-        private void data_change_cb () {
-            uint n = cells.length ();
-            var series = new double[n];
+        private void refresh_all_cells () {
+            var n = cells.length ();
+            unowned StatCell? cell;
             for (uint i = 0; i < n; i++) {
-                series[i] = double.parse (cells.nth_data (i).text);
+                cell = cells.nth_data (i);
+                cell.index = query_offset + i;
+                cell.series_index = series_index;
+                cell.refresh ();
             }
-
-            changed (series, series_index, plot_area.get_width (), plot_area.get_height ());
         }
 
-        public void plot () {
-            plot_area.queue_draw ();
+        public void start_plot () {
+            var display = main_window.get_display ();
+            var monitor = display.get_monitor_at_surface (main_window.get_surface ());
+            double width_mm = monitor.get_width_mm ();
+            int width_px = monitor.get_geometry ().width;
+            main_window.on_stat_plot (
+                plot_width,
+                plot_height,
+                plot_type,
+                width_px / (width_mm / 25.4)
+            );
+        }
+
+        public void plot (Gdk.Pixbuf figure) {
+            this.figure = figure;
+            Idle.add_once (() => {
+                plot_area.queue_draw ();
+            });
         }
 
         public void switch_plot () {
@@ -120,78 +165,19 @@ namespace Pebbles {
             plot_type = (StatPlotType) next_index;
 
             Idle.add_once (() => {
-                plot ();
+                start_plot ();
             });
         }
 
-        public void navigate (int direction) {
-            if (cells == null || cells.length () == 0) return;
-            int current_index = cells.index (selected_cell);
-            switch (direction) {
-                case 0:
-                    if (current_index > 0) {
-                        selected_cell = cells.nth_data (current_index - 1);
-                        selected_cell.grab_focus ();
-                    }
-                    break;
-                case 1:
-                    if (current_index < cells.length () - 1) {
-                        selected_cell = cells.nth_data (current_index + 1);
-                        selected_cell.grab_focus ();
-                    }
-                    break;
-                case 2:
-                    if (series_index > 0 && main_window != null) {
-                        series_index = series_index - 1;
-                        populate_series (current_index);
-                    }
-                    break;
-                case 3:
-                    if (series_index < table_length - 1 && main_window != null) {
-                        series_index = series_index + 1;
-                        populate_series (current_index);
-                    }
-                    break;
-            }
-        }
-
-        public void populate_series (int current_index, int series_index=this.series_index) {
-            clear_cells ();
-            var data = main_window.on_stat_fetch_series (series_index).split (";");
-
-            for (uint i = 0; i < data.length; i++) {
-                insert_cell (data[i]);
-            }
-
-            if (cells.length () > current_index) {
-                cells.nth_data (current_index).grab_focus ();
-            } else if (!cells.is_empty ()) {
-                cells.nth_data (0).grab_focus ();
-            }
-        }
-
-        private void draw (Gtk.DrawingArea area, Cairo.Context cr, int width, int height) {
-            if (main_window != null) {
-                var display = main_window.get_display ();
-                var monitor = display.get_monitor_at_surface (main_window.get_surface ());
-                double width_mm = monitor.get_width_mm ();
-                int width_px = monitor.get_geometry ().width;
-                figure = main_window.on_stat_plot (
-                    width,
-                    height,
-                    plot_type,
-                    width_px / (width_mm / 25.4)
+        private void draw_figure (Gtk.DrawingArea area, Cairo.Context cr, int width, int height) {
+            if (figure != null) {
+                Gdk.cairo_set_source_pixbuf (
+                    cr,
+                    figure,
+                    0,
+                    0
                 );
-
-                if (figure != null) {
-                    Gdk.cairo_set_source_pixbuf (
-                        cr,
-                        figure,
-                        0,
-                        0
-                    );
-                    cr.paint ();
-                }
+                cr.paint ();
             }
         }
     }

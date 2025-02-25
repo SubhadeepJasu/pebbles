@@ -38,8 +38,8 @@ namespace Pebbles {
             });
         }
 
-        public void plot () {
-            display.plot ();
+        public void plot (Gdk.Pixbuf pixbuf) {
+            display.plot (pixbuf);
         }
 
         public void import_csv_file (MainWindow main_window) {
@@ -89,14 +89,9 @@ namespace Pebbles {
             }
         }
 
-        public void populate_mass (int table_length) {
-            display.table_length = table_length;
-            display.populate_series (0, 0);
-        }
-
         [GtkCallback]
         protected void add_cell () {
-            display.insert_cell (null);
+            //  display.insert_cell ();
         }
 
         [GtkCallback]
@@ -106,10 +101,9 @@ namespace Pebbles {
 
         [GtkCallback]
         protected void add_series () {
-            display.clear_cells ();
-            display.insert_cell (null);
-            var shape = display.get_table_shape ();
-            display.series_index = shape[0];
+            //  display.clear_cells ();
+            //  display.insert_cell (null);
+            //  var shape = display.get_table_shape ();
         }
 
         [GtkCallback]

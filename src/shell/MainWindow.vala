@@ -61,9 +61,9 @@ namespace Pebbles {
         public signal void on_key_down (string? mode, uint keyval);
         public signal void on_key_up (string? mode, uint keyval);
         public signal void history_changed (HistoryViewModel[] history);
-        public signal Gdk.Pixbuf on_stat_plot (double width, double height, StatPlotType plot_type, double dpi);
-        public signal string on_stat_fetch_series (int series_index);
-        public signal string on_stat_fetch_table_shape ();
+        public signal void on_stat_plot (double width, double height, StatPlotType plot_type, double dpi);
+        public signal void on_stat_cell_update (double value, int index, int series_index);
+        public signal string on_stat_cell_query (int index, int series_index);
 
         construct {
             navigation_pane.add_css_class (Granite.STYLE_CLASS_SIDEBAR);
@@ -271,14 +271,6 @@ namespace Pebbles {
                             var result = root_object.get_string_member ("result");
                             scientific_view.show_result (result);
                             break;
-                        case "stat":
-                            var shape = root_object.get_array_member ("shape");
-                            if (shape != null) {
-                                statistics_view.populate_mass ((int) shape.get_int_element (0));
-                            }
-
-                            statistics_view.plot ();
-                            break;
                         default:
                         break;
                     }
@@ -288,6 +280,10 @@ namespace Pebbles {
 
                 return false;
             });
+        }
+
+        protected void on_plot_ready (Gdk.Pixbuf figure) {
+            statistics_view.plot (figure);
         }
 
         protected void on_memory_change (string context, bool present) {

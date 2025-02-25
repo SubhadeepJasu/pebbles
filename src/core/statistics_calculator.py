@@ -6,6 +6,7 @@
 
 
 from io import BytesIO, StringIO
+import threading
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
@@ -25,44 +26,54 @@ class StatisticsCalculator():
     def __init__(self):
         self.data = np.ndarray(shape=(0,0))
 
+        self.plot_size = (1, 1)
+        self.plot_type = 0
+        self.dpi = 100
+        self.plot_thread:threading.Thread = None
+        self.plot_lock = threading.Lock()
+        self.on_plot_ready = None
 
-    def populate(self, series:list[float], series_index:int):
+
+    def update_value(self, value: float, index: int, series_index: int):
+        current_rows, current_cols = self.data.shape
+
+        # Step 1: Calculate new shape
+        new_rows = max(current_rows, series_index + 1)
+        new_cols = max(current_cols, index + 1)
+
+        # Step 2: Resize only if needed
+        if new_rows > current_rows or new_cols > current_cols:
+            new_data = np.zeros((new_rows, new_cols), dtype=float)
+            new_data[:current_rows, :current_cols] = self.data  # Copy existing data
+            self.data = new_data  # Replace with resized array
+
+        # Step 3: Update the value
+        self.data[series_index, index] = value
+
+        # Step 4: Trim empty rows/columns
+        self._trim()
+
+        self.start_plotting ()
+        print(self.data)
+
+
+    def _trim(self):
+        # Trim only trailing all-zero rows
+        while self.data.shape[0] > 0 and np.all(self.data[-1] == 0):
+            self.data = self.data[:-1, :]
+
+        # Trim only trailing all-zero columns
+        while self.data.shape[1] > 0 and np.all(self.data[:, -1] == 0):
+            self.data = self.data[:, :-1]
+
+
+    def get_value(self, index: int, series_index: int):
         """
-        Populate the data table using the given `series` at `series_index`.
+        Returns the value at (series_index, index) or None if out of bounds.
         """
-        data_np = np.array(series, dtype=np.float32)
-
-        num_rows, num_cols = self.data.shape
-
-        if series_index < num_rows:
-            if len(series) == num_cols:
-                self.data[series_index] = data_np
-            else:
-                new_cols = max(num_cols, len(series))
-                new_array = np.zeros((num_rows, new_cols), dtype=np.float32)
-                new_array[:, :num_cols] = self.data  # Copy existing data
-                new_array[series_index, :len(series)] = data_np
-                self.data = new_array
-        else:
-            # Expand rows to accommodate series_index
-            new_rows = series_index + 1
-            new_cols = max(num_cols, len(series))
-            new_array = np.zeros((new_rows, new_cols), dtype=np.float32)
-            new_array[:num_rows, :num_cols] = self.data  # Copy existing series
-            new_array[series_index, :len(series)] = data_np
-            self.data = new_array
-
-        row_mask = ~(self.data == 0).all(axis=1)  # Rows that have at least one non-zero value
-        col_mask = ~(self.data == 0).all(axis=0)  # Columns that have at least one non-zero value
-
-        if not row_mask.any() or not col_mask.any():
-            self.data = np.zeros((1, 1), dtype=np.float32)
-        else:
-            self.data = self.data[np.ix_(row_mask, col_mask)]
-
-        # print(self.data)
-
-        return json.dumps({'mode': self.MODE, 'result': '', 'shape': None})
+        if series_index >= self.data.shape[0] or index >= self.data.shape[1]:
+            return None
+        return self.data[series_index, index]
 
 
     def load_csv_data(self, csv_data: str):
@@ -104,53 +115,76 @@ class StatisticsCalculator():
         return self.data.shape
 
 
-    def plot(self, width:float, height:float, plot_type=0, dpi=100.0):
+    def set_plot_ready_callback(self, cb):
+        self.on_plot_ready = cb
+
+
+    def set_plot_params_and_plot(self, width:float, height:float, plot_type=0, dpi=100.0):
+        self.plot_size = (width, height)
+        self.plot_type = plot_type
+        self.dpi = dpi
+
+        self.start_plotting()
+
+
+    def start_plotting(self):
         """
         Plot the graph for the data table
         """
+        if self.plot_thread is None or not self.plot_thread.is_alive():
+            self.plot_thread = threading.Thread(target=self._plot)
+            self.plot_thread.start()
+        else:
+            self.plot_lock.release()
 
-        if self.data.shape[0] > 20 or self.data.shape[1] > 2000 or \
-            self.data.shape[0] < 2 or self.data.shape[1] == 0:
-            return None
 
-        fig, ax = plt.subplots(figsize=(width / dpi, height / dpi), dpi=dpi)
+    def _plot(self):
+        with self.plot_lock:
+            width, height = self.plot_size
+            dpi = self.dpi
+            plot_type = self.plot_type
+            if self.data.shape[0] > 20 or self.data.shape[1] > 2000 or \
+                self.data.shape[0] == 0 or self.data.shape[1] < 2:
+                return
 
-        # Plot the data
-        ax.set_yticklabels([])
-        ax.set_xticklabels([])
-        ax.set_position([0, 0, 1, 1])
-        ax.spines["top"].set_visible(False)
-        ax.spines["right"].set_visible(False)
-        ax.set_facecolor((0, 0, 0, 0))
-        fig.subplots_adjust(left=0, right=1, top=1, bottom=0)
-        ax.spines["left"].set_color(self.AXIS_COLOR)
-        ax.spines["bottom"].set_color(self.AXIS_COLOR)
-        plt.rcParams["axes.prop_cycle"] = plt.cycler(color=self.PALETTE)
-        plt.tight_layout(pad=4 / dpi)
+            fig, ax = plt.subplots(figsize=(width / dpi, height / dpi), dpi=dpi)
 
-        if plot_type == 0:
-            self._line_plot(ax)
-        elif plot_type == 1:
-            self._pie_plot(ax)
-        elif plot_type == 2:
-            self._bar_plot(ax)
-        elif plot_type == 3:
-            self._scatter_plot(ax)
+            # Plot the data
+            ax.set_yticklabels([])
+            ax.set_xticklabels([])
+            ax.set_position([0, 0, 1, 1])
+            ax.spines["top"].set_visible(False)
+            ax.spines["right"].set_visible(False)
+            ax.set_facecolor((0, 0, 0, 0))
+            fig.subplots_adjust(left=0, right=1, top=1, bottom=0)
+            ax.spines["left"].set_color(self.AXIS_COLOR)
+            ax.spines["bottom"].set_color(self.AXIS_COLOR)
+            plt.rcParams["axes.prop_cycle"] = plt.cycler(color=self.PALETTE)
+            plt.tight_layout(pad=4 / dpi)
 
-        # Save figure to a BytesIO buffer in PNG format
-        buf = BytesIO()
-        fig.set_size_inches(width / dpi, height / dpi, forward=True)
-        fig.patch.set_alpha(0)
-        fig.savefig(buf, format="png", bbox_inches='tight', pad_inches=0)
-        plt.close(fig)  # Close the figure to free memory
+            if plot_type == 0:
+                self._line_plot(ax)
+            elif plot_type == 1:
+                self._pie_plot(ax)
+            elif plot_type == 2:
+                self._bar_plot(ax)
+            elif plot_type == 3:
+                self._scatter_plot(ax)
 
-        # Convert buffer to GdkPixbuf
-        buf.seek(0)
-        loader = GdkPixbuf.PixbufLoader.new_with_type("png")
-        loader.write(buf.getvalue())
-        loader.close()
-        pixbuf = loader.get_pixbuf()
-        return pixbuf
+            # Save figure to a BytesIO buffer in PNG format
+            buf = BytesIO()
+            fig.set_size_inches(width / dpi, height / dpi, forward=True)
+            fig.patch.set_alpha(0)
+            fig.savefig(buf, format="png", bbox_inches='tight', pad_inches=0)
+            plt.close(fig)  # Close the figure to free memory
+
+            # Convert buffer to GdkPixbuf
+            buf.seek(0)
+            loader = GdkPixbuf.PixbufLoader.new_with_type("png")
+            loader.write(buf.getvalue())
+            loader.close()
+            if self.on_plot_ready:
+                self.on_plot_ready(loader.get_pixbuf())
 
 
     def _line_plot(self, ax):

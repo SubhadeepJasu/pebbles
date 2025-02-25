@@ -132,32 +132,38 @@ template $PebblesStatisticsDisplay: $PebblesDisplay {
         }
 
         DrawingArea plot_area {
-            width-request: 140;
+            width-request: 60;
             hexpand: true;
         }
     }
 
-    ScrolledWindow {
-        vscrollbar-policy: never;
-        hscrollbar-policy: automatic;
-
-        Box data_table {
-            styles ["data-table"]
-            orientation: horizontal;
-        }
+    Separator {
+        orientation: horizontal;
+        margin-end: 8;
 
         layout {
           column: 0;
           row: 2;
         }
-
-        visible: bind add_cell_warning.visible inverted;
     }
 
-    Label add_cell_warning {
-        halign: center;
-        label: bind template.add_cell_warning_text;
-        styles ["h1"]
+    ScrolledWindow viewport {
+        vscrollbar-policy: never;
+        hscrollbar-policy: automatic;
+        margin-end: 8;
+
+        Box {
+            orientation: horizontal;
+
+            Box placeholder_l {}
+
+            Box cell_box {
+                styles ["data-table"]
+                orientation: horizontal;
+            }
+
+            Box placeholder_r {}
+        }
 
         layout {
           column: 0;
