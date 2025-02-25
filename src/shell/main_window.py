@@ -27,6 +27,8 @@ class PythonWindow(Pebbles.MainWindow):
         self.connect("on_memory_recall", self.memory_recall)
         self.connect("on_memory_clear", self.memory_clear)
         self.connect("on_stat_plot", self.stat_plot_cb)
+        self.connect("on_stat_fetch_series", self.stat_fetch_series_cb)
+        self.connect("on_stat_fetch_table_shape", self.stat_fetch_table_shape_cb)
 
 
     def _evaluate(self, _, data:str):
@@ -59,12 +61,26 @@ class PythonWindow(Pebbles.MainWindow):
                 self.set_history(self._memory.peek(include_view=True))
         elif data_dict['mode'] == 'stat':
             if data_dict['op'] == 'set':
-                res = self.stat_calc.populate(data_dict['series'], data_dict['seriesIndex'])
+                res = self.stat_calc.populate(
+                    data_dict['options']['series'], data_dict['options']['seriesIndex'])
+                self.on_evaluation_completed(res)
+            elif data_dict['op'] == 'set-all':
+                res = self.stat_calc.load_csv_data(data_dict['options']['csv'])
                 self.on_evaluation_completed(res)
 
 
     def stat_plot_cb(self, _, width:float, height:float, plot_type:Pebbles.StatPlotType, dpi: float):
         return self.stat_calc.plot(width, height, plot_type, dpi)
+
+
+    def stat_fetch_series_cb(self, _, series_index):
+        data = self.stat_calc.fetch_series(series_index)
+        return ";".join(f"{num:g}" for num in data)
+
+
+    def stat_fetch_table_shape_cb(self, _):
+        data = self.stat_calc.fetch_table_shape()
+        return ",".join(map(str, data))
 
 
     def memory_recall(self, _, context: str):

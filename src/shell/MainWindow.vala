@@ -62,6 +62,8 @@ namespace Pebbles {
         public signal void on_key_up (string? mode, uint keyval);
         public signal void history_changed (HistoryViewModel[] history);
         public signal Gdk.Pixbuf on_stat_plot (double width, double height, StatPlotType plot_type, double dpi);
+        public signal string on_stat_fetch_series (int series_index);
+        public signal string on_stat_fetch_table_shape ();
 
         construct {
             navigation_pane.add_css_class (Granite.STYLE_CLASS_SIDEBAR);
@@ -163,12 +165,11 @@ namespace Pebbles {
 
                 size_t length;
                 string json = gen.to_data (out length);
-                print (json + "\n");
 
                 spinner.spinning = true;
                 on_evaluate (json);
             });
-            statistics_view.on_evaluate.connect ((op, series, series_index, width, height) => {
+            statistics_view.on_evaluate.connect ((op, options) => {
                 var gen = new Json.Generator ();
                 var root = new Json.Node (Json.NodeType.OBJECT);
                 var object = new Json.Object ();
@@ -177,19 +178,9 @@ namespace Pebbles {
 
                 object.set_string_member ("mode", "stat");
                 object.set_string_member ("op", op);
-                var json_array = new Json.Array ();
-                for (int i = 0; i < series.length; i++) {
-                    json_array.add_double_element (series[i]);
-                }
-
-                object.set_array_member ("series", json_array);
-                object.set_int_member ("seriesIndex", series_index);
-                object.set_double_member ("plotWidth", width);
-                object.set_double_member ("plotHeight", height);
-
+                object.set_object_member ("options", options);
                 size_t length;
                 string json = gen.to_data (out length);
-                print (json + "\n");
 
                 spinner.spinning = true;
                 on_evaluate (json);
@@ -281,6 +272,11 @@ namespace Pebbles {
                             scientific_view.show_result (result);
                             break;
                         case "stat":
+                            var shape = root_object.get_array_member ("shape");
+                            if (shape != null) {
+                                statistics_view.populate_mass ((int) shape.get_int_element (0));
+                            }
+
                             statistics_view.plot ();
                             break;
                         default:
@@ -316,8 +312,6 @@ namespace Pebbles {
             for (int i = 0; i < _history.length; i++) {
                 history[i] = _history[i];
             }
-
-            print ("Hi\n");
 
             history_changed (history);
         }
@@ -356,6 +350,11 @@ namespace Pebbles {
                     }
                     break;
             }
+        }
+
+        [GtkCallback]
+        protected void on_import_dialog () {
+            statistics_view.import_csv_file (this);
         }
 
         public void send_toast (string message) {

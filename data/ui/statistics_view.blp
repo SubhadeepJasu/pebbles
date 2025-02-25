@@ -117,6 +117,58 @@ template $PebblesStatisticsView: Gtk.Grid {
           // clicked => $confirm_data();
         }
 
+        $PebblesButton seven_button {
+          name: "7";
+          label_text: "7";
+          focus-on-click: false;
+          key: "7";
+
+          styles [
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 1;
+            column: 0;
+          }
+
+          // clicked => $on_click_button();
+        }
+
+        $PebblesButton eight_button {
+          name: "8";
+          label_text: "8";
+          focus-on-click: false;
+          key: "8";
+
+          styles [
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 1;
+            column: 1;
+          }
+
+          // clicked => $on_click_button();
+        }
+
+        $PebblesButton nine_button {
+          name: "9";
+          label_text: "9";
+          focus-on-click: false;
+          key: "9";
+
+          styles ["adaptive-btn-font"]
+
+          layout {
+            row: 1;
+            column: 2;
+          }
+
+          // clicked => $on_click_button();
+        }
+
         $PebblesButton add_cell_button {
           label_text: "▭⁺";
           tooltip_desc: _("Add Cell");
@@ -137,7 +189,55 @@ template $PebblesStatisticsView: Gtk.Grid {
           clicked => $add_cell();
         }
 
-        $PebblesButton add_row_button {
+        $PebblesButton four_button {
+          name: "4";
+          label_text: "4";
+          focus-on-click: false;
+          key: "4";
+
+          styles ["adaptive-btn-font"]
+
+          layout {
+            row: 2;
+            column: 0;
+          }
+
+          // clicked => $on_click_button();
+        }
+
+        $PebblesButton five_button {
+          name: "5";
+          label_text: "5";
+          focus-on-click: false;
+          key: "5";
+
+          styles ["adaptive-btn-font"]
+
+          layout {
+            row: 2;
+            column: 1;
+          }
+
+          // clicked => $on_click_button();
+        }
+
+        $PebblesButton six_button {
+          name: "6";
+          label_text: "6";
+          focus-on-click: false;
+          key: "6";
+
+          styles ["adaptive-btn-font"]
+
+          layout {
+            row: 2;
+            column: 2;
+          }
+
+          // clicked => $on_click_button();
+        }
+
+        $PebblesButton add_series_button {
           label_text: "⏎";
           tooltip_desc: _("Add Row");
           focus-on-click: false;
@@ -153,6 +253,56 @@ template $PebblesStatisticsView: Gtk.Grid {
             "adaptive-btn-font",
             "large-font-btn"
           ]
+
+          clicked => $add_series();
+        }
+
+        $PebblesButton one_button {
+          name: "1";
+          label_text: "1";
+          focus-on-click: false;
+          key: "1";
+
+          styles ["adaptive-btn-font"]
+
+          layout {
+            row: 3;
+            column: 0;
+          }
+
+          // clicked => $on_click_button();
+        }
+
+        $PebblesButton two_button {
+          name: "2";
+          label_text: "2";
+          focus-on-click: false;
+          key: "2";
+
+          styles ["adaptive-btn-font"]
+
+          layout {
+            row: 3;
+            column: 1;
+          }
+
+          // clicked => $on_click_button();
+        }
+
+        $PebblesButton three_button {
+          name: "3";
+          label_text: "3";
+          focus-on-click: false;
+          key: "3";
+
+          styles ["adaptive-btn-font"]
+
+          layout {
+            row: 3;
+            column: 2;
+          }
+
+          // clicked => $on_click_button();
         }
 
         $PebblesButton switch_graph_button {
@@ -170,6 +320,59 @@ template $PebblesStatisticsView: Gtk.Grid {
           ]
 
           clicked => $switch_plot();
+        }
+
+        $PebblesButton zero_button {
+          name: "0";
+          label_text: "0";
+          styles ["adaptive-btn-font"]
+          focus-on-click: false;
+          key: "0";
+
+          layout {
+            row: 4;
+            column: 0;
+          }
+
+          // clicked => $on_click_button();
+        }
+
+        $PebblesButton point_button {
+          name: "fraction-point-button";
+          label_text: _(".");
+          focus-on-click: false;
+          key: ".";
+
+          styles [
+            "adaptive-btn-font",
+            "large-font-btn"
+          ]
+
+          layout {
+            row: 4;
+            column: 1;
+          }
+
+          // clicked => $on_click_fraction_point();
+        }
+
+        $PebblesButton last_answer_button {
+          label_text: "Ans";
+          tooltip_desc: _("Insert last answer");
+          accel_markup: "F7";
+          focus-on-click: false;
+          key: "F7";
+
+          styles [
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 4;
+            column: 2;
+          }
+
+          // clicked => $on_click_last_ans();
         }
 
         $PebblesButton negative_button {
@@ -203,6 +406,382 @@ template $PebblesStatisticsView: Gtk.Grid {
           }
 
           // clicked => $on_expand_fx();
+        }
+      }
+    };
+
+
+    content: Adw.NavigationPage button_container_right {
+      title: "Functional Input";
+      hexpand: true;
+      overflow: visible;
+
+      Grid {
+        row-homogeneous: true;
+        column-homogeneous: true;
+        row-spacing: 8;
+        column-spacing: 8;
+        vexpand: true;
+        hexpand: true;
+        margin-start: 6;
+        margin-end: 6;
+        margin-bottom: 6;
+        margin-top: 2;
+
+        $PebblesButton go_left {
+          icon: "go-previous-symbolic";
+          tooltip_desc: _("Navigate Left");
+          focus-on-click: false;
+          key: "Left";
+          accel_markup: "Left";
+
+          layout {
+            row: 0;
+            column: 0;
+          }
+
+          clicked => $navigate_left();
+        }
+
+        $PebblesButton go_right {
+          icon: "go-next-symbolic";
+          tooltip_desc: _("Navigate Right");
+          focus-on-click: false;
+          key: "Right";
+          accel_markup: "Right";
+
+          layout {
+            row: 0;
+            column: 1;
+          }
+
+          clicked => $navigate_right();
+        }
+
+        $PebblesButton go_up {
+          icon: "go-up-symbolic";
+          tooltip_desc: _("Navigate Up");
+          focus-on-click: false;
+          key: "Up";
+          accel_markup: "Up";
+
+          layout {
+            row: 0;
+            column: 2;
+          }
+
+          clicked => $navigate_up();
+        }
+
+        $PebblesButton go_down {
+          icon: "go-down-symbolic";
+          tooltip_desc: _("Navigate Down");
+          focus-on-click: false;
+          key: "Down";
+          accel_markup: "Down";
+
+          layout {
+            row: 0;
+            column: 3;
+          }
+
+          clicked => $navigate_down();
+        }
+
+        $PebblesButton cardinality_button {
+          label_text: "n";
+          focus-on-click: false;
+          tooltip_desc: _("Series Size");
+          accel_markup: "N";
+          key: "N";
+
+          styles [
+            "special-action",
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 1;
+            column: 0;
+          }
+        }
+
+        $PebblesButton mode_button {
+          label_text: "mode";
+          focus-on-click: false;
+          tooltip_desc: _("Mode of series");
+          accel_markup: "O";
+          key: "O";
+
+          styles [
+            "special-action",
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 1;
+            column: 1;
+          }
+        }
+
+        $PebblesButton median_button {
+          label_text: "M";
+          focus-on-click: false;
+          tooltip_desc: _("Median");
+          accel_markup: "E";
+          key: "E";
+
+          styles [
+            "special-action",
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 1;
+            column: 2;
+          }
+        }
+
+        $PebblesButton memory_add_button {
+          label_text: "M+";
+          tooltip_desc: _("Add it to the value in Memory");
+          accel_markup: "F3";
+          focus-on-click: false;
+          key: "F3";
+
+          styles [
+            "memory-action",
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 1;
+            column: 3;
+          }
+
+          // clicked => $on_click_memory_add();
+        }
+
+        $PebblesButton sum_button {
+          label_text: "∑x";
+          tooltip_desc: _("Summation over series");
+          focus-on-click: false;
+          accel_markup: "S";
+          key: "S";
+
+          styles [
+            "special-action",
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 2;
+            column: 0;
+          }
+        }
+
+        $PebblesButton sum_sqr_button {
+          label_text: "∑x<sup>2</sup>";
+          tooltip_desc: _("Summation over suqared values in series");
+          focus-on-click: false;
+          accel_markup: "Q";
+          key: "Q";
+
+          styles [
+            "special-action",
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 2;
+            column: 1;
+          }
+        }
+
+        $PebblesButton sample_var_button {
+          label_text: "SV";
+          tooltip_desc: _("Sample Variance");
+          focus-on-click: false;
+          accel_markup: "V";
+          key: "V";
+
+          styles [
+            "special-action",
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 2;
+            column: 2;
+          }
+        }
+
+        $PebblesButton memory_minus_button {
+          label_text: _("M−");
+          tooltip_desc: _("Subtract it from the value in Memory");
+          accel_markup: "F4";
+          focus-on-click: false;
+          key: "F4";
+
+          styles [
+            "memory-action",
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 2;
+            column: 3;
+          }
+
+          // clicked => $on_click_memory_subtract();
+        }
+
+        $PebblesButton mean_button {
+          label_text: "x̄";
+          tooltip_desc: _("Mean");
+          focus-on-click: false;
+          accel_markup: "M";
+          key: "M";
+
+          styles [
+            "special-action",
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 3;
+            column: 0;
+          }
+        }
+
+        $PebblesButton mean_sq_button {
+          label_text: "x̄<sup>2</sup>";
+          tooltip_desc: _("Mean of squared data values");
+          focus-on-click: false;
+          accel_markup: "A";
+          key: "A";
+
+          styles [
+            "special-action",
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 3;
+            column: 1;
+          }
+        }
+
+        $PebblesButton sample_std_dev_button {
+          label_text: "SD";
+          tooltip_desc: _("Standard Deviation");
+          focus-on-click: false;
+          accel_markup: "D";
+          key: "D";
+
+          styles [
+            "special-action",
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 3;
+            column: 2;
+          }
+        }
+
+        $PebblesButton memory_recall_button {
+          label_text: _("MR");
+          tooltip_desc: _("Recall value from Memory");
+          accel_markup: "F5";
+          focus-on-click: false;
+          key: "F5";
+
+          styles [
+            "memory-action",
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 3;
+            column: 3;
+          }
+
+          // clicked => $on_click_memory_recall();
+        }
+
+        $PebblesButton geometric_mean_button {
+          label_text: "GM";
+          tooltip_desc: _("Geomteric Mean");
+          focus-on-click: false;
+          accel_markup: "G";
+          key: "G";
+
+          styles [
+            "special-action",
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 4;
+            column: 0;
+          }
+        }
+
+        $PebblesButton pop_variance_button {
+          label_text: "σ<sup>2</sup>";
+          tooltip_desc: _("Population Variance");
+          focus-on-click: false;
+          accel_markup: "P";
+          key: "P";
+
+          styles [
+            "special-action",
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 4;
+            column: 1;
+          }
+        }
+
+        $PebblesButton pop_std_dev_button {
+          label_text: "σ";
+          tooltip_desc: _("Population Standard Deviation");
+          focus-on-click: false;
+          accel_markup: "L";
+          key: "L";
+
+          styles [
+            "special-action",
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 4;
+            column: 2;
+          }
+        }
+
+        $PebblesButton memory_clear_button {
+          label_text: _("MC");
+          tooltip_desc: _("Memory Clear");
+          accel_markup: "F6";
+          focus-on-click: false;
+          key: "F6";
+
+          styles [
+            "memory-action",
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 4;
+            column: 3;
+          }
+
+          // clicked => $on_click_memory_clear();
         }
       }
     };

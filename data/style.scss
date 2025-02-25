@@ -45,7 +45,7 @@ $LCD_FG_COLOR: #272863bb;
     background: none;
 
     &.animate {
-        animation: reveal-smooth 0.5s cubic-bezier(0, 0, 0, 1) forwards;
+        animation: reveal-smooth 0.75s cubic-bezier(0, 0, 0, 1) forwards;
     }
 
     @keyframes reveal-smooth {
@@ -174,7 +174,7 @@ $LCD_FG_COLOR: #272863bb;
     }
 
     .h1 {
-        font-size: x-large;
+        font-size: 18px;
         font-weight: 400;
     }
 }
@@ -276,7 +276,7 @@ button.pressed {
         margin-top: 4px;
         margin-bottom: 4px;
         background: none;
-        color:#272863;
+        color: #272863;
         border: 1px solid #27286340;
         border-top: 1px solid #0000;
         border-bottom: 1px solid #0000;
@@ -295,6 +295,10 @@ button.pressed {
         &:focus-within {
             border: 1px solid #272863a0;
             border-style: dashed;
+        }
+
+        * {
+            color: #272863;
         }
     }
 }

@@ -450,7 +450,7 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
 
                         Stack header_stack {
                             margin-start: 7;
-                            margin-top: 7;
+                            margin-top: 4;
                             valign: start;
                             transition-type: slide_up_down;
                             transition-duration: 500;
@@ -477,8 +477,18 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
 
                                 $PebblesButton import_button {
                                     icon: "document-import-symbolic";
-                                    tooltip_desc: _("Import table from file");
-                                    width-request: 64;
+                                    tooltip_desc: _("Import table from csv file");
+                                    width-request: 32;
+                                    focusable: false;
+                                    focus-on-click: false;
+
+                                    clicked => $on_import_dialog();
+                                }
+
+                                $PebblesButton export_button {
+                                    icon: "document-export-symbolic";
+                                    tooltip_desc: _("Export table to csv file");
+                                    width-request: 32;
                                     focusable: false;
                                     focus-on-click: false;
 

@@ -5,7 +5,7 @@
 """Statistics Calculator"""
 
 
-from io import BytesIO
+from io import BytesIO, StringIO
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
@@ -60,9 +60,48 @@ class StatisticsCalculator():
         else:
             self.data = self.data[np.ix_(row_mask, col_mask)]
 
-        print(self.data)
+        # print(self.data)
 
-        return json.dumps({'mode': self.MODE, 'result': ''})
+        return json.dumps({'mode': self.MODE, 'result': '', 'shape': None})
+
+
+    def load_csv_data(self, csv_data: str):
+        """
+        Import data from a CSV string.
+        """
+        try:
+            csv_file = StringIO(csv_data)
+            first_line = csv_file.readline().strip()
+            first_values = first_line.split(",")
+            try:
+                list(map(float, first_values))  # Test conversion
+                csv_file.seek(0)  # Reset file pointer if first row is numeric
+            except ValueError:
+                pass  # First row is non-numeric, so we skip it
+            self.data = np.loadtxt(csv_file, delimiter=",", dtype=float).T
+            # print (self.data)
+        except ValueError as ve:
+            raise ve
+
+        return json.dumps({'mode': self.MODE, 'result': '', 'shape': self.data.shape})
+
+
+    def fetch_series(self, series_index: int) -> list[float]:
+        """
+        Fetch the given series/row data as per the given `series_index`.
+        """
+
+        if 0 <= series_index < len(self.data):
+            return list(self.data[series_index])
+        return []
+
+
+    def fetch_table_shape(self):
+        """
+        Fetch data table shape.
+        """
+
+        return self.data.shape
 
 
     def plot(self, width:float, height:float, plot_type=0, dpi=100.0):
@@ -70,11 +109,16 @@ class StatisticsCalculator():
         Plot the graph for the data table
         """
 
+        if self.data.shape[0] > 20 or self.data.shape[1] > 2000 or \
+            self.data.shape[0] < 2 or self.data.shape[1] == 0:
+            return None
+
         fig, ax = plt.subplots(figsize=(width / dpi, height / dpi), dpi=dpi)
 
         # Plot the data
         ax.set_yticklabels([])
         ax.set_xticklabels([])
+        ax.set_position([0, 0, 1, 1])
         ax.spines["top"].set_visible(False)
         ax.spines["right"].set_visible(False)
         ax.set_facecolor((0, 0, 0, 0))
@@ -82,13 +126,14 @@ class StatisticsCalculator():
         ax.spines["left"].set_color(self.AXIS_COLOR)
         ax.spines["bottom"].set_color(self.AXIS_COLOR)
         plt.rcParams["axes.prop_cycle"] = plt.cycler(color=self.PALETTE)
+        plt.tight_layout(pad=4 / dpi)
 
         if plot_type == 0:
             self._line_plot(ax)
         elif plot_type == 1:
             self._pie_plot(ax)
         elif plot_type == 2:
-            self._bar_plot(ax, width, dpi)
+            self._bar_plot(ax)
         elif plot_type == 3:
             self._scatter_plot(ax)
 
@@ -109,32 +154,49 @@ class StatisticsCalculator():
 
 
     def _line_plot(self, ax):
-        ax.plot(self.data.T)
+        ax.axhline(y=0, color=self.AXIS_COLOR, linewidth=1, linestyle="--")
+        ax.plot(self.data.T, linewidth=0.5)
 
 
     def _pie_plot(self, ax):
-        num_rings = self.data.shape[0]
-        radius_step = 0.8 / num_rings
-        # Draw each concentric ring
-        for i, row in enumerate(self.data):
-            ax.pie(
-                row,
-                radius=1 + i * radius_step,  # Increase radius for each layer
-                startangle=140,
-                wedgeprops={"width": radius_step}
-            )
+        if self.data.shape[1] > 10:
+            return
+
+        try:
+            num_rings = self.data.shape[0]
+            if num_rings > 0:
+                max_radius = 1.2  # Ensure everything fits within the figure
+                radius_step = max_radius / (num_rings + 1)  # Scale radius properly
+
+                for i, row in enumerate(self.data):
+                    ax.pie(
+                        row,
+                        radius=(i + 1) * radius_step,  # Adjust radius so it scales correctly
+                        wedgeprops={"width": radius_step}
+                    )
+        except ValueError:
+            pass
 
 
-    def _bar_plot(self, ax, width, dpi):
+    def _bar_plot(self, ax):
+        ax.axhline(y=0, color=self.AXIS_COLOR, linewidth=1, linestyle="--")
         x = np.arange(self.data.shape[1])  # Column indices
         num_bars = self.data.shape[0]
-        width_step = max(((width / dpi) / num_bars) - 0.1, 0.1)
-        for i, row in enumerate(self.data):
-            ax.bar(x + i * 0.1, row, width=width_step, label=f"Row {i+1}")
+        if num_bars > 0:
+            width_step = min((1 / num_bars) * 0.8, 0.8)  # Scale width based on num_bars
+            for i, row in enumerate(self.data):
+                ax.bar(x + i * width_step, row, width=width_step, label=f"Row {i+1}")
 
 
     def _scatter_plot(self, ax):
-        x = np.repeat(np.arange(self.data.shape[0]), self.data.shape[1])  # Row indices repeated
-        y = np.tile(np.arange(self.data.shape[1]), self.data.shape[0])    # Column indices tiled
-        values = self.data.flatten()
-        ax.scatter(x, y, c=values)
+        num_rows, num_cols = self.data.shape
+
+        # Generate x (column indices repeated for each row)
+        x = np.tile(np.arange(num_cols), num_rows)
+        # Flattened y-values (actual data values)
+        y = self.data.flatten()
+        # Assign colors per row, repeating for each column
+        colors = np.repeat(self.PALETTE[:num_rows], num_cols)
+
+        ax.axhline(y=0, color=self.AXIS_COLOR, linewidth=1, linestyle="--")
+        ax.scatter(x, y, c=colors, edgecolor="none", s=1)
