@@ -95,6 +95,7 @@ class StatisticsCalculator():
         except ValueError as ve:
             raise ve
 
+        self.start_plotting()
         return json.dumps({'mode': self.MODE, 'result': '', 'shape': self.data.shape})
 
 
@@ -131,7 +132,6 @@ class StatisticsCalculator():
         """
         Plot the graph for the data table
         """
-        print (self.is_plotting)
         if self.is_plotting:
             return
 
@@ -200,7 +200,6 @@ class StatisticsCalculator():
             loader.write(buf.getvalue())
             loader.close()
             self.is_plotting = False
-            print ("Plotting done")
             if self.on_plot_ready:
                 self.on_plot_ready(loader.get_pixbuf(), True)
 
@@ -214,7 +213,7 @@ class StatisticsCalculator():
 
 
     def _pie_plot(self, ax):
-        if self.data.shape[0] > 10 or self.data.shape[1] > 10:
+        if self.data.shape[0] > 10 or self.data.shape[1] > 360:
             raise ValueError
 
         try:
@@ -259,4 +258,4 @@ class StatisticsCalculator():
         colors = np.repeat(self.PALETTE[:num_rows], num_cols)
 
         ax.axhline(y=0, color=self.AXIS_COLOR, linewidth=1, linestyle="--")
-        ax.scatter(x, y, c=colors, edgecolor="none", s=1)
+        ax.scatter(x, y, c=colors, edgecolor="none", s=4)

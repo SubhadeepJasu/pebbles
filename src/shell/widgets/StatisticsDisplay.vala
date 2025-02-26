@@ -2,7 +2,7 @@ namespace Pebbles {
     [GtkTemplate (ui = "/com/github/subhadeepjasu/pebbles/ui/statistics_display.ui")]
     public class StatisticsDisplay : Display {
         // Constants
-        private const uint8 CELL_WIDTH = 72;
+        private const uint8 CELL_WIDTH = 86;
 
         // Bindings
         protected Gtk.Adjustment adjustment { get; set; }
@@ -14,13 +14,13 @@ namespace Pebbles {
 
             private set {
                 _series_index = value;
-                series_label = _("Series %d").printf (value);
+                series_label = _("Series %d").printf (value + 1);
             }
         }
 
         public int table_length { get; private set; }
         public int max_series_length { get; private set; }
-        public string series_label { get; private set; default = _("Series 0") ;}
+        public string series_label { get; private set; default = _("Series 1") ;}
         public int query_offset { get; private set; }
 
         // Widget Children
@@ -44,7 +44,7 @@ namespace Pebbles {
         private StatPlotType plot_type = BAR;
         private Gdk.Pixbuf? figure;
         private bool valid_figure = true;
-        private unowned Gtk.Entry selected_cell = null;
+        private unowned StatCell selected_cell = null;
         private bool updating = true;
         private uint resize_timeout_id = 0;
 
@@ -122,6 +122,11 @@ namespace Pebbles {
                     }
                 }
             }
+
+            if (selected_cell == null) {
+                selected_cell = cells.nth_data (0);
+                selected_cell.grab_focus_without_selecting ();
+            }
         }
 
         public void clear_cells () {
@@ -130,9 +135,40 @@ namespace Pebbles {
         public void navigate (int direction) {
             switch (direction) {
                 case 0:
+                    if (selected_cell.index > query_offset) {
+                        var new_focus_index = selected_cell.index - 1;
+                        foreach (var cell in cells) {
+                            if (cell.index == new_focus_index) {
+                                cell.grab_focus_without_selecting ();
+                                return;
+                            }
+                        }
+                    }
+                    // If at the leftmost cell and there's room to scroll left
+                    else if (query_offset > 0) {
+                        query_offset--;
+                        refresh_all_cells ();
+                    }
                 break;
                 case 1:
+                    uint next_index = selected_cell.index + 1;
 
+                    if (next_index < query_offset + cells.length ()) {
+                        // Move focus to the next cell in the visible range
+                        foreach (var cell in cells) {
+                            if (cell.index == next_index) {
+                                cell.grab_focus_without_selecting ();
+                                return;
+                            }
+                        }
+                    } else {
+                        // Shift right if at the end
+                        print ("%d %u %d\n", query_offset, cells.length (), max_series_length);
+                        if (query_offset + cells.length () <= max_series_length) {
+                            query_offset++;  // Shift the viewport right
+                            refresh_all_cells ();
+                        }
+                    }
                 break;
                 case 2:
                     if (series_index > 0) {
@@ -147,7 +183,7 @@ namespace Pebbles {
             }
         }
 
-        private void refresh_all_cells () {
+        public void refresh_all_cells () {
             var n = cells.length ();
             unowned StatCell? cell = null;
             for (uint i = 0; i < n; i++) {
@@ -237,7 +273,9 @@ namespace Pebbles {
             }
         }
 
-        private void cell_focus_handler (StatCell cell) {}
+        private void cell_focus_handler (StatCell cell) {
+            selected_cell = cell;
+        }
 
         private void update_placeholders () {
             int num_visible_cells = (int) Math.floor (viewport.get_width () / CELL_WIDTH);

@@ -41,6 +41,15 @@ namespace Pebbles {
                     data_changed (_value, index, series_index);
                 }
             });
+
+            changed.connect (() => {
+                double _value;
+                var parsed = double.try_parse (text, out _value);
+                if (parsed) {
+                    //  var max_cols = window.on_stat_cell_update (_value, (int) index, (int) series_index);
+                    data_changed (_value, index, series_index);
+                }
+            });
         }
 
         public void refresh () {

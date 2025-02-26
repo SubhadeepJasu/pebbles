@@ -89,6 +89,10 @@ namespace Pebbles {
             }
         }
 
+        public void refresh () {
+            display.refresh_all_cells ();
+        }
+
         [GtkCallback]
         protected void add_cell () {
             //  display.insert_cell ();

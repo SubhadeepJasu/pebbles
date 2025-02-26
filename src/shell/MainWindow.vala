@@ -49,8 +49,8 @@ namespace Pebbles {
         [GtkChild]
         private unowned Gtk.Box null_header_box;
 
+        // Instance variables
         private Gtk.EventControllerKey key_event_controller;
-
         private Pebbles.Settings settings;
         private HistoryViewModel[] history;
         private uint _background_ops;
@@ -63,6 +63,9 @@ namespace Pebbles {
                 spinner.spinning = _background_ops > 0;
             }
         }
+
+        private int loaded_table_length;
+        private int loaded_max_series_length;
 
         protected signal void on_evaluate (string data);
         protected signal string on_memory_recall (string mode);
@@ -174,9 +177,8 @@ namespace Pebbles {
                 object.set_int_member ("memoryOp", memory_op);
 
                 size_t length;
-                string json = gen.to_data (out length);
-
                 background_tasks_append ();
+                string json = gen.to_data (out length);
                 on_evaluate (json);
             });
             statistics_view.on_evaluate.connect ((op, options) => {
@@ -280,6 +282,23 @@ namespace Pebbles {
                         case "sci":
                             var result = root_object.get_string_member ("result");
                             scientific_view.show_result (result);
+                            break;
+                        case "stat":
+                            if (root_object.has_member ("shape")) {
+                                var shape_node = root_object.get_array_member ("shape");
+                                loaded_table_length = (int) shape_node.get_int_element (0);
+                                loaded_max_series_length = (int) shape_node.get_int_element (1);
+                                debug (
+                                    "Data loaded of shape (%d, %d)\n",
+                                    loaded_table_length,
+                                    loaded_max_series_length
+                                );
+                                Idle.add_once (() => {
+                                    send_toast (_("Loaded table of size [%d, %d] from file")
+                                    .printf (loaded_max_series_length, loaded_table_length));
+                                    statistics_view.refresh ();
+                                });
+                            }
                             break;
                         default:
                         break;
