@@ -11,7 +11,9 @@ namespace Pebbles {
 
         public StatCell (uint index, uint series_index) {
             Object (
-                input_purpose: Gtk.InputPurpose.NUMBER
+                input_purpose: Gtk.InputPurpose.NUMBER,
+                hexpand: false,
+                halign: Gtk.Align.START
             );
 
             this.index = index;

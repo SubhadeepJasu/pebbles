@@ -154,7 +154,6 @@ template $PebblesStatisticsDisplay: $PebblesDisplay {
         vscrollbar-policy: never;
         hscrollbar-policy: automatic;
         margin-end: 8;
-        hadjustment: bind template.adjustment;
 
         Box {
             orientation: horizontal;
@@ -164,6 +163,9 @@ template $PebblesStatisticsDisplay: $PebblesDisplay {
             Box cell_box {
                 styles ["data-table"]
                 orientation: horizontal;
+                homogeneous: false;
+                halign: start;
+                hexpand: false;
             }
 
             Box placeholder_r {}

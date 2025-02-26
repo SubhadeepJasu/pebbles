@@ -5,7 +5,6 @@ namespace Pebbles {
         private const uint8 CELL_WIDTH = 86;
 
         // Bindings
-        protected Gtk.Adjustment adjustment { get; set; }
         private int _series_index = 0;
         public int series_index {
             get {
@@ -47,6 +46,7 @@ namespace Pebbles {
         private unowned StatCell selected_cell = null;
         private bool updating = true;
         private uint resize_timeout_id = 0;
+        private bool is_navigating = false;
 
         public signal void changed (double[] series, int series_index, double width, double height);
 
@@ -84,6 +84,23 @@ namespace Pebbles {
                 Idle.add_once (() => {
                     draw_cells ();
                 });
+            });
+
+            viewport.hadjustment.value_changed.connect (() => {
+                if (is_navigating) return;
+
+                int new_offset = (int) Math.ceil (viewport.hadjustment.value / CELL_WIDTH);
+
+                // Clamp within valid bounds
+                new_offset = int.max (0, int.min (new_offset, max_series_length - (int) cells.length ()));
+
+                if (new_offset != query_offset) {
+                    query_offset = new_offset;
+                    update_placeholders ();
+                    refresh_all_cells ();
+                }
+
+                viewport.hadjustment.value = new_offset * CELL_WIDTH;
             });
         }
 
@@ -147,7 +164,18 @@ namespace Pebbles {
                     // If at the leftmost cell and there's room to scroll left
                     else if (query_offset > 0) {
                         query_offset--;
+                        is_navigating = true;
+                        update_placeholders ();
                         refresh_all_cells ();
+                        navigate (1);
+                        Timeout.add_once (50, () => {
+                            Idle.add_once (() => {
+                                navigate (0);
+                                Timeout.add_once (200, () => {
+                                    is_navigating = false;
+                                });
+                            });
+                        });
                     }
                 break;
                 case 1:
@@ -163,10 +191,20 @@ namespace Pebbles {
                         }
                     } else {
                         // Shift right if at the end
-                        print ("%d %u %d\n", query_offset, cells.length (), max_series_length);
                         if (query_offset + cells.length () <= max_series_length) {
                             query_offset++;  // Shift the viewport right
+                            is_navigating = true;
+                            update_placeholders ();
                             refresh_all_cells ();
+                            navigate (0);
+                            Timeout.add_once (50, () => {
+                                Idle.add_once (() => {
+                                    navigate (1);
+                                    Timeout.add_once (200, () => {
+                                        is_navigating = false;
+                                    });
+                                });
+                            });
                         }
                     }
                 break;
@@ -226,6 +264,7 @@ namespace Pebbles {
 
         private void set_cell_value (double value, uint index, uint series_index) {
             max_series_length = main_window.on_stat_cell_update (value, (int) index, (int) series_index);
+            update_placeholders ();
         }
 
         private void draw_figure (Gtk.DrawingArea area, Cairo.Context cr, int width, int height) {
@@ -280,14 +319,8 @@ namespace Pebbles {
         private void update_placeholders () {
             int num_visible_cells = (int) Math.floor (viewport.get_width () / CELL_WIDTH);
             // Adjust placeholder sizes
-            placeholder_l.set_size_request (
-                int.max (query_offset * CELL_WIDTH, -1),
-                -1
-            );
-            placeholder_r.set_size_request (
-                int.max ((max_series_length - query_offset - num_visible_cells) * CELL_WIDTH, -1),
-                -1
-            );
+            placeholder_l.width_request = int.max (query_offset * CELL_WIDTH, -1);
+            placeholder_r.width_request = int.max ((max_series_length - query_offset - num_visible_cells) * CELL_WIDTH, -1);
         }
     }
 }
