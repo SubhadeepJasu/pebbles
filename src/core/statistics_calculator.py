@@ -26,12 +26,12 @@ class StatisticsCalculator():
     def __init__(self):
         self.data = np.ndarray(shape=(0,0))
 
-        self.plot_size = (1, 1)
+        self.plot_size = (1, 1, 100)
         self.plot_type = 0
-        self.dpi = 100
         self.plot_thread:threading.Thread = None
         self.plot_lock = threading.Lock()
         self.on_plot_ready = None
+        self.is_plotting = False
 
 
     def update_value(self, value: float, index: int, series_index: int):
@@ -55,6 +55,7 @@ class StatisticsCalculator():
 
         self.start_plotting ()
         print(self.data)
+        return self.data.shape[1]
 
 
     def _trim(self):
@@ -120,9 +121,8 @@ class StatisticsCalculator():
 
 
     def set_plot_params_and_plot(self, width:float, height:float, plot_type=0, dpi=100.0):
-        self.plot_size = (width, height)
+        self.plot_size = (width, height, dpi)
         self.plot_type = plot_type
-        self.dpi = dpi
 
         self.start_plotting()
 
@@ -131,6 +131,11 @@ class StatisticsCalculator():
         """
         Plot the graph for the data table
         """
+        print (self.is_plotting)
+        if self.is_plotting:
+            return
+
+        self.is_plotting = True
         if self.plot_thread is None or not self.plot_thread.is_alive():
             self.plot_thread = threading.Thread(target=self._plot)
             self.plot_thread.start()
@@ -140,11 +145,16 @@ class StatisticsCalculator():
 
     def _plot(self):
         with self.plot_lock:
-            width, height = self.plot_size
-            dpi = self.dpi
+            width, height, dpi = self.plot_size
             plot_type = self.plot_type
-            if self.data.shape[0] > 20 or self.data.shape[1] > 2000 or \
-                self.data.shape[0] == 0 or self.data.shape[1] < 2:
+            if self.data.shape[0] == 0 or self.data.shape[1] < 2:
+                self.is_plotting = False
+                return
+
+            if self.data.shape[0] > 20 or self.data.shape[1] > 2000:
+                self.is_plotting = False
+                if self.on_plot_ready:
+                    self.on_plot_ready(None, False)
                 return
 
             fig, ax = plt.subplots(figsize=(width / dpi, height / dpi), dpi=dpi)
@@ -162,14 +172,20 @@ class StatisticsCalculator():
             plt.rcParams["axes.prop_cycle"] = plt.cycler(color=self.PALETTE)
             plt.tight_layout(pad=4 / dpi)
 
-            if plot_type == 0:
-                self._line_plot(ax)
-            elif plot_type == 1:
-                self._pie_plot(ax)
-            elif plot_type == 2:
-                self._bar_plot(ax)
-            elif plot_type == 3:
-                self._scatter_plot(ax)
+            try:
+                if plot_type == 0:
+                    self._line_plot(ax)
+                elif plot_type == 1:
+                    self._pie_plot(ax)
+                elif plot_type == 2:
+                    self._bar_plot(ax)
+                elif plot_type == 3:
+                    self._scatter_plot(ax)
+            except ValueError:
+                self.is_plotting = False
+                if self.on_plot_ready:
+                    self.on_plot_ready(None, False)
+                    return
 
             # Save figure to a BytesIO buffer in PNG format
             buf = BytesIO()
@@ -183,18 +199,23 @@ class StatisticsCalculator():
             loader = GdkPixbuf.PixbufLoader.new_with_type("png")
             loader.write(buf.getvalue())
             loader.close()
+            self.is_plotting = False
+            print ("Plotting done")
             if self.on_plot_ready:
-                self.on_plot_ready(loader.get_pixbuf())
+                self.on_plot_ready(loader.get_pixbuf(), True)
 
 
     def _line_plot(self, ax):
+        if self.data.shape[0] > 20 or self.data.shape[1] > 2000:
+            raise ValueError
+
         ax.axhline(y=0, color=self.AXIS_COLOR, linewidth=1, linestyle="--")
         ax.plot(self.data.T, linewidth=0.5)
 
 
     def _pie_plot(self, ax):
-        if self.data.shape[1] > 10:
-            return
+        if self.data.shape[0] > 10 or self.data.shape[1] > 10:
+            raise ValueError
 
         try:
             num_rings = self.data.shape[0]
@@ -213,6 +234,9 @@ class StatisticsCalculator():
 
 
     def _bar_plot(self, ax):
+        if self.data.shape[0] > 10 or self.data.shape[1] > 100:
+            raise ValueError
+
         ax.axhline(y=0, color=self.AXIS_COLOR, linewidth=1, linestyle="--")
         x = np.arange(self.data.shape[1])  # Column indices
         num_bars = self.data.shape[0]
@@ -224,6 +248,8 @@ class StatisticsCalculator():
 
     def _scatter_plot(self, ax):
         num_rows, num_cols = self.data.shape
+        if num_rows > 20 or num_cols > 2000:
+            raise ValueError
 
         # Generate x (column indices repeated for each row)
         x = np.tile(np.arange(num_cols), num_rows)

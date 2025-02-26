@@ -67,7 +67,7 @@ class PythonWindow(Pebbles.MainWindow):
 
 
     def _stat_cell_update_cb(self, _, value:float, index:int, series_index:int):
-        self.stat_calc.update_value (value, index, series_index)
+        return self.stat_calc.update_value (value, index, series_index)
 
 
     def _stat_cell_query_cb(self, _, index:int, series_index:int):
@@ -78,8 +78,8 @@ class PythonWindow(Pebbles.MainWindow):
         return ""
 
 
-    def _stat_plot_ready_cb(self, pixbuf):
-        self.on_plot_ready (pixbuf)
+    def _stat_plot_ready_cb(self, pixbuf, valid):
+        self.on_plot_ready (pixbuf, valid)
 
     def _stat_plot_cb(
             self, _, width:float, height:float, plot_type:Pebbles.StatPlotType, dpi: float):

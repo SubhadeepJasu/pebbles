@@ -4,6 +4,7 @@ namespace Pebbles {
         public uint series_index { get; set construct; }
 
         public signal void data_changed (double value, uint index, uint series_index);
+        public signal void focus_in (StatCell cell);
 
         private Gtk.EventControllerFocus focus_controller;
         private unowned MainWindow window;
@@ -28,11 +29,16 @@ namespace Pebbles {
                 window = (MainWindow) get_ancestor (typeof (MainWindow));
             });
 
+            focus_controller.enter.connect (() => {
+                focus_in (this);
+            });
+
             focus_controller.leave.connect (() => {
                 double _value;
                 var parsed = double.try_parse (text, out _value);
                 if (parsed) {
-                    window.on_stat_cell_update (_value, (int) index, (int) series_index);
+                    //  var max_cols = window.on_stat_cell_update (_value, (int) index, (int) series_index);
+                    data_changed (_value, index, series_index);
                 }
             });
         }

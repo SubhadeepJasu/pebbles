@@ -129,6 +129,7 @@ template $PebblesStatisticsDisplay: $PebblesDisplay {
 
         Separator {
             orientation: vertical;
+            styles ["lcd-seperator"]
         }
 
         DrawingArea plot_area {
@@ -141,6 +142,8 @@ template $PebblesStatisticsDisplay: $PebblesDisplay {
         orientation: horizontal;
         margin-end: 8;
 
+        styles ["lcd-seperator"]
+
         layout {
           column: 0;
           row: 2;
@@ -151,6 +154,7 @@ template $PebblesStatisticsDisplay: $PebblesDisplay {
         vscrollbar-policy: never;
         hscrollbar-policy: automatic;
         margin-end: 8;
+        hadjustment: bind template.adjustment;
 
         Box {
             orientation: horizontal;

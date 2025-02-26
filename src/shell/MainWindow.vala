@@ -53,6 +53,16 @@ namespace Pebbles {
 
         private Pebbles.Settings settings;
         private HistoryViewModel[] history;
+        private uint _background_ops;
+        public uint background_ops {
+            get {
+                return _background_ops;
+            }
+            set {
+                _background_ops = value;
+                spinner.spinning = _background_ops > 0;
+            }
+        }
 
         protected signal void on_evaluate (string data);
         protected signal string on_memory_recall (string mode);
@@ -62,7 +72,7 @@ namespace Pebbles {
         public signal void on_key_up (string? mode, uint keyval);
         public signal void history_changed (HistoryViewModel[] history);
         public signal void on_stat_plot (double width, double height, StatPlotType plot_type, double dpi);
-        public signal void on_stat_cell_update (double value, int index, int series_index);
+        public signal int on_stat_cell_update (double value, int index, int series_index);
         public signal string on_stat_cell_query (int index, int series_index);
 
         construct {
@@ -166,7 +176,7 @@ namespace Pebbles {
                 size_t length;
                 string json = gen.to_data (out length);
 
-                spinner.spinning = true;
+                background_tasks_append ();
                 on_evaluate (json);
             });
             statistics_view.on_evaluate.connect ((op, options) => {
@@ -182,7 +192,7 @@ namespace Pebbles {
                 size_t length;
                 string json = gen.to_data (out length);
 
-                spinner.spinning = true;
+                background_tasks_append ();
                 on_evaluate (json);
             });
         }
@@ -259,7 +269,7 @@ namespace Pebbles {
 
         protected void on_evaluation_completed (string data) {
             Idle.add (() => {
-                spinner.spinning = false;
+                background_tasks_remove ();
                 var parser = new Json.Parser ();
                 try {
                     parser.load_from_data (data, -1);
@@ -282,12 +292,12 @@ namespace Pebbles {
             });
         }
 
-        protected void on_plot_ready (Gdk.Pixbuf figure) {
-            statistics_view.plot (figure);
+        protected void on_plot_ready (Gdk.Pixbuf? figure, bool valid) {
+            statistics_view.plot (figure, valid);
         }
 
         protected void on_memory_change (string context, bool present) {
-            spinner.spinning = false;
+            background_tasks_remove ();
             switch (context) {
                 case "sci":
                     scientific_view.set_memory_present (present);
@@ -355,6 +365,16 @@ namespace Pebbles {
 
         public void send_toast (string message) {
             toast_overlay.add_toast (new Adw.Toast (message));
+        }
+
+        public void background_tasks_append () {
+            background_ops = background_ops + 1;
+        }
+
+        public void background_tasks_remove () {
+            if (background_ops > 0) {
+                background_ops = background_ops - 1;
+            }
         }
     }
 }

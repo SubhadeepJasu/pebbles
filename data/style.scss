@@ -89,7 +89,10 @@ $LCD_FG_COLOR: #272863bb;
     }
 
     &-seperator {
-        border-bottom: #27286322;
+        border-top-color: #0000;
+        border-left-color: #0000;
+        border-bottom-color: #27286322;
+        border-right-color: #27286322;
         box-shadow: none;
     }
 

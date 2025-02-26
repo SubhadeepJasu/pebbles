@@ -38,8 +38,8 @@ namespace Pebbles {
             });
         }
 
-        public void plot (Gdk.Pixbuf pixbuf) {
-            display.plot (pixbuf);
+        public void plot (Gdk.Pixbuf? pixbuf, bool valid) {
+            display.plot (pixbuf, valid);
         }
 
         public void import_csv_file (MainWindow main_window) {
