@@ -144,65 +144,67 @@ class StatisticsCalculator():
 
 
     def _plot(self):
-        with self.plot_lock:
-            width, height, dpi = self.plot_size
-            plot_type = self.plot_type
-            if self.data.shape[0] == 0 or self.data.shape[1] < 2:
-                self.is_plotting = False
-                return
-
-            if self.data.shape[0] > 20 or self.data.shape[1] > 2000:
-                self.is_plotting = False
-                if self.on_plot_ready:
-                    self.on_plot_ready(None, False)
-                return
-
-            fig, ax = plt.subplots(figsize=(width / dpi, height / dpi), dpi=dpi)
-
-            # Plot the data
-            ax.set_yticklabels([])
-            ax.set_xticklabels([])
-            ax.set_position([0, 0, 1, 1])
-            ax.spines["top"].set_visible(False)
-            ax.spines["right"].set_visible(False)
-            ax.set_facecolor((0, 0, 0, 0))
-            fig.subplots_adjust(left=0, right=1, top=1, bottom=0)
-            ax.spines["left"].set_color(self.AXIS_COLOR)
-            ax.spines["bottom"].set_color(self.AXIS_COLOR)
-            plt.rcParams["axes.prop_cycle"] = plt.cycler(color=self.PALETTE)
-            plt.tight_layout(pad=4 / dpi)
-
-            try:
-                if plot_type == 0:
-                    self._line_plot(ax)
-                elif plot_type == 1:
-                    self._pie_plot(ax)
-                elif plot_type == 2:
-                    self._bar_plot(ax)
-                elif plot_type == 3:
-                    self._scatter_plot(ax)
-            except ValueError:
-                self.is_plotting = False
-                if self.on_plot_ready:
-                    self.on_plot_ready(None, False)
+        try:
+            with self.plot_lock:
+                width, height, dpi = self.plot_size
+                plot_type = self.plot_type
+                if self.data.shape[0] == 0 or self.data.shape[1] < 2:
+                    self.is_plotting = False
                     return
 
-            # Save figure to a BytesIO buffer in PNG format
-            buf = BytesIO()
-            fig.set_size_inches(width / dpi, height / dpi, forward=True)
-            fig.patch.set_alpha(0)
-            fig.savefig(buf, format="png", bbox_inches='tight', pad_inches=0)
-            plt.close(fig)  # Close the figure to free memory
+                if self.data.shape[0] > 20 or self.data.shape[1] > 2000:
+                    self.is_plotting = False
+                    if self.on_plot_ready:
+                        self.on_plot_ready(None, False)
+                    return
 
-            # Convert buffer to GdkPixbuf
-            buf.seek(0)
-            loader = GdkPixbuf.PixbufLoader.new_with_type("png")
-            loader.write(buf.getvalue())
-            loader.close()
-            self.is_plotting = False
-            if self.on_plot_ready:
-                self.on_plot_ready(loader.get_pixbuf(), True)
+                fig, ax = plt.subplots(figsize=(width / dpi, height / dpi), dpi=dpi)
 
+                # Plot the data
+                ax.set_yticklabels([])
+                ax.set_xticklabels([])
+                ax.set_position([0, 0, 1, 1])
+                ax.spines["top"].set_visible(False)
+                ax.spines["right"].set_visible(False)
+                ax.set_facecolor((0, 0, 0, 0))
+                fig.subplots_adjust(left=0, right=1, top=1, bottom=0)
+                ax.spines["left"].set_color(self.AXIS_COLOR)
+                ax.spines["bottom"].set_color(self.AXIS_COLOR)
+                plt.rcParams["axes.prop_cycle"] = plt.cycler(color=self.PALETTE)
+                plt.tight_layout(pad=4 / dpi)
+
+                try:
+                    if plot_type == 0:
+                        self._line_plot(ax)
+                    elif plot_type == 1:
+                        self._pie_plot(ax)
+                    elif plot_type == 2:
+                        self._bar_plot(ax)
+                    elif plot_type == 3:
+                        self._scatter_plot(ax)
+                except ValueError:
+                    self.is_plotting = False
+                    if self.on_plot_ready:
+                        self.on_plot_ready(None, False)
+                        return
+
+                # Save figure to a BytesIO buffer in PNG format
+                buf = BytesIO()
+                fig.set_size_inches(width / dpi, height / dpi, forward=True)
+                fig.patch.set_alpha(0)
+                fig.savefig(buf, format="png", bbox_inches='tight', pad_inches=0)
+                plt.close(fig)  # Close the figure to free memory
+
+                # Convert buffer to GdkPixbuf
+                buf.seek(0)
+                loader = GdkPixbuf.PixbufLoader.new_with_type("png")
+                loader.write(buf.getvalue())
+                loader.close()
+                self.is_plotting = False
+                if self.on_plot_ready:
+                    self.on_plot_ready(loader.get_pixbuf(), True)
+        except RuntimeError:
+            pass
 
     def _line_plot(self, ax):
         if self.data.shape[0] > 20 or self.data.shape[1] > 2000:

@@ -171,7 +171,7 @@ namespace Pebbles {
                         Timeout.add_once (50, () => {
                             Idle.add_once (() => {
                                 navigate (0);
-                                Timeout.add_once (200, () => {
+                                Timeout.add_once (250, () => {
                                     is_navigating = false;
                                 });
                             });
@@ -200,7 +200,7 @@ namespace Pebbles {
                             Timeout.add_once (50, () => {
                                 Idle.add_once (() => {
                                     navigate (1);
-                                    Timeout.add_once (200, () => {
+                                    Timeout.add_once (250, () => {
                                         is_navigating = false;
                                     });
                                 });
