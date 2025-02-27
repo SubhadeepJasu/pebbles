@@ -36,6 +36,35 @@ namespace Pebbles {
         [GtkChild]
         private unowned Gtk.DrawingArea plot_area;
 
+
+        // Status Bar
+        [GtkChild]
+        private unowned Gtk.Label result_type_label_g;
+        [GtkChild]
+        private unowned Gtk.Label result_type_label_m;
+        [GtkChild]
+        private unowned Gtk.Label result_type_label_edia;
+        [GtkChild]
+        private unowned Gtk.Label result_type_label_n;
+        [GtkChild]
+        private unowned Gtk.Label result_type_label_mode;
+        [GtkChild]
+        private unowned Gtk.Label result_type_label_summation;
+        [GtkChild]
+        private unowned Gtk.Label result_type_label_x_bar;
+        [GtkChild]
+        private unowned Gtk.Label result_type_label_x_sqr;
+        [GtkChild]
+        private unowned Gtk.Label result_type_label_sigma;
+        [GtkChild]
+        private unowned Gtk.Label result_type_label_sig_sqr;
+        [GtkChild]
+        private unowned Gtk.Label result_type_label_sv;
+        [GtkChild]
+        private unowned Gtk.Label result_type_label_sd;
+        [GtkChild]
+        private unowned Gtk.Label result_type_label_trend;
+
         // Private members
         private List<StatCell?> cells;
         private double plot_height;
@@ -383,6 +412,75 @@ namespace Pebbles {
             // Adjust placeholder sizes
             placeholder_l.width_request = int.max (query_offset * CELL_WIDTH, -1);
             placeholder_r.width_request = int.max ((max_series_length - query_offset - num_visible_cells) * CELL_WIDTH, -1);
+        }
+
+        public void set_op (string op) {
+            result_type_label_g.opacity = 0.2;
+            result_type_label_m.opacity = 0.2;
+            result_type_label_edia.opacity = 0.2;
+            result_type_label_n.opacity = 0.2;
+            result_type_label_mode.opacity = 0.2;
+            result_type_label_summation.opacity = 0.2;
+            result_type_label_x_bar.opacity = 0.2;
+            result_type_label_x_sqr.opacity = 0.2;
+            result_type_label_sigma.opacity = 0.2;
+            result_type_label_sig_sqr.opacity = 0.2;
+            result_type_label_sv.opacity = 0.2;
+            result_type_label_sd.opacity = 0.2;
+            result_type_label_trend.opacity = 0.2;
+            result_type_label_x_bar.set_text ("x̄");
+
+            switch (op) {
+                case "GM":
+                    result_type_label_g.opacity = 1;
+                    result_type_label_m.opacity = 1;
+                    break;
+                case "n":
+                    result_type_label_n.opacity = 1;
+                    break;
+                case "mode":
+                    result_type_label_mode.opacity = 1;
+                    break;
+                case "M":
+                    result_type_label_m.opacity = 1;
+                    result_type_label_edia.opacity = 1;
+                    result_type_label_n.opacity = 1;
+                    break;
+                case "sum":
+                    result_type_label_summation.opacity = 1;
+                    result_type_label_x_bar.opacity = 1;
+                    result_type_label_x_bar.set_text ("x");
+                    break;
+                case "sumsq":
+                    result_type_label_summation.opacity = 1;
+                    result_type_label_x_bar.opacity = 1;
+                    result_type_label_x_bar.set_text ("x");
+                    result_type_label_x_sqr.opacity = 1;
+                    break;
+                case "SV":
+                    result_type_label_sv.opacity = 1;
+                    break;
+                case "SD":
+                    result_type_label_sd.opacity = 1;
+                    break;
+                case "mean":
+                    result_type_label_x_bar.opacity = 1;
+                    break;
+                case "meansq":
+                    result_type_label_x_bar.opacity = 1;
+                    result_type_label_x_sqr.opacity = 1;
+                    break;
+                case "popvar":
+                    result_type_label_sigma.opacity = 1;
+                    result_type_label_sig_sqr.opacity = 1;
+                    break;
+                case "PSD":
+                    result_type_label_sigma.opacity = 1;
+                    break;
+                case "trend":
+                    result_type_label_trend.opacity = 1;
+                    break;
+            }
         }
     }
 }

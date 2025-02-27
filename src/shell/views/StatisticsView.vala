@@ -116,13 +116,6 @@ namespace Pebbles {
         }
 
         [GtkCallback]
-        protected void trend_plot () {
-            var object = new Json.Object ();
-            object.set_int_member ("seriesIndex", display.series_index);
-            on_evaluate ("trend", object);
-        }
-
-        [GtkCallback]
         protected void navigate_left () {
             display.navigate (0);
         }
@@ -140,6 +133,14 @@ namespace Pebbles {
         [GtkCallback]
         protected void navigate_down () {
             display.navigate (3);
+        }
+
+        [GtkCallback]
+        protected void perform_op (Gtk.Button btn) {
+            var object = new Json.Object ();
+            object.set_int_member ("seriesIndex", display.series_index);
+            display.set_op (btn.name);
+            on_evaluate (btn.name, object);
         }
     }
 }

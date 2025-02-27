@@ -303,6 +303,7 @@ template $PebblesStatisticsView: Gtk.Grid {
         }
 
         $PebblesButton trend_button {
+          name: "trend";
           label_text: "δy/δx";
           tooltip_desc: _("Trend");
           focus-on-click: false;
@@ -316,7 +317,7 @@ template $PebblesStatisticsView: Gtk.Grid {
             "adaptive-btn-font"
           ]
 
-          clicked => $trend_plot();
+          clicked => $perform_op();
         }
 
         $PebblesButton zero_button {
@@ -486,6 +487,7 @@ template $PebblesStatisticsView: Gtk.Grid {
         }
 
         $PebblesButton cardinality_button {
+          name: "n";
           label_text: "n";
           focus-on-click: false;
           tooltip_desc: _("Series Size");
@@ -501,9 +503,12 @@ template $PebblesStatisticsView: Gtk.Grid {
             row: 1;
             column: 0;
           }
+
+          clicked => $perform_op();
         }
 
         $PebblesButton mode_button {
+          name: "mode";
           label_text: "mode";
           focus-on-click: false;
           tooltip_desc: _("Mode of series");
@@ -519,9 +524,12 @@ template $PebblesStatisticsView: Gtk.Grid {
             row: 1;
             column: 1;
           }
+
+          clicked => $perform_op();
         }
 
         $PebblesButton median_button {
+          name: "M";
           label_text: "M";
           focus-on-click: false;
           tooltip_desc: _("Median");
@@ -537,6 +545,8 @@ template $PebblesStatisticsView: Gtk.Grid {
             row: 1;
             column: 2;
           }
+
+          clicked => $perform_op();
         }
 
         $PebblesButton memory_add_button {
@@ -560,6 +570,7 @@ template $PebblesStatisticsView: Gtk.Grid {
         }
 
         $PebblesButton sum_button {
+          name: "sum";
           label_text: "∑x";
           tooltip_desc: _("Summation over series");
           focus-on-click: false;
@@ -575,9 +586,12 @@ template $PebblesStatisticsView: Gtk.Grid {
             row: 2;
             column: 0;
           }
+
+          clicked => $perform_op();
         }
 
         $PebblesButton sum_sqr_button {
+          name: "sumsq";
           label_text: "∑x<sup>2</sup>";
           tooltip_desc: _("Summation over suqared values in series");
           focus-on-click: false;
@@ -593,9 +607,12 @@ template $PebblesStatisticsView: Gtk.Grid {
             row: 2;
             column: 1;
           }
+
+          clicked => $perform_op();
         }
 
         $PebblesButton sample_var_button {
+          name: "SV";
           label_text: "SV";
           tooltip_desc: _("Sample Variance");
           focus-on-click: false;
@@ -611,6 +628,8 @@ template $PebblesStatisticsView: Gtk.Grid {
             row: 2;
             column: 2;
           }
+
+          clicked => $perform_op();
         }
 
         $PebblesButton memory_minus_button {
@@ -634,6 +653,7 @@ template $PebblesStatisticsView: Gtk.Grid {
         }
 
         $PebblesButton mean_button {
+          name: "mean";
           label_text: "x̄";
           tooltip_desc: _("Mean");
           focus-on-click: false;
@@ -649,9 +669,12 @@ template $PebblesStatisticsView: Gtk.Grid {
             row: 3;
             column: 0;
           }
+
+          clicked => $perform_op();
         }
 
         $PebblesButton mean_sq_button {
+          name: "meansq";
           label_text: "x̄<sup>2</sup>";
           tooltip_desc: _("Mean of squared data values");
           focus-on-click: false;
@@ -667,9 +690,12 @@ template $PebblesStatisticsView: Gtk.Grid {
             row: 3;
             column: 1;
           }
+
+          clicked => $perform_op();
         }
 
         $PebblesButton sample_std_dev_button {
+          name: "SD";
           label_text: "SD";
           tooltip_desc: _("Standard Deviation");
           focus-on-click: false;
@@ -685,6 +711,8 @@ template $PebblesStatisticsView: Gtk.Grid {
             row: 3;
             column: 2;
           }
+
+          clicked => $perform_op();
         }
 
         $PebblesButton memory_recall_button {
@@ -708,6 +736,7 @@ template $PebblesStatisticsView: Gtk.Grid {
         }
 
         $PebblesButton geometric_mean_button {
+          name: "GM";
           label_text: "GM";
           tooltip_desc: _("Geomteric Mean");
           focus-on-click: false;
@@ -723,9 +752,12 @@ template $PebblesStatisticsView: Gtk.Grid {
             row: 4;
             column: 0;
           }
+
+          clicked => $perform_op();
         }
 
         $PebblesButton pop_variance_button {
+          name: "popvar";
           label_text: "σ<sup>2</sup>";
           tooltip_desc: _("Population Variance");
           focus-on-click: false;
@@ -741,9 +773,12 @@ template $PebblesStatisticsView: Gtk.Grid {
             row: 4;
             column: 1;
           }
+
+          clicked => $perform_op();
         }
 
         $PebblesButton pop_std_dev_button {
+          name: "PSD";
           label_text: "σ";
           tooltip_desc: _("Population Standard Deviation");
           focus-on-click: false;
@@ -759,6 +794,8 @@ template $PebblesStatisticsView: Gtk.Grid {
             row: 4;
             column: 2;
           }
+
+          clicked => $perform_op();
         }
 
         $PebblesButton memory_clear_button {

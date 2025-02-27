@@ -12,6 +12,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import json
 from gi.repository import GdkPixbuf
+from pebbles.core.utils import Utils
 
 matplotlib.use("Agg")
 
@@ -286,14 +287,39 @@ class StatisticsCalculator():
         """
         Evaluate.
         """
-        res = ""
+        res = "E"
+        val = None
         if op == "trend":
-            res = self._trend(series_index)
+            res, val = self._trend(series_index)
+        elif op == "n":
+            res, val = self._cardinality()
+        elif op == "mode":
+            res, val = self._mode(series_index)
+        elif op == "M":
+            res, val = self._median(series_index)
+        elif op == "sum":
+            res, val = self._sum(series_index)
+        elif op == "sumsq":
+            res, val = self._sum_sq(series_index)
+        elif op == "SV":
+            res, val = self._variance(series_index, sample=True)
+        elif op == "popvar":
+            res, val = self._variance(series_index)
+        elif op == "SD":
+            res, val = self._deviation(series_index, sample=True)
+        elif op == "PSD":
+            res, val = self._deviation(series_index)
+        elif op == "mean":
+            res, val = self._mean(series_index)
+        elif op == "meansq":
+            res, val = self._mean_sq(series_index)
+        elif op == "GM":
+            res, val = self._geometric_mean(series_index)
 
-        return json.dumps({'mode': self.MODE, 'result': res})
+        return json.dumps({'mode': self.MODE, 'result': res}), val
 
 
-    def _trend (self, series_index):
+    def _trend (self, series_index:int):
         _data = self.data.T
         if self.data.shape[1] <= series_index:
             return "E"
@@ -305,4 +331,59 @@ class StatisticsCalculator():
 
         self.start_plotting (m, b)
 
-        return f"{m:.4f}"
+        return Utils.format_float(m), m
+
+
+    def _cardinality(self):
+        return f"{self.data.shape[1]}, {self.data.shape[0]}", self.data.shape[1]
+
+
+    def _mode(self, series_index:int):
+        row = self.data[series_index]
+        values, counts = np.unique(row, return_counts=True)
+        mode_val = values[np.argmax(counts)]
+        return Utils.format_float(mode_val), mode_val
+
+
+    def _median(self, series_index:int):
+        median_val = np.median(self.data[series_index])
+        return Utils.format_float(median_val), median_val
+
+
+    def _sum(self, series_index:int):
+        sum_val = np.sum(self.data[series_index])
+        return Utils.format_float(sum_val), sum_val
+
+
+    def _sum_sq(self, series_index:int):
+        sumsq = np.sum(np.square(self.data[series_index]))
+        return Utils.format_float(sumsq), sumsq
+
+
+    def _variance(self, series_index:int, sample=False):
+        var = np.var(self.data[series_index], ddof=1 if sample else 0)
+        return Utils.format_float(var), var
+
+
+    def _deviation(self, series_index:int, sample=False):
+        dev = np.std(self.data[series_index], ddof=1 if sample else 0)
+        return Utils.format_float(dev), dev
+
+
+    def _mean(self, series_index:int):
+        mean = np.mean(self.data[series_index])
+        return Utils.format_float(mean), mean
+
+
+    def _mean_sq(self, series_index:int):
+        msq = np.mean(np.square(self.data[series_index]))
+        return Utils.format_float(msq), msq
+
+
+    def _geometric_mean(self, series_index:int):
+        series = self.data[series_index]
+        if np.any(series <= 0):
+            return "E", None
+
+        gm = np.exp(np.mean(np.log(series)))
+        return Utils.format_float(gm), gm
