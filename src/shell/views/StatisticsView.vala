@@ -93,9 +93,17 @@ namespace Pebbles {
             display.refresh_all_cells (series_length);
         }
 
+        public void send_shift_modifier (bool on) {
+            display.send_shift_modifier (on);
+        }
+
+        public void key_navigate () {
+            display.key_navigate ();
+        }
+
         [GtkCallback]
         protected void add_cell () {
-            //  display.insert_cell ();
+            display.add_cell ();
         }
 
         [GtkCallback]

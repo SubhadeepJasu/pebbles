@@ -217,6 +217,12 @@ namespace Pebbles {
                 }
 
                 on_key_down (view_stack.visible_child_name, keyval);
+
+                if (view_stack.visible_child_name == "stat" && (keyval == Gdk.Key.Tab || keyval == 65056)) {
+                    statistics_view.key_navigate ();
+                    return true;
+                }
+
                 return false;
             });
             key_event_controller.key_released.connect ((keyval, _, modifier) => {
@@ -240,6 +246,10 @@ namespace Pebbles {
                 }
 
                 on_key_up (view_stack.visible_child_name, keyval);
+
+                if (view_stack.visible_child_name == "stat" && keyval == Gdk.Key.Tab) {
+                    return;
+                }
             });
             key_event_controller.set_propagation_phase (Gtk.PropagationPhase.CAPTURE);
             ((Gtk.Widget) this).add_controller (key_event_controller);
@@ -343,6 +353,7 @@ namespace Pebbles {
 
         private void set_shift_on (bool on) {
             scientific_view.send_shift_modifier (on);
+            statistics_view.send_shift_modifier (on);
         }
 
         [GtkCallback]

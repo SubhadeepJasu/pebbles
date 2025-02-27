@@ -76,7 +76,9 @@ namespace Pebbles {
 
                 for (uint8 i = 0; i < keys.length; i++) {
                     var __key = keys[i].chug ();
-                    if (__key.length == 1) {
+                    if (_key == "<Shift>Tab") { // Modifier key enabled for Tab
+                        keyvals[i] = 65056;
+                    } else if (__key.length == 1) {
                         keyvals[i] = Gdk.unicode_to_keyval (__key.get_char (0));
                     } else if (__key.length > 1) {
                         keyvals[i] = Gdk.keyval_from_name (__key);

@@ -47,6 +47,7 @@ namespace Pebbles {
         private bool updating = true;
         private uint resize_timeout_id = 0;
         private bool is_navigating = false;
+        private bool shift_on = false;
 
         public signal void changed (double[] series, int series_index, double width, double height);
 
@@ -155,7 +156,12 @@ namespace Pebbles {
             }
         }
 
-        public void clear_cells () {
+        public void send_shift_modifier (bool on) {
+            shift_on = on;
+        }
+
+        public void key_navigate () {
+            navigate (shift_on ? 0 : 1);
         }
 
         public void navigate (int direction) {
@@ -228,10 +234,35 @@ namespace Pebbles {
             }
         }
 
+        public void add_cell () {
+            var new_offset = max_series_length - (int) cells.length ();
+            if (new_offset >= 0) {
+                query_offset = new_offset;
+                is_navigating = true;
+                refresh_all_cells ();
+                Timeout.add_once (50, () => {
+                    Idle.add_once (() => {
+                        cells.nth_data (cells.length () - 1).grab_focus_without_selecting ();
+                        Timeout.add_once (250, () => {
+                            is_navigating = false;
+                            Timeout.add_once (100, () => {
+                                navigate (1);
+                            });
+                        });
+                    });
+                });
+            } else {
+                selected_cell = cells.nth_data (max_series_length);
+                selected_cell.grab_focus_without_selecting ();
+            }
+        }
+
+
         public void refresh_all_cells (int series_length = -1) {
             if (series_length >= 0) {
                 max_series_length = series_length;
             }
+
             update_placeholders ();
             var n = cells.length ();
             unowned StatCell? cell = null;
