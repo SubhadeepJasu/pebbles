@@ -24,6 +24,8 @@ namespace Pebbles {
 
         // Widget Children
         [GtkChild]
+        private unowned Gtk.Label main_label;
+        [GtkChild]
         private unowned Gtk.ScrolledWindow viewport;
         [GtkChild]
         private unowned Gtk.Box cell_box;
@@ -302,6 +304,24 @@ namespace Pebbles {
             Idle.add_once (() => {
                 start_plot ();
             });
+        }
+
+        public void show_result (string result) {
+            if (result != "E") {
+                add_css_class ("fade");
+                Timeout.add (100, () => {
+                    main_label.set_text (result);
+                    remove_css_class ("fade");
+                    return false;
+                });
+            } else {
+                main_label.set_text (_("Error"));
+                add_css_class ("shake");
+                Timeout.add (400, () => {
+                    remove_css_class ("shake");
+                    return false;
+                });
+            }
         }
 
         private void set_cell_value (double value, uint index, uint series_index) {

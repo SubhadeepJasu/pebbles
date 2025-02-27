@@ -38,6 +38,10 @@ namespace Pebbles {
             });
         }
 
+        public void show_result (string res) {
+            display.show_result (res);
+        }
+
         public void plot (Gdk.Pixbuf? pixbuf, bool valid) {
             display.plot (pixbuf, valid);
         }
@@ -112,10 +116,10 @@ namespace Pebbles {
         }
 
         [GtkCallback]
-        protected void add_series () {
-            //  display.clear_cells ();
-            //  display.insert_cell (null);
-            //  var shape = display.get_table_shape ();
+        protected void trend_plot () {
+            var object = new Json.Object ();
+            object.set_int_member ("seriesIndex", display.series_index);
+            on_evaluate ("trend", object);
         }
 
         [GtkCallback]

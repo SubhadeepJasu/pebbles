@@ -64,6 +64,9 @@ class PythonWindow(Pebbles.MainWindow):
             if data_dict['op'] == 'set-all':
                 res = self.stat_calc.load_csv_data(data_dict['options']['csv'])
                 self.on_evaluation_completed(res)
+            else:
+                res = self.stat_calc.evaluate (data_dict['op'], data_dict['options']['seriesIndex'])
+                self.on_evaluation_completed(res)
 
 
     def _stat_cell_update_cb(self, _, value:float, index:int, series_index:int):

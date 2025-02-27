@@ -190,7 +190,9 @@ namespace Pebbles {
 
                 object.set_string_member ("mode", "stat");
                 object.set_string_member ("op", op);
-                object.set_object_member ("options", options);
+                if (options != null) {
+                    object.set_object_member ("options", options);
+                }
                 size_t length;
                 string json = gen.to_data (out length);
 
@@ -308,6 +310,9 @@ namespace Pebbles {
                                     .printf (loaded_max_series_length, loaded_table_length));
                                     statistics_view.refresh (loaded_max_series_length);
                                 });
+                            } else {
+                                var result = root_object.get_string_member ("result");
+                                statistics_view.show_result (result);
                             }
                             break;
                         default:

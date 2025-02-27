@@ -26,7 +26,7 @@ class StatisticsCalculator():
     def __init__(self):
         self.data = np.ndarray(shape=(0,0))
 
-        self.plot_size = (1, 1, 100)
+        self.plot_size = (1, 1, 100) # width, height, dpi
         self.plot_type = 0
         self.plot_thread:threading.Thread = None
         self.plot_lock = threading.Lock()
@@ -128,7 +128,7 @@ class StatisticsCalculator():
         self.start_plotting()
 
 
-    def start_plotting(self):
+    def start_plotting(self, m=None, b=None):
         """
         Plot the graph for the data table
         """
@@ -137,13 +137,13 @@ class StatisticsCalculator():
 
         self.is_plotting = True
         if self.plot_thread is None or not self.plot_thread.is_alive():
-            self.plot_thread = threading.Thread(target=self._plot)
+            self.plot_thread = threading.Thread(target=self._plot, args=(m, b,))
             self.plot_thread.start()
         else:
             self.plot_lock.release()
 
 
-    def _plot(self):
+    def _plot(self, m=None, b=None):
         try:
             with self.plot_lock:
                 width, height, dpi = self.plot_size
@@ -175,13 +175,13 @@ class StatisticsCalculator():
 
                 try:
                     if plot_type == 0:
-                        self._line_plot(ax)
+                        self._line_plot(ax, m, b)
                     elif plot_type == 1:
                         self._pie_plot(ax)
                     elif plot_type == 2:
-                        self._bar_plot(ax)
+                        self._bar_plot(ax, m, b)
                     elif plot_type == 3:
-                        self._scatter_plot(ax)
+                        self._scatter_plot(ax, m, b)
                 except ValueError:
                     self.is_plotting = False
                     if self.on_plot_ready:
@@ -206,12 +206,19 @@ class StatisticsCalculator():
         except RuntimeError:
             self.is_plotting = False
 
-    def _line_plot(self, ax):
+
+    def _line_plot(self, ax, m=None, b=None):
         if self.data.shape[0] > 20 or self.data.shape[1] > 2000:
             raise ValueError
 
         ax.axhline(y=0, color=self.AXIS_COLOR, linewidth=1, linestyle="--")
         ax.plot(self.data.T, linewidth=0.5)
+
+        # Draw regression line if both m (slope) and b (intercept) are provided
+        if m is not None and b is not None:
+            x = np.arange(self.data.shape[1])  # Use row indices as X
+            y_pred = m * x + b  # Compute Y using y = mx + b
+            ax.plot(x, y_pred, linestyle="dotted", color="red", linewidth=1)
 
 
     def _pie_plot(self, ax):
@@ -234,7 +241,7 @@ class StatisticsCalculator():
             pass
 
 
-    def _bar_plot(self, ax):
+    def _bar_plot(self, ax, m, b):
         if self.data.shape[0] > 10 or self.data.shape[1] > 100:
             raise ValueError
 
@@ -246,8 +253,14 @@ class StatisticsCalculator():
             for i, row in enumerate(self.data):
                 ax.bar(x + i * width_step, row, width=width_step, label=f"Row {i+1}")
 
+        # Draw regression line if both m (slope) and b (intercept) are provided
+        if m is not None and b is not None:
+            x = np.arange(self.data.shape[1])  # Use row indices as X
+            y_pred = m * x + b  # Compute Y using y = mx + b
+            ax.plot(x, y_pred, linestyle="dotted", color="red", linewidth=1)
 
-    def _scatter_plot(self, ax):
+
+    def _scatter_plot(self, ax, m, b):
         num_rows, num_cols = self.data.shape
         if num_rows > 20 or num_cols > 2000:
             raise ValueError
@@ -261,3 +274,35 @@ class StatisticsCalculator():
 
         ax.axhline(y=0, color=self.AXIS_COLOR, linewidth=1, linestyle="--")
         ax.scatter(x, y, c=colors, edgecolor="none", s=4)
+
+        # Draw regression line if both m (slope) and b (intercept) are provided
+        if m is not None and b is not None:
+            x = np.arange(self.data.shape[1])  # Use row indices as X
+            y_pred = m * x + b  # Compute Y using y = mx + b
+            ax.plot(x, y_pred, linestyle="dotted", color="red", linewidth=1)
+
+
+    def evaluate(self, op:str, series_index:int):
+        """
+        Evaluate.
+        """
+        res = ""
+        if op == "trend":
+            res = self._trend(series_index)
+
+        return json.dumps({'mode': self.MODE, 'result': res})
+
+
+    def _trend (self, series_index):
+        _data = self.data.T
+        if self.data.shape[1] <= series_index:
+            return "E"
+
+        x = np.arange(_data.shape[0])
+        y = y = _data[:, series_index]
+
+        m, b = np.polyfit(x, y, 1)
+
+        self.start_plotting (m, b)
+
+        return f"{m:.4f}"

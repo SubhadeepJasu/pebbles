@@ -237,12 +237,10 @@ template $PebblesStatisticsView: Gtk.Grid {
           // clicked => $on_click_button();
         }
 
-        $PebblesButton add_series_button {
-          label_text: "⏎";
-          tooltip_desc: _("Add Row");
+        $PebblesButton switch_graph_button {
+          icon: "graphing-mode-symbolic";
+          tooltip_desc: _("Switch Visualization");
           focus-on-click: false;
-          key: "Return";
-          accel_markup: "Return";
 
           layout {
             row: 2;
@@ -250,11 +248,10 @@ template $PebblesStatisticsView: Gtk.Grid {
           }
 
           styles [
-            "adaptive-btn-font",
-            "large-font-btn"
+            "adaptive-btn-font"
           ]
 
-          clicked => $add_series();
+          clicked => $switch_plot();
         }
 
         $PebblesButton one_button {
@@ -305,9 +302,9 @@ template $PebblesStatisticsView: Gtk.Grid {
           // clicked => $on_click_button();
         }
 
-        $PebblesButton switch_graph_button {
-          icon: "graphing-mode-symbolic";
-          tooltip_desc: _("Switch Visualization");
+        $PebblesButton trend_button {
+          label_text: "δy/δx";
+          tooltip_desc: _("Trend");
           focus-on-click: false;
 
           layout {
@@ -319,7 +316,7 @@ template $PebblesStatisticsView: Gtk.Grid {
             "adaptive-btn-font"
           ]
 
-          clicked => $switch_plot();
+          clicked => $trend_plot();
         }
 
         $PebblesButton zero_button {

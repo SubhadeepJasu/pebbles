@@ -82,6 +82,11 @@ template $PebblesStatisticsDisplay: $PebblesDisplay {
                 label: "SD";
                 opacity: 0.2;
             }
+
+            Label result_type_label_trend {
+                label: "δ/δx";
+                opacity: 0.2;
+            }
         };
 
         center-widget: Box {
@@ -120,6 +125,10 @@ template $PebblesStatisticsDisplay: $PebblesDisplay {
             width-request: 140;
 
             Label main_label {
+                styles [
+                    "lcd-label"
+                ]
+
                 valign: end;
                 halign: end;
                 vexpand: true;
