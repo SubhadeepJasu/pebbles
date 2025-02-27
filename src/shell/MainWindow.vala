@@ -296,7 +296,7 @@ namespace Pebbles {
                                 Idle.add_once (() => {
                                     send_toast (_("Loaded table of size [%d, %d] from file")
                                     .printf (loaded_max_series_length, loaded_table_length));
-                                    statistics_view.refresh ();
+                                    statistics_view.refresh (loaded_max_series_length);
                                 });
                             }
                             break;

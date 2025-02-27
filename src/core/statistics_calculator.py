@@ -54,7 +54,7 @@ class StatisticsCalculator():
         self._trim()
 
         self.start_plotting ()
-        print(self.data)
+        # print(self.data)
         return self.data.shape[1]
 
 
@@ -204,7 +204,7 @@ class StatisticsCalculator():
                 if self.on_plot_ready:
                     self.on_plot_ready(loader.get_pixbuf(), True)
         except RuntimeError:
-            pass
+            self.is_plotting = False
 
     def _line_plot(self, ax):
         if self.data.shape[0] > 20 or self.data.shape[1] > 2000:

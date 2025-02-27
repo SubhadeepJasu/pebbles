@@ -89,8 +89,8 @@ namespace Pebbles {
             }
         }
 
-        public void refresh () {
-            display.refresh_all_cells ();
+        public void refresh (int series_length = -1) {
+            display.refresh_all_cells (series_length);
         }
 
         [GtkCallback]

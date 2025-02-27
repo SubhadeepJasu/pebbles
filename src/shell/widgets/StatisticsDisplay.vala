@@ -96,7 +96,6 @@ namespace Pebbles {
 
                 if (new_offset != query_offset) {
                     query_offset = new_offset;
-                    update_placeholders ();
                     refresh_all_cells ();
                 }
 
@@ -131,18 +130,28 @@ namespace Pebbles {
                 }
             } else if (current_cells > num_visible_cells) {
                 // Remove extra cells that are outside the visible area
+                bool selected_cell_removed = false;
                 for (uint i = num_visible_cells; i < current_cells; i++) {
                     var last_child = (StatCell?) cell_box.get_last_child ();
                     if (last_child != null) {
+                        if (last_child.has_focus) {
+                            selected_cell_removed = true;
+                        }
+
                         cell_box.remove (last_child);
                         cells.remove (last_child);
                     }
+                }
+
+                if (selected_cell_removed) {
+                    selected_cell = cells.nth_data (cells.length () - 1);
+                    selected_cell.grab_focus_without_selecting ();
                 }
             }
 
             if (selected_cell == null) {
                 selected_cell = cells.nth_data (0);
-                selected_cell.grab_focus_without_selecting ();
+                selected_cell?.grab_focus ();
             }
         }
 
@@ -165,7 +174,6 @@ namespace Pebbles {
                     else if (query_offset > 0) {
                         query_offset--;
                         is_navigating = true;
-                        update_placeholders ();
                         refresh_all_cells ();
                         navigate (1);
                         Timeout.add_once (50, () => {
@@ -194,7 +202,6 @@ namespace Pebbles {
                         if (query_offset + cells.length () <= max_series_length) {
                             query_offset++;  // Shift the viewport right
                             is_navigating = true;
-                            update_placeholders ();
                             refresh_all_cells ();
                             navigate (0);
                             Timeout.add_once (50, () => {
@@ -221,7 +228,11 @@ namespace Pebbles {
             }
         }
 
-        public void refresh_all_cells () {
+        public void refresh_all_cells (int series_length = -1) {
+            if (series_length >= 0) {
+                max_series_length = series_length;
+            }
+            update_placeholders ();
             var n = cells.length ();
             unowned StatCell? cell = null;
             for (uint i = 0; i < n; i++) {
