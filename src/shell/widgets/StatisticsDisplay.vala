@@ -116,6 +116,15 @@ namespace Pebbles {
                 Idle.add_once (() => {
                     draw_cells ();
                 });
+                main_window.on_key_down.connect ((mode, keyval) => {
+                    if (keyval == Gdk.Key.Page_Up || keyval == Gdk.Key.Up) {
+                        navigate (2);
+                    } else if (keyval == Gdk.Key.Page_Down || keyval == Gdk.Key.Return || keyval == Gdk.Key.Down) {
+                        navigate (3);
+                    }
+
+                    return Gdk.EVENT_STOP;
+                });
             });
 
             viewport.hadjustment.value_changed.connect (() => {
@@ -177,13 +186,13 @@ namespace Pebbles {
 
                 if (selected_cell_removed) {
                     selected_cell = cells.nth_data (cells.length () - 1);
-                    selected_cell.grab_focus_without_selecting ();
+                    focus_cell (selected_cell);
                 }
             }
 
             if (selected_cell == null) {
                 selected_cell = cells.nth_data (0);
-                selected_cell?.grab_focus ();
+                focus_cell (selected_cell, true);
             }
         }
 
@@ -202,7 +211,7 @@ namespace Pebbles {
                         var new_focus_index = selected_cell.index - 1;
                         foreach (var cell in cells) {
                             if (cell.index == new_focus_index) {
-                                cell.grab_focus_without_selecting ();
+                                focus_cell (cell);
                                 return;
                             }
                         }
@@ -230,7 +239,7 @@ namespace Pebbles {
                         // Move focus to the next cell in the visible range
                         foreach (var cell in cells) {
                             if (cell.index == next_index) {
-                                cell.grab_focus_without_selecting ();
+                                focus_cell (cell);
                                 return;
                             }
                         }
@@ -257,10 +266,17 @@ namespace Pebbles {
                         series_index = series_index - 1;
                         refresh_all_cells ();
                     }
+
+                    Idle.add_once (() => {
+                        focus_cell (selected_cell);
+                    });
                 break;
                 case 3:
                     series_index = series_index + 1;
                     refresh_all_cells ();
+                    Idle.add_once (() => {
+                        focus_cell (selected_cell);
+                    });
                 break;
             }
         }
@@ -273,7 +289,7 @@ namespace Pebbles {
                 refresh_all_cells ();
                 Timeout.add_once (50, () => {
                     Idle.add_once (() => {
-                        cells.nth_data (cells.length () - 1).grab_focus_without_selecting ();
+                        focus_cell (cells.nth_data (cells.length () - 1));
                         Timeout.add_once (250, () => {
                             is_navigating = false;
                             Timeout.add_once (100, () => {
@@ -284,7 +300,7 @@ namespace Pebbles {
                 });
             } else {
                 selected_cell = cells.nth_data (max_series_length);
-                selected_cell.grab_focus_without_selecting ();
+                focus_cell (selected_cell);
             }
         }
 
@@ -356,6 +372,15 @@ namespace Pebbles {
         private void set_cell_value (double value, uint index, uint series_index) {
             max_series_length = main_window.on_stat_cell_update (value, (int) index, (int) series_index);
             update_placeholders ();
+        }
+
+        private void focus_cell (StatCell? cell, bool select = false) {
+            if (select) {
+                cell?.grab_focus ();
+            } else {
+                cell?.grab_focus_without_selecting ();
+                cell?.set_position ((int) cell.text_length);
+            }
         }
 
         private void draw_figure (Gtk.DrawingArea area, Cairo.Context cr, int width, int height) {
@@ -480,6 +505,13 @@ namespace Pebbles {
                 case "trend":
                     result_type_label_trend.opacity = 1;
                     break;
+            }
+        }
+
+        public void write (string str) {
+            if (selected_cell != null) {
+                selected_cell.text += str;
+                selected_cell.set_position ((int) selected_cell.text_length);
             }
         }
     }

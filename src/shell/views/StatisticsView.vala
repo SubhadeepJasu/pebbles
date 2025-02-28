@@ -1,6 +1,6 @@
 namespace Pebbles {
     [GtkTemplate (ui = "/com/github/subhadeepjasu/pebbles/ui/statistics_view.ui")]
-    public class StatisticsView : Gtk.Grid {
+    public class StatisticsView : View {
         [GtkChild]
         private unowned StatisticsDisplay display;
 
@@ -141,6 +141,20 @@ namespace Pebbles {
             object.set_int_member ("seriesIndex", display.series_index);
             display.set_op (btn.name);
             on_evaluate (btn.name, object);
+        }
+
+        [GtkCallback]
+        public void write_char (Gtk.Button btn) {
+            display.write (btn.name);
+        }
+
+        [GtkCallback]
+        protected void on_click_fraction_point () {
+            display.write (_("."));
+        }
+        [GtkCallback]
+        protected void on_click_negative () {
+            display.write ("-");
         }
     }
 }

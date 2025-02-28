@@ -3,10 +3,8 @@
 using Gtk 4.0;
 using Adw 1;
 
-template $PebblesStatisticsView: Gtk.Grid {
-  styles [
-    "view"
-  ]
+template $PebblesStatisticsView: $PebblesView {
+  mode: "stat";
 
   $PebblesStatisticsDisplay display {
     layout {
@@ -132,7 +130,7 @@ template $PebblesStatisticsView: Gtk.Grid {
             column: 0;
           }
 
-          // clicked => $on_click_button();
+          clicked => $write_char();
         }
 
         $PebblesButton eight_button {
@@ -150,7 +148,7 @@ template $PebblesStatisticsView: Gtk.Grid {
             column: 1;
           }
 
-          // clicked => $on_click_button();
+          clicked => $write_char();
         }
 
         $PebblesButton nine_button {
@@ -166,15 +164,15 @@ template $PebblesStatisticsView: Gtk.Grid {
             column: 2;
           }
 
-          // clicked => $on_click_button();
+          clicked => $write_char();
         }
 
         $PebblesButton add_cell_button {
           label_text: "▭⁺";
           tooltip_desc: _("Add Cell");
           focus-on-click: false;
-          key: "Tab";
-          accel_markup: "Tab";
+          key: "a";
+          accel_markup: "a";
 
           layout {
             row: 1;
@@ -202,7 +200,7 @@ template $PebblesStatisticsView: Gtk.Grid {
             column: 0;
           }
 
-          // clicked => $on_click_button();
+          clicked => $write_char();
         }
 
         $PebblesButton five_button {
@@ -218,7 +216,7 @@ template $PebblesStatisticsView: Gtk.Grid {
             column: 1;
           }
 
-          // clicked => $on_click_button();
+          clicked => $write_char();
         }
 
         $PebblesButton six_button {
@@ -234,7 +232,7 @@ template $PebblesStatisticsView: Gtk.Grid {
             column: 2;
           }
 
-          // clicked => $on_click_button();
+          clicked => $write_char();
         }
 
         $PebblesButton switch_graph_button {
@@ -267,7 +265,7 @@ template $PebblesStatisticsView: Gtk.Grid {
             column: 0;
           }
 
-          // clicked => $on_click_button();
+          clicked => $write_char();
         }
 
         $PebblesButton two_button {
@@ -283,7 +281,7 @@ template $PebblesStatisticsView: Gtk.Grid {
             column: 1;
           }
 
-          // clicked => $on_click_button();
+          clicked => $write_char();
         }
 
         $PebblesButton three_button {
@@ -299,7 +297,7 @@ template $PebblesStatisticsView: Gtk.Grid {
             column: 2;
           }
 
-          // clicked => $on_click_button();
+          clicked => $write_char();
         }
 
         $PebblesButton trend_button {
@@ -332,7 +330,7 @@ template $PebblesStatisticsView: Gtk.Grid {
             column: 0;
           }
 
-          // clicked => $on_click_button();
+          clicked => $write_char();
         }
 
         $PebblesButton point_button {
@@ -351,7 +349,7 @@ template $PebblesStatisticsView: Gtk.Grid {
             column: 1;
           }
 
-          // clicked => $on_click_fraction_point();
+          clicked => $on_click_fraction_point();
         }
 
         $PebblesButton last_answer_button {
@@ -377,6 +375,7 @@ template $PebblesStatisticsView: Gtk.Grid {
           label_text: "+/−";
           tooltip_desc: _("Negative");
           focus-on-click: false;
+          key: "-";
 
           layout {
             row: 4;
@@ -386,6 +385,8 @@ template $PebblesStatisticsView: Gtk.Grid {
           styles [
             "adaptive-btn-font",
           ]
+
+          clicked => $on_click_negative();
         }
 
         $PebblesButton results_button {
@@ -460,8 +461,8 @@ template $PebblesStatisticsView: Gtk.Grid {
           icon: "go-up-symbolic";
           tooltip_desc: _("Navigate Up");
           focus-on-click: false;
-          key: "Up";
-          accel_markup: "Up";
+          key: "Page_Up,Up";
+          accel_markup: "Page_Up,Up";
 
           layout {
             row: 0;
@@ -475,8 +476,8 @@ template $PebblesStatisticsView: Gtk.Grid {
           icon: "go-down-symbolic";
           tooltip_desc: _("Navigate Down");
           focus-on-click: false;
-          key: "Down";
-          accel_markup: "Down";
+          key: "Page_Down,Return,Down";
+          accel_markup: "Page_Down,Return,Down";
 
           layout {
             row: 0;

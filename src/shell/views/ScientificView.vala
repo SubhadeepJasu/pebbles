@@ -1,6 +1,6 @@
 namespace Pebbles {
     [GtkTemplate (ui = "/com/github/subhadeepjasu/pebbles/ui/scientific_view.ui")]
-    public class ScientificView : Gtk.Grid {
+    public class ScientificView : View {
         [GtkChild]
         private unowned ScientificDisplay display;
 

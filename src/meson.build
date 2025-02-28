@@ -62,6 +62,7 @@ pebbles_lib = shared_library('pebbles',
     'shell/widgets/HistoryDisplay.vala',
     'shell/widgets/ScientificDisplay.vala',
     'shell/widgets/StatisticsDisplay.vala',
+    'shell/views/View.vala',
     'shell/views/ScientificView.vala',
     'shell/views/StatisticsView.vala'
   ),

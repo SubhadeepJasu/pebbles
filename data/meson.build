@@ -8,6 +8,7 @@ blueprint_files = [
   'ui/history_display.blp',
   'ui/scientific_display.blp',
   'ui/statistics_display.blp',
+  'ui/view.blp',
   'ui/scientific_view.blp',
   'ui/statistics_view.blp'
 ]

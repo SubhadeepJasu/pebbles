@@ -71,7 +71,7 @@ namespace Pebbles {
         protected signal string on_memory_recall (string mode);
         protected signal void on_memory_clear (string mode);
 
-        public signal void on_key_down (string? mode, uint keyval);
+        public signal bool on_key_down (string? mode, uint keyval);
         public signal void on_key_up (string? mode, uint keyval);
         public signal void history_changed (HistoryViewModel[] history);
         public signal void on_stat_plot (double width, double height, StatPlotType plot_type, double dpi);
@@ -225,7 +225,7 @@ namespace Pebbles {
                     return true;
                 }
 
-                return false;
+                return Gdk.EVENT_PROPAGATE;
             });
             key_event_controller.key_released.connect ((keyval, _, modifier) => {
                 var shift_key = keyval == Gdk.Key.Shift_L || keyval == Gdk.Key.Shift_R;

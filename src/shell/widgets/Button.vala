@@ -93,13 +93,13 @@ namespace Pebbles {
             realize.connect_after (() => {
                 var window = (Pebbles.MainWindow) get_ancestor (typeof (Pebbles.MainWindow));
                 window.on_key_down.connect ((mode, keyval) => {
-                    if (visible && is_key (keyval)) {
+                    if (get_mapped () && is_key (keyval)) {
                         show_as_pressed ();
                     }
                 });
 
                 window.on_key_up.connect ((mode, keyval) => {
-                    if (visible && is_key (keyval)) {
+                    if (get_mapped () && is_key (keyval)) {
                         show_as_pressed (false);
                     }
                 });
