@@ -36,6 +36,7 @@ namespace Pebbles {
                 object.set_double_member ("plotHeight", height);
                 on_evaluate ("set", object);
             });
+            display.activate_op.connect (activate_keyboard_shortcut);
         }
 
         public void show_result (string res) {
@@ -137,10 +138,77 @@ namespace Pebbles {
 
         [GtkCallback]
         protected void perform_op (Gtk.Button btn) {
+            evaluate_op (btn.name);
+        }
+
+        private bool activate_keyboard_shortcut (string key) {
+            var op = "";
+            switch (key) {
+                case "a":
+                case "A":
+                    display.add_cell ();
+                    break;
+                case "n":
+                case "N":
+                    op = "n";
+                    break;
+                case "o":
+                case "O":
+                    op = "mode";
+                    break;
+                case "e":
+                case "E":
+                    op = "M";
+                    break;
+                case "s":
+                case "S":
+                    op = "sum";
+                    break;
+                case "q":
+                case "Q":
+                    op = "sumsq";
+                    break;
+                case "v":
+                case "V":
+                    op = "SV";
+                    break;
+                case "m":
+                case "M":
+                    op = "mean";
+                    break;
+                case "x":
+                case "X":
+                    op = "meansq";
+                    break;
+                case "d":
+                case "D":
+                    op = "SD";
+                    break;
+                case "g":
+                case "G":
+                    op = "GM";
+                    break;
+                case "p":
+                case "P":
+                    op = "popvar";
+                    break;
+                case "l":
+                case "L":
+                    op = "PSD";
+                    break;
+                default:
+                    return Gdk.EVENT_PROPAGATE;
+            }
+
+            evaluate_op (op);
+            return Gdk.EVENT_STOP;
+        }
+
+        private void evaluate_op (string op) {
             var object = new Json.Object ();
             object.set_int_member ("seriesIndex", display.series_index);
-            display.set_op (btn.name);
-            on_evaluate (btn.name, object);
+            display.set_op (op);
+            on_evaluate (op, object);
         }
 
         [GtkCallback]

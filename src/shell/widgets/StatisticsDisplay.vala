@@ -81,6 +81,7 @@ namespace Pebbles {
         private bool shift_on = false;
 
         public signal void changed (double[] series, int series_index, double width, double height);
+        public signal bool activate_op (string op);
 
         construct {
             plot_area.set_draw_func (draw_figure);
@@ -167,6 +168,7 @@ namespace Pebbles {
                     cells.append (cell);
                     cell.data_changed.connect (set_cell_value);
                     cell.focus_in.connect (cell_focus_handler);
+                    cell.get_delegate ().insert_text.connect (text_input_handler);
                     cell.refresh ();
                 }
             } else if (current_cells > num_visible_cells) {
@@ -181,6 +183,7 @@ namespace Pebbles {
 
                         cell_box.remove (last_child);
                         cells.remove (last_child);
+                        last_child.get_delegate ().insert_text.disconnect (text_input_handler);
                     }
                 }
 
@@ -193,6 +196,12 @@ namespace Pebbles {
             if (selected_cell == null) {
                 selected_cell = cells.nth_data (0);
                 focus_cell (selected_cell, true);
+            }
+        }
+
+        private void text_input_handler (Gtk.Editable ed, string text, int n, ref int _) {
+            if (n == 1 && activate_op (text)) {
+                Signal.stop_emission_by_name (ed, "insert_text");
             }
         }
 

@@ -58,18 +58,18 @@ namespace Pebbles {
                     if (text.length > 1 && text.has_prefix ("0")) {
                         main_entry.text = text.substring (1);
                         main_entry.set_position (1);
-                        return false;
+                        return Source.REMOVE;
                     }
 
                     if (length > 1) {
-                        return false;
+                        return Source.REMOVE;
                     }
 
                     Idle.add (() => {
                         send_fx_symbol (ch);
-                        return false;
+                        return Source.REMOVE;
                     });
-                    return false;
+                    return Source.REMOVE;
                 });
             });
 
@@ -79,7 +79,8 @@ namespace Pebbles {
                         main_entry.text = "0";
                         main_entry.set_position ((int) main_entry.text_length);
                     }
-                    return false;
+
+                    return Source.REMOVE;
                 });
             });
 
@@ -134,17 +135,15 @@ namespace Pebbles {
         public void show_result (string result) {
             if (result != "E") {
                 add_css_class ("fade");
-                Timeout.add (100, () => {
+                Timeout.add_once (100, () => {
                     main_label.set_text (result);
                     remove_css_class ("fade");
-                    return false;
                 });
             } else {
                 main_label.set_text (_("Error"));
                 add_css_class ("shake");
-                Timeout.add (400, () => {
+                Timeout.add_once (400, () => {
                     remove_css_class ("shake");
-                    return false;
                 });
             }
         }
