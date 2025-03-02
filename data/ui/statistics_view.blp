@@ -488,8 +488,8 @@ template $PebblesStatisticsView: $PebblesView {
         }
 
         $PebblesButton cardinality_button {
-          name: "n";
-          label_text: "n";
+          name: "shape";
+          label_text: "Shape";
           focus-on-click: false;
           tooltip_desc: _("Series Size");
           accel_markup: "N";
@@ -510,7 +510,7 @@ template $PebblesStatisticsView: $PebblesView {
 
         $PebblesButton mode_button {
           name: "mode";
-          label_text: "mode";
+          label_text: "Mode";
           focus-on-click: false;
           tooltip_desc: _("Mode of series");
           accel_markup: "O";
@@ -530,7 +530,7 @@ template $PebblesStatisticsView: $PebblesView {
         }
 
         $PebblesButton median_button {
-          name: "M";
+          name: "median";
           label_text: "M";
           focus-on-click: false;
           tooltip_desc: _("Median");
@@ -592,7 +592,7 @@ template $PebblesStatisticsView: $PebblesView {
         }
 
         $PebblesButton sum_sqr_button {
-          name: "sumsq";
+          name: "sum_squared";
           label_text: "∑x<sup>2</sup>";
           tooltip_desc: _("Summation over suqared values in series");
           focus-on-click: false;
@@ -613,7 +613,7 @@ template $PebblesStatisticsView: $PebblesView {
         }
 
         $PebblesButton sample_var_button {
-          name: "SV";
+          name: "sample_variance";
           label_text: "SV";
           tooltip_desc: _("Sample Variance");
           focus-on-click: false;
@@ -675,7 +675,7 @@ template $PebblesStatisticsView: $PebblesView {
         }
 
         $PebblesButton mean_sq_button {
-          name: "meansq";
+          name: "mean_squared";
           label_text: "x̄<sup>2</sup>";
           tooltip_desc: _("Mean of squared data values");
           focus-on-click: false;
@@ -696,7 +696,7 @@ template $PebblesStatisticsView: $PebblesView {
         }
 
         $PebblesButton sample_std_dev_button {
-          name: "SD";
+          name: "sample_sd";
           label_text: "SD";
           tooltip_desc: _("Standard Deviation");
           focus-on-click: false;
@@ -737,7 +737,7 @@ template $PebblesStatisticsView: $PebblesView {
         }
 
         $PebblesButton geometric_mean_button {
-          name: "GM";
+          name: "geometric_mean";
           label_text: "GM";
           tooltip_desc: _("Geomteric Mean");
           focus-on-click: false;
@@ -758,7 +758,7 @@ template $PebblesStatisticsView: $PebblesView {
         }
 
         $PebblesButton pop_variance_button {
-          name: "popvar";
+          name: "population_var";
           label_text: "σ<sup>2</sup>";
           tooltip_desc: _("Population Variance");
           focus-on-click: false;
@@ -779,7 +779,7 @@ template $PebblesStatisticsView: $PebblesView {
         }
 
         $PebblesButton pop_std_dev_button {
-          name: "PSD";
+          name: "population_sd";
           label_text: "σ";
           tooltip_desc: _("Population Standard Deviation");
           focus-on-click: false;

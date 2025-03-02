@@ -84,7 +84,6 @@ namespace Pebbles {
         private bool is_navigating = false;
         private bool shift_on = false;
 
-        public signal void changed (double[] series, int series_index, double width, double height);
         public signal bool activate_op (string op);
 
         construct {
@@ -459,7 +458,7 @@ namespace Pebbles {
             placeholder_r.width_request = int.max ((max_series_length - query_offset - num_visible_cells) * CELL_WIDTH, -1);
         }
 
-        public void set_op (string op) {
+        public void set_op (StatOp op) {
             result_type_label_g.opacity = 0.2;
             result_type_label_m.opacity = 0.2;
             result_type_label_edia.opacity = 0.2;
@@ -476,53 +475,53 @@ namespace Pebbles {
             result_type_label_x_bar.set_text ("x̄");
 
             switch (op) {
-                case "GM":
+                case GEOMETRIC_MEAN:
                     result_type_label_g.opacity = 1;
                     result_type_label_m.opacity = 1;
                     break;
-                case "n":
+                case SHAPE:
                     result_type_label_n.opacity = 1;
                     break;
-                case "mode":
+                case MODE:
                     result_type_label_mode.opacity = 1;
                     break;
-                case "M":
+                case MEDIAN:
                     result_type_label_m.opacity = 1;
                     result_type_label_edia.opacity = 1;
                     result_type_label_n.opacity = 1;
                     break;
-                case "sum":
+                case SUM:
                     result_type_label_summation.opacity = 1;
                     result_type_label_x_bar.opacity = 1;
                     result_type_label_x_bar.set_text ("x");
                     break;
-                case "sumsq":
+                case SUM_SQUARED:
                     result_type_label_summation.opacity = 1;
                     result_type_label_x_bar.opacity = 1;
                     result_type_label_x_bar.set_text ("x");
                     result_type_label_x_sqr.opacity = 1;
                     break;
-                case "SV":
+                case SAMPLE_VAR:
                     result_type_label_sv.opacity = 1;
                     break;
-                case "SD":
+                case SAMPLE_SD:
                     result_type_label_sd.opacity = 1;
                     break;
-                case "mean":
+                case MEAN:
                     result_type_label_x_bar.opacity = 1;
                     break;
-                case "meansq":
+                case MEAN_SQUARED:
                     result_type_label_x_bar.opacity = 1;
                     result_type_label_x_sqr.opacity = 1;
                     break;
-                case "popvar":
+                case POPULATION_VAR:
                     result_type_label_sigma.opacity = 1;
                     result_type_label_sig_sqr.opacity = 1;
                     break;
-                case "PSD":
+                case POPULATION_SD:
                     result_type_label_sigma.opacity = 1;
                     break;
-                case "trend":
+                case TREND:
                     result_type_label_trend.opacity = 1;
                     break;
             }

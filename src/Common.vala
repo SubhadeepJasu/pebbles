@@ -1,4 +1,7 @@
 namespace Pebbles {
+    public errordomain EnumError {
+        UNKNOWN_VALUE
+    }
     /**
      * The context or mode a calculation is performed in.
      */
@@ -12,6 +15,89 @@ namespace Pebbles {
         public const string DATE = "date";
         public const string CONV_LEN = "conv.len";
         public const string CONV_AREA = "conv.area";
+    }
+
+    /**
+     * Statistical Operation.
+     */
+    public enum StatOp {
+        LOAD_DATASET,
+        SHAPE,
+        MEDIAN,
+        MODE,
+        SUM,
+        SUM_SQUARED,
+        MEAN,
+        MEAN_SQUARED,
+        GEOMETRIC_MEAN,
+        SAMPLE_VAR,
+        POPULATION_VAR,
+        SAMPLE_SD,
+        POPULATION_SD,
+        TREND;
+
+        public static bool try_parse_name (string name, out StatOp result = null) {
+            EnumClass enumc = (EnumClass) typeof (StatOp).class_ref ();
+            unowned EnumValue? eval = enumc.get_value_by_name ("PEBBLES_STAT_OP_" + name);
+            if (eval == null) {
+                result = StatOp.SHAPE;
+                return false;
+            }
+
+            result = (StatOp) eval.value;
+            return true;
+        }
+    }
+
+
+    public static string stat_op_to_exp (StatOp op) {
+        var exp = "";
+        switch (op) {
+            case SHAPE:
+                exp = _("Dataset Shape");
+                break;
+            case MEDIAN:
+                exp = _("Median");
+                break;
+            case MODE:
+                exp = _("Mode");
+                break;
+            case SUM:
+                exp = _("Sum");
+                break;
+            case SUM_SQUARED:
+                exp = _("Sum of Squared Values");
+                break;
+            case MEAN:
+                exp = _("Mean");
+                break;
+            case MEAN_SQUARED:
+                exp = _("Mean of Squared Values");
+                break;
+            case GEOMETRIC_MEAN:
+                exp = _("Geometric Mean");
+                break;
+            case SAMPLE_VAR:
+                exp = _("Sample Variance");
+                break;
+            case POPULATION_VAR:
+                exp = _("Population Variance");
+                break;
+            case SAMPLE_SD:
+                exp = _("Standard Deviation");
+                break;
+            case POPULATION_SD:
+                exp = _("Population Standard Deviation");
+                break;
+            case TREND:
+                exp = _("Estimate Trend");
+                break;
+            default:
+                exp = _("Unknown");
+                break;
+        }
+
+        return exp;
     }
 
     /** Specify angle unit to use (degrees, radians or gradient).

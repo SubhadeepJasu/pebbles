@@ -77,7 +77,12 @@ class ScientificCalculator():
             else:
                 return json.dumps({'mode': self.MODE, 'result': 'E'}), None
 
-            self.memory.push_history(answer, formatted_answer, self.input_dict['input'])
+            self.memory.push_history(
+                ScientificCalculator.MODE,
+                self.input_dict['input'],
+                str(answer),
+                {'metadata_1': self.angle_mode}
+            )
             result_json = json.dumps({'mode': self.MODE, 'result': formatted_answer})
             return result_json, answer
         except (ZeroDivisionError, ArithmeticError, TypeError, IndexError) as e:

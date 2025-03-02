@@ -20,22 +20,9 @@ namespace Pebbles {
 
         protected List<List<string>> table;
 
-        public signal void on_evaluate (string op, Json.Object options);
+        public signal void on_evaluate (StatOp op, Json.Object options);
 
         construct {
-            display.changed.connect ((series, series_index, width, height) => {
-                var object = new Json.Object ();
-                var json_array = new Json.Array ();
-                for (int i = 0; i < series.length; i++) {
-                    json_array.add_double_element (series[i]);
-                }
-
-                object.set_array_member ("series", json_array);
-                object.set_int_member ("seriesIndex", series_index);
-                object.set_double_member ("plotWidth", width);
-                object.set_double_member ("plotHeight", height);
-                on_evaluate ("set", object);
-            });
             display.activate_op.connect (activate_keyboard_shortcut);
         }
 
@@ -88,7 +75,7 @@ namespace Pebbles {
 
                 var object = new Json.Object ();
                 object.set_string_member ("csv", data_stream.read_upto (null, 0, null));
-                on_evaluate ("set-all", object);
+                on_evaluate (StatOp.LOAD_DATASET, object);
             } catch (Error e) {
 
             }
@@ -138,11 +125,15 @@ namespace Pebbles {
 
         [GtkCallback]
         protected void perform_op (Gtk.Button btn) {
-            evaluate_op (btn.name);
+            StatOp op;
+            print ("%s\n", stat_op_to_exp (Pebbles.StatOp.SHAPE));
+            if (StatOp.try_parse_name (btn.name.up (), out op)) {
+                evaluate_op (op);
+            }
         }
 
         private bool activate_keyboard_shortcut (string key) {
-            var op = "";
+            var op = StatOp.SHAPE;
             switch (key) {
                 case "a":
                 case "A":
@@ -150,51 +141,51 @@ namespace Pebbles {
                     return Gdk.EVENT_STOP;
                 case "n":
                 case "N":
-                    op = "n";
+                    op = SHAPE;
                     break;
                 case "o":
                 case "O":
-                    op = "mode";
+                    op = MODE;
                     break;
                 case "e":
                 case "E":
-                    op = "M";
+                    op = MEDIAN;
                     break;
                 case "s":
                 case "S":
-                    op = "sum";
+                    op = SUM;
                     break;
                 case "q":
                 case "Q":
-                    op = "sumsq";
+                    op = SUM_SQUARED;
                     break;
                 case "v":
                 case "V":
-                    op = "SV";
+                    op = SAMPLE_VAR;
                     break;
                 case "m":
                 case "M":
-                    op = "mean";
+                    op = MEAN;
                     break;
                 case "x":
                 case "X":
-                    op = "meansq";
+                    op = MEAN_SQUARED;
                     break;
                 case "d":
                 case "D":
-                    op = "SD";
+                    op = SAMPLE_SD;
                     break;
                 case "g":
                 case "G":
-                    op = "GM";
+                    op = GEOMETRIC_MEAN;
                     break;
                 case "p":
                 case "P":
-                    op = "popvar";
+                    op = POPULATION_VAR;
                     break;
                 case "l":
                 case "L":
-                    op = "PSD";
+                    op = POPULATION_SD;
                     break;
                 default:
                     return Gdk.EVENT_PROPAGATE;
@@ -204,7 +195,7 @@ namespace Pebbles {
             return Gdk.EVENT_STOP;
         }
 
-        private void evaluate_op (string op) {
+        private void evaluate_op (StatOp op) {
             var object = new Json.Object ();
             object.set_int_member ("seriesIndex", display.series_index);
             display.set_op (op);

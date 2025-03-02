@@ -11,6 +11,7 @@ import json
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
+import hashlib
 from gi.repository import Pebbles, GdkPixbuf
 from pebbles.core.memory import ContextualMemory
 from pebbles.core.utils import Utils
@@ -98,6 +99,11 @@ class StatisticsCalculator():
 
         self.start_plotting()
         return json.dumps({'mode': self.MODE, 'result': '', 'shape': self.data.shape})
+
+
+    def _hash_dataset(self):
+        data = self.data.tobytes()
+        return hashlib.sha256(data).hexdigest()
 
 
     def fetch_series(self, series_index: int) -> list[float]:
@@ -281,37 +287,50 @@ class StatisticsCalculator():
             ax.plot(x, y_pred, linestyle="dotted", color="red", linewidth=1)
 
 
-    def evaluate(self, op:str, series_index:int):
+    def evaluate(self, op:int, series_index:int):
         """
         Evaluate.
         """
+
+        _op = Pebbles.StatOp(op)
         res = "E"
+        input_exp = Pebbles.stat_op_to_exp(op)
         val = None
-        if op == "trend":
+        if _op == Pebbles.StatOp.TREND:
             res, val = self._trend(series_index)
-        elif op == "n":
-            res, val = self._cardinality()
-        elif op == "mode":
+        elif _op == Pebbles.StatOp.SHAPE:
+            res, val = self._shape()
+        elif _op == Pebbles.StatOp.MODE:
             res, val = self._mode(series_index)
-        elif op == "M":
+        elif _op == Pebbles.StatOp.MEDIAN:
             res, val = self._median(series_index)
-        elif op == "sum":
+        elif _op == Pebbles.StatOp.SUM:
             res, val = self._sum(series_index)
-        elif op == "sumsq":
+        elif _op == Pebbles.StatOp.SUM_SQUARED:
             res, val = self._sum_sq(series_index)
-        elif op in ["SV", "popvar"]:
-            res, val = self._variance(series_index, sample=op == "SV")
-        elif op.endswith("SD"):
-            res, val = self._deviation(series_index, sample=op == "SD")
-        elif op == "mean":
+        elif _op in [Pebbles.StatOp.SAMPLE_VAR, Pebbles.StatOp.POPULATION_VAR]:
+            res, val = self._variance(series_index, sample=_op == Pebbles.StatOp.SAMPLE_VAR)
+        elif _op in [Pebbles.StatOp.SAMPLE_SD, Pebbles.StatOp.POPULATION_SD]:
+            res, val = self._deviation(series_index, sample=_op == Pebbles.StatOp.SAMPLE_SD)
+        elif _op == Pebbles.StatOp.MEAN:
             res, val = self._mean(series_index)
-        elif op == "meansq":
+        elif _op == Pebbles.StatOp.MEAN_SQUARED:
             res, val = self._mean_sq(series_index)
-        elif op == "GM":
+        elif _op == Pebbles.StatOp.GEOMETRIC_MEAN:
             res, val = self._geometric_mean(series_index)
 
         if res != "E":
-            self.memory.push_history(val, res, op, Pebbles.Context.STATISTICS)
+            self.memory.push_history(
+                Pebbles.Context.STATISTICS,
+                input_exp,
+                str(val),
+                {
+                    'metadata_1': op,
+                    'metadata_2': series_index,
+                    'metadata_3': ','.join(map(str, self.data[series_index])),
+                    'metadata_4': self._hash_dataset()
+                }
+            )
 
         return json.dumps({'mode': self.MODE, 'result': res}), val
 
@@ -331,7 +350,7 @@ class StatisticsCalculator():
         return Utils.format_float(m), m
 
 
-    def _cardinality(self):
+    def _shape(self):
         return f"{self.data.shape[1]}, {self.data.shape[0]}", self.data.shape[1]
 
 

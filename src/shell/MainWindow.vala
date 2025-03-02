@@ -192,7 +192,7 @@ namespace Pebbles {
                 gen.set_root (root);
 
                 object.set_string_member ("mode", Pebbles.Context.STATISTICS);
-                object.set_string_member ("op", op);
+                object.set_int_member ("op", op);
                 if (options != null) {
                     object.set_object_member ("options", options);
                 }

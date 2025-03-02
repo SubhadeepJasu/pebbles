@@ -9,7 +9,6 @@ import sqlite3
 from sqlite3 import Connection, Cursor
 import os
 from gi.repository import Pebbles, GLib
-from pebbles.history import HistoryViewModel
 
 class ContextualMemory:
     """Contextual memory for storing arbitrary values for user."""
@@ -29,7 +28,7 @@ class ContextualMemory:
 
     HISTORY_INSERT_QUERY = """
         INSERT INTO history (context, input, result, metadata_1, metadata_2, metadata_3, metadata_4)
-            VALUES (?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
     """
 
     def __init__(self, hsize=10):
@@ -97,17 +96,17 @@ class ContextualMemory:
         conn.commit()
 
 
-    def _setup_history_limit_trigger(self, cursor:Cursor, group_col='context', order_col='id'):
+    def _setup_history_limit_trigger(self, cursor:Cursor, group_col='context'):
         trigger_setup_query = f"""
             CREATE TRIGGER IF NOT EXISTS limit_history
             AFTER INSERT ON history
+            WHEN (SELECT COUNT(*) FROM history WHERE {group_col} = NEW.{group_col}) > {self._hsize}
             BEGIN
                 DELETE FROM history WHERE id IN (
                     SELECT id FROM history
                     WHERE {group_col} = NEW.{group_col}
-                    ORDER BY {order_col} ASC
-                    LIMIT (SELECT COUNT(*) FROM history
-                    WHERE {group_col} = NEW.{group_col}) - {self._hsize}
+                    ORDER BY id ASC
+                    LIMIT (SELECT COUNT(*) FROM history WHERE context = NEW.context) - {self._hsize}
                 );
             END;
         """
@@ -152,53 +151,33 @@ class ContextualMemory:
         return value
 
 
-    def _push_history(self,
+    def push_history(self,
         context: str,
         input_exp: str,
         result: str,
         metadata:dict
     ):
+        """
+        Push the last result in memory.
+        """
+        metadata_1 = metadata['metadata_1'] if 'metadata_1' in metadata else 0
+        metadata_2 = metadata['metadata_2'] if 'metadata_2' in metadata else 0
+        metadata_3 = metadata['metadata_3'] if 'metadata_3' in metadata else ''
+        metadata_4 = metadata['metadata_4'] if 'metadata_4' in metadata else ''
         conn = sqlite3.connect(self._db_path)
         cursor = conn.cursor()
         cursor.execute(ContextualMemory.HISTORY_INSERT_QUERY, (
             context,
             input_exp,
             result,
-            metadata['metadata_1'],
-            metadata['metadata_2'],
-            metadata['metadata_3'],
-            metadata['metadata_4']
+            metadata_1,
+            metadata_2,
+            metadata_3,
+            metadata_4
         ))
 
         conn.commit()
         conn.close()
-
-
-    def push_history(self,
-        answer: float | complex,
-        formatted_answer: str,
-        input_exp: str,
-        context=Pebbles.Context.SCIENTIFIC
-    ):
-        """
-        Push the last answer in memory.
-        """
-        history_view = HistoryViewModel(context, input_exp, formatted_answer)
-        history_view.to_string()
-        self._history.append ({
-            "answer": answer,
-            "context": context,
-            "view": history_view
-        })
-
-
-        _l = sum(1 for i in range(len(self._history)) if self._history[i]["context"] == context)
-        if _l > self._hsize:
-            for i in range(len(self._history)):
-                if self._history[i]["context"] == context:
-                    item = self._history.pop(i)
-                    del item
-                    break
 
 
     def get_last_ans(self, context=Pebbles.Context.GLOBAL):
