@@ -21,7 +21,7 @@ class PythonWindow(Pebbles.MainWindow):
         Utils.decimal_point_char = '.'
         self._memory = ContextualMemory()
         self.history = []
-        self.stat_calc = StatisticsCalculator()
+        self.stat_calc = StatisticsCalculator(self._memory)
         self.stat_calc.set_plot_ready_callback(self._stat_plot_ready_cb)
 
         self.connect("on_evaluate", self._evaluate)
@@ -70,6 +70,7 @@ class PythonWindow(Pebbles.MainWindow):
                     data_dict['options']['seriesIndex']
                 )
                 self.on_evaluation_completed(result_data)
+                self.set_history(self._memory.peek(include_view=True))
 
 
     def _stat_cell_update_cb(self, _, value:float, index:int, series_index:int):

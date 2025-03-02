@@ -6,7 +6,6 @@ namespace Pebbles {
 
         [GtkChild]
         private unowned Gtk.ListBox list;
-        private bool init = false;
 
         public signal void on_copy_result (uint index, HistoryViewModel data);
         public signal void on_insert_result (uint index, HistoryViewModel data);
@@ -14,37 +13,7 @@ namespace Pebbles {
 
         construct {
             realize.connect (() => {
-                if (!init) {
-                    init = true;
-                    var win = get_ancestor (typeof (MainWindow)) as MainWindow;
-                    win.history_changed.connect ((history) => {
-                        Idle.add (() => {
-                            list.remove_all ();
-                            for (int i = history.length - 1; i > 0; i--) {
-                                if (history[i].mode == mode) {
-                                    list.append (new HistoryDisplayItem ((uint) i, this, history[i]));
-                                }
-                            }
-
-                            Timeout.add (50, () => {
-                                Idle.add (() => {
-                                    if (viewport != null) {
-                                        var v_adjustment = viewport.get_vadjustment ();
-                                        v_adjustment.value = v_adjustment.upper - v_adjustment.page_size;
-
-                                        ((HistoryDisplayItem) list.get_last_child ()).pop_up ();
-                                    }
-
-                                    return false;
-                                });
-
-                                return false;
-                            });
-
-                            return false;
-                        });
-                    });
-                }
+                update ();
             });
         }
 
@@ -52,6 +21,36 @@ namespace Pebbles {
             Object (
                 mode: mode
             );
+        }
+
+        public void update () {
+            var win = get_ancestor (typeof (MainWindow)) as MainWindow;
+            var first = true;
+            list.remove_all ();
+            for (int i = 0; i < win.op_history.length; i++) {
+                if (win.op_history[i].mode == mode) {
+                    if (first) {
+                        first = false;
+                    } else {
+                        list.insert (new HistoryDisplayItem ((uint) i, this, win.op_history[i]), 0);
+                    }
+                }
+            }
+
+            Timeout.add (50, () => {
+                Idle.add (() => {
+                    if (viewport != null) {
+                        var v_adjustment = viewport.get_vadjustment ();
+                        v_adjustment.value = v_adjustment.upper - v_adjustment.page_size;
+
+                        ((HistoryDisplayItem) list.get_last_child ())?.pop_up ();
+                    }
+
+                    return false;
+                });
+
+                return false;
+            });
         }
 
         public void copy_result (uint index, HistoryViewModel data) {

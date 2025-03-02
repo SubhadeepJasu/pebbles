@@ -187,6 +187,10 @@ namespace Pebbles {
             on_shift ();
         }
 
+        public void update_history () {
+            display.update_history ();
+        }
+
         private void load_constant_button () {
             var settings = Pebbles.Settings.get_default ();
 

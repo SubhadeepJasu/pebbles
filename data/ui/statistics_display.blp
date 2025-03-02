@@ -118,21 +118,39 @@ template $PebblesStatisticsDisplay: $PebblesDisplay {
           row: 1;
         }
 
-        ScrolledWindow {
-            propagate-natural-height: true;
+        ScrolledWindow scrolled_window {
+            propagate-natural-height: false;
             has-frame: false;
             hexpand: true;
+            vexpand: true;
+            window-placement: bottom_left;
+            min-content-height: 100;
             width-request: 140;
 
-            Label main_label {
-                styles [
-                    "lcd-label"
-                ]
-
+            Box {
+                orientation: vertical;
+                spacing: 4;
                 valign: end;
-                halign: end;
-                vexpand: true;
-                hexpand: true;
+                margin-end: 8;
+
+                $PebblesHistoryDisplay history_display {
+                    mode: "stat";
+                    viewport: scrolled_window;
+
+                    // on_insert_result => $insert_from_history();
+                    // on_recall => $recall_history();
+                }
+
+                Label main_label {
+                    styles [
+                        "lcd-label"
+                    ]
+
+                    valign: end;
+                    halign: end;
+                    vexpand: true;
+                    hexpand: true;
+                }
             }
         }
 
@@ -166,6 +184,7 @@ template $PebblesStatisticsDisplay: $PebblesDisplay {
 
         Box {
             orientation: horizontal;
+            margin-bottom: 8;
 
             Box placeholder_l {}
 

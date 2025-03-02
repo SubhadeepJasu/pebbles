@@ -12,6 +12,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import json
 from gi.repository import GdkPixbuf
+from pebbles.core.memory import ContextualMemory
 from pebbles.core.utils import Utils
 
 matplotlib.use("Agg")
@@ -24,11 +25,10 @@ class StatisticsCalculator():
     PALETTE = ["#272863", "#3689e6", "#c6262e", "#3a9104", "#d48e15", "#f37329",
                "#bc245d", "#7239b3", "#b6802e", "#57392d", "#485a6c", "#333333"]
 
-    def __init__(self):
+    def __init__(self, memory: ContextualMemory):
+        self.memory = memory
         self.data = np.ndarray(shape=(0,0))
-
-        self.plot_size = (1, 1, 100) # width, height, dpi
-        self.plot_type = 0
+        self.plot_params = (1, 1, 100, 0) # width, height, dpi, type
         self.plot_thread:threading.Thread = None
         self.plot_lock = threading.Lock()
         self.on_plot_ready = None
@@ -123,8 +123,7 @@ class StatisticsCalculator():
 
 
     def set_plot_params_and_plot(self, width:float, height:float, plot_type=0, dpi=100.0):
-        self.plot_size = (width, height, dpi)
-        self.plot_type = plot_type
+        self.plot_params = (width, height, dpi, plot_type)
 
         self.start_plotting()
 
@@ -147,8 +146,7 @@ class StatisticsCalculator():
     def _plot(self, m=None, b=None):
         try:
             with self.plot_lock:
-                width, height, dpi = self.plot_size
-                plot_type = self.plot_type
+                width, height, dpi, plot_type = self.plot_params
                 if self.data.shape[0] == 0 or self.data.shape[1] < 2:
                     self.is_plotting = False
                     return
@@ -301,20 +299,19 @@ class StatisticsCalculator():
             res, val = self._sum(series_index)
         elif op == "sumsq":
             res, val = self._sum_sq(series_index)
-        elif op == "SV":
-            res, val = self._variance(series_index, sample=True)
-        elif op == "popvar":
-            res, val = self._variance(series_index)
-        elif op == "SD":
-            res, val = self._deviation(series_index, sample=True)
-        elif op == "PSD":
-            res, val = self._deviation(series_index)
+        elif op in ["SV", "popvar"]:
+            res, val = self._variance(series_index, sample=op == "SV")
+        elif op.endswith("SD"):
+            res, val = self._deviation(series_index, sample=op == "SD")
         elif op == "mean":
             res, val = self._mean(series_index)
         elif op == "meansq":
             res, val = self._mean_sq(series_index)
         elif op == "GM":
             res, val = self._geometric_mean(series_index)
+
+        if res != "E":
+            self.memory.push_history(val, res, op, "stat")
 
         return json.dumps({'mode': self.MODE, 'result': res}), val
 

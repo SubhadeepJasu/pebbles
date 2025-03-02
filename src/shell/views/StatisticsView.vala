@@ -147,7 +147,7 @@ namespace Pebbles {
                 case "a":
                 case "A":
                     display.add_cell ();
-                    break;
+                    return Gdk.EVENT_STOP;
                 case "n":
                 case "N":
                     op = "n";
@@ -209,6 +209,10 @@ namespace Pebbles {
             object.set_int_member ("seriesIndex", display.series_index);
             display.set_op (op);
             on_evaluate (op, object);
+        }
+
+        public void update_history () {
+            display.update_history ();
         }
 
         [GtkCallback]

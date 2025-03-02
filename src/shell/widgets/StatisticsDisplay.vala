@@ -65,6 +65,10 @@ namespace Pebbles {
         [GtkChild]
         private unowned Gtk.Label result_type_label_trend;
 
+
+        [GtkChild]
+        private unowned HistoryDisplay history_display;
+
         // Private members
         private List<StatCell?> cells;
         private double plot_height;
@@ -147,6 +151,10 @@ namespace Pebbles {
 
         ~StatisticsDisplay () {
             updating = false;
+        }
+
+        public void update_history () {
+            history_display.update ();
         }
 
         private void draw_cells () {
@@ -373,6 +381,9 @@ namespace Pebbles {
                 add_css_class ("shake");
                 Timeout.add (400, () => {
                     remove_css_class ("shake");
+                    if (selected_cell != null) {
+                        selected_cell.grab_focus_without_selecting ();
+                    }
                     return false;
                 });
             }
@@ -523,5 +534,19 @@ namespace Pebbles {
                 selected_cell.set_position ((int) selected_cell.text_length);
             }
         }
+
+        //  [GtkCallback]
+        //  protected void insert_from_history (uint index, HistoryViewModel data) {
+        //      if (selected_cell != null) {
+        //          selected_cell.text = selected_cell.text + " " + data.output;
+        //      }
+        //  }
+
+        //  [GtkCallback]
+        //  protected void recall_history (uint index, HistoryViewModel data) {
+        //      //  main_entry.set_text (data.input);
+        //      //  main_entry.set_position ((int) main_entry.text_length);
+        //      //  main_label.set_text (data.output);
+        //  }
     }
 }

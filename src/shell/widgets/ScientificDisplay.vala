@@ -28,6 +28,8 @@ namespace Pebbles {
         private unowned Gtk.Label main_label;
         [GtkChild]
         public unowned Gtk.Entry main_entry;
+        [GtkChild]
+        public unowned HistoryDisplay history_display;
 
         private Gtk.GestureClick right_click_gesture;
 
@@ -135,17 +137,23 @@ namespace Pebbles {
         public void show_result (string result) {
             if (result != "E") {
                 add_css_class ("fade");
-                Timeout.add_once (100, () => {
+                Timeout.add (100, () => {
                     main_label.set_text (result);
                     remove_css_class ("fade");
+                    return false;
                 });
             } else {
                 main_label.set_text (_("Error"));
                 add_css_class ("shake");
                 Timeout.add_once (400, () => {
                     remove_css_class ("shake");
+                    main_entry.grab_focus_without_selecting ();
                 });
             }
+        }
+
+        public void update_history () {
+            history_display.update ();
         }
 
         public void all_clear () {
@@ -307,8 +315,8 @@ namespace Pebbles {
 
         [GtkCallback]
         protected void insert_from_history (uint index, HistoryViewModel data) {
-             main_entry.set_text (main_entry.get_text () + " " + data.output);
-             main_entry.set_position ((int) main_entry.text_length);
+            main_entry.set_text (main_entry.get_text () + " " + data.output);
+            main_entry.set_position ((int) main_entry.text_length);
         }
 
         [GtkCallback]

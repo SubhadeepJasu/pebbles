@@ -52,7 +52,7 @@ namespace Pebbles {
         // Instance variables
         private Gtk.EventControllerKey key_event_controller;
         private Pebbles.Settings settings;
-        private HistoryViewModel[] history;
+        public HistoryViewModel[] op_history;
         private uint _background_ops;
         public uint background_ops {
             get {
@@ -73,7 +73,6 @@ namespace Pebbles {
 
         public signal bool on_key_down (string? mode, uint keyval);
         public signal void on_key_up (string? mode, uint keyval);
-        public signal void history_changed (HistoryViewModel[] history);
         public signal void on_stat_plot (double width, double height, StatPlotType plot_type, double dpi);
         public signal int on_stat_cell_update (double value, int index, int series_index);
         public signal string on_stat_cell_query (int index, int series_index);
@@ -343,17 +342,26 @@ namespace Pebbles {
         }
 
         protected void set_history (HistoryViewModel[] _history) {
-            if (history == null) {
-                history = new HistoryViewModel[_history.length];
+            if (op_history == null) {
+                op_history = new HistoryViewModel[_history.length];
             }
 
-            history.resize (_history.length);
+            op_history.resize (_history.length);
 
             for (int i = 0; i < _history.length; i++) {
-                history[i] = _history[i];
+                op_history[i] = _history[i];
             }
 
-            history_changed (history);
+            Idle.add_once (() => {
+                switch (view_stack.visible_child_name) {
+                    case "sci":
+                        scientific_view.update_history ();
+                        break;
+                    case "stat":
+                        statistics_view.update_history ();
+                        break;
+                }
+            });
         }
 
         private void set_shift_on (bool on) {
