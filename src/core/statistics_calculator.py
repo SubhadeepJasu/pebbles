@@ -7,11 +7,11 @@
 
 from io import BytesIO, StringIO
 import threading
+import json
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
-import json
-from gi.repository import GdkPixbuf
+from gi.repository import Pebbles, GdkPixbuf
 from pebbles.core.memory import ContextualMemory
 from pebbles.core.utils import Utils
 
@@ -20,7 +20,7 @@ matplotlib.use("Agg")
 class StatisticsCalculator():
     """The statistics calculator."""
 
-    MODE = 'stat'
+    MODE = Pebbles.Context.STATISTICS
     AXIS_COLOR = "#272863"
     PALETTE = ["#272863", "#3689e6", "#c6262e", "#3a9104", "#d48e15", "#f37329",
                "#bc245d", "#7239b3", "#b6802e", "#57392d", "#485a6c", "#333333"]
@@ -311,7 +311,7 @@ class StatisticsCalculator():
             res, val = self._geometric_mean(series_index)
 
         if res != "E":
-            self.memory.push_history(val, res, op, "stat")
+            self.memory.push_history(val, res, op, Pebbles.Context.STATISTICS)
 
         return json.dumps({'mode': self.MODE, 'result': res}), val
 

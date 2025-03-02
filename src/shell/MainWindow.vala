@@ -49,6 +49,10 @@ namespace Pebbles {
         [GtkChild]
         private unowned Gtk.Box null_header_box;
 
+        // Constant Bindings
+        public string? context_scientific { get; default=Context.SCIENTIFIC; }
+        public string? context_statistics { get; default=Context.STATISTICS; }
+
         // Instance variables
         private Gtk.EventControllerKey key_event_controller;
         private Pebbles.Settings settings;
@@ -139,7 +143,7 @@ namespace Pebbles {
 
             var enable_scientific_mode_action = new SimpleAction ("open_scientific_mode", null);
             enable_scientific_mode_action.activate.connect (() => {
-                view_stack.set_visible_child_name ("sci");
+                view_stack.set_visible_child_name (Pebbles.Context.SCIENTIFIC);
                 split_view.show_content = true;
                 scientific_view.add_css_class ("animate");
                 Timeout.add_once (600, () => {
@@ -151,7 +155,7 @@ namespace Pebbles {
 
             var enable_statistics_mode_action = new SimpleAction ("open_statistics_mode", null);
             enable_statistics_mode_action.activate.connect (() => {
-                view_stack.set_visible_child_name ("stat");
+                view_stack.set_visible_child_name (Pebbles.Context.STATISTICS);
                 split_view.show_content = true;
                 statistics_view.add_css_class ("animate");
                 Timeout.add_once (600, () => {
@@ -170,7 +174,7 @@ namespace Pebbles {
                 root.set_object (object);
                 gen.set_root (root);
 
-                object.set_string_member ("mode", "sci");
+                object.set_string_member ("mode", Pebbles.Context.SCIENTIFIC);
                 object.set_string_member ("input", input);
                 object.set_int_member ("angleMode", (int) Pebbles.Settings.get_default ().global_angle_unit);
                 object.set_int_member ("memoryOp", memory_op);
@@ -187,7 +191,7 @@ namespace Pebbles {
                 root.set_object (object);
                 gen.set_root (root);
 
-                object.set_string_member ("mode", "stat");
+                object.set_string_member ("mode", Pebbles.Context.STATISTICS);
                 object.set_string_member ("op", op);
                 if (options != null) {
                     object.set_object_member ("options", options);
@@ -219,7 +223,7 @@ namespace Pebbles {
 
                 on_key_down (view_stack.visible_child_name, keyval);
 
-                if (view_stack.visible_child_name == "stat" && (keyval == Gdk.Key.Tab || keyval == 65056)) {
+                if (view_stack.visible_child_name == Pebbles.Context.STATISTICS && (keyval == Gdk.Key.Tab || keyval == 65056)) {
                     statistics_view.key_navigate ();
                     return true;
                 }
@@ -248,7 +252,7 @@ namespace Pebbles {
 
                 on_key_up (view_stack.visible_child_name, keyval);
 
-                if (view_stack.visible_child_name == "stat" && keyval == Gdk.Key.Tab) {
+                if (view_stack.visible_child_name == Pebbles.Context.STATISTICS && keyval == Gdk.Key.Tab) {
                     return;
                 }
             });
@@ -258,11 +262,11 @@ namespace Pebbles {
 
         private void setup_memory_events () {
             scientific_view.on_memory_recall.connect ((global) => {
-                return on_memory_recall (global ? "global" : "sci");
+                return on_memory_recall (global ? "global" : Pebbles.Context.SCIENTIFIC);
             });
 
             scientific_view.on_memory_clear.connect ((global) => {
-                on_memory_clear (global ? "global" : "sci");
+                on_memory_clear (global ? "global" : Pebbles.Context.SCIENTIFIC);
             });
         }
 
@@ -290,11 +294,11 @@ namespace Pebbles {
                     var root_object = parser.get_root ().get_object ();
                     var mode = root_object.get_string_member ("mode");
                     switch (mode) {
-                        case "sci":
+                        case Pebbles.Context.SCIENTIFIC:
                             var result = root_object.get_string_member ("result");
                             scientific_view.show_result (result);
                             break;
-                        case "stat":
+                        case Pebbles.Context.STATISTICS:
                             if (root_object.has_member ("shape")) {
                                 var shape_node = root_object.get_array_member ("shape");
                                 loaded_table_length = (int) shape_node.get_int_element (0);
@@ -332,7 +336,7 @@ namespace Pebbles {
         protected void on_memory_change (string context, bool present) {
             background_tasks_remove ();
             switch (context) {
-                case "sci":
+                case Pebbles.Context.SCIENTIFIC:
                     scientific_view.set_memory_present (present);
                     break;
                 default:
@@ -354,10 +358,10 @@ namespace Pebbles {
 
             Idle.add_once (() => {
                 switch (view_stack.visible_child_name) {
-                    case "sci":
+                    case Pebbles.Context.SCIENTIFIC:
                         scientific_view.update_history ();
                         break;
-                    case "stat":
+                    case Pebbles.Context.STATISTICS:
                         statistics_view.update_history ();
                         break;
                 }
@@ -380,7 +384,7 @@ namespace Pebbles {
         [GtkCallback]
         protected void on_change_mode () {
             switch (view_stack.visible_child_name) {
-                case "sci":
+                case Pebbles.Context.SCIENTIFIC:
                 case "calc":
                 case "graph":
                     switch (settings.global_angle_unit) {

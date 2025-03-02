@@ -1,6 +1,7 @@
 namespace Pebbles {
     [GtkTemplate (ui = "/com/github/subhadeepjasu/pebbles/ui/display.ui")]
-    public class Display : Gtk.Grid {
+    public abstract class Display : Gtk.Grid {
+        public string context { get; set; }
         protected int animation_frame = 0;
         protected string[] animation_frames = {"⠋ |       ",
                                              "⠙ P|      ",

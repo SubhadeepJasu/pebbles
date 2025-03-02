@@ -75,7 +75,7 @@ template $PebblesScientificDisplay: $PebblesDisplay {
             margin-end: 8;
 
             $PebblesHistoryDisplay history_display {
-                mode: "sci";
+                context: bind template.context;
                 viewport: viewport;
 
                 on_insert_result => $insert_from_history();

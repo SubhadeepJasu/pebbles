@@ -94,7 +94,7 @@ namespace Pebbles {
             realize.connect_after (() => {
                 var window = (MainWindow) get_ancestor (typeof (MainWindow));
                 window.on_key_down.connect ((mode) => {
-                    if (mode == "sci" && !main_entry.has_focus) {
+                    if (mode == Pebbles.Context.SCIENTIFIC && !main_entry.has_focus) {
                         main_entry.grab_focus_without_selecting ();
                     }
                 });

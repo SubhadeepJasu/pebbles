@@ -7,6 +7,7 @@
 import json
 import math
 import cmath
+from gi.repository import Pebbles
 from pebbles.core.tokenizer import Tokenizer
 from pebbles.core.memory import ContextualMemory
 from pebbles.core.utils import Utils
@@ -14,7 +15,7 @@ from pebbles.core.utils import Utils
 class ScientificCalculator():
     """The scientific calculator."""
 
-    MODE = 'sci'
+    MODE = Pebbles.Context.SCIENTIFIC
     GRAD_VAL = math.pi / 200
     DEG_VAL = math.pi / 180
     INV_GRAD_VAL = 200 / math.pi

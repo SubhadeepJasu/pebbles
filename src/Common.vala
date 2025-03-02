@@ -1,4 +1,19 @@
 namespace Pebbles {
+    /**
+     * The context or mode a calculation is performed in.
+     */
+    public class Context {
+        public const string GLOBAL = "global";
+        public const string SCIENTIFIC = "sci";
+        public const string CALCULUS = "calc";
+        public const string PROGRAMMER = "prog";
+        public const string STATISTICS = "stat";
+        public const string GRAPHING = "graph";
+        public const string DATE = "date";
+        public const string CONV_LEN = "conv.len";
+        public const string CONV_AREA = "conv.area";
+    }
+
     /** Specify angle unit to use (degrees, radians or gradient).
      *  Its used in the upper left corner of the app.
      */

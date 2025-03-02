@@ -592,15 +592,17 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
 
                     Adw.ViewStack view_stack {
                         Adw.ViewStackPage {
-                            name: "sci";
-
-                            child: $PebblesScientificView scientific_view {};
+                            name: bind template.context_scientific;
+                            child: $PebblesScientificView scientific_view {
+                                context: bind template.context_scientific;
+                            };
                         }
 
                         Adw.ViewStackPage {
-                            name: "stat";
-
-                            child: $PebblesStatisticsView statistics_view {};
+                            name: bind template.context_statistics;
+                            child: $PebblesStatisticsView statistics_view {
+                                context: bind template.context_statistics;
+                            };
                         }
                     }
                 }

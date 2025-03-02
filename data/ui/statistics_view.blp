@@ -4,9 +4,9 @@ using Gtk 4.0;
 using Adw 1;
 
 template $PebblesStatisticsView: $PebblesView {
-  mode: "stat";
-
   $PebblesStatisticsDisplay display {
+    context: bind template.context;
+
     layout {
       column: 0;
       row: 0;

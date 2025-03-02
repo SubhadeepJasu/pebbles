@@ -134,7 +134,7 @@ template $PebblesStatisticsDisplay: $PebblesDisplay {
                 margin-end: 8;
 
                 $PebblesHistoryDisplay history_display {
-                    mode: "stat";
+                    context: bind template.context;
                     viewport: scrolled_window;
 
                     // on_insert_result => $insert_from_history();

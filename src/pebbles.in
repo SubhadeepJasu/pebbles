@@ -24,20 +24,20 @@ if __name__ == "__main__":
     gi.require_version("Pebbles", "3")
 
 
-    data_dir = "@PKGDATADIR@"
-    sys.path.insert(1, data_dir)
+    DATA_DIR = "@PKGDATADIR@"
+    sys.path.insert(1, DATA_DIR)
     signal.signal(signal.SIGINT, signal.SIG_DFL)
-    localedir = "@LOCALEDIR@"
-    locale.bindtextdomain("@GETTEXT_PACKAGE@", localedir)
+    LOCALE_DIR = "@LOCALEDIR@"
+    locale.bindtextdomain("@GETTEXT_PACKAGE@", LOCALE_DIR)
     locale.textdomain("@GETTEXT_PACKAGE@")
-    gettext.bindtextdomain("@GETTEXT_PACKAGE@", localedir)
+    gettext.bindtextdomain("@GETTEXT_PACKAGE@", LOCALE_DIR)
     gettext.textdomain("@GETTEXT_PACKAGE@")
 
-    shell_path = os.path.join(data_dir, 'pebbles', 'shell')
-    shell_path = os.path.join(data_dir, 'pebbles', 'core')
+    shell_path = os.path.join(DATA_DIR, 'pebbles', 'shell')
+    shell_path = os.path.join(DATA_DIR, 'pebbles', 'core')
     sys.path.insert(1, shell_path)
-    
-    from gi.repository import Gio
+
+    from gi.repository import Gio, GLib
     gresource_location = os.path.join("@PKGDATADIR@", "@APPLICATION_ID@.gresource")
     resource = Gio.Resource.load(gresource_location)
     resource._register()
@@ -47,6 +47,8 @@ if __name__ == "__main__":
     loglevel = logging.DEBUG if debug else logging.INFO
     logging.basicConfig(format="%(levelname)s: %(message)s", level=loglevel)
     logging.getLogger("matplotlib.font_manager").disabled = True
+
+    os.environ['MPLCONFIGDIR'] = os.path.join(GLib.get_user_cache_dir(), "@APPLICATION_ID@", "matplotlib")
 
     from pebbles.application import PythonApplication
     sys.exit(PythonApplication("@APPLICATION_ID@", debug=debug).run(sys.argv))

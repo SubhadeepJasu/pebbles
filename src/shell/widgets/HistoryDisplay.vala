@@ -1,7 +1,7 @@
 namespace Pebbles {
     [GtkTemplate (ui = "/com/github/subhadeepjasu/pebbles/ui/history_display.ui")]
     public class HistoryDisplay : Gtk.Box {
-        public string mode { get; construct; }
+        public string context { get; set; }
         public unowned Gtk.ScrolledWindow viewport { get; construct; }
 
         [GtkChild]
@@ -17,9 +17,9 @@ namespace Pebbles {
             });
         }
 
-        public HistoryDisplay (string mode) {
+        public HistoryDisplay (string context) {
             Object (
-                mode: mode
+                context: context
             );
         }
 
@@ -28,7 +28,7 @@ namespace Pebbles {
             var first = true;
             list.remove_all ();
             for (int i = 0; i < win.op_history.length; i++) {
-                if (win.op_history[i].mode == mode) {
+                if (win.op_history[i].mode == context) {
                     if (first) {
                         first = false;
                     } else {
