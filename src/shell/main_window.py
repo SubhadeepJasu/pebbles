@@ -27,6 +27,7 @@ class PythonWindow(Pebbles.MainWindow):
         self.connect("on_evaluate", self._evaluate)
         self.connect("on_memory_recall", self._memory_recall)
         self.connect("on_memory_clear", self._memory_clear)
+        self.connect("on_history_view", self._history_view_cb)
         self.connect("on_stat_plot", self._stat_plot_cb)
         self.connect("on_stat_cell_update", self._stat_cell_update_cb)
         self.connect("on_stat_cell_query", self._stat_cell_query_cb)
@@ -39,12 +40,11 @@ class PythonWindow(Pebbles.MainWindow):
 
     def _evaluation_thread(self, data: str):
         data_dict = json.loads(data)
-        if data_dict['mode'] == 'sci':
+        result_data: any
+        result: any
+        if data_dict['context'] == Pebbles.Context.SCIENTIFIC:
             sci_calc = ScientificCalculator(data, self._memory)
             result_data, result = sci_calc.evaluate()
-            print (result_data)
-            self.on_evaluation_completed(result_data)
-
             if result is not None:
                 if data_dict['memoryOp'] == 1:
                     self._memory.add(result, 'sci')
@@ -59,19 +59,30 @@ class PythonWindow(Pebbles.MainWindow):
                     self._memory.subtract(result, 'global')
                     self.on_memory_change('global', self._memory.any('global'))
 
-                self.set_history(self._memory.peek(include_view=True))
-        elif data_dict['mode'] == 'stat':
+            self.show_history(self._memory.get_views(
+                format_func=ScientificCalculator.format,
+                context=Pebbles.Context.SCIENTIFIC
+            ), Pebbles.Context.SCIENTIFIC)
+
+        elif data_dict['context'] == Pebbles.Context.STATISTICS:
             if data_dict['op'] == 'set-all':
-                res = self.stat_calc.load_csv_data(data_dict['options']['csv'])
-                self.on_evaluation_completed(res)
+                result_data = self.stat_calc.load_csv_data(data_dict['options']['csv'])
             else:
                 result_data, result = self.stat_calc.evaluate (
                     data_dict['op'],
                     data_dict['options']['seriesIndex']
                 )
-                self.on_evaluation_completed(result_data)
-                self.set_history(self._memory.peek(include_view=True))
+        else:
+            return
 
+        self.on_evaluation_completed(result_data)
+
+
+    def _history_view_cb(self, _, context:str):
+        self.show_history(self._memory.get_views(
+                format_func=ScientificCalculator.format,
+                context=Pebbles.Context.SCIENTIFIC
+            ), Pebbles.Context.SCIENTIFIC)
 
     def _stat_cell_update_cb(self, _, value:float, index:int, series_index:int):
         return self.stat_calc.update_value (value, index, series_index)

@@ -46,6 +46,8 @@ namespace Pebbles {
                     main_entry.text = "0";
                     main_entry.grab_focus_without_selecting ();
                     main_entry.set_position (1);
+                    history_display.visible = true;
+                    history_display.add_css_class ("animate-in");
 
                     return false;
                 });
@@ -154,6 +156,10 @@ namespace Pebbles {
 
         public void update_history () {
             history_display.update ();
+        }
+
+        public void show_history (HistoryViewModel[] history) {
+            history_display.update_list (history);
         }
 
         public void all_clear () {

@@ -77,6 +77,7 @@ namespace Pebbles {
 
         public signal bool on_key_down (string? mode, uint keyval);
         public signal void on_key_up (string? mode, uint keyval);
+        public signal void on_history_view (string context);
         public signal void on_stat_plot (double width, double height, StatPlotType plot_type, double dpi);
         public signal int on_stat_cell_update (double value, int index, int series_index);
         public signal string on_stat_cell_query (int index, int series_index);
@@ -143,7 +144,7 @@ namespace Pebbles {
 
             var enable_scientific_mode_action = new SimpleAction ("open_scientific_mode", null);
             enable_scientific_mode_action.activate.connect (() => {
-                view_stack.set_visible_child_name (Pebbles.Context.SCIENTIFIC);
+                view_stack.set_visible_child_name (Context.SCIENTIFIC);
                 split_view.show_content = true;
                 scientific_view.add_css_class ("animate");
                 Timeout.add_once (600, () => {
@@ -155,7 +156,7 @@ namespace Pebbles {
 
             var enable_statistics_mode_action = new SimpleAction ("open_statistics_mode", null);
             enable_statistics_mode_action.activate.connect (() => {
-                view_stack.set_visible_child_name (Pebbles.Context.STATISTICS);
+                view_stack.set_visible_child_name (Context.STATISTICS);
                 split_view.show_content = true;
                 statistics_view.add_css_class ("animate");
                 Timeout.add_once (600, () => {
@@ -174,7 +175,7 @@ namespace Pebbles {
                 root.set_object (object);
                 gen.set_root (root);
 
-                object.set_string_member ("mode", Pebbles.Context.SCIENTIFIC);
+                object.set_string_member ("context", Pebbles.Context.SCIENTIFIC);
                 object.set_string_member ("input", input);
                 object.set_int_member ("angleMode", (int) Pebbles.Settings.get_default ().global_angle_unit);
                 object.set_int_member ("memoryOp", memory_op);
@@ -191,7 +192,7 @@ namespace Pebbles {
                 root.set_object (object);
                 gen.set_root (root);
 
-                object.set_string_member ("mode", Pebbles.Context.STATISTICS);
+                object.set_string_member ("context", Pebbles.Context.STATISTICS);
                 object.set_int_member ("op", op);
                 if (options != null) {
                     object.set_object_member ("options", options);
@@ -358,14 +359,22 @@ namespace Pebbles {
 
             Idle.add_once (() => {
                 switch (view_stack.visible_child_name) {
-                    case Pebbles.Context.SCIENTIFIC:
+                    case Context.SCIENTIFIC:
                         scientific_view.update_history ();
                         break;
-                    case Pebbles.Context.STATISTICS:
+                    case Context.STATISTICS:
                         statistics_view.update_history ();
                         break;
                 }
             });
+        }
+
+        protected void show_history (HistoryViewModel[] _history, string context) {
+            switch (view_stack.visible_child_name) {
+                case Context.SCIENTIFIC:
+                    scientific_view.show_history (_history);
+                    break;
+            }
         }
 
         private void set_shift_on (bool on) {

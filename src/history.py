@@ -12,5 +12,5 @@ class HistoryViewModel(Pebbles.HistoryViewModel):
     History View Model
     """
 
-    def __init__(self, mode:str, input_exp:str, output:str):
-        super().__init__(mode=mode, input=input_exp, output=output)
+    def __init__(self, item_id: int, context:str, input_exp:str, output:str):
+        super().__init__(id=item_id, context=context, input=input_exp, output=output)

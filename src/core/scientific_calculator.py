@@ -62,20 +62,7 @@ class ScientificCalculator():
         """
         try:
             answer = self.process()
-            if isinstance(answer, complex):
-                if answer.real == 0 and answer.imag == 0:
-                    formatted_answer = "0"
-                    answer = 0
-                elif answer.imag < 0:
-                    formatted_answer = f'{Utils.format_float(answer.real)} - \
-                        {Utils.format_float(0 - answer.imag)}j'
-                else:
-                    formatted_answer = f'{Utils.format_float(answer.real)} + \
-                        {Utils.format_float(answer.imag)}j'
-            elif isinstance(answer, float):
-                formatted_answer = Utils.format_float(answer)
-            else:
-                return json.dumps({'mode': self.MODE, 'result': 'E'}), None
+            formatted_answer = ScientificCalculator.format(answer)
 
             self.memory.push_history(
                 ScientificCalculator.MODE,
@@ -159,6 +146,37 @@ class ScientificCalculator():
 
         # print(operand_stack)
         return operand_pop()
+
+    @staticmethod
+    def format(result: any):
+        """
+        Format scientific result.
+        """
+        val: any
+        if isinstance(result, str):
+            try:
+                val = float(result)
+            except ValueError:
+                val = complex(result)
+        else:
+            val = result
+
+        if isinstance(val, complex):
+            if val.real == 0 and val.imag == 0:
+                return "0"
+
+            if val.imag < 0:
+                return f'{Utils.format_float(val.real)} - \
+                    {Utils.format_float(0 - val.imag)}j'
+
+            return f'{Utils.format_float(val.real)} + \
+                {Utils.format_float(val.imag)}j'
+
+        if isinstance(val, float):
+            return Utils.format_float(val)
+
+        return "E"
+
 
 
     def _apply_op(self, op:chr, a:complex | float, b:complex | float):

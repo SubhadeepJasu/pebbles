@@ -6,9 +6,10 @@ Contextual Memory Store
 """
 
 import sqlite3
-from sqlite3 import Connection, Cursor
 import os
+from sqlite3 import Connection, Cursor
 from gi.repository import Pebbles, GLib
+from pebbles.history import HistoryViewModel
 
 class ContextualMemory:
     """Contextual memory for storing arbitrary values for user."""
@@ -28,17 +29,41 @@ class ContextualMemory:
 
     HISTORY_INSERT_QUERY = """
         INSERT INTO history (context, input, result, metadata_1, metadata_2, metadata_3, metadata_4)
-            VALUES (?, ?, ?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
+    """
+
+    HISTORY_LAST_RESULT_QUERY = """
+        SELECT result, context FROM history
+         ORDER BY id DESC
+         LIMIT 1
+    """
+
+    HISTORY_CONTEXTUAL_LAST_RESULT_QUERY = """
+        SELECT result, context FROM history
+         WHERE context = ?
+         ORDER BY id DESC
+         LIMIT 1
+    """
+
+    HISTORY_VIEW_QUERY = """
+        SELECT id, input, result
+          FROM history
+         WHERE context = ?
+    """
+
+    HISTORY_VIEW_ID_SEARCH_QUERY = """
+        SELECT * FROM history
+         WHERE id = ?
+         LIMIT 1
     """
 
     def __init__(self, hsize=10):
         db_dir = os.path.join(GLib.get_user_data_dir(),
-        "com.github.subhdeepjasu.pebbles")
+        "com.github.subhadeepjasu.pebbles")
         self._db_path = os.path.join(db_dir, "pebbles_store.db")
         print(f"DEBUG: Pebbles DB path: {self._db_path}")
 
         self._memory = {}
-        self._history = []
         self._hsize = hsize
 
         for k in [
@@ -73,10 +98,12 @@ class ContextualMemory:
     def _schema_matches(self, conn: Connection):
         for table, columns in ContextualMemory.SCHEMA.items():
             current_schema = self._get_current_schema(conn, table)
-            expected_schema = {col[0]: col[1].replace(" PRIMARY KEY AUTOINCREMENT", "").replace(" NOT NULL", "") for col in columns}
+            expected_schema = {col[0]: col[1].replace(" PRIMARY KEY AUTOINCREMENT", "")
+                               .replace(" NOT NULL", "") for col in columns}
 
             # Ignore constraints and only compare column names and types
-            if not current_schema or dict(sorted(current_schema.items())) != dict(sorted(expected_schema.items())):
+            if not current_schema or dict(sorted(current_schema.items())) != \
+                dict(sorted(expected_schema.items())):
                 print(f"DEBUG: Schema mismatch detected for {table}!")
                 return False
         return True
@@ -180,49 +207,53 @@ class ContextualMemory:
         conn.close()
 
 
-    def get_last_ans(self, context=Pebbles.Context.GLOBAL):
+    def get_last_result(self, context=Pebbles.Context.GLOBAL):
         """
-        Fetch the last answer in memory.
+        Fetch the last result in history table.
         """
-
-        value = 0
+        conn = sqlite3.connect(self._db_path)
+        cursor = conn.cursor()
         if context == Pebbles.Context.GLOBAL:
-            last_item = self._history[-1]
-            value = last_item["answer"]
-            if last_item["context"] not in [Pebbles.Context.SCIENTIFIC, Pebbles.Context.CALCULUS]:
-                if isinstance(value, complex):
-                    value = float(value.imag)
-            elif context == Pebbles.Context.PROGRAMMER:
-                value = int(value)
+            cursor.execute(ContextualMemory.HISTORY_LAST_RESULT_QUERY)
         else:
-            for i in range(len(self._history) - 1, 0, -1):
-                if self._history[i]["context"] == context:
-                    value = self._history[i]["answer"]
-                    if context not in [Pebbles.Context.SCIENTIFIC, Pebbles.Context.CALCULUS]:
-                        if isinstance(value, complex):
-                            value = float(value.imag)
-                    elif context == Pebbles.Context.PROGRAMMER:
-                        value = int(value)
+            cursor.execute(ContextualMemory.HISTORY_CONTEXTUAL_LAST_RESULT_QUERY, (context,))
 
-                    break
-
-        return value
+        last_entry = cursor.fetchone()
+        conn.close()
+        return last_entry if last_entry else None
 
 
-    def peek(self, include_view=False):
+    def peek(self):
         """
         Print the memory data.
-        If `include_view` is `True`, then return all views in history.
         """
         print('Memory: ', self._memory)
-        print('Last Answer: ', self._history)
 
-        views = []
-        if include_view:
-            for item in self._history[::-1]:
-                views.append(item["view"])
 
+    def get_views(self, format_func:callable, context=Pebbles.Context.SCIENTIFIC):
+        """
+        Fetches all history in a list of views by context.
+        """
+        conn = sqlite3.connect(self._db_path)
+        cursor = conn.cursor()
+        cursor.execute(ContextualMemory.HISTORY_VIEW_QUERY, (context,))
+        history_entries = cursor.fetchall()
+        views = [HistoryViewModel(id, context, inp, format_func(res))
+                 for id, inp, res in history_entries]
+        conn.close()
         return views
+
+
+    def get_history_by_id(self, item_id:int):
+        """
+        Gets the history data by id.
+        """
+        conn = sqlite3.connect(self._db_path)
+        cursor = conn.cursor()
+        cursor.execute(ContextualMemory.HISTORY_VIEW_ID_SEARCH_QUERY, (item_id,))
+        item = cursor.fetchone()
+        conn.close()
+        return item
 
 
     def any(self, context='global') -> bool:

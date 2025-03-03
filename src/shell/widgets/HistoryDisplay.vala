@@ -13,7 +13,10 @@ namespace Pebbles {
 
         construct {
             realize.connect (() => {
-                update ();
+                Timeout.add_once (400, () => {
+                    var win = (MainWindow) get_ancestor (typeof (MainWindow));
+                    win.on_history_view (context);
+                });
             });
         }
 
@@ -24,17 +27,12 @@ namespace Pebbles {
         }
 
         public void update () {
-            var win = get_ancestor (typeof (MainWindow)) as MainWindow;
-            var first = true;
-            list.remove_all ();
-            for (int i = 0; i < win.op_history.length; i++) {
-                if (win.op_history[i].mode == context) {
-                    if (first) {
-                        first = false;
-                    } else {
-                        list.insert (new HistoryDisplayItem ((uint) i, this, win.op_history[i]), 0);
-                    }
-                }
+
+        }
+
+        public void update_list (HistoryViewModel[] history) {
+            for (int i = 0; i < history.length; i++) {
+                list.append (new HistoryDisplayItem ((uint) i, this, history[i]));
             }
 
             Timeout.add (50, () => {
@@ -43,25 +41,25 @@ namespace Pebbles {
                         var v_adjustment = viewport.get_vadjustment ();
                         v_adjustment.value = v_adjustment.upper - v_adjustment.page_size;
 
-                        ((HistoryDisplayItem) list.get_last_child ())?.pop_up ();
+                        ((HistoryDisplayItem) list.get_last_child ())?.grab_attention ();
                     }
 
-                    return false;
+                    return Source.REMOVE;
                 });
 
-                return false;
+                return Source.REMOVE;
             });
         }
 
         public void copy_result (uint index, HistoryViewModel data) {
-            on_copy_result (index, data);
-            var clip_board = get_clipboard ();
-            clip_board.set_text (data.output);
+            //  on_copy_result (index, data);
+            //  var clip_board = get_clipboard ();
+            //  clip_board.set_text (data.output);
 
-            var window = get_ancestor (typeof (MainWindow)) as MainWindow;
-            if (window != null) {
-                window.send_toast (_("Answer copied to clipboard"));
-            }
+            //  var window = get_ancestor (typeof (MainWindow)) as MainWindow;
+            //  if (window != null) {
+            //      window.send_toast (_("Answer copied to clipboard"));
+            //  }
         }
 
         public void insert_result (uint index, HistoryViewModel data) {
@@ -76,7 +74,7 @@ namespace Pebbles {
     private class HistoryDisplayItem : Gtk.ListBoxRow {
         public uint index { get; private set; }
         public unowned HistoryDisplay history_display;
-        public unowned HistoryViewModel model;
+        public HistoryViewModel model;
 
         private Gtk.GestureClick right_click_gesture;
         private Gtk.GestureClick middle_click_gesture;
@@ -124,10 +122,10 @@ namespace Pebbles {
             });
         }
 
-        public void pop_up () {
-            add_css_class ("pop-up");
+        public void grab_attention () {
+            add_css_class ("grab-attention");
             Timeout.add (500, () => {
-                remove_css_class ("pop-up");
+                remove_css_class ("grab-attention");
                 return false;
             });
         }

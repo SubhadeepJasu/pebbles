@@ -188,7 +188,11 @@ namespace Pebbles {
         }
 
         public void update_history () {
-            display.update_history ();
+            //  display.update_history ();
+        }
+
+        public void show_history (HistoryViewModel[] history) {
+            display.show_history (history);
         }
 
         private void load_constant_button () {
