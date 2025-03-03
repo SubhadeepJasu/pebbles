@@ -7,13 +7,11 @@ namespace Pebbles {
         [GtkChild]
         private unowned Gtk.ListBox list;
 
-        public signal void on_copy_result (uint index, HistoryViewModel data);
-        public signal void on_insert_result (uint index, HistoryViewModel data);
-        public signal void on_recall (uint index, HistoryViewModel data);
+        public signal void inserted (string text);
 
         construct {
             realize.connect (() => {
-                Timeout.add_once (400, () => {
+                Timeout.add_once (100, () => {
                     var win = (MainWindow) get_ancestor (typeof (MainWindow));
                     win.on_history_view (context);
                 });
@@ -30,9 +28,9 @@ namespace Pebbles {
 
         }
 
-        public void update_list (HistoryViewModel[] history) {
-            for (int i = 0; i < history.length; i++) {
-                list.append (new HistoryDisplayItem ((uint) i, this, history[i]));
+        public void update_list (HistoryModel[] history) {
+            foreach (var item in history) {
+                list.append (new HistoryDisplayItem (this, item));
             }
 
             Timeout.add (50, () => {
@@ -40,8 +38,6 @@ namespace Pebbles {
                     if (viewport != null) {
                         var v_adjustment = viewport.get_vadjustment ();
                         v_adjustment.value = v_adjustment.upper - v_adjustment.page_size;
-
-                        ((HistoryDisplayItem) list.get_last_child ())?.grab_attention ();
                     }
 
                     return Source.REMOVE;
@@ -51,40 +47,44 @@ namespace Pebbles {
             });
         }
 
-        public void copy_result (uint index, HistoryViewModel data) {
-            //  on_copy_result (index, data);
-            //  var clip_board = get_clipboard ();
-            //  clip_board.set_text (data.output);
-
-            //  var window = get_ancestor (typeof (MainWindow)) as MainWindow;
-            //  if (window != null) {
-            //      window.send_toast (_("Answer copied to clipboard"));
-            //  }
+        public void copy_result (int item_id) {
+            var window = get_ancestor (typeof (MainWindow)) as MainWindow;
+            if (window != null) {
+                var raw_data = window.on_history_copy (item_id);
+                var clip_board = get_clipboard ();
+                clip_board.set_text (raw_data);
+                window.send_toast (_("Answer copied to clipboard"));
+            }
         }
 
-        public void insert_result (uint index, HistoryViewModel data) {
-            on_insert_result (index, data);
+        public void insert_result (int item_id) {
+            var window = get_ancestor (typeof (MainWindow)) as MainWindow;
+            if (window != null) {
+                var formatted_data = window.on_history_insert (item_id);
+                inserted (formatted_data);
+            }
         }
 
-        public void recall (uint index, HistoryViewModel data) {
-            on_recall (index, data);
+        public void recall (int item_id) {
+            var window = get_ancestor (typeof (MainWindow)) as MainWindow;
+            if (window != null) {
+                window.on_history_recall_start (item_id);
+            }
         }
     }
 
     private class HistoryDisplayItem : Gtk.ListBoxRow {
-        public uint index { get; private set; }
         public unowned HistoryDisplay history_display;
-        public HistoryViewModel model;
+        public HistoryModel model;
 
         private Gtk.GestureClick right_click_gesture;
         private Gtk.GestureClick middle_click_gesture;
 
-        public HistoryDisplayItem (uint index, HistoryDisplay history_display, HistoryViewModel model) {
+        public HistoryDisplayItem (HistoryDisplay history_display, HistoryModel model) {
             Object (
                 hexpand: true
             );
 
-            this.index = index;
             this.history_display = history_display;
             this.model = model;
 
@@ -97,7 +97,7 @@ namespace Pebbles {
             input_label.add_css_class ("history-input");
             box.append (input_label);
 
-            var output_label = new Gtk.Label ("= " + model.output) {
+            var output_label = new Gtk.Label ("= " + model.result) {
                 halign = END
             };
             output_label.add_css_class ("history-output");
@@ -113,20 +113,12 @@ namespace Pebbles {
             middle_click_gesture = new Gtk.GestureClick ();
             middle_click_gesture.set_button (Gdk.BUTTON_MIDDLE);
             middle_click_gesture.pressed.connect (() => {
-                history_display.copy_result (index, model);
+                history_display.copy_result (model.id);
             });
             add_controller (middle_click_gesture);
 
             activate.connect (() => {
-                history_display.recall (index, model);
-            });
-        }
-
-        public void grab_attention () {
-            add_css_class ("grab-attention");
-            Timeout.add (500, () => {
-                remove_css_class ("grab-attention");
-                return false;
+                history_display.recall (model.id);
             });
         }
 
@@ -162,17 +154,17 @@ namespace Pebbles {
             popover.popup ();
 
             copy_result_item.clicked.connect (() => {
-                history_display.copy_result (index, model);
+                history_display.copy_result (model.id);
                 popover.hide ();
             });
 
             insert_result_item.clicked.connect (() => {
-                history_display.insert_result (index, model);
+                history_display.insert_result (model.id);
                 popover.hide ();
             });
 
             recall_item.clicked.connect (() => {
-                history_display.recall (index, model);
+                history_display.recall ( model.id);
                 popover.hide ();
             });
         }

@@ -191,7 +191,7 @@ namespace Pebbles {
             //  display.update_history ();
         }
 
-        public void show_history (HistoryViewModel[] history) {
+        public void show_history (HistoryModel[] history) {
             display.show_history (history);
         }
 

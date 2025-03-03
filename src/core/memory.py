@@ -9,7 +9,6 @@ import sqlite3
 import os
 from sqlite3 import Connection, Cursor
 from gi.repository import Pebbles, GLib
-from pebbles.history import HistoryViewModel
 
 class ContextualMemory:
     """Contextual memory for storing arbitrary values for user."""
@@ -238,7 +237,7 @@ class ContextualMemory:
         cursor = conn.cursor()
         cursor.execute(ContextualMemory.HISTORY_VIEW_QUERY, (context,))
         history_entries = cursor.fetchall()
-        views = [HistoryViewModel(id, context, inp, format_func(res))
+        views = [Pebbles.HistoryModel.new_for_view(id, context, inp, format_func(res))
                  for id, inp, res in history_entries]
         conn.close()
         return views
@@ -251,9 +250,9 @@ class ContextualMemory:
         conn = sqlite3.connect(self._db_path)
         cursor = conn.cursor()
         cursor.execute(ContextualMemory.HISTORY_VIEW_ID_SEARCH_QUERY, (item_id,))
-        item = cursor.fetchone()
+        history_item = Pebbles.HistoryModel.new_from_db_response(cursor.fetchone())
         conn.close()
-        return item
+        return history_item
 
 
     def any(self, context='global') -> bool:

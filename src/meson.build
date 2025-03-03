@@ -11,7 +11,6 @@ configure_file(
 python.install_sources(
   files(
     'application.py',
-    'history.py'
   ),
   subdir: 'pebbles',
 )
@@ -51,7 +50,7 @@ pebbles_lib = shared_library('pebbles',
     'Application.vala',
     'Settings.vala',
     'ControlsScheme.vala',
-    'History.vala',
+    'models/History.Model.vala',
     'shell/MainWindow.vala',
     'shell/dialogs/PreferencesDialog.vala',
     'shell/dialogs/ShortcutsDialog.vala',

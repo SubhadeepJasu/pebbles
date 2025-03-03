@@ -28,6 +28,9 @@ class PythonWindow(Pebbles.MainWindow):
         self.connect("on_memory_recall", self._memory_recall)
         self.connect("on_memory_clear", self._memory_clear)
         self.connect("on_history_view", self._history_view_cb)
+        self.connect("on_history_copy", self._history_copy_cb)
+        self.connect("on_history_insert", self._history_insert_cb)
+        self.connect("on_history_recall_start", self._history_recall_cb)
         self.connect("on_stat_plot", self._stat_plot_cb)
         self.connect("on_stat_cell_update", self._stat_cell_update_cb)
         self.connect("on_stat_cell_query", self._stat_cell_query_cb)
@@ -83,6 +86,27 @@ class PythonWindow(Pebbles.MainWindow):
                 format_func=ScientificCalculator.format,
                 context=Pebbles.Context.SCIENTIFIC
             ), Pebbles.Context.SCIENTIFIC)
+
+
+    def _history_insert_cb(self, _, item_id:int):
+        item = self._memory.get_history_by_id(item_id)
+        context = item.context
+        result = item.result
+        if context in [Pebbles.Context.SCIENTIFIC, Pebbles.Context.STATISTICS]:
+            return ScientificCalculator.format(result)
+        return ''
+
+
+    def _history_copy_cb(self, _, item_id:int):
+        item = self._memory.get_history_by_id(item_id)
+        return item.result
+
+
+    def _history_recall_cb(self, _, item_id: int):
+        item = self._memory.get_history_by_id(item_id)
+        context = item.context
+        return context
+
 
     def _stat_cell_update_cb(self, _, value:float, index:int, series_index:int):
         return self.stat_calc.update_value (value, index, series_index)

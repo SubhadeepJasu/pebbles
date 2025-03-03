@@ -158,7 +158,7 @@ namespace Pebbles {
             history_display.update ();
         }
 
-        public void show_history (HistoryViewModel[] history) {
+        public void show_history (HistoryModel[] history) {
             history_display.update_list (history);
         }
 
@@ -320,16 +320,16 @@ namespace Pebbles {
         }
 
         [GtkCallback]
-        protected void insert_from_history (uint index, HistoryViewModel data) {
-            main_entry.set_text (main_entry.get_text () + " " + data.output);
+        protected void insert_from_history (string? text) {
+            main_entry.set_text (main_entry.get_text () + text);
             main_entry.set_position ((int) main_entry.text_length);
         }
 
-        [GtkCallback]
-        protected void recall_history (uint index, HistoryViewModel data) {
-            main_entry.set_text (data.input);
-            main_entry.set_position ((int) main_entry.text_length);
-            main_label.set_text (data.output);
-        }
+        //  [GtkCallback]
+        //  protected void recall_history (uint index, HistoryModel data) {
+        //      main_entry.set_text (data.input);
+        //      main_entry.set_position ((int) main_entry.text_length);
+        //      main_label.set_text (data.output);
+        //  }
     }
 }

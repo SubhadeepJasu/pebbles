@@ -56,7 +56,7 @@ namespace Pebbles {
         // Instance variables
         private Gtk.EventControllerKey key_event_controller;
         private Pebbles.Settings settings;
-        public HistoryViewModel[] op_history;
+        public HistoryModel[] op_history;
         private uint _background_ops;
         public uint background_ops {
             get {
@@ -78,6 +78,9 @@ namespace Pebbles {
         public signal bool on_key_down (string? mode, uint keyval);
         public signal void on_key_up (string? mode, uint keyval);
         public signal void on_history_view (string context);
+        public signal string on_history_copy (int id);
+        public signal string on_history_insert (int id);
+        public signal void on_history_recall_start (int id);
         public signal void on_stat_plot (double width, double height, StatPlotType plot_type, double dpi);
         public signal int on_stat_cell_update (double value, int index, int series_index);
         public signal string on_stat_cell_query (int index, int series_index);
@@ -346,35 +349,16 @@ namespace Pebbles {
             }
         }
 
-        protected void set_history (HistoryViewModel[] _history) {
-            if (op_history == null) {
-                op_history = new HistoryViewModel[_history.length];
-            }
-
-            op_history.resize (_history.length);
-
-            for (int i = 0; i < _history.length; i++) {
-                op_history[i] = _history[i];
-            }
-
-            Idle.add_once (() => {
-                switch (view_stack.visible_child_name) {
-                    case Context.SCIENTIFIC:
-                        scientific_view.update_history ();
-                        break;
-                    case Context.STATISTICS:
-                        statistics_view.update_history ();
-                        break;
-                }
-            });
-        }
-
-        protected void show_history (HistoryViewModel[] _history, string context) {
+        protected void show_history (HistoryModel[] _history, string context) {
             switch (view_stack.visible_child_name) {
                 case Context.SCIENTIFIC:
                     scientific_view.show_history (_history);
                     break;
             }
+        }
+
+        protected void history_recall (HistoryModel _history) {
+
         }
 
         private void set_shift_on (bool on) {

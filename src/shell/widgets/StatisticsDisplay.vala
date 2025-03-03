@@ -533,19 +533,5 @@ namespace Pebbles {
                 selected_cell.set_position ((int) selected_cell.text_length);
             }
         }
-
-        //  [GtkCallback]
-        //  protected void insert_from_history (uint index, HistoryViewModel data) {
-        //      if (selected_cell != null) {
-        //          selected_cell.text = selected_cell.text + " " + data.output;
-        //      }
-        //  }
-
-        //  [GtkCallback]
-        //  protected void recall_history (uint index, HistoryViewModel data) {
-        //      //  main_entry.set_text (data.input);
-        //      //  main_entry.set_position ((int) main_entry.text_length);
-        //      //  main_label.set_text (data.output);
-        //  }
     }
 }

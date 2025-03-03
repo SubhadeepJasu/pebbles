@@ -140,17 +140,13 @@ $LCD_FG_COLOR: #272863bb;
                 opacity: 0;
                 margin-top: 0;
                 margin-bottom: 0;
-                animation: history-fade-in 0.2s ease-out forwards;
+                animation: history-fade-in 0.4s ease-out forwards;
 
                 &:hover {
                     opacity: 1;
                 }
 
-                &.grab-attention {
-                    // animation: history-pop-up 0.4s cubic-bezier(0, 0, 0, 1);
-                }
-
-                @for $i from 1 through 20 {
+                @for $i from 1 through 10 {
                     &:nth-child(#{$i}) {
                         animation-delay: 100ms * (20 - $i);
                     }
