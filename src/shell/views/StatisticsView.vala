@@ -2,7 +2,22 @@ namespace Pebbles {
     [GtkTemplate (ui = "/com/github/subhadeepjasu/pebbles/ui/statistics_view.ui")]
     public class StatisticsView : View {
         [GtkChild]
+        private unowned Adw.NavigationSplitView stat_nav_split_view;
+        [GtkChild]
         private unowned StatisticsDisplay display;
+
+        [GtkChild]
+        private unowned Gtk.ToggleButton shift_button;
+        [GtkChild]
+        private unowned Button last_answer_button;
+        [GtkChild]
+        private unowned Button memory_plus_button;
+        [GtkChild]
+        private unowned Button memory_minus_button;
+        [GtkChild]
+        private unowned Button memory_recall_button;
+        [GtkChild]
+        private unowned Button memory_clear_button;
 
         private bool _collapsed;
         public bool collapsed {
@@ -12,15 +27,14 @@ namespace Pebbles {
 
             set construct {
                 _collapsed = value;
-                show_hide_fx_btn = !value;
             }
         }
-
-        protected bool show_hide_fx_btn { get; set; }
 
         protected List<List<string>> table;
 
         public signal void on_evaluate (StatOp op, Json.Object options);
+        public signal string on_memory_recall (bool global);
+        public signal void on_memory_clear (bool global);
 
         construct {
             display.activate_op.connect (activate_keyboard_shortcut);
@@ -85,8 +99,9 @@ namespace Pebbles {
             display.refresh_all_cells (series_length);
         }
 
-        public void send_shift_modifier (bool on) {
-            display.send_shift_modifier (on);
+        public void send_shift_modifier (bool shifted) {
+            shift_button.active = shifted;
+            on_shift ();
         }
 
         public void key_navigate () {
@@ -206,6 +221,14 @@ namespace Pebbles {
             display.show_history (history);
         }
 
+        public void set_memory_present (bool present) {
+            display.set_memory_present (present);
+        }
+
+        public void set_global_memory_present (bool present) {
+            display.set_global_memory_present (present);
+        }
+
         [GtkCallback]
         public void write_char (Gtk.Button btn) {
             display.write (btn.name);
@@ -218,6 +241,56 @@ namespace Pebbles {
         [GtkCallback]
         protected void on_click_negative () {
             display.write ("-");
+        }
+
+        [GtkCallback]
+        protected void on_shift () {
+            memory_plus_button.label_text = shift_button.active ? "GM+" : "M+";
+            memory_plus_button.tooltip_desc = shift_button.active
+            ? _("Add it to the value in Global Memory") : _("Add it to the value in Memory");
+            memory_minus_button.label_text = shift_button.active ? "GM−" : "M−";
+            memory_minus_button.tooltip_desc = shift_button.active
+            ? _("Subtract it from the value in Global Memory")
+            : _("Subtract it from the value in Memory");
+            memory_recall_button.label_text = shift_button.active ? "GMR" : "MR";
+            memory_recall_button.tooltip_desc = shift_button.active
+            ? _("Recall value from Global Memory") : _("Recall value from Memory");
+            memory_clear_button.label_text = shift_button.active ? "GMC" : "MC";
+            memory_clear_button.tooltip_desc = shift_button.active ? _("Global Memory Clear") : _("Memory Clear");
+            last_answer_button.label_text = shift_button.active ? "GAns" : "Ans";
+            last_answer_button.tooltip_desc = shift_button.active
+            ? _("Insert global last answer") : _("Insert last answer");
+        }
+
+        [GtkCallback]
+        protected void on_expand_fx () {
+            stat_nav_split_view.show_content= true;
+        }
+
+        [GtkCallback]
+        protected void on_collapse_fx () {
+            stat_nav_split_view.show_content = false;
+        }
+
+        [GtkCallback]
+        public void on_click_memory_add () {
+            //  on_evaluate (display.main_entry.text, shift_button.active ? 2 : 1); // 1: Memory, 2: Global Memory
+        }
+
+        [GtkCallback]
+        public void on_click_memory_subtract () {
+            //  on_evaluate (display.main_entry.text, shift_button.active ? -2 : -1); // -1: Memory, -2: Global Memory
+        }
+
+        [GtkCallback]
+        public void on_click_memory_recall () {
+            var text = on_memory_recall (shift_button.active);
+            display.write (text);
+        }
+
+        [GtkCallback]
+        public void on_click_memory_clear () {
+            on_memory_clear (shift_button.active);
         }
     }
 }

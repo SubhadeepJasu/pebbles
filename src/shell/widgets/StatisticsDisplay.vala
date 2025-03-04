@@ -1,6 +1,16 @@
 namespace Pebbles {
     [GtkTemplate (ui = "/com/github/subhadeepjasu/pebbles/ui/statistics_display.ui")]
     public class StatisticsDisplay : Display {
+        private Pebbles.Settings settings;
+        private bool _shift_on;
+        public bool shift_on {
+            get {
+                return _shift_on;
+            } set {
+                _shift_on = value;
+                shift_label.opacity = value ? 1 : 0.2;
+            }
+        }
         // Constants
         private const uint8 CELL_WIDTH = 86;
 
@@ -13,13 +23,13 @@ namespace Pebbles {
 
             private set {
                 _series_index = value;
-                series_label = _("Series %d").printf (value + 1);
+                series_label = "[%d]".printf (value + 1);
             }
         }
 
         public int table_length { get; private set; }
         public int max_series_length { get; private set; }
-        public string series_label { get; private set; default = _("Series 1") ;}
+        public string series_label { get; private set; default = "[1]"; }
         public int query_offset { get; private set; }
 
         // Widget Children
@@ -64,6 +74,12 @@ namespace Pebbles {
         private unowned Gtk.Label result_type_label_sd;
         [GtkChild]
         private unowned Gtk.Label result_type_label_trend;
+        [GtkChild]
+        private unowned Gtk.Label memory_label;
+        [GtkChild]
+        private unowned Gtk.Label global_memory_label;
+        [GtkChild]
+        private unowned Gtk.Label shift_label;
 
 
         [GtkChild]
@@ -82,12 +98,12 @@ namespace Pebbles {
         private bool updating = true;
         private uint resize_timeout_id = 0;
         private bool is_navigating = false;
-        private bool shift_on = false;
 
         public signal bool activate_op (string op);
 
         construct {
             plot_area.set_draw_func (draw_figure);
+            settings = Pebbles.Settings.get_default ();
 
             add_tick_callback (() => {
                 if (plot_width != plot_area.get_width () || plot_height != plot_area.get_height ()) {
@@ -210,10 +226,6 @@ namespace Pebbles {
             if (n == 1 && activate_op (text)) {
                 Signal.stop_emission_by_name (ed, "insert_text");
             }
-        }
-
-        public void send_shift_modifier (bool on) {
-            shift_on = on;
         }
 
         public void key_navigate () {
@@ -429,19 +441,19 @@ namespace Pebbles {
                 cr.line_to (cx + radius * 0.7, cy + radius * 0.7);
                 cr.stroke ();
 
-                cr.set_font_size (12);
+                cr.set_font_size (10);
                 switch (plot_type) {
                     case PIE:
                         cr.move_to (8, height - 8);
-                        cr.show_text (_("Cannot plot pie chart for this data"));
+                        cr.show_text (_("Pie plot not available"));
                         break;
                     case BAR:
                         cr.move_to (8, height - 8);
-                        cr.show_text (_("Cannot plot bar chart for this data"));
+                        cr.show_text (_("Bar plot not available"));
                         break;
                     default:
                         cr.move_to (8, height - 8);
-                        cr.show_text (_("Cannot plot anything for this data"));
+                        cr.show_text (_("Plot not available"));
                         break;
                 }
             }
@@ -459,6 +471,14 @@ namespace Pebbles {
                 (max_series_length - query_offset - num_visible_cells) *
                 CELL_WIDTH, -1
             );
+        }
+
+        public void set_memory_present (bool present) {
+            memory_label.opacity = present ? 1 : 0.2;
+        }
+
+        public void set_global_memory_present (bool present) {
+            global_memory_label.opacity = present ? 1 : 0.2;
         }
 
         public void set_op (StatOp op) {

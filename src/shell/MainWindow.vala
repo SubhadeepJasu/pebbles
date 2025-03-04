@@ -50,8 +50,8 @@ namespace Pebbles {
         private unowned Gtk.Box null_header_box;
 
         // Constant Bindings
-        public string? context_scientific { get; default=Context.SCIENTIFIC; }
-        public string? context_statistics { get; default=Context.STATISTICS; }
+        public string? context_scientific { get; default = Context.SCIENTIFIC; }
+        public string? context_statistics { get; default = Context.STATISTICS; }
 
         // Instance variables
         private Gtk.EventControllerKey key_event_controller;
@@ -72,11 +72,11 @@ namespace Pebbles {
         private int loaded_max_series_length;
 
         protected signal void on_evaluate (string data);
-        protected signal string on_memory_recall (string mode);
-        protected signal void on_memory_clear (string mode);
+        protected signal string on_memory_recall (string context);
+        protected signal void on_memory_clear (string context);
 
-        public signal bool on_key_down (string? mode, uint keyval);
-        public signal void on_key_up (string? mode, uint keyval);
+        public signal bool on_key_down (string? context, uint keyval);
+        public signal void on_key_up (string? context, uint keyval);
         public signal void on_history_view (string context);
         public signal string on_history_copy (int id);
         public signal string on_history_insert (int id);
@@ -178,7 +178,7 @@ namespace Pebbles {
                 root.set_object (object);
                 gen.set_root (root);
 
-                object.set_string_member ("context", Pebbles.Context.SCIENTIFIC);
+                object.set_string_member ("context", Context.SCIENTIFIC);
                 object.set_string_member ("input", input);
                 object.set_int_member ("angleMode", (int) Pebbles.Settings.get_default ().global_angle_unit);
                 object.set_int_member ("memoryOp", memory_op);
@@ -195,7 +195,7 @@ namespace Pebbles {
                 root.set_object (object);
                 gen.set_root (root);
 
-                object.set_string_member ("context", Pebbles.Context.STATISTICS);
+                object.set_string_member ("context", Context.STATISTICS);
                 object.set_int_member ("op", op);
                 if (options != null) {
                     object.set_object_member ("options", options);
@@ -227,7 +227,7 @@ namespace Pebbles {
 
                 on_key_down (view_stack.visible_child_name, keyval);
 
-                if (view_stack.visible_child_name == Pebbles.Context.STATISTICS &&
+                if (view_stack.visible_child_name == Context.STATISTICS &&
                     (keyval == Gdk.Key.Tab || keyval == 65056)) {
                     statistics_view.key_navigate ();
                     return true;
@@ -257,7 +257,7 @@ namespace Pebbles {
 
                 on_key_up (view_stack.visible_child_name, keyval);
 
-                if (view_stack.visible_child_name == Pebbles.Context.STATISTICS && keyval == Gdk.Key.Tab) {
+                if (view_stack.visible_child_name == Context.STATISTICS && keyval == Gdk.Key.Tab) {
                     return;
                 }
             });
@@ -268,11 +268,11 @@ namespace Pebbles {
         private void setup_memory_events () {
 
             scientific_view.on_memory_recall.connect ((global) => {
-                return on_memory_recall (global ? "global" : Pebbles.Context.SCIENTIFIC);
+                return on_memory_recall (global ? "global" : Context.SCIENTIFIC);
             });
 
             scientific_view.on_memory_clear.connect ((global) => {
-                on_memory_clear (global ? "global" : Pebbles.Context.SCIENTIFIC);
+                on_memory_clear (global ? "global" : Context.SCIENTIFIC);
             });
         }
 
@@ -342,11 +342,15 @@ namespace Pebbles {
         protected void on_memory_change (string context, bool present) {
             background_tasks_remove ();
             switch (context) {
-                case Pebbles.Context.SCIENTIFIC:
+                case Context.SCIENTIFIC:
                     scientific_view.set_memory_present (present);
+                    break;
+                case Context.STATISTICS:
+                    statistics_view.set_memory_present (present);
                     break;
                 default:
                     scientific_view.set_global_memory_present (present);
+                    statistics_view.set_global_memory_present (present);
                     break;
             }
         }

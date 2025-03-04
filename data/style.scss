@@ -150,7 +150,7 @@ $LCD_FG_COLOR: #272863bb;
 
                 @for $i from 1 through 10 {
                     &:nth-child(#{$i}) {
-                        animation-delay: 100ms * (20 - $i);
+                        animation-delay: 100ms * (10 - $i);
                     }
                 }
             }

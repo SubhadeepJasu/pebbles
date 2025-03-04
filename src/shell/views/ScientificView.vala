@@ -6,32 +6,6 @@ namespace Pebbles {
 
         // Buttons
         [GtkChild]
-        private unowned Button all_clear_button;
-        [GtkChild]
-        private unowned Button del_button;
-        [GtkChild]
-        private unowned Button zero_button;
-        [GtkChild]
-        private unowned Button one_button;
-        [GtkChild]
-        private unowned Button two_button;
-        [GtkChild]
-        private unowned Button three_button;
-        [GtkChild]
-        private unowned Button four_button;
-        [GtkChild]
-        private unowned Button five_button;
-        [GtkChild]
-        private unowned Button six_button;
-        [GtkChild]
-        private unowned Button seven_button;
-        [GtkChild]
-        private unowned Button eight_button;
-        [GtkChild]
-        private unowned Button nine_button;
-        [GtkChild]
-        private unowned Button point_button;
-        [GtkChild]
         private unowned Gtk.ToggleButton shift_button;
         [GtkChild]
         private unowned Button pow_root_button;
@@ -82,11 +56,9 @@ namespace Pebbles {
 
             set construct {
                 _collapsed = value;
-                show_hide_fx_btn = !value;
             }
         }
 
-        protected bool show_hide_fx_btn { get; set; }
         protected string constant_label { get; private set; default = "C"; }
         protected string constant_desc { get; private set; default = ""; }
 
