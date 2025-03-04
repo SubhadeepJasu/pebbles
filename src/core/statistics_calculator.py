@@ -8,10 +8,10 @@
 from io import BytesIO, StringIO
 import threading
 import json
+import hashlib
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
-import hashlib
 from gi.repository import Pebbles, GdkPixbuf
 from pebbles.core.memory import ContextualMemory
 from pebbles.core.utils import Utils
@@ -37,6 +37,9 @@ class StatisticsCalculator():
 
 
     def update_value(self, value: float, index: int, series_index: int):
+        """
+        Update the value of a cell.
+        """
         current_rows, current_cols = self.data.shape
 
         # Step 1: Calculate new shape
@@ -129,12 +132,17 @@ class StatisticsCalculator():
 
 
     def set_plot_ready_callback(self, cb):
+        """
+        Set a callback for when the plot pixbuf is ready and it's ready to draw.
+        """
         self.on_plot_ready = cb
 
 
     def set_plot_params_and_plot(self, width:float, height:float, plot_type=0, dpi=100.0):
+        """
+        Set parameters for plotting.
+        """
         self.plot_params = (width, height, dpi, plot_type)
-
         self.start_plotting()
 
 

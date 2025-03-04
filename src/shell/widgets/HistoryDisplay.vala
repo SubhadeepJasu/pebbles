@@ -27,6 +27,7 @@ namespace Pebbles {
         }
 
         public void update_list (HistoryModel[] history) {
+            list.remove_all ();
             foreach (var item in history) {
                 list.append (new HistoryDisplayItem (this, item));
             }

@@ -455,7 +455,10 @@ namespace Pebbles {
             int num_visible_cells = (int) Math.floor (viewport.get_width () / CELL_WIDTH);
             // Adjust placeholder sizes
             placeholder_l.width_request = int.max (query_offset * CELL_WIDTH, -1);
-            placeholder_r.width_request = int.max ((max_series_length - query_offset - num_visible_cells) * CELL_WIDTH, -1);
+            placeholder_r.width_request = int.max (
+                (max_series_length - query_offset - num_visible_cells) *
+                CELL_WIDTH, -1
+            );
         }
 
         public void set_op (StatOp op) {

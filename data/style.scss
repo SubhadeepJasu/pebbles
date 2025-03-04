@@ -140,10 +140,12 @@ $LCD_FG_COLOR: #272863bb;
                 opacity: 0;
                 margin-top: 0;
                 margin-bottom: 0;
+                transform: translateX(0);
+                transition: transform 0.2s ease-out;
                 animation: history-fade-in 0.4s ease-out forwards;
 
                 &:hover {
-                    opacity: 1;
+                    transform: translateX(-6px);
                 }
 
                 @for $i from 1 through 10 {
@@ -173,7 +175,7 @@ $LCD_FG_COLOR: #272863bb;
                 }
 
                 to {
-                    opacity: 0.6;
+                    opacity: 0.75;
                 }
             }
         }

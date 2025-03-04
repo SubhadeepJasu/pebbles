@@ -118,11 +118,14 @@ class PythonWindow(Pebbles.MainWindow):
                 metadata = item.get_metadata()
                 dataset_hash = metadata.get_metadata_4()
                 if dataset_hash and dataset_hash != self.stat_calc.hash_dataset():
-                    print ("WARNING: Hash mismatch. Attempting to make a table with the previous series.")
+                    print ("WARNING: Hash mismatch. \
+                           Attempting to make a table with the previous series.")
                     try:
                         res = json.loads(self.stat_calc.load_csv_data(metadata.get_metadata_3()))
                         if res and 'shape' in res and res['shape']:
-                            item.get_metadata().set_metadata_3(str(res['shape'][1]))  # Store max_series_length for use when redrawing the table
+                            # Store max_series_length for use when redrawing the table
+                            item.get_metadata().set_metadata_3(str(res['shape'][1]))
+                            self.warn_table_change()
                     except ValueError as e:
                         print(f"Error: Cannot recall previous state from history: {e}")
 

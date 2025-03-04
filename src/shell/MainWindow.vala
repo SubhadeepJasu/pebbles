@@ -227,7 +227,8 @@ namespace Pebbles {
 
                 on_key_down (view_stack.visible_child_name, keyval);
 
-                if (view_stack.visible_child_name == Pebbles.Context.STATISTICS && (keyval == Gdk.Key.Tab || keyval == 65056)) {
+                if (view_stack.visible_child_name == Pebbles.Context.STATISTICS &&
+                    (keyval == Gdk.Key.Tab || keyval == 65056)) {
                     statistics_view.key_navigate ();
                     return true;
                 }
@@ -380,6 +381,10 @@ namespace Pebbles {
                     }
                     break;
             }
+        }
+
+        protected void warn_table_change () {
+            send_toast (_("Dataset not loaded. Creating one!"));
         }
 
         private void set_shift_on (bool on) {
