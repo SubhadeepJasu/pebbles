@@ -68,13 +68,18 @@ class PythonWindow(Pebbles.MainWindow):
             ), Pebbles.Context.SCIENTIFIC)
 
         elif data_dict['context'] == Pebbles.Context.STATISTICS:
-            if data_dict['op'] == 'set-all':
+            if data_dict['op'] == Pebbles.StatOp.LOAD_DATASET:
                 result_data = self.stat_calc.load_csv_data(data_dict['options']['csv'])
             else:
                 result_data, result = self.stat_calc.evaluate (
                     data_dict['op'],
                     data_dict['options']['seriesIndex']
                 )
+
+                self.show_history(self._memory.get_views(
+                    format_func=ScientificCalculator.format,
+                    context=Pebbles.Context.STATISTICS
+                ), Pebbles.Context.STATISTICS)
         else:
             return
 
@@ -82,16 +87,17 @@ class PythonWindow(Pebbles.MainWindow):
 
 
     def _history_view_cb(self, _, context:str):
-        self.show_history(self._memory.get_views(
-                format_func=ScientificCalculator.format,
-                context=Pebbles.Context.SCIENTIFIC
-            ), Pebbles.Context.SCIENTIFIC)
+        if context in [Pebbles.Context.SCIENTIFIC, Pebbles.Context.STATISTICS]:
+            self.show_history(self._memory.get_views(
+                    format_func=ScientificCalculator.format,
+                    context=context
+                ), context)
 
 
     def _history_insert_cb(self, _, item_id:int):
         item = self._memory.get_history_by_id(item_id)
-        context = item.context
-        result = item.result
+        context = item.get_context()
+        result = item.get_result()
         if context in [Pebbles.Context.SCIENTIFIC, Pebbles.Context.STATISTICS]:
             return ScientificCalculator.format(result)
         return ''
@@ -99,7 +105,7 @@ class PythonWindow(Pebbles.MainWindow):
 
     def _history_copy_cb(self, _, item_id:int):
         item = self._memory.get_history_by_id(item_id)
-        return item.result
+        return item.get_result()
 
 
     def _history_recall_cb(self, _, item_id: int):
@@ -107,6 +113,18 @@ class PythonWindow(Pebbles.MainWindow):
         context = item.get_context()
         if context in [Pebbles.Context.SCIENTIFIC, Pebbles.Context.STATISTICS]:
             item.set_result(ScientificCalculator.format(item.get_result()))
+
+            if context == Pebbles.Context.STATISTICS:
+                metadata = item.get_metadata()
+                dataset_hash = metadata.get_metadata_4()
+                if dataset_hash and dataset_hash != self.stat_calc.hash_dataset():
+                    print ("WARNING: Hash mismatch. Attempting to make a table with the previous series.")
+                    try:
+                        res = json.loads(self.stat_calc.load_csv_data(metadata.get_metadata_3()))
+                        if res and 'shape' in res and res['shape']:
+                            item.get_metadata().set_metadata_3(str(res['shape'][1]))  # Store max_series_length for use when redrawing the table
+                    except ValueError as e:
+                        print(f"Error: Cannot recall previous state from history: {e}")
 
         self.history_recall(item)
         return item

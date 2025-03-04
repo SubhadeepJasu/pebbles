@@ -355,6 +355,9 @@ namespace Pebbles {
                 case Context.SCIENTIFIC:
                     scientific_view.show_history (_history);
                     break;
+                case Context.STATISTICS:
+                    statistics_view.show_history (_history);
+                    break;
             }
         }
 
@@ -362,6 +365,7 @@ namespace Pebbles {
             switch (_history.context) {
                 case Context.SCIENTIFIC:
                 case Context.CALCULUS:
+                case Context.GRAPHING:
                     settings.global_angle_unit = (GlobalAngleUnit) _history.metadata.metadata_1;
                     switch (settings.global_angle_unit) {
                         case RAD:

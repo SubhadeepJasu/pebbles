@@ -152,8 +152,8 @@ namespace Pebbles {
             updating = false;
         }
 
-        public void update_history () {
-            history_display.update ();
+        public void show_history (HistoryModel[] history) {
+            history_display.update_list (history);
         }
 
         private void draw_cells () {
@@ -532,6 +532,29 @@ namespace Pebbles {
                 selected_cell.text += str;
                 selected_cell.set_position ((int) selected_cell.text_length);
             }
+        }
+
+        [GtkCallback]
+        protected void insert_from_history (string? text) {
+            if (selected_cell != null) {
+                selected_cell.set_text (selected_cell.get_text () + text);
+                selected_cell.set_position ((int) selected_cell.text_length);
+            }
+        }
+
+        [GtkCallback]
+        protected void recall_history (HistoryModel data) {
+            query_offset = 0;
+            set_op (data.metadata.metadata_1);
+            int msl = -1;
+            if (int.try_parse (data.metadata.metadata_3, out msl)) {
+                series_index = 0;
+            } else {
+                series_index = data.metadata.metadata_2;
+            }
+
+            refresh_all_cells (msl);
+            main_label.set_text (data.result);
         }
     }
 }

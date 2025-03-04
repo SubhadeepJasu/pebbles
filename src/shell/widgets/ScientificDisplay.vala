@@ -154,10 +154,6 @@ namespace Pebbles {
             }
         }
 
-        public void update_history () {
-            history_display.update ();
-        }
-
         public void show_history (HistoryModel[] history) {
             history_display.update_list (history);
         }

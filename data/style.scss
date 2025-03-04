@@ -313,8 +313,8 @@ button.pressed {
             border-style: dashed;
         }
 
-        * {
-            color: #272863;
+        text {
+            color: $LCD_FG_COLOR;
         }
     }
 }

@@ -14,6 +14,7 @@ namespace Pebbles {
             realize.connect (() => {
                 Timeout.add_once (100, () => {
                     var win = (MainWindow) get_ancestor (typeof (MainWindow));
+                    print ("Refreshing history of %s\n", context);
                     win.on_history_view (context);
                 });
             });
@@ -23,10 +24,6 @@ namespace Pebbles {
             Object (
                 context: context
             );
-        }
-
-        public void update () {
-
         }
 
         public void update_list (HistoryModel[] history) {

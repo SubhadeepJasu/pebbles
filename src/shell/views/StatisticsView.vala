@@ -202,8 +202,8 @@ namespace Pebbles {
             on_evaluate (op, object);
         }
 
-        public void update_history () {
-            display.update_history ();
+        public void show_history (HistoryModel[] history) {
+            display.show_history (history);
         }
 
         [GtkCallback]

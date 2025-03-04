@@ -137,8 +137,8 @@ template $PebblesStatisticsDisplay: $PebblesDisplay {
                     context: bind template.context;
                     viewport: scrolled_window;
 
-                    // on_insert_result => $insert_from_history();
-                    // on_recall => $recall_history();
+                    inserted => $insert_from_history();
+                    recalled => $recall_history();
                 }
 
                 Label main_label {

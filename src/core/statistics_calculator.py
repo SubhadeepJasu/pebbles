@@ -93,6 +93,9 @@ class StatisticsCalculator():
             except ValueError:
                 pass  # First row is non-numeric, so we skip it
             self.data = np.loadtxt(csv_file, delimiter=",", dtype=float).T
+
+            if len(self.data.shape) == 1:
+                self.data = self.data.reshape(1, -1) # Ensure that the table has two dimensions
             # print (self.data)
         except ValueError as ve:
             raise ve
@@ -101,7 +104,8 @@ class StatisticsCalculator():
         return json.dumps({'mode': self.MODE, 'result': '', 'shape': self.data.shape})
 
 
-    def _hash_dataset(self):
+    def hash_dataset(self):
+        """Get the sha256 hash of the dataset."""
         data = self.data.tobytes()
         return hashlib.sha256(data).hexdigest()
 
@@ -327,8 +331,8 @@ class StatisticsCalculator():
                 {
                     'metadata_1': op,
                     'metadata_2': series_index,
-                    'metadata_3': ','.join(map(str, self.data[series_index])),
-                    'metadata_4': self._hash_dataset()
+                    'metadata_3': '\n'.join(map(str, self.data[series_index])),
+                    'metadata_4': self.hash_dataset()
                 }
             )
 

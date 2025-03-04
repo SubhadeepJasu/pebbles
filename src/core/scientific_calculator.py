@@ -122,8 +122,9 @@ class ScientificCalculator():
 
             # If token is an operator
             elif self._is_operator(token):
-                while (not self._is_r_l_associative(token)) and len(operator_stack) > 0 and \
-                    self._has_precedence_pemdas(token, operator_stack[-1]):
+                while (len(operator_stack) > 0 and
+                    not self._is_r_l_associative(token) and
+                    self._has_precedence_pemdas(token, operator_stack[-1])):
                     b = operand_pop()
                     a = operand_pop()
                     op = operator_stack.pop()
@@ -136,11 +137,9 @@ class ScientificCalculator():
 
         # print(operator_stack)
         while len(operator_stack) > 0:
+            op = operator_stack.pop()
             b = operand_pop()
             a = operand_pop()
-
-            print("hi")
-            op = operator_stack.pop()
             print(a, b, op)
             tmp = self._apply_op(op, a, b)
             print("res ", tmp)
@@ -267,7 +266,7 @@ class ScientificCalculator():
         op1_index = next((i for i, ops in enumerate(self.OPERATORS) if op1 in ops), float('inf'))
         op2_index = next((i for i, ops in enumerate(self.OPERATORS) if op2 in ops), float('inf'))
 
-        return op1_index > op2_index
+        return op1_index >= op2_index
 
     #region Operations
     def _op_imaginary(self, a: float|complex):
