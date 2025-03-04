@@ -8,6 +8,7 @@ namespace Pebbles {
         private unowned Gtk.ListBox list;
 
         public signal void inserted (string text);
+        public signal void recalled (HistoryModel history);
 
         construct {
             realize.connect (() => {
@@ -68,7 +69,8 @@ namespace Pebbles {
         public void recall (int item_id) {
             var window = get_ancestor (typeof (MainWindow)) as MainWindow;
             if (window != null) {
-                window.on_history_recall_start (item_id);
+                var snapshot = window.on_history_recall (item_id);
+                recalled (snapshot);
             }
         }
     }

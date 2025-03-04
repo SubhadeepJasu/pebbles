@@ -250,7 +250,7 @@ class ContextualMemory:
         conn = sqlite3.connect(self._db_path)
         cursor = conn.cursor()
         cursor.execute(ContextualMemory.HISTORY_VIEW_ID_SEARCH_QUERY, (item_id,))
-        history_item = Pebbles.HistoryModel.new_from_db_response(cursor.fetchone())
+        history_item = Pebbles.HistoryModel.new_from_db_response(*cursor.fetchone())
         conn.close()
         return history_item
 

@@ -325,11 +325,11 @@ namespace Pebbles {
             main_entry.set_position ((int) main_entry.text_length);
         }
 
-        //  [GtkCallback]
-        //  protected void recall_history (uint index, HistoryModel data) {
-        //      main_entry.set_text (data.input);
-        //      main_entry.set_position ((int) main_entry.text_length);
-        //      main_label.set_text (data.output);
-        //  }
+        [GtkCallback]
+        protected void recall_history (HistoryModel data) {
+            main_entry.set_text (data.input);
+            main_entry.set_position ((int) main_entry.text_length);
+            main_label.set_text (data.result);
+        }
     }
 }

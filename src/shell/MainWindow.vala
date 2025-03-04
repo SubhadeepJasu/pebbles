@@ -80,7 +80,7 @@ namespace Pebbles {
         public signal void on_history_view (string context);
         public signal string on_history_copy (int id);
         public signal string on_history_insert (int id);
-        public signal void on_history_recall_start (int id);
+        public signal HistoryModel on_history_recall (int id);
         public signal void on_stat_plot (double width, double height, StatPlotType plot_type, double dpi);
         public signal int on_stat_cell_update (double value, int index, int series_index);
         public signal string on_stat_cell_query (int index, int series_index);
@@ -265,6 +265,7 @@ namespace Pebbles {
         }
 
         private void setup_memory_events () {
+
             scientific_view.on_memory_recall.connect ((global) => {
                 return on_memory_recall (global ? "global" : Pebbles.Context.SCIENTIFIC);
             });
@@ -358,7 +359,23 @@ namespace Pebbles {
         }
 
         protected void history_recall (HistoryModel _history) {
-
+            switch (_history.context) {
+                case Context.SCIENTIFIC:
+                case Context.CALCULUS:
+                    settings.global_angle_unit = (GlobalAngleUnit) _history.metadata.metadata_1;
+                    switch (settings.global_angle_unit) {
+                        case RAD:
+                            angle_mode.label_text = "RAD";
+                            break;
+                        case GRAD:
+                            angle_mode.label_text = "GRA";
+                            break;
+                        case DEG:
+                            angle_mode.label_text = "DEG";
+                            break;
+                    }
+                    break;
+            }
         }
 
         private void set_shift_on (bool on) {
@@ -377,9 +394,9 @@ namespace Pebbles {
         [GtkCallback]
         protected void on_change_mode () {
             switch (view_stack.visible_child_name) {
-                case Pebbles.Context.SCIENTIFIC:
-                case "calc":
-                case "graph":
+                case Context.SCIENTIFIC:
+                case Context.CALCULUS:
+                case Context.GRAPHING:
                     switch (settings.global_angle_unit) {
                         case DEG:
                             settings.global_angle_unit = RAD;
