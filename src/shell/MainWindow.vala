@@ -84,6 +84,7 @@ namespace Pebbles {
         public signal void on_stat_plot (double width, double height, StatPlotType plot_type, double dpi);
         public signal int on_stat_cell_update (double value, int index, int series_index);
         public signal string on_stat_cell_query (int index, int series_index);
+        public signal void on_stat_export (string? path);
 
         construct {
             navigation_pane.add_css_class (Granite.STYLE_CLASS_SIDEBAR);
@@ -451,6 +452,11 @@ namespace Pebbles {
         [GtkCallback]
         protected void on_import_dialog () {
             statistics_view.import_csv_file (this);
+        }
+
+        [GtkCallback]
+        protected void on_save_csv () {
+            statistics_view.save_csv (this);
         }
 
         public void send_toast (string message) {

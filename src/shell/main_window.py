@@ -34,6 +34,7 @@ class PythonWindow(Pebbles.MainWindow):
         self.connect("on_stat_plot", self._stat_plot_cb)
         self.connect("on_stat_cell_update", self._stat_cell_update_cb)
         self.connect("on_stat_cell_query", self._stat_cell_query_cb)
+        self.connect("on_stat_export", self._on_stat_export_cb)
 
 
     def _evaluate(self, _, data:str):
@@ -162,6 +163,10 @@ class PythonWindow(Pebbles.MainWindow):
     def _stat_plot_cb(
             self, _, width:float, height:float, plot_type:Pebbles.StatPlotType, dpi: float):
         self.stat_calc.set_plot_params_and_plot(width, height, plot_type, dpi)
+
+
+    def _on_stat_export_cb(self, _, path: str):
+        self.stat_calc.export(path)
 
 
     def _memory_recall(self, _, context: str):

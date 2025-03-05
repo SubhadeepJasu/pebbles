@@ -436,3 +436,17 @@ class StatisticsCalculator():
 
         gm = np.exp(np.mean(np.log(series)))
         return Utils.format_float(gm), gm
+
+
+    def export(self, path: str):
+        """
+        Saves the current dataset (`self.data`) as a CSV file.
+        """
+        try:
+            if not path.endswith(".csv"):
+                path += ".csv"
+            np.savetxt(path, self.data.T, delimiter=",")  # Transpose to match input format
+        except PermissionError:
+            print(f"ERROR: No permission to write to {path}")
+        except OSError as e:
+            print(f"ERROR: OS error while saving CSV: {e}")

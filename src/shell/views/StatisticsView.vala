@@ -50,18 +50,18 @@ namespace Pebbles {
             };
             all_files_filter.add_pattern ("*");
 
-            var music_files_filter = new Gtk.FileFilter () {
+            var csv_files_filter = new Gtk.FileFilter () {
                 name = _("Comma Separated Value files"),
             };
-            music_files_filter.add_mime_type ("text/csv");
+            csv_files_filter.add_mime_type ("text/csv");
 
             var filter_model = new ListStore (typeof (Gtk.FileFilter));
             filter_model.append (all_files_filter);
-            filter_model.append (music_files_filter);
+            filter_model.append (csv_files_filter);
 
             var file_dialog = new Gtk.FileDialog () {
                 accept_label = _("Import"),
-                default_filter = music_files_filter,
+                default_filter = csv_files_filter,
                 filters = filter_model,
                 modal = true,
                 title = _("Import CSV files")
@@ -73,6 +73,45 @@ namespace Pebbles {
                     read_file_async.begin (file);
                 } catch (Error e) {
 
+                }
+            });
+        }
+
+        public void save_csv (MainWindow main_window) {
+            var all_files_filter = new Gtk.FileFilter () {
+                name = _("All files"),
+            };
+            all_files_filter.add_pattern ("*");
+
+            var csv_files_filter = new Gtk.FileFilter () {
+                name = _("Comma Separated Value files"),
+            };
+            csv_files_filter.add_mime_type ("text/csv");
+
+            var filter_model = new ListStore (typeof (Gtk.FileFilter));
+            filter_model.append (all_files_filter);
+            filter_model.append (csv_files_filter);
+
+            var file_dialog = new Gtk.FileDialog () {
+                accept_label = _("Export"),
+                default_filter = csv_files_filter,
+                filters = filter_model,
+                modal = true,
+                title = _("Import CSV files")
+            };
+
+            file_dialog.save.begin (main_window, null, (obj, result) => {
+                try {
+                    var file = file_dialog.save.end (result);
+                    if (file != null) {
+                        string? file_path = file.get_path ();
+                        if (file_path != null) {
+                            main_window.on_stat_export (file_path);  // Call Python to save CSV
+                            main_window.send_toast (_("Exported CSV file!"));
+                        }
+                    }
+                } catch (Error e) {
+                    print ("Failed to save file: %s\n", e.message);
                 }
             });
         }
