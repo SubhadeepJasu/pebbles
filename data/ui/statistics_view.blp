@@ -111,6 +111,24 @@ template $PebblesStatisticsView: $PebblesView {
           clicked => $navigate_right();
         }
 
+        $PebblesButton results_expand_button {
+          label_text: "← <b>=</b>";
+          visible: bind template.collapsed;
+          focus-on-click: false;
+
+          styles [
+            "special-action",
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 0;
+            column: 4;
+          }
+
+          clicked => $on_expand_fx();
+        }
+
         $PebblesButton seven_button {
           name: "7";
           label_text: "7";
@@ -153,7 +171,9 @@ template $PebblesStatisticsView: $PebblesView {
           focus-on-click: false;
           key: "9";
 
-          styles ["adaptive-btn-font"]
+          styles [
+            "adaptive-btn-font"
+          ]
 
           layout {
             row: 1;
@@ -163,7 +183,7 @@ template $PebblesStatisticsView: $PebblesView {
           clicked => $write_char();
         }
 
-          $PebblesButton go_left {
+        $PebblesButton go_left {
           icon: "go-previous-symbolic";
           tooltip_desc: _("Navigate Left");
           focus-on-click: false;
@@ -178,13 +198,37 @@ template $PebblesStatisticsView: $PebblesView {
           clicked => $navigate_left();
         }
 
+        $PebblesButton add_cell_button_p {
+          label_text: "▭⁺";
+          tooltip_desc: _("Add Cell");
+          focus-on-click: false;
+          key: "a";
+          accel_markup: "a";
+          visible: bind template.collapsed;
+
+          styles [
+            "special-action",
+            "adaptive-btn-font",
+            "large-font-btn"
+          ]
+
+          layout {
+            row: 1;
+            column: 4;
+          }
+
+          clicked => $add_cell();
+        }
+
         $PebblesButton four_button {
           name: "4";
           label_text: "4";
           focus-on-click: false;
           key: "4";
 
-          styles ["adaptive-btn-font"]
+          styles [
+            "adaptive-btn-font"
+          ]
 
           layout {
             row: 2;
@@ -200,7 +244,9 @@ template $PebblesStatisticsView: $PebblesView {
           focus-on-click: false;
           key: "5";
 
-          styles ["adaptive-btn-font"]
+          styles [
+            "adaptive-btn-font"
+          ]
 
           layout {
             row: 2;
@@ -216,7 +262,9 @@ template $PebblesStatisticsView: $PebblesView {
           focus-on-click: false;
           key: "6";
 
-          styles ["adaptive-btn-font"]
+          styles [
+            "adaptive-btn-font"
+          ]
 
           layout {
             row: 2;
@@ -231,16 +279,38 @@ template $PebblesStatisticsView: $PebblesView {
           tooltip_desc: _("Switch Visualization");
           focus-on-click: false;
 
+          styles [
+            "adaptive-btn-font"
+          ]
+
           layout {
             row: 2;
             column: 3;
           }
 
+          clicked => $switch_plot();
+        }
+
+        $PebblesButton mean_button_p {
+          name: "mean";
+          label_text: "x̄";
+          tooltip_desc: _("Mean");
+          focus-on-click: false;
+          accel_markup: "M";
+          key: "m,M";
+          visible: bind template.collapsed;
+
           styles [
+            "special-action",
             "adaptive-btn-font"
           ]
 
-          clicked => $switch_plot();
+          layout {
+            row: 2;
+            column: 4;
+          }
+
+          clicked => $perform_op();
         }
 
         $PebblesButton one_button {
@@ -249,7 +319,9 @@ template $PebblesStatisticsView: $PebblesView {
           focus-on-click: false;
           key: "1";
 
-          styles ["adaptive-btn-font"]
+          styles [
+            "adaptive-btn-font"
+          ]
 
           layout {
             row: 3;
@@ -265,7 +337,9 @@ template $PebblesStatisticsView: $PebblesView {
           focus-on-click: false;
           key: "2";
 
-          styles ["adaptive-btn-font"]
+          styles [
+            "adaptive-btn-font"
+          ]
 
           layout {
             row: 3;
@@ -281,7 +355,9 @@ template $PebblesStatisticsView: $PebblesView {
           focus-on-click: false;
           key: "3";
 
-          styles ["adaptive-btn-font"]
+          styles [
+            "adaptive-btn-font"
+          ]
 
           layout {
             row: 3;
@@ -297,14 +373,36 @@ template $PebblesStatisticsView: $PebblesView {
           tooltip_desc: _("Trend");
           focus-on-click: false;
 
+          styles [
+            "adaptive-btn-font"
+          ]
+
           layout {
             row: 3;
             column: 3;
           }
 
+          clicked => $perform_op();
+        }
+
+        $PebblesButton median_button_p {
+          name: "median";
+          label_text: "M";
+          focus-on-click: false;
+          tooltip_desc: _("Median");
+          accel_markup: "E";
+          key: "e,E";
+          visible: bind template.collapsed;
+
           styles [
+            "special-action",
             "adaptive-btn-font"
           ]
+
+          layout {
+            row: 3;
+            column: 4;
+          }
 
           clicked => $perform_op();
         }
@@ -312,7 +410,11 @@ template $PebblesStatisticsView: $PebblesView {
         $PebblesButton zero_button {
           name: "0";
           label_text: "0";
-          styles ["adaptive-btn-font"]
+
+          styles [
+            "adaptive-btn-font"
+          ]
+
           focus-on-click: false;
           key: "0";
 
@@ -368,100 +470,16 @@ template $PebblesStatisticsView: $PebblesView {
           focus-on-click: false;
           key: "-";
 
+          styles [
+            "adaptive-btn-font"
+          ]
+
           layout {
             row: 4;
             column: 3;
           }
 
-          styles [
-            "adaptive-btn-font",
-          ]
-
           clicked => $on_click_negative();
-        }
-
-        $PebblesButton results_expand_button {
-          label_text: "← <b>=</b>";
-          visible: bind template.collapsed;
-          focus-on-click: false;
-
-          styles [
-            "special-action",
-            "adaptive-btn-font"
-          ]
-
-          layout {
-            row: 0;
-            column: 4;
-          }
-
-          clicked => $on_expand_fx();
-        }
-
-        $PebblesButton add_cell_button_p {
-          label_text: "▭⁺";
-          tooltip_desc: _("Add Cell");
-          focus-on-click: false;
-          key: "a";
-          accel_markup: "a";
-          visible: bind template.collapsed;
-
-          layout {
-            row: 1;
-            column: 4;
-          }
-
-          styles [
-            "special-action",
-            "adaptive-btn-font",
-            "large-font-btn"
-          ]
-
-          clicked => $add_cell();
-        }
-
-        $PebblesButton mean_button_p {
-          name: "mean";
-          label_text: "x̄";
-          tooltip_desc: _("Mean");
-          focus-on-click: false;
-          accel_markup: "M";
-          key: "m,M";
-          visible: bind template.collapsed;
-
-          styles [
-            "special-action",
-            "adaptive-btn-font"
-          ]
-
-          layout {
-            row: 2;
-            column: 4;
-          }
-
-          clicked => $perform_op();
-        }
-
-        $PebblesButton median_button_p {
-          name: "median";
-          label_text: "M";
-          focus-on-click: false;
-          tooltip_desc: _("Median");
-          accel_markup: "E";
-          key: "e,E";
-          visible: bind template.collapsed;
-
-          styles [
-            "special-action",
-            "adaptive-btn-font"
-          ]
-
-          layout {
-            row: 3;
-            column: 4;
-          }
-
-          clicked => $perform_op();
         }
 
         $PebblesButton sample_std_dev_button_p {
@@ -487,7 +505,6 @@ template $PebblesStatisticsView: $PebblesView {
         }
       }
     };
-
 
     content: Adw.NavigationPage button_container_right {
       title: "Functional Input";
@@ -523,28 +540,6 @@ template $PebblesStatisticsView: $PebblesView {
           clicked => $on_shift();
         }
 
-        $PebblesButton add_cell_button {
-          label_text: "▭⁺";
-          tooltip_desc: _("Add Cell");
-          focus-on-click: false;
-          key: "a";
-          accel_markup: "a";
-          visible: bind stat_nav_split_view.collapsed inverted;
-
-          layout {
-            row: 4;
-            column: 3;
-          }
-
-          styles [
-            "special-action",
-            "adaptive-btn-font",
-            "large-font-btn"
-          ]
-
-          clicked => $add_cell();
-        }
-
         $PebblesButton go_up {
           icon: "go-up-symbolic";
           tooltip_desc: _("Navigate Up");
@@ -552,7 +547,9 @@ template $PebblesStatisticsView: $PebblesView {
           key: "Page_Up,Up";
           accel_markup: "Page_Up,Up";
 
-          styles ["special-action"]
+          styles [
+            "special-action"
+          ]
 
           layout {
             row: 0;
@@ -569,7 +566,9 @@ template $PebblesStatisticsView: $PebblesView {
           key: "Page_Down,Return,Down";
           accel_markup: "Page_Down,Return,Down";
 
-          styles ["special-action"]
+          styles [
+            "special-action"
+          ]
 
           layout {
             row: 0;
@@ -577,6 +576,26 @@ template $PebblesStatisticsView: $PebblesView {
           }
 
           clicked => $navigate_down();
+        }
+
+        $PebblesButton memory_plus_button {
+          label_text: "M+";
+          tooltip_desc: _("Add it to the value in Memory");
+          accel_markup: "F3";
+          focus-on-click: false;
+          key: "F3";
+
+          styles [
+            "memory-action",
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 0;
+            column: 3;
+          }
+
+          clicked => $on_click_memory_add();
         }
 
         $PebblesButton cardinality_button {
@@ -642,12 +661,12 @@ template $PebblesStatisticsView: $PebblesView {
           clicked => $perform_op();
         }
 
-        $PebblesButton memory_plus_button {
-          label_text: "M+";
-          tooltip_desc: _("Add it to the value in Memory");
-          accel_markup: "F3";
+        $PebblesButton memory_minus_button {
+          label_text: _("M−");
+          tooltip_desc: _("Subtract it from the value in Memory");
+          accel_markup: "F4";
           focus-on-click: false;
-          key: "F3";
+          key: "F4";
 
           styles [
             "memory-action",
@@ -655,11 +674,11 @@ template $PebblesStatisticsView: $PebblesView {
           ]
 
           layout {
-            row: 0;
+            row: 1;
             column: 3;
           }
 
-          clicked => $on_click_memory_add();
+          clicked => $on_click_memory_subtract();
         }
 
         $PebblesButton sum_button {
@@ -725,12 +744,12 @@ template $PebblesStatisticsView: $PebblesView {
           clicked => $perform_op();
         }
 
-        $PebblesButton memory_minus_button {
-          label_text: _("M−");
-          tooltip_desc: _("Subtract it from the value in Memory");
-          accel_markup: "F4";
+        $PebblesButton memory_recall_button {
+          label_text: _("MR");
+          tooltip_desc: _("Recall value from Memory");
+          accel_markup: "F5";
           focus-on-click: false;
-          key: "F4";
+          key: "F5";
 
           styles [
             "memory-action",
@@ -738,11 +757,11 @@ template $PebblesStatisticsView: $PebblesView {
           ]
 
           layout {
-            row: 1;
+            row: 2;
             column: 3;
           }
 
-          clicked => $on_click_memory_subtract();
+          clicked => $on_click_memory_recall();
         }
 
         $PebblesButton mean_button {
@@ -808,12 +827,12 @@ template $PebblesStatisticsView: $PebblesView {
           clicked => $perform_op();
         }
 
-        $PebblesButton memory_recall_button {
-          label_text: _("MR");
-          tooltip_desc: _("Recall value from Memory");
-          accel_markup: "F5";
+        $PebblesButton memory_clear_button {
+          label_text: _("MC");
+          tooltip_desc: _("Memory Clear");
+          accel_markup: "F6";
           focus-on-click: false;
-          key: "F5";
+          key: "F6";
 
           styles [
             "memory-action",
@@ -821,11 +840,11 @@ template $PebblesStatisticsView: $PebblesView {
           ]
 
           layout {
-            row: 2;
+            row: 3;
             column: 3;
           }
 
-          clicked => $on_click_memory_recall();
+          clicked => $on_click_memory_clear();
         }
 
         $PebblesButton geometric_mean_button {
@@ -891,24 +910,26 @@ template $PebblesStatisticsView: $PebblesView {
           clicked => $perform_op();
         }
 
-        $PebblesButton memory_clear_button {
-          label_text: _("MC");
-          tooltip_desc: _("Memory Clear");
-          accel_markup: "F6";
+        $PebblesButton add_cell_button {
+          label_text: "▭⁺";
+          tooltip_desc: _("Add Cell");
           focus-on-click: false;
-          key: "F6";
-
-          styles [
-            "memory-action",
-            "adaptive-btn-font"
-          ]
+          key: "a";
+          accel_markup: "a";
+          visible: bind stat_nav_split_view.collapsed inverted;
 
           layout {
-            row: 3;
+            row: 4;
             column: 3;
           }
 
-          clicked => $on_click_memory_clear();
+          styles [
+            "special-action",
+            "adaptive-btn-font",
+            "large-font-btn"
+          ]
+
+          clicked => $add_cell();
         }
 
         $PebblesButton collapse_fx_button {
