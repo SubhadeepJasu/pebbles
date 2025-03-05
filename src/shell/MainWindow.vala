@@ -273,13 +273,20 @@ namespace Pebbles {
         }
 
         private void setup_memory_events () {
-
             scientific_view.on_memory_recall.connect ((global) => {
                 return on_memory_recall (global ? "global" : Context.SCIENTIFIC);
             });
 
             scientific_view.on_memory_clear.connect ((global) => {
                 on_memory_clear (global ? "global" : Context.SCIENTIFIC);
+            });
+
+            statistics_view.on_memory_recall.connect ((global) => {
+                return on_memory_recall (global ? "global" : Context.STATISTICS);
+            });
+
+            statistics_view.on_memory_clear.connect ((global) => {
+                on_memory_clear (global ? "global" : Context.STATISTICS);
             });
         }
 

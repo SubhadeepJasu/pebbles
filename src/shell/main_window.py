@@ -48,20 +48,7 @@ class PythonWindow(Pebbles.MainWindow):
         if data_dict['context'] == Pebbles.Context.SCIENTIFIC:
             sci_calc = ScientificCalculator(data, self._memory)
             result_data, result = sci_calc.evaluate()
-            if result is not None:
-                if data_dict['memoryOp'] == 1:
-                    self._memory.add(result, 'sci')
-                    self.on_memory_change('sci', self._memory.any('sci'))
-                elif data_dict['memoryOp'] == 2:
-                    self._memory.add(result, 'global')
-                    self.on_memory_change('global', self._memory.any('global'))
-                elif data_dict['memoryOp'] == -1:
-                    self._memory.subtract(result, 'sci')
-                    self.on_memory_change('sci', self._memory.any('sci'))
-                elif data_dict['memoryOp'] == -2:
-                    self._memory.subtract(result, 'global')
-                    self.on_memory_change('global', self._memory.any('global'))
-
+            self._commit_to_memory(result, Pebbles.Context.SCIENTIFIC, data_dict['memoryOp'])
             self.show_history(self._memory.get_views(
                 format_func=ScientificCalculator.format,
                 context=Pebbles.Context.SCIENTIFIC
@@ -79,7 +66,8 @@ class PythonWindow(Pebbles.MainWindow):
                     data_dict['op'],
                     data_dict['options']['seriesIndex']
                 )
-
+                self._commit_to_memory(result,
+                                Pebbles.Context.STATISTICS, data_dict['options']['memoryOp'])
                 self.show_history(self._memory.get_views(
                     format_func=ScientificCalculator.format,
                     context=Pebbles.Context.STATISTICS
@@ -89,6 +77,25 @@ class PythonWindow(Pebbles.MainWindow):
 
         self.on_evaluation_completed(result_data)
 
+
+    def _commit_to_memory(self, result, context, memory_op):
+        if result is not None:
+            if memory_op == Pebbles.MemAppendOp.ADD:
+                self._memory.add(result, context)
+                self.on_memory_change(context,
+                                        self._memory.any(context))
+            elif memory_op == Pebbles.MemAppendOp.ADD_GLOBAL:
+                self._memory.add(result, Pebbles.Context.GLOBAL)
+                self.on_memory_change(Pebbles.Context.GLOBAL,
+                                        self._memory.any(Pebbles.Context.GLOBAL))
+            elif memory_op == Pebbles.MemAppendOp.SUBTRACT:
+                self._memory.subtract(result, context)
+                self.on_memory_change(context,
+                                        self._memory.any(context))
+            elif memory_op == Pebbles.MemAppendOp.SUBTRACT_GLOBAL:
+                self._memory.subtract(result, Pebbles.Context.GLOBAL)
+                self.on_memory_change(Pebbles.Context.GLOBAL,
+                                        self._memory.any(Pebbles.Context.GLOBAL))
 
     def _history_view_cb(self, _, context:str):
         if context in [Pebbles.Context.SCIENTIFIC, Pebbles.Context.STATISTICS]:
@@ -161,7 +168,7 @@ class PythonWindow(Pebbles.MainWindow):
         """
         Recall value from memory with given context.
         """
-        if context in ['sci', 'calc']:
+        if context in [Pebbles.Context.SCIENTIFIC, Pebbles.Context.CALCULUS]:
             answer = self._memory.recall(context)
             if isinstance(answer, complex):
                 if answer.real == 0 and answer.imag == 0:
@@ -173,6 +180,9 @@ class PythonWindow(Pebbles.MainWindow):
 
             if isinstance(answer, float):
                 return f'{Utils.format_float(answer)}'
+        elif context == Pebbles.Context.STATISTICS:
+            answer = self._memory.recall(context)
+            return f'{Utils.format_float(answer)}'
 
         return ''
 

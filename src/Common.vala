@@ -102,6 +102,14 @@ namespace Pebbles {
         return exp;
     }
 
+    public enum MemAppendOp {
+        SUBTRACT_GLOBAL = -2,
+        SUBTRACT = -1,
+        NONE = 0,
+        ADD = 1,
+        ADD_GLOBAL = 2
+    }
+
     /** Specify angle unit to use (degrees, radians or gradient).
      *  Its used in the upper left corner of the app.
      */

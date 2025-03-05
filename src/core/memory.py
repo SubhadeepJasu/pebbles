@@ -161,9 +161,8 @@ class ContextualMemory:
         if context not in [Pebbles.Context.SCIENTIFIC, Pebbles.Context.CALCULUS]:
             if isinstance(value, complex):
                 value = float(value.imag)
-
-            if context == Pebbles.Context.PROGRAMMER:
-                return int(value)
+            elif context == Pebbles.Context.PROGRAMMER:
+                value = int(value)
 
         return value
 

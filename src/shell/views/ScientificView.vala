@@ -272,12 +272,18 @@ namespace Pebbles {
 
         [GtkCallback]
         public void on_click_memory_add () {
-            on_evaluate (display.main_entry.text, shift_button.active ? 2 : 1); // 1: Memory, 2: Global Memory
+            on_evaluate (
+                display.main_entry.text,
+                shift_button.active ? MemAppendOp.ADD_GLOBAL : MemAppendOp.ADD
+            );
         }
 
         [GtkCallback]
         public void on_click_memory_subtract () {
-            on_evaluate (display.main_entry.text, shift_button.active ? -2 : -1); // -1: Memory, -2: Global Memory
+            on_evaluate (
+                display.main_entry.text,
+                shift_button.active ? MemAppendOp.SUBTRACT_GLOBAL : MemAppendOp.SUBTRACT
+            );
         }
 
         [GtkCallback]

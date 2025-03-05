@@ -1,7 +1,7 @@
 namespace Pebbles {
     [GtkTemplate (ui = "/com/github/subhadeepjasu/pebbles/ui/statistics_view.ui")]
     public class StatisticsView : View {
-        private StatOp op;
+        private StatOp op = SUM;
         [GtkChild]
         private unowned Adw.NavigationSplitView stat_nav_split_view;
         [GtkChild]
@@ -313,12 +313,12 @@ namespace Pebbles {
 
         [GtkCallback]
         public void on_click_memory_add () {
-            evaluate_op (this.op, shift_button.active ? 2 : 1); // 1: Memory, 2: Global Memory
+            evaluate_op (this.op, shift_button.active ? MemAppendOp.ADD_GLOBAL : MemAppendOp.ADD);
         }
 
         [GtkCallback]
         public void on_click_memory_subtract () {
-            evaluate_op (this.op, shift_button.active ? -2 : -1); // -1: Memory, -2: Global Memory
+            evaluate_op (this.op, shift_button.active ? MemAppendOp.SUBTRACT_GLOBAL : MemAppendOp.SUBTRACT);
         }
 
         [GtkCallback]
