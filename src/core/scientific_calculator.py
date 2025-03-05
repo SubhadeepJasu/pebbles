@@ -93,7 +93,9 @@ class ScientificCalculator():
              # Current tokens is a number, push it to number stack
             if (not self._is_operator(token)) and token not in ['(', ')']:
                 if token == '@':
-                    last_ans = ScientificCalculator._parse(self.memory.get_last_result(Pebbles.Context.SCIENTIFIC))
+                    last_ans = ScientificCalculator._parse(
+                        self.memory.get_last_result(Pebbles.Context.SCIENTIFIC)
+                    )
                     operand_stack.append(last_ans if last_ans is not None else 0)
                 elif token == '#':
                     last_ans = ScientificCalculator._parse(self.memory.get_last_result())
