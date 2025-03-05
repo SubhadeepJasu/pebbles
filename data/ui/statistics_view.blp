@@ -66,22 +66,20 @@ template $PebblesStatisticsView: $PebblesView {
             column: 0;
           }
 
-          // clicked => $on_all_clear();
+          clicked => $on_all_clear();
         }
 
         $PebblesButton clear_row_button {
           label_text: "RC";
           tooltip_desc: _("Row Clear");
           focus-on-click: false;
-          key: "End";
-          accel_markup: "End";
 
           layout {
             row: 0;
             column: 1;
           }
 
-          // clicked => $on_backspace();
+          clicked => $on_series_clear();
         }
 
         $PebblesButton del_button {
@@ -95,7 +93,7 @@ template $PebblesStatisticsView: $PebblesView {
             column: 2;
           }
 
-          // clicked => $confirm_data();
+          clicked => $backspace();
         }
 
         $PebblesButton go_right {

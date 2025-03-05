@@ -165,8 +165,19 @@ namespace Pebbles {
         }
 
         public void backspace () {
-            main_entry.text = main_entry.text.substring (0, main_entry.text.length - 1);
-            main_entry.set_position ((int) main_entry.text_length);
+            int start, end;
+            main_entry.get_selection_bounds (out start, out end);
+
+            if (start == end) {
+                int pos = main_entry.get_position ();
+                if (pos > 0) {
+                    main_entry.delete_text (pos - 1, pos);
+                    main_entry.set_position (pos - 1);
+                }
+            } else {
+                main_entry.delete_text (start, end);
+                main_entry.set_position (start);
+            }
         }
 
         public void write (string str) {

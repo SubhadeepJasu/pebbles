@@ -113,6 +113,26 @@ class StatisticsCalculator():
         return hashlib.sha256(data).hexdigest()
 
 
+    def clear_dataset(self):
+        """
+        Empty the table.
+        """
+        self.data = np.ndarray(shape=(1, 1))
+        self.data[0, 0] = 0.0
+        return json.dumps({'mode': self.MODE, 'result': '0', 'cleared': True})
+
+
+    def clear_series(self, series_index:int):
+        """
+        Clear the given series in the dataset
+        """
+        if 0 <= series_index < self.data.shape[0]:  # Ensure index is valid
+            self.data[series_index, :] = 0.0
+            return json.dumps({'mode': self.MODE, 'result': '0', 'cleared': True})
+
+        return json.dumps({'mode': self.MODE, 'result': 'E', 'cleared': False})
+
+
     def fetch_series(self, series_index: int) -> list[float]:
         """
         Fetch the given series/row data as per the given `series_index`.
@@ -308,6 +328,7 @@ class StatisticsCalculator():
         res = "E"
         input_exp = Pebbles.stat_op_to_exp(op)
         val = None
+
         if _op == Pebbles.StatOp.TREND:
             res, val = self._trend(series_index)
         elif _op == Pebbles.StatOp.SHAPE:

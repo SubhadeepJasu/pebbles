@@ -101,6 +101,15 @@ namespace Pebbles {
 
         public signal bool activate_op (string op);
 
+        public enum StatNavigation {
+            LEFT,
+            RIGHT,
+            FIRST,
+            LAST,
+            UP,
+            DOWN
+        }
+
         construct {
             plot_area.set_draw_func (draw_figure);
             settings = Pebbles.Settings.get_default ();
@@ -138,9 +147,9 @@ namespace Pebbles {
                 });
                 main_window.on_key_down.connect ((mode, keyval) => {
                     if (keyval == Gdk.Key.Page_Up || keyval == Gdk.Key.Up) {
-                        navigate (2);
+                        navigate (UP);
                     } else if (keyval == Gdk.Key.Page_Down || keyval == Gdk.Key.Return || keyval == Gdk.Key.Down) {
-                        navigate (3);
+                        navigate (DOWN);
                     }
 
                     return Gdk.EVENT_STOP;
@@ -228,13 +237,9 @@ namespace Pebbles {
             }
         }
 
-        public void key_navigate () {
-            navigate (shift_on ? 0 : 1);
-        }
-
-        public void navigate (int direction) {
-            switch (direction) {
-                case 0:
+        public void navigate (StatNavigation nav) {
+            switch (nav) {
+                case LEFT:
                     if (selected_cell.index > query_offset) {
                         var new_focus_index = selected_cell.index - 1;
                         foreach (var cell in cells) {
@@ -249,10 +254,10 @@ namespace Pebbles {
                         query_offset--;
                         is_navigating = true;
                         refresh_all_cells ();
-                        navigate (1);
+                        navigate (RIGHT);
                         Timeout.add_once (50, () => {
                             Idle.add_once (() => {
-                                navigate (0);
+                                navigate (LEFT);
                                 Timeout.add_once (250, () => {
                                     is_navigating = false;
                                 });
@@ -260,7 +265,7 @@ namespace Pebbles {
                         });
                     }
                 break;
-                case 1:
+                case RIGHT:
                     uint next_index = selected_cell.index + 1;
 
                     if (next_index < query_offset + cells.length ()) {
@@ -277,10 +282,10 @@ namespace Pebbles {
                             query_offset++;  // Shift the viewport right
                             is_navigating = true;
                             refresh_all_cells ();
-                            navigate (0);
+                            navigate (LEFT);
                             Timeout.add_once (50, () => {
                                 Idle.add_once (() => {
-                                    navigate (1);
+                                    navigate (RIGHT);
                                     Timeout.add_once (250, () => {
                                         is_navigating = false;
                                     });
@@ -289,7 +294,7 @@ namespace Pebbles {
                         }
                     }
                 break;
-                case 2:
+                case UP:
                     if (series_index > 0) {
                         series_index = series_index - 1;
                         refresh_all_cells ();
@@ -299,13 +304,23 @@ namespace Pebbles {
                         focus_cell (selected_cell);
                     });
                 break;
-                case 3:
+                case DOWN:
                     series_index = series_index + 1;
                     refresh_all_cells ();
                     Idle.add_once (() => {
                         focus_cell (selected_cell);
                     });
                 break;
+                case FIRST:
+                    viewport.hadjustment.value = 0;
+                    Timeout.add_once (50, () => {
+                        selected_cell = cells.nth_data (0);
+                        focus_cell (selected_cell);
+                    });
+                    break;
+                case LAST:
+                    add_cell ();
+                    break;
             }
         }
 
@@ -321,7 +336,7 @@ namespace Pebbles {
                         Timeout.add_once (250, () => {
                             is_navigating = false;
                             Timeout.add_once (100, () => {
-                                navigate (1);
+                                navigate (RIGHT);
                             });
                         });
                     });
@@ -554,6 +569,24 @@ namespace Pebbles {
             if (selected_cell != null) {
                 selected_cell.text += str;
                 selected_cell.set_position ((int) selected_cell.text_length);
+            }
+        }
+
+        public void backspace () {
+            if (selected_cell != null) {
+                int start, end;
+                selected_cell.get_selection_bounds (out start, out end);
+
+                if (start == end) {
+                    int pos = selected_cell.get_position ();
+                    if (pos > 0) {
+                        selected_cell.delete_text (pos - 1, pos);
+                        selected_cell.set_position (pos - 1);
+                    }
+                } else {
+                    selected_cell.delete_text (start, end);
+                    selected_cell.set_position (start);
+                }
             }
         }
 

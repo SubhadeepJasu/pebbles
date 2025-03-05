@@ -22,6 +22,8 @@ namespace Pebbles {
      */
     public enum StatOp {
         LOAD_DATASET,
+        CLEAR_DATASET,
+        CLEAR_SERIES,
         SHAPE,
         MEDIAN,
         MODE,

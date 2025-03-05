@@ -70,6 +70,10 @@ class PythonWindow(Pebbles.MainWindow):
         elif data_dict['context'] == Pebbles.Context.STATISTICS:
             if data_dict['op'] == Pebbles.StatOp.LOAD_DATASET:
                 result_data = self.stat_calc.load_csv_data(data_dict['options']['csv'])
+            elif data_dict['op'] == Pebbles.StatOp.CLEAR_DATASET:
+                result_data = self.stat_calc.clear_dataset()
+            elif data_dict['op'] == Pebbles.StatOp.CLEAR_SERIES:
+                result_data = self.stat_calc.clear_series(data_dict['options']['seriesIndex'])
             else:
                 result_data, result = self.stat_calc.evaluate (
                     data_dict['op'],

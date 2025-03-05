@@ -1,6 +1,7 @@
 namespace Pebbles {
     [GtkTemplate (ui = "/com/github/subhadeepjasu/pebbles/ui/statistics_view.ui")]
     public class StatisticsView : View {
+        private StatOp op;
         [GtkChild]
         private unowned Adw.NavigationSplitView stat_nav_split_view;
         [GtkChild]
@@ -18,17 +19,12 @@ namespace Pebbles {
         private unowned Button memory_recall_button;
         [GtkChild]
         private unowned Button memory_clear_button;
+        [GtkChild]
+        private unowned Button go_left;
+        [GtkChild]
+        private unowned Button go_right;
 
-        private bool _collapsed;
-        public bool collapsed {
-            get {
-                return _collapsed;
-            }
-
-            set construct {
-                _collapsed = value;
-            }
-        }
+        public bool collapsed { get; set; }
 
         protected List<List<string>> table;
 
@@ -105,7 +101,17 @@ namespace Pebbles {
         }
 
         public void key_navigate () {
-            display.key_navigate ();
+            if (shift_button.active)
+                display.navigate (LEFT);
+            else
+                display.navigate (RIGHT);
+        }
+
+        public void key_extreme_navigate (bool left = false) {
+            if (left)
+                display.navigate (FIRST);
+            else
+                display.navigate (LAST);
         }
 
         [GtkCallback]
@@ -120,22 +126,28 @@ namespace Pebbles {
 
         [GtkCallback]
         protected void navigate_left () {
-            display.navigate (0);
+            if (shift_button.active)
+                display.navigate (FIRST);
+            else
+                display.navigate (LEFT);
         }
 
         [GtkCallback]
         protected void navigate_right () {
-            display.navigate (1);
+            if (shift_button.active)
+                display.navigate (LAST);
+            else
+                display.navigate (RIGHT);
         }
 
         [GtkCallback]
         protected void navigate_up () {
-            display.navigate (2);
+            display.navigate (UP);
         }
 
         [GtkCallback]
         protected void navigate_down () {
-            display.navigate (3);
+            display.navigate (DOWN);
         }
 
         [GtkCallback]
@@ -143,6 +155,7 @@ namespace Pebbles {
             StatOp op;
             print ("%s\n", stat_op_to_exp (Pebbles.StatOp.SHAPE));
             if (StatOp.try_parse_name (btn.name.up (), out op)) {
+                this.op = op;
                 evaluate_op (op);
             }
         }
@@ -206,13 +219,15 @@ namespace Pebbles {
                     return Gdk.EVENT_PROPAGATE;
             }
 
+            this.op = op;
             evaluate_op (op);
             return Gdk.EVENT_STOP;
         }
 
-        private void evaluate_op (StatOp op) {
+        private void evaluate_op (StatOp op, int memory_op = 0) {
             var object = new Json.Object ();
             object.set_int_member ("seriesIndex", display.series_index);
+            object.set_int_member ("memoryOp", memory_op);
             display.set_op (op);
             on_evaluate (op, object);
         }
@@ -260,6 +275,15 @@ namespace Pebbles {
             last_answer_button.label_text = shift_button.active ? "GAns" : "Ans";
             last_answer_button.tooltip_desc = shift_button.active
             ? _("Insert global last answer") : _("Insert last answer");
+
+            go_left.icon_name = shift_button.active ? "go-first-symbolic" : "go-previous-symbolic";
+            go_left.key = shift_button.active ? "Home" : "<Shift>Tab";
+            go_left.accel_markup = shift_button.active ? "Home" : "<Shift>Tab";
+            go_left.tooltip_desc = shift_button.active ? _("Navigate to the beginning") : _("Navigate Left");
+            go_right.icon_name = shift_button.active ? "go-last-symbolic" : "go-next-symbolic";
+            go_right.key = shift_button.active ? "End" : "Tab";
+            go_right.accel_markup = shift_button.active ? "End" : "Tab";
+            go_right.tooltip_desc = shift_button.active ? _("Navigate to the end") : _("Navigate Right");
         }
 
         [GtkCallback]
@@ -273,13 +297,28 @@ namespace Pebbles {
         }
 
         [GtkCallback]
+        protected void on_all_clear () {
+            evaluate_op (StatOp.CLEAR_DATASET);
+        }
+
+        [GtkCallback]
+        protected void backspace () {
+            display.backspace ();
+        }
+
+        [GtkCallback]
+        protected void on_series_clear () {
+            evaluate_op (StatOp.CLEAR_SERIES);
+        }
+
+        [GtkCallback]
         public void on_click_memory_add () {
-            //  on_evaluate (display.main_entry.text, shift_button.active ? 2 : 1); // 1: Memory, 2: Global Memory
+            evaluate_op (this.op, shift_button.active ? 2 : 1); // 1: Memory, 2: Global Memory
         }
 
         [GtkCallback]
         public void on_click_memory_subtract () {
-            //  on_evaluate (display.main_entry.text, shift_button.active ? -2 : -1); // -1: Memory, -2: Global Memory
+            evaluate_op (this.op, shift_button.active ? -2 : -1); // -1: Memory, -2: Global Memory
         }
 
         [GtkCallback]

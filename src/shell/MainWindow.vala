@@ -222,15 +222,22 @@ namespace Pebbles {
                         Gdk.ModifierType.CONTROL_MASK |
                         Gdk.ModifierType.ALT_MASK
                     )) != 0 || shift_key || (preferences_dialog != null && preferences_dialog.visible)) {
-                    return false;
+                    return Gdk.EVENT_PROPAGATE;
                 }
 
                 on_key_down (view_stack.visible_child_name, keyval);
 
-                if (view_stack.visible_child_name == Context.STATISTICS &&
-                    (keyval == Gdk.Key.Tab || keyval == 65056)) {
-                    statistics_view.key_navigate ();
-                    return true;
+                if (view_stack.visible_child_name == Context.STATISTICS) {
+                    if (keyval == Gdk.Key.Tab || keyval == 65056) {
+                        statistics_view.key_navigate ();
+                        return Gdk.EVENT_STOP;
+                    } else if (keyval == Gdk.Key.Home) {
+                        statistics_view.key_extreme_navigate (true);
+                        return Gdk.EVENT_STOP;
+                    } else if (keyval == Gdk.Key.End) {
+                        statistics_view.key_extreme_navigate (false);
+                        return Gdk.EVENT_STOP;
+                    }
                 }
 
                 return Gdk.EVENT_PROPAGATE;
@@ -315,9 +322,15 @@ namespace Pebbles {
                                     loaded_max_series_length
                                 );
                                 Idle.add_once (() => {
-                                    send_toast (_("Loaded table of size [%d, %d] from file")
+                                    send_toast (_("Loaded dataset of size [%d, %d] from file")
                                     .printf (loaded_max_series_length, loaded_table_length));
                                     statistics_view.refresh (loaded_max_series_length);
+                                });
+                            } else if (root_object.has_member ("cleared")) {
+                                Idle.add_once (() => {
+                                    send_toast (_("Dataset cleared"));
+                                    statistics_view.refresh (1);
+                                    statistics_view.show_result ("0");
                                 });
                             } else {
                                 var result = root_object.get_string_member ("result");
