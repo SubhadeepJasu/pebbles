@@ -35,6 +35,7 @@ class PythonWindow(Pebbles.MainWindow):
         self.connect("on_stat_cell_update", self._stat_cell_update_cb)
         self.connect("on_stat_cell_query", self._stat_cell_query_cb)
         self.connect("on_stat_export", self._on_stat_export_cb)
+        self.connect("on_get_last_result", self._on_query_last_result_cb)
 
 
     def _evaluate(self, _, data:str):
@@ -97,6 +98,11 @@ class PythonWindow(Pebbles.MainWindow):
                 self._memory.subtract(result, Pebbles.Context.GLOBAL)
                 self.on_memory_change(Pebbles.Context.GLOBAL,
                                         self._memory.any(Pebbles.Context.GLOBAL))
+
+
+    def _on_query_last_result_cb(self, _, context:str):
+        return self._memory.get_last_result(context)
+
 
     def _history_view_cb(self, _, context:str):
         if context in [Pebbles.Context.SCIENTIFIC, Pebbles.Context.STATISTICS]:

@@ -370,5 +370,12 @@ namespace Pebbles {
         public void on_click_memory_clear () {
             on_memory_clear (shift_button.active);
         }
+
+        [GtkCallback]
+        public void on_click_last_ans () {
+            var window = (MainWindow) get_ancestor (typeof (MainWindow));
+            var result = window.on_get_last_result (shift_button.active ? Context.GLOBAL : Context.STATISTICS);
+            display.write (result);
+        }
     }
 }

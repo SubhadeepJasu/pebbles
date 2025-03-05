@@ -218,7 +218,7 @@ class ContextualMemory:
 
         last_entry = cursor.fetchone()
         conn.close()
-        return last_entry if last_entry else None
+        return last_entry[0] if last_entry else None
 
 
     def peek(self):

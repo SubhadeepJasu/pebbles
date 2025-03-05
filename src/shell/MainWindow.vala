@@ -81,6 +81,7 @@ namespace Pebbles {
         public signal string on_history_copy (int id);
         public signal string on_history_insert (int id);
         public signal HistoryModel on_history_recall (int id);
+        public signal string on_get_last_result (string context);
         public signal void on_stat_plot (double width, double height, StatPlotType plot_type, double dpi);
         public signal int on_stat_cell_update (double value, int index, int series_index);
         public signal string on_stat_cell_query (int index, int series_index);

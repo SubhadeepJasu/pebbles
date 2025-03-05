@@ -93,10 +93,10 @@ class ScientificCalculator():
              # Current tokens is a number, push it to number stack
             if (not self._is_operator(token)) and token not in ['(', ')']:
                 if token == '@':
-                    last_ans = self.memory.get_last_result(Pebbles.Context.SCIENTIFIC)
+                    last_ans = ScientificCalculator._parse(self.memory.get_last_result(Pebbles.Context.SCIENTIFIC))
                     operand_stack.append(last_ans if last_ans is not None else 0)
                 elif token == '#':
-                    last_ans = self.memory.get_last_result()
+                    last_ans = ScientificCalculator._parse(self.memory.get_last_result())
                     operand_stack.append(last_ans if last_ans is not None else 0)
                 elif token == 'x':
                     operand_stack.append(self.substitute_value)
@@ -155,10 +155,7 @@ class ScientificCalculator():
         """
         val: any
         if isinstance(result, str):
-            try:
-                val = float(result)
-            except ValueError:
-                val = complex(result)
+            val = ScientificCalculator._parse(result)
         else:
             val = result
 
@@ -178,6 +175,13 @@ class ScientificCalculator():
 
         return "E"
 
+
+    @staticmethod
+    def _parse(result: str):
+        try:
+            return float(result)
+        except ValueError:
+            return complex(result)
 
 
     def _apply_op(self, op:chr, a:complex | float, b:complex | float):
