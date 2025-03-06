@@ -17,6 +17,7 @@ namespace Pebbles {
         private unowned Gtk.Spinner spinner;
         [GtkChild]
         private unowned Button angle_mode;
+        private Button graph_angle_mode;
         [GtkChild]
         private unowned Gtk.Box menu_box;
         [GtkChild]
@@ -39,6 +40,8 @@ namespace Pebbles {
         private unowned ScientificView scientific_view;
         [GtkChild]
         private unowned StatisticsView statistics_view;
+        [GtkChild]
+        private unowned GraphingView graphing_view;
 
         [GtkChild]
         private unowned Gtk.Stack header_stack;
@@ -47,11 +50,14 @@ namespace Pebbles {
         [GtkChild]
         private unowned Gtk.Box statistics_header_box;
         [GtkChild]
+        private unowned Gtk.Box graph_header_box;
+        [GtkChild]
         private unowned Gtk.Box null_header_box;
 
         // Constant Bindings
         public string? context_scientific { get; default = Context.SCIENTIFIC; }
         public string? context_statistics { get; default = Context.STATISTICS; }
+        public string? context_graphing { get; default = Context.GRAPHING; }
 
         // Instance variables
         private Gtk.EventControllerKey key_event_controller;
@@ -92,7 +98,7 @@ namespace Pebbles {
 
             settings = Pebbles.Settings.get_default ();
 
-            setup_theme ();
+            build_ui ();
             setup_actions ();
             setup_evaluators ();
             setup_key_events ();
@@ -100,7 +106,7 @@ namespace Pebbles {
             load_settings ();
         }
 
-        private void setup_theme () {
+        private void build_ui () {
             var gtk_settings = Gtk.Settings.get_default ();
             var granite_settings = Granite.Settings.get_default ();
             var pebbles_settings = Pebbles.Settings.get_default ();
@@ -129,6 +135,29 @@ namespace Pebbles {
                     );
                 }
             });
+
+            if (graph_header_box.get_first_child () == null) {
+                graph_angle_mode = new Pebbles.Button () {
+                    label_text = "DEG",
+                    tooltip_desc = _("Switch angle mode"),
+                    accel_markup = "F8"
+                };
+                graph_header_box.append (graph_angle_mode);
+
+                graph_angle_mode.clicked.connect (() => {
+                    on_change_mode ();
+                });
+
+                var graph_mode_button = new Granite.ModeSwitch.from_icon_name (
+                    "edit-symbolic",
+                    "graphing-mode-symbolic"
+                );
+                graph_header_box.append (graph_mode_button);
+
+                graph_mode_button.notify["active"].connect (() => {
+                    graphing_view.render_graph (graph_mode_button.active);
+                });
+            }
         }
 
         private void setup_actions () {
@@ -149,27 +178,31 @@ namespace Pebbles {
 
             var enable_scientific_mode_action = new SimpleAction ("open_scientific_mode", null);
             enable_scientific_mode_action.activate.connect (() => {
-                view_stack.set_visible_child_name (Context.SCIENTIFIC);
-                split_view.show_content = true;
-                scientific_view.add_css_class ("animate");
-                Timeout.add_once (600, () => {
-                    scientific_view.remove_css_class ("animate");
-                });
-                header_stack.set_visible_child (scientific_header_box);
+                show_view (Context.SCIENTIFIC, scientific_header_box);
             });
             add_action (enable_scientific_mode_action);
 
             var enable_statistics_mode_action = new SimpleAction ("open_statistics_mode", null);
             enable_statistics_mode_action.activate.connect (() => {
-                view_stack.set_visible_child_name (Context.STATISTICS);
-                split_view.show_content = true;
-                statistics_view.add_css_class ("animate");
-                Timeout.add_once (600, () => {
-                    statistics_view.remove_css_class ("animate");
-                });
-                header_stack.set_visible_child (statistics_header_box);
+                show_view (Context.STATISTICS, statistics_header_box);
             });
             add_action (enable_statistics_mode_action);
+
+            var enable_graphing_mode_action = new SimpleAction ("open_graphing_mode", null);
+            enable_graphing_mode_action.activate.connect (() => {
+                show_view (Context.GRAPHING, graph_header_box);
+            });
+            add_action (enable_graphing_mode_action);
+        }
+
+        private void show_view (string view_name, Gtk.Widget? header_box) {
+            if (view_stack.visible_child_name != view_name) {
+                view_stack.set_visible_child_name (view_name);
+                ((View) view_stack.visible_child).fade_in ();
+                header_stack.set_visible_child (header_box);
+            }
+
+            split_view.show_content = true;
         }
 
         private void setup_evaluators () {
@@ -296,12 +329,15 @@ namespace Pebbles {
             switch (settings.global_angle_unit) {
                 case DEG:
                     angle_mode.label_text = "DEG";
+                    graph_angle_mode.label_text = "DEG";
                     break;
                 case RAD:
                     angle_mode.label_text = "RAD";
+                    graph_angle_mode.label_text = "RAD";
                     break;
                 case GRAD:
                     angle_mode.label_text = "GRA";
+                    graph_angle_mode.label_text = "GRA";
                     break;
             }
         }
@@ -397,12 +433,15 @@ namespace Pebbles {
                     switch (settings.global_angle_unit) {
                         case RAD:
                             angle_mode.label_text = "RAD";
+                            graph_angle_mode.label_text = "RAD";
                             break;
                         case GRAD:
                             angle_mode.label_text = "GRA";
+                            graph_angle_mode.label_text = "GRA";
                             break;
                         case DEG:
                             angle_mode.label_text = "DEG";
+                            graph_angle_mode.label_text = "DEG";
                             break;
                     }
                     break;
@@ -422,7 +461,7 @@ namespace Pebbles {
         protected void set_theme (Gtk.CheckButton button) {
             if (button.active) {
                 settings.theme = button.name;
-                setup_theme ();
+                build_ui ();
             }
         }
 
@@ -436,14 +475,17 @@ namespace Pebbles {
                         case DEG:
                             settings.global_angle_unit = RAD;
                             angle_mode.label_text = "RAD";
+                            graph_angle_mode.label_text = "RAD";
                             break;
                         case RAD:
                             settings.global_angle_unit = GRAD;
                             angle_mode.label_text = "GRA";
+                            graph_angle_mode.label_text = "GRA";
                             break;
                         case GRAD:
                             settings.global_angle_unit = DEG;
                             angle_mode.label_text = "DEG";
+                            graph_angle_mode.label_text = "DEG";
                             break;
                     }
                     break;

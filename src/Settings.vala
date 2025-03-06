@@ -34,11 +34,6 @@ namespace Pebbles {
             set { set_string ("theme", value); }
         }
 
-        public int view_index {
-            get { return get_int ("view-index"); }
-            set { set_int ("view-index", value); }
-        }
-
         public GlobalAngleUnit global_angle_unit {
             get { return get_enum ("global-angle-unit"); }
             set { set_enum ("global-angle-unit", value); }
