@@ -237,17 +237,17 @@ namespace Pebbles {
 
         [GtkCallback]
         protected void on_click_sub_button () {
-            display.write ("−");
+            display.write ("-");
         }
 
         [GtkCallback]
         protected void on_click_mul_button () {
-            display.write ("×");
+            display.write ("*");
         }
 
         [GtkCallback]
         protected void on_click_div_button () {
-            display.write ("÷");
+            display.write ("/");
         }
 
         [GtkCallback]

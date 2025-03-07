@@ -36,23 +36,29 @@ class ScientificCalculator():
     ]
 
 
-    def __init__(self, data: str, memory: ContextualMemory, tokenize: bool=True):
+    def __init__(self, data: str, memory: ContextualMemory, token_map:list):
         self.input_dict = json.loads(data)
         self.memory = memory
         self.angle_mode = self.input_dict['angleMode']
-        if tokenize:
-            self.tokens = Tokenizer.st_tokenize(self.input_dict['input'])
+        if token_map is not None:
+            self.tokens = Tokenizer.st_tokenize(self.input_dict['input'], token_map)
             print ('Tokens: ', self.tokens)
 
-        self.substitute_value: float | complex = 0
+        self.substitutions = {
+            'X': 0,
+            'A': 0,
+            'B': 0,
+            'C': 0,
+            'M': 0
+        }
         self.zero_limit = False
 
 
-    def set_substitute_value(self, value, zero_limit=False):
+    def set_substitute_value(self, variable, value, zero_limit=False):
         """
         Set Calculus substitute value for "x" and if zero is actually "tends to zero".
         """
-        self.substitute_value = value
+        self.substitutions[variable] = value
         self.zero_limit = zero_limit
 
 
@@ -101,7 +107,15 @@ class ScientificCalculator():
                     last_ans = ScientificCalculator._parse(self.memory.get_last_result())
                     operand_stack.append(last_ans if last_ans is not None else 0)
                 elif token == 'x':
-                    operand_stack.append(self.substitute_value)
+                    operand_stack.append(self.substitutions['X'])
+                elif token == '\x11':
+                    operand_stack.append(self.substitutions['A'])
+                elif token == '\x12':
+                    operand_stack.append(self.substitutions['B'])
+                elif token == '\x13':
+                    operand_stack.append(self.substitutions['C'])
+                elif token == '\x14':
+                    operand_stack.append(self.substitutions['M'])
                 else:
                     operand_stack.append(float(token))
 

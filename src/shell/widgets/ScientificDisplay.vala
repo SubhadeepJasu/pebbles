@@ -70,7 +70,8 @@ namespace Pebbles {
                     }
 
                     Idle.add (() => {
-                        send_fx_symbol (ch);
+                        if (main_entry.text_length > 1)
+                        replace_inserted_character (main_entry.text, main_entry.text_length, main_entry.get_position ());
                         return Source.REMOVE;
                     });
                     return Source.REMOVE;
@@ -181,142 +182,153 @@ namespace Pebbles {
         }
 
         public void write (string str) {
-            main_entry.text += str;
-            main_entry.grab_focus_without_selecting ();
-            send_fx_symbol (str);
+            int position = main_entry.get_position ();
+            main_entry.do_insert_text (str, str.length, ref position);
+            main_entry.set_position (position);
         }
 
-        public void send_fx_symbol (string? ch) {
-            var entry_text = main_entry.text;
-            var text_length = entry_text.length;
-            switch (ch) {
-                case "+":
-                    main_entry.text = entry_text.substring (0, text_length - ch.length) + " + ";
-                    main_entry.set_position ((int) main_entry.text_length);
+        private string[] split_utf8 (string text, uint text_length) {
+            var result = new string[text_length + 1];
+            var j = 0;
+
+            var sb = new StringBuilder ();
+            for (int i = 0; i <= text.length; i++) {
+                if ((text[i] & 0xC0) != 0x80) { // Prevent commiting if its a continuation bit
+                    result[j++] = sb.str + "";
+                    sb.erase (0, sb.len);
+                }
+
+                if (text[i] != '\0') {
+                    sb.append_c (text[i]);
+                }
+            }
+
+            return result;
+        }
+
+        public void replace_inserted_character (string text, uint text_length, int caret_pos) {
+            var symbols = split_utf8 (text, text_length);
+            var current_symbol = symbols[caret_pos];
+            if (current_symbol == null) {
+                return;
+            }
+            var previous_symbol = "";
+            var previous_caret_pos = caret_pos - 1;
+            for (int i = caret_pos - 1; i >= 0; i--) {
+                if (symbols[i] != " ") {
+                    previous_symbol = symbols[i];
+                    previous_caret_pos = i;
                     break;
-                case "−":
-                case "-":
-                    main_entry.text = entry_text.substring (0, text_length - ch.length) + " − ";
-                    main_entry.set_position ((int) main_entry.text_length);
-                    break;
-                case "÷":
-                case "/":
-                    main_entry.text = entry_text.substring (0, text_length - ch.length) + " ÷ ";
-                    main_entry.set_position ((int) main_entry.text_length);
-                    break;
-                case "×":
-                case "*":
-                    main_entry.text = entry_text.substring (0, text_length - ch.length) + " × ";
-                    main_entry.set_position ((int) main_entry.text_length);
-                    break;
-                case "s":
-                    if (!entry_text.has_suffix ("sin ")) {
-                        main_entry.text += "in ";
-                        main_entry.set_position ((int) main_entry.text_length);
-                    }
-                    break;
-                case "S":
-                    if (!entry_text.has_suffix ("isin ")) {
-                        main_entry.text = entry_text.substring (0, text_length - ch.length) + "isin ";
-                        main_entry.set_position ((int) main_entry.text_length);
-                    }
-                    break;
-                case "h":
-                    if (!entry_text.has_suffix ("sinh ")) {
-                        main_entry.text = entry_text.substring (0, text_length - ch.length) + "sinh ";
-                        main_entry.set_position ((int) main_entry.text_length);
-                    }
-                    break;
-                case "H":
-                    if (!entry_text.has_suffix ("isinh ")) {
-                        main_entry.text = entry_text.substring (0, text_length - ch.length) + "isinh ";
-                        main_entry.set_position ((int) main_entry.text_length);
-                    }
-                    break;
-                case "c":
-                    if (!entry_text.has_suffix ("cos ")) {
-                        main_entry.text += "os ";
-                        main_entry.set_position ((int) main_entry.text_length);
-                    }
-                    break;
-                case "C":
-                    if (!entry_text.has_suffix ("icos ")) {
-                        main_entry.text = entry_text.substring (0, text_length - ch.length) + "icos ";
-                        main_entry.set_position ((int) main_entry.text_length);
-                    }
-                    break;
-                case "o":
-                    if (!entry_text.has_suffix ("cosh ")) {
-                        main_entry.text = entry_text.substring (0, text_length - ch.length) + "cosh ";
-                        main_entry.set_position ((int) main_entry.text_length);
-                    }
-                    break;
-                case "O":
-                    if (!entry_text.has_suffix ("icosh ")) {
-                        main_entry.text = entry_text.substring (0, text_length - ch.length) + "icosh ";
-                        main_entry.set_position ((int) main_entry.text_length);
-                    }
-                    break;
-                case "t":
-                    if (!entry_text.has_suffix ("tan ")) {
-                        main_entry.text += "an ";
-                        main_entry.set_position ((int) main_entry.text_length);
-                    }
-                    break;
-                case "T":
-                    if (!entry_text.has_suffix ("itan ")) {
-                        main_entry.text = entry_text.substring (0, text_length - ch.length) + "itan ";
-                        main_entry.set_position ((int) main_entry.text_length);
-                    }
-                    break;
-                case "a":
-                    if (!entry_text.has_suffix ("tanh ")) {
-                        main_entry.text = entry_text.substring (0, text_length - ch.length) + "tanh ";
-                        main_entry.set_position ((int) main_entry.text_length);
-                    }
-                    break;
-                case "A":
-                    if (!entry_text.has_suffix ("itanh ")) {
-                        main_entry.text = entry_text.substring (0, text_length - ch.length) + "itanh ";
-                        main_entry.set_position ((int) main_entry.text_length);
-                    }
-                    break;
-                case "q":
-                    if (!entry_text.has_suffix ("^ ")) {
-                        main_entry.text = entry_text.substring (0, text_length - ch.length) + " ^ ";
-                        main_entry.set_position ((int) main_entry.text_length);
-                    }
-                    break;
-                case "Q":
-                    if (!entry_text.has_suffix ("√")) {
-                        main_entry.text = entry_text.substring (0, text_length - ch.length) + "√";
-                        main_entry.set_position ((int) main_entry.text_length);
-                    }
-                    break;
-                case "z":
-                    if (!entry_text.has_suffix ("10 ^ ")) {
-                        main_entry.text = entry_text.substring (0, text_length - ch.length) + "10 ^ ";
-                        main_entry.set_position ((int) main_entry.text_length);
-                    }
-                    break;
-                case "Z":
-                    if (!entry_text.has_suffix ("e ^ ")) {
-                        main_entry.text = entry_text.substring (0, text_length - ch.length) + "e ^ ";
-                        main_entry.set_position ((int) main_entry.text_length);
-                    }
-                    break;
-                case "F":
-                case "f":
-                    if (!entry_text.has_suffix ("!")) {
-                        main_entry.text = entry_text.substring (0, text_length - ch.length) + "!";
-                        main_entry.set_position ((int) main_entry.text_length);
-                    }
-                    break;
-                default:
-                    main_entry.set_position ((int) main_entry.text_length);
-                    break;
+                }
+            }
+
+            print ("%s, %s\n", previous_symbol, current_symbol);
+
+            bool double_replaced;
+            int len_gain;
+            var replacement = find_replacement (current_symbol, previous_symbol, out double_replaced, out len_gain);
+            symbols[caret_pos] = replacement;
+            if (double_replaced) {
+                symbols[previous_caret_pos] = "";
+                if (previous_caret_pos > 0 && symbols[previous_caret_pos - 1] == " ") {
+                    symbols[previous_caret_pos - 1] = "";
+                }
+
+                if (previous_caret_pos < text_length - 1 && symbols[previous_caret_pos + 1] == " ") {
+                    symbols[previous_caret_pos + 1] = "";
+                }
+            }
+
+            main_entry.text = string.joinv ("", symbols);
+            if (double_replaced) {
+                main_entry.set_position (caret_pos - 1);
+            } else {
+                main_entry.set_position (caret_pos + len_gain);
             }
         }
+
+
+        public string find_replacement (string current_symbol, string previous_symbol, out bool double_replaced, out int len_gain) {
+            double_replaced = false;
+            switch (current_symbol) {
+                case "+":
+                    len_gain = 2;
+                    return " + ";
+                case "−":
+                case "-":
+                    len_gain = 2;
+                    return " − ";
+                case "÷":
+                case "/":
+                    len_gain = 2;
+                    return " ÷ ";
+                case "×":
+                case "*":
+                    len_gain = 2;
+                    if (previous_symbol == "×") {
+                        double_replaced = true;
+                        return " ^ ";
+                    }
+
+                    return " × ";
+                case "s":
+                    len_gain = 3;
+                    return "sin ";
+                case "S":
+                    len_gain = 4;
+                    return "isin ";
+                case "h":
+                    len_gain = 4;
+                    return "sinh ";
+                case "H":
+                    len_gain = 5;
+                    return "isinh ";
+                case "c":
+                    len_gain = 3;
+                    return "cos ";
+                case "C":
+                    len_gain = 4;
+                    return "icos ";
+                case "o":
+                    len_gain = 4;
+                    return "cosh ";
+                case "O":
+                    len_gain = 5;
+                    return "icosh ";
+                case "t":
+                    len_gain = 3;
+                    return "tan ";
+                case "T":
+                    len_gain = 4;
+                    return "itan ";
+                case "a":
+                    len_gain = 4;
+                    return "tanh ";
+                case "A":
+                    len_gain = 5;
+                    return "itanh ";
+                case "q":
+                    len_gain = 2;
+                    return " ^ ";
+                case "Q":
+                    len_gain = 0;
+                    return "√";
+                case "z":
+                    len_gain = 5;
+                    return "10 ^ ";
+                case "Z":
+                    len_gain = 3;
+                    return "e ^ ";
+                case "F":
+                case "f":
+                    len_gain = 0;
+                    return "!";
+                default:
+                    len_gain = 0;
+                    return current_symbol;
+            }
+        }
+
 
         public void set_memory_present (bool present) {
             memory_label.opacity = present ? 1 : 0.2;

@@ -8,6 +8,9 @@ namespace Pebbles {
         [GtkChild]
         private unowned Gtk.Box graphing_panel;
 
+        protected string constant_label { get; private set; default = "C"; }
+        protected string constant_desc { get; private set; default = ""; }
+
         public bool collapsed { get; set; }
 
         public void render_graph (bool active) {

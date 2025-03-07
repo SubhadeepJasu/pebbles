@@ -10,6 +10,7 @@ from gi.repository import Pebbles
 from pebbles.core.memory import ContextualMemory
 from pebbles.core.scientific_calculator import ScientificCalculator
 from pebbles.core.statistics_calculator import StatisticsCalculator
+from pebbles.core.tokenizer import Tokenizer
 from pebbles.core.utils import Utils
 
 class PythonWindow(Pebbles.MainWindow):
@@ -48,7 +49,7 @@ class PythonWindow(Pebbles.MainWindow):
         result_data: any
         result: any
         if data_dict['context'] == Pebbles.Context.SCIENTIFIC:
-            sci_calc = ScientificCalculator(data, self._memory)
+            sci_calc = ScientificCalculator(data, self._memory, Tokenizer.SCIENTIFIC_TOKEN_MAP)
             result_data, result = sci_calc.evaluate()
             self._commit_to_memory(result, Pebbles.Context.SCIENTIFIC, data_dict['memoryOp'])
             self.show_history(self._memory.get_views(
@@ -137,7 +138,7 @@ class PythonWindow(Pebbles.MainWindow):
                 dataset_hash = metadata.get_metadata_4()
                 if dataset_hash and dataset_hash != self.stat_calc.hash_dataset():
                     print ("WARNING: Hash mismatch. \
-                           Attempting to make a table with the previous series.")
+Attempting to make a table with the previous series.")
                     try:
                         res = json.loads(self.stat_calc.load_csv_data(metadata.get_metadata_3()))
                         if res and 'shape' in res and res['shape']:
