@@ -155,7 +155,14 @@ namespace Pebbles {
                 graph_header_box.append (graph_mode_button);
 
                 graph_mode_button.notify["active"].connect (() => {
-                    graphing_view.render_graph (graph_mode_button.active);
+                    if (graph_mode_button.active)
+                        graphing_view.show_graph_panel ();
+                    else
+                        graphing_view.show_equation_panel ();
+                });
+
+                graphing_view.panel_changed.connect ((showing_graphs) => {
+                    graph_mode_button.active = showing_graphs;
                 });
             }
         }

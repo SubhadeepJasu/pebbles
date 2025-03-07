@@ -206,14 +206,11 @@ template $PebblesGraphingView: $PebblesView {
                             // clicked => $on_click_mul_button();
                         }
 
-                        $PebblesButton pow_button {
-                            name: "q";
-                            label_text: "x<sup>y</sup>";
-                            tooltip_desc: _("x raised to the power y");
-                            accel_markup: "Q";
-                            visible: bind template.collapsed;
+                        $PebblesButton nav_up_button_p {
+                            icon: "go-up-symbolic";
+                            tooltip_desc: _("Navigate Up");
                             focus-on-click: false;
-                            key: "q";
+                            visible: bind template.collapsed;
 
                             styles [
                                 "special-action",
@@ -224,8 +221,6 @@ template $PebblesGraphingView: $PebblesView {
                                 row: 1;
                                 column: 4;
                             }
-
-                            // clicked => $on_click_function();
                         }
 
                         $PebblesButton four_button {
@@ -301,14 +296,11 @@ template $PebblesGraphingView: $PebblesView {
                             // clicked => $on_click_sub_button();
                         }
 
-                        $PebblesButton log_button {
-                            name: "l";
-                            label_text: "log x";
-                            tooltip_desc: _("Log base 10");
-                            accel_markup: "L";
-                            visible: bind template.collapsed;
+                        $PebblesButton nav_down_button_p {
+                            icon: "go-down-symbolic";
+                            tooltip_desc: _("Navigate Down");
                             focus-on-click: false;
-                            key: "l,L";
+                            visible: bind template.collapsed;
 
                             styles [
                                 "special-action",
@@ -394,13 +386,11 @@ template $PebblesGraphingView: $PebblesView {
                             // clicked => $on_click_add_button();
                         }
 
-                        $PebblesButton last_answer_button_p {
-                            label_text: "Ans";
-                            tooltip_desc: _("Insert last answer");
-                            accel_markup: "F7";
-                            visible: bind template.collapsed;
+                        $PebblesButton var_m_button_p {
+                            label_text: "<i>m</i>";
+                            tooltip_desc: _("Variable m");
                             focus-on-click: false;
-                            key: "F7";
+                            visible: bind template.collapsed;
 
                             styles [
                                 "special-action",
@@ -492,12 +482,12 @@ template $PebblesGraphingView: $PebblesView {
                         }
 
                         $PebblesButton result_button_p {
-                            label_text: _("=");
-                            tooltip_desc: _("Result");
-                            accel_markup: "Return";
+                            icon: "graphing-mode-symbolic";
+                            tooltip_desc: _("Render Graph");
+                            accel_markup: "<Ctrl>Return";
                             visible: bind template.collapsed;
                             focus-on-click: false;
-                            key: "=, Return";
+                            key: "<Ctrl>Return";
 
                             styles [
                                 "suggested-action",
@@ -510,7 +500,7 @@ template $PebblesGraphingView: $PebblesView {
                                 column: 4;
                             }
 
-                            // clicked => $on_click_eval();
+                            clicked => $show_graph_panel();
                         }
                     }
                 };
@@ -718,8 +708,8 @@ template $PebblesGraphingView: $PebblesView {
                         }
 
                         $PebblesButton memory_recall_button {
-                            label_text: _("MR");
-                            tooltip_desc: _("Recall value from Memory");
+                            label_text: _("GMR");
+                            tooltip_desc: _("Recall value from Global Memory");
                             accel_markup: "F5";
                             focus-on-click: false;
                             key: "F5";
@@ -730,11 +720,83 @@ template $PebblesGraphingView: $PebblesView {
                             ]
 
                             layout {
-                                row: 2;
+                                row: 0;
                                 column: 3;
                             }
 
                             // clicked => $on_click_memory_recall();
+                        }
+
+                        $PebblesButton nav_up_button {
+                            icon: "go-up-symbolic";
+                            tooltip_desc: _("Navigate Up");
+                            focus-on-click: false;
+
+                            styles [
+                                "special-action",
+                                "adaptive-btn-font"
+                            ]
+
+                            layout {
+                                row: 1;
+                                column: 3;
+                            }
+
+                            // clicked => $on_click_last_ans();
+                        }
+
+                        $PebblesButton nav_down_button {
+                            icon: "go-down-symbolic";
+                            tooltip_desc: _("Navigate Down");
+                            focus-on-click: false;
+
+                            styles [
+                                "special-action",
+                                "adaptive-btn-font"
+                            ]
+
+                            layout {
+                                row: 2;
+                                column: 3;
+                            }
+
+                            // clicked => $on_click_last_ans();
+                        }
+
+                        $PebblesButton var_a_button {
+                            label_text: "<i>a</i>";
+                            tooltip_desc: _("Variable a");
+                            focus-on-click: false;
+
+                            styles [
+                                "special-action",
+                                "adaptive-btn-font"
+                            ]
+
+                            layout {
+                                row: 3;
+                                column: 2;
+                            }
+
+                            // clicked => $on_click_last_ans();
+                        }
+
+                        $PebblesButton var_m_button {
+                            label_text: "<i>m</i>";
+                            tooltip_desc: _("Variable m");
+                            focus-on-click: false;
+
+                            styles [
+                                "special-action",
+                                "adaptive-btn-font"
+                            ]
+
+                            layout {
+                                row: 4;
+                                column: 2;
+                            }
+
+                            // clicked => $on_click_last_ans();
                         }
 
                         $PebblesButton tan_button {
@@ -797,8 +859,8 @@ template $PebblesGraphingView: $PebblesView {
                         }
 
                         $PebblesButton last_answer_button {
-                            label_text: "Ans";
-                            tooltip_desc: _("Insert last answer");
+                            label_text: "GAns";
+                            tooltip_desc: _("Insert global last answer");
                             accel_markup: "F7";
                             focus-on-click: false;
                             key: "F7";
@@ -810,7 +872,7 @@ template $PebblesGraphingView: $PebblesView {
 
                             layout {
                                 row: 4;
-                                column: 2;
+                                column: 0;
                             }
 
                             // clicked => $on_click_last_ans();
@@ -831,11 +893,12 @@ template $PebblesGraphingView: $PebblesView {
                             ]
 
                             layout {
-                                row: 4;
+                                row: 3;
                                 column: 3;
+                                row-span: 2;
                             }
 
-                            // clicked => $on_click_eval();
+                            clicked => $show_graph_panel();
                         }
 
                         $PebblesButton collapse_fx_button {
