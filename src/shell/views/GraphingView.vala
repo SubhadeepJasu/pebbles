@@ -6,7 +6,7 @@ namespace Pebbles {
         [GtkChild]
         private unowned Gtk.Box equation_panel;
         [GtkChild]
-        private unowned Gtk.Box graphing_panel;
+        private unowned Gtk.Overlay graphing_panel;
 
         protected string constant_label { get; private set; default = "C"; }
         protected string constant_desc { get; private set; default = ""; }
@@ -23,7 +23,7 @@ namespace Pebbles {
             }
         }
 
-        //  [GtkCallback]
+        [GtkCallback]
         public void show_equation_panel () {
             if (graphing_stack.visible_child != equation_panel) {
                 graphing_stack.visible_child = equation_panel;

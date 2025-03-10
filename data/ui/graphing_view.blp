@@ -15,7 +15,7 @@ template $PebblesGraphingView: $PebblesView {
                 vexpand: true;
             }
 
-            Adw.NavigationSplitView sci_nav_split_view {
+            Adw.NavigationSplitView graph_nav_split_view {
                 vexpand: true;
                 height-request: 250;
                 sidebar-width-fraction: 0.5;
@@ -902,8 +902,8 @@ template $PebblesGraphingView: $PebblesView {
                         }
 
                         $PebblesButton collapse_fx_button {
-                            label_text: _("->");
-                            visible: bind sci_nav_split_view.collapsed;
+                            label_text: "->";
+                            visible: bind graph_nav_split_view.collapsed;
                             focus-on-click: false;
 
                             styles [
@@ -924,6 +924,61 @@ template $PebblesGraphingView: $PebblesView {
             }
         }
 
-        Box graphing_panel {}
+        Overlay graphing_panel {
+            Box {
+                orientation: vertical;
+                spacing: 8;
+                margin-start: 8;
+                margin-end: 8;
+                margin-bottom: 8;
+
+                $PebblesGraphViewport {
+
+                }
+
+                Box {
+                    orientation: horizontal;
+                    homogeneous: true;
+                    height-request: 32;
+                    spacing: 8;
+
+                    $PebblesButton {
+                        icon: "go-previous-symbolic";
+                        tooltip_desc: _("Go back to equation view");
+                        focus-on-click: false;
+
+                        styles [
+                            "suggested-action",
+                            "large-font-btn",
+                            "adaptive-btn-font"
+                        ]
+
+                        clicked => $show_equation_panel();
+                    }
+
+                    $PebblesButton {
+                        label_text: _("Variables");
+                        focus-on-click: false;
+                    }
+
+                    $PebblesButton interact_mode {
+                        icon: "view-fullscreen-symbolic";
+                        tooltip_desc: _("Change interaction mode");
+                        focus-on-click: false;
+                    }
+
+                    $PebblesButton {
+                        icon: "document-export-symbolic";
+                        tooltip_desc: _("Export figure as image");
+                        focus-on-click: false;
+                    }
+                }
+            }
+
+            [overlay]
+            Box variables_panel {
+                can-target: false;
+            }
+        }
     }
 }
