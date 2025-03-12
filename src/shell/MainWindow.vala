@@ -140,7 +140,10 @@ namespace Pebbles {
                 graph_angle_mode = new Pebbles.Button () {
                     label_text = "DEG",
                     tooltip_desc = _("Switch angle mode"),
-                    accel_markup = "F8"
+                    accel_markup = "F8",
+                    width_request = 45,
+                    focus_on_click = false,
+                    can_focus = false
                 };
                 graph_header_box.append (graph_angle_mode);
 
@@ -155,10 +158,11 @@ namespace Pebbles {
                 graph_header_box.append (graph_mode_button);
 
                 graph_mode_button.notify["active"].connect (() => {
-                    if (graph_mode_button.active)
+                    if (graph_mode_button.active) {
                         graphing_view.show_graph_panel ();
-                    else
+                    } else {
                         graphing_view.show_equation_panel ();
+                    }
                 });
 
                 graphing_view.panel_changed.connect ((showing_graphs) => {

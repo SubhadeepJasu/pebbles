@@ -36,5 +36,7 @@
     <file alias="scalable/emblems/power-conv-symbolic.svg">icons/scalable/emblems/power-conv-symbolic.svg</file>
     <file alias="scalable/emblems/temp-conv-symbolic.svg">icons/scalable/emblems/temp-conv-symbolic.svg</file>
     <file alias="scalable/emblems/currency-conv-symbolic.svg">icons/scalable/emblems/currency-conv-symbolic.svg</file>
+     <file alias="scalable/emblems/linear-eq-symbolic.svg">icons/scalable/emblems/linear-eq-symbolic.svg</file>
+      <file alias="scalable/emblems/radial-eq-symbolic.svg">icons/scalable/emblems/radial-eq-symbolic.svg</file>
   </gresource>
 </gresources>

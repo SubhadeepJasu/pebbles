@@ -28,25 +28,40 @@ template $PebblesGraphViewport: Box {
 
             $PebblesButton y_axis_scale {
                 height-request: 100;
+                focus-on-click: false;
+                tooltip_desc: _("Click to switch scaling mode. Scroll to scale y-axis.");
 
                 layout {
                     row: 0;
                     column: 1;
                 }
+
+                DrawingArea y_axis_meter {
+                    hexpand: true;
+                    vexpand: true;
+                }
             }
 
             $PebblesButton x_axis_scale {
                 width-request: 100;
+                focus-on-click: false;
+                tooltip_desc: _("Click to switch scaling mode. Scroll to scale x-axis.");
 
                 layout {
                     row: 1;
                     column: 0;
+                }
+
+                DrawingArea x_axis_meter {
+                    hexpand: true;
+                    vexpand: true;
                 }
             }
 
             $PebblesButton reset_position {
                 icon: "zoom-fit-best-symbolic";
                 tooltip_desc: _("Fit plot to screen");
+                focus-on-click: false;
                 width-request: 32;
                 height-request: 32;
 

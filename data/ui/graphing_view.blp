@@ -386,23 +386,24 @@ template $PebblesGraphingView: $PebblesView {
                             // clicked => $on_click_add_button();
                         }
 
-                        $PebblesButton var_m_button_p {
-                            label_text: "<i>m</i>";
-                            tooltip_desc: _("Variable m");
+                        $PebblesButton add_eq_button_p {
+                            label_text: "▭⁺";
+                            tooltip_desc: _("Add Equation");
                             focus-on-click: false;
                             visible: bind template.collapsed;
-
-                            styles [
-                                "special-action",
-                                "adaptive-btn-font"
-                            ]
 
                             layout {
                                 row: 3;
                                 column: 4;
                             }
 
-                            // clicked => $on_click_last_ans();
+                            styles [
+                                "suggested-action",
+                                "adaptive-btn-font",
+                                "large-font-btn"
+                            ]
+
+                            clicked => $add_equation();
                         }
 
                         $PebblesButton zero_button {
@@ -878,6 +879,25 @@ template $PebblesGraphingView: $PebblesView {
                             // clicked => $on_click_last_ans();
                         }
 
+                        $PebblesButton add_eq_button {
+                            label_text: "▭⁺";
+                            tooltip_desc: _("Add Equation");
+                            focus-on-click: false;
+
+                            layout {
+                                row: 3;
+                                column: 3;
+                            }
+
+                            styles [
+                                "suggested-action",
+                                "adaptive-btn-font",
+                                "large-font-btn"
+                            ]
+
+                            clicked => $add_equation();
+                        }
+
                         $PebblesButton result_button {
                             icon: "graphing-mode-symbolic";
                             tooltip_desc: _("Render Graph");
@@ -893,9 +913,8 @@ template $PebblesGraphingView: $PebblesView {
                             ]
 
                             layout {
-                                row: 3;
+                                row: 4;
                                 column: 3;
-                                row-span: 2;
                             }
 
                             clicked => $show_graph_panel();
@@ -928,9 +947,9 @@ template $PebblesGraphingView: $PebblesView {
             Box {
                 orientation: vertical;
                 spacing: 8;
-                margin-start: 8;
-                margin-end: 8;
-                margin-bottom: 8;
+                margin-start: 12;
+                margin-end: 12;
+                margin-bottom: 12;
 
                 $PebblesGraphViewport {
 
