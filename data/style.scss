@@ -325,3 +325,23 @@ button.pressed {
 .graphing-viewport {
     border-radius: 3px;
 }
+
+
+.equation-entry {
+    entry {
+        background: none;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+        color: #272863;
+
+        &:focus-within {
+            border: 1px solid #272863a0;
+            border-style: dashed;
+        }
+
+        text {
+            color: $LCD_FG_COLOR;
+        }
+    }
+}

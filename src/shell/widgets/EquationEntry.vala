@@ -25,7 +25,8 @@ namespace Pebbles {
             Object (
                 orientation: Gtk.Orientation.HORIZONTAL,
                 spacing: 4,
-                valign: Gtk.Align.START
+                valign: Gtk.Align.START,
+                margin_top: 4
             );
         }
 
@@ -56,6 +57,8 @@ namespace Pebbles {
                 if (pos == PRIMARY) {
                     radial_mode = !radial_mode;
                     mode_changed (radial_mode);
+                    main_entry.grab_focus_without_selecting ();
+                    main_entry.set_position ((int) main_entry.text_length);
                 }
             });
             main_entry.notify["has-focus"].connect (() => {
