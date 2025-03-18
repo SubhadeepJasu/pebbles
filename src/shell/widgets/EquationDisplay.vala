@@ -6,6 +6,8 @@ namespace Pebbles {
         [GtkChild]
         private unowned Gtk.Box eq_box;
 
+        public signal void change_mode (bool radial_mode);
+
         construct {
 
         }
@@ -14,6 +16,11 @@ namespace Pebbles {
             var entry = new EquationEntry ();
             eq_box.append (entry);
             entry.grab_focus ();
+            entry.change_mode.connect (change_mode_handler);
+        }
+
+        private void change_mode_handler (bool mode) {
+            change_mode (mode);
         }
     }
 }

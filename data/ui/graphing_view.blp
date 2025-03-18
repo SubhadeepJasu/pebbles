@@ -13,6 +13,8 @@ template $PebblesGraphingView: $PebblesView {
             $PebblesEquationDisplay display {
                 context: bind template.context;
                 vexpand: true;
+
+                change_mode => $change_mode_handler();
             }
 
             Adw.NavigationSplitView graph_nav_split_view {

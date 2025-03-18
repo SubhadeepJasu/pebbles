@@ -10,12 +10,26 @@ namespace Pebbles {
         [GtkChild]
         private unowned EquationDisplay display;
 
+        [GtkChild]
+        private unowned Pebbles.Button variable_button;
+
         protected string constant_label { get; private set; default = "C"; }
         protected string constant_desc { get; private set; default = ""; }
 
         public bool collapsed { get; set; }
 
         public signal void panel_changed (bool showing_graphs);
+
+        [GtkCallback]
+        public void change_mode_handler (bool radial_mode) {
+            if (radial_mode) {
+                variable_button.label_text = "θ";
+                variable_button.tooltip_desc = "Variable θ";
+            } else {
+                variable_button.label_text = "<i>X</i>";
+                variable_button.tooltip_desc = "Variable x";
+            }
+        }
 
         [GtkCallback]
         public void show_graph_panel () {

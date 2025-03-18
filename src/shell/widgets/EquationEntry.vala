@@ -19,6 +19,8 @@ namespace Pebbles {
         _("<b>Radial Mode: <i>r = f(θ)</i></b>\nClick to switch to Cartesian Mode");
         private Gtk.Entry main_entry;
 
+        public signal void change_mode (bool radial_mode);
+
         public EquationEntry () {
             Object (
                 orientation: Gtk.Orientation.HORIZONTAL,
@@ -53,13 +55,30 @@ namespace Pebbles {
             main_entry.icon_release.connect ((pos) => {
                 if (pos == PRIMARY) {
                     radial_mode = !radial_mode;
+                    mode_changed (radial_mode);
                 }
+            });
+            main_entry.notify["has-focus"].connect (() => {
+                mode_changed (radial_mode);
             });
             append (main_entry);
         }
 
         public override bool grab_focus () {
+            mode_changed (radial_mode);
             return main_entry.grab_focus ();
+        }
+
+        private void mode_changed (bool radial_mode) {
+            change_mode (radial_mode);
+            if (radial_mode) {
+                main_entry.text = main_entry.text.replace ("x", "θ");
+                main_entry.text = main_entry.text.replace ("X", "θ");
+            } else {
+                main_entry.text = main_entry.text.replace ("θ", "x");
+                main_entry.text = main_entry.text.replace ("Θ", "x");
+                main_entry.text = main_entry.text.replace ("ϴ", "x");
+            }
         }
     }
 }
