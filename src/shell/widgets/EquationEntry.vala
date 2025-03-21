@@ -1,5 +1,6 @@
 namespace Pebbles {
     public class EquationEntry : Gtk.Box {
+        public int index { get; construct; }
         private bool _radial_mode;
         public bool radial_mode {
             get {
@@ -13,6 +14,14 @@ namespace Pebbles {
             }
         }
 
+        private EquationModel _equation;
+        public EquationModel? equation {
+            get {
+                _equation = new EquationModel (index, main_entry.text, radial_mode);
+                return _equation;
+            }
+        }
+
         private const string CARTESIAN_MODE_TOOLTIP =
         _("<b>Cartesian Mode: <i>y = f(x)</i></b>\nClick to switch to Radial Mode");
         private const string RADIAL_MODE_TOOLTIP =
@@ -21,8 +30,9 @@ namespace Pebbles {
 
         public signal void change_mode (bool radial_mode);
 
-        public EquationEntry () {
+        public EquationEntry (int index) {
             Object (
+                index: index,
                 orientation: Gtk.Orientation.HORIZONTAL,
                 spacing: 4,
                 valign: Gtk.Align.START,
@@ -34,8 +44,9 @@ namespace Pebbles {
             add_css_class ("equation-entry");
 
             var color_box = new Gtk.Box (VERTICAL, 0) {
-                margin_top = 8,
-                margin_bottom = 8
+                margin_top = 2,
+                margin_bottom = 2,
+                vexpand = true
             };
             append (color_box);
             color_box.add_css_class ("equation-entry-indicator");
@@ -45,6 +56,7 @@ namespace Pebbles {
                 vexpand = true
             };
             color_box.append (color_indicator);
+            color_indicator.set_draw_func (draw_indicator);
 
             main_entry = new Gtk.Entry () {
                 primary_icon_name = "linear-eq-symbolic",
@@ -59,6 +71,9 @@ namespace Pebbles {
                     mode_changed (radial_mode);
                     main_entry.grab_focus_without_selecting ();
                     main_entry.set_position ((int) main_entry.text_length);
+                } else {
+                    var list = get_parent () as Gtk.Box;
+                    list.remove (this);
                 }
             });
             main_entry.notify["has-focus"].connect (() => {
@@ -82,6 +97,29 @@ namespace Pebbles {
                 main_entry.text = main_entry.text.replace ("Θ", "x");
                 main_entry.text = main_entry.text.replace ("ϴ", "x");
             }
+        }
+
+        private void draw_indicator (Gtk.DrawingArea area, Cairo.Context cr, int width, int height) {
+            double degrees = Math.PI / 180.0;
+            double radius = 4.0;
+            cr.new_sub_path ();
+            cr.arc (width - radius, radius, radius, -90 * degrees, 0);
+            cr.arc (width - radius, height - radius, radius, 0, 90 * degrees);
+            cr.arc (radius, height - radius, radius, 90 * degrees, 180 * degrees);
+            cr.arc (radius, radius, radius, 180 * degrees, 270 * degrees);
+            cr.close_path ();
+
+            cr.clip ();
+
+            var hex = PALETTE[index].substring (1);
+            cr.set_source_rgb (
+                (double) uint.parse (hex.substring (0, 2), 16) / 256,
+                (double) uint.parse (hex.substring (2, 2), 16) / 256,
+                (double) uint.parse (hex.substring (4, 2), 16) / 256
+            );
+
+            cr.rectangle (0, 0, width, height);
+            cr.fill ();
         }
     }
 }

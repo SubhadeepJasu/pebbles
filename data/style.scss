@@ -344,4 +344,8 @@ button.pressed {
             color: $LCD_FG_COLOR;
         }
     }
+
+    &-indicator {
+        border-radius: 4px;
+    }
 }

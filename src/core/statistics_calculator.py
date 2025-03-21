@@ -23,8 +23,6 @@ class StatisticsCalculator():
 
     MODE = Pebbles.Context.STATISTICS
     AXIS_COLOR = "#272863"
-    PALETTE = ["#272863", "#3689e6", "#c6262e", "#3a9104", "#d48e15", "#f37329",
-               "#bc245d", "#7239b3", "#b6802e", "#57392d", "#485a6c", "#333333"]
 
     def __init__(self, memory: ContextualMemory):
         self.memory = memory
@@ -207,7 +205,7 @@ class StatisticsCalculator():
                 fig.subplots_adjust(left=0, right=1, top=1, bottom=0)
                 ax.spines["left"].set_color(self.AXIS_COLOR)
                 ax.spines["bottom"].set_color(self.AXIS_COLOR)
-                plt.rcParams["axes.prop_cycle"] = plt.cycler(color=self.PALETTE)
+                plt.rcParams["axes.prop_cycle"] = plt.cycler(color=Pebbles.get_palette())
                 plt.tight_layout(pad=4 / dpi)
 
                 try:
@@ -307,7 +305,7 @@ class StatisticsCalculator():
         # Flattened y-values (actual data values)
         y = self.data.flatten()
         # Assign colors per row, repeating for each column
-        colors = np.repeat(self.PALETTE[:num_rows], num_cols)
+        colors = np.repeat(Pebbles.get_palette()[:num_rows], num_cols)
 
         ax.axhline(y=0, color=self.AXIS_COLOR, linewidth=1, linestyle="--")
         ax.scatter(x, y, c=colors, edgecolor="none", s=4)

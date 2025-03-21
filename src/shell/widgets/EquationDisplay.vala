@@ -8,15 +8,29 @@ namespace Pebbles {
 
         public signal void change_mode (bool radial_mode);
 
+        private int index = 0;
+
         construct {
 
         }
 
         public void add_equation () {
-            var entry = new EquationEntry ();
+            var ex = eq_box.get_last_child () as EquationEntry;
+            if (ex != null) {
+                index = ex.index + 1;
+            }
+
+            var entry = new EquationEntry (index);
             eq_box.append (entry);
             entry.grab_focus ();
             entry.change_mode.connect (change_mode_handler);
+        }
+
+        public void get_equations () {
+            for (var entry = eq_box.get_first_child (); entry != null; entry = entry.get_next_sibling ()) {
+                var _entry = entry as EquationEntry;
+                print (_entry.equation.to_string () + "\n");
+            }
         }
 
         private void change_mode_handler (bool mode) {
