@@ -22,6 +22,7 @@ class Tokenizer():
     ]
 
     SCIENTIFIC_TOKEN_MAP = [
+        ('θ', 'x'),
         ('gans', '#'),
         ('ans', '@'),
         ('isinh', ' [0] '),

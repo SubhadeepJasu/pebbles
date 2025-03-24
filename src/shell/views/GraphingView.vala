@@ -36,7 +36,6 @@ namespace Pebbles {
             if (graphing_stack.visible_child != graphing_panel) {
                 graphing_stack.visible_child = graphing_panel;
                 panel_changed (true);
-                display.get_equations ();
             }
         }
 

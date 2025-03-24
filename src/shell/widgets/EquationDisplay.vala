@@ -8,6 +8,33 @@ namespace Pebbles {
 
         public signal void change_mode (bool radial_mode);
 
+        private EquationModel[] _eq_array;
+        public unowned EquationModel[] equations {
+            get {
+                var eqlist = new List<EquationModel> ();
+                for (var entry = eq_box.get_first_child (); entry != null; entry = entry.get_next_sibling ()) {
+                    var _entry = entry as EquationEntry;
+                    eqlist.append (_entry.equation);
+                }
+
+                var n = (int) eqlist.length ();
+
+                if (_eq_array == null) {
+                    _eq_array = new EquationModel[n];
+                }
+
+                if (_eq_array.length != n) {
+                    _eq_array.resize (n);
+                }
+
+                for (var i = 0; i < n; i++) {
+                    _eq_array[i] = eqlist.nth_data (i);
+                }
+
+                return _eq_array;
+            }
+        }
+
         private int index = 0;
 
         construct {
@@ -24,13 +51,6 @@ namespace Pebbles {
             eq_box.append (entry);
             entry.grab_focus ();
             entry.change_mode.connect (change_mode_handler);
-        }
-
-        public void get_equations () {
-            for (var entry = eq_box.get_first_child (); entry != null; entry = entry.get_next_sibling ()) {
-                var _entry = entry as EquationEntry;
-                print (_entry.equation.to_string () + "\n");
-            }
         }
 
         private void change_mode_handler (bool mode) {
