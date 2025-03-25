@@ -32,6 +32,7 @@ namespace Pebbles {
         public unowned HistoryDisplay history_display;
 
         private Gtk.GestureClick right_click_gesture;
+        private EntryFormatter entry_formatter;
 
         construct {
             Idle.add (()=> {
@@ -55,39 +56,7 @@ namespace Pebbles {
                 return false;
             }, Priority.LOW);
 
-            // TODO: Do token check before inserting any character
-            main_entry.get_delegate ().insert_text.connect_after ((ch, length) => {
-                var text = main_entry.text;
-                Idle.add (() => {
-                    if (text.length > 1 && text.has_prefix ("0")) {
-                        main_entry.text = text.substring (1);
-                        main_entry.set_position (1);
-                        return Source.REMOVE;
-                    }
-
-                    if (length > 1) {
-                        return Source.REMOVE;
-                    }
-
-                    Idle.add (() => {
-                        if (main_entry.text_length > 1)
-                        replace_inserted_character (main_entry.text, main_entry.text_length, main_entry.get_position ());
-                        return Source.REMOVE;
-                    });
-                    return Source.REMOVE;
-                });
-            });
-
-            main_entry.get_delegate ().delete_text.connect_after (() => {
-                Idle.add (() => {
-                    if (main_entry.text_length == 0) {
-                        main_entry.text = "0";
-                        main_entry.set_position ((int) main_entry.text_length);
-                    }
-
-                    return Source.REMOVE;
-                });
-            });
+            entry_formatter = new EntryFormatter (main_entry);
 
             settings = Pebbles.Settings.get_default ();
             settings.changed["global-angle-unit"].connect ((key) => {
