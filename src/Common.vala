@@ -174,4 +174,9 @@ namespace Pebbles {
     public static string[] get_palette () {
         return PALETTE;
     }
+
+    public enum GraphAxisScaling {
+        LINEAR,
+        LOGARITHMIC
+    }
 }

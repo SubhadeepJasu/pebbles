@@ -30,7 +30,8 @@ python.install_sources(
     'core/tokenizer.py',
     'core/memory.py',
     'core/scientific_calculator.py',
-    'core/statistics_calculator.py'
+    'core/statistics_calculator.py',
+    'core/graphing_calculator.py'
   ),
   subdir: 'pebbles/core',
 )
@@ -53,6 +54,7 @@ pebbles_lib = shared_library('pebbles',
     'components/EntryFormatter.vala',
     'models/History.Model.vala',
     'models/Equation.Model.vala',
+    'models/GraphPayload.Model.vala',
     'shell/MainWindow.vala',
     'shell/dialogs/PreferencesDialog.vala',
     'shell/dialogs/ShortcutsDialog.vala',

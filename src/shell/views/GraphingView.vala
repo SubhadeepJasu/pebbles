@@ -9,6 +9,8 @@ namespace Pebbles {
         private unowned Gtk.Overlay graphing_panel;
         [GtkChild]
         private unowned EquationDisplay display;
+        [GtkChild]
+        private unowned GraphViewport viewport;
 
         [GtkChild]
         private unowned Pebbles.Button variable_button;
@@ -44,6 +46,7 @@ namespace Pebbles {
             if (graphing_stack.visible_child != equation_panel) {
                 graphing_stack.visible_child = equation_panel;
                 panel_changed (false);
+                viewport.render (display.equations);
             }
         }
 

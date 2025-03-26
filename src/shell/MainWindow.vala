@@ -92,6 +92,7 @@ namespace Pebbles {
         public signal int on_stat_cell_update (double value, int index, int series_index);
         public signal string on_stat_cell_query (int index, int series_index);
         public signal void on_stat_export (string? path);
+        public signal void on_render_graph (GraphPayloadModel payload);
 
         construct {
             navigation_pane.add_css_class (Granite.STYLE_CLASS_SIDEBAR);

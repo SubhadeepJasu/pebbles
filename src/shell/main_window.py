@@ -10,6 +10,7 @@ from gi.repository import Pebbles
 from pebbles.core.memory import ContextualMemory
 from pebbles.core.scientific_calculator import ScientificCalculator
 from pebbles.core.statistics_calculator import StatisticsCalculator
+from pebbles.core.graphing_calculator import GraphingCalculator
 from pebbles.core.tokenizer import Tokenizer
 from pebbles.core.utils import Utils
 
@@ -25,6 +26,8 @@ class PythonWindow(Pebbles.MainWindow):
         self.stat_calc = StatisticsCalculator(self._memory)
         self.stat_calc.set_plot_ready_callback(self._stat_plot_ready_cb)
 
+        self.graph_calc = GraphingCalculator()
+
         self.connect("on_evaluate", self._evaluate)
         self.connect("on_memory_recall", self._memory_recall)
         self.connect("on_memory_clear", self._memory_clear)
@@ -37,6 +40,7 @@ class PythonWindow(Pebbles.MainWindow):
         self.connect("on_stat_cell_query", self._stat_cell_query_cb)
         self.connect("on_stat_export", self._on_stat_export_cb)
         self.connect("on_get_last_result", self._on_query_last_result_cb)
+        self.connect("on_render_graph", self._on_render_graph)
 
 
     def _evaluate(self, _, data:str):
@@ -174,6 +178,10 @@ Attempting to make a table with the previous series.")
 
     def _on_stat_export_cb(self, _, path: str):
         self.stat_calc.export(path)
+
+
+    def _on_render_graph(self, _, payload):
+        self.graph_calc.set_plot_params_and_plot (payload)
 
 
     def _memory_recall(self, _, context: str):
