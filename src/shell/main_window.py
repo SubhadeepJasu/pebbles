@@ -27,6 +27,7 @@ class PythonWindow(Pebbles.MainWindow):
         self.stat_calc.set_plot_ready_callback(self._stat_plot_ready_cb)
 
         self.graph_calc = GraphingCalculator()
+        self.graph_calc.set_plot_ready_callback(self._graph_ready_cb)
 
         self.connect("on_evaluate", self._evaluate)
         self.connect("on_memory_recall", self._memory_recall)
@@ -182,6 +183,10 @@ Attempting to make a table with the previous series.")
 
     def _on_render_graph(self, _, payload):
         self.graph_calc.set_plot_params_and_plot (payload)
+
+
+    def _graph_ready_cb(self, pixbuf, valid):
+        self.on_render_ready(pixbuf, valid)
 
 
     def _memory_recall(self, _, context: str):

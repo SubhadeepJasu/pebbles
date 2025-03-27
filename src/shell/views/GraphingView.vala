@@ -38,6 +38,14 @@ namespace Pebbles {
             if (graphing_stack.visible_child != graphing_panel) {
                 graphing_stack.visible_child = graphing_panel;
                 panel_changed (true);
+                Idle.add (() => {
+                    if (!graphing_stack.transition_running) {
+                        viewport.render (display.equations);
+                        return false;
+                    }
+
+                    return true;
+                });
             }
         }
 
@@ -46,7 +54,6 @@ namespace Pebbles {
             if (graphing_stack.visible_child != equation_panel) {
                 graphing_stack.visible_child = equation_panel;
                 panel_changed (false);
-                viewport.render (display.equations);
             }
         }
 

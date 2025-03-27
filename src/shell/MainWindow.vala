@@ -409,6 +409,10 @@ namespace Pebbles {
             statistics_view.plot (figure, valid);
         }
 
+        protected void on_render_ready (Gdk.Pixbuf? figure, bool valid) {
+
+        }
+
         protected void on_memory_change (string context, bool present) {
             background_tasks_remove ();
             switch (context) {

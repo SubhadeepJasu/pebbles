@@ -330,10 +330,11 @@ button.pressed {
 .equation-entry {
     entry {
         background: none;
-        border: none;
+        border: 1px solid #0000;
         border-radius: 0;
         box-shadow: none;
         color: #272863;
+        caret-color: $LCD_FG_COLOR;
 
         &:focus-within {
             border: 1px solid #272863a0;
