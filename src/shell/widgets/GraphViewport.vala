@@ -56,6 +56,17 @@ namespace Pebbles {
 
         private void draw_figure (Gtk.DrawingArea area, Cairo.Context cr, int width, int height) {
             if (figure != null) {
+                double degrees = Math.PI / 180.0;
+                double radius = 3.0;
+                cr.new_sub_path ();
+                cr.arc (width - radius, radius, radius, -90 * degrees, 0);
+                cr.arc (width - radius, height - radius, radius, 0, 90 * degrees);
+                cr.arc (radius, height - radius, radius, 90 * degrees, 180 * degrees);
+                cr.arc (radius, radius, radius, 180 * degrees, 270 * degrees);
+                cr.close_path ();
+
+                cr.clip ();
+
                 cr.set_operator (Cairo.Operator.SOURCE);
                 Gdk.cairo_set_source_pixbuf (
                     cr,
