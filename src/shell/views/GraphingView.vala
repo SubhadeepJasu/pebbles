@@ -22,6 +22,10 @@ namespace Pebbles {
 
         public signal void panel_changed (bool showing_graphs);
 
+        public void render_graph (Gdk.Pixbuf? pixbuf, bool valid) {
+            viewport.show_graph (pixbuf, valid);
+        }
+
         [GtkCallback]
         public void change_mode_handler (bool radial_mode) {
             if (radial_mode) {

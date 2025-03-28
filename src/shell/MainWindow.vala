@@ -410,7 +410,7 @@ namespace Pebbles {
         }
 
         protected void on_render_ready (Gdk.Pixbuf? figure, bool valid) {
-
+            graphing_view.render_graph (figure, valid);
         }
 
         protected void on_memory_change (string context, bool present) {

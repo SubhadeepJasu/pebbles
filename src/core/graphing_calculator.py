@@ -93,6 +93,7 @@ class GraphingCalculator():
                 return
 
             self.ax.clear()
+            self.ax.grid(True)
 
             x_values = np.arange(self.plot_params['xMin'], self.plot_params['xMax'], step_size)
             for pro in self.calculators:

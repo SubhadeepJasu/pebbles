@@ -10,11 +10,16 @@ namespace Pebbles {
         public GraphAxisScaling x_scaling_mode = LINEAR;
         public GraphAxisScaling y_scaling_mode = LINEAR;
 
+        private Gdk.Pixbuf? figure;
+        private bool valid_figure = true;
+
         construct {
             x_min = 0;
             y_min = 0;
             x_max = 10;
             y_max = 10;
+
+            renderer.set_draw_func (draw_figure);
         }
 
         public void render (EquationModel[]? equations = null, GlobalAngleUnit angle_unit = DEG) {
@@ -39,6 +44,43 @@ namespace Pebbles {
             };
 
             window.on_render_graph (payload);
+        }
+
+        public void show_graph (Gdk.Pixbuf? figure, bool valid) {
+            this.figure = figure;
+            valid_figure = valid;
+            Idle.add_once (() => {
+                renderer.queue_draw ();
+            });
+        }
+
+        private void draw_figure (Gtk.DrawingArea area, Cairo.Context cr, int width, int height) {
+            if (figure != null) {
+                cr.set_operator (Cairo.Operator.SOURCE);
+                Gdk.cairo_set_source_pixbuf (
+                    cr,
+                    figure,
+                    0,
+                    0
+                );
+                cr.paint ();
+            } else if (!valid_figure) {
+                // Draw a "No Symbol" (🛇)
+                double radius = double.min (width, height) * 0.2;
+                double cx = width / 2.0;
+                double cy = height / 2.0;
+
+                // Draw Circle
+                cr.set_source_rgba (0.152941176, 0.156862745, 0.388235294, 0.8);
+                cr.set_line_width (5.0);
+                cr.arc (cx, cy, radius, 0, 2 * Math.PI);
+                cr.stroke ();
+
+                // Draw Slash
+                cr.move_to (cx - radius * 0.7, cy - radius * 0.7);
+                cr.line_to (cx + radius * 0.7, cy + radius * 0.7);
+                cr.stroke ();
+            }
         }
     }
 }
