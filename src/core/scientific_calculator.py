@@ -42,7 +42,7 @@ class ScientificCalculator():
         self.angle_mode = self.input_dict['angleMode']
         if token_map is not None:
             self.tokens = Tokenizer.st_tokenize(self.input_dict['input'], token_map)
-            print ('Tokens: ', self.tokens)
+            # print ('Tokens: ', self.tokens)
 
         self.substitutions = {
             'X': 0,
@@ -130,9 +130,9 @@ class ScientificCalculator():
                     b = operand_pop()
                     a = operand_pop()
                     op = operator_stack.pop()
-                    print(a, b, op)
+                    # print(a, b, op)
                     temp = self._apply_op(op, a, b)
-                    print("res ", temp)
+                    # print("res ", temp)
                     operand_stack.append(temp)
 
                 operator_stack.pop()
@@ -145,9 +145,9 @@ class ScientificCalculator():
                     b = operand_pop()
                     a = operand_pop()
                     op = operator_stack.pop()
-                    print(a, b, op)
+                    # print(a, b, op)
                     tmp = self._apply_op(op, a, b)
-                    print("res ", tmp)
+                    # print("res ", tmp)
                     operand_stack.append(tmp)
 
                 operator_stack.append(token)
@@ -157,9 +157,9 @@ class ScientificCalculator():
             op = operator_stack.pop()
             b = operand_pop()
             a = operand_pop()
-            print(a, b, op)
+            # print(a, b, op)
             tmp = self._apply_op(op, a, b)
-            print("res ", tmp)
+            # print("res ", tmp)
             operand_stack.append(tmp)
 
         # print(operand_stack)
@@ -281,7 +281,7 @@ class ScientificCalculator():
         if op2 in ['(', ')']:
             return False
 
-        print("Comparing " + op1 + " and " + op2)
+        # print("Comparing " + op1 + " and " + op2)
 
         # Find the precedence index of each operator
         op1_index = next((i for i, ops in enumerate(self.OPERATORS) if op1 in ops), float('inf'))

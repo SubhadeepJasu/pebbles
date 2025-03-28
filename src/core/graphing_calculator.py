@@ -25,10 +25,6 @@ class GraphingCalculator():
         self.cancel_event = threading.Event()
         self.calculators = []
         self.plot_params = {}
-        self.fig, self.ax = plt.subplots()
-        self.ax.set_position([0, 0, 1, 1])
-        self.ax.set_facecolor((0, 0, 0, 0))
-        self.fig.subplots_adjust(left=0, right=1, top=1, bottom=0)
 
 
     def set_plot_params_and_plot(self, payload):
@@ -41,7 +37,7 @@ class GraphingCalculator():
                 self.calculators.append({
                     'eq': eq,
                     'calc': ScientificCalculator(
-                        json.dumps({'input': eq.get_expression(), 'angleMode': payload.get_angle_unit()}),
+                        json.dumps({'input': eq.get_expression(), 'angleMode': int(payload.get_angle_unit())}),
                         None,
                         Tokenizer.GRAPHING_TOKEN_MAP
                     )
@@ -83,19 +79,34 @@ class GraphingCalculator():
 
 
     def _plot(self):
-        steps = [16, 8, 4, 2, 1]
+        steps = [32, 16, 8, 4, 1]
         palette = Pebbles.get_palette(self.plot_params['darkMode'])
-        plt.tight_layout(pad=4 / self.plot_params['dpi'])
+        dpi = self.plot_params['dpi']
+        width = self.plot_params['width']
+        height = self.plot_params['height']
+        plt.tight_layout(pad=4 / dpi)
 
         for step_size in steps:
             if self.cancel_event.is_set():
                 print("Computation cancelled.")
                 return
 
-            self.ax.clear()
-            self.ax.grid(True)
+            fig, ax = plt.subplots(figsize=(width / dpi, height / dpi), dpi=dpi)
+            ax.grid(color='#777', linestyle='--', linewidth=0.5, alpha=0.3)
+            ax.axhline(0, color='#777', linewidth=1)  # Horizontal axis
+            ax.axvline(0, color='#777', linewidth=1)  # Vertical axis
+            ax.set_position([0, 0, 1, 1])
+            ax.set_facecolor((0, 0, 0, 0))
+            ax.spines['top'].set_visible(False)
+            ax.spines['right'].set_visible(False)
+            ax.spines['bottom'].set_visible(False)
+            ax.spines['left'].set_visible(False)
+            ax.tick_params(axis='both', direction='in', which='major', labelsize=8, pad=-20, colors='#777')
+            # ax.tick_params(axis='y', direction='in', pad=-20)
+            fig.subplots_adjust(left=0, right=1, top=1, bottom=0)
 
-            x_values = np.arange(self.plot_params['xMin'], self.plot_params['xMax'], step_size)
+            # x_values = np.arange(, , step_size)
+            x_values = np.linspace(self.plot_params['xMin'], self.plot_params['xMax'], width // step_size)
             for pro in self.calculators:
                 calc: ScientificCalculator = pro['calc']
                 y_values = []
@@ -103,21 +114,27 @@ class GraphingCalculator():
                     calc.set_substitute_value('X', x, zero_limit=True)
                     y_values.append(calc.process())
 
-                print (pro['eq'].get_expression())
-                print (y_values)
+                print(pro['eq'].get_expression())
+                print('x=', x_values)
+                print('y=', y_values)
 
-                # This is where the draw function goes
+                ax.plot(x_values, y_values, label=pro['eq'].get_expression(), color=palette[pro['eq'].get_index() % len(palette)])
 
-                y_values.sort()
-
-                self.ax.plot(x_values, y_values, label=pro['eq'].get_expression(), color=palette[pro['eq'].get_index() % len(pro)])
+            ax.legend(
+                loc="upper right",
+                fontsize=8,
+                framealpha=0.6,
+                labelcolor='white',
+                facecolor="#333",
+                edgecolor="#444"
+            )
 
             # Save figure to a BytesIO buffer in PNG format
             buf = BytesIO()
-            self.fig.set_size_inches(self.plot_params['width'] / self.plot_params['dpi'], self.plot_params['height'] / self.plot_params['dpi'], forward=True)
-            self.fig.patch.set_alpha(0)
-            self.fig.savefig(buf, format="png", bbox_inches='tight', pad_inches=0)
-            plt.close(self.fig)  # Close the figure to free memory
+            fig.set_size_inches(width / dpi, height / dpi, forward=True)
+            fig.patch.set_alpha(0)
+            fig.savefig(buf, format="png", bbox_inches='tight', pad_inches=0)
+            plt.close(fig)  # Close the figure to free memory
 
             # Convert buffer to GdkPixbuf
             buf.seek(0)
