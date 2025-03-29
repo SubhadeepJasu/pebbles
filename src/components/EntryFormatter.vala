@@ -2,7 +2,7 @@ namespace Pebbles {
     public class EntryFormatter {
         public unowned Gtk.Entry main_entry;
 
-        public EntryFormatter (Gtk.Entry entry, bool default_zero = true) {
+        public EntryFormatter (Gtk.Entry entry) {
             this.main_entry = entry;
 
             // TODO: Do token check before inserting any character
@@ -20,27 +20,28 @@ namespace Pebbles {
                     }
 
                     Idle.add (() => {
-                        if (main_entry.text_length > 1)
-                        replace_inserted_character (
-                            main_entry.text, main_entry.text_length, main_entry.get_position ());
+                        if (main_entry.text_length >= 1)
+                            replace_inserted_character (
+                                main_entry.text,
+                                main_entry.text_length,
+                                main_entry.get_position ()
+                            );
                         return Source.REMOVE;
                     });
                     return Source.REMOVE;
                 });
             });
 
-            if (default_zero) {
-                main_entry.get_delegate ().delete_text.connect_after (() => {
-                    Idle.add (() => {
-                        if (main_entry.text_length == 0) {
-                            main_entry.text = "0";
-                            main_entry.set_position ((int) main_entry.text_length);
-                        }
+            main_entry.get_delegate ().delete_text.connect_after (() => {
+                Idle.add (() => {
+                    if (main_entry.text_length == 0) {
+                        main_entry.text = "0";
+                        main_entry.set_position ((int) main_entry.text_length);
+                    }
 
-                        return Source.REMOVE;
-                    });
+                    return Source.REMOVE;
                 });
-            }
+            });
         }
 
         public void replace_inserted_character (
@@ -60,7 +61,7 @@ namespace Pebbles {
                 }
             }
 
-            print ("%s, %s\n", previous_symbol, current_symbol);
+            //  print ("%s, %s\n", previous_symbol, current_symbol);
 
             bool double_replaced;
             int len_gain;

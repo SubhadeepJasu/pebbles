@@ -3,38 +3,110 @@ namespace Pebbles {
     public class GraphViewport : Gtk.Box {
         [GtkChild]
         private unowned Gtk.DrawingArea renderer;
-        public int x_min { get; private set; }
-        public int x_max { get; private set; }
-        public int y_min { get; private set; }
-        public int y_max { get; private set; }
+        private double _zoom_x;
+        public double zoom_x {
+            get {
+                return _zoom_x;
+            }
+
+            set {
+                _zoom_x = value;
+                queue_render = true;
+            }
+        }
+        private double _zoom_y;
+        public double zoom_y {
+            get {
+                return _zoom_y;
+            }
+
+            set {
+                _zoom_y = value;
+                queue_render = true;
+            }
+        }
+
+        private double _pan_x;
+        public double pan_x {
+            get {
+                return _pan_x;
+            }
+
+            set {
+                _pan_x = value;
+                queue_render = true;
+            }
+        }
+
+        private double _pan_y;
+        public double pan_y {
+            get {
+                return _pan_y;
+            }
+
+            set {
+                _pan_y = value;
+                queue_render = true;
+            }
+        }
+
         public GraphAxisScaling x_scaling_mode = LINEAR;
         public GraphAxisScaling y_scaling_mode = LINEAR;
 
         private Gdk.Pixbuf? figure;
         private bool valid_figure = true;
+        private GlobalAngleUnit angle_unit;
+        private bool queue_render = false;
+        private bool update = true;
+        private int width;
+        private int height;
 
         construct {
-            x_min = 0;
-            y_min = 0;
-            x_max = 10;
-            y_max = 10;
-
             renderer.set_draw_func (draw_figure);
+
+            renderer.realize.connect (() => {
+                width = renderer.get_width ();
+                height = renderer.get_height ();
+
+                Timeout.add (66, () => {
+                    if (queue_render) {
+                        queue_render = false;
+                        rerender ();
+                    } else if (width != renderer.get_width () || height != renderer.get_height ()) {
+                        width = renderer.get_width ();
+                        height = renderer.get_height ();
+                        rerender ();
+                    }
+
+                    return update;
+                }, Priority.DEFAULT_IDLE);
+            });
+        }
+
+        ~GraphViewport () {
+            update = Source.REMOVE;
+        }
+
+        private void rerender () {
+            Idle.add_once (() => {
+                render (null, angle_unit);
+            });
         }
 
         public void render (EquationModel[]? equations = null, GlobalAngleUnit angle_unit = DEG) {
-            var window = (MainWindow) get_ancestor (typeof (MainWindow));
+            this.angle_unit = angle_unit;
 
+            var window = (MainWindow) get_ancestor (typeof (MainWindow));
             var display = window.get_display ();
             var monitor = display.get_monitor_at_surface (window.get_surface ());
 
             var payload = new GraphPayloadModel () {
                 equations = equations,
                 angle_unit = angle_unit,
-                x_min = this.x_min,
-                x_max = this.x_max,
-                y_min = this.y_min,
-                y_max = this.y_max,
+                x_min = 0,
+                x_max = 10,
+                y_min = 0,
+                y_max = 10,
                 x_scaling = x_scaling_mode,
                 y_scaling = y_scaling_mode,
                 width = renderer.get_width (),
@@ -67,14 +139,21 @@ namespace Pebbles {
 
                 cr.clip ();
 
-                cr.set_operator (Cairo.Operator.SOURCE);
-                Gdk.cairo_set_source_pixbuf (
-                    cr,
-                    figure,
-                    0,
-                    0
-                );
-                cr.paint ();
+
+                int iwidth = figure?.get_width ();
+                if (iwidth > 0) {
+                    double scale_x = (double) width / iwidth;
+
+                    cr.set_operator (Cairo.Operator.SOURCE);
+                    cr.scale (scale_x, scale_x);
+                    Gdk.cairo_set_source_pixbuf (
+                        cr,
+                        figure,
+                        0,
+                        0
+                    );
+                    cr.paint ();
+                }
             } else if (!valid_figure) {
                 // Draw a "No Symbol" (🛇)
                 double radius = double.min (width, height) * 0.2;

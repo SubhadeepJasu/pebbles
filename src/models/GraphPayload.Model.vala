@@ -12,5 +12,9 @@ namespace Pebbles {
         public int height { get; set; }
         public double dpi { get; set; }
         public bool dark_mode { get; set; }
+
+        public bool contains_equations () {
+            return equations != null;
+        }
     }
 }

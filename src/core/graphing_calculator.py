@@ -6,6 +6,7 @@
 
 from io import BytesIO
 import threading
+import time
 import json
 import matplotlib
 import matplotlib.pyplot as plt
@@ -25,13 +26,14 @@ class GraphingCalculator():
         self.cancel_event = threading.Event()
         self.calculators = []
         self.plot_params = {}
+        self.plot_lock = threading.Lock()
 
 
     def set_plot_params_and_plot(self, payload):
         """
         Set parameters for plotting.
         """
-        if payload.get_equations() is not None:
+        if payload.contains_equations():
             self.calculators = []
             for eq in payload.get_equations():
                 self.calculators.append({
@@ -66,12 +68,14 @@ class GraphingCalculator():
         self.on_plot_ready = cb
 
     def start_plotting(self):
-        print (self.calculators)
-        print (self.plot_params)
+        # print (self.calculators)
+        # print (self.plot_params)
 
         if self.plot_thread and self.plot_thread.is_alive():
             self.cancel_event.set()  # Cancel existing thread
             self.plot_thread.join()
+            if self.plot_lock.locked():
+                self.plot_lock.release()
 
         self.cancel_event.clear()
         self.plot_thread = threading.Thread(target=self._plot)
@@ -79,77 +83,96 @@ class GraphingCalculator():
 
 
     def _plot(self):
-        steps = [32, 16, 8, 4, 1]
-        palette = Pebbles.get_palette(self.plot_params['darkMode'])
-        dpi = self.plot_params['dpi']
-        width = self.plot_params['width']
-        height = self.plot_params['height']
-        plt.tight_layout(pad=4 / dpi)
+        try:
+            with self.plot_lock:
+                steps = [6, 5, 4, 3, 2, 1]
+                palette = Pebbles.get_palette(self.plot_params['darkMode'])
+                dpi = self.plot_params['dpi']
+                width = self.plot_params['width']
+                height = self.plot_params['height']
+                plt.tight_layout(pad=4 / dpi)
 
-        for step_size in steps:
-            if self.cancel_event.is_set():
-                print("Computation cancelled.")
-                return
+                for step_size in steps:
+                    if self.cancel_event.is_set():
+                        # print("Computation cancelled.")
+                        return
 
-            fig, ax = plt.subplots(figsize=(width / dpi, height / dpi), dpi=dpi)
-            ax.margins(0)
-            ax.grid(color='#777', linestyle='--', linewidth=0.5, alpha=0.3)
-            ax.axhline(0, color='#777', linewidth=1)
-            ax.axvline(0, color='#777', linewidth=1)
-            ax.set_position([0, 0, 1, 1])
-            ax.set_facecolor((0, 0, 0, 0))
-            ax.spines['top'].set_visible(False)
-            ax.spines['right'].set_visible(False)
-            ax.spines['bottom'].set_visible(False)
-            ax.spines['left'].set_visible(False)
-            ax.set_xlim(self.plot_params['xMin'], self.plot_params['xMax'])
-            ax.set_ylim(self.plot_params['yMin'], self.plot_params['yMax'])
-            ax.tick_params(axis='both', direction='in', which='major', labelsize=6, pad=-10, colors='#777')
-            ax.set_autoscale_on(False)
-            fig.subplots_adjust(left=0, right=1, top=1, bottom=0)
+                    # print('Step: ', step_size)
 
-            x_values = np.linspace(self.plot_params['xMin'], self.plot_params['xMax'], width // step_size)
-            for pro in self.calculators:
-                calc: ScientificCalculator = pro['calc']
-                y_values = []
-                for x in x_values:
-                    calc.set_substitute_value('X', x, zero_limit=True)
-                    y_values.append(calc.process())
+                    fig, ax = plt.subplots(figsize=(width / dpi, height / dpi), dpi=dpi)
+                    ax.margins(0)
+                    ax.grid(color='#777', linewidth=0.5, alpha=0.3)
+                    ax.axhline(0, color='#777', linewidth=1)
+                    ax.axvline(0, color='#777', linewidth=1)
+                    ax.set_position([0, 0, 1, 1])
+                    ax.set_facecolor((0, 0, 0, 0))
+                    ax.spines['top'].set_visible(False)
+                    ax.spines['right'].set_visible(False)
+                    ax.spines['bottom'].set_visible(False)
+                    ax.spines['left'].set_visible(False)
+                    ax.set_xlim(self.plot_params['xMin'], self.plot_params['xMax'])
+                    ax.set_ylim(self.plot_params['yMin'], self.plot_params['yMax'])
+                    if step_size == 1:
+                        ax.tick_params(axis='both', direction='in', which='major', labelsize=6, pad=-10, colors='#777')
+                    else:
+                        ax.set_xticklabels([])  # Remove x-axis labels
+                        ax.set_yticklabels([])  # Remove y-axis labels
+                    ax.set_autoscale_on(False)
+                    fig.subplots_adjust(left=0, right=1, top=1, bottom=0)
 
-                ax.plot(x_values, y_values, label=pro['eq'].get_expression(), color=palette[pro['eq'].get_index() % len(palette)])
+                    x_values = np.linspace(self.plot_params['xMin'], self.plot_params['xMax'], width // (step_size ** 2))
+                    for pro in self.calculators:
+                        calc: ScientificCalculator = pro['calc']
+                        y_values = []
+                        for x in x_values:
+                            calc.set_substitute_value('X', x, zero_limit=True)
+                            y_values.append(calc.process())
 
-            ax.legend(
-                loc="upper right",
-                fontsize=6,
-                framealpha=0.6,
-                labelcolor='white',
-                facecolor="#444",
-                edgecolor="#555"
-            )
+                        ax.plot(x_values, y_values, label=pro['eq'].get_expression(), color=palette[pro['eq'].get_index() % len(palette)], rasterized=True, aa=step_size==1)
 
-            for label in ax.get_xticklabels():
-                label.set_horizontalalignment('right')
+                    if step_size == 1:
+                        if self.plot_params['darkMode']:
+                            ax.legend(
+                                loc="upper right",
+                                fontsize=6,
+                                framealpha=0.6,
+                                labelcolor='white',
+                                facecolor="#444",
+                                edgecolor="#222"
+                            )
+                        else:
+                            ax.legend(
+                                loc="upper right",
+                                fontsize=6,
+                                framealpha=0.6,
+                                labelcolor='#333',
+                                facecolor="#f8f8f8",
+                                edgecolor="#666"
+                            )
 
-            ax.get_xticklabels()[0].set_visible(False)
+                        for label in ax.get_xticklabels():
+                            label.set_horizontalalignment('left')
 
-            for label in ax.get_yticklabels():
-                label.set_verticalalignment('bottom')
+                        ax.get_xticklabels()[-1].set_visible(False)
 
-            ax.get_yticklabels()[-1].set_visible(False)
+                        for label in ax.get_yticklabels():
+                            label.set_verticalalignment('bottom')
 
-            # Save figure to a BytesIO buffer in PNG format
-            buf = BytesIO()
-            fig.set_size_inches(width / dpi, height / dpi, forward=True)
-            fig.patch.set_alpha(0)
-            fig.savefig(buf, format="png", bbox_inches='tight', pad_inches=0)
-            plt.close(fig)
+                        ax.get_yticklabels()[-1].set_visible(False)
 
-            # Convert buffer to GdkPixbuf
-            buf.seek(0)
-            loader = GdkPixbuf.PixbufLoader.new_with_type("png")
-            loader.write(buf.getvalue())
-            loader.close()
-            if self.on_plot_ready:
-                self.on_plot_ready(loader.get_pixbuf(), True)
+                    # Save figure to a BytesIO buffer in PNG format
+                    buf = BytesIO()
+                    fig.set_size_inches((width / dpi), (height / dpi), forward=True)
+                    fig.patch.set_alpha(0)
+                    fig.savefig(buf, format="png", bbox_inches='tight', pad_inches=0, dpi=dpi / step_size)
+                    plt.close(fig)
 
-            plt.pause(0.1)
+                    # Convert buffer to GdkPixbuf
+                    buf.seek(0)
+                    loader = GdkPixbuf.PixbufLoader.new_with_type("png")
+                    loader.write(buf.getvalue())
+                    loader.close()
+                    if self.on_plot_ready:
+                        self.on_plot_ready(loader.get_pixbuf(), True)
+        except RuntimeError:
+            pass

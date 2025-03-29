@@ -65,7 +65,8 @@ namespace Pebbles {
                 primary_icon_tooltip_markup = CARTESIAN_MODE_TOOLTIP,
                 secondary_icon_name = "edit-delete-symbolic",
                 secondary_icon_tooltip_text = _("Delete equation"),
-                hexpand = true
+                hexpand = true,
+                text = "0"
             };
             main_entry.icon_release.connect ((pos) => {
                 if (pos == PRIMARY) {
@@ -81,7 +82,7 @@ namespace Pebbles {
             main_entry.notify["has-focus"].connect (() => {
                 mode_changed (radial_mode);
             });
-            entry_formatter = new EntryFormatter (main_entry, false);
+            entry_formatter = new EntryFormatter (main_entry);
             append (main_entry);
         }
 
