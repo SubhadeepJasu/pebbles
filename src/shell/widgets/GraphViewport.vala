@@ -3,7 +3,7 @@ namespace Pebbles {
     public class GraphViewport : Gtk.Box {
         [GtkChild]
         private unowned Gtk.DrawingArea renderer;
-        private double _zoom_x;
+        private double _zoom_x = 100;
         public double zoom_x {
             get {
                 return _zoom_x;
@@ -14,7 +14,7 @@ namespace Pebbles {
                 queue_render = true;
             }
         }
-        private double _zoom_y;
+        private double _zoom_y = 100;
         public double zoom_y {
             get {
                 return _zoom_y;
@@ -61,10 +61,28 @@ namespace Pebbles {
         private int width;
         private int height;
 
+
+        private double dpi;
+        private Gtk.GestureDrag pan_gesture;
+        private double previous_x = 0;
+        private double previous_y = 0;
+
+        private Gtk.GestureZoom zoom_gesture;
+        private double previous_sx = 0;
+        private double previous_sy = 0;
+
+        private Gtk.EventControllerScroll scroll_gesture;
+
         construct {
             renderer.set_draw_func (draw_figure);
 
             renderer.realize.connect (() => {
+                var window = (MainWindow) get_ancestor (typeof (MainWindow));
+                var display = window.get_display ();
+                var monitor = display.get_monitor_at_surface (window.get_surface ());
+
+                dpi = monitor.get_geometry ().width / (monitor.get_width_mm () / 25.4);
+
                 width = renderer.get_width ();
                 height = renderer.get_height ();
 
@@ -81,6 +99,57 @@ namespace Pebbles {
                     return update;
                 }, Priority.DEFAULT_IDLE);
             });
+
+            pan_gesture = new Gtk.GestureDrag () {
+                propagation_phase = Gtk.PropagationPhase.CAPTURE,
+                name = "drag-rotation-capture"
+            };
+            pan_gesture.drag_update.connect ((off_x, off_y) => {
+                var vel_x = off_x - previous_x;
+                previous_x = off_x;
+                pan_x -= vel_x / zoom_x;
+
+                var vel_y = off_y - previous_y;
+                previous_y = off_y;
+                pan_y += vel_y / zoom_y;
+            });
+            pan_gesture.drag_end.connect (() => {
+                previous_x = 0;
+                previous_y = 0;
+            });
+            add_controller (pan_gesture);
+
+            zoom_gesture = new Gtk.GestureZoom () {
+                propagation_phase = Gtk.PropagationPhase.CAPTURE,
+                name = "zoom-rotation-capture"
+            };
+            zoom_gesture.begin.connect (() => {
+                previous_sx = zoom_x;
+                previous_sy = zoom_y;
+            });
+            zoom_gesture.scale_changed.connect ((off_s) => {
+                zoom_x = previous_sx * off_s;
+                zoom_y = previous_sy * off_s;
+            });
+            add_controller (zoom_gesture);
+
+            scroll_gesture = new Gtk.EventControllerScroll (Gtk.EventControllerScrollFlags.BOTH_AXES);
+            scroll_gesture.scroll.connect ((dx, dy) => {
+                var modifier = scroll_gesture.get_current_event_state ();
+                if ((modifier & Gdk.ModifierType.CONTROL_MASK) != 0) {
+                    var new_zoom_x = zoom_x - dy;
+                    var new_zoom_y = zoom_y - dy;
+
+                    if (new_zoom_x > 0 && new_zoom_y > 0) {
+                        zoom_x = new_zoom_x;
+                        zoom_y = new_zoom_y;
+                    }
+                } else {
+                    pan_x += dx / dpi;
+                    pan_y -= dy / dpi;
+                }
+            });
+            add_controller (scroll_gesture);
         }
 
         ~GraphViewport () {
@@ -88,30 +157,29 @@ namespace Pebbles {
         }
 
         private void rerender () {
-            Idle.add_once (() => {
-                render (null, angle_unit);
-            });
+            render (null, angle_unit);
         }
 
         public void render (EquationModel[]? equations = null, GlobalAngleUnit angle_unit = DEG) {
             this.angle_unit = angle_unit;
 
             var window = (MainWindow) get_ancestor (typeof (MainWindow));
-            var display = window.get_display ();
-            var monitor = display.get_monitor_at_surface (window.get_surface ());
+
+            var zoomed_width = renderer.get_width () / zoom_x;
+            var zoomed_height = renderer.get_height () / zoom_y;
 
             var payload = new GraphPayloadModel () {
                 equations = equations,
                 angle_unit = angle_unit,
-                x_min = 0,
-                x_max = 10,
-                y_min = 0,
-                y_max = 10,
+                x_min = (pan_x - (zoomed_width / 2)),
+                x_max = (pan_x + (zoomed_width / 2)),
+                y_min = (pan_y - (zoomed_height / 2)),
+                y_max = (pan_y + (zoomed_height / 2)),
                 x_scaling = x_scaling_mode,
                 y_scaling = y_scaling_mode,
                 width = renderer.get_width (),
                 height = renderer.get_height (),
-                dpi = monitor.get_geometry ().width / (monitor.get_width_mm () / 25.4),
+                dpi = dpi,
                 dark_mode = Gtk.Settings.get_default ().gtk_application_prefer_dark_theme
             };
 

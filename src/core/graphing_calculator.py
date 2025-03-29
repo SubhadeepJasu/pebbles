@@ -68,9 +68,6 @@ class GraphingCalculator():
         self.on_plot_ready = cb
 
     def start_plotting(self):
-        # print (self.calculators)
-        # print (self.plot_params)
-
         if self.plot_thread and self.plot_thread.is_alive():
             self.cancel_event.set()  # Cancel existing thread
             self.plot_thread.join()
@@ -94,10 +91,7 @@ class GraphingCalculator():
 
                 for step_size in steps:
                     if self.cancel_event.is_set():
-                        # print("Computation cancelled.")
                         return
-
-                    # print('Step: ', step_size)
 
                     fig, ax = plt.subplots(figsize=(width / dpi, height / dpi), dpi=dpi)
                     ax.margins(0)
@@ -115,8 +109,8 @@ class GraphingCalculator():
                     if step_size == 1:
                         ax.tick_params(axis='both', direction='in', which='major', labelsize=6, pad=-10, colors='#777')
                     else:
-                        ax.set_xticklabels([])  # Remove x-axis labels
-                        ax.set_yticklabels([])  # Remove y-axis labels
+                        ax.set_xticklabels([])
+                        ax.set_yticklabels([])
                     ax.set_autoscale_on(False)
                     fig.subplots_adjust(left=0, right=1, top=1, bottom=0)
 
@@ -128,7 +122,14 @@ class GraphingCalculator():
                             calc.set_substitute_value('X', x, zero_limit=True)
                             y_values.append(calc.process())
 
-                        ax.plot(x_values, y_values, label=pro['eq'].get_expression(), color=palette[pro['eq'].get_index() % len(palette)], rasterized=True, aa=step_size==1)
+                        ax.plot(
+                            x_values,
+                            y_values,
+                            label=('r = ' if pro['eq'].get_radial_coord_mode() else 'y = ') + pro['eq'].get_expression(),
+                            color=palette[pro['eq'].get_index() % len(palette)],
+                            rasterized=True,
+                            aa=step_size==1
+                        )
 
                     if step_size == 1:
                         if self.plot_params['darkMode']:
@@ -136,6 +137,7 @@ class GraphingCalculator():
                                 loc="upper right",
                                 fontsize=6,
                                 framealpha=0.6,
+                                borderpad = 1,
                                 labelcolor='white',
                                 facecolor="#444",
                                 edgecolor="#222"
@@ -145,9 +147,10 @@ class GraphingCalculator():
                                 loc="upper right",
                                 fontsize=6,
                                 framealpha=0.6,
+                                borderpad = 1,
                                 labelcolor='#333',
                                 facecolor="#f8f8f8",
-                                edgecolor="#666"
+                                edgecolor="#ddd"
                             )
 
                         for label in ax.get_xticklabels():

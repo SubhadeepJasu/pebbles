@@ -1,6 +1,7 @@
 namespace Pebbles {
     public class EntryFormatter {
         public unowned Gtk.Entry main_entry;
+        private int i = 0;
 
         public EntryFormatter (Gtk.Entry entry) {
             this.main_entry = entry;
@@ -20,7 +21,7 @@ namespace Pebbles {
                     }
 
                     Idle.add (() => {
-                        if (main_entry.text_length >= 1)
+                        if (main_entry.text_length >= 1 && main_entry.text != "0")
                             replace_inserted_character (
                                 main_entry.text,
                                 main_entry.text_length,
