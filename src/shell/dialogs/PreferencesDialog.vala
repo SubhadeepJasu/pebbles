@@ -50,6 +50,11 @@ namespace Pebbles {
         }
 
         [GtkCallback]
+        protected void result_flow_notify_active_cb (Object obj, ParamSpec params) {
+            settings.result_flow = (obj as Adw.SwitchRow)?.active;
+        }
+
+        [GtkCallback]
         protected void precision_notify_active_cb (Object obj, ParamSpec params) {
             settings.decimal_places = (uint) ((obj as Gtk.SpinButton)?.value);
         }
