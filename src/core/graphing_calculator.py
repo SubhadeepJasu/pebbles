@@ -19,6 +19,11 @@ matplotlib.use("Agg")
 class GraphingCalculator():
     """The graphing calculator."""
 
+    LEGEND_PROPS = {
+        'size': 6,
+        'style': 'italic'
+    }
+
     def __init__(self):
         self.plot_thread:threading.Thread = None
         self.on_plot_ready = None
@@ -162,22 +167,22 @@ class GraphingCalculator():
         if self.plot_params['darkMode']:
             ax.legend(
                 loc="upper right",
-                fontsize=6,
                 framealpha=0.6,
                 borderpad = 1,
                 labelcolor='white',
                 facecolor="#444",
-                edgecolor="#222"
+                edgecolor="#222",
+                prop=GraphingCalculator.LEGEND_PROPS
             )
         else:
             ax.legend(
                 loc="upper right",
-                fontsize=6,
                 framealpha=0.6,
                 borderpad = 1,
                 labelcolor='#333',
                 facecolor="#f8f8f8",
-                edgecolor="#ddd"
+                edgecolor="#ddd",
+                prop=GraphingCalculator.LEGEND_PROPS
             )
 
 

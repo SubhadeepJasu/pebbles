@@ -350,3 +350,21 @@ button.pressed {
         border-radius: 4px;
     }
 }
+
+
+.variables-panel {
+    border-radius: 0 0 3px 3px;
+    margin-bottom: -164px;
+    margin-top: 164px;
+    transition: all 0.2s ease-out;
+
+    &.show {
+        margin-bottom: 0;
+        margin-top: 0;
+    }
+
+    label {
+        font-style: italic;
+        font-weight: 800;
+    }
+}

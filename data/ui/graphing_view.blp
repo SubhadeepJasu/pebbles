@@ -62,7 +62,7 @@ template $PebblesGraphingView: $PebblesView {
                                 column: 0;
                             }
 
-                            // clicked => $on_all_clear();
+                            clicked => $on_all_clear();
                         }
 
                         $PebblesButton del_button {
@@ -76,7 +76,7 @@ template $PebblesGraphingView: $PebblesView {
                                 column: 1;
                             }
 
-                            // clicked => $on_backspace();
+                            clicked => $on_backspace();
                         }
 
                         $PebblesButton variable_button {
@@ -95,7 +95,7 @@ template $PebblesGraphingView: $PebblesView {
                                 "adaptive-btn-font"
                             ]
 
-                            // clicked => $on_click_function();
+                            clicked => $on_click_function();
                         }
 
                         $PebblesButton divide_button {
@@ -539,7 +539,7 @@ template $PebblesGraphingView: $PebblesView {
                                 column: 0;
                             }
 
-                            // clicked => $on_shift();
+                            clicked => $on_shift();
                         }
 
                         $PebblesButton pow_root_button {
@@ -560,7 +560,7 @@ template $PebblesGraphingView: $PebblesView {
                                 column: 1;
                             }
 
-                            // clicked => $on_click_function();
+                            clicked => $on_click_function();
                         }
 
                         $PebblesButton expo_power_button {
@@ -581,7 +581,7 @@ template $PebblesGraphingView: $PebblesView {
                                 column: 2;
                             }
 
-                            // clicked => $on_click_function();
+                            clicked => $on_click_function();
                         }
 
                         $PebblesButton sin_button {
@@ -602,7 +602,7 @@ template $PebblesGraphingView: $PebblesView {
                                 column: 0;
                             }
 
-                            // clicked => $on_click_function();
+                            clicked => $on_click_function();
                         }
 
                         $PebblesButton sinh_button {
@@ -623,7 +623,7 @@ template $PebblesGraphingView: $PebblesView {
                                 column: 1;
                             }
 
-                            // clicked => $on_click_function();
+                            clicked => $on_click_function();
                         }
 
                         $PebblesButton log_cont_base_button {
@@ -644,7 +644,7 @@ template $PebblesGraphingView: $PebblesView {
                                 column: 2;
                             }
 
-                            // clicked => $on_click_function();
+                            clicked => $on_click_function();
                         }
 
                         $PebblesButton cos_button {
@@ -665,7 +665,7 @@ template $PebblesGraphingView: $PebblesView {
                                 column: 0;
                             }
 
-                            // clicked => $on_click_function();
+                            clicked => $on_click_function();
                         }
 
                         $PebblesButton cosh_button {
@@ -686,7 +686,7 @@ template $PebblesGraphingView: $PebblesView {
                                 column: 1;
                             }
 
-                            // clicked => $on_click_function();
+                            clicked => $on_click_function();
                         }
 
                         $PebblesButton log_mod_button {
@@ -707,7 +707,7 @@ template $PebblesGraphingView: $PebblesView {
                                 column: 2;
                             }
 
-                            // clicked => $on_click_function();
+                            clicked => $on_click_function();
                         }
 
                         $PebblesButton memory_recall_button {
@@ -781,7 +781,7 @@ template $PebblesGraphingView: $PebblesView {
                                 column: 2;
                             }
 
-                            // clicked => $on_click_last_ans();
+                            clicked => $on_click_var_button_a();
                         }
 
                         $PebblesButton var_m_button {
@@ -799,7 +799,7 @@ template $PebblesGraphingView: $PebblesView {
                                 column: 2;
                             }
 
-                            // clicked => $on_click_last_ans();
+                            clicked => $on_click_var_button_m();
                         }
 
                         $PebblesButton tan_button {
@@ -820,7 +820,7 @@ template $PebblesGraphingView: $PebblesView {
                                 column: 0;
                             }
 
-                            // clicked => $on_click_function();
+                            clicked => $on_click_function();
                         }
 
                         $PebblesButton tanh_button {
@@ -841,7 +841,7 @@ template $PebblesGraphingView: $PebblesView {
                                 column: 1;
                             }
 
-                            // clicked => $on_click_function();
+                            clicked => $on_click_function();
                         }
 
                         $PebblesButton constant_button {
@@ -980,6 +980,8 @@ template $PebblesGraphingView: $PebblesView {
                     $PebblesButton {
                         label_text: _("Variables");
                         focus-on-click: false;
+
+                        clicked => $toggle_variable_panel();
                     }
 
                     $PebblesButton interact_mode {
@@ -999,6 +1001,97 @@ template $PebblesGraphingView: $PebblesView {
             [overlay]
             Box variables_panel {
                 can-target: false;
+                margin-start: 12;
+                margin-end: 12;
+                margin-bottom: 52;
+                valign: end;
+                styles ["card", "variables-panel"]
+
+                Grid {
+                    column-homogeneous: true;
+                    column-spacing: 8;
+                    margin-start: 8;
+                    margin-end: 8;
+                    margin-top: 8;
+                    margin-bottom: 8;
+                    hexpand: true;
+
+                    Label {
+                        label: "m =";
+                        xalign: 0;
+                        styles ["variable-label"]
+
+                        layout {
+                            row: 0;
+                            column: 0;
+                        }
+                    }
+
+                    SpinButton m_spinbutton {
+                        layout {
+                            row: 1;
+                            column: 0;
+                        }
+                    }
+
+                    Label {
+                        label: "c =";
+                        xalign: 0;
+                        margin-top: 8;
+                        margin-bottom: 4;
+                        styles ["variable-label"]
+
+                        layout {
+                            row: 2;
+                            column: 0;
+                        }
+                    }
+
+                    SpinButton c_spinbutton {
+                        layout {
+                            row: 3;
+                            column: 0;
+                        }
+                    }
+
+                    Label {
+                        label: "a =";
+                        xalign: 0;
+                        styles ["variable-label"]
+
+                        layout {
+                            row: 0;
+                            column: 1;
+                        }
+                    }
+
+                    SpinButton a_spinbutton {
+                        layout {
+                            row: 1;
+                            column: 1;
+                        }
+                    }
+
+                    Label {
+                        label: "b =";
+                        xalign: 0;
+                        margin-top: 8;
+                        margin-bottom: 4;
+                        styles ["variable-label"]
+
+                        layout {
+                            row: 2;
+                            column: 1;
+                        }
+                    }
+
+                    SpinButton b_spinbutton {
+                        layout {
+                            row: 3;
+                            column: 1;
+                        }
+                    }
+                }
             }
         }
     }

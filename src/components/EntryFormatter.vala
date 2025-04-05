@@ -1,13 +1,19 @@
 namespace Pebbles {
     public class EntryFormatter {
         public unowned Gtk.Entry main_entry;
-        private int i = 0;
+        public bool polar_mode;
+        private bool auto_entry;
+        public bool disabled { get; set; }
 
         public EntryFormatter (Gtk.Entry entry) {
             this.main_entry = entry;
 
             // TODO: Do token check before inserting any character
             main_entry.get_delegate ().insert_text.connect_after ((ch, length) => {
+                if (auto_entry || disabled) {
+                    return;
+                }
+
                 var text = main_entry.text;
                 Idle.add (() => {
                     if (text.length > 1 && text.has_prefix ("0")) {
@@ -25,7 +31,8 @@ namespace Pebbles {
                             replace_inserted_character (
                                 main_entry.text,
                                 main_entry.text_length,
-                                main_entry.get_position ()
+                                main_entry.get_position (),
+                                polar_mode
                             );
                         return Source.REMOVE;
                     });
@@ -34,6 +41,10 @@ namespace Pebbles {
             });
 
             main_entry.get_delegate ().delete_text.connect_after (() => {
+                if (disabled) {
+                    return;
+                }
+
                 Idle.add (() => {
                     if (main_entry.text_length == 0) {
                         main_entry.text = "0";
@@ -80,12 +91,14 @@ namespace Pebbles {
                 }
             }
 
+            auto_entry = true;
             main_entry.text = string.joinv ("", symbols);
             if (double_replaced) {
                 main_entry.set_position (caret_pos - 1);
             } else {
                 main_entry.set_position (caret_pos + len_gain);
             }
+            auto_entry = false;
         }
 
         private string[] split_utf8 (string text, uint text_length) {
