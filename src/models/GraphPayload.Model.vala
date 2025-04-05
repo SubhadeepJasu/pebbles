@@ -2,6 +2,10 @@ namespace Pebbles {
     public class GraphPayloadModel : Object {
         public EquationModel[] equations { get; set; }
         public GlobalAngleUnit angle_unit { get; set; }
+        public double var_a { get; set; }
+        public double var_b { get; set; }
+        public double var_c { get; set; }
+        public double var_m { get; set; }
         public double x_min { get; set; }
         public double x_max { get; set; }
         public double y_min { get; set; }

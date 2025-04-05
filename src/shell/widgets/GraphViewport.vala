@@ -53,6 +53,51 @@ namespace Pebbles {
         public GraphAxisScaling x_scaling_mode = LINEAR;
         public GraphAxisScaling y_scaling_mode = LINEAR;
 
+        private double _var_a;
+        public double var_a {
+            get {
+                return _var_a;
+            }
+
+            set {
+                _var_a = value;
+                queue_render = true;
+            }
+        }
+        private double _var_b;
+        public double var_b {
+            get {
+                return _var_b;
+            }
+
+            set {
+                _var_b = value;
+                queue_render = true;
+            }
+        }
+        private double _var_c;
+        public double var_c {
+            get {
+                return _var_c;
+            }
+
+            set {
+                _var_c = value;
+                queue_render = true;
+            }
+        }
+        private double _var_m;
+        public double var_m {
+            get {
+                return _var_m;
+            }
+
+            set {
+                _var_m = value;
+                queue_render = true;
+            }
+        }
+
         private Gdk.Pixbuf? figure;
         private bool valid_figure = true;
         private GlobalAngleUnit angle_unit;
@@ -171,6 +216,10 @@ namespace Pebbles {
             var payload = new GraphPayloadModel () {
                 equations = equations,
                 angle_unit = angle_unit,
+                var_a = var_a,
+                var_b = var_b,
+                var_c = var_c,
+                var_m = var_m,
                 x_min = (pan_x - (zoomed_width / 2)),
                 x_max = (pan_x + (zoomed_width / 2)),
                 y_min = (pan_y - (zoomed_height / 2)),

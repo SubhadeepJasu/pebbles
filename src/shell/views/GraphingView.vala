@@ -41,9 +41,21 @@ namespace Pebbles {
         private unowned Pebbles.Button var_a_button;
         [GtkChild]
         private unowned Pebbles.Button var_m_button;
+        [GtkChild]
+        private unowned Gtk.SpinButton a_spinbutton;
+        [GtkChild]
+        private unowned Gtk.SpinButton b_spinbutton;
+        [GtkChild]
+        private unowned Gtk.SpinButton m_spinbutton;
+        [GtkChild]
+        private unowned Gtk.SpinButton c_spinbutton;
 
         protected string constant_label { get; private set; default = "C"; }
         protected string constant_desc { get; private set; default = ""; }
+        protected Gtk.Adjustment var_a_adjustment { get; set; }
+        protected Gtk.Adjustment var_b_adjustment { get; set; }
+        protected Gtk.Adjustment var_c_adjustment { get; set; }
+        protected Gtk.Adjustment var_m_adjustment { get; set; }
 
         public bool collapsed { get; set; }
         private bool variable_panel_showing = false;
@@ -57,6 +69,11 @@ namespace Pebbles {
                     load_constant_button ();
                 }
             });
+
+            var_a_adjustment = new Gtk.Adjustment (0, -double.MAX, double.MAX, 0.01, 0.1, 0);
+            var_b_adjustment = new Gtk.Adjustment (0, -double.MAX, double.MAX, 0.01, 0.1, 0);
+            var_c_adjustment = new Gtk.Adjustment (0, -double.MAX, double.MAX, 0.01, 0.1, 0);
+            var_m_adjustment = new Gtk.Adjustment (0, -double.MAX, double.MAX, 0.01, 0.1, 0);
         }
 
         public void render_graph (Gdk.Pixbuf? pixbuf, bool valid) {
@@ -218,6 +235,26 @@ namespace Pebbles {
         [GtkCallback]
         protected void on_click_var_button_m () {
             display.write (shift_button.active ? "c" : "m", true);
+        }
+
+        [GtkCallback]
+        protected void on_update_var_a () {
+            viewport.var_a = a_spinbutton.value;
+        }
+
+        [GtkCallback]
+        protected void on_update_var_b () {
+            viewport.var_b = b_spinbutton.value;
+        }
+
+        [GtkCallback]
+        protected void on_update_var_m () {
+            viewport.var_m = m_spinbutton.value;
+        }
+
+        [GtkCallback]
+        protected void on_update_var_c () {
+            viewport.var_c = c_spinbutton.value;
         }
     }
 }

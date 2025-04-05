@@ -1028,10 +1028,14 @@ template $PebblesGraphingView: $PebblesView {
                     }
 
                     SpinButton m_spinbutton {
+                        adjustment: bind template.var_m_adjustment;
+                        digits: 3;
                         layout {
                             row: 1;
                             column: 0;
                         }
+
+                        value-changed => $on_update_var_m();
                     }
 
                     Label {
@@ -1048,10 +1052,14 @@ template $PebblesGraphingView: $PebblesView {
                     }
 
                     SpinButton c_spinbutton {
+                        adjustment: bind template.var_c_adjustment;
+                        digits: 3;
                         layout {
                             row: 3;
                             column: 0;
                         }
+
+                        value-changed => $on_update_var_c();
                     }
 
                     Label {
@@ -1066,10 +1074,14 @@ template $PebblesGraphingView: $PebblesView {
                     }
 
                     SpinButton a_spinbutton {
+                        adjustment: bind template.var_a_adjustment;
+                        digits: 3;
                         layout {
                             row: 1;
                             column: 1;
                         }
+
+                        value-changed => $on_update_var_a();
                     }
 
                     Label {
@@ -1086,10 +1098,14 @@ template $PebblesGraphingView: $PebblesView {
                     }
 
                     SpinButton b_spinbutton {
+                        adjustment: bind template.var_b_adjustment;
+                        digits: 3;
                         layout {
                             row: 3;
                             column: 1;
                         }
+
+                        value-changed => $on_update_var_b();
                     }
                 }
             }

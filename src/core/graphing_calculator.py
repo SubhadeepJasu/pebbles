@@ -55,6 +55,10 @@ class GraphingCalculator():
         self.plot_params = {
             'width': payload.get_width(),
             'height': payload.get_height(),
+            'a': payload.get_var_a(),
+            'b': payload.get_var_b(),
+            'c': payload.get_var_c(),
+            'm': payload.get_var_m(),
             'dpi': payload.get_dpi(),
             'xMin': payload.get_x_min(),
             'xMax': payload.get_x_max(),
@@ -114,6 +118,10 @@ class GraphingCalculator():
                         0, 2*np.pi, width // (step_size ** 2)
                     )
                     for pro in self.calculators:
+                        pro['calc'].set_substitute_value('A', self.plot_params['a'], zero_limit=True)
+                        pro['calc'].set_substitute_value('B', self.plot_params['b'], zero_limit=True)
+                        pro['calc'].set_substitute_value('C', self.plot_params['c'], zero_limit=True)
+                        pro['calc'].set_substitute_value('M', self.plot_params['m'], zero_limit=True)
                         if pro['eq'].get_radial_coord_mode():
                             self._plot_radial(ax, pro, palette, (t_values, step_size))
                         else:
