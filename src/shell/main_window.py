@@ -26,7 +26,7 @@ class PythonWindow(Pebbles.MainWindow):
         self.stat_calc = StatisticsCalculator(self._memory)
         self.stat_calc.set_plot_ready_callback(self._stat_plot_ready_cb)
 
-        self.graph_calc = GraphingCalculator()
+        self.graph_calc = GraphingCalculator(self._memory)
         self.graph_calc.set_plot_ready_callback(self._graph_ready_cb)
 
         self.connect("on_evaluate", self._evaluate)
@@ -193,6 +193,7 @@ Attempting to make a table with the previous series.")
         """
         Recall value from memory with given context.
         """
+        formatted_answer = ''
         if context in [Pebbles.Context.SCIENTIFIC, Pebbles.Context.CALCULUS]:
             answer = self._memory.recall(context)
             if isinstance(answer, complex):
@@ -207,9 +208,12 @@ Attempting to make a table with the previous series.")
                 return f'{Utils.format_float(answer)}'
         elif context == Pebbles.Context.STATISTICS:
             answer = self._memory.recall(context)
-            return f'{Utils.format_float(answer)}'
+            formatted_answer = f'{Utils.format_float(answer)}'
+        else:
+            answer = float(self._memory.recall(context))
+            formatted_answer = f'{Utils.format_float(answer)}'
 
-        return ''
+        return formatted_answer
 
 
     def _memory_clear(self, _, context: str):

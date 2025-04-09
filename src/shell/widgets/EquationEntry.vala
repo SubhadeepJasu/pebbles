@@ -83,6 +83,9 @@ namespace Pebbles {
             });
             main_entry.notify["has-focus"].connect (() => {
                 mode_changed (radial_mode);
+                Idle.add_once (() => {
+                    focused (this, main_entry);
+                });
             });
             entry_formatter = new EntryFormatter (main_entry);
             append (main_entry);

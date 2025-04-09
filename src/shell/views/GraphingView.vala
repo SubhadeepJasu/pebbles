@@ -4,6 +4,8 @@ namespace Pebbles {
         [GtkChild]
         private unowned Gtk.Stack graphing_stack;
         [GtkChild]
+        private unowned Adw.NavigationSplitView graph_nav_split_view;
+        [GtkChild]
         private unowned Gtk.Box equation_panel;
         [GtkChild]
         private unowned Gtk.Overlay graphing_panel;
@@ -61,6 +63,7 @@ namespace Pebbles {
         private bool variable_panel_showing = false;
 
         public signal void panel_changed (bool showing_graphs);
+        public signal string on_memory_recall ();
 
         construct {
             load_constant_button ();
@@ -78,6 +81,16 @@ namespace Pebbles {
 
         public void render_graph (Gdk.Pixbuf? pixbuf, bool valid) {
             viewport.show_graph (pixbuf, valid);
+        }
+
+        [GtkCallback]
+        protected void on_expand_fx () {
+            graph_nav_split_view.show_content= true;
+        }
+
+        [GtkCallback]
+        protected void on_collapse_fx () {
+            graph_nav_split_view.show_content = false;
         }
 
         [GtkCallback]
@@ -140,6 +153,11 @@ namespace Pebbles {
         [GtkCallback]
         protected void on_backspace () {
             display.backspace ();
+        }
+
+        [GtkCallback]
+        protected void on_click_button (Gtk.Button btn) {
+            display.write (btn.name);
         }
 
         [GtkCallback]
@@ -255,6 +273,57 @@ namespace Pebbles {
         [GtkCallback]
         protected void on_update_var_c () {
             viewport.var_c = c_spinbutton.value;
+        }
+
+        [GtkCallback]
+        protected void on_click_add_button () {
+            display.write ("+");
+        }
+
+        [GtkCallback]
+        protected void on_click_sub_button () {
+            display.write ("-");
+        }
+
+        [GtkCallback]
+        protected void on_click_mul_button () {
+            display.write ("*");
+        }
+
+        [GtkCallback]
+        protected void on_click_div_button () {
+            display.write ("/");
+        }
+
+        [GtkCallback]
+        protected void on_click_fraction_point () {
+            display.write (_("."));
+        }
+
+        [GtkCallback]
+        protected void on_click_constant (Gtk.Button button) {
+            display.write (((Button) button).label_text);
+        }
+
+        [GtkCallback]
+        protected void on_click_last_ans () {
+            display.write ("Gans");
+        }
+
+        [GtkCallback]
+        protected void navigate_up () {
+            display.navigate (true);
+        }
+
+        [GtkCallback]
+        protected void navigate_down () {
+            display.navigate (false);
+        }
+
+        [GtkCallback]
+        public void on_click_memory_recall () {
+            var text = on_memory_recall ();
+            display.write (text);
         }
     }
 }

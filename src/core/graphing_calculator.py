@@ -13,6 +13,7 @@ import numpy as np
 from gi.repository import Pebbles, GdkPixbuf
 from pebbles.core.scientific_calculator import ScientificCalculator
 from pebbles.core.tokenizer import Tokenizer
+from pebbles.core.memory import ContextualMemory
 
 matplotlib.use("Agg")
 
@@ -24,7 +25,8 @@ class GraphingCalculator():
         'style': 'italic'
     }
 
-    def __init__(self):
+    def __init__(self, memory: ContextualMemory):
+        self.memory = memory
         self.plot_thread:threading.Thread = None
         self.on_plot_ready = None
         self.cancel_event = threading.Event()
@@ -47,8 +49,9 @@ class GraphingCalculator():
                             'input': eq.get_expression(),
                             'angleMode': int(payload.get_angle_unit())
                         }),
-                        None,
-                        Tokenizer.GRAPHING_TOKEN_MAP
+                        self.memory,
+                        Tokenizer.GRAPHING_TOKEN_MAP,
+                        gen_hist=False
                     )
                 })
 
@@ -110,10 +113,21 @@ class GraphingCalculator():
 
                     fig, ax = self._setup_plot(width, height, dpi, step_size)
 
-                    x_values = np.linspace(
-                        self.plot_params['xMin'],
-                        self.plot_params['xMax'], width // (step_size ** 2)
-                    )
+                    if self.plot_params['xScaling'] == 1:
+                        x_values = np.logspace(
+                            self.plot_params['xMin'],
+                            self.plot_params['xMax'], width // (step_size ** 2)
+                        )
+                        x_values = np.log10(x_values[x_values > 0])
+                    else:
+                        x_values = np.linspace(
+                            self.plot_params['xMin'],
+                            self.plot_params['xMax'], width // (step_size ** 2)
+                        )
+
+                    if self.plot_params['yScaling'] == 1:
+                        x_values = x_values[x_values != 0]
+
                     t_values = np.linspace(
                         0, 2*np.pi, width // (step_size ** 2)
                     )
@@ -125,7 +139,7 @@ class GraphingCalculator():
                         if pro['eq'].get_radial_coord_mode():
                             self._plot_radial(ax, pro, palette, (t_values, step_size))
                         else:
-                            self._plot_cartesian(ax, pro, palette, (x_values, step_size))
+                            self._plot_cartesian(ax, pro, palette, (x_values, step_size, self.plot_params['xScaling'], self.plot_params['yScaling']))
 
                     if step_size == 1:
                         self._draw_legend(ax)
@@ -219,6 +233,9 @@ class GraphingCalculator():
             pro['calc'].set_substitute_value('X', x, zero_limit=True)
             y_values.append(pro['calc'].process())
 
+        if v_params[3] == 1:
+            y_values = np.log10(y_values)
+
         ax.plot(
             v_params[0],
             y_values,
@@ -227,6 +244,11 @@ class GraphingCalculator():
             rasterized=True,
             aa=v_params[1]==1
         )
+
+        if v_params[2] == 1:
+            ax.set_xscale('symlog', linthresh=0.1)
+        else:
+            ax.set_xscale('linear')
 
 
     def _configure_labels(self, ax):

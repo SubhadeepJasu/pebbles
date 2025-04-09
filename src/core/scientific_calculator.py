@@ -36,10 +36,11 @@ class ScientificCalculator():
     ]
 
 
-    def __init__(self, data: str, memory: ContextualMemory, token_map:list):
+    def __init__(self, data: str, memory: ContextualMemory, token_map:list, gen_hist=True):
         self.input_dict = json.loads(data)
         self.memory = memory
         self.angle_mode = self.input_dict['angleMode']
+        self.gen_hist = gen_hist
         if token_map is not None:
             self.tokens = Tokenizer.st_tokenize(self.input_dict['input'], token_map)
             # print ('Tokens: ', self.tokens)
@@ -70,7 +71,7 @@ class ScientificCalculator():
             answer = self.process()
             formatted_answer = ScientificCalculator.format(answer)
 
-            if self.memory is not None:
+            if self.gen_hist:
                 self.memory.push_history(
                     ScientificCalculator.MODE,
                     self.input_dict['input'],

@@ -116,6 +116,11 @@ namespace Pebbles {
         private double previous_sx = 0;
         private double previous_sy = 0;
 
+        [GtkChild]
+        private unowned Gtk.DrawingArea x_axis_meter;
+        [GtkChild]
+        private unowned Gtk.DrawingArea y_axis_meter;
+
         private Gtk.EventControllerScroll scroll_gesture;
 
         construct {
@@ -144,6 +149,9 @@ namespace Pebbles {
                     return update;
                 }, Priority.DEFAULT_IDLE);
             });
+
+            x_axis_meter.set_draw_func (draw_x_scale);
+            y_axis_meter.set_draw_func (draw_y_scale);
 
             pan_gesture = new Gtk.GestureDrag () {
                 propagation_phase = Gtk.PropagationPhase.CAPTURE,
@@ -240,6 +248,8 @@ namespace Pebbles {
             valid_figure = valid;
             Idle.add_once (() => {
                 renderer.queue_draw ();
+                x_axis_meter.queue_draw ();
+                y_axis_meter.queue_draw ();
             });
         }
 
@@ -288,6 +298,137 @@ namespace Pebbles {
                 cr.line_to (cx + radius * 0.7, cy + radius * 0.7);
                 cr.stroke ();
             }
+        }
+
+        private void draw_x_scale (Gtk.DrawingArea area, Cairo.Context cr, int width, int height) {
+            double base_spacing = 10.0;
+            double spacing = (zoom_x / 100.0) * base_spacing;
+
+            cr.set_source_rgb (0.2, 0.2, 0.2);
+            cr.set_line_width (1.0);
+
+            cr.move_to (0, height - 1);
+            cr.line_to (width, height - 1);
+            cr.stroke ();
+
+            double major_tick = height / 3;
+            double medium_tick = height / 4;
+            double minor_tick = height / 5;
+
+            for (double x = 0; x < width; x += spacing) {
+                bool is_major = true;
+                bool is_medium = false;
+                bool is_minor = false;
+
+                if (zoom_x > 200) {
+                    int index = (int) (x / spacing);
+                    is_major = (index % 10 == 0);
+                    is_medium = (index % 5 == 0) && !is_major;
+                    is_minor = !is_major && !is_medium;
+                } else if (zoom_x > 100) {
+                    int index = (int) (x / spacing);
+                    is_major = (index % 5 == 0);
+                    is_medium = !is_major;
+                } else {
+                    is_major = true;
+                }
+
+                double tick_height = is_major ? major_tick : (is_medium ? medium_tick : minor_tick);
+
+                cr.move_to (x, height - 1);
+                cr.line_to (x, height - 1 - tick_height);
+                cr.stroke ();
+            }
+
+            string label = x_scaling_mode == LINEAR ? "LINEAR" : "LOGARITHMIC";
+            cr.select_font_face ("Sans", Cairo.FontSlant.NORMAL, Cairo.FontWeight.NORMAL);
+            cr.set_font_size (12);
+
+            Cairo.TextExtents extents;
+            cr.text_extents (label, out extents);
+
+            double x_center = (width - extents.width) / 2 - extents.x_bearing;
+            double y_offset = extents.height + 2;
+
+            cr.move_to (x_center, y_offset);
+            cr.show_text (label);
+        }
+
+        private void draw_y_scale (Gtk.DrawingArea area, Cairo.Context cr, int width, int height) {
+            double base_spacing = 10.0;
+            double spacing = (zoom_y / 100.0) * base_spacing;
+
+            cr.set_source_rgb (0.2, 0.2, 0.2);
+            cr.set_line_width (1.0);
+
+            cr.move_to (width - 1, 0);
+            cr.line_to (width - 1, height);
+            cr.stroke ();
+
+            double major_tick = width / 3;
+            double medium_tick = width / 4;
+            double minor_tick = width / 5;
+
+            for (double y = 0; y < height; y += spacing) {
+                bool is_major = true;
+                bool is_medium = false;
+                bool is_minor = false;
+
+                if (zoom_y > 200) {
+                    int index = (int)(y / spacing);
+                    is_major = (index % 10 == 0);
+                    is_medium = ((index % 5 == 0) && !is_major);
+                    is_minor = !is_major && !is_medium;
+                } else if (zoom_y > 100) {
+                    int index = (int)(y / spacing);
+                    is_major = (index % 5 == 0);
+                    is_medium = !is_major;
+                } else {
+                    is_major = true;
+                }
+
+                double tick_length = is_major ? major_tick : (is_medium ? medium_tick : minor_tick);
+                cr.move_to (width - 1, y);
+                cr.line_to (width - 1 - tick_length, y);
+                cr.stroke ();
+            }
+
+            string label = y_scaling_mode == LINEAR ? "LINEAR" : "LOGARITHMIC";
+            cr.select_font_face ("Sans", Cairo.FontSlant.NORMAL, Cairo.FontWeight.NORMAL);
+            cr.set_font_size (12);
+
+            Cairo.TextExtents extents;
+            cr.text_extents (label, out extents);
+
+            double y_center = (height - extents.width) / 2 - extents.x_bearing;
+            double x_offset = width - extents.height - major_tick - 4;
+
+            cr.move_to (x_offset, y_center);
+            cr.rotate (Math.PI_2);
+            cr.show_text (label);
+            cr.restore ();
+        }
+
+        [GtkCallback]
+        protected void toggle_x_scaling () {
+            if (x_scaling_mode == LINEAR) {
+                x_scaling_mode = LOGARITHMIC;
+            } else {
+                x_scaling_mode = LINEAR;
+            }
+
+            queue_render = true;
+        }
+
+        [GtkCallback]
+        protected void toggle_y_scaling () {
+            if (y_scaling_mode == LINEAR) {
+                y_scaling_mode = LOGARITHMIC;
+            } else {
+                y_scaling_mode = LINEAR;
+            }
+
+            queue_render = true;
         }
     }
 }

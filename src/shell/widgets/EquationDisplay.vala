@@ -1,10 +1,30 @@
 namespace Pebbles {
     [GtkTemplate (ui = "/com/github/subhadeepjasu/pebbles/ui/equation_display.ui")]
     public class EquationDisplay : Display {
+        private Pebbles.Settings settings;
         public string eq_label { get; set; default = "EQ 1"; }
+        private bool _shift_on;
+        public bool shift_on {
+            get {
+                return _shift_on;
+            } set {
+                _shift_on = value;
+                shift_label.opacity = value ? 1 : 0.2;
+            }
+        }
 
         [GtkChild]
         private unowned Gtk.Box eq_box;
+        [GtkChild]
+        private unowned Gtk.Label deg_label;
+        [GtkChild]
+        private unowned Gtk.Label rad_label;
+        [GtkChild]
+        private unowned Gtk.Label grad_label;
+        [GtkChild]
+        private unowned Gtk.Label shift_label;
+        [GtkChild]
+        private unowned Gtk.Label global_memory_label;
 
         public signal void change_mode (bool radial_mode);
 
@@ -40,7 +60,12 @@ namespace Pebbles {
         private unowned Gtk.Entry focused_entry;
 
         construct {
+            settings = Pebbles.Settings.get_default ();
+            settings.changed["global-angle-unit"].connect ((key) => {
+                set_angle_unit (settings.global_angle_unit);
+            });
 
+            set_angle_unit (settings.global_angle_unit);
         }
 
         public void add_equation () {
@@ -63,6 +88,7 @@ namespace Pebbles {
         private void focus_handler (EquationEntry entry_box, Gtk.Entry entry) {
             focused_entry = entry;
             focused_entry_box = entry_box;
+            eq_label = "EQ " + (focused_entry_box.index + 1).to_string ();
         }
 
         public void all_clear () {
@@ -101,6 +127,40 @@ namespace Pebbles {
                     focused_entry_box.entry_formatter.disabled = false;
                 }
                 focused_entry.set_position (position);
+            }
+        }
+
+        public void navigate (bool direction) {
+            if (direction) {
+                EquationEntry? prev = focused_entry_box.get_prev_sibling () as EquationEntry?;
+                if (prev != null) {
+                    prev.grab_focus ();
+                }
+            } else {
+                EquationEntry? next = focused_entry_box.get_next_sibling () as EquationEntry?;
+                if (next != null) {
+                    next.grab_focus ();
+                }
+            }
+        }
+
+        public void set_angle_unit (GlobalAngleUnit unit) {
+            switch (unit) {
+                case DEG:
+                    deg_label.opacity = 1;
+                    rad_label.opacity = 0.2;
+                    grad_label.opacity = 0.2;
+                    break;
+                case RAD:
+                    deg_label.opacity = 0.2;
+                    rad_label.opacity = 1;
+                    grad_label.opacity = 0.2;
+                    break;
+                case GRAD:
+                    deg_label.opacity = 0.2;
+                    rad_label.opacity = 0.2;
+                    grad_label.opacity = 1;
+                    break;
             }
         }
     }

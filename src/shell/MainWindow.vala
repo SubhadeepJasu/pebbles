@@ -335,6 +335,10 @@ namespace Pebbles {
             statistics_view.on_memory_clear.connect ((global) => {
                 on_memory_clear (global ? "global" : Context.STATISTICS);
             });
+
+            graphing_view.on_memory_recall.connect (() => {
+                return on_memory_recall ("global");
+            });
         }
 
         private void load_settings () {

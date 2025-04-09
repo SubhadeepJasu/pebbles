@@ -13,6 +13,7 @@ template $PebblesGraphingView: $PebblesView {
             $PebblesEquationDisplay display {
                 context: bind template.context;
                 vexpand: true;
+                shift_on: bind shift_button.active;
 
                 change_mode => $change_mode_handler();
             }
@@ -114,7 +115,7 @@ template $PebblesGraphingView: $PebblesView {
                                 "large-font-btn"
                             ]
 
-                            // clicked => $on_click_div_button();
+                            clicked => $on_click_div_button();
                         }
 
                         $PebblesButton fx_button {
@@ -132,7 +133,7 @@ template $PebblesGraphingView: $PebblesView {
                                 column: 4;
                             }
 
-                            // clicked => $on_expand_fx();
+                            clicked => $on_expand_fx();
                         }
 
                         $PebblesButton seven_button {
@@ -150,7 +151,7 @@ template $PebblesGraphingView: $PebblesView {
                                 column: 0;
                             }
 
-                            // clicked => $on_click_button();
+                            clicked => $on_click_button();
                         }
 
                         $PebblesButton eight_button {
@@ -168,7 +169,7 @@ template $PebblesGraphingView: $PebblesView {
                                 column: 1;
                             }
 
-                            // clicked => $on_click_button();
+                            clicked => $on_click_button();
                         }
 
                         $PebblesButton nine_button {
@@ -186,7 +187,7 @@ template $PebblesGraphingView: $PebblesView {
                                 column: 2;
                             }
 
-                            // clicked => $on_click_button();
+                            clicked => $on_click_button();
                         }
 
                         $PebblesButton multiply_button {
@@ -205,7 +206,7 @@ template $PebblesGraphingView: $PebblesView {
                                 column: 3;
                             }
 
-                            // clicked => $on_click_mul_button();
+                            clicked => $on_click_mul_button();
                         }
 
                         $PebblesButton nav_up_button_p {
@@ -223,6 +224,8 @@ template $PebblesGraphingView: $PebblesView {
                                 row: 1;
                                 column: 4;
                             }
+
+                            clicked => $navigate_up();
                         }
 
                         $PebblesButton four_button {
@@ -240,7 +243,7 @@ template $PebblesGraphingView: $PebblesView {
                                 column: 0;
                             }
 
-                            // clicked => $on_click_button();
+                            clicked => $on_click_button();
                         }
 
                         $PebblesButton five_button {
@@ -258,7 +261,7 @@ template $PebblesGraphingView: $PebblesView {
                                 column: 1;
                             }
 
-                            // clicked => $on_click_button();
+                            clicked => $on_click_button();
                         }
 
                         $PebblesButton six_button {
@@ -276,7 +279,7 @@ template $PebblesGraphingView: $PebblesView {
                                 column: 2;
                             }
 
-                            // clicked => $on_click_button();
+                            clicked => $on_click_button();
                         }
 
                         $PebblesButton subtract_button {
@@ -295,7 +298,7 @@ template $PebblesGraphingView: $PebblesView {
                                 column: 3;
                             }
 
-                            // clicked => $on_click_sub_button();
+                            clicked => $on_click_sub_button();
                         }
 
                         $PebblesButton nav_down_button_p {
@@ -313,6 +316,8 @@ template $PebblesGraphingView: $PebblesView {
                                 row: 2;
                                 column: 4;
                             }
+
+                            clicked => $navigate_down();
                         }
 
                         $PebblesButton one_button {
@@ -330,7 +335,7 @@ template $PebblesGraphingView: $PebblesView {
                                 column: 0;
                             }
 
-                            // clicked => $on_click_button();
+                            clicked => $on_click_button();
                         }
 
                         $PebblesButton two_button {
@@ -348,7 +353,7 @@ template $PebblesGraphingView: $PebblesView {
                                 column: 1;
                             }
 
-                            // clicked => $on_click_button();
+                            clicked => $on_click_button();
                         }
 
                         $PebblesButton three_button {
@@ -366,7 +371,7 @@ template $PebblesGraphingView: $PebblesView {
                                 column: 2;
                             }
 
-                            // clicked => $on_click_button();
+                            clicked => $on_click_button();
                         }
 
                         $PebblesButton addition_button {
@@ -385,7 +390,7 @@ template $PebblesGraphingView: $PebblesView {
                                 column: 3;
                             }
 
-                            // clicked => $on_click_add_button();
+                            clicked => $on_click_add_button();
                         }
 
                         $PebblesButton add_eq_button_p {
@@ -424,7 +429,7 @@ template $PebblesGraphingView: $PebblesView {
                                 column: 0;
                             }
 
-                            // clicked => $on_click_button();
+                            clicked => $on_click_button();
                         }
 
                         $PebblesButton point_button {
@@ -443,7 +448,7 @@ template $PebblesGraphingView: $PebblesView {
                                 column: 1;
                             }
 
-                            // clicked => $on_click_fraction_point();
+                            clicked => $on_click_fraction_point();
                         }
 
                         $PebblesButton paren_start_button {
@@ -462,7 +467,7 @@ template $PebblesGraphingView: $PebblesView {
                                 column: 2;
                             }
 
-                            // clicked => $on_click_button();
+                            clicked => $on_click_button();
                         }
 
                         $PebblesButton paren_end_button {
@@ -481,7 +486,7 @@ template $PebblesGraphingView: $PebblesView {
                                 column: 3;
                             }
 
-                            // clicked => $on_click_button();
+                            clicked => $on_click_button();
                         }
 
                         $PebblesButton result_button_p {
@@ -727,7 +732,7 @@ template $PebblesGraphingView: $PebblesView {
                                 column: 3;
                             }
 
-                            // clicked => $on_click_memory_recall();
+                            clicked => $on_click_memory_recall();
                         }
 
                         $PebblesButton nav_up_button {
@@ -745,7 +750,7 @@ template $PebblesGraphingView: $PebblesView {
                                 column: 3;
                             }
 
-                            // clicked => $on_click_last_ans();
+                            clicked => $navigate_up();
                         }
 
                         $PebblesButton nav_down_button {
@@ -763,7 +768,7 @@ template $PebblesGraphingView: $PebblesView {
                                 column: 3;
                             }
 
-                            // clicked => $on_click_last_ans();
+                            clicked => $navigate_down();
                         }
 
                         $PebblesButton var_a_button {
@@ -858,7 +863,7 @@ template $PebblesGraphingView: $PebblesView {
                                 row: 4;
                                 column: 1;
                             }
-                            // clicked => $on_click_constant();
+                            clicked => $on_click_constant();
                         }
 
                         $PebblesButton last_answer_button {
@@ -878,7 +883,7 @@ template $PebblesGraphingView: $PebblesView {
                                 column: 0;
                             }
 
-                            // clicked => $on_click_last_ans();
+                            clicked => $on_click_last_ans();
                         }
 
                         $PebblesButton add_eq_button {
@@ -938,7 +943,7 @@ template $PebblesGraphingView: $PebblesView {
                                 column: 3;
                             }
 
-                            // clicked => $on_collapse_fx();
+                            clicked => $on_collapse_fx();
                         }
                     }
                 };
@@ -984,11 +989,11 @@ template $PebblesGraphingView: $PebblesView {
                         clicked => $toggle_variable_panel();
                     }
 
-                    $PebblesButton interact_mode {
-                        icon: "view-fullscreen-symbolic";
-                        tooltip_desc: _("Change interaction mode");
-                        focus-on-click: false;
-                    }
+                    // $PebblesButton interact_mode {
+                    //     icon: "view-fullscreen-symbolic";
+                    //     tooltip_desc: _("Change interaction mode");
+                    //     focus-on-click: false;
+                    // }
 
                     $PebblesButton {
                         icon: "document-export-symbolic";
