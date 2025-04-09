@@ -208,6 +208,18 @@ namespace Pebbles {
                 case "f":
                     len_gain = 0;
                     return "!";
+                case "m":
+                    len_gain = 4;
+                    return " mod ";
+                case "M":
+                    len_gain = 4;
+                    return " log ";
+                case "l":
+                    len_gain = 5;
+                    return "10 log ";
+                case "L":
+                    len_gain = 5;
+                    return "ln ";
                 default:
                     len_gain = 0;
                     return current_symbol;

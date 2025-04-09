@@ -121,7 +121,9 @@ namespace Pebbles {
         [GtkChild]
         private unowned Gtk.DrawingArea y_axis_meter;
 
-        private Gtk.EventControllerScroll scroll_gesture;
+        private Gtk.EventControllerScroll main_scroll_gesture;
+        private Gtk.EventControllerScroll x_scroll_gesture;
+        private Gtk.EventControllerScroll y_scroll_gesture;
 
         construct {
             renderer.set_draw_func (draw_figure);
@@ -186,9 +188,9 @@ namespace Pebbles {
             });
             add_controller (zoom_gesture);
 
-            scroll_gesture = new Gtk.EventControllerScroll (Gtk.EventControllerScrollFlags.BOTH_AXES);
-            scroll_gesture.scroll.connect ((dx, dy) => {
-                var modifier = scroll_gesture.get_current_event_state ();
+            main_scroll_gesture = new Gtk.EventControllerScroll (Gtk.EventControllerScrollFlags.BOTH_AXES);
+            main_scroll_gesture.scroll.connect ((dx, dy) => {
+                var modifier = main_scroll_gesture.get_current_event_state ();
                 if ((modifier & Gdk.ModifierType.CONTROL_MASK) != 0) {
                     var new_zoom_x = zoom_x - dy;
                     var new_zoom_y = zoom_y - dy;
@@ -202,7 +204,29 @@ namespace Pebbles {
                     pan_y -= dy / dpi;
                 }
             });
-            add_controller (scroll_gesture);
+            add_controller (main_scroll_gesture);
+
+            x_scroll_gesture = new Gtk.EventControllerScroll (Gtk.EventControllerScrollFlags.BOTH_AXES);
+            y_scroll_gesture = new Gtk.EventControllerScroll (Gtk.EventControllerScrollFlags.BOTH_AXES);
+
+            x_scroll_gesture.scroll.connect ((dx, dy) => {
+                var dv = dx + dy;
+                var new_zoom_x = zoom_x - dv;
+                if (new_zoom_x > 0) {
+                    zoom_x = new_zoom_x;
+                }
+            });
+
+            y_scroll_gesture.scroll.connect ((dx, dy) => {
+                var dv = dx + dy;
+                var new_zoom_y = zoom_y - dv;
+                if (new_zoom_y > 0) {
+                    zoom_y = new_zoom_y;
+                }
+            });
+
+            x_axis_meter.add_controller (x_scroll_gesture);
+            y_axis_meter.add_controller (y_scroll_gesture);
         }
 
         ~GraphViewport () {
