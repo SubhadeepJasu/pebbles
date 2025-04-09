@@ -4,16 +4,16 @@
 
 """Graphing Calculator"""
 
-from io import BytesIO
 import threading
 import json
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
-from gi.repository import Pebbles, GdkPixbuf
+from gi.repository import Pebbles
 from pebbles.core.scientific_calculator import ScientificCalculator
 from pebbles.core.tokenizer import Tokenizer
 from pebbles.core.memory import ContextualMemory
+from pebbles.core.utils import Utils
 
 matplotlib.use("Agg")
 
@@ -132,20 +132,32 @@ class GraphingCalculator():
                         0, 2*np.pi, width // (step_size ** 2)
                     )
                     for pro in self.calculators:
-                        pro['calc'].set_substitute_value('A', self.plot_params['a'], zero_limit=True)
-                        pro['calc'].set_substitute_value('B', self.plot_params['b'], zero_limit=True)
-                        pro['calc'].set_substitute_value('C', self.plot_params['c'], zero_limit=True)
-                        pro['calc'].set_substitute_value('M', self.plot_params['m'], zero_limit=True)
+                        pro['calc'].set_substitute_value('A',
+                                                         self.plot_params['a'], zero_limit=True)
+                        pro['calc'].set_substitute_value('B',
+                                                         self.plot_params['b'], zero_limit=True)
+                        pro['calc'].set_substitute_value('C',
+                                                         self.plot_params['c'], zero_limit=True)
+                        pro['calc'].set_substitute_value('M',
+                                                        self.plot_params['m'], zero_limit=True)
                         if pro['eq'].get_radial_coord_mode():
                             self._plot_radial(ax, pro, palette, (t_values, step_size))
                         else:
-                            self._plot_cartesian(ax, pro, palette, (x_values, step_size, self.plot_params['xScaling'], self.plot_params['yScaling']))
+                            self._plot_cartesian(
+                                ax, pro, palette,
+                                (
+                                    x_values,
+                                    step_size,
+                                    self.plot_params['xScaling'],
+                                    self.plot_params['yScaling']
+                                )
+                            )
 
                     if step_size == 1:
                         self._draw_legend(ax)
                         self._configure_labels(ax)
 
-                    pixbuf = self._plot_to_pixbuf(fig, (width, height), dpi, step_size)
+                    pixbuf = Utils.plot_to_pixbuf(plt, fig, (width, height), dpi, step_size)
 
                     if self.on_plot_ready:
                         self.on_plot_ready(pixbuf, True)
@@ -261,19 +273,3 @@ class GraphingCalculator():
             label.set_verticalalignment('bottom')
 
         ax.get_yticklabels()[-1].set_visible(False)
-
-
-    def _plot_to_pixbuf(self, fig, size, dpi, step_size):
-        # Save figure to a BytesIO buffer in PNG format
-        buf = BytesIO()
-        fig.set_size_inches((size[0] / dpi), (size[1] / dpi), forward=True)
-        fig.patch.set_alpha(0)
-        fig.savefig(buf, format="png", bbox_inches='tight', pad_inches=0, dpi=dpi / step_size)
-        plt.close(fig)
-
-        # Convert buffer to GdkPixbuf
-        buf.seek(0)
-        loader = GdkPixbuf.PixbufLoader.new_with_type("png")
-        loader.write(buf.getvalue())
-        loader.close()
-        return loader.get_pixbuf()

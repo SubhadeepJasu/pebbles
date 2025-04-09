@@ -100,26 +100,7 @@ class ScientificCalculator():
         for token in self.tokens:
              # Current tokens is a number, push it to number stack
             if (not self._is_operator(token)) and token not in ['(', ')']:
-                if token == '@':
-                    last_ans = ScientificCalculator._parse(
-                        self.memory.get_last_result(Pebbles.Context.SCIENTIFIC)
-                    )
-                    operand_stack.append(last_ans if last_ans is not None else 0)
-                elif token == '#':
-                    last_ans = ScientificCalculator._parse(self.memory.get_last_result())
-                    operand_stack.append(last_ans if last_ans is not None else 0)
-                elif token == 'x':
-                    operand_stack.append(self.substitutions['X'])
-                elif token == '\x11':
-                    operand_stack.append(self.substitutions['A'])
-                elif token == '\x12':
-                    operand_stack.append(self.substitutions['B'])
-                elif token == '\x13':
-                    operand_stack.append(self.substitutions['C'])
-                elif token == '\x14':
-                    operand_stack.append(self.substitutions['M'])
-                else:
-                    operand_stack.append(float(token))
+                self._handle_special_variables(token, operand_stack)
 
             # If tokens is an opening brace, push it to 'ops'
             elif token == '(':
@@ -166,6 +147,28 @@ class ScientificCalculator():
         # print(operand_stack)
         return operand_pop()
 
+
+    def _handle_special_variables (self, token, operand_stack):
+        if token == '@':
+            last_ans = ScientificCalculator._parse(
+                self.memory.get_last_result(Pebbles.Context.SCIENTIFIC)
+            )
+            operand_stack.append(last_ans if last_ans is not None else 0)
+        elif token == '#':
+            last_ans = ScientificCalculator._parse(self.memory.get_last_result())
+            operand_stack.append(last_ans if last_ans is not None else 0)
+        elif token == 'x':
+            operand_stack.append(self.substitutions['X'])
+        elif token == '\x11':
+            operand_stack.append(self.substitutions['A'])
+        elif token == '\x12':
+            operand_stack.append(self.substitutions['B'])
+        elif token == '\x13':
+            operand_stack.append(self.substitutions['C'])
+        elif token == '\x14':
+            operand_stack.append(self.substitutions['M'])
+        else:
+            operand_stack.append(float(token))
     @staticmethod
     def format(result: any):
         """

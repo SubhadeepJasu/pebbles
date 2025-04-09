@@ -4,6 +4,9 @@
 
 """Utilities"""
 
+from io import BytesIO
+from gi.repository import GdkPixbuf
+
 class Utils():
     """Utilities"""
 
@@ -24,3 +27,21 @@ class Utils():
         # Remove trailing zeros and the decimal point if not needed
         return rounded_value.rstrip('0').rstrip(Utils.decimal_point_char) \
             if Utils.decimal_point_char in rounded_value else rounded_value
+
+    @staticmethod
+    def plot_to_pixbuf(plt, fig, size, dpi, step_size):
+        """
+        Save figure to a BytesIO buffer in PNG format
+        """
+
+        buf = BytesIO()
+        fig.set_size_inches((size[0] / dpi), (size[1] / dpi), forward=True)
+        fig.patch.set_alpha(0)
+        fig.savefig(buf, format="png", bbox_inches='tight', pad_inches=0, dpi=dpi / step_size)
+        plt.close(fig)
+
+        buf.seek(0)
+        loader = GdkPixbuf.PixbufLoader.new_with_type("png")
+        loader.write(buf.getvalue())
+        loader.close()
+        return loader.get_pixbuf()
