@@ -36,23 +36,30 @@ class ScientificCalculator():
     ]
 
 
-    def __init__(self, data: str, memory: ContextualMemory, tokenize: bool=True):
+    def __init__(self, data: str, memory: ContextualMemory, token_map:list, gen_hist=True):
         self.input_dict = json.loads(data)
         self.memory = memory
         self.angle_mode = self.input_dict['angleMode']
-        if tokenize:
-            self.tokens = Tokenizer.st_tokenize(self.input_dict['input'])
-            print ('Tokens: ', self.tokens)
+        self.gen_hist = gen_hist
+        if token_map is not None:
+            self.tokens = Tokenizer.st_tokenize(self.input_dict['input'], token_map)
+            # print ('Tokens: ', self.tokens)
 
-        self.substitute_value: float | complex = 0
+        self.substitutions = {
+            'X': 0,
+            'A': 0,
+            'B': 0,
+            'C': 0,
+            'M': 0
+        }
         self.zero_limit = False
 
 
-    def set_substitute_value(self, value, zero_limit=False):
+    def set_substitute_value(self, variable, value, zero_limit=False):
         """
         Set Calculus substitute value for "x" and if zero is actually "tends to zero".
         """
-        self.substitute_value = value
+        self.substitutions[variable] = value
         self.zero_limit = zero_limit
 
 
@@ -64,12 +71,13 @@ class ScientificCalculator():
             answer = self.process()
             formatted_answer = ScientificCalculator.format(answer)
 
-            self.memory.push_history(
-                ScientificCalculator.MODE,
-                self.input_dict['input'],
-                str(answer),
-                {'metadata_1': self.angle_mode}
-            )
+            if self.gen_hist:
+                self.memory.push_history(
+                    ScientificCalculator.MODE,
+                    self.input_dict['input'],
+                    str(answer),
+                    {'metadata_1': self.angle_mode}
+                )
             result_json = json.dumps({'mode': self.MODE, 'result': formatted_answer})
             return result_json, answer
         except (ZeroDivisionError, ArithmeticError, TypeError, IndexError) as e:
@@ -92,18 +100,7 @@ class ScientificCalculator():
         for token in self.tokens:
              # Current tokens is a number, push it to number stack
             if (not self._is_operator(token)) and token not in ['(', ')']:
-                if token == '@':
-                    last_ans = ScientificCalculator._parse(
-                        self.memory.get_last_result(Pebbles.Context.SCIENTIFIC)
-                    )
-                    operand_stack.append(last_ans if last_ans is not None else 0)
-                elif token == '#':
-                    last_ans = ScientificCalculator._parse(self.memory.get_last_result())
-                    operand_stack.append(last_ans if last_ans is not None else 0)
-                elif token == 'x':
-                    operand_stack.append(self.substitute_value)
-                else:
-                    operand_stack.append(float(token))
+                self._handle_special_variables(token, operand_stack)
 
             # If tokens is an opening brace, push it to 'ops'
             elif token == '(':
@@ -115,9 +112,9 @@ class ScientificCalculator():
                     b = operand_pop()
                     a = operand_pop()
                     op = operator_stack.pop()
-                    print(a, b, op)
+                    # print(a, b, op)
                     temp = self._apply_op(op, a, b)
-                    print("res ", temp)
+                    # print("res ", temp)
                     operand_stack.append(temp)
 
                 operator_stack.pop()
@@ -130,9 +127,9 @@ class ScientificCalculator():
                     b = operand_pop()
                     a = operand_pop()
                     op = operator_stack.pop()
-                    print(a, b, op)
+                    # print(a, b, op)
                     tmp = self._apply_op(op, a, b)
-                    print("res ", tmp)
+                    # print("res ", tmp)
                     operand_stack.append(tmp)
 
                 operator_stack.append(token)
@@ -142,14 +139,36 @@ class ScientificCalculator():
             op = operator_stack.pop()
             b = operand_pop()
             a = operand_pop()
-            print(a, b, op)
+            # print(a, b, op)
             tmp = self._apply_op(op, a, b)
-            print("res ", tmp)
+            # print("res ", tmp)
             operand_stack.append(tmp)
 
         # print(operand_stack)
         return operand_pop()
 
+
+    def _handle_special_variables (self, token, operand_stack):
+        if token == '@':
+            last_ans = ScientificCalculator._parse(
+                self.memory.get_last_result(Pebbles.Context.SCIENTIFIC)
+            )
+            operand_stack.append(last_ans if last_ans is not None else 0)
+        elif token == '#':
+            last_ans = ScientificCalculator._parse(self.memory.get_last_result())
+            operand_stack.append(last_ans if last_ans is not None else 0)
+        elif token == 'x':
+            operand_stack.append(self.substitutions['X'])
+        elif token == '\x11':
+            operand_stack.append(self.substitutions['A'])
+        elif token == '\x12':
+            operand_stack.append(self.substitutions['B'])
+        elif token == '\x13':
+            operand_stack.append(self.substitutions['C'])
+        elif token == '\x14':
+            operand_stack.append(self.substitutions['M'])
+        else:
+            operand_stack.append(float(token))
     @staticmethod
     def format(result: any):
         """
@@ -266,7 +285,7 @@ class ScientificCalculator():
         if op2 in ['(', ')']:
             return False
 
-        print("Comparing " + op1 + " and " + op2)
+        # print("Comparing " + op1 + " and " + op2)
 
         # Find the precedence index of each operator
         op1_index = next((i for i, ops in enumerate(self.OPERATORS) if op1 in ops), float('inf'))

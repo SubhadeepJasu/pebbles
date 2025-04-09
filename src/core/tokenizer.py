@@ -21,7 +21,7 @@ class Tokenizer():
         ('pi', ' ( 3.1415926535897932 ) '),
     ]
 
-    LEXICAL_REPLACEMENTS = [
+    SCIENTIFIC_TOKEN_MAP = [
         ('gans', '#'),
         ('ans', '@'),
         ('isinh', ' [0] '),
@@ -61,6 +61,72 @@ class Tokenizer():
         ('[9]', ' 0 s '),
         ('[10]', ' 0 c '),
         ('[11]', ' 0 t '),
+        ('log', ' l '),
+        ('(', ' ( '),
+        (')', ' ) '),
+        ('×', ' * '),
+        ('÷', ' / '),
+        ('%', ' % '),
+        ('+', ' + '),
+        ('-', ' - '),
+        ('−', ' - '),
+        ('*', ' * '),
+        ('/', ' / '),
+        ('^', ' ^ '),
+        ('sqrt', ' 2 q '),
+        ('√', ' q '),
+        ('sqr', ' ^ 2 '),
+        ('rt', ' q '),
+        ('!', ' ! 1 '),
+        ('∞', 'inf')
+    ]
+
+    GRAPHING_TOKEN_MAP = [
+        ('θ', 'x'),
+        ('gans', '#'),
+        ('ans', '@'),
+        ('isinh', ' [0] '),
+        ('icosh', ' [1] '),
+        ('itanh', ' [2] '),
+        ('isin', ' [3] '),
+        ('icos', ' [4] '),
+        ('itan', ' [5] '),
+        ('sinh', ' [6] '),
+        ('cosh', ' [7] '),
+        ('tanh', ' [8] '),
+        ('sin', ' [9] '),
+        ('cos', ' [10] '),
+        ('tan', ' [11] '),
+        ('log\xE2\x82\x81\xE2\x82\x80', ' 10 log '),
+        ('log', ' log '),
+        ('ln', ' e log '),
+        ('mod', ' [12] '),
+        ('a', ' \x11 '),
+        ('A', ' \x11 '),
+        ('b', ' \x12 '),
+        ('B', ' \x12 '),
+        ('C', ' \x13 '),
+        ('c', ' \x13 '),
+        ('M', ' \x14 '),
+        ('m', ' \x14 '),
+
+        # Convert to symbolic terms and introduce additional spaces
+        ('e', ' ( 2.718281828 ) '),
+        ('i', ' j '),                   # Imaginary
+        ('j', ' j 1 '),
+        ('[0]', ' 0 r '),
+        ('[1]', ' 0 z '),
+        ('[2]', ' 0 k '),
+        ('[3]', ' 0 i '),
+        ('[4]', ' 0 o '),
+        ('[5]', ' 0 a '),
+        ('[6]', ' 0 h '),
+        ('[7]', ' 0 y '),
+        ('[8]', ' 0 e '),
+        ('[9]', ' 0 s '),
+        ('[10]', ' 0 c '),
+        ('[11]', ' 0 t '),
+        ('[12]', ' m '),
         ('log', ' l '),
         ('(', ' ( '),
         (')', ' ) '),
@@ -260,7 +326,7 @@ class Tokenizer():
     # pylint: enable=fixme,too-many-branches,too-many-statements,too-many-nested-blocks
 
     @staticmethod
-    def st_tokenize(input_exp:str) -> list[str]:
+    def st_tokenize(input_exp:str, token_map: list) -> list[str]:
         """
         Tokenize the given string into a format that the scientific calculator can understand.
         """
@@ -278,7 +344,7 @@ class Tokenizer():
 
             exp = exp.lower()
             # Convert to lexemes
-            for l in Tokenizer.LEXICAL_REPLACEMENTS:
+            for l in token_map:
                 exp = exp.replace(l[0], l[1])
 
             exp = exp.strip ()

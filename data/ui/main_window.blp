@@ -4,9 +4,9 @@ using Gtk 4.0;
 using Adw 1;
 
 template $PebblesMainWindow: Adw.ApplicationWindow {
-    default-width: 800;
+    default-width: 820;
     default-height: 600;
-    width-request: 360;
+    width-request: 364;
     height-request: 420;
     title: _("Pebbles");
 
@@ -32,7 +32,7 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
     ]
 
     Adw.Breakpoint {
-        condition ("max-width: 800sp")
+        condition ("max-width: 808sp")
 
         setters {
             split_view.collapsed: true;
@@ -43,11 +43,12 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
     }
 
     Adw.Breakpoint {
-        condition ("max-width: 512sp")
+        condition ("max-width: 530sp")
 
         setters {
             scientific_view.collapsed: true;
             statistics_view.collapsed: true;
+            graphing_view.collapsed: true;
             split_view.collapsed: true;
             split_view.show-content: true;
             navigation_headerbar.show-back-button: true;
@@ -183,6 +184,8 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                                 halign: start;
                                             }
                                         }
+
+                                        action-name: "win.open_graphing_mode";
                                     }
 
                                     ListBoxRow {
@@ -496,9 +499,11 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                 }
                             }
 
-                            Box null_header_box {
-
+                            Box graph_header_box {
+                                spacing: 8;
                             }
+
+                            Box null_header_box {}
 
                             visible-child: scientific_header_box;
                         }
@@ -602,6 +607,13 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                             name: bind template.context_statistics;
                             child: $PebblesStatisticsView statistics_view {
                                 context: bind template.context_statistics;
+                            };
+                        }
+
+                        Adw.ViewStackPage {
+                            name: bind template.context_graphing;
+                            child: $PebblesGraphingView  graphing_view {
+                                context: bind template.context_graphing;
                             };
                         }
                     }

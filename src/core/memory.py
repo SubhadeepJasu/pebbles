@@ -164,6 +164,8 @@ class ContextualMemory:
             elif context == Pebbles.Context.PROGRAMMER:
                 value = int(value)
 
+        print (value)
+
         return value
 
 

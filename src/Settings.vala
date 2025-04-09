@@ -29,14 +29,14 @@ namespace Pebbles {
             set { set_boolean ("load-last-session", value); }
         }
 
+        public bool result_flow {
+            get { return get_boolean ("result-flow"); }
+            set { set_boolean ("result-flow", value); }
+        }
+
         public string theme {
             owned get { return get_string ("theme"); }
             set { set_string ("theme", value); }
-        }
-
-        public int view_index {
-            get { return get_int ("view-index"); }
-            set { set_int ("view-index", value); }
         }
 
         public GlobalAngleUnit global_angle_unit {

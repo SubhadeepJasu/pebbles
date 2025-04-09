@@ -2,5 +2,12 @@ namespace Pebbles {
     [GtkTemplate (ui = "/com/github/subhadeepjasu/pebbles/ui/view.ui")]
     public abstract class View : Gtk.Grid {
         public string context { get; protected set; }
+
+        public void fade_in () {
+            add_css_class ("animate");
+            Timeout.add_once (600, () => {
+                remove_css_class ("animate");
+            });
+        }
     }
 }

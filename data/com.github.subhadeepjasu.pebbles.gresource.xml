@@ -14,6 +14,9 @@
     <file compressed="true" preprocess="xml-stripblanks">ui/scientific_display.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/statistics_view.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/statistics_display.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/graphing_view.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/equation_display.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/graph_viewport.ui</file>
   </gresource>
 
   <gresource prefix="/com/github/subhadeepjasu/pebbles/icons">
@@ -33,5 +36,7 @@
     <file alias="scalable/emblems/power-conv-symbolic.svg">icons/scalable/emblems/power-conv-symbolic.svg</file>
     <file alias="scalable/emblems/temp-conv-symbolic.svg">icons/scalable/emblems/temp-conv-symbolic.svg</file>
     <file alias="scalable/emblems/currency-conv-symbolic.svg">icons/scalable/emblems/currency-conv-symbolic.svg</file>
+     <file alias="scalable/emblems/linear-eq-symbolic.svg">icons/scalable/emblems/linear-eq-symbolic.svg</file>
+      <file alias="scalable/emblems/radial-eq-symbolic.svg">icons/scalable/emblems/radial-eq-symbolic.svg</file>
   </gresource>
 </gresources>

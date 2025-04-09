@@ -320,3 +320,56 @@ button.pressed {
         }
     }
 }
+
+
+.graphing-viewport {
+    border-radius: 3px;
+}
+
+
+.equation-entry {
+    entry {
+        background: none;
+        border: 1px solid #0000;
+        border-radius: 0;
+        box-shadow: none;
+        color: #272863;
+        caret-color: $LCD_FG_COLOR;
+
+        &:focus-within {
+            border: 1px solid #272863a0;
+            border-style: dashed;
+        }
+
+        text {
+            color: $LCD_FG_COLOR;
+        }
+    }
+
+    &-indicator {
+        border-radius: 4px;
+    }
+}
+
+
+.variables-panel {
+    border-radius: 0 0 3px 3px;
+    margin-bottom: -164px;
+    margin-top: 164px;
+    transition: all 0.2s ease-out;
+
+    &.show {
+        margin-bottom: 0;
+        margin-top: 0;
+    }
+
+    label {
+        font-style: italic;
+        font-weight: 800;
+    }
+}
+
+
+.scale-button {
+    padding: 4px;
+}

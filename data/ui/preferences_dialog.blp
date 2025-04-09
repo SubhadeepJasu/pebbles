@@ -18,6 +18,15 @@ template $PebblesPreferencesDialog: Adw.PreferencesDialog {
                 notify::active => $load_session_notify_active_cb();
             }
 
+            Adw.SwitchRow {
+                title: _("Result Flow");
+                subtitle: _("Whether result button should replace input with result");
+                focus-on-click: false;
+                focusable: false;
+                active: bind template.settings as <$PebblesSettings>.result_flow;
+                notify::active => $result_flow_notify_active_cb();
+            }
+
             Adw.ActionRow decimal_places {
                 title: _("Decimal Places");
                 subtitle: _("Number of decimal places afte radix symbol");

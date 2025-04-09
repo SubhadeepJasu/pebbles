@@ -10,6 +10,8 @@ from gi.repository import Pebbles
 from pebbles.core.memory import ContextualMemory
 from pebbles.core.scientific_calculator import ScientificCalculator
 from pebbles.core.statistics_calculator import StatisticsCalculator
+from pebbles.core.graphing_calculator import GraphingCalculator
+from pebbles.core.tokenizer import Tokenizer
 from pebbles.core.utils import Utils
 
 class PythonWindow(Pebbles.MainWindow):
@@ -24,6 +26,9 @@ class PythonWindow(Pebbles.MainWindow):
         self.stat_calc = StatisticsCalculator(self._memory)
         self.stat_calc.set_plot_ready_callback(self._stat_plot_ready_cb)
 
+        self.graph_calc = GraphingCalculator(self._memory)
+        self.graph_calc.set_plot_ready_callback(self._graph_ready_cb)
+
         self.connect("on_evaluate", self._evaluate)
         self.connect("on_memory_recall", self._memory_recall)
         self.connect("on_memory_clear", self._memory_clear)
@@ -36,6 +41,7 @@ class PythonWindow(Pebbles.MainWindow):
         self.connect("on_stat_cell_query", self._stat_cell_query_cb)
         self.connect("on_stat_export", self._on_stat_export_cb)
         self.connect("on_get_last_result", self._on_query_last_result_cb)
+        self.connect("on_render_graph", self._on_render_graph)
 
 
     def _evaluate(self, _, data:str):
@@ -48,7 +54,7 @@ class PythonWindow(Pebbles.MainWindow):
         result_data: any
         result: any
         if data_dict['context'] == Pebbles.Context.SCIENTIFIC:
-            sci_calc = ScientificCalculator(data, self._memory)
+            sci_calc = ScientificCalculator(data, self._memory, Tokenizer.SCIENTIFIC_TOKEN_MAP)
             result_data, result = sci_calc.evaluate()
             self._commit_to_memory(result, Pebbles.Context.SCIENTIFIC, data_dict['memoryOp'])
             self.show_history(self._memory.get_views(
@@ -137,7 +143,7 @@ class PythonWindow(Pebbles.MainWindow):
                 dataset_hash = metadata.get_metadata_4()
                 if dataset_hash and dataset_hash != self.stat_calc.hash_dataset():
                     print ("WARNING: Hash mismatch. \
-                           Attempting to make a table with the previous series.")
+Attempting to make a table with the previous series.")
                     try:
                         res = json.loads(self.stat_calc.load_csv_data(metadata.get_metadata_3()))
                         if res and 'shape' in res and res['shape']:
@@ -175,10 +181,19 @@ class PythonWindow(Pebbles.MainWindow):
         self.stat_calc.export(path)
 
 
+    def _on_render_graph(self, _, payload):
+        self.graph_calc.set_plot_params_and_plot (payload)
+
+
+    def _graph_ready_cb(self, pixbuf, valid):
+        self.on_render_ready(pixbuf, valid)
+
+
     def _memory_recall(self, _, context: str):
         """
         Recall value from memory with given context.
         """
+        formatted_answer = ''
         if context in [Pebbles.Context.SCIENTIFIC, Pebbles.Context.CALCULUS]:
             answer = self._memory.recall(context)
             if isinstance(answer, complex):
@@ -193,9 +208,12 @@ class PythonWindow(Pebbles.MainWindow):
                 return f'{Utils.format_float(answer)}'
         elif context == Pebbles.Context.STATISTICS:
             answer = self._memory.recall(context)
-            return f'{Utils.format_float(answer)}'
+            formatted_answer = f'{Utils.format_float(answer)}'
+        else:
+            answer = float(self._memory.recall(context))
+            formatted_answer = f'{Utils.format_float(answer)}'
 
-        return ''
+        return formatted_answer
 
 
     def _memory_clear(self, _, context: str):

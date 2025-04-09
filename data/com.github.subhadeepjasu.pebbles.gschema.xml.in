@@ -46,6 +46,11 @@
 			<summary>Load Last Session on Startup</summary>
 			<description>Load last values from previous session on startup</description>
 		</key>
+		<key name="result-flow" type="b">
+			<default>false</default>
+			<summary>Result Flow</summary>
+			<description>Whether result action would replace input with result</description>
+		</key>
         <key name="view-index" type="i">
 			<default>0</default>
 			<summary>The saved view index of main stack</summary>

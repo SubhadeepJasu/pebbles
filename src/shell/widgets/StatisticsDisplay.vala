@@ -567,8 +567,9 @@ namespace Pebbles {
 
         public void write (string str) {
             if (selected_cell != null) {
-                selected_cell.text += str;
-                selected_cell.set_position ((int) selected_cell.text_length);
+                int position = selected_cell.get_position ();
+                selected_cell.do_insert_text (str, str.length, ref position);
+                selected_cell.set_position (position);
             }
         }
 

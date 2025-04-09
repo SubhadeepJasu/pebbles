@@ -8,9 +8,12 @@ blueprint_files = [
   'ui/history_display.blp',
   'ui/scientific_display.blp',
   'ui/statistics_display.blp',
+  'ui/equation_display.blp',
+  'ui/graph_viewport.blp',
   'ui/view.blp',
   'ui/scientific_view.blp',
-  'ui/statistics_view.blp'
+  'ui/statistics_view.blp',
+  'ui/graphing_view.blp'
 ]
 
 blueprint_compiler = find_program('blueprint-compiler')

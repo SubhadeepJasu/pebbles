@@ -1,0 +1,1119 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: 2024 Subhadeep Jasu <subhadeep107@proton.me>
+using Gtk 4.0;
+using Adw 1;
+
+template $PebblesGraphingView: $PebblesView {
+    Stack graphing_stack {
+        transition-type: slide_left_right;
+
+        Box equation_panel {
+            orientation: vertical;
+
+            $PebblesEquationDisplay display {
+                context: bind template.context;
+                vexpand: true;
+                shift_on: bind shift_button.active;
+
+                change_mode => $change_mode_handler();
+            }
+
+            Adw.NavigationSplitView graph_nav_split_view {
+                vexpand: true;
+                height-request: 250;
+                sidebar-width-fraction: 0.5;
+                max-sidebar-width: 1000000;
+                min-sidebar-width: 256;
+                margin-start: 7;
+                margin-end: 7;
+                margin-bottom: 7;
+                collapsed: bind template.collapsed;
+
+                sidebar: Adw.NavigationPage button_container_left {
+                    title: "Numerical Input";
+                    hexpand: true;
+                    overflow: visible;
+
+                    Grid {
+                        row-homogeneous: true;
+                        column-homogeneous: true;
+                        row-spacing: 8;
+                        column-spacing: 8;
+                        vexpand: true;
+                        hexpand: true;
+                        margin-start: 6;
+                        margin-end: 6;
+                        margin-bottom: 6;
+                        margin-top: 1;
+
+                        $PebblesButton all_clear_button {
+                            label_text: _("AC");
+                            tooltip_desc: _("All Clear");
+                            accel_markup: "Delete";
+                            focus-on-click: false;
+                            key: "delete";
+
+                            styles [
+                                "destructive-action",
+                                "adaptive-btn-font"
+                            ]
+
+                            layout {
+                                row: 0;
+                                column: 0;
+                            }
+
+                            clicked => $on_all_clear();
+                        }
+
+                        $PebblesButton del_button {
+                            icon: "edit-clear-symbolic";
+                            tooltip_desc: _("Backspace");
+                            focus-on-click: false;
+                            key: "BackSpace";
+
+                            layout {
+                                row: 0;
+                                column: 1;
+                            }
+
+                            clicked => $on_backspace();
+                        }
+
+                        $PebblesButton variable_button {
+                            name: "x";
+                            label_text: "<i>X</i>";
+                            tooltip_desc: "Variable x";
+                            focus-on-click: false;
+                            key: "x";
+
+                            layout {
+                                row: 0;
+                                column: 2;
+                            }
+
+                            styles [
+                                "adaptive-btn-font"
+                            ]
+
+                            clicked => $on_click_function();
+                        }
+
+                        $PebblesButton divide_button {
+                            label_text: "÷";
+                            tooltip_desc: _("Divide");
+                            focus-on-click: false;
+                            key: "/";
+
+                            layout {
+                                row: 0;
+                                column: 3;
+                            }
+
+                            styles [
+                                "adaptive-btn-font",
+                                "large-font-btn"
+                            ]
+
+                            clicked => $on_click_div_button();
+                        }
+
+                        $PebblesButton fx_button {
+                            label_text: "← <i>f(x)</i>";
+                            visible: bind template.collapsed;
+                            focus-on-click: false;
+
+                            styles [
+                                "special-action",
+                                "adaptive-btn-font"
+                            ]
+
+                            layout {
+                                row: 0;
+                                column: 4;
+                            }
+
+                            clicked => $on_expand_fx();
+                        }
+
+                        $PebblesButton seven_button {
+                            name: "7";
+                            label_text: "7";
+                            focus-on-click: false;
+                            key: "7";
+
+                            styles [
+                                "adaptive-btn-font"
+                            ]
+
+                            layout {
+                                row: 1;
+                                column: 0;
+                            }
+
+                            clicked => $on_click_button();
+                        }
+
+                        $PebblesButton eight_button {
+                            name: "8";
+                            label_text: "8";
+                            focus-on-click: false;
+                            key: "8";
+
+                            styles [
+                                "adaptive-btn-font"
+                            ]
+
+                            layout {
+                                row: 1;
+                                column: 1;
+                            }
+
+                            clicked => $on_click_button();
+                        }
+
+                        $PebblesButton nine_button {
+                            name: "9";
+                            label_text: "9";
+                            focus-on-click: false;
+                            key: "9";
+
+                            styles [
+                                "adaptive-btn-font"
+                            ]
+
+                            layout {
+                                row: 1;
+                                column: 2;
+                            }
+
+                            clicked => $on_click_button();
+                        }
+
+                        $PebblesButton multiply_button {
+                            label_text: "×";
+                            tooltip_desc: _("Multiply");
+                            focus-on-click: false;
+                            key: "*";
+
+                            styles [
+                                "adaptive-btn-font",
+                                "large-font-btn"
+                            ]
+
+                            layout {
+                                row: 1;
+                                column: 3;
+                            }
+
+                            clicked => $on_click_mul_button();
+                        }
+
+                        $PebblesButton nav_up_button_p {
+                            icon: "go-up-symbolic";
+                            tooltip_desc: _("Navigate Up");
+                            focus-on-click: false;
+                            visible: bind template.collapsed;
+
+                            styles [
+                                "special-action",
+                                "adaptive-btn-font"
+                            ]
+
+                            layout {
+                                row: 1;
+                                column: 4;
+                            }
+
+                            clicked => $navigate_up();
+                        }
+
+                        $PebblesButton four_button {
+                            name: "4";
+                            label_text: "4";
+                            focus-on-click: false;
+                            key: "4";
+
+                            styles [
+                                "adaptive-btn-font"
+                            ]
+
+                            layout {
+                                row: 2;
+                                column: 0;
+                            }
+
+                            clicked => $on_click_button();
+                        }
+
+                        $PebblesButton five_button {
+                            name: "5";
+                            label_text: "5";
+                            focus-on-click: false;
+                            key: "5";
+
+                            styles [
+                                "adaptive-btn-font"
+                            ]
+
+                            layout {
+                                row: 2;
+                                column: 1;
+                            }
+
+                            clicked => $on_click_button();
+                        }
+
+                        $PebblesButton six_button {
+                            name: "6";
+                            label_text: "6";
+                            focus-on-click: false;
+                            key: "6";
+
+                            styles [
+                                "adaptive-btn-font"
+                            ]
+
+                            layout {
+                                row: 2;
+                                column: 2;
+                            }
+
+                            clicked => $on_click_button();
+                        }
+
+                        $PebblesButton subtract_button {
+                            label_text: "−";
+                            tooltip_desc: _("Subtract");
+                            focus-on-click: false;
+                            key: "-";
+
+                            styles [
+                                "adaptive-btn-font",
+                                "large-font-btn"
+                            ]
+
+                            layout {
+                                row: 2;
+                                column: 3;
+                            }
+
+                            clicked => $on_click_sub_button();
+                        }
+
+                        $PebblesButton nav_down_button_p {
+                            icon: "go-down-symbolic";
+                            tooltip_desc: _("Navigate Down");
+                            focus-on-click: false;
+                            visible: bind template.collapsed;
+
+                            styles [
+                                "special-action",
+                                "adaptive-btn-font"
+                            ]
+
+                            layout {
+                                row: 2;
+                                column: 4;
+                            }
+
+                            clicked => $navigate_down();
+                        }
+
+                        $PebblesButton one_button {
+                            name: "1";
+                            label_text: "1";
+                            focus-on-click: false;
+                            key: "1";
+
+                            styles [
+                                "adaptive-btn-font"
+                            ]
+
+                            layout {
+                                row: 3;
+                                column: 0;
+                            }
+
+                            clicked => $on_click_button();
+                        }
+
+                        $PebblesButton two_button {
+                            name: "2";
+                            label_text: "2";
+                            focus-on-click: false;
+                            key: "2";
+
+                            styles [
+                                "adaptive-btn-font"
+                            ]
+
+                            layout {
+                                row: 3;
+                                column: 1;
+                            }
+
+                            clicked => $on_click_button();
+                        }
+
+                        $PebblesButton three_button {
+                            name: "3";
+                            label_text: "3";
+                            focus-on-click: false;
+                            key: "3";
+
+                            styles [
+                                "adaptive-btn-font"
+                            ]
+
+                            layout {
+                                row: 3;
+                                column: 2;
+                            }
+
+                            clicked => $on_click_button();
+                        }
+
+                        $PebblesButton addition_button {
+                            label_text: "+";
+                            tooltip_desc: _("Add");
+                            focus-on-click: false;
+                            key: "+";
+
+                            styles [
+                                "adaptive-btn-font",
+                                "large-font-btn"
+                            ]
+
+                            layout {
+                                row: 3;
+                                column: 3;
+                            }
+
+                            clicked => $on_click_add_button();
+                        }
+
+                        $PebblesButton add_eq_button_p {
+                            label_text: "▭⁺";
+                            tooltip_desc: _("Add Equation");
+                            focus-on-click: false;
+                            visible: bind template.collapsed;
+
+                            layout {
+                                row: 3;
+                                column: 4;
+                            }
+
+                            styles [
+                                "suggested-action",
+                                "adaptive-btn-font",
+                                "large-font-btn"
+                            ]
+
+                            clicked => $add_equation();
+                        }
+
+                        $PebblesButton zero_button {
+                            name: "0";
+                            label_text: "0";
+
+                            styles [
+                                "adaptive-btn-font"
+                            ]
+
+                            focus-on-click: false;
+                            key: "0";
+
+                            layout {
+                                row: 4;
+                                column: 0;
+                            }
+
+                            clicked => $on_click_button();
+                        }
+
+                        $PebblesButton point_button {
+                            name: "fraction-point-button";
+                            label_text: _(".");
+                            focus-on-click: false;
+                            key: ".";
+
+                            styles [
+                                "adaptive-btn-font",
+                                "large-font-btn"
+                            ]
+
+                            layout {
+                                row: 4;
+                                column: 1;
+                            }
+
+                            clicked => $on_click_fraction_point();
+                        }
+
+                        $PebblesButton paren_start_button {
+                            name: "(";
+                            label_text: "(";
+
+                            styles [
+                                "adaptive-btn-font"
+                            ]
+
+                            focus-on-click: false;
+                            key: "(, {, [";
+
+                            layout {
+                                row: 4;
+                                column: 2;
+                            }
+
+                            clicked => $on_click_button();
+                        }
+
+                        $PebblesButton paren_end_button {
+                            name: ")";
+                            label_text: ")";
+
+                            styles [
+                                "adaptive-btn-font"
+                            ]
+
+                            focus-on-click: false;
+                            key: "), }, ]";
+
+                            layout {
+                                row: 4;
+                                column: 3;
+                            }
+
+                            clicked => $on_click_button();
+                        }
+
+                        $PebblesButton result_button_p {
+                            icon: "graphing-mode-symbolic";
+                            tooltip_desc: _("Render Graph");
+                            accel_markup: "<Ctrl>Return";
+                            visible: bind template.collapsed;
+                            focus-on-click: false;
+                            key: "<Ctrl>Return";
+
+                            styles [
+                                "suggested-action",
+                                "large-font-btn",
+                                "adaptive-btn-font"
+                            ]
+
+                            layout {
+                                row: 4;
+                                column: 4;
+                            }
+
+                            clicked => $show_graph_panel();
+                        }
+                    }
+                };
+
+                content: Adw.NavigationPage button_container_right {
+                    title: "Functional Input";
+                    hexpand: true;
+                    overflow: visible;
+
+                    Grid {
+                        row-homogeneous: true;
+                        column-homogeneous: true;
+                        row-spacing: 8;
+                        column-spacing: 8;
+                        vexpand: true;
+                        hexpand: true;
+                        margin-start: 6;
+                        margin-end: 6;
+                        margin-bottom: 6;
+                        margin-top: 2;
+
+                        ToggleButton shift_button {
+                            label: _("Shift");
+                            focus-on-click: false;
+
+                            styles [
+                                "special-action",
+                                "adaptive-btn-font"
+                            ]
+
+                            layout {
+                                row: 0;
+                                column: 0;
+                            }
+
+                            clicked => $on_shift();
+                        }
+
+                        $PebblesButton pow_root_button {
+                            name: "q";
+                            label_text: "x<sup>y</sup>";
+                            tooltip_desc: _("x raised to the power y");
+                            accel_markup: "Q";
+                            focus-on-click: false;
+                            key: "q,Q";
+
+                            styles [
+                                "special-action",
+                                "adaptive-btn-font"
+                            ]
+
+                            layout {
+                                row: 0;
+                                column: 1;
+                            }
+
+                            clicked => $on_click_function();
+                        }
+
+                        $PebblesButton expo_power_button {
+                            name: "z";
+                            label_text: "10<sup>x</sup>";
+                            tooltip_desc: _("10 raised to the power x");
+                            accel_markup: "Z";
+                            focus-on-click: false;
+                            key: "z,Z";
+
+                            styles [
+                                "special-action",
+                                "adaptive-btn-font"
+                            ]
+
+                            layout {
+                                row: 0;
+                                column: 2;
+                            }
+
+                            clicked => $on_click_function();
+                        }
+
+                        $PebblesButton sin_button {
+                            name: "s";
+                            label_text: "sin";
+                            tooltip_desc: _("Sine");
+                            accel_markup: "S";
+                            focus-on-click: false;
+                            key: "s,S";
+
+                            styles [
+                                "special-action",
+                                "adaptive-btn-font"
+                            ]
+
+                            layout {
+                                row: 1;
+                                column: 0;
+                            }
+
+                            clicked => $on_click_function();
+                        }
+
+                        $PebblesButton sinh_button {
+                            name: "h";
+                            label_text: "sinh";
+                            tooltip_desc: _("Hyberbolic Sine");
+                            accel_markup: "H";
+                            focus-on-click: false;
+                            key: "h,H";
+
+                            styles [
+                                "special-action",
+                                "adaptive-btn-font"
+                            ]
+
+                            layout {
+                                row: 1;
+                                column: 1;
+                            }
+
+                            clicked => $on_click_function();
+                        }
+
+                        $PebblesButton log_cont_base_button {
+                            name: "l";
+                            label_text: "log x";
+                            tooltip_desc: _("Log base 10");
+                            accel_markup: "L";
+                            focus-on-click: false;
+                            key: "l,L";
+
+                            styles [
+                                "special-action",
+                                "adaptive-btn-font"
+                            ]
+
+                            layout {
+                                row: 1;
+                                column: 2;
+                            }
+
+                            clicked => $on_click_function();
+                        }
+
+                        $PebblesButton cos_button {
+                            name: "c";
+                            label_text: "cos";
+                            tooltip_desc: _("Cosine");
+                            accel_markup: "C";
+                            focus-on-click: false;
+                            key: "c,C";
+
+                            styles [
+                                "special-action",
+                                "adaptive-btn-font"
+                            ]
+
+                            layout {
+                                row: 2;
+                                column: 0;
+                            }
+
+                            clicked => $on_click_function();
+                        }
+
+                        $PebblesButton cosh_button {
+                            name: "o";
+                            label_text: "cosh";
+                            tooltip_desc: _("Hyberbolic Cosine");
+                            accel_markup: "O";
+                            focus-on-click: false;
+                            key: "o,O";
+
+                            styles [
+                                "special-action",
+                                "adaptive-btn-font"
+                            ]
+
+                            layout {
+                                row: 2;
+                                column: 1;
+                            }
+
+                            clicked => $on_click_function();
+                        }
+
+                        $PebblesButton log_mod_button {
+                            name: "m";
+                            label_text: "mod";
+                            tooltip_desc: _("Modulus");
+                            accel_markup: "M";
+                            focus-on-click: false;
+                            key: "m,M";
+
+                            styles [
+                                "special-action",
+                                "adaptive-btn-font"
+                            ]
+
+                            layout {
+                                row: 2;
+                                column: 2;
+                            }
+
+                            clicked => $on_click_function();
+                        }
+
+                        $PebblesButton memory_recall_button {
+                            label_text: _("GMR");
+                            tooltip_desc: _("Recall value from Global Memory");
+                            accel_markup: "F5";
+                            focus-on-click: false;
+                            key: "F5";
+
+                            styles [
+                                "memory-action",
+                                "adaptive-btn-font"
+                            ]
+
+                            layout {
+                                row: 0;
+                                column: 3;
+                            }
+
+                            clicked => $on_click_memory_recall();
+                        }
+
+                        $PebblesButton nav_up_button {
+                            icon: "go-up-symbolic";
+                            tooltip_desc: _("Navigate Up");
+                            focus-on-click: false;
+
+                            styles [
+                                "special-action",
+                                "adaptive-btn-font"
+                            ]
+
+                            layout {
+                                row: 1;
+                                column: 3;
+                            }
+
+                            clicked => $navigate_up();
+                        }
+
+                        $PebblesButton nav_down_button {
+                            icon: "go-down-symbolic";
+                            tooltip_desc: _("Navigate Down");
+                            focus-on-click: false;
+
+                            styles [
+                                "special-action",
+                                "adaptive-btn-font"
+                            ]
+
+                            layout {
+                                row: 2;
+                                column: 3;
+                            }
+
+                            clicked => $navigate_down();
+                        }
+
+                        $PebblesButton var_a_button {
+                            label_text: "<i>a</i>";
+                            tooltip_desc: _("Variable a");
+                            focus-on-click: false;
+
+                            styles [
+                                "special-action",
+                                "adaptive-btn-font"
+                            ]
+
+                            layout {
+                                row: 3;
+                                column: 2;
+                            }
+
+                            clicked => $on_click_var_button_a();
+                        }
+
+                        $PebblesButton var_m_button {
+                            label_text: "<i>m</i>";
+                            tooltip_desc: _("Variable m");
+                            focus-on-click: false;
+
+                            styles [
+                                "special-action",
+                                "adaptive-btn-font"
+                            ]
+
+                            layout {
+                                row: 4;
+                                column: 2;
+                            }
+
+                            clicked => $on_click_var_button_m();
+                        }
+
+                        $PebblesButton tan_button {
+                            name: "t";
+                            label_text: "tan";
+                            tooltip_desc: _("Tangent");
+                            accel_markup: "T";
+                            focus-on-click: false;
+                            key: "t,T";
+
+                            styles [
+                                "special-action",
+                                "adaptive-btn-font"
+                            ]
+
+                            layout {
+                                row: 3;
+                                column: 0;
+                            }
+
+                            clicked => $on_click_function();
+                        }
+
+                        $PebblesButton tanh_button {
+                            name: "a";
+                            label_text: "tanh";
+                            tooltip_desc: _("Hyberbolic Tangent");
+                            accel_markup: "A";
+                            focus-on-click: false;
+                            key: "a,A";
+
+                            styles [
+                                "special-action",
+                                "adaptive-btn-font"
+                            ]
+
+                            layout {
+                                row: 3;
+                                column: 1;
+                            }
+
+                            clicked => $on_click_function();
+                        }
+
+                        $PebblesButton constant_button {
+                            label_text: bind template.constant_label;
+                            tooltip_desc: bind template.constant_desc;
+                            accel_markup: "R";
+                            focus-on-click: false;
+                            key: "r,R";
+                            styles [
+                                "special-action",
+                                "adaptive-btn-font"
+                            ]
+                            layout {
+                                row: 4;
+                                column: 1;
+                            }
+                            clicked => $on_click_constant();
+                        }
+
+                        $PebblesButton last_answer_button {
+                            label_text: "GAns";
+                            tooltip_desc: _("Insert global last answer");
+                            accel_markup: "F7";
+                            focus-on-click: false;
+                            key: "F7";
+
+                            styles [
+                                "special-action",
+                                "adaptive-btn-font"
+                            ]
+
+                            layout {
+                                row: 4;
+                                column: 0;
+                            }
+
+                            clicked => $on_click_last_ans();
+                        }
+
+                        $PebblesButton add_eq_button {
+                            label_text: "▭⁺";
+                            tooltip_desc: _("Add Equation");
+                            focus-on-click: false;
+
+                            layout {
+                                row: 3;
+                                column: 3;
+                            }
+
+                            styles [
+                                "suggested-action",
+                                "adaptive-btn-font",
+                                "large-font-btn"
+                            ]
+
+                            clicked => $add_equation();
+                        }
+
+                        $PebblesButton result_button {
+                            icon: "graphing-mode-symbolic";
+                            tooltip_desc: _("Render Graph");
+                            accel_markup: "<Ctrl>Return";
+                            visible: bind template.collapsed inverted;
+                            focus-on-click: false;
+                            key: "<Ctrl>Return";
+
+                            styles [
+                                "suggested-action",
+                                "large-font-btn",
+                                "adaptive-btn-font"
+                            ]
+
+                            layout {
+                                row: 4;
+                                column: 3;
+                            }
+
+                            clicked => $show_graph_panel();
+                        }
+
+                        $PebblesButton collapse_fx_button {
+                            label_text: "->";
+                            visible: bind graph_nav_split_view.collapsed;
+                            focus-on-click: false;
+
+                            styles [
+                                "suggested-action",
+                                "large-font-btn",
+                                "adaptive-btn-font"
+                            ]
+
+                            layout {
+                                row: 4;
+                                column: 3;
+                            }
+
+                            clicked => $on_collapse_fx();
+                        }
+                    }
+                };
+            }
+        }
+
+        Overlay graphing_panel {
+            Box {
+                orientation: vertical;
+                spacing: 8;
+                margin-start: 12;
+                margin-end: 12;
+                margin-bottom: 12;
+
+                $PebblesGraphViewport viewport {
+
+                }
+
+                Box {
+                    orientation: horizontal;
+                    homogeneous: true;
+                    height-request: 32;
+                    spacing: 8;
+
+                    $PebblesButton {
+                        icon: "go-previous-symbolic";
+                        tooltip_desc: _("Go back to equation view");
+                        focus-on-click: false;
+
+                        styles [
+                            "suggested-action",
+                            "large-font-btn",
+                            "adaptive-btn-font"
+                        ]
+
+                        clicked => $show_equation_panel();
+                    }
+
+                    ToggleButton {
+                        label: _("Variables");
+                        focus-on-click: false;
+
+                        clicked => $toggle_variable_panel();
+                    }
+
+                    // $PebblesButton interact_mode {
+                    //     icon: "view-fullscreen-symbolic";
+                    //     tooltip_desc: _("Change interaction mode");
+                    //     focus-on-click: false;
+                    // }
+
+                    $PebblesButton {
+                        icon: "document-export-symbolic";
+                        tooltip_desc: _("Export figure as image");
+                        focus-on-click: false;
+                    }
+                }
+            }
+
+            [overlay]
+            Box variables_panel {
+                can-target: false;
+                margin-start: 12;
+                margin-end: 12;
+                margin-bottom: 52;
+                valign: end;
+                styles ["card", "variables-panel"]
+
+                Grid {
+                    column-homogeneous: true;
+                    column-spacing: 8;
+                    margin-start: 8;
+                    margin-end: 8;
+                    margin-top: 8;
+                    margin-bottom: 8;
+                    hexpand: true;
+
+                    Label {
+                        label: "m =";
+                        xalign: 0;
+                        styles ["variable-label"]
+
+                        layout {
+                            row: 0;
+                            column: 0;
+                        }
+                    }
+
+                    SpinButton m_spinbutton {
+                        adjustment: bind template.var_m_adjustment;
+                        digits: 3;
+                        layout {
+                            row: 1;
+                            column: 0;
+                        }
+
+                        value-changed => $on_update_var_m();
+                    }
+
+                    Label {
+                        label: "c =";
+                        xalign: 0;
+                        margin-top: 8;
+                        margin-bottom: 4;
+                        styles ["variable-label"]
+
+                        layout {
+                            row: 2;
+                            column: 0;
+                        }
+                    }
+
+                    SpinButton c_spinbutton {
+                        adjustment: bind template.var_c_adjustment;
+                        digits: 3;
+                        layout {
+                            row: 3;
+                            column: 0;
+                        }
+
+                        value-changed => $on_update_var_c();
+                    }
+
+                    Label {
+                        label: "a =";
+                        xalign: 0;
+                        styles ["variable-label"]
+
+                        layout {
+                            row: 0;
+                            column: 1;
+                        }
+                    }
+
+                    SpinButton a_spinbutton {
+                        adjustment: bind template.var_a_adjustment;
+                        digits: 3;
+                        layout {
+                            row: 1;
+                            column: 1;
+                        }
+
+                        value-changed => $on_update_var_a();
+                    }
+
+                    Label {
+                        label: "b =";
+                        xalign: 0;
+                        margin-top: 8;
+                        margin-bottom: 4;
+                        styles ["variable-label"]
+
+                        layout {
+                            row: 2;
+                            column: 1;
+                        }
+                    }
+
+                    SpinButton b_spinbutton {
+                        adjustment: bind template.var_b_adjustment;
+                        digits: 3;
+                        layout {
+                            row: 3;
+                            column: 1;
+                        }
+
+                        value-changed => $on_update_var_b();
+                    }
+                }
+            }
+        }
+    }
+}

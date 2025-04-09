@@ -1,0 +1,85 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: 2024 Subhadeep Jasu <subhadeep107@proton.me>
+using Gtk 4.0;
+
+template $PebblesGraphViewport: Box {
+    vexpand: true;
+    hexpand: true;
+
+    styles [
+        "card",
+        "graphing-viewport"
+    ]
+
+    Overlay {
+        DrawingArea renderer {
+            vexpand: true;
+            hexpand: true;
+        }
+
+        [overlay]
+        Grid {
+            halign: end;
+            valign: end;
+            row-spacing: 8;
+            column-spacing: 8;
+            margin-end: 8;
+            margin-bottom: 8;
+
+            $PebblesButton y_axis_scale {
+                height-request: 100;
+                focus-on-click: false;
+                tooltip_desc: _("Click to switch scaling mode. Scroll to scale y-axis.");
+                can-focus: false;
+                styles ["scale-button"]
+
+                layout {
+                    row: 0;
+                    column: 1;
+                }
+
+                clicked => $toggle_y_scaling();
+
+                DrawingArea y_axis_meter {
+                    hexpand: true;
+                    vexpand: true;
+                }
+            }
+
+            $PebblesButton x_axis_scale {
+                width-request: 100;
+                focus-on-click: false;
+                tooltip_desc: _("Click to switch scaling mode. Scroll to scale x-axis.");
+                can-focus: false;
+                styles ["scale-button"]
+
+                layout {
+                    row: 1;
+                    column: 0;
+                }
+
+                clicked => $toggle_x_scaling();
+
+                DrawingArea x_axis_meter {
+                    hexpand: true;
+                    vexpand: true;
+                }
+            }
+
+            $PebblesButton reset_position {
+                icon: "zoom-fit-best-symbolic";
+                tooltip_desc: _("Reset view");
+                focus-on-click: false;
+                width-request: 32;
+                height-request: 32;
+
+                layout {
+                    row: 1;
+                    column: 1;
+                }
+
+                clicked => $reset_view();
+            }
+        }
+    }
+}

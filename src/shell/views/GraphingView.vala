@@ -1,10 +1,22 @@
 namespace Pebbles {
-    [GtkTemplate (ui = "/com/github/subhadeepjasu/pebbles/ui/scientific_view.ui")]
-    public class ScientificView : View {
+    [GtkTemplate (ui = "/com/github/subhadeepjasu/pebbles/ui/graphing_view.ui")]
+    public class GraphingView : View {
         [GtkChild]
-        private unowned ScientificDisplay display;
-
-        // Buttons
+        private unowned Gtk.Stack graphing_stack;
+        [GtkChild]
+        private unowned Adw.NavigationSplitView graph_nav_split_view;
+        [GtkChild]
+        private unowned Gtk.Box equation_panel;
+        [GtkChild]
+        private unowned Gtk.Overlay graphing_panel;
+        [GtkChild]
+        private unowned EquationDisplay display;
+        [GtkChild]
+        private unowned GraphViewport viewport;
+        [GtkChild]
+        private unowned Gtk.Box variables_panel;
+        [GtkChild]
+        private unowned Pebbles.Button variable_button;
         [GtkChild]
         private unowned Gtk.ToggleButton shift_button;
         [GtkChild]
@@ -28,65 +40,134 @@ namespace Pebbles {
         [GtkChild]
         private unowned Button tanh_button;
         [GtkChild]
-        private unowned Button perm_comb_button;
+        private unowned Pebbles.Button var_a_button;
         [GtkChild]
-        private unowned Button fact_button;
+        private unowned Pebbles.Button var_m_button;
         [GtkChild]
-        private unowned Button constant_button;
+        private unowned Gtk.SpinButton a_spinbutton;
         [GtkChild]
-        private unowned Button last_answer_button_p;
+        private unowned Gtk.SpinButton b_spinbutton;
         [GtkChild]
-        private unowned Button last_answer_button;
+        private unowned Gtk.SpinButton m_spinbutton;
         [GtkChild]
-        private unowned Button memory_plus_button;
-        [GtkChild]
-        private unowned Button memory_minus_button;
-        [GtkChild]
-        private unowned Button memory_recall_button;
-        [GtkChild]
-        private unowned Button memory_clear_button;
-        [GtkChild]
-        private unowned Button result_button;
-
-        private bool _collapsed;
-        public bool collapsed {
-            get {
-                return _collapsed;
-            }
-
-            set construct {
-                _collapsed = value;
-            }
-        }
+        private unowned Gtk.SpinButton c_spinbutton;
 
         protected string constant_label { get; private set; default = "C"; }
         protected string constant_desc { get; private set; default = ""; }
+        protected Gtk.Adjustment var_a_adjustment { get; set; }
+        protected Gtk.Adjustment var_b_adjustment { get; set; }
+        protected Gtk.Adjustment var_c_adjustment { get; set; }
+        protected Gtk.Adjustment var_m_adjustment { get; set; }
 
-        [GtkChild]
-        private unowned Adw.NavigationSplitView sci_nav_split_view;
+        public bool collapsed { get; set; }
+        private bool variable_panel_showing = false;
 
-        public signal void on_evaluate (string input, int memory_op = 0);
-        public signal string on_memory_recall (bool global);
-        public signal void on_memory_clear (bool global);
+        public signal void panel_changed (bool showing_graphs);
+        public signal string on_memory_recall ();
 
         construct {
-            display.on_input.connect (evaluate);
             load_constant_button ();
             Settings.get_default ().changed.connect ((key) => {
                 if (key == "constant-key-value1" || key == "constant-key-value2") {
                     load_constant_button ();
                 }
             });
+
+            var_a_adjustment = new Gtk.Adjustment (0, -double.MAX, double.MAX, 0.01, 0.1, 0);
+            var_b_adjustment = new Gtk.Adjustment (0, -double.MAX, double.MAX, 0.01, 0.1, 0);
+            var_c_adjustment = new Gtk.Adjustment (0, -double.MAX, double.MAX, 0.01, 0.1, 0);
+            var_m_adjustment = new Gtk.Adjustment (0, -double.MAX, double.MAX, 0.01, 0.1, 0);
+        }
+
+        public void render_graph (Gdk.Pixbuf? pixbuf, bool valid) {
+            viewport.show_graph (pixbuf, valid);
+        }
+
+        public void send_shift_modifier (bool shifted) {
+            shift_button.active = shifted;
+            on_shift ();
         }
 
         [GtkCallback]
         protected void on_expand_fx () {
-            sci_nav_split_view.show_content= true;
+            graph_nav_split_view.show_content= true;
         }
 
         [GtkCallback]
         protected void on_collapse_fx () {
-            sci_nav_split_view.show_content = false;
+            graph_nav_split_view.show_content = false;
+        }
+
+        [GtkCallback]
+        public void change_mode_handler (bool radial_mode) {
+            if (radial_mode) {
+                variable_button.label_text = "θ";
+                variable_button.tooltip_desc = "Variable θ";
+            } else {
+                variable_button.label_text = "<i>X</i>";
+                variable_button.tooltip_desc = "Variable x";
+            }
+        }
+
+        [GtkCallback]
+        public void show_graph_panel () {
+            if (graphing_stack.visible_child != graphing_panel) {
+                graphing_stack.visible_child = graphing_panel;
+                panel_changed (true);
+                Idle.add (() => {
+                    if (!graphing_stack.transition_running) {
+                        viewport.render (display.equations);
+                        return false;
+                    }
+
+                    return true;
+                });
+            }
+        }
+
+        [GtkCallback]
+        public void show_equation_panel () {
+            if (graphing_stack.visible_child != equation_panel) {
+                graphing_stack.visible_child = equation_panel;
+                panel_changed (false);
+            }
+        }
+
+        [GtkCallback]
+        protected void add_equation () {
+            display.add_equation ();
+        }
+
+        [GtkCallback]
+        protected void toggle_variable_panel (Gtk.Widget widget) {
+            variable_panel_showing = ((Gtk.ToggleButton) widget).active;
+            if (variable_panel_showing) {
+                variables_panel.add_css_class ("show");
+                variables_panel.can_target = true;
+            } else {
+                variables_panel.remove_css_class ("show");
+                variables_panel.can_target = false;
+            }
+        }
+
+        [GtkCallback]
+        protected void on_all_clear () {
+            display.all_clear ();
+        }
+
+        [GtkCallback]
+        protected void on_backspace () {
+            display.backspace ();
+        }
+
+        [GtkCallback]
+        protected void on_click_button (Gtk.Button btn) {
+            display.write (btn.name);
+        }
+
+        [GtkCallback]
+        protected void on_click_function (Gtk.Button btn) {
+            display.write (shift_button.active ? btn.name.up () : btn.name);
         }
 
         [GtkCallback]
@@ -113,58 +194,12 @@ namespace Pebbles {
             log_mod_button.tooltip_desc = shift_button.active ? _("Log Base x") : _("Modulus");
             log_cont_base_button.label_text = shift_button.active ? "ln x" : "log x";
             log_cont_base_button.tooltip_desc = shift_button.active ? _("Natural Logarithm") : _("Log Base 10");
-            perm_comb_button.label_text = shift_button.active
-            ? "<sup>n</sup>C<sub>r</sub>" : "<sup>n</sup>P<sub>r</sub>";
-            perm_comb_button.tooltip_desc = shift_button.active ? _("Combinations") : _("Permutations");
-            memory_plus_button.label_text = shift_button.active ? "GM+" : "M+";
-            memory_plus_button.tooltip_desc = shift_button.active
-            ? _("Add it to the value in Global Memory") : _("Add it to the value in Memory");
-            memory_minus_button.label_text = shift_button.active ? "GM−" : "M−";
-            memory_minus_button.tooltip_desc = shift_button.active
-            ? _("Subtract it from the value in Global Memory")
-            : _("Subtract it from the value in Memory");
-            memory_recall_button.label_text = shift_button.active ? "GMR" : "MR";
-            memory_recall_button.tooltip_desc = shift_button.active
-            ? _("Recall value from Global Memory") : _("Recall value from Memory");
-            memory_clear_button.label_text = shift_button.active ? "GMC" : "MC";
-            memory_clear_button.tooltip_desc = shift_button.active ? _("Global Memory Clear") : _("Memory Clear");
-            last_answer_button.label_text = shift_button.active ? "GAns" : "Ans";
-            last_answer_button.tooltip_desc = shift_button.active
-            ? _("Insert global last answer") : _("Insert last answer");
-            last_answer_button_p.label_text = shift_button.active ? "GAns" : "Ans";
-            last_answer_button_p.tooltip_desc = shift_button.active
-            ? _("Insert global last answer") : _("Insert last answer");
+            var_a_button.label_text = shift_button.active ? "<i>b</i>" : "<i>a</i>";
+            var_a_button.tooltip_desc = shift_button.active ? _("Variable b") : _("Variable a");
+            var_m_button.label_text = shift_button.active ? "<i>c</i>" : "<i>m</i>";
+            var_m_button.tooltip_desc = shift_button.active ? _("Variable c") : _("Variable m");
 
             load_constant_button ();
-        }
-
-        public void evaluate (string text) {
-            on_evaluate (text);
-        }
-
-        public void show_result (string result) {
-            display.show_result (result);
-        }
-
-        public void set_memory_present (bool present) {
-            display.set_memory_present (present);
-        }
-
-        public void set_global_memory_present (bool present) {
-            display.set_global_memory_present (present);
-        }
-
-        public void send_shift_modifier (bool shifted) {
-            shift_button.active = shifted;
-            on_shift ();
-        }
-
-        public void update_history () {
-            //  display.update_history ();
-        }
-
-        public void show_history (HistoryModel[] history) {
-            display.show_history (history);
         }
 
         private void load_constant_button () {
@@ -215,19 +250,38 @@ namespace Pebbles {
             }
         }
 
-        [GtkCallback]
-        public void on_all_clear () {
-            display.all_clear ();
+        public void set_global_memory_present (bool present) {
+            display.set_global_memory_present (present);
         }
 
         [GtkCallback]
-        public void on_backspace () {
-            display.backspace ();
+        protected void on_click_var_button_a () {
+            display.write (shift_button.active ? "b" : "a", true);
         }
 
         [GtkCallback]
-        public void on_click_button (Gtk.Button btn) {
-            display.write (btn.name);
+        protected void on_click_var_button_m () {
+            display.write (shift_button.active ? "c" : "m", true);
+        }
+
+        [GtkCallback]
+        protected void on_update_var_a () {
+            viewport.var_a = a_spinbutton.value;
+        }
+
+        [GtkCallback]
+        protected void on_update_var_b () {
+            viewport.var_b = b_spinbutton.value;
+        }
+
+        [GtkCallback]
+        protected void on_update_var_m () {
+            viewport.var_m = m_spinbutton.value;
+        }
+
+        [GtkCallback]
+        protected void on_update_var_c () {
+            viewport.var_c = c_spinbutton.value;
         }
 
         [GtkCallback]
@@ -251,11 +305,6 @@ namespace Pebbles {
         }
 
         [GtkCallback]
-        protected void on_click_function (Gtk.Button btn) {
-            display.write (shift_button.active ? btn.name.up () : btn.name);
-        }
-
-        [GtkCallback]
         protected void on_click_fraction_point () {
             display.write (_("."));
         }
@@ -266,40 +315,24 @@ namespace Pebbles {
         }
 
         [GtkCallback]
-        public void on_click_last_ans () {
-            display.write (shift_button.active ? "Gans" : "ans");
+        protected void on_click_last_ans () {
+            display.write ("Gans");
         }
 
         [GtkCallback]
-        public void on_click_memory_add () {
-            on_evaluate (
-                display.main_entry.text,
-                shift_button.active ? MemAppendOp.ADD_GLOBAL : MemAppendOp.ADD
-            );
+        protected void navigate_up () {
+            display.navigate (true);
         }
 
         [GtkCallback]
-        public void on_click_memory_subtract () {
-            on_evaluate (
-                display.main_entry.text,
-                shift_button.active ? MemAppendOp.SUBTRACT_GLOBAL : MemAppendOp.SUBTRACT
-            );
+        protected void navigate_down () {
+            display.navigate (false);
         }
 
         [GtkCallback]
         public void on_click_memory_recall () {
-            var text = on_memory_recall (shift_button.active);
+            var text = on_memory_recall ();
             display.write (text);
-        }
-
-        [GtkCallback]
-        public void on_click_memory_clear () {
-            on_memory_clear (shift_button.active);
-        }
-
-        [GtkCallback]
-        public void on_click_eval () {
-            display.input ();
         }
     }
 }

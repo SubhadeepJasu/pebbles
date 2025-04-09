@@ -165,4 +165,23 @@ namespace Pebbles {
         BAR = 2,
         SCATTER = 3
     }
+
+    public const string[] PALETTE = {
+        "#272863", "#3689e6", "#c6262e", "#3a9104", "#d48e15", "#f37329",
+        "#bc245d", "#7239b3", "#b6802e", "#57392d", "#485a6c", "#333333"
+    };
+
+    public const string[] PALETTE_DARK = {
+        "#FFFFFF", "#3689e6", "#c6262e", "#3a9104", "#d48e15", "#f37329",
+        "#bc245d", "#7239b3", "#b6802e", "#57392d", "#485a6c", "#333333"
+    };
+
+    public static string[] get_palette (bool dark = false) {
+        return dark ? PALETTE_DARK : PALETTE;
+    }
+
+    public enum GraphAxisScaling {
+        LINEAR,
+        LOGARITHMIC
+    }
 }
