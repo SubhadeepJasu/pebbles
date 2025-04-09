@@ -83,6 +83,11 @@ namespace Pebbles {
             viewport.show_graph (pixbuf, valid);
         }
 
+        public void send_shift_modifier (bool shifted) {
+            shift_button.active = shifted;
+            on_shift ();
+        }
+
         [GtkCallback]
         protected void on_expand_fx () {
             graph_nav_split_view.show_content= true;
@@ -134,8 +139,8 @@ namespace Pebbles {
         }
 
         [GtkCallback]
-        protected void toggle_variable_panel () {
-            variable_panel_showing = !variable_panel_showing;
+        protected void toggle_variable_panel (Gtk.Widget widget) {
+            variable_panel_showing = ((Gtk.ToggleButton) widget).active;
             if (variable_panel_showing) {
                 variables_panel.add_css_class ("show");
                 variables_panel.can_target = true;
@@ -243,6 +248,10 @@ namespace Pebbles {
                     constant_desc = _("Euler's constant (exponential)");
                     break;
             }
+        }
+
+        public void set_global_memory_present (bool present) {
+            display.set_global_memory_present (present);
         }
 
         [GtkCallback]

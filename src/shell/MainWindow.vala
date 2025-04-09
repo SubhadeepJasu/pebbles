@@ -429,6 +429,7 @@ namespace Pebbles {
                 default:
                     scientific_view.set_global_memory_present (present);
                     statistics_view.set_global_memory_present (present);
+                    graphing_view.set_global_memory_present (present);
                     break;
             }
         }
@@ -475,6 +476,7 @@ namespace Pebbles {
         private void set_shift_on (bool on) {
             scientific_view.send_shift_modifier (on);
             statistics_view.send_shift_modifier (on);
+            graphing_view.send_shift_modifier (on);
         }
 
         [GtkCallback]

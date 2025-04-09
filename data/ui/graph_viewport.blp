@@ -68,7 +68,7 @@ template $PebblesGraphViewport: Box {
 
             $PebblesButton reset_position {
                 icon: "zoom-fit-best-symbolic";
-                tooltip_desc: _("Fit plot to screen");
+                tooltip_desc: _("Reset view");
                 focus-on-click: false;
                 width-request: 32;
                 height-request: 32;
@@ -77,6 +77,8 @@ template $PebblesGraphViewport: Box {
                     row: 1;
                     column: 1;
                 }
+
+                clicked => $reset_view();
             }
         }
     }

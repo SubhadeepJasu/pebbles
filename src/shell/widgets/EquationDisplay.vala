@@ -163,5 +163,9 @@ namespace Pebbles {
                     break;
             }
         }
+
+        public void set_global_memory_present (bool present) {
+            global_memory_label.opacity = present ? 1 : 0.2;
+        }
     }
 }

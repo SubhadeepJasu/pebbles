@@ -982,8 +982,8 @@ template $PebblesGraphingView: $PebblesView {
                         clicked => $show_equation_panel();
                     }
 
-                    $PebblesButton {
-                        label_text: _("Variables");
+                    ToggleButton {
+                        label: _("Variables");
                         focus-on-click: false;
 
                         clicked => $toggle_variable_panel();

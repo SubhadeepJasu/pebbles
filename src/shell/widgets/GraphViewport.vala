@@ -188,7 +188,9 @@ namespace Pebbles {
             });
             add_controller (zoom_gesture);
 
-            main_scroll_gesture = new Gtk.EventControllerScroll (Gtk.EventControllerScrollFlags.BOTH_AXES);
+            main_scroll_gesture = new Gtk.EventControllerScroll (Gtk.EventControllerScrollFlags.BOTH_AXES) {
+                propagation_phase = Gtk.PropagationPhase.CAPTURE
+            };
             main_scroll_gesture.scroll.connect ((dx, dy) => {
                 var modifier = main_scroll_gesture.get_current_event_state ();
                 if ((modifier & Gdk.ModifierType.CONTROL_MASK) != 0) {
@@ -215,6 +217,8 @@ namespace Pebbles {
                 if (new_zoom_x > 0) {
                     zoom_x = new_zoom_x;
                 }
+
+
             });
 
             y_scroll_gesture.scroll.connect ((dx, dy) => {
@@ -453,6 +457,14 @@ namespace Pebbles {
             }
 
             queue_render = true;
+        }
+
+        [GtkCallback]
+        protected void reset_view () {
+            zoom_x = 100;
+            zoom_y = 100;
+            pan_x = 0;
+            pan_y = 0;
         }
     }
 }

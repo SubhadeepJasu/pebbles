@@ -100,7 +100,7 @@ class GraphingCalculator():
     def _plot(self):
         try:
             with self.plot_lock:
-                steps = [6, 5, 4, 3, 2, 1]
+                steps = [6, 5, 4, 3, 1]
                 palette = Pebbles.get_palette(self.plot_params['darkMode'])
                 dpi = self.plot_params['dpi']
                 width = self.plot_params['width']
@@ -174,7 +174,7 @@ class GraphingCalculator():
                 direction='in',
                 which='major',
                 labelsize=6,
-                pad=-10,
+                pad=-12,
                 colors='#777'
             )
         else:
