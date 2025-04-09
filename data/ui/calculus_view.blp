@@ -1,0 +1,18 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: 2024 Subhadeep Jasu <subhadeep107@proton.me>
+using Gtk 4.0;
+using Adw 1;
+
+template $PebblesCalculusView: $PebblesView {
+    $PebblesCalculusDisplay display {
+        // context: bind template.context;
+
+        layout {
+            column: 0;
+            row: 0;
+        }
+
+        vexpand: true;
+        // shift_on: bind shift_button.active;
+    }
+}

@@ -68,10 +68,12 @@ pebbles_lib = shared_library('pebbles',
     'shell/widgets/EquationDisplay.vala',
     'shell/widgets/GraphViewport.vala',
     'shell/widgets/EquationEntry.vala',
+    'shell/widgets/CalculusDisplay.vala',
     'shell/views/View.vala',
     'shell/views/ScientificView.vala',
     'shell/views/StatisticsView.vala',
-    'shell/views/GraphingView.vala'
+    'shell/views/GraphingView.vala',
+    'shell/views/CalculusView.vala'
   ),
              vala_gir: 'Pebbles-3.gir',
          dependencies: dependencies + config_dep,

@@ -18,6 +18,7 @@ namespace Pebbles {
         [GtkChild]
         private unowned Button angle_mode;
         private Button graph_angle_mode;
+        private Button calculus_angle_mode;
         [GtkChild]
         private unowned Gtk.Box menu_box;
         [GtkChild]
@@ -47,6 +48,8 @@ namespace Pebbles {
         private unowned Gtk.Stack header_stack;
         [GtkChild]
         private unowned Gtk.Box scientific_header_box;
+        [GtkChild]
+        private unowned Gtk.Box calculus_header_box;
         [GtkChild]
         private unowned Gtk.Box statistics_header_box;
         [GtkChild]
@@ -170,6 +173,36 @@ namespace Pebbles {
                     graph_mode_button.active = showing_graphs;
                 });
             }
+
+            if (calculus_header_box.get_first_child () == null) {
+                calculus_angle_mode = new Pebbles.Button () {
+                    label_text = "DEG",
+                    tooltip_desc = _("Switch angle mode"),
+                    accel_markup = "F8",
+                    width_request = 45,
+                    focus_on_click = false,
+                    can_focus = false
+                };
+                calculus_header_box.append (calculus_angle_mode);
+
+                calculus_angle_mode.clicked.connect (() => {
+                    on_change_mode ();
+                });
+
+                var calculus_mode_button = new Granite.ModeSwitch.from_icon_name (
+                    "derivative-mode-symbolic",
+                    "integral-mode-symbolic"
+                );
+                calculus_header_box.append (calculus_mode_button);
+
+                calculus_mode_button.notify["active"].connect (() => {
+                    //  if (calculus_mode_button.active) {
+                    //      calculus_view.show_calculus_panel ();
+                    //  } else {
+                    //      calculus_view.show_equation_panel ();
+                    //  }
+                });
+            }
         }
 
         private void setup_actions () {
@@ -193,6 +226,12 @@ namespace Pebbles {
                 show_view (Context.SCIENTIFIC, scientific_header_box);
             });
             add_action (enable_scientific_mode_action);
+
+            var enable_calculus_mode_action = new SimpleAction ("open_calculus_mode", null);
+            enable_calculus_mode_action.activate.connect (() => {
+                show_view (Context.CALCULUS, calculus_header_box);
+            });
+            add_action (enable_calculus_mode_action);
 
             var enable_statistics_mode_action = new SimpleAction ("open_statistics_mode", null);
             enable_statistics_mode_action.activate.connect (() => {

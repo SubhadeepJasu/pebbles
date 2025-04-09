@@ -17,6 +17,8 @@
     <file compressed="true" preprocess="xml-stripblanks">ui/graphing_view.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/equation_display.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/graph_viewport.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/calculus_view.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/calculus_display.ui</file>
   </gresource>
 
   <gresource prefix="/com/github/subhadeepjasu/pebbles/icons">
@@ -36,7 +38,9 @@
     <file alias="scalable/emblems/power-conv-symbolic.svg">icons/scalable/emblems/power-conv-symbolic.svg</file>
     <file alias="scalable/emblems/temp-conv-symbolic.svg">icons/scalable/emblems/temp-conv-symbolic.svg</file>
     <file alias="scalable/emblems/currency-conv-symbolic.svg">icons/scalable/emblems/currency-conv-symbolic.svg</file>
-     <file alias="scalable/emblems/linear-eq-symbolic.svg">icons/scalable/emblems/linear-eq-symbolic.svg</file>
-      <file alias="scalable/emblems/radial-eq-symbolic.svg">icons/scalable/emblems/radial-eq-symbolic.svg</file>
+    <file alias="scalable/emblems/linear-eq-symbolic.svg">icons/scalable/emblems/linear-eq-symbolic.svg</file>
+    <file alias="scalable/emblems/radial-eq-symbolic.svg">icons/scalable/emblems/radial-eq-symbolic.svg</file>
+    <file alias="scalable/emblems/integral-mode-symbolic.svg">icons/scalable/emblems/integral-mode-symbolic.svg</file>
+    <file alias="scalable/emblems/derivative-mode-symbolic.svg">icons/scalable/emblems/derivative-mode-symbolic.svg</file>
   </gresource>
 </gresources>
