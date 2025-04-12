@@ -42,5 +42,8 @@
     <file alias="scalable/emblems/radial-eq-symbolic.svg">icons/scalable/emblems/radial-eq-symbolic.svg</file>
     <file alias="scalable/emblems/integral-mode-symbolic.svg">icons/scalable/emblems/integral-mode-symbolic.svg</file>
     <file alias="scalable/emblems/derivative-mode-symbolic.svg">icons/scalable/emblems/derivative-mode-symbolic.svg</file>
+    <file alias="scalable/emblems/derivative-limit-symbolic.svg">icons/scalable/emblems/derivative-limit-symbolic.svg</file>
+    <file alias="scalable/emblems/integral-limit-upper-symbolic.svg">icons/scalable/emblems/integral-limit-upper-symbolic.svg</file>
+    <file alias="scalable/emblems/integral-limit-lower-symbolic.svg">icons/scalable/emblems/integral-limit-lower-symbolic.svg</file>
   </gresource>
 </gresources>

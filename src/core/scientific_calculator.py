@@ -221,9 +221,15 @@ class ScientificCalculator():
             case '*':
                 result = a * b
             case '/':
-                result = a / b
+                try:
+                    result = a / b
+                except ZeroDivisionError as ex:
+                    if self.zero_limit:
+                        result = math.inf
+                    else:
+                        raise ex
             case 'q':
-                result = b ** (1 / a)
+                result = self._op_inv_power(a, b)
             case '^':
                 result = a ** b
             case 'm':
@@ -309,6 +315,35 @@ class ScientificCalculator():
             return a + complex(b, 0)
 
         return a + b
+
+    def _op_inv_power(self, a, b):
+        try:
+            if a == 0:
+                result = 0
+                if self.zero_limit:
+                    if b > 1:
+                        result = math.inf
+                    elif 0 < b < 1:
+                        result = 0.0
+                    elif b == 1:
+                        result = 1.0
+                    elif b < 0:
+                        result = cmath.exp(cmath.log(b) / 1e-12)
+                    else:
+                        return float('nan')
+                else:
+                    raise ZeroDivisionError("Division by zero in 1/a")
+
+                return result
+
+            return b ** (1 / a)
+
+        except ValueError:
+            try:
+                # Fallback to complex if all else fail
+                return cmath.exp(cmath.log(b) / a)
+            except ZeroDivisionError:
+                return cmath.inf
 
 
     def _op_subtract(self, a: float|complex, b: float|complex):

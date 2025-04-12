@@ -31,7 +31,8 @@ python.install_sources(
     'core/memory.py',
     'core/scientific_calculator.py',
     'core/statistics_calculator.py',
-    'core/graphing_calculator.py'
+    'core/graphing_calculator.py',
+    'core/calculus_calculator.py'
   ),
   subdir: 'pebbles/core',
 )

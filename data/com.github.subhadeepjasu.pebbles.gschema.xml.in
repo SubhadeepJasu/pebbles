@@ -89,10 +89,16 @@
 			<description>Number of decimal places after radix point.</description>
 		</key>
 		<key name="integration-resolution" type="u">
-			<range min="500" max="100000"/>
-			<default>10000</default>
-			<summary>Accuracy of integratal caculus evaluation</summary>
+			<range min="200" max="10000"/>
+			<default>500</default>
+			<summary>Accuracy of integral caculus evaluation</summary>
 			<description>Number of cycles of Simpson's 3/8 evaluation</description>
+		</key>
+		<key name="derivative-accuracy" type="u">
+			<range min="1" max="8"/>
+			<default>5</default>
+			<summary>Accuracy of differential caculus evaluation</summary>
+			<description>Value of h in 5 point stencil for first derivative</description>
 		</key>
 		<key name="forex-api-key" type="s">
 			<default>""</default>

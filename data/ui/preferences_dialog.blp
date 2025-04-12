@@ -18,18 +18,9 @@ template $PebblesPreferencesDialog: Adw.PreferencesDialog {
                 notify::active => $load_session_notify_active_cb();
             }
 
-            Adw.SwitchRow {
-                title: _("Result Flow");
-                subtitle: _("Whether result button should replace input with result");
-                focus-on-click: false;
-                focusable: false;
-                active: bind template.settings as <$PebblesSettings>.result_flow;
-                notify::active => $result_flow_notify_active_cb();
-            }
-
             Adw.ActionRow decimal_places {
                 title: _("Decimal Places");
-                subtitle: _("Number of decimal places afte radix symbol");
+                subtitle: _("Number of decimal places after radix symbol");
                 focus-on-click: false;
                 focusable: false;
 
@@ -78,6 +69,20 @@ template $PebblesPreferencesDialog: Adw.PreferencesDialog {
         }
 
         Adw.PreferencesGroup {
+            title: _("Scientific");
+            styles ["preferences-group"]
+
+            Adw.SwitchRow {
+                title: _("Result Flow");
+                subtitle: _("Whether result button should replace input with result");
+                focus-on-click: false;
+                focusable: false;
+                active: bind template.settings as <$PebblesSettings>.result_flow;
+                notify::active => $result_flow_notify_active_cb();
+            }
+        }
+
+        Adw.PreferencesGroup {
             title: _("Calculus");
             styles ["preferences-group"]
 
@@ -88,6 +93,24 @@ template $PebblesPreferencesDialog: Adw.PreferencesDialog {
                 focusable: false;
 
                 Scale integration_resolution_scale {
+                    width-request: 200;
+                    adjustment: Adjustment {
+                        lower: 500;
+                        upper: 100000;
+                        step-increment: 100;
+                    };
+                    focus-on-click: false;
+                    focusable: false;
+                }
+            }
+
+            Adw.ActionRow {
+                title: _("Derivative Accuracy");
+                subtitle: _("Precision for determining the derivative at the limit.");
+                focus-on-click: false;
+                focusable: false;
+
+                Scale derivative_accuracy_scale {
                     width-request: 200;
                     adjustment: Adjustment {
                         lower: 500;

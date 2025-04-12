@@ -43,6 +43,8 @@ namespace Pebbles {
         private unowned StatisticsView statistics_view;
         [GtkChild]
         private unowned GraphingView graphing_view;
+        [GtkChild]
+        private unowned CalculusView calculus_view;
 
         [GtkChild]
         private unowned Gtk.Stack header_stack;
@@ -59,6 +61,7 @@ namespace Pebbles {
 
         // Constant Bindings
         public string? context_scientific { get; default = Context.SCIENTIFIC; }
+        public string? context_calculus { get; default = Context.CALCULUS; }
         public string? context_statistics { get; default = Context.STATISTICS; }
         public string? context_graphing { get; default = Context.GRAPHING; }
 
@@ -196,11 +199,7 @@ namespace Pebbles {
                 calculus_header_box.append (calculus_mode_button);
 
                 calculus_mode_button.notify["active"].connect (() => {
-                    //  if (calculus_mode_button.active) {
-                    //      calculus_view.show_calculus_panel ();
-                    //  } else {
-                    //      calculus_view.show_equation_panel ();
-                    //  }
+                    calculus_view.integral_mode = calculus_mode_button.active;
                 });
             }
         }
@@ -290,6 +289,30 @@ namespace Pebbles {
                 string json = gen.to_data (out length);
 
                 background_tasks_append ();
+                on_evaluate (json);
+            });
+            calculus_view.on_evaluate.connect ((input, integral_mode, lim_a, lim_b, memory_op) => {
+                var gen = new Json.Generator ();
+                var root = new Json.Node (Json.NodeType.OBJECT);
+                var object = new Json.Object ();
+                root.set_object (object);
+                gen.set_root (root);
+
+                var __settings = Pebbles.Settings.get_default ();
+
+                object.set_string_member ("context", Context.CALCULUS);
+                object.set_string_member ("input", input);
+                object.set_boolean_member ("integralMode", integral_mode);
+                object.set_double_member ("limitA", lim_a);
+                object.set_double_member ("limitB", lim_b);
+                object.set_int_member ("angleMode", (int) __settings.global_angle_unit);
+                object.set_int_member ("memoryOp", memory_op);
+                object.set_int_member ("integralAccuracy", __settings.integration_resolution);
+                object.set_int_member ("derivativeAccuracy", __settings.derivative_accuracy);
+
+                size_t length;
+                background_tasks_append ();
+                string json = gen.to_data (out length);
                 on_evaluate (json);
             });
         }
@@ -385,14 +408,17 @@ namespace Pebbles {
                 case DEG:
                     angle_mode.label_text = "DEG";
                     graph_angle_mode.label_text = "DEG";
+                    calculus_angle_mode.label_text = "DEG";
                     break;
                 case RAD:
                     angle_mode.label_text = "RAD";
                     graph_angle_mode.label_text = "RAD";
+                    calculus_angle_mode.label_text = "RAD";
                     break;
                 case GRAD:
                     angle_mode.label_text = "GRA";
                     graph_angle_mode.label_text = "GRA";
+                    calculus_angle_mode.label_text= "GRA";
                     break;
             }
         }
@@ -410,6 +436,10 @@ namespace Pebbles {
                         case Pebbles.Context.SCIENTIFIC:
                             var result = root_object.get_string_member ("result");
                             scientific_view.show_result (result);
+                            break;
+                        case Pebbles.Context.CALCULUS:
+                            var result = root_object.get_string_member ("result");
+                            calculus_view.show_result (result);
                             break;
                         case Pebbles.Context.STATISTICS:
                             if (root_object.has_member ("shape")) {
@@ -481,6 +511,9 @@ namespace Pebbles {
                 case Context.STATISTICS:
                     statistics_view.show_history (_history);
                     break;
+                case Context.CALCULUS:
+                    calculus_view.show_history (_history);
+                    break;
             }
         }
 
@@ -494,14 +527,17 @@ namespace Pebbles {
                         case RAD:
                             angle_mode.label_text = "RAD";
                             graph_angle_mode.label_text = "RAD";
+                            calculus_angle_mode.label_text = "RAD";
                             break;
                         case GRAD:
                             angle_mode.label_text = "GRA";
                             graph_angle_mode.label_text = "GRA";
+                            calculus_angle_mode.label_text = "GRA";
                             break;
                         case DEG:
                             angle_mode.label_text = "DEG";
                             graph_angle_mode.label_text = "DEG";
+                            calculus_angle_mode.label_text = "DEG";
                             break;
                     }
                     break;
@@ -516,6 +552,7 @@ namespace Pebbles {
             scientific_view.send_shift_modifier (on);
             statistics_view.send_shift_modifier (on);
             graphing_view.send_shift_modifier (on);
+            calculus_view.send_shift_modifier (on);
         }
 
         [GtkCallback]
@@ -537,16 +574,19 @@ namespace Pebbles {
                             settings.global_angle_unit = RAD;
                             angle_mode.label_text = "RAD";
                             graph_angle_mode.label_text = "RAD";
+                            calculus_angle_mode.label_text = "RAD";
                             break;
                         case RAD:
                             settings.global_angle_unit = GRAD;
                             angle_mode.label_text = "GRA";
                             graph_angle_mode.label_text = "GRA";
+                            calculus_angle_mode.label_text = "GRA";
                             break;
                         case GRAD:
                             settings.global_angle_unit = DEG;
                             angle_mode.label_text = "DEG";
                             graph_angle_mode.label_text = "DEG";
+                            calculus_angle_mode.label_text = "DEG";
                             break;
                     }
                     break;
