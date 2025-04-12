@@ -187,6 +187,15 @@ class ContextualMemory:
         """
         Push the last result in memory.
         """
+        if input_exp.strip() in ['', '0']:
+            return
+
+        try:
+            if float(input_exp.strip()) == 0.0:
+                return
+        except ValueError:
+            pass
+
         metadata_1 = metadata['metadata_1'] if 'metadata_1' in metadata else 0
         metadata_2 = metadata['metadata_2'] if 'metadata_2' in metadata else 0
         metadata_3 = metadata['metadata_3'] if 'metadata_3' in metadata else ''

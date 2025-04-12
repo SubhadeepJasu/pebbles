@@ -49,6 +49,7 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
             scientific_view.collapsed: true;
             statistics_view.collapsed: true;
             graphing_view.collapsed: true;
+            calculus_view.collapsed: true;
             split_view.collapsed: true;
             split_view.show-content: true;
             navigation_headerbar.show-back-button: true;
@@ -134,6 +135,8 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                                 halign: start;
                                             }
                                         }
+
+                                        action-name: "win.open_calculus_mode";
                                     }
 
                                     ListBoxRow {
@@ -474,6 +477,10 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                 }
                             }
 
+                            Box calculus_header_box {
+                                spacing: 8;
+                            }
+
                             Box statistics_header_box {
                                 spacing: 4;
                                 orientation: horizontal;
@@ -600,6 +607,13 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                             name: bind template.context_scientific;
                             child: $PebblesScientificView scientific_view {
                                 context: bind template.context_scientific;
+                            };
+                        }
+
+                        Adw.ViewStackPage {
+                            name: bind template.context_calculus;
+                            child: $PebblesCalculusView  calculus_view {
+                                context: bind template.context_calculus;
                             };
                         }
 

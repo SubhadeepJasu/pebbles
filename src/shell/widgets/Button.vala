@@ -99,7 +99,7 @@ namespace Pebbles {
                 });
 
                 window.on_key_up.connect ((mode, keyval) => {
-                    if (get_mapped () && is_key (keyval)) {
+                    if (get_mapped ()) {
                         show_as_pressed (false);
                     }
                 });

@@ -11,6 +11,7 @@ from pebbles.core.memory import ContextualMemory
 from pebbles.core.scientific_calculator import ScientificCalculator
 from pebbles.core.statistics_calculator import StatisticsCalculator
 from pebbles.core.graphing_calculator import GraphingCalculator
+from pebbles.core.calculus_calculator import CalculusCalculator
 from pebbles.core.tokenizer import Tokenizer
 from pebbles.core.utils import Utils
 
@@ -80,6 +81,14 @@ class PythonWindow(Pebbles.MainWindow):
                     format_func=ScientificCalculator.format,
                     context=Pebbles.Context.STATISTICS
                 ), Pebbles.Context.STATISTICS)
+        elif data_dict['context'] == Pebbles.Context.CALCULUS:
+            cal_calc = CalculusCalculator(data, self._memory)
+            result_data,result = cal_calc.evaluate()
+            self._commit_to_memory(result, Pebbles.Context.CALCULUS, data_dict['memoryOp'])
+            self.show_history(self._memory.get_views(
+                format_func=ScientificCalculator.format,
+                context=Pebbles.Context.CALCULUS
+            ), Pebbles.Context.CALCULUS)
         else:
             return
 
@@ -111,7 +120,7 @@ class PythonWindow(Pebbles.MainWindow):
 
 
     def _history_view_cb(self, _, context:str):
-        if context in [Pebbles.Context.SCIENTIFIC, Pebbles.Context.STATISTICS]:
+        if context in [Pebbles.Context.SCIENTIFIC, Pebbles.Context.STATISTICS, Pebbles.Context.CALCULUS]:
             self.show_history(self._memory.get_views(
                     format_func=ScientificCalculator.format,
                     context=context

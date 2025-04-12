@@ -17,7 +17,7 @@ from pebbles.core.utils import Utils
 
 matplotlib.use("Agg")
 
-class GraphingCalculator():
+class GraphingCalculator:
     """The graphing calculator."""
 
     LEGEND_PROPS = {

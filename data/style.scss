@@ -102,7 +102,6 @@ $LCD_FG_COLOR: #272863bb;
         border: none;
         outline: 0;
         font-size: x-large;
-        font-family: DotGothic16, Inter, sans-serif;
         text-shadow: 0 2px 1px #0002;
         caret-color: $LCD_FG_COLOR;
 
@@ -317,6 +316,10 @@ button.pressed {
 
         text {
             color: $LCD_FG_COLOR;
+        }
+
+        placeholder {
+            color: #27286366;
         }
     }
 }

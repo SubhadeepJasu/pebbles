@@ -79,6 +79,11 @@ namespace Pebbles {
             set { set_uint ("integration-resolution", value); }
         }
 
+        public uint derivative_accuracy {
+            get { return get_uint ("derivative-accuracy"); }
+            set { set_uint ("derivative-accuracy", value); }
+        }
+
         public string forex_api_key {
             owned get { return get_string ("forex-api-key"); }
             set { set_string ("forex-api-key", value); }

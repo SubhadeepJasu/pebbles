@@ -190,7 +190,7 @@ namespace Pebbles {
             cosh_button.tooltip_desc = shift_button.active ? _("Inverse Hyperbolic Cosine") : _("Hyperbolic Cosine");
             tanh_button.label_text = shift_button.active ? "tanh<sup>-1</sup>" : "tan";
             tanh_button.tooltip_desc = shift_button.active ? _("Inverse Hyperbolic Tangent") : _("Hyperbolic Tangent");
-            log_mod_button.label_text = shift_button.active ? "log<sub>x</sub>y" : "|Mod|";
+            log_mod_button.label_text = shift_button.active ? "log<sub>x</sub>y" : "mod";
             log_mod_button.tooltip_desc = shift_button.active ? _("Log Base x") : _("Modulus");
             log_cont_base_button.label_text = shift_button.active ? "ln x" : "log x";
             log_cont_base_button.tooltip_desc = shift_button.active ? _("Natural Logarithm") : _("Log Base 10");
