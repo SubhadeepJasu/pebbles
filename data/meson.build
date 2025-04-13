@@ -17,7 +17,19 @@ blueprint_files = [
   'ui/graphing_view.blp',
   'ui/calculus_view.blp',
   'ui/converter_view.blp',
-  'ui/conv_length_view.blp'
+  'ui/conv_length_view.blp',
+  'ui/conv_area_view.blp',
+#   'ui/conv_currency_view.blp',
+  'ui/conv_data_view.blp',
+  'ui/conv_energy_view.blp',
+  'ui/conv_mass_view.blp',
+  'ui/conv_power_view.blp',
+  'ui/conv_pressure_view.blp',
+  'ui/conv_speed_view.blp',
+  'ui/conv_temp_view.blp',
+  'ui/conv_time_view.blp',
+  'ui/conv_volume_view.blp',
+  'ui/conv_angle_view.blp'
 ]
 
 blueprint_compiler = find_program('blueprint-compiler')

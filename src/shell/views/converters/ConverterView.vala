@@ -15,6 +15,7 @@ namespace Pebbles {
         }
 
         public string title { get; protected set; }
+        public string icon_name { get; protected set; }
         public Gtk.StringList unit_options { get; protected set; }
         public double[] conversion_factors;
 
@@ -226,6 +227,7 @@ namespace Pebbles {
             allow_change = true;
             focused_entry = from_entry;
             focused_entry.grab_focus_without_selecting ();
+            focused_entry.set_position ((int) focused_entry.text_length);
             init= true;
         }
         protected void save_state (Pebbles.Settings settings) {

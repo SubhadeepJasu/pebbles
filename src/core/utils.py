@@ -14,7 +14,7 @@ class Utils():
     float_accuracy: int = 2
 
     @staticmethod
-    def format_float(x: float, scientific_threshold=1e5) -> str:
+    def format_float(x: float, scientific_threshold=1e7) -> str:
         """
         Format a given floating point number into a string given
         that float_accuracy and decimal_point_char was set.

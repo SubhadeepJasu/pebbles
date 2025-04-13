@@ -21,6 +21,18 @@
     <file compressed="true" preprocess="xml-stripblanks">ui/calculus_display.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/converter_view.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/conv_length_view.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/conv_area_view.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/conv_angle_view.ui</file>
+    <!-- <file compressed="true" preprocess="xml-stripblanks">ui/conv_currency_view.ui</file> -->
+    <file compressed="true" preprocess="xml-stripblanks">ui/conv_data_view.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/conv_energy_view.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/conv_mass_view.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/conv_power_view.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/conv_pressure_view.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/conv_speed_view.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/conv_temp_view.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/conv_time_view.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/conv_volume_view.ui</file>
   </gresource>
 
   <gresource prefix="/com/github/subhadeepjasu/pebbles/icons">

@@ -15,6 +15,17 @@ namespace Pebbles {
         public const string DATE = "date";
         public const string CONV_LEN = "conv.length";
         public const string CONV_AREA = "conv.area";
+        public const string CONV_VOL = "conv.volume";
+        public const string CONV_TIME = "conv.time";
+        public const string CONV_ANGLE = "conv.angle";
+        public const string CONV_SPEED = "conv.speed";
+        public const string CONV_MASS = "conv.mass";
+        public const string CONV_PRES = "conv.pressure";
+        public const string CONV_ENERGY = "conv.energy";
+        public const string CONV_POWER = "conv.power";
+        public const string CONV_TEMP = "conv.temperature";
+        public const string CONV_DATA = "conv.data";
+        public const string CONV_CURR = "conv.currency";
     }
 
     /**

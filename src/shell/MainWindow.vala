@@ -67,6 +67,18 @@ namespace Pebbles {
         public string? context_statistics { get; default = Context.STATISTICS; }
         public string? context_graphing { get; default = Context.GRAPHING; }
         public string? context_conv_length { get; default = Context.CONV_LEN; }
+        public string? context_conv_area { get; default = Context.CONV_AREA; }
+        public string? context_conv_angle { get; default = Context.CONV_ANGLE; }
+        public string? context_conv_data { get; default = Context.CONV_DATA; }
+        public string? context_conv_energy { get; default = Context.CONV_ENERGY; }
+        public string? context_conv_mass { get; default = Context.CONV_MASS; }
+        public string? context_conv_power { get; default = Context.CONV_POWER; }
+        public string? context_conv_pressure { get; default = Context.CONV_PRES; }
+        public string? context_conv_speed { get; default = Context.CONV_SPEED; }
+        public string? context_conv_temp { get; default = Context.CONV_TEMP; }
+        public string? context_conv_time { get; default = Context.CONV_TIME; }
+        public string? context_conv_volume { get; default = Context.CONV_VOL; }
+        public string? context_conv_currency { get; default = Context.CONV_CURR; }
 
         // Instance variables
         private Gtk.EventControllerKey key_event_controller;
@@ -253,6 +265,72 @@ namespace Pebbles {
                 show_view (Context.CONV_LEN, null_header_box);
             });
             add_action (enable_conv_length_mode_action);
+
+            var enable_conv_area_mode_action = new SimpleAction ("open_conv_area_mode", null);
+            enable_conv_area_mode_action.activate.connect (() => {
+                show_view (Context.CONV_AREA, null_header_box);
+            });
+            add_action (enable_conv_area_mode_action);
+
+            var enable_conv_angle_mode_action = new SimpleAction ("open_conv_angle_mode", null);
+            enable_conv_angle_mode_action.activate.connect (() => {
+                show_view (Context.CONV_ANGLE, null_header_box);
+            });
+            add_action (enable_conv_angle_mode_action);
+
+            var enable_conv_data_mode_action = new SimpleAction ("open_conv_data_mode", null);
+            enable_conv_data_mode_action.activate.connect (() => {
+                show_view (Context.CONV_DATA, null_header_box);
+            });
+            add_action (enable_conv_data_mode_action);
+
+            var enable_conv_energy_mode_action = new SimpleAction ("open_conv_energy_mode", null);
+            enable_conv_energy_mode_action.activate.connect (() => {
+                show_view (Context.CONV_ENERGY, null_header_box);
+            });
+            add_action (enable_conv_energy_mode_action);
+
+            var enable_conv_mass_mode_action = new SimpleAction ("open_conv_mass_mode", null);
+            enable_conv_mass_mode_action.activate.connect (() => {
+                show_view (Context.CONV_MASS, null_header_box);
+            });
+            add_action (enable_conv_mass_mode_action);
+
+            var enable_conv_power_mode_action = new SimpleAction ("open_conv_power_mode", null);
+            enable_conv_power_mode_action.activate.connect (() => {
+                show_view (Context.CONV_POWER, null_header_box);
+            });
+            add_action (enable_conv_power_mode_action);
+
+            var enable_conv_pressure_mode_action = new SimpleAction ("open_conv_pressure_mode", null);
+            enable_conv_pressure_mode_action.activate.connect (() => {
+                show_view (Context.CONV_PRES, null_header_box);
+            });
+            add_action (enable_conv_pressure_mode_action);
+
+            var enable_conv_speed_mode_action = new SimpleAction ("open_conv_speed_mode", null);
+            enable_conv_speed_mode_action.activate.connect (() => {
+                show_view (Context.CONV_SPEED, null_header_box);
+            });
+            add_action (enable_conv_speed_mode_action);
+
+            var enable_conv_temp_mode_action = new SimpleAction ("open_conv_temp_mode", null);
+            enable_conv_temp_mode_action.activate.connect (() => {
+                show_view (Context.CONV_TEMP, null_header_box);
+            });
+            add_action (enable_conv_temp_mode_action);
+
+            var enable_conv_time_mode_action = new SimpleAction ("open_conv_time_mode", null);
+            enable_conv_time_mode_action.activate.connect (() => {
+                show_view (Context.CONV_TIME, null_header_box);
+            });
+            add_action (enable_conv_time_mode_action);
+
+            var enable_conv_volume_mode_action = new SimpleAction ("open_conv_volume_mode", null);
+            enable_conv_volume_mode_action.activate.connect (() => {
+                show_view (Context.CONV_VOL, null_header_box);
+            });
+            add_action (enable_conv_volume_mode_action);
         }
 
         private void show_view (string view_name, Gtk.Widget? header_box) {

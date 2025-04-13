@@ -6,17 +6,27 @@ template $PebblesConverterView: $PebblesView {
     halign: center;
     valign: center;
 
-    Label {
-        label: bind template.title;
+    Box {
+        orientation: horizontal;
+        spacing: 8;
         halign: start;
         margin-start: 12;
         margin-bottom: 12;
 
-        styles ["title-2"]
-
         layout {
             row: 0;
             column: 0;
+        }
+
+        Image {
+            icon-name: bind template.icon-name;
+            icon-size: large;
+        }
+
+        Label {
+            label: bind template.title;
+
+            styles ["title-2"]
         }
     }
 

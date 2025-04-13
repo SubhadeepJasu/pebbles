@@ -120,5 +120,148 @@
 			<default>3</default>
 			<summary>Length converter to unit index</summary>
 		</key>
+
+		<key name="conv-area-from" type="s">
+			<default>"1"</default>
+			<summary>Area converter from entry</summary>
+		</key>
+		<key name="conv-area-from-unit" type="u">
+			<default>2</default>
+			<summary>Area converter from unit index</summary>
+		</key>
+		<key name="conv-area-to-unit" type="u">
+			<default>1</default>
+			<summary>Area converter to unit index</summary>
+		</key>
+
+		<key name="conv-angle-from" type="s">
+			<default>"180"</default>
+			<summary>Angle converter from entry</summary>
+		</key>
+		<key name="conv-angle-from-unit" type="u">
+			<default>0</default>
+			<summary>Angle converter from unit index</summary>
+		</key>
+		<key name="conv-angle-to-unit" type="u">
+			<default>1</default>
+			<summary>Angle converter to unit index</summary>
+		</key>
+
+		<key name="conv-data-from" type="s">
+			<default>"1"</default>
+			<summary>Data converter from entry</summary>
+		</key>
+		<key name="conv-data-from-unit" type="u">
+			<default>12</default>
+			<summary>Data converter from unit index</summary>
+		</key>
+		<key name="conv-data-to-unit" type="u">
+			<default>11</default>
+			<summary>Data converter to unit index</summary>
+		</key>
+
+		<key name="conv-energy-from" type="s">
+			<default>"1"</default>
+			<summary>Energy converter from entry</summary>
+		</key>
+		<key name="conv-energy-from-unit" type="u">
+			<default>1</default>
+			<summary>Energy converter from unit index</summary>
+		</key>
+		<key name="conv-energy-to-unit" type="u">
+			<default>0</default>
+			<summary>Energy converter to unit index</summary>
+		</key>
+
+		<key name="conv-power-from" type="s">
+			<default>"1"</default>
+			<summary>Power converter from entry</summary>
+		</key>
+		<key name="conv-power-from-unit" type="u">
+			<default>1</default>
+			<summary>Power converter from unit index</summary>
+		</key>
+		<key name="conv-power-to-unit" type="u">
+			<default>0</default>
+			<summary>Power converter to unit index</summary>
+		</key>
+
+		<key name="conv-mass-from" type="s">
+			<default>"1"</default>
+			<summary>Mass converter from entry</summary>
+		</key>
+		<key name="conv-mass-from-unit" type="u">
+			<default>1</default>
+			<summary>Mass converter from unit index</summary>
+		</key>
+		<key name="conv-mass-to-unit" type="u">
+			<default>0</default>
+			<summary>Mass converter to unit index</summary>
+		</key>
+
+		<key name="conv-pressure-from" type="s">
+			<default>"1"</default>
+			<summary>Pressure converter from entry</summary>
+		</key>
+		<key name="conv-pressure-from-unit" type="u">
+			<default>1</default>
+			<summary>Pressure converter from unit index</summary>
+		</key>
+		<key name="conv-pressure-to-unit" type="u">
+			<default>0</default>
+			<summary>Pressure converter to unit index</summary>
+		</key>
+
+		<key name="conv-speed-from" type="s">
+			<default>"1"</default>
+			<summary>Speed converter from entry</summary>
+		</key>
+		<key name="conv-speed-from-unit" type="u">
+			<default>1</default>
+			<summary>Speed converter from unit index</summary>
+		</key>
+		<key name="conv-speed-to-unit" type="u">
+			<default>0</default>
+			<summary>Speed converter to unit index</summary>
+		</key>
+
+		<key name="conv-temperature-from" type="s">
+			<default>"1"</default>
+			<summary>Temp converter from entry</summary>
+		</key>
+		<key name="conv-temperature-from-unit" type="u">
+			<default>1</default>
+			<summary>Temp converter from unit index</summary>
+		</key>
+		<key name="conv-temperature-to-unit" type="u">
+			<default>0</default>
+			<summary>Temp converter to unit index</summary>
+		</key>
+
+		<key name="conv-time-from" type="s">
+			<default>"1"</default>
+			<summary>Time converter from entry</summary>
+		</key>
+		<key name="conv-time-from-unit" type="u">
+			<default>1</default>
+			<summary>Time converter from unit index</summary>
+		</key>
+		<key name="conv-time-to-unit" type="u">
+			<default>0</default>
+			<summary>Time converter to unit index</summary>
+		</key>
+
+		<key name="conv-volume-from" type="s">
+			<default>"1"</default>
+			<summary>Volume converter from entry</summary>
+		</key>
+		<key name="conv-volume-from-unit" type="u">
+			<default>1</default>
+			<summary>Volume converter from unit index</summary>
+		</key>
+		<key name="conv-volume-to-unit" type="u">
+			<default>0</default>
+			<summary>Volume converter to unit index</summary>
+		</key>
      </schema>
 </schemalist>
