@@ -12,6 +12,7 @@ from pebbles.core.scientific_calculator import ScientificCalculator
 from pebbles.core.statistics_calculator import StatisticsCalculator
 from pebbles.core.graphing_calculator import GraphingCalculator
 from pebbles.core.calculus_calculator import CalculusCalculator
+from pebbles.core.converter import Converter
 from pebbles.core.tokenizer import Tokenizer
 from pebbles.core.utils import Utils
 
@@ -43,6 +44,7 @@ class PythonWindow(Pebbles.MainWindow):
         self.connect("on_stat_export", self._on_stat_export_cb)
         self.connect("on_get_last_result", self._on_query_last_result_cb)
         self.connect("on_render_graph", self._on_render_graph)
+        self.connect("on_convert_value", self._on_convert_value_cb)
 
 
     def _evaluate(self, _, data:str):
@@ -231,3 +233,10 @@ Attempting to make a table with the previous series.")
         """
         self._memory.clear(context)
         self.on_memory_change(context, self._memory.any(context))
+
+
+    def _on_convert_value_cb(self, _,
+                             input_str:str, conversion_factors:list,
+                             conversion_factor_len:int, unit_1:int, unit_2:int):
+        converter = Converter(conversion_factors)
+        return converter.convert(input_str, unit_1, unit_2)

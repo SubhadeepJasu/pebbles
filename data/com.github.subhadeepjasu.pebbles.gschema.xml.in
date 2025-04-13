@@ -100,10 +100,25 @@
 			<summary>Accuracy of differential caculus evaluation</summary>
 			<description>Value of h in 5 point stencil for first derivative</description>
 		</key>
+
+		<!-- Converters -->
 		<key name="forex-api-key" type="s">
 			<default>""</default>
 			<summary>Currency Converter API key</summary>
 			<description>Get your own API key from https://free.currencyconverterapi.com/</description>
+		</key>
+
+		<key name="conv-length-from" type="s">
+			<default>"1"</default>
+			<summary>Length converter from entry</summary>
+		</key>
+		<key name="conv-length-from-unit" type="u">
+			<default>4</default>
+			<summary>Length converter from unit index</summary>
+		</key>
+		<key name="conv-length-to-unit" type="u">
+			<default>3</default>
+			<summary>Length converter to unit index</summary>
 		</key>
      </schema>
 </schemalist>

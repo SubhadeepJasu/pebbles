@@ -19,6 +19,8 @@
     <file compressed="true" preprocess="xml-stripblanks">ui/graph_viewport.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/calculus_view.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/calculus_display.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/converter_view.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/conv_length_view.ui</file>
   </gresource>
 
   <gresource prefix="/com/github/subhadeepjasu/pebbles/icons">

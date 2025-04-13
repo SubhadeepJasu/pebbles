@@ -15,7 +15,9 @@ blueprint_files = [
   'ui/scientific_view.blp',
   'ui/statistics_view.blp',
   'ui/graphing_view.blp',
-  'ui/calculus_view.blp'
+  'ui/calculus_view.blp',
+  'ui/converter_view.blp',
+  'ui/conv_length_view.blp'
 ]
 
 blueprint_compiler = find_program('blueprint-compiler')

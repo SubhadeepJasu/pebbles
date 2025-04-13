@@ -32,7 +32,8 @@ python.install_sources(
     'core/scientific_calculator.py',
     'core/statistics_calculator.py',
     'core/graphing_calculator.py',
-    'core/calculus_calculator.py'
+    'core/calculus_calculator.py',
+    'core/converter.py'
   ),
   subdir: 'pebbles/core',
 )
@@ -74,7 +75,9 @@ pebbles_lib = shared_library('pebbles',
     'shell/views/ScientificView.vala',
     'shell/views/StatisticsView.vala',
     'shell/views/GraphingView.vala',
-    'shell/views/CalculusView.vala'
+    'shell/views/CalculusView.vala',
+    'shell/views/converters/ConverterView.vala',
+    'shell/views/converters/ConvLengthView.vala'
   ),
              vala_gir: 'Pebbles-3.gir',
          dependencies: dependencies + config_dep,

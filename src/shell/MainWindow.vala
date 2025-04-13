@@ -37,6 +37,7 @@ namespace Pebbles {
         [GtkChild]
         private unowned Adw.ViewStack view_stack;
 
+        // Views
         [GtkChild]
         private unowned ScientificView scientific_view;
         [GtkChild]
@@ -46,6 +47,7 @@ namespace Pebbles {
         [GtkChild]
         private unowned CalculusView calculus_view;
 
+        // Headers
         [GtkChild]
         private unowned Gtk.Stack header_stack;
         [GtkChild]
@@ -64,6 +66,7 @@ namespace Pebbles {
         public string? context_calculus { get; default = Context.CALCULUS; }
         public string? context_statistics { get; default = Context.STATISTICS; }
         public string? context_graphing { get; default = Context.GRAPHING; }
+        public string? context_conv_length { get; default = Context.CONV_LEN; }
 
         // Instance variables
         private Gtk.EventControllerKey key_event_controller;
@@ -99,6 +102,7 @@ namespace Pebbles {
         public signal string on_stat_cell_query (int index, int series_index);
         public signal void on_stat_export (string? path);
         public signal void on_render_graph (GraphPayloadModel payload);
+        public signal string on_convert_value (string input, double[]? conversion_factors, int unit_1, int unit_2);
 
         construct {
             navigation_pane.add_css_class (Granite.STYLE_CLASS_SIDEBAR);
@@ -243,6 +247,12 @@ namespace Pebbles {
                 show_view (Context.GRAPHING, graph_header_box);
             });
             add_action (enable_graphing_mode_action);
+
+            var enable_conv_length_mode_action = new SimpleAction ("open_conv_length_mode", null);
+            enable_conv_length_mode_action.activate.connect (() => {
+                show_view (Context.CONV_LEN, null_header_box);
+            });
+            add_action (enable_conv_length_mode_action);
         }
 
         private void show_view (string view_name, Gtk.Widget? header_box) {

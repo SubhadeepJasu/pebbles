@@ -376,3 +376,10 @@ button.pressed {
 .scale-button {
     padding: 4px;
 }
+
+.conversion-text-box-focused {
+    background: none;
+    border: 1px solid #0000;
+    box-shadow: none;
+    font-weight: bold;
+}

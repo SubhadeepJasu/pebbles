@@ -13,7 +13,7 @@ namespace Pebbles {
         public const string STATISTICS = "stat";
         public const string GRAPHING = "graph";
         public const string DATE = "date";
-        public const string CONV_LEN = "conv.len";
+        public const string CONV_LEN = "conv.length";
         public const string CONV_AREA = "conv.area";
     }
 
@@ -183,5 +183,13 @@ namespace Pebbles {
     public enum GraphAxisScaling {
         LINEAR,
         LOGARITHMIC
+    }
+
+    public static string get_local_radix_symbol () {
+        return Posix.nl_langinfo (Posix.NLItem.RADIXCHAR);
+    }
+
+    public static string get_local_separator_symbol () {
+        return Posix.nl_langinfo (Posix.NLItem.THOUSEP);
     }
 }
