@@ -46,6 +46,8 @@ namespace Pebbles {
         private unowned GraphingView graphing_view;
         [GtkChild]
         private unowned CalculusView calculus_view;
+        [GtkChild]
+        private unowned ConvCurrencyView conv_currency_view;
 
         // Headers
         [GtkChild]
@@ -58,6 +60,10 @@ namespace Pebbles {
         private unowned Gtk.Box statistics_header_box;
         [GtkChild]
         private unowned Gtk.Box graph_header_box;
+        [GtkChild]
+        private unowned Gtk.Box currency_header_box;
+        [GtkChild]
+        private unowned Gtk.Button forex_reload_button;
         [GtkChild]
         private unowned Gtk.Box null_header_box;
 
@@ -114,7 +120,7 @@ namespace Pebbles {
         public signal string on_stat_cell_query (int index, int series_index);
         public signal void on_stat_export (string? path);
         public signal void on_render_graph (GraphPayloadModel payload);
-        public signal string on_convert_value (string input, double[]? conversion_factors, int unit_1, int unit_2);
+        public signal string on_convert_value (string data);
 
         construct {
             navigation_pane.add_css_class (Granite.STYLE_CLASS_SIDEBAR);
@@ -133,6 +139,10 @@ namespace Pebbles {
             var gtk_settings = Gtk.Settings.get_default ();
             var granite_settings = Granite.Settings.get_default ();
             var pebbles_settings = Pebbles.Settings.get_default ();
+
+            if (!pebbles_settings.load_last_session) {
+                pebbles_settings.reset_all ();
+            }
 
             switch (pebbles_settings.theme) {
                 case "dark":
@@ -331,6 +341,13 @@ namespace Pebbles {
                 show_view (Context.CONV_VOL, null_header_box);
             });
             add_action (enable_conv_volume_mode_action);
+
+            var enable_conv_currency_mode_action = new SimpleAction ("open_conv_currency_mode", null);
+            enable_conv_currency_mode_action.activate.connect (() => {
+                show_view (Context.CONV_CURR, currency_header_box);
+                conv_currency_view.update_forex_data.begin ();
+            });
+            add_action (enable_conv_currency_mode_action);
         }
 
         private void show_view (string view_name, Gtk.Widget? header_box) {
@@ -691,6 +708,27 @@ namespace Pebbles {
             statistics_view.save_csv (this);
         }
 
+        [GtkCallback]
+        protected void on_start_api_call () {
+            forex_reload_button.sensitive = false;
+            background_tasks_append ();
+        }
+
+        [GtkCallback]
+        protected void on_end_api_call (Gtk.Widget widget, string message) {
+            if (message.length > 0) {
+                send_toast (message);
+            }
+
+            background_tasks_remove ();
+            forex_reload_button.sensitive = true;
+        }
+
+        [GtkCallback]
+        protected void force_refresh_forex_data () {
+            conv_currency_view.update_forex_data.begin (true);
+        }
+
         public void send_toast (string message) {
             toast_overlay.add_toast (new Adw.Toast (message));
         }
@@ -703,6 +741,36 @@ namespace Pebbles {
             if (background_ops > 0) {
                 background_ops = background_ops - 1;
             }
+        }
+
+        public string unit_converter_evaluate (
+            string context,
+            double[]? conversion_factors,
+            string input,
+            int unit1_index,
+            int unit2_index
+        ) {
+            var gen = new Json.Generator ();
+            var root = new Json.Node (Json.NodeType.OBJECT);
+            var object = new Json.Object ();
+            root.set_object (object);
+            gen.set_root (root);
+
+            object.set_string_member ("context", context);
+            object.set_string_member ("input", input);
+            object.set_int_member ("unit1", unit1_index);
+            object.set_int_member ("unit2", unit2_index);
+
+            var array = new Json.Array ();
+            for (uint i = 0; i < conversion_factors.length; i++) {
+                array.add_double_element (conversion_factors[i]);
+            }
+
+            object.set_array_member ("conversionFactors", array);
+
+            size_t length;
+            string json = gen.to_data (out length);
+            return on_convert_value (json);
         }
     }
 }

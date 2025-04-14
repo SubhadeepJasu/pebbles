@@ -32,6 +32,8 @@ namespace Pebbles {
         protected unowned Gtk.DropDown from_unit;
         [GtkChild]
         protected unowned Gtk.DropDown to_unit;
+        [GtkChild]
+        protected unowned Gtk.Label additional_label;
 
         private Gtk.EventControllerFocus from_entry_focus_controller;
         private Gtk.EventControllerFocus to_entry_focus_controller;
@@ -103,11 +105,9 @@ namespace Pebbles {
                 return false;
             });
 
-            if (settings.load_last_session) {
-                realize.connect (() => {
-                    load_state (settings);
-                });
-            }
+            realize.connect (() => {
+                load_state (settings);
+            });
         }
 
         public void write_answer_to_clipboard () {
@@ -121,22 +121,22 @@ namespace Pebbles {
             }
         }
 
-        private void interchange_entries () {
+        [GtkCallback]
+        protected void interchange_entries () {
             allow_change = false;
             uint temp = to_unit.selected;
             to_unit.selected = from_unit.selected;
             from_unit.selected = temp;
-            if (focused_entry == from_entry && allow_change) {
-                var window = ((MainWindow) get_ancestor (typeof (MainWindow)));
-                var input_text = from_entry.text;
-                string result = window.on_convert_value (
-                    input_text,
-                    conversion_factors,
-                    (int) from_unit.selected,
-                    (int) to_unit.selected
-                );
-                to_entry.text = result;
-            }
+            var window = ((MainWindow) get_ancestor (typeof (MainWindow)));
+            var input_text = from_entry.text;
+            string result = window.unit_converter_evaluate (
+                context,
+                conversion_factors,
+                input_text,
+                (int) from_unit.selected,
+                (int) to_unit.selected
+            );
+            to_entry.text = result;
 
             save_state (settings);
             allow_change = true;
@@ -147,9 +147,10 @@ namespace Pebbles {
             if (focused_entry == from_entry && allow_change) {
                 var window = ((MainWindow) get_ancestor (typeof (MainWindow)));
                 var input_text = from_entry.text;
-                string result = window.on_convert_value (
-                    input_text,
+                string result = window.unit_converter_evaluate (
+                    context,
                     conversion_factors,
+                    input_text,
                     (int) from_unit.selected,
                     (int) to_unit.selected
                 );
@@ -164,9 +165,10 @@ namespace Pebbles {
             if (focused_entry == to_entry && allow_change) {
                 var window = ((MainWindow) get_ancestor (typeof (MainWindow)));
                 var input_text = to_entry.text;
-                string result = window.on_convert_value (
-                    input_text,
+                string result = window.unit_converter_evaluate (
+                    context,
                     conversion_factors,
+                    input_text,
                     (int) to_unit.selected,
                     (int) from_unit.selected
                 );
@@ -222,8 +224,8 @@ namespace Pebbles {
             from_unit.selected = settings.get_uint (key_prefix + "-from-unit");
             to_unit.selected = settings.get_uint (key_prefix + "-to-unit");
             var window = ((MainWindow) get_ancestor (typeof (MainWindow)));
-            to_entry.text = window.on_convert_value (
-                from_entry.text, conversion_factors, (int) from_unit.selected, (int) to_unit.selected);
+            to_entry.text = window.unit_converter_evaluate (context, conversion_factors,
+                from_entry.text, (int) from_unit.selected, (int) to_unit.selected);
             allow_change = true;
             focused_entry = from_entry;
             focused_entry.grab_focus_without_selecting ();

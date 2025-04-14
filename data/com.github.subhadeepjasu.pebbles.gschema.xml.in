@@ -105,7 +105,16 @@
 		<key name="forex-api-key" type="s">
 			<default>""</default>
 			<summary>Currency Converter API key</summary>
-			<description>Get your own API key from https://free.currencyconverterapi.com/</description>
+			<description>Get your own API key from https://openexchangerates.org</description>
+		</key>
+
+		<key name="forex-timestamp" type="u">
+			<default>0</default>
+			<summary>When was forex data last updated</summary>
+		</key>
+
+		<key name="forex-rates-cache" type="as">
+			<default>[]</default>
 		</key>
 
 		<key name="conv-length-from" type="s">
@@ -226,15 +235,15 @@
 		</key>
 
 		<key name="conv-temperature-from" type="s">
-			<default>"1"</default>
+			<default>"23"</default>
 			<summary>Temp converter from entry</summary>
 		</key>
 		<key name="conv-temperature-from-unit" type="u">
-			<default>1</default>
+			<default>0</default>
 			<summary>Temp converter from unit index</summary>
 		</key>
 		<key name="conv-temperature-to-unit" type="u">
-			<default>0</default>
+			<default>1</default>
 			<summary>Temp converter to unit index</summary>
 		</key>
 
@@ -262,6 +271,19 @@
 		<key name="conv-volume-to-unit" type="u">
 			<default>0</default>
 			<summary>Volume converter to unit index</summary>
+		</key>
+
+		<key name="conv-currency-from" type="s">
+			<default>"1"</default>
+			<summary>Currency converter from entry</summary>
+		</key>
+		<key name="conv-currency-from-unit" type="u">
+			<default>0</default>
+			<summary>Currency converter from unit index</summary>
+		</key>
+		<key name="conv-currency-to-unit" type="u">
+			<default>1</default>
+			<summary>Currency converter to unit index</summary>
 		</key>
      </schema>
 </schemalist>

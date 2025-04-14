@@ -19,6 +19,39 @@ namespace Pebbles {
             );
         }
 
+        public void reset_all () {
+            List<string> keys = new List<string> ();
+            keys.append ("global-angle-unit");
+            keys.append ("global-word-length");
+            keys.append ("number-system");
+
+            const string[] CONVERTER_PREFIXES = {
+                Context.CONV_LEN,
+                Context.CONV_AREA,
+                Context.CONV_VOL,
+                Context.CONV_TIME,
+                Context.CONV_ANGLE,
+                Context.CONV_SPEED,
+                Context.CONV_MASS,
+                Context.CONV_PRES,
+                Context.CONV_ENERGY,
+                Context.CONV_POWER,
+                Context.CONV_TEMP,
+                Context.CONV_DATA,
+                Context.CONV_CURR
+            };
+
+            foreach (var item in CONVERTER_PREFIXES) {
+                keys.append (item + "-from");
+                keys.append (item + "-from-unit");
+                keys.append (item + "-to-unit");
+            }
+
+            foreach (var item in keys) {
+                reset (item);
+            }
+        }
+
         public string version {
             owned get { return get_string ("version"); }
             set { set_string ("version", value); }
@@ -87,6 +120,16 @@ namespace Pebbles {
         public string forex_api_key {
             owned get { return get_string ("forex-api-key"); }
             set { set_string ("forex-api-key", value); }
+        }
+
+        public uint forex_api_last_updated {
+            get { return get_uint ("forex-timestamp"); }
+            set { set_uint ("forex-timestamp", value); }
+        }
+
+        public string[] forex_rates_cache {
+            owned get { return get_strv ("forex-rates-cache"); }
+            set { set_strv ("forex-rates-cache", value); }
         }
     }
 }

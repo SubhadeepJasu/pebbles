@@ -19,7 +19,7 @@ blueprint_files = [
   'ui/converter_view.blp',
   'ui/conv_length_view.blp',
   'ui/conv_area_view.blp',
-#   'ui/conv_currency_view.blp',
+  'ui/conv_currency_view.blp',
   'ui/conv_data_view.blp',
   'ui/conv_energy_view.blp',
   'ui/conv_mass_view.blp',

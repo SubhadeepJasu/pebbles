@@ -51,6 +51,18 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
             graphing_view.collapsed: true;
             calculus_view.collapsed: true;
             conv_length_view.collapsed: true;
+            conv_angle_view.collapsed: true;
+            conv_area_view.collapsed: true;
+            conv_currency_view.collapsed: true;
+            conv_data_view.collapsed: true;
+            conv_energy_view.collapsed: true;
+            conv_mass_view.collapsed: true;
+            conv_power_view.collapsed: true;
+            conv_pressure_view.collapsed: true;
+            conv_speed_view.collapsed: true;
+            conv_temp_view.collapsed: true;
+            conv_time_view.collapsed: true;
+            conv_volume_view.collapsed: true;
             split_view.collapsed: true;
             split_view.show-content: true;
             navigation_headerbar.show-back-button: true;
@@ -537,6 +549,16 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                 spacing: 8;
                             }
 
+                            Box currency_header_box {
+                                Button forex_reload_button {
+                                    icon-name: "view-refresh-symbolic";
+                                    halign: start;
+                                    tooltip-text: _("Update Forex Data");
+
+                                    clicked => $force_refresh_forex_data();
+                                }
+                            }
+
                             Box null_header_box {}
 
                             visible-child: scientific_header_box;
@@ -742,12 +764,15 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                             };
                         }
 
-                        // Adw.ViewStackPage {
-                        //     name: bind template.context_conv_currency;
-                        //     child: $PebblesConvCurrencyView  conv_currency_view {
-                        //         context: bind template.context_conv_currency;
-                        //     };
-                        // }
+                        Adw.ViewStackPage {
+                            name: bind template.context_conv_currency;
+                            child: $PebblesConvCurrencyView  conv_currency_view {
+                                context: bind template.context_conv_currency;
+
+                                start_api_call => $on_start_api_call();
+                                end_api_call => $on_end_api_call();
+                            };
+                        }
                     }
                 }
             };

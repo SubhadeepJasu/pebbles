@@ -235,8 +235,6 @@ Attempting to make a table with the previous series.")
         self.on_memory_change(context, self._memory.any(context))
 
 
-    def _on_convert_value_cb(self, _,
-                             input_str:str, conversion_factors:list,
-                             conversion_factor_len:int, unit_1:int, unit_2:int):
-        converter = Converter(conversion_factors)
-        return converter.convert(input_str, unit_1, unit_2)
+    def _on_convert_value_cb(self, _, data:str):
+        converter = Converter(data)
+        return converter.convert()

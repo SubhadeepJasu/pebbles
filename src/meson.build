@@ -90,7 +90,8 @@ pebbles_lib = shared_library('pebbles',
     'shell/views/converters/ConvSpeedView.vala',
     'shell/views/converters/ConvTempView.vala',
     'shell/views/converters/ConvTimeView.vala',
-    'shell/views/converters/ConvVolumeView.vala'
+    'shell/views/converters/ConvVolumeView.vala',
+    'shell/views/converters/ConvCurrencyView.vala'
   ),
              vala_gir: 'Pebbles-3.gir',
          dependencies: dependencies + config_dep,

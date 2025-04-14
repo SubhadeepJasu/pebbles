@@ -23,7 +23,7 @@
     <file compressed="true" preprocess="xml-stripblanks">ui/conv_length_view.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/conv_area_view.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/conv_angle_view.ui</file>
-    <!-- <file compressed="true" preprocess="xml-stripblanks">ui/conv_currency_view.ui</file> -->
+    <file compressed="true" preprocess="xml-stripblanks">ui/conv_currency_view.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/conv_data_view.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/conv_energy_view.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/conv_mass_view.ui</file>

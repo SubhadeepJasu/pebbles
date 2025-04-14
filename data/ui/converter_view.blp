@@ -65,6 +65,8 @@ template $PebblesConverterView: $PebblesView {
                 margin-top: 12;
                 margin-bottom: 12;
                 halign: center;
+                focus-on-click: false;
+                can-focus: false;
 
                 Box {
                     orientation: horizontal;
@@ -78,6 +80,8 @@ template $PebblesConverterView: $PebblesView {
                         icon-name: "go-down-symbolic";
                     }
                 }
+
+                clicked => $interchange_entries();
             }
 
             DropDown to_unit {
@@ -328,6 +332,20 @@ template $PebblesConverterView: $PebblesView {
 
                 clicked => $on_click_radix();
             }
+        }
+    }
+
+    Label additional_label {
+        label: "";
+        halign: start;
+        height-request: 24;
+        opacity: 0.75;
+        styles ["converter-additional-label"]
+        margin-start: 16;
+
+        layout {
+            row: 2;
+            column: 0;
         }
     }
 }
