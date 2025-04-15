@@ -122,7 +122,11 @@ class PythonWindow(Pebbles.MainWindow):
 
 
     def _history_view_cb(self, _, context:str):
-        if context in [Pebbles.Context.SCIENTIFIC, Pebbles.Context.STATISTICS, Pebbles.Context.CALCULUS]:
+        if context in [
+            Pebbles.Context.SCIENTIFIC,
+            Pebbles.Context.STATISTICS,
+            Pebbles.Context.CALCULUS
+        ]:
             self.show_history(self._memory.get_views(
                     format_func=ScientificCalculator.format,
                     context=context
