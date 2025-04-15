@@ -95,8 +95,8 @@ template $PebblesPreferencesDialog: Adw.PreferencesDialog {
                 Scale integration_resolution_scale {
                     width-request: 200;
                     adjustment: Adjustment {
-                        lower: 500;
-                        upper: 100000;
+                        lower: 200;
+                        upper: 10000;
                         step-increment: 100;
                     };
                     focus-on-click: false;
@@ -113,9 +113,9 @@ template $PebblesPreferencesDialog: Adw.PreferencesDialog {
                 Scale derivative_accuracy_scale {
                     width-request: 200;
                     adjustment: Adjustment {
-                        lower: 500;
-                        upper: 100000;
-                        step-increment: 100;
+                        lower: 1;
+                        upper: 8;
+                        step-increment: 1;
                     };
                     focus-on-click: false;
                     focusable: false;
@@ -127,12 +127,24 @@ template $PebblesPreferencesDialog: Adw.PreferencesDialog {
             title: _("Converters");
             styles ["preferences-group"]
 
-            Adw.EntryRow {
+            Adw.EntryRow api_key_entry {
                 title: _("Currency Converter API Key");
                 focus-on-click: false;
                 focusable: false;
                 text: bind template.settings as <$PebblesSettings>.forex_api_key;
-                notify::text => $forex_api_key_cb();
+            }
+
+            Adw.ActionRow {
+                title: _("Get API Key");
+                subtitle: "https://openexchangerates.org";
+                activatable: true;
+                activated => $on_open_api_homepage_link();
+                can-focus: false;
+                focus-on-click: false;
+
+                Image {
+                    icon-name: "insert-link-symbolic";
+                }
             }
         }
     }

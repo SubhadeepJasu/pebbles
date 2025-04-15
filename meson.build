@@ -13,7 +13,9 @@ dependencies = [
   dependency('granite-7'),
   dependency('libadwaita-1', version: '>= 1.5'),
   dependency('gee-0.8'),
-  dependency('json-glib-1.0')
+  dependency('json-glib-1.0'),
+  dependency('libsoup-3.0'),
+  meson.get_compiler ('vala').find_library ('posix')
 ]
 
 valac = meson.get_compiler('vala')

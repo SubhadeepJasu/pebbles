@@ -50,6 +50,19 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
             statistics_view.collapsed: true;
             graphing_view.collapsed: true;
             calculus_view.collapsed: true;
+            conv_length_view.collapsed: true;
+            conv_angle_view.collapsed: true;
+            conv_area_view.collapsed: true;
+            conv_currency_view.collapsed: true;
+            conv_data_view.collapsed: true;
+            conv_energy_view.collapsed: true;
+            conv_mass_view.collapsed: true;
+            conv_power_view.collapsed: true;
+            conv_pressure_view.collapsed: true;
+            conv_speed_view.collapsed: true;
+            conv_temp_view.collapsed: true;
+            conv_time_view.collapsed: true;
+            conv_volume_view.collapsed: true;
             split_view.collapsed: true;
             split_view.show-content: true;
             navigation_headerbar.show-back-button: true;
@@ -236,6 +249,8 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                                 halign: start;
                                             }
                                         }
+
+                                        action-name: "win.open_conv_length_mode";
                                     }
 
                                     ListBoxRow {
@@ -252,6 +267,8 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                                 halign: start;
                                             }
                                         }
+
+                                        action-name: "win.open_conv_area_mode";
                                     }
 
                                     ListBoxRow {
@@ -268,6 +285,8 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                                 halign: start;
                                             }
                                         }
+
+                                        action-name: "win.open_conv_volume_mode";
                                     }
 
                                     ListBoxRow {
@@ -284,6 +303,8 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                                 halign: start;
                                             }
                                         }
+
+                                        action-name: "win.open_conv_time_mode";
                                     }
 
                                     ListBoxRow {
@@ -300,6 +321,8 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                                 halign: start;
                                             }
                                         }
+
+                                        action-name: "win.open_conv_angle_mode";
                                     }
 
                                     ListBoxRow {
@@ -316,6 +339,8 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                                 halign: start;
                                             }
                                         }
+
+                                        action-name: "win.open_conv_speed_mode";
                                     }
 
                                     ListBoxRow {
@@ -332,6 +357,8 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                                 halign: start;
                                             }
                                         }
+
+                                        action-name: "win.open_conv_mass_mode";
                                     }
 
                                     ListBoxRow {
@@ -348,6 +375,8 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                                 halign: start;
                                             }
                                         }
+
+                                        action-name: "win.open_conv_pressure_mode";
                                     }
 
                                     ListBoxRow {
@@ -364,6 +393,8 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                                 halign: start;
                                             }
                                         }
+
+                                        action-name: "win.open_conv_energy_mode";
                                     }
 
                                     ListBoxRow {
@@ -380,6 +411,8 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                                 halign: start;
                                             }
                                         }
+
+                                        action-name: "win.open_conv_power_mode";
                                     }
 
                                     ListBoxRow {
@@ -396,6 +429,8 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                                 halign: start;
                                             }
                                         }
+
+                                        action-name: "win.open_conv_temp_mode";
                                     }
 
                                     ListBoxRow {
@@ -412,6 +447,8 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                                 halign: start;
                                             }
                                         }
+
+                                        action-name: "win.open_conv_data_mode";
                                     }
 
                                     ListBoxRow {
@@ -428,6 +465,8 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                                 halign: start;
                                             }
                                         }
+
+                                        action-name: "win.open_conv_currency_mode";
                                     }
                                 }
                             }
@@ -508,6 +547,16 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
 
                             Box graph_header_box {
                                 spacing: 8;
+                            }
+
+                            Box currency_header_box {
+                                Button forex_reload_button {
+                                    icon-name: "view-refresh-symbolic";
+                                    halign: start;
+                                    tooltip-text: _("Update Forex Data");
+
+                                    clicked => $force_refresh_forex_data();
+                                }
                             }
 
                             Box null_header_box {}
@@ -628,6 +677,100 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                             name: bind template.context_graphing;
                             child: $PebblesGraphingView  graphing_view {
                                 context: bind template.context_graphing;
+                            };
+                        }
+
+                        Adw.ViewStackPage {
+                            name: bind template.context_conv_length;
+                            child: $PebblesConvLengthView  conv_length_view {
+                                context: bind template.context_conv_length;
+                            };
+                        }
+
+                        Adw.ViewStackPage {
+                            name: bind template.context_conv_area;
+                            child: $PebblesConvAreaView  conv_area_view {
+                                context: bind template.context_conv_area;
+                            };
+                        }
+
+                        Adw.ViewStackPage {
+                            name: bind template.context_conv_volume;
+                            child: $PebblesConvVolumeView  conv_volume_view {
+                                context: bind template.context_conv_volume;
+                            };
+                        }
+
+                        Adw.ViewStackPage {
+                            name: bind template.context_conv_time;
+                            child: $PebblesConvTimeView  conv_time_view {
+                                context: bind template.context_conv_time;
+                            };
+                        }
+
+                        Adw.ViewStackPage {
+                            name: bind template.context_conv_angle;
+                            child: $PebblesConvAngleView  conv_angle_view {
+                                context: bind template.context_conv_angle;
+                            };
+                        }
+
+                        Adw.ViewStackPage {
+                            name: bind template.context_conv_speed;
+                            child: $PebblesConvSpeedView  conv_speed_view {
+                                context: bind template.context_conv_speed;
+                            };
+                        }
+
+                        Adw.ViewStackPage {
+                            name: bind template.context_conv_mass;
+                            child: $PebblesConvMassView  conv_mass_view {
+                                context: bind template.context_conv_mass;
+                            };
+                        }
+
+                        Adw.ViewStackPage {
+                            name: bind template.context_conv_pressure;
+                            child: $PebblesConvPressureView  conv_pressure_view {
+                                context: bind template.context_conv_pressure;
+                            };
+                        }
+
+                        Adw.ViewStackPage {
+                            name: bind template.context_conv_energy;
+                            child: $PebblesConvEnergyView  conv_energy_view {
+                                context: bind template.context_conv_energy;
+                            };
+                        }
+
+                        Adw.ViewStackPage {
+                            name: bind template.context_conv_power;
+                            child: $PebblesConvPowerView  conv_power_view {
+                                context: bind template.context_conv_power;
+                            };
+                        }
+
+                        Adw.ViewStackPage {
+                            name: bind template.context_conv_temp;
+                            child: $PebblesConvTempView  conv_temp_view {
+                                context: bind template.context_conv_temp;
+                            };
+                        }
+
+                        Adw.ViewStackPage {
+                            name: bind template.context_conv_data;
+                            child: $PebblesConvDataView  conv_data_view {
+                                context: bind template.context_conv_data;
+                            };
+                        }
+
+                        Adw.ViewStackPage {
+                            name: bind template.context_conv_currency;
+                            child: $PebblesConvCurrencyView  conv_currency_view {
+                                context: bind template.context_conv_currency;
+
+                                start_api_call => $on_start_api_call();
+                                end_api_call => $on_end_api_call();
                             };
                         }
                     }

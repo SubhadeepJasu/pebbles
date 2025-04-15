@@ -2,13 +2,16 @@ namespace Pebbles {
     [GtkTemplate (ui = "/com/github/subhadeepjasu/pebbles/ui/preferences_dialog.ui")]
     public class PreferencesDialog : Adw.PreferencesDialog {
         protected Gtk.StringList constant_button_model { get; private set; }
-        protected List<string> constants_list;
 
         // Settings
         public Pebbles.Settings settings { get; set construct; }
 
         [GtkChild]
         private unowned Gtk.Scale integration_resolution_scale;
+        [GtkChild]
+        private unowned Gtk.Scale derivative_accuracy_scale;
+        [GtkChild]
+        private unowned Adw.EntryRow api_key_entry;
 
         private bool loaded = false;
 
@@ -20,27 +23,28 @@ namespace Pebbles {
             // TRANSLATORS: The right quotation mark symbol
             var raquo = _("”");
 
-            constants_list = new List<string> ();
-            constants_list.append (_("Euler's constant (exponential)") + "  " + laquo + "e" + raquo);
-            constants_list.append (_("Archimedes' constant (pi)") + "  " + laquo + "\xCF\x80" + raquo);
-            constants_list.append (_("Golden ratio (phi)") + "  " + laquo + "\xCF\x86" + raquo);
-            constants_list.append (_("Imaginary number") + "  " + laquo + "j" + raquo);
-            constants_list.append (_("Euler–Mascheroni constant (gamma)") + "  " + laquo + "\xF0\x9D\x9B\xBE" + raquo);
-            constants_list.append (_("Conway's constant (lambda)") + "  " + laquo + "\xCE\xBB" + raquo);
-            constants_list.append (_("Khinchin's constant") + "  " + laquo + "K" + raquo);
-            constants_list.append (_("The Feigenbaum constant alpha") + "  " + laquo + "\xCE\xB1" + raquo);
-            constants_list.append (_("The Feigenbaum constant delta") + "  " + laquo + "\xCE\xB4" + raquo);
-            constants_list.append (_("Apery's constant") + "  " + laquo + "\xF0\x9D\x9B\x87(3)" + raquo);
-            var constants_array = new string[constants_list.length ()];
-            for (uint8 i = 0; i < constants_array.length; i++) {
-                constants_array[i] = constants_list.nth_data (i);
-            }
+            string[] constants_array = {
+                _("Euler's constant (exponential)") + "  " + laquo + "e" + raquo,
+                _("Archimedes' constant (pi)") + "  " + laquo + "\xCF\x80" + raquo,
+                _("Golden ratio (phi)") + "  " + laquo + "\xCF\x86" + raquo,
+                _("Imaginary number") + "  " + laquo + "j" + raquo,
+                _("Euler–Mascheroni constant (gamma)") + "  " + laquo + "\xF0\x9D\x9B\xBE" + raquo,
+                _("Conway's constant (lambda)") + "  " + laquo + "\xCE\xBB" + raquo,
+                _("Khinchin's constant") + "  " + laquo + "K" + raquo,
+                _("The Feigenbaum constant alpha") + "  " + laquo + "\xCE\xB1" + raquo,
+                _("The Feigenbaum constant delta") + "  " + laquo + "\xCE\xB4" + raquo,
+                _("Apery's constant") + "  " + laquo + "\xF0\x9D\x9B\x87(3)" + raquo
+            };
 
             constant_button_model = new Gtk.StringList (constants_array);
 
             realize.connect (load_settings);
             closed.connect (() => {
                 loaded = false;
+                save_settings ();
+            });
+            close_attempt.connect (() => {
+                save_settings ();
             });
         }
 
@@ -57,11 +61,6 @@ namespace Pebbles {
         [GtkCallback]
         protected void precision_notify_active_cb (Object obj, ParamSpec params) {
             settings.decimal_places = (uint) ((obj as Gtk.SpinButton)?.value);
-        }
-
-        [GtkCallback]
-        protected void forex_api_key_cb (Object obj, ParamSpec params) {
-            settings.forex_api_key = (obj as Adw.EntryRow)?.text;
         }
 
         [GtkCallback]
@@ -107,10 +106,26 @@ namespace Pebbles {
         private void load_settings () {
             Idle.add (() => {
                 integration_resolution_scale.set_value (settings.integration_resolution);
+                derivative_accuracy_scale.set_value (settings.derivative_accuracy);
                 loaded = true;
                 return false;
             });
 
+        }
+
+        private void save_settings () {
+            settings.integration_resolution = (uint) integration_resolution_scale.get_value ();
+            settings.derivative_accuracy = (uint) derivative_accuracy_scale.get_value ();
+            settings.forex_api_key = api_key_entry.text;
+        }
+
+        [GtkCallback]
+        protected void on_open_api_homepage_link () {
+            try {
+                AppInfo.launch_default_for_uri ("https://openexchangerates.org/signup", null);
+            } catch (Error e) {
+                print ("WARNING: Failed to open link");
+            }
         }
     }
 }
