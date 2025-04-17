@@ -383,3 +383,10 @@ button.pressed {
     box-shadow: none;
     font-weight: bold;
 }
+
+
+.date-calc-calendar {
+    border: 1px solid #{'alpha(shade(@accent_color, 0.7), 0.5)'};
+	border-radius: 3px;
+	background-color: #{'alpha(@accent_color, 0.2)'};
+}

@@ -16,6 +16,7 @@ blueprint_files = [
   'ui/statistics_view.blp',
   'ui/graphing_view.blp',
   'ui/calculus_view.blp',
+  'ui/date_view.blp',
   'ui/converter_view.blp',
   'ui/conv_length_view.blp',
   'ui/conv_area_view.blp',

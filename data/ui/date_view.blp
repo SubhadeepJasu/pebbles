@@ -1,0 +1,264 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: 2024 Subhadeep Jasu <subhadeep107@proton.me>
+using Gtk 4.0;
+using Adw 1;
+
+template $PebblesDateView: $PebblesView {
+    selected_view: bind date_stack.visible-child-name;
+
+    StackSwitcher {
+        halign: fill;
+        hexpand: true;
+        margin-start: 12;
+        margin-end: 12;
+        margin-top: 12;
+        margin-bottom: 12;
+
+        layout {
+            row: 0;
+            column: 0;
+        }
+
+        stack: date_stack;
+    }
+
+    Stack date_stack {
+        hexpand: true;
+        vexpand: true;
+        transition-type: slide_left_right;
+
+        layout {
+            row: 1;
+            column: 0;
+        }
+
+        StackPage {
+            name: "date-dur-view";
+            title: _("Find Difference");
+
+            child: Grid date_dur_grid {
+                valign: center;
+                halign: fill;
+                hexpand: true;
+                margin-start: 12;
+                margin-end: 12;
+                margin-bottom: 12;
+
+                Label {
+                    label: _("From");
+                    xalign: 0;
+
+                    styles ["title-4"]
+
+                    layout {
+                        row: 0;
+                        column: 0;
+                    }
+                }
+
+                Label {
+                    label: _("To");
+                    xalign: 0;
+
+                    styles ["title-4"]
+
+                    layout {
+                        row: 2;
+                        column: 0;
+                    }
+                }
+
+                Separator {
+                    orientation: horizontal;
+                    margin-top: 28;
+                    margin-bottom: 28;
+
+                    layout {
+                        row: 4;
+                        column: 0;
+                    }
+                }
+
+                Grid {
+                    layout {
+                        row: 5;
+                        column: 0;
+                    }
+
+                    Label {
+                        label: _("Difference");
+                        xalign: 0;
+
+                        styles ["title-4"]
+
+                        layout {
+                            row: 0;
+                            column: 0;
+                        }
+                    }
+
+                    Label date_diff_label {
+                        label: _("Hey, it's the same date");
+                        xalign: 0;
+                        hexpand: true;
+                        single-line-mode: false;
+                        wrap-mode: word;
+
+                        styles ["title-2"]
+
+                        layout {
+                            row: 1;
+                            column: 0;
+                        }
+                    }
+
+                    Label days_diff_label {
+                        label: "";
+                        xalign: 0;
+
+                        styles ["title-3"]
+
+                        layout {
+                            row: 2;
+                            column: 0;
+                        }
+                    }
+                }
+            };
+        }
+
+        StackPage {
+            name: "date-add-view";
+            title: _("Infer Date");
+
+            child: Grid date_add_grid {
+                valign: end;
+                halign: fill;
+                hexpand: true;
+                margin-start: 12;
+                margin-end: 12;
+                margin-bottom: 12;
+
+                Label {
+                    label: _("Starting From");
+                    xalign: 0;
+
+                    styles ["title-4"]
+
+                    layout {
+                        row: 0;
+                        column: 0;
+                    }
+                }
+
+                Box {
+                    orientation: horizontal;
+                    spacing: 8;
+                    homogeneous: true;
+
+                    layout {
+                        row: 2;
+                        column: 0;
+                    }
+
+                    Label {
+                        label: _("Add Days");
+                        xalign: 0;
+
+                        styles ["title-4"]
+                    }
+
+                    Label {
+                        label: _("Months");
+                        xalign: 0;
+
+                        styles ["title-4"]
+                    }
+
+                    Label {
+                        label: _("Years");
+                        xalign: 0;
+
+                        styles ["title-4"]
+                    }
+                }
+
+                Box {
+                    orientation: horizontal;
+                    spacing: 8;
+                    homogeneous: true;
+
+                    layout {
+                        row: 3;
+                        column: 0;
+                    }
+
+                    SpinButton day_spin_button {
+                        adjustment: bind template.day_adjustment;
+                    }
+
+                    SpinButton month_spin_button {
+                        adjustment: bind template.month_adjustment;
+                    }
+
+                    SpinButton year_spin_button {
+                        adjustment: bind template.year_adjustment;
+                    }
+                }
+
+                Label add_header {
+                    label: _("The Date will be");
+                    xalign: 0;
+                    width-request: 160;
+                    valign: start;
+
+                    styles ["title-4"]
+
+                    layout {
+                        row: 4;
+                        column: 0;
+                    }
+                }
+
+                Label week_day_label {
+                    label: _("Set a duration");
+                    valign: end;
+                    halign: start;
+                    styles ["title-2"]
+
+                    layout {
+                        row: 5;
+                        column: 0;
+                    }
+                }
+
+                Label date_dmy_label {
+                    label: _("Days, months or year");
+                    halign: start;
+                    styles ["title-3"]
+
+                    layout {
+                        row: 6;
+                        column: 0;
+                    }
+                }
+
+                Calendar main_calendar {
+                    show-day-names: true;
+                    width-request: 210;
+                    hexpand: true;
+                    margin-top: 8;
+                    show-heading: false;
+                    can-target: false;
+
+                    styles ["date-calc-calendar"]
+
+                    layout {
+                        row: 7;
+                        column: 0;
+                    }
+                }
+            };
+        }
+    }
+}

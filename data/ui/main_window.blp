@@ -218,6 +218,8 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                                 halign: start;
                                             }
                                         }
+
+                                        action-name: "win.open_date_mode";
                                     }
                                 }
                             }
@@ -549,6 +551,9 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                 spacing: 8;
                             }
 
+                            Box date_header_box{
+                            }
+
                             Box currency_header_box {
                                 Button forex_reload_button {
                                     icon-name: "view-refresh-symbolic";
@@ -677,6 +682,13 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                             name: bind template.context_graphing;
                             child: $PebblesGraphingView  graphing_view {
                                 context: bind template.context_graphing;
+                            };
+                        }
+
+                        Adw.ViewStackPage {
+                            name: bind template.context_date;
+                            child: $PebblesDateView  date_view {
+                                context: bind template.context_date;
                             };
                         }
 

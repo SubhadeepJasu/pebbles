@@ -61,6 +61,9 @@ namespace Pebbles {
         [GtkChild]
         private unowned Gtk.Box graph_header_box;
         [GtkChild]
+        private unowned Gtk.Box date_header_box;
+        public Gtk.Stack date_header_box_stack;
+        [GtkChild]
         private unowned Gtk.Box currency_header_box;
         [GtkChild]
         private unowned Gtk.Button forex_reload_button;
@@ -72,6 +75,7 @@ namespace Pebbles {
         public string? context_calculus { get; default = Context.CALCULUS; }
         public string? context_statistics { get; default = Context.STATISTICS; }
         public string? context_graphing { get; default = Context.GRAPHING; }
+        public string? context_date { get; default = Context.DATE; }
         public string? context_conv_length { get; default = Context.CONV_LEN; }
         public string? context_conv_area { get; default = Context.CONV_AREA; }
         public string? context_conv_angle { get; default = Context.CONV_ANGLE; }
@@ -228,6 +232,37 @@ namespace Pebbles {
                     calculus_view.integral_mode = calculus_mode_button.active;
                 });
             }
+
+            if (date_header_box.get_first_child () == null) {
+                date_header_box_stack = new Gtk.Stack () {
+                    transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT
+                };
+                var date_age_label = new Gtk.Label (_("AGE"));
+                var date_dur_label = new Gtk.Label (_("DUR"));
+                var diff_mode_switch = new Gtk.Switch ();
+                diff_mode_switch.add_css_class ("mode-switch");
+                var date_diff_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+                    valign = Gtk.Align.CENTER
+                };
+                date_diff_box.append (date_age_label);
+                date_diff_box.append (diff_mode_switch);
+                date_diff_box.append (date_dur_label);
+
+                var date_add_label = new Gtk.Label (_("ADD"));
+                var date_sub_label = new Gtk.Label (_("SUB"));
+                var add_mode_switch = new Gtk.Switch ();
+                add_mode_switch.add_css_class ("mode-switch");
+                var date_add_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+                    valign = Gtk.Align.CENTER
+                };
+                date_add_box.append (date_add_label);
+                date_add_box.append (add_mode_switch);
+                date_add_box.append (date_sub_label);
+
+                date_header_box_stack.add_named (date_diff_box, "date-dur-view");
+                date_header_box_stack.add_named (date_add_box, "date-add-view");
+                date_header_box.append (date_header_box_stack);
+            }
         }
 
         private void setup_actions () {
@@ -269,6 +304,12 @@ namespace Pebbles {
                 show_view (Context.GRAPHING, graph_header_box);
             });
             add_action (enable_graphing_mode_action);
+
+            var enable_date_mode_action = new SimpleAction ("open_date_mode", null);
+            enable_date_mode_action.activate.connect (() => {
+                show_view (Context.DATE, date_header_box);
+            });
+            add_action (enable_date_mode_action);
 
             var enable_conv_length_mode_action = new SimpleAction ("open_conv_length_mode", null);
             enable_conv_length_mode_action.activate.connect (() => {
