@@ -48,6 +48,8 @@ namespace Pebbles {
         private unowned CalculusView calculus_view;
         [GtkChild]
         private unowned ConvCurrencyView conv_currency_view;
+        [GtkChild]
+        private unowned DateView date_view;
 
         // Headers
         [GtkChild]
@@ -63,6 +65,7 @@ namespace Pebbles {
         [GtkChild]
         private unowned Gtk.Box date_header_box;
         public Gtk.Stack date_header_box_stack;
+        public Gtk.Switch diff_mode_switch;
         [GtkChild]
         private unowned Gtk.Box currency_header_box;
         [GtkChild]
@@ -124,6 +127,7 @@ namespace Pebbles {
         public signal string on_stat_cell_query (int index, int series_index);
         public signal void on_stat_export (string? path);
         public signal void on_render_graph (GraphPayloadModel payload);
+        public signal string on_process_date_difference (DateTime from, DateTime to);
         public signal string on_convert_value (string data);
 
         construct {
@@ -239,11 +243,16 @@ namespace Pebbles {
                 };
                 var date_age_label = new Gtk.Label (_("AGE"));
                 var date_dur_label = new Gtk.Label (_("DUR"));
-                var diff_mode_switch = new Gtk.Switch ();
+                diff_mode_switch = new Gtk.Switch ();
                 diff_mode_switch.add_css_class ("mode-switch");
                 var date_diff_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
                     valign = Gtk.Align.CENTER
                 };
+                diff_mode_switch.notify.connect ((pspec) => {
+                    if (pspec.get_name () == "active") {
+                        date_view.diff_mode_dur = diff_mode_switch.active;
+                    }
+                });
                 date_diff_box.append (date_age_label);
                 date_diff_box.append (diff_mode_switch);
                 date_diff_box.append (date_dur_label);

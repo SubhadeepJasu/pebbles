@@ -12,6 +12,7 @@ from pebbles.core.scientific_calculator import ScientificCalculator
 from pebbles.core.statistics_calculator import StatisticsCalculator
 from pebbles.core.graphing_calculator import GraphingCalculator
 from pebbles.core.calculus_calculator import CalculusCalculator
+from pebbles.core.date_calculator import DateCalculator
 from pebbles.core.converter import Converter
 from pebbles.core.tokenizer import Tokenizer
 from pebbles.core.utils import Utils
@@ -45,6 +46,7 @@ class PythonWindow(Pebbles.MainWindow):
         self.connect("on_get_last_result", self._on_query_last_result_cb)
         self.connect("on_render_graph", self._on_render_graph)
         self.connect("on_convert_value", self._on_convert_value_cb)
+        self.connect("on_process_date_difference", self._on_date_diff_cb)
 
 
     def _evaluate(self, _, data:str):
@@ -242,3 +244,8 @@ Attempting to make a table with the previous series.")
     def _on_convert_value_cb(self, _, data:str):
         converter = Converter(data)
         return converter.convert()
+
+
+    def _on_date_diff_cb(self, _, from_date, to_date):
+        date_calculator = DateCalculator()
+        return date_calculator.evaluate_difference(from_date, to_date)

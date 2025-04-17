@@ -37,7 +37,7 @@ template $PebblesDateView: $PebblesView {
             title: _("Find Difference");
 
             child: Grid date_dur_grid {
-                valign: center;
+                valign: end;
                 halign: fill;
                 hexpand: true;
                 margin-start: 12;
@@ -80,6 +80,8 @@ template $PebblesDateView: $PebblesView {
                 }
 
                 Grid {
+                    height-request: 180;
+
                     layout {
                         row: 5;
                         column: 0;

@@ -33,6 +33,7 @@ python.install_sources(
     'core/statistics_calculator.py',
     'core/graphing_calculator.py',
     'core/calculus_calculator.py',
+    'core/date_calculator.py',
     'core/converter.py'
   ),
   subdir: 'pebbles/core',
