@@ -66,6 +66,7 @@ namespace Pebbles {
         private unowned Gtk.Box date_header_box;
         public Gtk.Stack date_header_box_stack;
         public Gtk.Switch diff_mode_switch;
+        public Gtk.Switch add_mode_switch;
         [GtkChild]
         private unowned Gtk.Box currency_header_box;
         [GtkChild]
@@ -128,6 +129,7 @@ namespace Pebbles {
         public signal void on_stat_export (string? path);
         public signal void on_render_graph (GraphPayloadModel payload);
         public signal string on_process_date_difference (DateTime from, DateTime to);
+        public signal Date on_add_sub_date (DateTime start_date, int days, int month, int year, bool add);
         public signal string on_convert_value (string data);
 
         construct {
@@ -259,7 +261,12 @@ namespace Pebbles {
 
                 var date_add_label = new Gtk.Label (_("ADD"));
                 var date_sub_label = new Gtk.Label (_("SUB"));
-                var add_mode_switch = new Gtk.Switch ();
+                add_mode_switch = new Gtk.Switch ();
+                add_mode_switch.notify.connect ((pspec) => {
+                    if (pspec.get_name () == "active") {
+                        date_view.date_find_mode = add_mode_switch.active;
+                    }
+                });
                 add_mode_switch.add_css_class ("mode-switch");
                 var date_add_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
                     valign = Gtk.Align.CENTER

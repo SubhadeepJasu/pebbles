@@ -23,7 +23,19 @@ namespace Pebbles {
 
             set {
                 _diff_mode_dur = value;
-                do_calculations ();
+                find_difference ();
+            }
+        }
+
+        private bool _date_find_mode;
+        public bool date_find_mode {
+            get {
+                return _date_find_mode;
+            }
+
+            set {
+                _date_find_mode = value;
+                find_date ();
             }
         }
 
@@ -36,6 +48,10 @@ namespace Pebbles {
         private unowned Gtk.Label date_diff_label;
         [GtkChild]
         private unowned Gtk.Label days_diff_label;
+        [GtkChild]
+        private unowned Gtk.Label week_day_label;
+        [GtkChild]
+        private unowned Gtk.Label date_dmy_label;
         [GtkChild]
         private unowned Gtk.Calendar main_calendar;
 
@@ -52,18 +68,21 @@ namespace Pebbles {
 
         construct {
             datepicker_diff_from = new Granite.DatePicker ();
+            datepicker_diff_from.date = new DateTime.now_local ();
             date_dur_grid.attach (datepicker_diff_from, 0, 1);
             datepicker_diff_from.changed.connect (() => {
-                do_calculations ();
+                find_difference ();
             });
 
             datepicker_diff_to = new Granite.DatePicker ();
+            datepicker_diff_to.date = new DateTime.now_local ();
             date_dur_grid.attach (datepicker_diff_to, 0, 3);
             datepicker_diff_to.changed.connect (() => {
-                do_calculations ();
+                find_difference ();
             });
 
             datepicker_starting_from = new Granite.DatePicker ();
+            datepicker_starting_from.date = new DateTime.now_local ();
             date_add_grid.attach (datepicker_starting_from, 0, 1);
 
             day_adjustment = new Gtk.Adjustment (0, 0, 10000, 1, 30, 0);
@@ -71,7 +90,7 @@ namespace Pebbles {
             year_adjustment = new Gtk.Adjustment (0, 0, 1000, 1, 4, 0);
         }
 
-        private void do_calculations () {
+        private void find_difference () {
             var datetime_diff_from = datepicker_diff_from.date;
             var datetime_diff_to = datepicker_diff_to.date;
 
@@ -144,12 +163,82 @@ namespace Pebbles {
             date_diff_label.set_text (result_date);
         }
 
+        [GtkCallback]
+        protected void find_date () {
+            var given_date = datepicker_starting_from.date;
+            if (!date_find_mode) {
+                given_date = given_date.add_days ((int) day_adjustment.value);
+                given_date = given_date.add_months ((int) month_adjustment.value);
+                given_date = given_date.add_years ((int) year_adjustment.value);
+            }
+            else {
+                given_date = given_date.add_days (0 - (int) day_adjustment.value);
+                given_date = given_date.add_months (0 - (int) month_adjustment.value);
+                given_date = given_date.add_years (0 - (int) year_adjustment.value);
+            }
+            string formatted_date = given_date.format ("%x");
+            string[] week_day = {
+                (_("Monday")),
+                (_("Tuesday")),
+                (_("Wednesday")),
+                (_("Thursday")),
+                (_("Friday")),
+                (_("Saturday")),
+                (_("Sunday"))
+            };
+            switch (given_date.get_day_of_week ()) {
+                case 1:
+                    week_day_label.set_text (week_day[0]);
+                    formatted_date = formatted_date.replace (week_day[0] + " ", "");
+                    break;
+                case 2:
+                    week_day_label.set_text (week_day[1]);
+                    formatted_date = formatted_date.replace (week_day[1] + " ", "");
+                    break;
+                case 3:
+                    week_day_label.set_text (week_day[2]);
+                    formatted_date = formatted_date.replace (week_day[2] + " ", "");
+                    break;
+                case 4:
+                    week_day_label.set_text (week_day[3]);
+                    formatted_date = formatted_date.replace (week_day[3] + " ", "");
+                    break;
+                case 5:
+                    week_day_label.set_text (week_day[4]);
+                    formatted_date = formatted_date.replace (week_day[4] + " ", "");
+                    break;
+                case 6:
+                    week_day_label.set_text (week_day[5]);
+                    formatted_date = formatted_date.replace (week_day[5] + " ", "");
+                    break;
+                case 7:
+                    week_day_label.set_text (week_day[6]);
+                    formatted_date = formatted_date.replace (week_day[6] + " ", "");
+                    break;
+                default:
+                    week_day_label.set_text ("");
+                    break;
+            }
+            main_calendar.year = given_date.get_year ();
+            main_calendar.month = given_date.get_month () - 1;
+            main_calendar.day = given_date.get_day_of_month ();
+            date_dmy_label.set_text (formatted_date);
+        }
+
         private DateFormatted format (DateTime start_date_time, DateTime end_date_time) {
             DateFormatted date_formatted = new DateFormatted ();
             Date start_date = Date ();
             Date end_date = Date ();
-            start_date.set_dmy ( (DateDay)start_date_time.get_day_of_month (), start_date_time.get_month (), (DateYear)start_date_time.get_year ());
-            end_date.set_dmy ( (DateDay)end_date_time.get_day_of_month (), end_date_time.get_month (), (DateYear)end_date_time.get_year ());
+            start_date.set_dmy (
+                (DateDay)start_date_time.get_day_of_month (),
+                start_date_time.get_month (),
+                (DateYear)start_date_time.get_year ()
+            );
+            end_date.set_dmy (
+                (DateDay)end_date_time.get_day_of_month (),
+                end_date_time.get_month (),
+                (DateYear)end_date_time.get_year ()
+            );
 
             while (start_date.compare (end_date) <= 0) {
                 start_date.add_years (1);

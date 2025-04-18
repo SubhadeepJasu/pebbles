@@ -197,14 +197,17 @@ template $PebblesDateView: $PebblesView {
 
                     SpinButton day_spin_button {
                         adjustment: bind template.day_adjustment;
+                        changed => $find_date();
                     }
 
                     SpinButton month_spin_button {
                         adjustment: bind template.month_adjustment;
+                        changed => $find_date();
                     }
 
                     SpinButton year_spin_button {
                         adjustment: bind template.year_adjustment;
+                        changed => $find_date();
                     }
                 }
 

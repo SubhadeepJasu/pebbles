@@ -389,4 +389,5 @@ button.pressed {
     border: 1px solid #{'alpha(shade(@accent_color, 0.7), 0.5)'};
 	border-radius: 3px;
 	background-color: #{'alpha(@accent_color, 0.2)'};
+    padding: 4px;
 }
