@@ -59,6 +59,10 @@ namespace Pebbles {
         [GtkChild]
         private unowned Gtk.Box calculus_header_box;
         [GtkChild]
+        private unowned Gtk.Box programmer_header_box;
+        [GtkChild]
+        private unowned Gtk.ToggleButton bit_grid_toggle;
+        [GtkChild]
         private unowned Gtk.Box statistics_header_box;
         [GtkChild]
         private unowned Gtk.Box graph_header_box;
@@ -77,6 +81,7 @@ namespace Pebbles {
         // Constant Bindings
         public string? context_scientific { get; default = Context.SCIENTIFIC; }
         public string? context_calculus { get; default = Context.CALCULUS; }
+        public string? context_programmer { get; default = Context.PROGRAMMER; }
         public string? context_statistics { get; default = Context.STATISTICS; }
         public string? context_graphing { get; default = Context.GRAPHING; }
         public string? context_date { get; default = Context.DATE; }
@@ -279,6 +284,8 @@ namespace Pebbles {
                 date_header_box_stack.add_named (date_add_box, "date-add-view");
                 date_header_box.append (date_header_box_stack);
             }
+
+            bit_grid_toggle.remove_css_class ("image-button");
         }
 
         private void setup_actions () {
@@ -308,6 +315,12 @@ namespace Pebbles {
                 show_view (Context.CALCULUS, calculus_header_box);
             });
             add_action (enable_calculus_mode_action);
+
+            var enable_programmer_mode_action = new SimpleAction ("open_programmer_mode", null);
+            enable_programmer_mode_action.activate.connect (() => {
+                show_view (Context.PROGRAMMER, programmer_header_box);
+            });
+            add_action (enable_programmer_mode_action);
 
             var enable_statistics_mode_action = new SimpleAction ("open_statistics_mode", null);
             enable_statistics_mode_action.activate.connect (() => {

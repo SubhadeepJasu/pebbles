@@ -61,6 +61,10 @@ $LCD_FG_COLOR: #272863bb;
     }
 }
 
+.monospace {
+    font-family: monospace;
+}
+
 .lcd {
     background: linear-gradient(#d1ddd1, #bdc7bd);
     border-radius: 3px;
@@ -107,6 +111,22 @@ $LCD_FG_COLOR: #272863bb;
 
         text {
             color: $LCD_FG_COLOR;
+        }
+    }
+
+    &-indicator {
+        font-size: 10px;
+        opacity: 0.8;
+        font-weight: bold;
+        box-shadow: 0 2px 2px #0001, inset 0 2px 2px #0001;
+        color:#272863;
+        border: 1px solid #272863;
+        padding: 2px 6px;
+        border-radius: 2.25px;
+
+        &.selected {
+            color:#C6D0C6;
+	        background-color: #272863;
         }
     }
 
@@ -376,6 +396,7 @@ button.pressed {
 .scale-button {
     padding: 4px;
 }
+
 
 .conversion-text-box-focused {
     background: none;

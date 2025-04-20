@@ -19,6 +19,8 @@
     <file compressed="true" preprocess="xml-stripblanks">ui/graph_viewport.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/calculus_view.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/calculus_display.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/programmer_view.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/programmer_display.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/date_view.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/converter_view.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/conv_length_view.ui</file>
@@ -60,5 +62,6 @@
     <file alias="scalable/emblems/derivative-limit-symbolic.svg">icons/scalable/emblems/derivative-limit-symbolic.svg</file>
     <file alias="scalable/emblems/integral-limit-upper-symbolic.svg">icons/scalable/emblems/integral-limit-upper-symbolic.svg</file>
     <file alias="scalable/emblems/integral-limit-lower-symbolic.svg">icons/scalable/emblems/integral-limit-lower-symbolic.svg</file>
+    <file alias="scalable/emblems/binary-grid-symbolic.svg">icons/scalable/emblems/binary-grid-symbolic.svg</file>
   </gresource>
 </gresources>
