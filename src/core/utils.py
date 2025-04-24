@@ -47,3 +47,45 @@ class Utils():
         loader.write(buf.getvalue())
         loader.close()
         return loader.get_pixbuf()
+
+
+    @staticmethod
+    def get_natural_expression(expr: str) -> str:
+        ret_val = expr
+        ret_val = ret_val.replace("<", "lsh")
+        ret_val = ret_val.replace(">", "rsh")
+        ret_val = ret_val.replace("!", "[0]")
+        ret_val = ret_val.replace("&", "[1]")
+        ret_val = ret_val.replace("|", "[2]")
+        ret_val = ret_val.replace("m", "[3]")
+        ret_val = ret_val.replace("_", "[4]")
+        ret_val = ret_val.replace("o", "[5]")
+        ret_val = ret_val.replace("x", "[6]")
+        ret_val = ret_val.replace("n", "[7]")
+        ret_val = ret_val.replace("[0]", "not")
+        ret_val = ret_val.replace("[1]", "and")
+        ret_val = ret_val.replace("[2]", "or")
+        ret_val = ret_val.replace("[3]", "mod")
+        ret_val = ret_val.replace("[4]", "nand")
+        ret_val = ret_val.replace("[5]", "nor")
+        ret_val = ret_val.replace("[6]", "xor")
+        ret_val = ret_val.replace("[7]", "xnor")
+        ret_val = ret_val.replace("*", "×")
+        ret_val = ret_val.replace("/", "÷")
+        ret_val = ret_val.replace("-", "−")  # Unicode minus
+        return ret_val
+
+
+    @staticmethod
+    def remove_leading_zeroes(text):
+        """
+        Remove leading Zeroes from text.
+        """
+        if text == "0":
+            return "0"
+
+        for i, ch in enumerate(text):
+            if ch != '0':
+                return text[i:]
+
+        return "0"

@@ -45,6 +45,8 @@ namespace Pebbles {
         [GtkChild]
         private unowned GraphingView graphing_view;
         [GtkChild]
+        private unowned ProgrammerView programmer_view;
+        [GtkChild]
         private unowned CalculusView calculus_view;
         [GtkChild]
         private unowned ConvCurrencyView conv_currency_view;
@@ -61,7 +63,7 @@ namespace Pebbles {
         [GtkChild]
         private unowned Gtk.Box programmer_header_box;
         [GtkChild]
-        private unowned Gtk.ToggleButton bit_grid_toggle;
+        public unowned Gtk.ToggleButton bit_grid_toggle;
         [GtkChild]
         private unowned Gtk.Box statistics_header_box;
         [GtkChild]
@@ -797,6 +799,15 @@ namespace Pebbles {
         [GtkCallback]
         protected void force_refresh_forex_data () {
             conv_currency_view.update_forex_data.begin (true);
+        }
+
+        [GtkCallback]
+        protected void show_bit_grid (Gtk.ToggleButton button) {
+            if (button.active) {
+                programmer_view.open_bit_grid ();
+            } else {
+                programmer_view.on_hide_bit_grid ();
+            }
         }
 
         public void send_toast (string message) {

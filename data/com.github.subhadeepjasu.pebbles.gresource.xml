@@ -21,6 +21,7 @@
     <file compressed="true" preprocess="xml-stripblanks">ui/calculus_display.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/programmer_view.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/programmer_display.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/bit_grid.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/date_view.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/converter_view.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/conv_length_view.ui</file>

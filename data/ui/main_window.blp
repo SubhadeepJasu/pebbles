@@ -546,6 +546,8 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                     tooltip-text: _("Bit toggle grid");
                                     focus-on-click: false;
                                     can-focus: false;
+
+                                    toggled => $show_bit_grid();
                                 }
                             }
 

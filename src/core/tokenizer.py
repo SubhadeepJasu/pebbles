@@ -4,6 +4,8 @@
 
 """Tokenizer"""
 
+from pebbles.core.utils import Utils
+
 class Tokenizer():
     """Tokenizer used to convert input expression into meaningful tokens."""
 
@@ -146,6 +148,34 @@ class Tokenizer():
         ('!', ' ! 1 '),
         ('∞', 'inf')
     ]
+
+    PROGRAMMING_TOKEN_MAP = [
+            ("lsh", " < "),
+            ("rsh", " > "),
+            ("lr", " lr "),
+            ("rr", " rr "),
+            ("not", " ! "),
+            ("nand", " [5] "),
+            ("xnor", " [6] "),
+            ("xor", " [7] "),
+            ("nor", " [8] "),
+            ("and", " & "),
+            ("or", " | "),
+            ("mod", " m "),
+            ("[5]", " _ "),
+            ("[6]", " n "),
+            ("[7]", " x "),
+            ("[8]", " o "),
+            ("(", " ( "),
+            (")", " ) "),
+            ("+", " + "),
+            ("-", " - "),
+            ("−", " - "),
+            ("\xC3\x97", " * "),
+            ("\xC3\xB7", " / "),
+            ("*", " * "),
+            ("/", " / ")
+        ]
 
     @staticmethod
     def _check_parenthesis(exp: str) -> bool:
@@ -361,3 +391,37 @@ class Tokenizer():
 
             return exp.split(' ')
         return []
+
+
+    @staticmethod
+    def get_token_array(input_exp, number_system):
+        """
+        Tokenize the given string.
+        """
+        exp = input_exp
+        for original, replacement in Tokenizer.PROGRAMMING_TOKEN_MAP:
+            exp = exp.replace(original, replacement)
+
+        exp = exp.strip()
+        exp = Tokenizer._space_removal(exp)
+
+        str_with_uniform_spaces = Tokenizer._space_removal(exp)
+        str_tokens = str_with_uniform_spaces.split(" ")
+        tokens = []
+
+        for token_str in str_tokens:
+            token = {}
+            if token_str in ["<", ">", "lr", "rr", "!", "_", "n", "x",
+                             "o", "&", "|", "m", "+", "-", "/", "*"]:
+                token["type"] = "OPERATOR"
+            elif token_str in ["(", ")"]:
+                token["type"] = "PARENTHESIS"
+            else:
+                token["type"] = "OPERAND"
+
+            token["token"] = Utils.remove_leading_zeroes(token_str)
+            token["numberSystem"] = number_system
+
+            tokens.append(token)
+
+        return tokens

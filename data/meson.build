@@ -19,6 +19,7 @@ blueprint_files = [
   'ui/date_view.blp',
   'ui/programmer_view.blp',
   'ui/programmer_display.blp',
+  'ui/bit_grid.blp',
   'ui/converter_view.blp',
   'ui/conv_length_view.blp',
   'ui/conv_area_view.blp',
