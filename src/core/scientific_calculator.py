@@ -357,8 +357,8 @@ class ScientificCalculator():
 
 
     def _op_log(self, a: float|complex, b: float|complex):
-        _x = a
-        _y = b
+        _x = b
+        _y = a
         if isinstance(_x,complex):
             _x = cmath.log(_x)
         else:

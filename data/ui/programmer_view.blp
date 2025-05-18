@@ -14,7 +14,7 @@ template $PebblesProgrammerView: $PebblesView {
     }
 
     vexpand: true;
-    // shift_on: bind shift_button.active;
+    shift_on: bind shift_button.active;
   }
 
   Stack programmer_stack {
@@ -523,26 +523,38 @@ template $PebblesProgrammerView: $PebblesView {
             }
 
             ToggleButton hex_toggle {
+              name: "hex-toggle";
               label: _("HEXA");
               can-focus: false;
+
+              toggled => $on_number_system_toggle();
             }
 
             ToggleButton dec_toggle {
+              name: "dec-toggle";
               label: _("DECI");
               group: hex_toggle;
               can-focus: false;
+
+              toggled => $on_number_system_toggle();
             }
 
             ToggleButton oct_toggle {
+              name: "oct-toggle";
               label: _("OCTL");
               group: hex_toggle;
               can-focus: false;
+
+              toggled => $on_number_system_toggle();
             }
 
             ToggleButton bin_toggle {
+              name: "bin-toggle";
               label: _("BNRY");
               group: hex_toggle;
               can-focus: false;
+
+              toggled => $on_number_system_toggle();
             }
           }
 
@@ -566,13 +578,11 @@ template $PebblesProgrammerView: $PebblesView {
             // clicked => $on_click_memory_add();
           }
 
-          $PebblesButton sin_button {
-            name: "s";
+          $PebblesButton hex_e_button {
+            name: "e";
             label_text: "E";
-            tooltip_desc: _("Sine");
-            accel_markup: "S";
             focus-on-click: false;
-            key: "s,S";
+            key: "e,E";
 
             styles [
               "adaptive-btn-font"
@@ -586,13 +596,11 @@ template $PebblesProgrammerView: $PebblesView {
             // clicked => $on_click_function();
           }
 
-          $PebblesButton sinh_button {
-            name: "h";
+          $PebblesButton hex_f_button {
+            name: "f";
             label_text: "F";
-            tooltip_desc: _("Hyberbolic Sine");
-            accel_markup: "H";
             focus-on-click: false;
-            key: "h,H";
+            key: "f,F";
 
             styles [
               "adaptive-btn-font"
@@ -607,7 +615,6 @@ template $PebblesProgrammerView: $PebblesView {
           }
 
           $PebblesButton or_button {
-            name: "o";
             label_text: "Or";
             tooltip_desc: _("Bitwise OR (TRUE for any input being TRUE)");
             accel_markup: "O";
@@ -647,11 +654,9 @@ template $PebblesProgrammerView: $PebblesView {
             // clicked => $on_click_memory_subtract();
           }
 
-          $PebblesButton cos_button {
+          $PebblesButton hex_c_button {
             name: "c";
             label_text: "C";
-            tooltip_desc: _("Cosine");
-            accel_markup: "C";
             focus-on-click: false;
             key: "c,C";
 
@@ -667,13 +672,11 @@ template $PebblesProgrammerView: $PebblesView {
             // clicked => $on_click_function();
           }
 
-          $PebblesButton cosh_button {
-            name: "o";
+          $PebblesButton hex_d_button {
+            name: "d";
             label_text: "D";
-            tooltip_desc: _("Hyberbolic Cosine");
-            accel_markup: "O";
             focus-on-click: false;
-            key: "o,O";
+            key: "d,D";
 
             styles [
               "adaptive-btn-font"
@@ -728,11 +731,9 @@ template $PebblesProgrammerView: $PebblesView {
             // clicked => $on_click_memory_recall();
           }
 
-          $PebblesButton tan_button {
-            name: "t";
+          $PebblesButton hex_a_button {
+            name: "a";
             label_text: "A";
-            tooltip_desc: _("Tangent");
-            accel_markup: "T";
             focus-on-click: false;
             key: "t,T";
 
@@ -748,13 +749,11 @@ template $PebblesProgrammerView: $PebblesView {
             // clicked => $on_click_function();
           }
 
-          $PebblesButton tanh_button {
-            name: "a";
+          $PebblesButton hex_b_button {
+            name: "b";
             label_text: "B";
-            tooltip_desc: _("Hyberbolic Tangent");
-            accel_markup: "A";
             focus-on-click: false;
-            key: "a,A";
+            key: "b,B";
 
             styles [
               "adaptive-btn-font"
@@ -823,7 +822,7 @@ template $PebblesProgrammerView: $PebblesView {
               column: 0;
             }
 
-            // clicked => $on_shift();
+            clicked => $on_shift();
           }
 
           $PebblesButton last_answer_button {
@@ -884,7 +883,7 @@ template $PebblesProgrammerView: $PebblesView {
               column: 2;
             }
 
-            // clicked => $on_collapse_fx();
+            clicked => $on_collapse_fx();
           }
         }
       };

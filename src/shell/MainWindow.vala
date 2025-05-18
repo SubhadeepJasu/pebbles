@@ -63,6 +63,8 @@ namespace Pebbles {
         [GtkChild]
         private unowned Gtk.Box programmer_header_box;
         [GtkChild]
+        private unowned Pebbles.Button wrd_length;
+        [GtkChild]
         public unowned Gtk.ToggleButton bit_grid_toggle;
         [GtkChild]
         private unowned Gtk.Box statistics_header_box;
@@ -498,8 +500,14 @@ namespace Pebbles {
             key_event_controller = new Gtk.EventControllerKey ();
             key_event_controller.key_pressed.connect ((keyval, _, modifier) => {
                 var shift_key = keyval == Gdk.Key.Shift_L || keyval == Gdk.Key.Shift_R;
+                var lock_on = (modifier & Gdk.ModifierType.LOCK_MASK) != 0;
+                var lock_key = keyval == Gdk.Key.Caps_Lock;
                 if (shift_key) {
-                    set_shift_on (true);
+                    set_shift_on (!lock_on);
+                }
+
+                if (lock_key) {
+                    set_shift_on (!lock_on);
                 }
 
                 if ((
@@ -530,8 +538,9 @@ namespace Pebbles {
             });
             key_event_controller.key_released.connect ((keyval, _, modifier) => {
                 var shift_key = keyval == Gdk.Key.Shift_L || keyval == Gdk.Key.Shift_R;
+                var lock_on = (modifier & Gdk.ModifierType.LOCK_MASK) != 0;
                 if (shift_key) {
-                    set_shift_on (false);
+                    set_shift_on (lock_on);
                 }
 
                 if ((
@@ -596,6 +605,21 @@ namespace Pebbles {
                     angle_mode.label_text = "GRA";
                     graph_angle_mode.label_text = "GRA";
                     calculus_angle_mode.label_text= "GRA";
+                    break;
+            }
+
+            switch (settings.global_word_length) {
+                case QWD:
+                    wrd_length.label_text = "QWD";
+                    break;
+                case DWD:
+                    wrd_length.label_text = "DWD";
+                    break;
+                case WRD:
+                    wrd_length.label_text = "WRD";
+                    break;
+                case BYT:
+                    wrd_length.label_text = "BYT";
                     break;
             }
         }
@@ -718,6 +742,23 @@ namespace Pebbles {
                             break;
                     }
                     break;
+                case Context.PROGRAMMER:
+                    settings.global_word_length = (GlobalWordLength) _history.metadata.metadata_1;
+                    switch (settings.global_word_length) {
+                        case QWD:
+                            wrd_length.label_text = "QWD";
+                            break;
+                        case DWD:
+                            wrd_length.label_text = "DWD";
+                            break;
+                        case WRD:
+                            wrd_length.label_text = "WRD";
+                            break;
+                        case BYT:
+                            wrd_length.label_text = "BYT";
+                            break;
+                    }
+                    break;
             }
         }
 
@@ -730,6 +771,7 @@ namespace Pebbles {
             statistics_view.send_shift_modifier (on);
             graphing_view.send_shift_modifier (on);
             calculus_view.send_shift_modifier (on);
+            programmer_view.send_shift_modifier (on);
         }
 
         [GtkCallback]
@@ -764,6 +806,26 @@ namespace Pebbles {
                             angle_mode.label_text = "DEG";
                             graph_angle_mode.label_text = "DEG";
                             calculus_angle_mode.label_text = "DEG";
+                            break;
+                    }
+                    break;
+                case Context.PROGRAMMER:
+                    switch (settings.global_word_length) {
+                        case QWD:
+                            settings.global_word_length = DWD;
+                            wrd_length.label_text = "DWD";
+                            break;
+                        case DWD:
+                            settings.global_word_length = WRD;
+                            wrd_length.label_text = "WRD";
+                            break;
+                        case WRD:
+                            settings.global_word_length = BYT;
+                            wrd_length.label_text = "BYT";
+                            break;
+                        case BYT:
+                            settings.global_word_length = QWD;
+                            wrd_length.label_text = "QWD";
                             break;
                     }
                     break;

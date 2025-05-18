@@ -10,6 +10,8 @@ from pebbles.core.tokenizer import Tokenizer
 from pebbles.core.memory import ContextualMemory
 from pebbles.core.utils import Utils
 
+# pylint: disable=too-many-public-methods, too-many-branches
+
 class ProgrammersCalculator():
     """The programmers calculator."""
 
@@ -60,19 +62,23 @@ class ProgrammersCalculator():
         return Utils.get_natural_expression(expression)
 
 
+    def populate_token_array(self, exp: str, number_system:Pebbles.NumberSystem):
+        self.stored_tokens = Tokenizer.get_token_array (exp, number_system)
+
+
     def set_number_system(self,
                           exp:str,
                           number_system:Pebbles.NumberSystem,
                           wrd_length=Pebbles.GlobalWordLength.BYT,
                           force_decimal=False
-                        ) -> str:
+                         ) -> str:
         token_structure = Tokenizer.get_token_array(exp, number_system)
 
         if self._compare_token_set(token_structure, self.stored_tokens):
             for i in range(len(token_structure)):
                 if token_structure[i].type == ProgrammersCalculator.TOKEN_TYPE_OPERAND:
                     if token_structure[i].number_system != self.stored_tokens[i].number_system:
-                        self.stored_tokens[i].token = self.convert_number_system(
+                        self.stored_tokens[i].token = self._convert_number_system(
                             self.stored_tokens[i].token,
                             self.stored_tokens[i].number_system,
                             Pebbles.NumberSystem.DECIMAL \
@@ -96,6 +102,51 @@ class ProgrammersCalculator():
             if a[i].token != b[i].token:
                 return False
         return True
+
+
+    def _convert_number_system(self,
+                           exp: str,
+                           number_system_a: Pebbles.NumberSystem,
+                           number_system_b: Pebbles.NumberSystem,
+                           wrd_length = Pebbles.GlobalWordLength.WRD
+                          ) -> str:
+        converted = exp
+
+        if number_system_a == Pebbles.NumberSystem.DECIMAL:
+            if number_system_b == Pebbles.NumberSystem.BINARY:
+                converted = self.convert_decimal_to_binary(exp, wrd_length)
+            elif number_system_b == Pebbles.NumberSystem.HEXADECIMAL:
+                converted = self.convert_decimal_to_hexadecimal(exp)
+            elif number_system_b == Pebbles.NumberSystem.OCTAL:
+                converted = self.convert_decimal_to_octal(exp, wrd_length)
+
+        elif number_system_a == Pebbles.NumberSystem.BINARY:
+            if number_system_b == Pebbles.NumberSystem.DECIMAL:
+                converted = self.convert_binary_to_decimal(exp, wrd_length)
+            elif number_system_b == Pebbles.NumberSystem.HEXADECIMAL:
+                converted = self.convert_binary_to_hexadecimal(exp, wrd_length)
+            elif number_system_b == Pebbles.NumberSystem.OCTAL:
+                converted = self.convert_binary_to_octal(exp, wrd_length)
+
+        elif number_system_a == Pebbles.NumberSystem.HEXADECIMAL:
+            if number_system_b == Pebbles.NumberSystem.DECIMAL:
+                converted = self.convert_hexadecimal_to_decimal(exp, wrd_length)
+            elif number_system_b == Pebbles.NumberSystem.BINARY:
+                converted = self.convert_hexadecimal_to_binary(exp, wrd_length)
+            elif number_system_b == Pebbles.NumberSystem.OCTAL:
+                converted = self.convert_hexadecimal_to_octal(exp, wrd_length)
+
+        elif number_system_a == Pebbles.NumberSystem.OCTAL:
+            if number_system_b == Pebbles.NumberSystem.DECIMAL:
+                converted = self.convert_octal_to_decimal(exp, wrd_length)
+            elif number_system_b == Pebbles.NumberSystem.BINARY:
+                converted = self.convert_octal_to_binary(exp, wrd_length)
+            elif number_system_b == Pebbles.NumberSystem.HEXADECIMAL:
+                converted = self.convert_octal_to_hexadecimal(exp, wrd_length)
+
+        return converted
+
+
 
 
     @staticmethod
@@ -278,6 +329,26 @@ class ProgrammersCalculator():
         return binary
 
 
+    def convert_decimal_to_hexadecimal(self, number: str) -> str:
+        n = int(number)
+        hexa = ""
+
+        while n != 0:
+            temp = n % 16
+            if temp < 10:
+                hexa += str(temp)
+            else:
+                hexa += ProgrammersCalculator.HEXADECIMAL_DIGITS[temp - 10]
+            n //= 16
+
+        hex_value = hexa[::-1]  # reverse the string
+
+        if hex_value.strip() == "":
+            return "0"
+
+        return hex_value
+
+
     def convert_hexadecimal_to_binary(self,
                                       hex_value: str,
                                       wrd_length=Pebbles.GlobalWordLength.WRD,
@@ -351,6 +422,12 @@ class ProgrammersCalculator():
     def convert_octal_to_hexadecimal(self, oct_value:str, wrd_length=Pebbles.GlobalWordLength.BYT):
         bin_value = self.convert_octal_to_binary(oct_value, wrd_length)
         return self.convert_binary_to_hexadecimal(bin_value, wrd_length)
+
+
+    def convert_hexadecimal_to_decimal(self, number: str, wrd_length=Pebbles.GlobalWordLength.WRD):
+        binary_value = self.convert_hexadecimal_to_binary(number, wrd_length)
+        decimal = self.convert_binary_to_decimal(binary_value, wrd_length)
+        return str(decimal)
 
 
     def bool_array_to_string(self,
@@ -496,30 +573,7 @@ class ProgrammersCalculator():
 
         return result
 
-
-    # def evaluate(self) -> str:
-    #     """
-    #     Evaluate given programming expression.
-    #     """
-    #     try:
-    #         answer = self.process()
-    #         formatted_answer = ProgrammersCalculator.format(answer)
-
-    #         if self.gen_hist:
-    #             self.memory.push_history(
-    #                 ScientificCalculator.MODE,
-    #                 self.input_dict['input'],
-    #                 str(answer),
-    #                 {'metadata_1': self.angle_mode}
-    #             )
-    #         result_json = json.dumps({'mode': self.MODE, 'result': formatted_answer})
-    #         return result_json, answer
-    #     except (ZeroDivisionError, ArithmeticError, TypeError, IndexError) as e:
-    #         print("Error: ", e)
-    #         return json.dumps({'mode': self.MODE, 'result': 'E'}), None
-
-
-    def process(self, number_system: Pebbles.NumberSystem, wrd_length: Pebbles.GlobalWordLength):
+    def evaluate(self, number_system: Pebbles.NumberSystem, wrd_length: Pebbles.GlobalWordLength):
         """
         Process the data to find out a result.
         """
@@ -540,12 +594,23 @@ class ProgrammersCalculator():
                     operator_stack.append('(')
                 else:
                     while operator_stack[-1].token != '(':
-                        tmp = self._apply_op(operator_stack.pop(), operand_pop(), operand_pop(), wrd_length)
+                        tmp = self._apply_op(
+                            operator_stack.pop(),
+                            operand_pop(),
+                            operand_pop(),
+                            wrd_length
+                        )
                         operand_stack.append(tmp)
                     operator_stack.pop()
             elif token.token_type == ProgrammersCalculator.TOKEN_TYPE_OPERATOR:
-                while len(operator_stack) > 0 and self._has_precedence_pemdas(token.token, operator_stack[-1]):
-                    tmp = self._apply_op(operator_stack.pop(), operand_pop(), operand_pop(), wrd_length)
+                while len(operator_stack) > 0 and \
+                    self._has_precedence_pemdas(token.token, operator_stack[-1]):
+                    tmp = self._apply_op(
+                        operator_stack.pop(),
+                        operand_pop(),
+                        operand_pop(),
+                        wrd_length
+                    )
                     operand_stack.append(tmp)
 
                 operator_stack.append(token.token)

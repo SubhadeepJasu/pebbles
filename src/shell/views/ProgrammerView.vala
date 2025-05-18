@@ -18,10 +18,64 @@ namespace Pebbles {
         private unowned Adw.NavigationSplitView prog_nav_split_view;
         [GtkChild]
         private unowned BitGrid bit_grid;
+        [GtkChild]
+        private unowned Gtk.ToggleButton hex_toggle;
+        [GtkChild]
+        private unowned Gtk.ToggleButton dec_toggle;
+        [GtkChild]
+        private unowned Gtk.ToggleButton oct_toggle;
+        [GtkChild]
+        private unowned Gtk.ToggleButton bin_toggle;
+
+        // Buttons
+        [GtkChild]
+        private unowned Gtk.ToggleButton shift_button;
+        [GtkChild]
+        private unowned Pebbles.Button lsh_rsh_button;
+        [GtkChild]
+        private unowned Pebbles.Button not_button;
+        [GtkChild]
+        private unowned Pebbles.Button or_button;
+        [GtkChild]
+        private unowned Pebbles.Button or_button_p;
+        [GtkChild]
+        private unowned Pebbles.Button and_button;
+        [GtkChild]
+        private unowned Pebbles.Button and_button_p;
+        [GtkChild]
+        private unowned Pebbles.Button xor_button;
+        [GtkChild]
+        private unowned Pebbles.Button xor_button_p;
+
+        private Pebbles.Settings settings;
+
+        construct {
+            settings = Pebbles.Settings.get_default ();
+
+            switch (settings.number_system) {
+                case HEXADECIMAL:
+                    hex_toggle.active = true;
+                    break;
+                case DECIMAL:
+                    dec_toggle.active = true;
+                    break;
+                case OCTAL:
+                    oct_toggle.active = true;
+                    break;
+                case BINARY:
+                    bin_toggle.active = true;
+                    break;
+            }
+        }
 
         [GtkCallback]
         protected void on_expand_fx () {
+            prog_nav_split_view.show_content= true;
+        }
 
+        [GtkCallback]
+        protected void on_collapse_fx () {
+            prog_nav_split_view.show_content = false;
         }
 
         [GtkCallback]
@@ -46,6 +100,62 @@ namespace Pebbles {
             if (window.bit_grid_toggle.active) {
                 window.bit_grid_toggle.active = false;
             }
+        }
+
+        [GtkCallback]
+        protected void on_number_system_toggle (Gtk.ToggleButton button) {
+            if (button.active) {
+                switch (button.name) {
+                    case "hex-toggle":
+                        settings.number_system = HEXADECIMAL;
+                        break;
+                    case "dec-toggle":
+                        settings.number_system = DECIMAL;
+                        break;
+                    case "oct-toggle":
+                        settings.number_system = OCTAL;
+                        break;
+                    case "bin-toggle":
+                        settings.number_system = BINARY;
+                        break;
+                }
+            }
+        }
+
+        [GtkCallback]
+        protected void on_shift () {
+            not_button.label_text = shift_button.active ? "Mod" : "Not";
+            not_button.tooltip_desc = shift_button.active
+                                    ? _("Modulus")
+                                    : _("Bitwise Inverter (TRUE for input being FALSE and vice versa)");
+            and_button.label_text = shift_button.active ? "Nand" : "And";
+            and_button.tooltip_desc = shift_button.active
+                                    ? _("Bitwise NOT-of-AND (FALSE only for all inputs being TRUE)")
+                                    : _("Bitwise AND (TRUE for all inputs being TRUE)");
+            and_button_p.label_text = and_button.label_text;
+            and_button_p.tooltip_desc = and_button.tooltip_desc;
+
+            or_button.label_text = shift_button.active ? "Nor" : "Or";
+            or_button.tooltip_desc = shift_button.active
+                                    ? _("Bitwise NOT-of-OR (TRUE only for all inputs being FALSE)")
+                                    : _("Bitwise OR (TRUE for any input being TRUE)");
+            or_button_p.label_text = or_button.label_text;
+            or_button_p.tooltip_desc = or_button.tooltip_desc;
+
+            xor_button.label_text = shift_button.active ? "Xnor" : "Xor";
+            xor_button.tooltip_desc = shift_button.active
+                                    ? _("Logical NOT-of-XOR (TRUE only for all inputs being same)")
+                                    : _("Logical Exclusive-OR (TRUE for exactly one input being TRUE)");
+            xor_button_p.label_text = xor_button.label_text;
+            xor_button_p.tooltip_desc = xor_button.tooltip_desc;
+
+            lsh_rsh_button.label_text = shift_button.active ? "Rsh" : "Lsh";
+            lsh_rsh_button.tooltip_desc = shift_button.active ? _("Right Shift") : _("Left Shift");
+        }
+
+        public void send_shift_modifier (bool shifted) {
+            shift_button.active = shifted;
+            on_shift ();
         }
     }
 }

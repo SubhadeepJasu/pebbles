@@ -1,10 +1,101 @@
 namespace Pebbles {
     [GtkTemplate (ui = "/com/github/subhadeepjasu/pebbles/ui/programmer_display.ui")]
     public class ProgrammerDisplay : Display {
+        private bool _shift_on;
+        public bool shift_on {
+            get {
+                return _shift_on;
+            } set {
+                _shift_on = value;
+                shift_label.opacity = value ? 1 : 0.2;
+            }
+        }
+
         public string hex_number_value { get; set; default = "0"; }
         public string dec_number_value { get; set; default = "0"; }
         public string oct_number_value { get; set; default = "0"; }
         public string bin_number_value { get; set; default = "0"; }
+
+        [GtkChild]
+        private unowned Gtk.Label qwd_label;
+        [GtkChild]
+        private unowned Gtk.Label dwd_label;
+        [GtkChild]
+        private unowned Gtk.Label wrd_label;
+        [GtkChild]
+        private unowned Gtk.Label byt_label;
+
+        [GtkChild]
+        private unowned Gtk.Label bin_label;
+        [GtkChild]
+        private unowned Gtk.Label dec_label;
+        [GtkChild]
+        private unowned Gtk.Label hex_label;
+        [GtkChild]
+        private unowned Gtk.Label oct_label;
+
+        [GtkChild]
+        private unowned Gtk.Label shift_label;
+
+        private NumberSystem _number_system;
+        public NumberSystem number_system {
+            get {
+                return _number_system;
+            }
+
+            set {
+                _number_system = value;
+                bin_label.remove_css_class ("selected");
+                dec_label.remove_css_class ("selected");
+                hex_label.remove_css_class ("selected");
+                oct_label.remove_css_class ("selected");
+
+                switch (value) {
+                    case BINARY:
+                        bin_label.add_css_class ("selected");
+                        break;
+                    case DECIMAL:
+                        dec_label.add_css_class ("selected");
+                        break;
+                    case HEXADECIMAL:
+                        hex_label.add_css_class ("selected");
+                        break;
+                    case OCTAL:
+                        oct_label.add_css_class ("selected");
+                        break;
+                }
+            }
+        }
+
+        private GlobalWordLength _word_length;
+        public GlobalWordLength word_length {
+            get {
+                return _word_length;
+            }
+
+            set {
+                _word_length = value;
+                qwd_label.opacity = 0.2;
+                dwd_label.opacity = 0.2;
+                wrd_label.opacity = 0.2;
+                byt_label.opacity = 0.2;
+
+                switch (value) {
+                    case QWD:
+                        qwd_label.opacity = 1;
+                        break;
+                    case DWD:
+                        dwd_label.opacity = 1;
+                        break;
+                    case WRD:
+                        wrd_label.opacity = 1;
+                        break;
+                    case BYT:
+                        byt_label.opacity = 1;
+                        break;
+                }
+            }
+        }
 
         public bool collapsed { get; set; }
 
@@ -12,6 +103,18 @@ namespace Pebbles {
         construct {
             settings = Pebbles.Settings.get_default ();
             bin_number_value = get_binary_representation ();
+
+            settings.changed["number-system"].connect ((key) => {
+                number_system = settings.number_system;
+            });
+
+            number_system = settings.number_system;
+
+            settings.changed["global-word-length"].connect ((key) => {
+                word_length = settings.global_word_length;
+            });
+
+            word_length = settings.global_word_length;
         }
 
         private string get_binary_representation () {

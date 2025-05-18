@@ -220,6 +220,12 @@ namespace Pebbles {
                 case "L":
                     len_gain = 5;
                     return "ln ";
+                case "p":
+                    len_gain = 0;
+                    return "P";
+                case "P":
+                    len_gain = 0;
+                    return "C";
                 default:
                     len_gain = 0;
                     return current_symbol;
