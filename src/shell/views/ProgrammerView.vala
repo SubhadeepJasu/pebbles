@@ -13,6 +13,9 @@ namespace Pebbles {
         }
 
         [GtkChild]
+        private unowned ProgrammerDisplay display;
+
+        [GtkChild]
         private unowned Gtk.Stack programmer_stack;
         [GtkChild]
         private unowned Adw.NavigationSplitView prog_nav_split_view;
@@ -151,6 +154,16 @@ namespace Pebbles {
 
             lsh_rsh_button.label_text = shift_button.active ? "Rsh" : "Lsh";
             lsh_rsh_button.tooltip_desc = shift_button.active ? _("Right Shift") : _("Left Shift");
+        }
+
+        [GtkCallback]
+        protected void on_all_clear () {
+            display.all_clear ();
+        }
+
+        [GtkCallback]
+        protected void set_bits_from_grid (Gtk.Widget _, bool[] arr) {
+            display.set_last_token_from_bit_grid (arr);
         }
 
         public void send_shift_modifier (bool shifted) {

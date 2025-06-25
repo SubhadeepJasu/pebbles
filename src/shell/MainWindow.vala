@@ -140,6 +140,8 @@ namespace Pebbles {
         public signal string on_process_date_difference (DateTime from, DateTime to);
         public signal Date on_add_sub_date (DateTime start_date, int days, int month, int year, bool add);
         public signal string on_convert_value (string data);
+        public signal string on_programmer_set_last_token (
+            bool[] arr, GlobalWordLength wrd_length, NumberSystem number_system);
 
         construct {
             navigation_pane.add_css_class (Granite.STYLE_CLASS_SIDEBAR);

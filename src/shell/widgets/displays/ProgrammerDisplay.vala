@@ -37,6 +37,9 @@ namespace Pebbles {
         [GtkChild]
         private unowned Gtk.Label shift_label;
 
+        [GtkChild]
+        private unowned Gtk.Entry main_entry;
+
         private NumberSystem _number_system;
         public NumberSystem number_system {
             get {
@@ -100,6 +103,8 @@ namespace Pebbles {
         public bool collapsed { get; set; }
 
         private Pebbles.Settings settings;
+        private unowned MainWindow window;
+
         construct {
             settings = Pebbles.Settings.get_default ();
             bin_number_value = get_binary_representation ();
@@ -115,6 +120,10 @@ namespace Pebbles {
             });
 
             word_length = settings.global_word_length;
+
+            realize.connect (() => {
+                window = (MainWindow) get_ancestor (typeof (MainWindow));
+            });
         }
 
         private string get_binary_representation () {
@@ -143,6 +152,18 @@ namespace Pebbles {
             }
 
             return binary_value;
+        }
+
+        public void all_clear () {
+            main_entry.grab_focus_without_selecting ();
+            main_entry.set_text ("0");
+            main_entry.set_position (1);
+        }
+
+        public void set_last_token_from_bit_grid (bool[] arr) {
+            main_entry.set_text (window.on_programmer_set_last_token (
+                arr, settings.global_word_length, settings.number_system));
+            main_entry.set_position ((int) main_entry.text_length);
         }
 
         //  public void get_answer_evaluate (bool? dont_push_history = false) {

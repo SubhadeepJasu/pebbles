@@ -70,7 +70,7 @@ template $PebblesProgrammerView: $PebblesView {
               column: 0;
             }
 
-            // clicked => $on_all_clear();
+            clicked => $on_all_clear();
           }
 
           $PebblesButton del_button {
@@ -891,6 +891,7 @@ template $PebblesProgrammerView: $PebblesView {
 
     $PebblesBitGrid bit_grid {
       hide_grid => $on_hide_bit_grid();
+      changed => $set_bits_from_grid();
     }
   }
 }

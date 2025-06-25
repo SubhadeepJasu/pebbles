@@ -13,6 +13,7 @@ from pebbles.core.statistics_calculator import StatisticsCalculator
 from pebbles.core.graphing_calculator import GraphingCalculator
 from pebbles.core.calculus_calculator import CalculusCalculator
 from pebbles.core.date_calculator import DateCalculator
+from pebbles.core.programmer_calculator import ProgrammersCalculator
 from pebbles.core.converter import Converter
 from pebbles.core.tokenizer import Tokenizer
 from pebbles.core.utils import Utils
@@ -32,6 +33,8 @@ class PythonWindow(Pebbles.MainWindow):
         self.graph_calc = GraphingCalculator(self._memory)
         self.graph_calc.set_plot_ready_callback(self._graph_ready_cb)
 
+        self.programmer_calc = ProgrammersCalculator(self._memory)
+
         self.connect("on_evaluate", self._evaluate)
         self.connect("on_memory_recall", self._memory_recall)
         self.connect("on_memory_clear", self._memory_clear)
@@ -47,6 +50,7 @@ class PythonWindow(Pebbles.MainWindow):
         self.connect("on_render_graph", self._on_render_graph)
         self.connect("on_convert_value", self._on_convert_value_cb)
         self.connect("on_process_date_difference", self._on_date_diff_cb)
+        self.connect("on_programmer_set_last_token", self._on_prog_set_last_token_cb)
 
 
     def _evaluate(self, _, data:str):
@@ -249,3 +253,8 @@ Attempting to make a table with the previous series.")
     def _on_date_diff_cb(self, _, from_date, to_date):
         date_calculator = DateCalculator()
         return date_calculator.evaluate_difference(from_date, to_date)
+
+
+    # Programmer Mode
+    def _on_prog_set_last_token_cb(self, _, arr, wrd_length, number_system):
+        return self.programmer_calc.set_last_token(arr, wrd_length, number_system)
