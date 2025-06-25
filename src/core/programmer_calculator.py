@@ -206,7 +206,7 @@ class ProgrammersCalculator():
 
         formatted_binary = self.represent_binary_by_word_length(number, wrd_length)
         decimal = ProgrammersCalculator.convert_signed_binary_to_decimal(formatted_binary)
-        return decimal.to_string ()
+        return str(decimal)
 
 
     def convert_binary_to_octal(self, bin_value:str, wrd_length=Pebbles.GlobalWordLength.BYT):
@@ -538,7 +538,7 @@ class ProgrammersCalculator():
 
 
         result = self._apply_op_bit_wise(op, a, b)
-        return self.string_to_bool_array(result.to_string(), Pebbles.NumberSystem.DECIMAL, wrd_size)
+        return self.string_to_bool_array(str(result), Pebbles.NumberSystem.DECIMAL, wrd_size)
 
 
 

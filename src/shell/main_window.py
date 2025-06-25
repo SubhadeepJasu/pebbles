@@ -256,5 +256,6 @@ Attempting to make a table with the previous series.")
 
 
     # Programmer Mode
-    def _on_prog_set_last_token_cb(self, _, arr, wrd_length, number_system):
+    def _on_prog_set_last_token_cb(self, _, arr, arr_len, wrd_length, number_system):
+        print (arr)
         return self.programmer_calc.set_last_token(arr, wrd_length, number_system)

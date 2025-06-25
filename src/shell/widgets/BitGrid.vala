@@ -353,17 +353,17 @@ namespace Pebbles {
             });
             button2.toggled.connect (() => {
                 button2.set_label (button2.active ? "1" : "0");
-                bool_array[0] = button2.active;
+                bool_array[1] = button2.active;
                 bit_changed (bool_array);
             });
             button3.toggled.connect (() => {
                 button3.set_label (button3.active ? "1" : "0");
-                bool_array[0] = button3.active;
+                bool_array[2] = button3.active;
                 bit_changed (bool_array);
             });
             button4.toggled.connect (() => {
                 button4.set_label (button4.active ? "1" : "0");
-                bool_array[0] = button4.active;
+                bool_array[3] = button4.active;
                 bit_changed (bool_array);
             });
         }
