@@ -51,6 +51,9 @@ class PythonWindow(Pebbles.MainWindow):
         self.connect("on_convert_value", self._on_convert_value_cb)
         self.connect("on_process_date_difference", self._on_date_diff_cb)
         self.connect("on_programmer_set_last_token", self._on_prog_set_last_token_cb)
+        self.connect("on_programmer_get_last_token", self._on_prog_get_last_token_cb)
+        self.connect("on_programmer_populate_token_array", self._on_prog_populate_token_array)
+        self.connect("on_programmer_convert_token", self._on_prog_convert_ns)
 
 
     def _evaluate(self, _, data:str):
@@ -257,5 +260,16 @@ Attempting to make a table with the previous series.")
 
     # Programmer Mode
     def _on_prog_set_last_token_cb(self, _, arr, arr_len, wrd_length, number_system):
-        print (arr)
         return self.programmer_calc.set_last_token(arr, wrd_length, number_system)
+
+
+    def _on_prog_get_last_token_cb(self, _):
+        return self.programmer_calc.get_last_token().to_string()
+
+
+    def _on_prog_populate_token_array(self, _, exp, number_system):
+        self.programmer_calc.populate_token_array(exp, number_system)
+
+
+    def _on_prog_convert_ns(self, _, exp, ns_a, ns_b, wrd_length, format_bin=False):
+        return self.programmer_calc.convert_number_system(exp, ns_a, ns_b, wrd_length, format_bin)

@@ -413,11 +413,11 @@ class Tokenizer():
             token = {}
             if token_str in ["<", ">", "lr", "rr", "!", "_", "n", "x",
                              "o", "&", "|", "m", "+", "-", "/", "*"]:
-                token["type"] = "OPERATOR"
+                token["type"] = 0
             elif token_str in ["(", ")"]:
-                token["type"] = "PARENTHESIS"
+                token["type"] = 2
             else:
-                token["type"] = "OPERAND"
+                token["type"] = 1
 
             token["token"] = Utils.remove_leading_zeroes(token_str)
             token["numberSystem"] = number_system

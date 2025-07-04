@@ -63,7 +63,8 @@ class ProgrammersCalculator():
 
 
     def populate_token_array(self, exp: str, number_system:Pebbles.NumberSystem):
-        self.stored_tokens = Tokenizer.get_token_array (exp, number_system)
+        _stored_tokens = Tokenizer.get_token_array (exp, number_system)
+        self.stored_tokens = [_ProgToken(x['token'], x['type'], x['numberSystem']) for x in _stored_tokens]
 
 
     def set_number_system(self,
@@ -78,7 +79,7 @@ class ProgrammersCalculator():
             for i in range(len(token_structure)):
                 if token_structure[i].type == ProgrammersCalculator.TOKEN_TYPE_OPERAND:
                     if token_structure[i].number_system != self.stored_tokens[i].number_system:
-                        self.stored_tokens[i].token = self._convert_number_system(
+                        self.stored_tokens[i].token = self.convert_number_system(
                             self.stored_tokens[i].token,
                             self.stored_tokens[i].number_system,
                             Pebbles.NumberSystem.DECIMAL \
@@ -104,17 +105,21 @@ class ProgrammersCalculator():
         return True
 
 
-    def _convert_number_system(self,
+    def convert_number_system(self,
                            exp: str,
                            number_system_a: Pebbles.NumberSystem,
                            number_system_b: Pebbles.NumberSystem,
-                           wrd_length = Pebbles.GlobalWordLength.WRD
+                           wrd_length = Pebbles.GlobalWordLength.WRD,
+                           format_binary = False
                           ) -> str:
+        """
+        Convert a string value from one number system to another.
+        """
         converted = exp
 
         if number_system_a == Pebbles.NumberSystem.DECIMAL:
             if number_system_b == Pebbles.NumberSystem.BINARY:
-                converted = self.convert_decimal_to_binary(exp, wrd_length)
+                converted = self.convert_decimal_to_binary(exp, wrd_length, format_binary)
             elif number_system_b == Pebbles.NumberSystem.HEXADECIMAL:
                 converted = self.convert_decimal_to_hexadecimal(exp)
             elif number_system_b == Pebbles.NumberSystem.OCTAL:
@@ -127,12 +132,14 @@ class ProgrammersCalculator():
                 converted = self.convert_binary_to_hexadecimal(exp, wrd_length)
             elif number_system_b == Pebbles.NumberSystem.OCTAL:
                 converted = self.convert_binary_to_octal(exp, wrd_length)
+            elif format_binary:
+                converted = self.represent_binary_by_word_length(exp, wrd_length, True)
 
         elif number_system_a == Pebbles.NumberSystem.HEXADECIMAL:
             if number_system_b == Pebbles.NumberSystem.DECIMAL:
                 converted = self.convert_hexadecimal_to_decimal(exp, wrd_length)
             elif number_system_b == Pebbles.NumberSystem.BINARY:
-                converted = self.convert_hexadecimal_to_binary(exp, wrd_length)
+                converted = self.convert_hexadecimal_to_binary(exp, wrd_length, format_binary)
             elif number_system_b == Pebbles.NumberSystem.OCTAL:
                 converted = self.convert_hexadecimal_to_octal(exp, wrd_length)
 
@@ -140,7 +147,7 @@ class ProgrammersCalculator():
             if number_system_b == Pebbles.NumberSystem.DECIMAL:
                 converted = self.convert_octal_to_decimal(exp, wrd_length)
             elif number_system_b == Pebbles.NumberSystem.BINARY:
-                converted = self.convert_octal_to_binary(exp, wrd_length)
+                converted = self.convert_octal_to_binary(exp, wrd_length, format_binary)
             elif number_system_b == Pebbles.NumberSystem.HEXADECIMAL:
                 converted = self.convert_octal_to_hexadecimal(exp, wrd_length)
 
@@ -636,8 +643,10 @@ class _ProgToken:
 
         obj = {
             'token': self.token,
-            'tokenType': 'operand',
-            'numberSystem': 'decimal',
+            'tokenType': self.token_type,
+            'numberSystem': self.number_system,
+            'tokenTypeS': 'operand',
+            'numberSystemS': 'decimal',
         }
 
         if self.token_type == ProgrammersCalculator.TOKEN_TYPE_OPERATOR:
@@ -649,7 +658,7 @@ class _ProgToken:
             obj['numberSystem'] = 'binary'
         elif self.number_system == Pebbles.NumberSystem.HEXADECIMAL:
             obj['numberSystem'] = 'hexadecimal'
-        elif self.number_system == Pebbles.NumberSysten.OCTAL:
+        elif self.number_system == Pebbles.NumberSystem.OCTAL:
             obj['numberSystem'] = 'octal'
 
         return json.dumps(obj)

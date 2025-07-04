@@ -206,5 +206,51 @@ namespace Pebbles {
         //          settings.prog_output_text = result;
         //      }
         //  }
+
+        private void display_all_number_systems () {
+            var parser = new Json.Parser ();
+            parser.load_from_data (window.on_programmer_get_last_token (), -1);
+            bin_number_value = get_binary_representation ();
+            dec_number_value = "0";
+            oct_number_value = "0";
+            hex_number_value = "0";
+
+            var root_object = parser.get_root ().get_object ();
+            var current_number_system = (NumberSystem) root_object.get_int_member ("numberSystem");
+            var token = root_object.get_string_member ("token");
+
+
+
+            if (root_object.get_string_member ("tokenTypeS") == "operand") {
+                dec_number_value = window.on_programmer_convert_token (token, current_number_system, NumberSystem.DECIMAL, settings.global_word_length);
+                print(dec_number_value);
+                hex_number_value = window.on_programmer_convert_token (token, current_number_system, NumberSystem.HEXADECIMAL, settings.global_word_length);
+                oct_number_value = window.on_programmer_convert_token (token, current_number_system, NumberSystem.OCTAL, settings.global_word_length);
+                bin_number_value = window.on_programmer_convert_token (token, current_number_system, NumberSystem.BINARY, settings.global_word_length, true);
+            }
+
+            //  bool[] bool_array = programmer_calculator_front_end.string_to_bool_array (
+            //      current_input.token,
+            //      current_input.number_system,
+            //      settings.global_word_length
+            //  );
+
+            //  last_token_changed (bool_array);
+        }
+
+        [GtkCallback]
+        protected void input_handler () {
+            var input_text = main_entry.text;
+            var n = (int) main_entry.text_length;
+            if (n != 1 && input_text.has_prefix ("0")) {
+                main_entry.text = main_entry.text.slice (1, n);
+            }
+
+            if (main_entry.text.chug () != "") {
+                window.on_programmer_populate_token_array (main_entry.text, number_system);
+            }
+
+            display_all_number_systems ();
+        }
     }
 }

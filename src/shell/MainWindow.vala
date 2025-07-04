@@ -142,6 +142,9 @@ namespace Pebbles {
         public signal string on_convert_value (string data);
         public signal string on_programmer_set_last_token (
             bool[] arr, GlobalWordLength wrd_length, NumberSystem number_system);
+        public signal void on_programmer_populate_token_array (string exp, NumberSystem number_system);
+        public signal string on_programmer_get_last_token ();
+        public signal string on_programmer_convert_token (string exp, NumberSystem ns_a, NumberSystem ns_b, GlobalWordLength wrd_length, bool format_bin = false);
 
         construct {
             navigation_pane.add_css_class (Granite.STYLE_CLASS_SIDEBAR);
