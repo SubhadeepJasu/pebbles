@@ -137,6 +137,7 @@ namespace Pebbles {
         public signal string on_stat_cell_query (int index, int series_index);
         public signal void on_stat_export (string? path);
         public signal void on_render_graph (GraphPayloadModel payload);
+        public signal void on_graph_export (string path);
         public signal string on_process_date_difference (DateTime from, DateTime to);
         public signal Date on_add_sub_date (DateTime start_date, int days, int month, int year, bool add);
         public signal string on_convert_value (string data);
@@ -145,6 +146,7 @@ namespace Pebbles {
         public signal void on_programmer_populate_token_array (string exp, NumberSystem number_system);
         public signal string on_programmer_get_last_token ();
         public signal string on_programmer_convert_token (string exp, NumberSystem ns_a, NumberSystem ns_b, GlobalWordLength wrd_length, bool format_bin = false);
+        public signal string on_programmer_str_to_bool_arr (string s, NumberSystem ns, GlobalWordLength wrd_length);
 
         construct {
             navigation_pane.add_css_class (Granite.STYLE_CLASS_SIDEBAR);
@@ -434,6 +436,9 @@ namespace Pebbles {
                 view_stack.set_visible_child_name (view_name);
                 ((View) view_stack.visible_child).fade_in ();
                 header_stack.set_visible_child (header_box);
+                Idle.add_once (() => {
+                    ((View) view_stack.visible_child).focus_main ();
+                });
             }
 
             split_view.show_content = true;
@@ -493,6 +498,24 @@ namespace Pebbles {
                 object.set_int_member ("memoryOp", memory_op);
                 object.set_int_member ("integralAccuracy", __settings.integration_resolution);
                 object.set_int_member ("derivativeAccuracy", __settings.derivative_accuracy);
+
+                size_t length;
+                background_tasks_append ();
+                string json = gen.to_data (out length);
+                on_evaluate (json);
+            });
+            programmer_view.on_evaluate.connect ((input, number_system, word_length, memory_op) => {
+                 var gen = new Json.Generator ();
+                var root = new Json.Node (Json.NodeType.OBJECT);
+                var object = new Json.Object ();
+                root.set_object (object);
+                gen.set_root (root);
+
+                object.set_string_member ("context", Context.PROGRAMMER);
+                object.set_string_member ("input", input);
+                object.set_int_member ("numberSystem", (int) number_system);
+                object.set_int_member ("wordLength", (int) word_length);
+                object.set_int_member ("memoryOp", memory_op);
 
                 size_t length;
                 background_tasks_append ();
@@ -672,6 +695,10 @@ namespace Pebbles {
                                 var result = root_object.get_string_member ("result");
                                 statistics_view.show_result (result);
                             }
+                            break;
+                        case Pebbles.Context.PROGRAMMER:
+                            var result = root_object.get_string_member ("result");
+                            programmer_view.show_result (result);
                             break;
                         default:
                         break;

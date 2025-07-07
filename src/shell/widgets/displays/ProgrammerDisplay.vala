@@ -40,6 +40,9 @@ namespace Pebbles {
         [GtkChild]
         private unowned Gtk.Entry main_entry;
 
+        [GtkChild]
+        private unowned Gtk.Label main_label;
+
         private NumberSystem _number_system;
         public NumberSystem number_system {
             get {
@@ -105,6 +108,8 @@ namespace Pebbles {
         private Pebbles.Settings settings;
         private unowned MainWindow window;
 
+        public signal void last_token_changed (bool[] bool_arr);
+
         construct {
             settings = Pebbles.Settings.get_default ();
             bin_number_value = get_binary_representation ();
@@ -166,6 +171,29 @@ namespace Pebbles {
             main_entry.set_position ((int) main_entry.text_length);
         }
 
+        [GtkCallback]
+        public void input () {
+            on_input (main_entry.text);
+        }
+
+        public void show_result (string result) {
+            if (result != "E") {
+                add_css_class ("fade");
+                Timeout.add (100, () => {
+                    main_label.set_text (result);
+                    remove_css_class ("fade");
+                    return false;
+                });
+            } else {
+                main_label.set_text (_("Error"));
+                add_css_class ("shake");
+                Timeout.add_once (400, () => {
+                    remove_css_class ("shake");
+                    main_entry.grab_focus_without_selecting ();
+                });
+            }
+        }
+
         //  public void get_answer_evaluate (bool? dont_push_history = false) {
         //      if (!this.prog_view.window.history_manager.is_empty (EvaluationResult.ResultSource.PROG)) {
         //          bool[] last_output_array= this.prog_view.window.history_manager.get_last_evaluation_result (EvaluationResult.ResultSource.PROG).prog_output;
@@ -207,35 +235,46 @@ namespace Pebbles {
         //      }
         //  }
 
+        public void focus_entry () {
+            main_entry.grab_focus_without_selecting ();
+            main_entry.set_position (-1);
+        }
+
         private void display_all_number_systems () {
             var parser = new Json.Parser ();
-            parser.load_from_data (window.on_programmer_get_last_token (), -1);
-            bin_number_value = get_binary_representation ();
-            dec_number_value = "0";
-            oct_number_value = "0";
-            hex_number_value = "0";
+            try {
+                parser.load_from_data (window.on_programmer_get_last_token (), -1);
+                bin_number_value = get_binary_representation ();
+                dec_number_value = "0";
+                oct_number_value = "0";
+                hex_number_value = "0";
 
-            var root_object = parser.get_root ().get_object ();
-            var current_number_system = (NumberSystem) root_object.get_int_member ("numberSystem");
-            var token = root_object.get_string_member ("token");
+                var root_object = parser.get_root ().get_object ();
+                var current_number_system = (NumberSystem) root_object.get_int_member ("numberSystem");
+                var token = root_object.get_string_member ("token");
 
+                if (root_object.get_string_member ("tokenTypeS") == "operand") {
+                    dec_number_value = window.on_programmer_convert_token (token, current_number_system, NumberSystem.DECIMAL, settings.global_word_length);
+                    hex_number_value = window.on_programmer_convert_token (token, current_number_system, NumberSystem.HEXADECIMAL, settings.global_word_length);
+                    oct_number_value = window.on_programmer_convert_token (token, current_number_system, NumberSystem.OCTAL, settings.global_word_length);
+                    bin_number_value = window.on_programmer_convert_token (token, current_number_system, NumberSystem.BINARY, settings.global_word_length, true);
 
+                    var bool_array_str = window.on_programmer_str_to_bool_arr (
+                        token,
+                        current_number_system,
+                        settings.global_word_length
+                    );
 
-            if (root_object.get_string_member ("tokenTypeS") == "operand") {
-                dec_number_value = window.on_programmer_convert_token (token, current_number_system, NumberSystem.DECIMAL, settings.global_word_length);
-                print(dec_number_value);
-                hex_number_value = window.on_programmer_convert_token (token, current_number_system, NumberSystem.HEXADECIMAL, settings.global_word_length);
-                oct_number_value = window.on_programmer_convert_token (token, current_number_system, NumberSystem.OCTAL, settings.global_word_length);
-                bin_number_value = window.on_programmer_convert_token (token, current_number_system, NumberSystem.BINARY, settings.global_word_length, true);
+                    var bool_array = new bool[bool_array_str.length];
+                    for (int i = 0; i < bool_array_str.length; i++) {
+                        bool_array[i] = bool_array_str.get_char (i) == '1';
+                    }
+
+                    last_token_changed (bool_array);
+                }
+            } catch (Error e) {
+                warning (e.message);
             }
-
-            //  bool[] bool_array = programmer_calculator_front_end.string_to_bool_array (
-            //      current_input.token,
-            //      current_input.number_system,
-            //      settings.global_word_length
-            //  );
-
-            //  last_token_changed (bool_array);
         }
 
         [GtkCallback]
@@ -244,6 +283,7 @@ namespace Pebbles {
             var n = (int) main_entry.text_length;
             if (n != 1 && input_text.has_prefix ("0")) {
                 main_entry.text = main_entry.text.slice (1, n);
+                main_entry.set_position (-1);
             }
 
             if (main_entry.text.chug () != "") {

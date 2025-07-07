@@ -48,12 +48,14 @@ class PythonWindow(Pebbles.MainWindow):
         self.connect("on_stat_export", self._on_stat_export_cb)
         self.connect("on_get_last_result", self._on_query_last_result_cb)
         self.connect("on_render_graph", self._on_render_graph)
+        self.connect("on_graph_export", self._on_graph_export)
         self.connect("on_convert_value", self._on_convert_value_cb)
         self.connect("on_process_date_difference", self._on_date_diff_cb)
         self.connect("on_programmer_set_last_token", self._on_prog_set_last_token_cb)
         self.connect("on_programmer_get_last_token", self._on_prog_get_last_token_cb)
         self.connect("on_programmer_populate_token_array", self._on_prog_populate_token_array)
         self.connect("on_programmer_convert_token", self._on_prog_convert_ns)
+        self.connect("on_programmer_str_to_bool_arr", self._on_prog_str_to_bool_arr)
 
 
     def _evaluate(self, _, data:str):
@@ -94,12 +96,15 @@ class PythonWindow(Pebbles.MainWindow):
                 ), Pebbles.Context.STATISTICS)
         elif data_dict['context'] == Pebbles.Context.CALCULUS:
             cal_calc = CalculusCalculator(data, self._memory)
-            result_data,result = cal_calc.evaluate()
+            result_data, result = cal_calc.evaluate()
             self._commit_to_memory(result, Pebbles.Context.CALCULUS, data_dict['memoryOp'])
             self.show_history(self._memory.get_views(
                 format_func=ScientificCalculator.format,
                 context=Pebbles.Context.CALCULUS
             ), Pebbles.Context.CALCULUS)
+        elif data_dict['context'] == Pebbles.Context.PROGRAMMER:
+            result_data, result = self.programmer_calc.evaluate(
+                data_dict['numberSystem'], data_dict['wordLength'], False)
         else:
             return
 
@@ -209,6 +214,10 @@ Attempting to make a table with the previous series.")
         self.graph_calc.set_plot_params_and_plot (payload)
 
 
+    def _on_graph_export(self, _, path):
+        self.graph_calc.export(path)
+
+
     def _graph_ready_cb(self, pixbuf, valid):
         self.on_render_ready(pixbuf, valid)
 
@@ -273,3 +282,8 @@ Attempting to make a table with the previous series.")
 
     def _on_prog_convert_ns(self, _, exp, ns_a, ns_b, wrd_length, format_bin=False):
         return self.programmer_calc.convert_number_system(exp, ns_a, ns_b, wrd_length, format_bin)
+
+
+    def _on_prog_str_to_bool_arr(self, _, s, ns, wrd_length):
+        arr = self.programmer_calc.string_to_bool_array(s, ns, wrd_length)
+        return "".join(['1' if x else '0' for x in arr])

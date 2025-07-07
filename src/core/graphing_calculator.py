@@ -97,7 +97,7 @@ class GraphingCalculator:
         self.plot_thread.start()
 
 
-    def _plot(self):
+    def _plot(self, path=''):
         try:
             with self.plot_lock:
                 steps = [6, 5, 4, 3, 1]
@@ -157,13 +157,22 @@ class GraphingCalculator:
                         self._draw_legend(ax)
                         self._configure_labels(ax)
 
-                    pixbuf = Utils.plot_to_pixbuf(plt, fig, (width, height), dpi, step_size)
+                    if path != '':
+                        Utils.plot_to_image(plt, fig, (width, height), dpi, step_size, path)
+                    else:
+                        pixbuf = Utils.plot_to_pixbuf(plt, fig, (width, height), dpi, step_size)
 
-                    if self.on_plot_ready:
-                        self.on_plot_ready(pixbuf, True)
+                        if self.on_plot_ready:
+                            self.on_plot_ready(pixbuf, True)
 
         except RuntimeError:
             pass
+
+
+    def export(self, path:str):
+        if not path.lower().endswith('png'):
+            path += ".png"
+        self._plot(path)
 
 
     def _setup_plot(self, width, height, dpi, step_size):

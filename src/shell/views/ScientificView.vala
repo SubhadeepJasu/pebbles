@@ -301,5 +301,9 @@ namespace Pebbles {
         public void on_click_eval () {
             display.input ();
         }
+
+        public override void focus_main () {
+
+        }
     }
 }

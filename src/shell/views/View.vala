@@ -9,5 +9,8 @@ namespace Pebbles {
                 remove_css_class ("animate");
             });
         }
+
+        /** Focus on the main widget of the view. */
+        public abstract void focus_main ();
     }
 }

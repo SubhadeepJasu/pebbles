@@ -52,6 +52,10 @@ namespace Pebbles {
 
         private Pebbles.Settings settings;
 
+        public signal void on_evaluate (string input, NumberSystem number_system, GlobalWordLength wrd_length, int memory_op = 0);
+        public signal string on_memory_recall (bool global);
+        public signal void on_memory_clear (bool global);
+
         construct {
             settings = Pebbles.Settings.get_default ();
 
@@ -69,6 +73,19 @@ namespace Pebbles {
                     bin_toggle.active = true;
                     break;
             }
+
+            display.on_input.connect ((text) => {
+                on_evaluate (
+                    text,
+                    settings.number_system,
+                    settings.global_word_length,
+                    0
+                );
+            });
+        }
+
+        public void show_result (string result) {
+            display.show_result (result);
         }
 
         [GtkCallback]
@@ -166,9 +183,18 @@ namespace Pebbles {
             display.set_last_token_from_bit_grid (arr);
         }
 
+        [GtkCallback]
+        protected void last_bits_changed (Gtk.Widget _, bool[] arr) {
+            bit_grid.set_bits (arr);
+        }
+
         public void send_shift_modifier (bool shifted) {
             shift_button.active = shifted;
             on_shift ();
+        }
+
+        public override void focus_main () {
+            display.focus_entry ();
         }
     }
 }

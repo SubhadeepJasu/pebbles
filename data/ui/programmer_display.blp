@@ -276,6 +276,7 @@ template $PebblesProgrammerDisplay: $PebblesDisplay {
         margin-bottom: 9;
         margin-end: 8;
         xalign: 1;
+        text: "0";
 
         styles [
             "lcd-entry"
@@ -287,5 +288,6 @@ template $PebblesProgrammerDisplay: $PebblesDisplay {
         }
 
         changed => $input_handler();
+        activate => $input();
     }
 }

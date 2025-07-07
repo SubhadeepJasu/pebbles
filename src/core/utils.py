@@ -48,6 +48,13 @@ class Utils():
         loader.close()
         return loader.get_pixbuf()
 
+    @staticmethod
+    def plot_to_image(plt, fig, size, dpi, step_size, path):
+        fig.set_size_inches((size[0] / dpi), (size[1] / dpi), forward=True)
+        fig.patch.set_alpha(0)
+        fig.savefig(path, format="png", bbox_inches='tight', dpi=dpi / step_size)
+        plt.close(fig)
+
 
     @staticmethod
     def get_natural_expression(expr: str) -> str:

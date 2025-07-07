@@ -334,5 +334,45 @@ namespace Pebbles {
             var text = on_memory_recall ();
             display.write (text);
         }
+
+        [GtkCallback]
+        protected void export_image () {
+            var main_window = (MainWindow) get_ancestor (typeof (MainWindow));
+
+            var png_file_filter = new Gtk.FileFilter () {
+                name = _("PNG Files"),
+            };
+            png_file_filter.add_mime_type ("image/png");
+
+            var filter_model = new ListStore (typeof (Gtk.FileFilter));
+            filter_model.append (png_file_filter);
+
+            var file_dialog = new Gtk.FileDialog () {
+                accept_label = _("Export"),
+                default_filter = png_file_filter,
+                filters = filter_model,
+                modal = true,
+                title = _("Export as PNG")
+            };
+
+            file_dialog.save.begin (main_window, null, (obj, result) => {
+                try {
+                    var file = file_dialog.save.end (result);
+                    if (file != null) {
+                        string? file_path = file.get_path ();
+                        if (file_path != null) {
+                            main_window.on_graph_export (file_path);  // Call Python to save PNG
+                            main_window.send_toast (_("Exported graph as image!"));
+                        }
+                    }
+                } catch (Error e) {
+                    print ("Failed to save file: %s\n", e.message);
+                }
+            });
+        }
+
+        public override void focus_main () {
+            
+        }
     }
 }

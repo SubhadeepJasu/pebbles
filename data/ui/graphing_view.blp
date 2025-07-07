@@ -999,6 +999,8 @@ template $PebblesGraphingView: $PebblesView {
                         icon: "document-export-symbolic";
                         tooltip_desc: _("Export figure as image");
                         focus-on-click: false;
+
+                        clicked => $export_image();
                     }
                 }
             }

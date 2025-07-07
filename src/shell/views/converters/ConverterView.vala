@@ -232,6 +232,7 @@ namespace Pebbles {
             focused_entry.set_position ((int) focused_entry.text_length);
             init= true;
         }
+
         protected void save_state (Pebbles.Settings settings) {
             if (!init) {
                 return;
@@ -241,6 +242,10 @@ namespace Pebbles {
             settings.set_string (key_prefix + "-from", from_entry.text);
             settings.set_uint (key_prefix + "-from-unit", from_unit.selected);
             settings.set_uint (key_prefix + "-to-unit", to_unit.selected);
+        }
+
+        public override void focus_main () {
+            
         }
     }
 }

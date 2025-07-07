@@ -287,6 +287,7 @@ namespace Pebbles {
 
         private bool[] bool_array;
         private Gtk.Label first_button_label;
+        private bool ignore_change_event;
 
         public signal void bit_changed (bool[] bool_array);
 
@@ -349,22 +350,27 @@ namespace Pebbles {
             button1.toggled.connect (() => {
                 button1.set_label (button1.active ? "1" : "0");
                 bool_array[0] = button1.active;
-                bit_changed (bool_array);
+
+                if (!ignore_change_event)
+                    bit_changed (bool_array);
             });
             button2.toggled.connect (() => {
                 button2.set_label (button2.active ? "1" : "0");
                 bool_array[1] = button2.active;
-                bit_changed (bool_array);
+                if (!ignore_change_event)
+                    bit_changed (bool_array);
             });
             button3.toggled.connect (() => {
                 button3.set_label (button3.active ? "1" : "0");
                 bool_array[2] = button3.active;
-                bit_changed (bool_array);
+                if (!ignore_change_event)
+                    bit_changed (bool_array);
             });
             button4.toggled.connect (() => {
                 button4.set_label (button4.active ? "1" : "0");
                 bool_array[3] = button4.active;
-                bit_changed (bool_array);
+                if (!ignore_change_event)
+                    bit_changed (bool_array);
             });
         }
 
@@ -386,11 +392,13 @@ namespace Pebbles {
         }
 
         public void set_bits (bool[] arr) {
+            ignore_change_event = true;
             bool_array = arr;
             button1.active = arr[0];
-            button2.active = arr[0];
-            button3.active = arr[0];
-            button4.active = arr[0];
+            button2.active = arr[1];
+            button3.active = arr[2];
+            button4.active = arr[3];
+            ignore_change_event = false;
         }
     }
 }

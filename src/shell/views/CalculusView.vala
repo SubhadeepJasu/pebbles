@@ -296,5 +296,9 @@ namespace Pebbles {
         public void show_history (HistoryModel[] history) {
             display.show_history (history);
         }
+
+        public override void focus_main () {
+
+        }
     }
 }

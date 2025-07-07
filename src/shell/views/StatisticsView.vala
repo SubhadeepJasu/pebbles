@@ -97,7 +97,7 @@ namespace Pebbles {
                 default_filter = csv_files_filter,
                 filters = filter_model,
                 modal = true,
-                title = _("Import CSV files")
+                title = _("Export CSV files")
             };
 
             file_dialog.save.begin (main_window, null, (obj, result) => {
@@ -376,6 +376,10 @@ namespace Pebbles {
             var window = (MainWindow) get_ancestor (typeof (MainWindow));
             var result = window.on_get_last_result (shift_button.active ? Context.GLOBAL : Context.STATISTICS);
             display.write (result);
+        }
+
+        public override void focus_main () {
+
         }
     }
 }

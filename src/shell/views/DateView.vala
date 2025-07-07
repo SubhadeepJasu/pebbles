@@ -256,6 +256,10 @@ namespace Pebbles {
             date_formatted.day = (start_date.days_between (end_date)) % 7;
             return date_formatted;
         }
+
+        public override void focus_main () {
+
+        }
     }
 
     private class DateFormatted {

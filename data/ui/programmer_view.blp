@@ -15,6 +15,7 @@ template $PebblesProgrammerView: $PebblesView {
 
     vexpand: true;
     shift_on: bind shift_button.active;
+    last_token_changed => $last_bits_changed();
   }
 
   Stack programmer_stack {
