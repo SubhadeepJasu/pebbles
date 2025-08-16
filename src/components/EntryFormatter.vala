@@ -1,5 +1,42 @@
 namespace Pebbles {
     public class EntryFormatter {
+        // Modular replacement rules for scientific mode
+        private const string replacement_rules_scientific = """
+        {
+            "x": {"radial": "θ", "default": "x", "len_gain": 0},
+            "+": {"default": " + ", "len_gain": 2},
+            "−": {"default": " − ", "len_gain": 2},
+            "-": {"default": " − ", "len_gain": 2},
+            "÷": {"default": " ÷ ", "len_gain": 2},
+            "/": {"default": " ÷ ", "len_gain": 2},
+            "×": {"default": " × ", "len_gain": 2, "double": " ^ "},
+            "*": {"default": " × ", "len_gain": 2, "double": " ^ "},
+            "s": {"default": "sin ", "len_gain": 3},
+            "S": {"default": "isin ", "len_gain": 4},
+            "h": {"default": "sinh ", "len_gain": 4},
+            "H": {"default": "isinh ", "len_gain": 5},
+            "c": {"default": "cos ", "len_gain": 3},
+            "C": {"default": "icos ", "len_gain": 4},
+            "o": {"default": "cosh ", "len_gain": 4},
+            "O": {"default": "icosh ", "len_gain": 5},
+            "t": {"default": "tan ", "len_gain": 3},
+            "T": {"default": "itan ", "len_gain": 4},
+            "a": {"default": "tanh ", "len_gain": 4},
+            "A": {"default": "itanh ", "len_gain": 5},
+            "q": {"default": " ^ ", "len_gain": 2},
+            "Q": {"default": "√", "len_gain": 0},
+            "z": {"default": "10 ^ ", "len_gain": 5},
+            "Z": {"default": "e ^ ", "len_gain": 3},
+            "F": {"default": "!", "len_gain": 0},
+            "f": {"default": "!", "len_gain": 0},
+            "m": {"default": " mod ", "len_gain": 4},
+            "M": {"default": " log ", "len_gain": 4},
+            "l": {"default": "10 log ", "len_gain": 5},
+            "L": {"default": "ln ", "len_gain": 5},
+            "p": {"default": "P", "len_gain": 0},
+            "P": {"default": "C", "len_gain": 0}
+        }
+        """;
         public unowned Gtk.Entry main_entry;
         public bool polar_mode;
         private bool auto_entry;
@@ -128,107 +165,33 @@ namespace Pebbles {
             out int len_gain
         ) {
             double_replaced = false;
-            switch (current_symbol) {
-                case "x":
-                    len_gain = 0;
-                    if (radial_mode) {
-                        return "θ";
-                    } else {
-                        return "x";
-                    }
-                case "+":
-                    len_gain = 2;
-                    return " + ";
-                case "−":
-                case "-":
-                    len_gain = 2;
-                    return " − ";
-                case "÷":
-                case "/":
-                    len_gain = 2;
-                    return " ÷ ";
-                case "×":
-                case "*":
-                    len_gain = 2;
-                    if (previous_symbol == "×") {
-                        double_replaced = true;
-                        return " ^ ";
-                    }
-
-                    return " × ";
-                case "s":
-                    len_gain = 3;
-                    return "sin ";
-                case "S":
-                    len_gain = 4;
-                    return "isin ";
-                case "h":
-                    len_gain = 4;
-                    return "sinh ";
-                case "H":
-                    len_gain = 5;
-                    return "isinh ";
-                case "c":
-                    len_gain = 3;
-                    return "cos ";
-                case "C":
-                    len_gain = 4;
-                    return "icos ";
-                case "o":
-                    len_gain = 4;
-                    return "cosh ";
-                case "O":
-                    len_gain = 5;
-                    return "icosh ";
-                case "t":
-                    len_gain = 3;
-                    return "tan ";
-                case "T":
-                    len_gain = 4;
-                    return "itan ";
-                case "a":
-                    len_gain = 4;
-                    return "tanh ";
-                case "A":
-                    len_gain = 5;
-                    return "itanh ";
-                case "q":
-                    len_gain = 2;
-                    return " ^ ";
-                case "Q":
-                    len_gain = 0;
-                    return "√";
-                case "z":
-                    len_gain = 5;
-                    return "10 ^ ";
-                case "Z":
-                    len_gain = 3;
-                    return "e ^ ";
-                case "F":
-                case "f":
-                    len_gain = 0;
-                    return "!";
-                case "m":
-                    len_gain = 4;
-                    return " mod ";
-                case "M":
-                    len_gain = 4;
-                    return " log ";
-                case "l":
-                    len_gain = 5;
-                    return "10 log ";
-                case "L":
-                    len_gain = 5;
-                    return "ln ";
-                case "p":
-                    len_gain = 0;
-                    return "P";
-                case "P":
-                    len_gain = 0;
-                    return "C";
-                default:
+            var rules = new Json.Parser();
+            try {
+                rules.load_from_data(replacement_rules_scientific.strip(), -1);
+                var obj = rules.get_root().get_object();
+                if (!obj.has_member(current_symbol)) {
                     len_gain = 0;
                     return current_symbol;
+                }
+                var rule = obj.get_object_member(current_symbol);
+                // Generic double replacement: if the rule has a "double" key and the previous symbol matches the current one
+                var to_be_replaced_with = rule.get_string_member("default");
+
+                if (rule.has_member("double") && previous_symbol.strip () == to_be_replaced_with.strip ()) {
+                    len_gain = (int) rule.get_int_member("len_gain");
+                    double_replaced = true;
+                    return rule.get_string_member("double");
+                }
+                // Handle radial mode for x
+                if (current_symbol == "x" && radial_mode && rule.has_member("radial")) {
+                    len_gain = (int) rule.get_int_member("len_gain");
+                    return rule.get_string_member("radial");
+                }
+                len_gain = (int) rule.get_int_member("len_gain");
+                return to_be_replaced_with;
+            } catch (Error e) {
+                len_gain = 0;
+                return current_symbol;
             }
         }
     }
