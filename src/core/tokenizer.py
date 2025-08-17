@@ -171,8 +171,8 @@ class Tokenizer():
             ("+", " + "),
             ("-", " - "),
             ("−", " - "),
-            ("\xC3\x97", " * "),
-            ("\xC3\xB7", " / "),
+            ("×", " * "),
+            ("÷", " / "),
             ("*", " * "),
             ("/", " / ")
         ]
@@ -250,14 +250,14 @@ class Tokenizer():
         for i in range(n):
             if tokens[i] == '-':
                 if i == 0:
-                    if i < n:
+                    if i < n - 1:
                         tokens [i] = '( 0 u'
                         tokens [i + 1] = tokens [i + 1] + " )"
                 elif tokens [i - 1] == ')' or tokens [i - 1] == 'x' or \
                     Tokenizer._is_number (tokens [i - 1].strip()):
                     tokens [i] = '-'
                 else:
-                    if i < n:
+                    if i < n - 1:
                         tokens [i] = '( 0 u'
                         tokens [i + 1] = tokens [i + 1] + ' )'
 
@@ -382,11 +382,8 @@ class Tokenizer():
 
             # Intelligently convert expressions based on common rules
             exp = Tokenizer._algebraic_parenthesis_product_convert(exp)
-            print(exp)
             exp = Tokenizer._relative_percentage_convert(exp)
-            print(exp)
             exp = Tokenizer._unary_minus_convert(exp)
-            print(exp)
             exp = Tokenizer._space_removal(exp.strip())
 
             return exp.split(' ')
@@ -403,6 +400,8 @@ class Tokenizer():
             exp = exp.replace(original, replacement)
 
         exp = exp.strip()
+        exp = Tokenizer._space_removal (exp)
+        exp = Tokenizer._unary_minus_convert(exp)
         exp = Tokenizer._space_removal(exp)
 
         str_with_uniform_spaces = Tokenizer._space_removal(exp)
@@ -411,7 +410,7 @@ class Tokenizer():
 
         for token_str in str_tokens:
             token = {}
-            if token_str in ["<", ">", "lr", "rr", "!", "_", "n", "x",
+            if token_str in ["u", "<", ">", "lr", "rr", "!", "_", "n", "x",
                              "o", "&", "|", "m", "+", "-", "/", "*"]:
                 token["type"] = 0
             elif token_str in ["(", ")"]:

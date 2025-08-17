@@ -112,6 +112,7 @@ $LCD_FG_COLOR: #272863bb;
         font-size: x-large;
         text-shadow: 0 2px 1px #0002;
         caret-color: $LCD_FG_COLOR;
+        padding-top: 3px;
 
         text {
             color: $LCD_FG_COLOR;

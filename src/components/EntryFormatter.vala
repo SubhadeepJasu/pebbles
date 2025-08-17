@@ -1,7 +1,15 @@
 namespace Pebbles {
+    /**
+     * Replacement modes for mathematical symbols in the input.
+     */
+    public enum ReplacementMode {
+        SCIENTIFIC,
+        PROGRAMMER
+    }
+
     public class EntryFormatter {
         // Modular replacement rules for scientific mode
-        private const string replacement_rules_scientific = """
+        private const string REPLACEMENT_RULES_SCIENTIFIC = """
         {
             "x": {"radial": "θ", "default": "x", "len_gain": 0},
             "+": {"default": " + ", "len_gain": 2},
@@ -37,13 +45,42 @@ namespace Pebbles {
             "P": {"default": "C", "len_gain": 0}
         }
         """;
+
+        // Modular replacement rules for programmer mode
+        private const string REPLACEMENT_RULES_PROGRAMMER = """
+        {
+            "o": {"default": " or ", "len_gain": 3},
+            "O": {"default": " nor ", "len_gain": 4},
+            "n": {"default": " and ", "len_gain": 4},
+            "N": {"default": " nand ", "len_gain": 5},
+            "x": {"default": " xor ", "len_gain": 4},
+            "X": {"default": " xnor ", "len_gain": 5},
+            "t": {"default": " not ", "len_gain": 4},
+            "T": {"default": " mod ", "len_gain": 4},
+            "m": {"default": " mod ", "len_gain": 4},
+            "M": {"default": " mod ", "len_gain": 4},
+            "+": {"default": " + ", "len_gain": 2},
+            "-": {"default": " − ", "len_gain": 2},
+            "−": {"default": " − ", "len_gain": 2},
+            "×": {"default": " × ", "len_gain": 2},
+            "*": {"default": " × ", "len_gain": 2},
+            "÷": {"default": " ÷ ", "len_gain": 2},
+            "/": {"default": " ÷ ", "len_gain": 2}
+        }
+        """;
+
         public unowned Gtk.Entry main_entry;
         public bool polar_mode;
         private bool auto_entry;
         public bool disabled { get; set; }
+        public ReplacementMode replacement_mode { get; set; }
 
-        public EntryFormatter (Gtk.Entry entry) {
+        public signal bool on_input (string full_expression, int input_length, string input_char);
+
+        // Updated constructor accepts a ReplacementMode
+        public EntryFormatter (Gtk.Entry entry, ReplacementMode mode = ReplacementMode.SCIENTIFIC) {
             this.main_entry = entry;
+            this.replacement_mode = mode;
 
             // TODO: Do token check before inserting any character
             main_entry.get_delegate ().insert_text.connect_after ((ch, length) => {
@@ -65,12 +102,7 @@ namespace Pebbles {
 
                     Idle.add (() => {
                         if (main_entry.text_length >= 1 && main_entry.text != "0")
-                            replace_inserted_character (
-                                main_entry.text,
-                                main_entry.text_length,
-                                main_entry.get_position (),
-                                polar_mode
-                            );
+                            replace_inserted_character (main_entry.text, main_entry.text_length, main_entry.get_position (), polar_mode);
                         return Source.REMOVE;
                     });
                     return Source.REMOVE;
@@ -93,8 +125,7 @@ namespace Pebbles {
             });
         }
 
-        public void replace_inserted_character (
-            string text, uint text_length, int caret_pos, bool radial_mode = false) {
+        public void replace_inserted_character (string text, uint text_length, int caret_pos, bool radial_mode = false) {
             var symbols = split_utf8 (text, text_length);
             var current_symbol = symbols[caret_pos];
             if (current_symbol == null) {
@@ -110,12 +141,9 @@ namespace Pebbles {
                 }
             }
 
-            //  print ("%s, %s\n", previous_symbol, current_symbol);
-
             bool double_replaced;
             int len_gain;
-            var replacement = find_replacement (
-                current_symbol, previous_symbol, radial_mode, out double_replaced, out len_gain);
+            var replacement = find_replacement (current_symbol, previous_symbol, radial_mode, out double_replaced, out len_gain);
             symbols[caret_pos] = replacement;
             if (double_replaced) {
                 symbols[previous_caret_pos] = "";
@@ -129,11 +157,16 @@ namespace Pebbles {
             }
 
             auto_entry = true;
-            main_entry.text = string.joinv ("", symbols);
-            if (double_replaced) {
-                main_entry.set_position (caret_pos - 1);
-            } else {
-                main_entry.set_position (caret_pos + len_gain);
+            var main_entry_text = string.joinv ("", symbols);
+
+            if (!on_input (main_entry_text, (int) main_entry.text_length, current_symbol)) {
+                main_entry.text = main_entry_text;
+
+                if (double_replaced) {
+                    main_entry.set_position (caret_pos - 1);
+                } else {
+                    main_entry.set_position (caret_pos + len_gain);
+                }
             }
             auto_entry = false;
         }
@@ -144,7 +177,7 @@ namespace Pebbles {
 
             var sb = new StringBuilder ();
             for (int i = 0; i <= text.length; i++) {
-                if ((text[i] & 0xC0) != 0x80) { // Prevent commiting if its a continuation bit
+                if ((text[i] & 0xC0) != 0x80) { // Prevent commiting if it's a continuation bit
                     result[j++] = sb.str + "";
                     sb.erase (0, sb.len);
                 }
@@ -162,32 +195,34 @@ namespace Pebbles {
             string previous_symbol,
             bool radial_mode,
             out bool double_replaced,
-            out int len_gain
-        ) {
+            out int len_gain) {
             double_replaced = false;
-            var rules = new Json.Parser();
+            var rules = new Json.Parser ();
             try {
-                rules.load_from_data(replacement_rules_scientific.strip(), -1);
-                var obj = rules.get_root().get_object();
-                if (!obj.has_member(current_symbol)) {
+                // Select rules based on replacement_mode
+                string rule_json = (replacement_mode == ReplacementMode.PROGRAMMER)
+                    ? REPLACEMENT_RULES_PROGRAMMER
+                    : REPLACEMENT_RULES_SCIENTIFIC;
+
+                rules.load_from_data (rule_json.strip (), -1);
+                var obj = rules.get_root ().get_object ();
+                if (!obj.has_member (current_symbol)) {
                     len_gain = 0;
                     return current_symbol;
                 }
-                var rule = obj.get_object_member(current_symbol);
-                // Generic double replacement: if the rule has a "double" key and the previous symbol matches the current one
-                var to_be_replaced_with = rule.get_string_member("default");
+                var rule = obj.get_object_member (current_symbol);
 
-                if (rule.has_member("double") && previous_symbol.strip () == to_be_replaced_with.strip ()) {
-                    len_gain = (int) rule.get_int_member("len_gain");
+                var to_be_replaced_with = rule.get_string_member ("default");
+                if (rule.has_member ("double") && previous_symbol.strip () == to_be_replaced_with.strip ()) {
+                    len_gain = (int) rule.get_int_member ("len_gain");
                     double_replaced = true;
-                    return rule.get_string_member("double");
+                    return rule.get_string_member ("double");
                 }
-                // Handle radial mode for x
-                if (current_symbol == "x" && radial_mode && rule.has_member("radial")) {
-                    len_gain = (int) rule.get_int_member("len_gain");
-                    return rule.get_string_member("radial");
+                if (current_symbol == "x" && radial_mode && rule.has_member ("radial")) {
+                    len_gain = (int) rule.get_int_member ("len_gain");
+                    return rule.get_string_member ("radial");
                 }
-                len_gain = (int) rule.get_int_member("len_gain");
+                len_gain = (int) rule.get_int_member ("len_gain");
                 return to_be_replaced_with;
             } catch (Error e) {
                 len_gain = 0;

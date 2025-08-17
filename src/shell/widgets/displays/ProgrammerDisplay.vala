@@ -107,6 +107,7 @@ namespace Pebbles {
 
         private Pebbles.Settings settings;
         private unowned MainWindow window;
+        private EntryFormatter entry_formatter;
 
         public signal void last_token_changed (bool[] bool_arr);
 
@@ -129,6 +130,9 @@ namespace Pebbles {
             realize.connect (() => {
                 window = (MainWindow) get_ancestor (typeof (MainWindow));
             });
+
+            entry_formatter = new EntryFormatter (main_entry, ReplacementMode.PROGRAMMER);
+            entry_formatter.on_input.connect (input_handler);
         }
 
         private string get_binary_representation () {
@@ -277,20 +281,15 @@ namespace Pebbles {
             }
         }
 
-        [GtkCallback]
-        protected void input_handler () {
-            var input_text = main_entry.text;
-            var n = (int) main_entry.text_length;
-            if (n != 1 && input_text.has_prefix ("0")) {
-                main_entry.text = main_entry.text.slice (1, n);
-                main_entry.set_position (-1);
-            }
-
-            if (main_entry.text.chug () != "") {
-                window.on_programmer_populate_token_array (main_entry.text, number_system);
+        //  [GtkCallback]
+        protected bool input_handler (string full_expression, int input_length, string input_char) {
+            if (full_expression.chug () != "") {
+                window.on_programmer_populate_token_array (full_expression, number_system);
             }
 
             display_all_number_systems ();
+
+            return Source.REMOVE;
         }
     }
 }

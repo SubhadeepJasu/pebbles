@@ -524,18 +524,17 @@ class ProgrammersCalculator():
         str_a = ''.join(['1' if a_input[i] else '0' for i in range(64 - bits, 64)])
         str_b = ''.join(['1' if b_input[i] else '0' for i in range(64 - bits, 64)])
 
-        a = self.convert_signed_binary_to_decimal(str_a)
-        if a < 0:
-            a = self._enforce_signed_bit_width(a, bits)
+        a_val = int(str_a, 2)
+        if a_val >= (1 << (bits - 1)):
+            a = a_val - (1 << bits)
         else:
-            a = self._enforce_unsigned_bit_width(a, bits)
+            a = a_val
 
-        b = self.convert_signed_binary_to_decimal(str_b)
-        if b < 0:
-            b = self._enforce_signed_bit_width(b, bits)
+        b_val = int(str_b, 2)
+        if b_val >= (1 << (bits - 1)):
+            b = b_val - (1 << bits)
         else:
-            b = self._enforce_unsigned_bit_width(b, bits)
-
+            b = b_val
 
         result = self._apply_op_bit_wise(op, a, b)
         return self.string_to_bool_array(str(result), Pebbles.NumberSystem.DECIMAL, wrd_size)
@@ -545,11 +544,15 @@ class ProgrammersCalculator():
     def _apply_op_bit_wise(self, op:chr, a, b):
         result = 0
 
+        print (a, op, b)
+
         match op:
             case '+':
                 result = a + b
             case '-':
                 result = b - a
+            case 'u':
+                result = -1 * b
             case '*':
                 result = a * b
             case '/':
@@ -602,6 +605,7 @@ class ProgrammersCalculator():
         """
         Process the data to find out a result.
         """
+        print ([x.token for x in self.stored_tokens])
         operand_stack = []
         def operand_pop():
             try:
