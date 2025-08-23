@@ -198,47 +198,6 @@ namespace Pebbles {
             }
         }
 
-        //  public void get_answer_evaluate (bool? dont_push_history = false) {
-        //      if (!this.prog_view.window.history_manager.is_empty (EvaluationResult.ResultSource.PROG)) {
-        //          bool[] last_output_array= this.prog_view.window.history_manager.get_last_evaluation_result (EvaluationResult.ResultSource.PROG).prog_output;
-        //          string last_answer = programmer_calculator_front_end.bool_array_to_string (last_output_array, settings.global_word_length, settings.number_system);
-        //          debug (last_answer);
-        //          input_entry.set_text (input_entry.get_text().replace ("ans", last_answer));
-        //          if (dont_push_history != true) {
-        //              this.set_number_system ();
-        //          }
-        //      }
-        //      string result = "";
-        //      try {
-        //          result = programmer_calculator_front_end.evaluate_exp (settings.global_word_length, settings.number_system, out answer_array);
-        //          result = Utils.remove_leading_zeroes(result);
-        //      } catch (CalcError e) {
-        //          result = "E";
-        //      }
-        //      this.answer_label.set_text (result);
-        //      if (result == "E") {
-        //          shake ();
-        //      }
-        //      else {
-        //          if (dont_push_history != true) {
-        //              this.prog_view.window.history_manager.append_from_strings (EvaluationResult.ResultSource.PROG,
-        //                                                                  input_entry.get_text (),
-        //                                                                  result,
-        //                                                                  null,
-        //                                                                  null,
-        //                                                                  0,
-        //                                                                  0,
-        //                                                                  0,
-        //                                                                  programmer_calculator_front_end.get_token_array(),
-        //                                                                  answer_array,
-        //                                                                  settings.global_word_length,
-        //                                                                  settings.number_system);
-        //          }
-        //          settings.prog_input_text = input_entry.get_text ();
-        //          settings.prog_output_text = result;
-        //      }
-        //  }
-
         public void focus_entry () {
             main_entry.grab_focus_without_selecting ();
             main_entry.set_position (-1);
@@ -281,15 +240,46 @@ namespace Pebbles {
             }
         }
 
-        //  [GtkCallback]
         protected bool input_handler (string full_expression, int input_length, string input_char) {
-            if (full_expression.chug () != "") {
+            display_all_number_systems ();
+
+            if (settings.number_system == NumberSystem.BINARY && not_binary (input_char)) {
+                return true;
+            }
+
+            if (settings.number_system == NumberSystem.OCTAL && not_octal (input_char)) {
+                return true;
+            }
+
+            if (settings.number_system == NumberSystem.DECIMAL && not_decimal (input_char)) {
+                return true;
+            }
+
+            if (settings.number_system == NumberSystem.HEXADECIMAL && not_hexadecimal (input_char)) {
+                return true;
+            }
+
+            if (input_char.length > 0 && full_expression.chug () != "") {
                 window.on_programmer_populate_token_array (full_expression, number_system);
             }
 
-            display_all_number_systems ();
+            return false;
+        }
 
-            return Source.REMOVE;
+        private bool not_binary (string input) {
+            return !"01".contains (input.down ());
+        }
+
+        private bool not_hexadecimal (string input) {
+            return !"0123456789abcdef".contains (input.down ());
+        }
+
+        private bool not_decimal (string input) {
+            return !"0123456789".contains (input.down ());
+        }
+
+        private bool not_octal (string input) {
+            return !"01234567".contains (input.down ());
         }
     }
 }

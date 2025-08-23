@@ -3,12 +3,20 @@ namespace Pebbles {
      * Replacement modes for mathematical symbols in the input.
      */
     public enum ReplacementMode {
+        /** Scientific mode for mathematical expressions */
         SCIENTIFIC,
+        /** Programmer mode for logical expressions */
         PROGRAMMER
     }
 
+    /**
+     * The EntryFormatter class is responsible for formatting user input in a Gtk.Entry widget.
+     * It applies modular replacement rules to convert simple symbol inputs into their corresponding
+     * mathematical or logical representations based on a specified ReplacementMode
+     * (`SCIENTIFIC` or `PROGRAMMER`).
+     */
     public class EntryFormatter {
-        // Modular replacement rules for scientific mode
+        // Replacement rules for scientific mode
         private const string REPLACEMENT_RULES_SCIENTIFIC = """
         {
             "x": {"radial": "θ", "default": "x", "len_gain": 0},
@@ -46,7 +54,7 @@ namespace Pebbles {
         }
         """;
 
-        // Modular replacement rules for programmer mode
+        // Replacement rules for programmer mode
         private const string REPLACEMENT_RULES_PROGRAMMER = """
         {
             "o": {"default": " or ", "len_gain": 3},
@@ -77,7 +85,11 @@ namespace Pebbles {
 
         public signal bool on_input (string full_expression, int input_length, string input_char);
 
-        // Updated constructor accepts a ReplacementMode
+        /**
+         * Constructor for EntryFormatter.
+         * @param entry The Gtk.Entry widget to format
+         * @param mode The ReplacementMode to use (default is SCIENTIFIC)
+         */
         public EntryFormatter (Gtk.Entry entry, ReplacementMode mode = ReplacementMode.SCIENTIFIC) {
             this.main_entry = entry;
             this.replacement_mode = mode;
@@ -102,7 +114,7 @@ namespace Pebbles {
 
                     Idle.add (() => {
                         if (main_entry.text_length >= 1 && main_entry.text != "0")
-                            replace_inserted_character (main_entry.text, main_entry.text_length, main_entry.get_position (), polar_mode);
+                            replace_inserted_character (main_entry.text, main_entry.text_length, main_entry.get_position (), ch, polar_mode);
                         return Source.REMOVE;
                     });
                     return Source.REMOVE;
@@ -120,14 +132,15 @@ namespace Pebbles {
                         main_entry.set_position ((int) main_entry.text_length);
                     }
 
+                    on_input (main_entry.text, (int) main_entry.text_length, "");
+
                     return Source.REMOVE;
                 });
             });
         }
 
-        public void replace_inserted_character (string text, uint text_length, int caret_pos, bool radial_mode = false) {
+        public void replace_inserted_character (string text, uint text_length, int caret_pos, string current_symbol, bool radial_mode = false) {
             var symbols = split_utf8 (text, text_length);
-            var current_symbol = symbols[caret_pos];
             if (current_symbol == null) {
                 return;
             }
@@ -167,6 +180,10 @@ namespace Pebbles {
                 } else {
                     main_entry.set_position (caret_pos + len_gain);
                 }
+            } else {
+                symbols[caret_pos] = "";
+                main_entry.text = string.joinv ("", symbols);
+                main_entry.set_position (caret_pos - 1);
             }
             auto_entry = false;
         }

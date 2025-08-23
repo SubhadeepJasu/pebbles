@@ -50,6 +50,46 @@ namespace Pebbles {
         [GtkChild]
         private unowned Pebbles.Button xor_button_p;
 
+        // Numerical keypad buttons
+        [GtkChild]
+        private unowned Gtk.Button one_button;
+        [GtkChild]
+        private unowned Gtk.Button two_button;
+        [GtkChild]
+        private unowned Gtk.Button three_button;
+        [GtkChild]
+        private unowned Gtk.Button four_button;
+        [GtkChild]
+        private unowned Gtk.Button five_button;
+        [GtkChild]
+        private unowned Gtk.Button six_button;
+        [GtkChild]
+        private unowned Gtk.Button seven_button;
+        [GtkChild]
+        private unowned Gtk.Button eight_button;
+        [GtkChild]
+        private unowned Gtk.Button nine_button;
+        [GtkChild]
+        private unowned Gtk.Button zero_button;
+        [GtkChild]
+        private unowned Gtk.Button paren_start_button;
+        [GtkChild]
+        private unowned Gtk.Button paren_end_button;
+
+        // Hexadecimal keypad buttons
+        [GtkChild]
+        private unowned Gtk.Button hex_a_button;
+        [GtkChild]
+        private unowned Gtk.Button hex_b_button;
+        [GtkChild]
+        private unowned Gtk.Button hex_c_button;
+        [GtkChild]
+        private unowned Gtk.Button hex_d_button;
+        [GtkChild]
+        private unowned Gtk.Button hex_e_button;
+        [GtkChild]
+        private unowned Gtk.Button hex_f_button;
+
         private Pebbles.Settings settings;
 
         public signal void on_evaluate (string input, NumberSystem number_system, GlobalWordLength wrd_length, int memory_op = 0);
@@ -86,6 +126,76 @@ namespace Pebbles {
 
         public void show_result (string result) {
             display.show_result (result);
+        }
+
+        // Updated set_keypad_mode to use hex keypad button references
+        private void set_keypad_mode (int mode) {
+            switch (mode) {
+                case 0:
+                    seven_button.set_sensitive (true);
+                    eight_button.set_sensitive (true);
+                    nine_button.set_sensitive (true);
+                    hex_a_button.set_sensitive (true);
+                    hex_d_button.set_sensitive (true);
+                    four_button.set_sensitive (true);
+                    five_button.set_sensitive (true);
+                    six_button.set_sensitive (true);
+                    hex_b_button.set_sensitive (true);
+                    hex_e_button.set_sensitive (true);
+                    two_button.set_sensitive (true);
+                    three_button.set_sensitive (true);
+                    hex_c_button.set_sensitive (true);
+                    hex_f_button.set_sensitive (true);
+                    break;
+                case 1:
+                    seven_button.set_sensitive (true);
+                    eight_button.set_sensitive (true);
+                    nine_button.set_sensitive (true);
+                    hex_a_button.set_sensitive (false);
+                    hex_d_button.set_sensitive (false);
+                    four_button.set_sensitive (true);
+                    five_button.set_sensitive (true);
+                    six_button.set_sensitive (true);
+                    hex_b_button.set_sensitive (false);
+                    hex_e_button.set_sensitive (false);
+                    two_button.set_sensitive (true);
+                    three_button.set_sensitive (true);
+                    hex_c_button.set_sensitive (false);
+                    hex_f_button.set_sensitive (false);
+                    break;
+                case 2:
+                    seven_button.set_sensitive (true);
+                    eight_button.set_sensitive (false);
+                    nine_button.set_sensitive (false);
+                    hex_a_button.set_sensitive (false);
+                    hex_d_button.set_sensitive (false);
+                    four_button.set_sensitive (true);
+                    five_button.set_sensitive (true);
+                    six_button.set_sensitive (true);
+                    hex_b_button.set_sensitive (false);
+                    hex_e_button.set_sensitive (false);
+                    two_button.set_sensitive (true);
+                    three_button.set_sensitive (true);
+                    hex_c_button.set_sensitive (false);
+                    hex_f_button.set_sensitive (false);
+                    break;
+                case 3:
+                    seven_button.set_sensitive (false);
+                    eight_button.set_sensitive (false);
+                    nine_button.set_sensitive (false);
+                    hex_a_button.set_sensitive (false);
+                    hex_d_button.set_sensitive (false);
+                    four_button.set_sensitive (false);
+                    five_button.set_sensitive (false);
+                    six_button.set_sensitive (false);
+                    hex_b_button.set_sensitive (false);
+                    hex_e_button.set_sensitive (false);
+                    two_button.set_sensitive (false);
+                    three_button.set_sensitive (false);
+                    hex_c_button.set_sensitive (false);
+                    hex_f_button.set_sensitive (false);
+                    break;
+            }
         }
 
         [GtkCallback]
@@ -128,15 +238,19 @@ namespace Pebbles {
                 switch (button.name) {
                     case "hex-toggle":
                         settings.number_system = HEXADECIMAL;
+                        set_keypad_mode (0);
                         break;
                     case "dec-toggle":
                         settings.number_system = DECIMAL;
+                        set_keypad_mode (1);
                         break;
                     case "oct-toggle":
                         settings.number_system = OCTAL;
+                        set_keypad_mode (2);
                         break;
                     case "bin-toggle":
                         settings.number_system = BINARY;
+                        set_keypad_mode (3);
                         break;
                 }
             }
