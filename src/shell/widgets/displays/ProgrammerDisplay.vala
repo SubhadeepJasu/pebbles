@@ -50,7 +50,6 @@ namespace Pebbles {
             }
 
             set {
-                _number_system = value;
                 bin_label.remove_css_class ("selected");
                 dec_label.remove_css_class ("selected");
                 hex_label.remove_css_class ("selected");
@@ -70,6 +69,20 @@ namespace Pebbles {
                         oct_label.add_css_class ("selected");
                         break;
                 }
+
+                if (entry_formatter != null) {
+                    entry_formatter.disabled = true;
+                    main_entry.text = window.on_programmer_change_exp_num_sys (
+                        main_entry.text,
+                        settings.number_system,
+                        settings.global_word_length
+                    );
+                    main_entry.set_position (-1);
+                    entry_formatter.disabled = false;
+                    main_label.set_text (window.on_programmer_convert_token (main_label.get_text (), _number_system, value, settings.global_word_length));
+                }
+
+                _number_system = value;
             }
         }
 
@@ -243,20 +256,22 @@ namespace Pebbles {
         protected bool input_handler (string full_expression, int input_length, string input_char) {
             display_all_number_systems ();
 
-            if (settings.number_system == NumberSystem.BINARY && not_binary (input_char)) {
-                return true;
-            }
+            if (!entry_formatter.is_rule_present (input_char)) {
+                if (settings.number_system == NumberSystem.BINARY && not_binary (input_char)) {
+                    return true;
+                }
 
-            if (settings.number_system == NumberSystem.OCTAL && not_octal (input_char)) {
-                return true;
-            }
+                if (settings.number_system == NumberSystem.OCTAL && not_octal (input_char)) {
+                    return true;
+                }
 
-            if (settings.number_system == NumberSystem.DECIMAL && not_decimal (input_char)) {
-                return true;
-            }
+                if (settings.number_system == NumberSystem.DECIMAL && not_decimal (input_char)) {
+                    return true;
+                }
 
-            if (settings.number_system == NumberSystem.HEXADECIMAL && not_hexadecimal (input_char)) {
-                return true;
+                if (settings.number_system == NumberSystem.HEXADECIMAL && not_hexadecimal (input_char)) {
+                    return true;
+                }
             }
 
             if (input_char.length > 0 && full_expression.chug () != "") {

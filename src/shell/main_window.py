@@ -56,6 +56,7 @@ class PythonWindow(Pebbles.MainWindow):
         self.connect("on_programmer_populate_token_array", self._on_prog_populate_token_array)
         self.connect("on_programmer_convert_token", self._on_prog_convert_ns)
         self.connect("on_programmer_str_to_bool_arr", self._on_prog_str_to_bool_arr)
+        self.connect("on_programmer_change_exp_num_sys", self._on_prog_change_exp_num_sys)
 
 
     def _evaluate(self, _, data:str):
@@ -287,3 +288,6 @@ Attempting to make a table with the previous series.")
     def _on_prog_str_to_bool_arr(self, _, s, ns, wrd_length):
         arr = self.programmer_calc.string_to_bool_array(s, ns, wrd_length)
         return "".join(['1' if x else '0' for x in arr])
+
+    def _on_prog_change_exp_num_sys(self, _, s, ns, wrd_length):
+        return self.programmer_calc.set_number_system(s, ns, wrd_length)

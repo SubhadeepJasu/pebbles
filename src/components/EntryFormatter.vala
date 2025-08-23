@@ -246,5 +246,19 @@ namespace Pebbles {
                 return current_symbol;
             }
         }
+
+        public bool is_rule_present (string input_symbol) {
+            var rules = new Json.Parser ();
+            try {
+                string rule_json = (replacement_mode == ReplacementMode.PROGRAMMER)
+                    ? REPLACEMENT_RULES_PROGRAMMER
+                    : REPLACEMENT_RULES_SCIENTIFIC;
+                rules.load_from_data (rule_json.strip (), -1);
+                var obj = rules.get_root ().get_object ();
+                return obj.has_member (input_symbol);
+            } catch (Error e) {
+                return false;
+            }
+        }
     }
 }

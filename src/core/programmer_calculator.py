@@ -70,32 +70,36 @@ class ProgrammersCalculator():
 
 
     def set_number_system(self,
-                          exp:str,
-                          number_system:Pebbles.NumberSystem,
+                          exp: str,
+                          number_system: Pebbles.NumberSystem,
                           wrd_length=Pebbles.GlobalWordLength.BYT,
                           force_decimal=False
                          ) -> str:
+        # Tokenize the current expression regardless of the stored tokens.
         token_structure = Tokenizer.get_token_array(exp, number_system)
 
-        if self._compare_token_set(token_structure, self.stored_tokens):
-            for i in range(len(token_structure)):
-                if token_structure[i].type == ProgrammersCalculator.TOKEN_TYPE_OPERAND:
-                    if token_structure[i].number_system != self.stored_tokens[i].number_system:
-                        self.stored_tokens[i].token = self.convert_number_system(
-                            self.stored_tokens[i].token,
-                            self.stored_tokens[i].number_system,
-                            Pebbles.NumberSystem.DECIMAL \
-                                if force_decimal \
-                                else token_structure[i].number_system,
-                            wrd_length
-                        )
+        # For every token in stored_tokens, if it is an operand and its current number system
+        # is different from the required number system, perform conversion.
+        for i in range(len(token_structure)):
+            if token_structure[i]['type'] == ProgrammersCalculator.TOKEN_TYPE_OPERAND:
+                # Compare the stored token's number system with the one in token_structure.
+                # If they're different, convert using force_decimal or the target number_system.
+                if self.stored_tokens[i].number_system != token_structure[i]['numberSystem']:
+                    self.stored_tokens[i].token = self.convert_number_system(
+                        self.stored_tokens[i].token,
+                        self.stored_tokens[i].number_system,
+                        Pebbles.NumberSystem.DECIMAL if force_decimal else token_structure[i]['numberSystem'],
+                        wrd_length
+                    )
 
         token_list = []
         for token in self.stored_tokens:
             token.token = Utils.remove_leading_zeroes(token.token)
             token_list.append(token.token)
 
-        return Utils.get_natural_expression(" ".join(token_list))
+        exp = Utils.get_natural_expression(" ".join(token_list))
+        self.populate_token_array(exp, number_system)
+        return exp
 
 
     def _compare_token_set(self, a: list, b: list) -> bool:
@@ -135,7 +139,7 @@ class ProgrammersCalculator():
             elif number_system_b == Pebbles.NumberSystem.OCTAL:
                 converted = self.convert_binary_to_octal(exp, wrd_length)
             elif format_binary:
-                converted = self.represent_binary_by_word_length(exp, wrd_length, True)
+                converted = self.represent_binary_by_word_length(exp, wrd_length, format_binary)
 
         elif number_system_a == Pebbles.NumberSystem.HEXADECIMAL:
             if number_system_b == Pebbles.NumberSystem.DECIMAL:
