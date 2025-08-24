@@ -73,7 +73,13 @@ namespace Pebbles {
             "×": {"default": " × ", "len_gain": 2},
             "*": {"default": " × ", "len_gain": 2},
             "÷": {"default": " ÷ ", "len_gain": 2},
-            "/": {"default": " ÷ ", "len_gain": 2}
+            "/": {"default": " ÷ ", "len_gain": 2},
+            ",": {"default": " lsh ", "len_gain": 4},
+            ".": {"default": " rsh ", "len_gain": 4},
+            "<": {"default": " rsh ", "len_gain": 4},
+            ">": {"default": " rsh ", "len_gain": 4},
+            "l": {"default": " lsh ", "len_gain": 4},
+            "L": {"default": " rsh ", "len_gain": 4}
         }
         """;
 

@@ -209,13 +209,13 @@ namespace Pebbles {
         }
 
         [GtkCallback]
-        protected void on_click_button () {
-
+        protected void on_click_button (Gtk.Button btn) {
+            display.write (btn.name);
         }
 
         [GtkCallback]
-        protected void on_click_function () {
-
+        protected void on_click_function (Gtk.Button btn) {
+            display.write (shift_button.active ? btn.name.up () : btn.name);
         }
 
         public void open_bit_grid () {

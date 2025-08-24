@@ -79,7 +79,12 @@ namespace Pebbles {
                     );
                     main_entry.set_position (-1);
                     entry_formatter.disabled = false;
-                    main_label.set_text (window.on_programmer_convert_token (main_label.get_text (), _number_system, value, settings.global_word_length));
+                    var answer_text = window.on_programmer_convert_token (main_label.get_text (), _number_system, value, settings.global_word_length);
+                    if (value == BINARY) {
+                        answer_text = remove_leading_zeroes (answer_text);
+                    }
+
+                    main_label.set_text (answer_text);
                 }
 
                 _number_system = value;
@@ -197,7 +202,7 @@ namespace Pebbles {
             if (result != "E") {
                 add_css_class ("fade");
                 Timeout.add (100, () => {
-                    main_label.set_text (result);
+                    main_label.set_text (remove_leading_zeroes (result));
                     remove_css_class ("fade");
                     return false;
                 });
@@ -214,6 +219,12 @@ namespace Pebbles {
         public void focus_entry () {
             main_entry.grab_focus_without_selecting ();
             main_entry.set_position (-1);
+        }
+
+        public void write (string str) {
+            int position = main_entry.get_position ();
+            main_entry.do_insert_text (str, str.length, ref position);
+            main_entry.set_position (position);
         }
 
         private void display_all_number_systems () {
@@ -256,7 +267,7 @@ namespace Pebbles {
         protected bool input_handler (string full_expression, int input_length, string input_char) {
             display_all_number_systems ();
 
-            if (!entry_formatter.is_rule_present (input_char)) {
+            if (input_char != "" && !entry_formatter.is_rule_present (input_char)) {
                 if (settings.number_system == NumberSystem.BINARY && not_binary (input_char)) {
                     return true;
                 }

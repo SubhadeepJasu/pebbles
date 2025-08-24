@@ -34,6 +34,7 @@ class ProgrammersCalculator():
         ['x', 'p', 'n', '|']
     ]
 
+
     def __init__(self, memory: ContextualMemory):
         self.memory = memory
         self.stored_tokens: list[_ProgToken] = [
@@ -158,8 +159,6 @@ class ProgrammersCalculator():
                 converted = self.convert_octal_to_hexadecimal(exp, wrd_length)
 
         return converted
-
-
 
 
     @staticmethod

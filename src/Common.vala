@@ -203,4 +203,18 @@ namespace Pebbles {
     public static string get_local_separator_symbol () {
         return Posix.nl_langinfo (Posix.NLItem.THOUSEP);
     }
+
+    public static string remove_leading_zeroes (string text) {
+        if (text == "0") {
+            return "0";
+        }
+        int n = -1;
+        for (int i = 0; i < text.length; i++) {
+            if (text.get_char(i) != '0') {
+                n = i;
+                break;
+            }
+        }
+        return text.substring(n);
+    }
 }

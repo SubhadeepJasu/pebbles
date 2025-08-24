@@ -89,7 +89,7 @@ template $PebblesProgrammerView: $PebblesView {
           }
 
           $PebblesButton lsh_rsh_button {
-            name: "lsh";
+            name: "l";
             label_text: "Lsh";
             tooltip_desc: _("Left Shift");
             focus-on-click: false;
@@ -232,6 +232,8 @@ template $PebblesProgrammerView: $PebblesView {
               row: 1;
               column: 4;
             }
+
+            clicked => $on_click_function();
           }
 
           $PebblesButton four_button {
@@ -319,6 +321,8 @@ template $PebblesProgrammerView: $PebblesView {
               row: 2;
               column: 4;
             }
+
+            clicked => $on_click_function();
           }
 
           $PebblesButton one_button {
@@ -406,6 +410,8 @@ template $PebblesProgrammerView: $PebblesView {
               row: 3;
               column: 4;
             }
+
+            clicked => $on_click_function();
           }
 
           $PebblesButton zero_button {
@@ -470,6 +476,8 @@ template $PebblesProgrammerView: $PebblesView {
               row: 4;
               column: 3;
             }
+
+            clicked => $on_click_function();
           }
 
           $PebblesButton result_button_p {
@@ -616,6 +624,7 @@ template $PebblesProgrammerView: $PebblesView {
           }
 
           $PebblesButton or_button {
+            name: "o";
             label_text: "Or";
             tooltip_desc: _("Bitwise OR (TRUE for any input being TRUE)");
             accel_markup: "O";
@@ -632,7 +641,7 @@ template $PebblesProgrammerView: $PebblesView {
               column: 2;
             }
 
-            // clicked => $on_click_function();
+            clicked => $on_click_function();
           }
 
           $PebblesButton memory_minus_button {
@@ -709,7 +718,7 @@ template $PebblesProgrammerView: $PebblesView {
               column: 2;
             }
 
-            // clicked => $on_click_function();
+            clicked => $on_click_function();
           }
 
           $PebblesButton memory_recall_button {
@@ -786,7 +795,7 @@ template $PebblesProgrammerView: $PebblesView {
               column: 2;
             }
 
-            // clicked => $on_click_function();
+            clicked => $on_click_function();
           }
 
           $PebblesButton memory_clear_button {
