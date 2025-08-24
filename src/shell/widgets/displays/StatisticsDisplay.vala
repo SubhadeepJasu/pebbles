@@ -593,10 +593,7 @@ namespace Pebbles {
 
         [GtkCallback]
         protected void insert_from_history (string? text) {
-            if (selected_cell != null) {
-                selected_cell.set_text (selected_cell.get_text () + text);
-                selected_cell.set_position ((int) selected_cell.text_length);
-            }
+            write (text);
         }
 
         [GtkCallback]

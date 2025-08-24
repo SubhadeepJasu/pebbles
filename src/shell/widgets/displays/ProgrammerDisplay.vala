@@ -43,6 +43,9 @@ namespace Pebbles {
         [GtkChild]
         private unowned Gtk.Label main_label;
 
+        [GtkChild]
+        public unowned HistoryDisplay history_display;
+
         private NumberSystem _number_system;
         public NumberSystem number_system {
             get {
@@ -187,6 +190,10 @@ namespace Pebbles {
             return binary_value;
         }
 
+        public void show_history (HistoryModel[] history) {
+            history_display.update_list (history);
+        }
+
         public void all_clear () {
             main_entry.grab_focus_without_selecting ();
             main_entry.set_text ("0");
@@ -328,6 +335,22 @@ namespace Pebbles {
 
         private bool not_octal (string input) {
             return !"01234567".contains (input.down ());
+        }
+
+        [GtkCallback]
+        protected void insert_from_history (string? text) {
+            write (text);
+        }
+
+        [GtkCallback]
+        protected void recall_history (HistoryModel data) {
+            settings.number_system = (NumberSystem) data.metadata.metadata_1;
+            settings.global_word_length = (GlobalWordLength) data.metadata.metadata_2;
+            number_system = settings.number_system;
+            word_length = settings.global_word_length;
+            main_entry.set_text (data.input);
+            main_entry.set_position ((int) main_entry.text_length);
+            main_label.set_text (data.result);
         }
     }
 }

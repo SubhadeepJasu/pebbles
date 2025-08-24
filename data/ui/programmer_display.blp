@@ -223,7 +223,6 @@ template $PebblesProgrammerDisplay: $PebblesDisplay {
                 propagate-natural-height: false;
                 vexpand: true;
                 hexpand: true;
-                window-placement: bottom_left;
                 min-content-height: 100;
 
                 layout {
@@ -240,9 +239,9 @@ template $PebblesProgrammerDisplay: $PebblesDisplay {
                     $PebblesHistoryDisplay history_display {
                         context: bind template.context;
                         viewport: viewport;
-                        visible: false;
-                        // inserted => $insert_from_history();
-                        // recalled => $recall_history();
+
+                        inserted => $insert_from_history();
+                        recalled => $recall_history();
                     }
 
                     Label main_label {

@@ -151,14 +151,21 @@ class PythonWindow(Pebbles.MainWindow):
                     format_func=ScientificCalculator.format,
                     context=context
                 ), context)
+        elif context == Pebbles.Context.PROGRAMMER:
+            self.show_history(self._memory.get_views(
+                    format_func=None,
+                    context=context
+                ), context)
 
 
     def _history_insert_cb(self, _, item_id:int):
         item = self._memory.get_history_by_id(item_id)
         context = item.get_context()
         result = item.get_result()
-        if context in [Pebbles.Context.SCIENTIFIC, Pebbles.Context.STATISTICS]:
+        if context in [Pebbles.Context.SCIENTIFIC, Pebbles.Context.STATISTICS, Pebbles.Context.CALCULUS]:
             return ScientificCalculator.format(result)
+        elif context == Pebbles.Context.PROGRAMMER:
+            return result
         return ''
 
 

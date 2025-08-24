@@ -40,6 +40,7 @@ class ProgrammersCalculator():
         self.stored_tokens: list[_ProgToken] = [
             _ProgToken("0", ProgrammersCalculator.TOKEN_TYPE_OPERAND, Pebbles.NumberSystem.DECIMAL)
         ]
+        self.input_exp = ''
 
 
     def get_last_token(self):
@@ -67,6 +68,7 @@ class ProgrammersCalculator():
 
     def populate_token_array(self, exp: str, number_system:Pebbles.NumberSystem):
         _stored_tokens = Tokenizer.get_token_array (exp, number_system)
+        self.input_exp = exp
         self.stored_tokens = [_ProgToken(x['token'], x['type'], x['numberSystem']) for x in _stored_tokens]
 
 
@@ -78,6 +80,7 @@ class ProgrammersCalculator():
                          ) -> str:
         # Tokenize the current expression regardless of the stored tokens.
         token_structure = Tokenizer.get_token_array(exp, number_system)
+        self.input_exp = exp
 
         # For every token in stored_tokens, if it is an operand and its current number system
         # is different from the required number system, perform conversion.
@@ -598,11 +601,10 @@ class ProgrammersCalculator():
 
             if gen_hist:
                 token_list = [token.token for token in self.stored_tokens]
-                expression = " ".join(token_list)
                 self.memory.push_history(
                     self.MODE,
-                    expression,
-                    formatted_answer,
+                    self.input_exp,
+                    Utils.remove_leading_zeroes(formatted_answer),
                     {
                         'metadata_1': number_system,
                         'metadata_2': wrd_length

@@ -37,6 +37,9 @@ namespace Pebbles {
                     if (viewport != null) {
                         var v_adjustment = viewport.get_vadjustment ();
                         v_adjustment.value = v_adjustment.upper - v_adjustment.page_size;
+
+                        var h_adjustment = viewport.get_hadjustment ();
+                        h_adjustment.value = h_adjustment.upper - h_adjustment.page_size;
                     }
 
                     return Source.REMOVE;

@@ -172,8 +172,7 @@ namespace Pebbles {
 
         [GtkCallback]
         protected void insert_from_history (string? text) {
-            main_entry.set_text (main_entry.get_text () + text);
-            main_entry.set_position ((int) main_entry.text_length);
+            write (text);
         }
 
         [GtkCallback]

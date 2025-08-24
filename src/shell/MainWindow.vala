@@ -753,6 +753,9 @@ namespace Pebbles {
                 case Context.CALCULUS:
                     calculus_view.show_history (_history);
                     break;
+                case Context.PROGRAMMER:
+                    programmer_view.show_history (_history);
+                    break;
             }
         }
 

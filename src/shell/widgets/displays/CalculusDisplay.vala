@@ -134,8 +134,7 @@ namespace Pebbles {
 
         [GtkCallback]
         protected void insert_from_history (string? text) {
-            focused_entry.set_text (focused_entry.get_text () + text);
-            focused_entry.set_position ((int) focused_entry.text_length);
+            write (text);
         }
 
         [GtkCallback]

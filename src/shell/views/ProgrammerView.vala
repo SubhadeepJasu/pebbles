@@ -128,6 +128,10 @@ namespace Pebbles {
             display.show_result (result);
         }
 
+        public void show_history (HistoryModel[] history) {
+            display.show_history (history);
+        }
+
         // Updated set_keypad_mode to use hex keypad button references
         private void set_keypad_mode (int mode) {
             seven_button.set_sensitive (true);
@@ -192,6 +196,11 @@ namespace Pebbles {
         [GtkCallback]
         protected void on_click_function (Gtk.Button btn) {
             display.write (shift_button.active ? btn.name.up () : btn.name);
+        }
+
+        [GtkCallback]
+        public void on_click_eval () {
+            display.input ();
         }
 
         public void open_bit_grid () {
