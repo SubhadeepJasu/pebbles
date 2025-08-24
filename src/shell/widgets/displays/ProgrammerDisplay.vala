@@ -82,7 +82,12 @@ namespace Pebbles {
                     );
                     main_entry.set_position (-1);
                     entry_formatter.disabled = false;
-                    var answer_text = window.on_programmer_convert_token (main_label.get_text (), _number_system, value, settings.global_word_length);
+                    var answer_text = window.on_programmer_convert_token (
+                        main_label.get_text (),
+                        _number_system,
+                        value,
+                        settings.global_word_length
+                    );
                     if (value == BINARY) {
                         answer_text = remove_leading_zeroes (answer_text);
                     }
@@ -270,10 +275,14 @@ namespace Pebbles {
                 var token = root_object.get_string_member ("token");
 
                 if (root_object.get_string_member ("tokenTypeS") == "operand") {
-                    dec_number_value = window.on_programmer_convert_token (token, current_number_system, NumberSystem.DECIMAL, settings.global_word_length);
-                    hex_number_value = window.on_programmer_convert_token (token, current_number_system, NumberSystem.HEXADECIMAL, settings.global_word_length);
-                    oct_number_value = window.on_programmer_convert_token (token, current_number_system, NumberSystem.OCTAL, settings.global_word_length);
-                    bin_number_value = window.on_programmer_convert_token (token, current_number_system, NumberSystem.BINARY, settings.global_word_length, true);
+                    dec_number_value = window.on_programmer_convert_token (
+                        token, current_number_system, NumberSystem.DECIMAL, settings.global_word_length);
+                    hex_number_value = window.on_programmer_convert_token (
+                        token, current_number_system, NumberSystem.HEXADECIMAL, settings.global_word_length);
+                    oct_number_value = window.on_programmer_convert_token (
+                        token, current_number_system, NumberSystem.OCTAL, settings.global_word_length);
+                    bin_number_value = window.on_programmer_convert_token (
+                        token, current_number_system, NumberSystem.BINARY, settings.global_word_length, true);
 
                     var bool_array_str = window.on_programmer_str_to_bool_arr (
                         token,

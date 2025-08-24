@@ -120,7 +120,13 @@ namespace Pebbles {
 
                     Idle.add (() => {
                         if (main_entry.text_length >= 1 && main_entry.text != "0")
-                            replace_inserted_character (main_entry.text, main_entry.text_length, main_entry.get_position (), ch, polar_mode);
+                            replace_inserted_character (
+                                main_entry.text,
+                                main_entry.text_length,
+                                main_entry.get_position (),
+                                ch,
+                                polar_mode
+                            );
                         return Source.REMOVE;
                     });
                     return Source.REMOVE;
@@ -145,7 +151,13 @@ namespace Pebbles {
             });
         }
 
-        public void replace_inserted_character (string text, uint text_length, int caret_pos, string current_symbol, bool radial_mode = false) {
+        public void replace_inserted_character (
+            string text,
+            uint text_length,
+            int caret_pos,
+            string current_symbol,
+            bool radial_mode = false
+        ) {
             var symbols = split_utf8 (text, text_length);
             if (current_symbol == null) {
                 return;
@@ -162,7 +174,8 @@ namespace Pebbles {
 
             bool double_replaced;
             int len_gain;
-            var replacement = find_replacement (current_symbol, previous_symbol, radial_mode, out double_replaced, out len_gain);
+            var replacement = find_replacement (
+                current_symbol, previous_symbol, radial_mode, out double_replaced, out len_gain);
             symbols[caret_pos] = replacement;
             if (double_replaced) {
                 symbols[previous_caret_pos] = "";

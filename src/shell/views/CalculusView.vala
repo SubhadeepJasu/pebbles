@@ -72,7 +72,13 @@ namespace Pebbles {
         protected string constant_label { get; private set; default = "C"; }
         protected string constant_desc { get; private set; default = ""; }
 
-        public signal void on_evaluate (string input, bool integral_mode, double limit_a, double limit_b, int memory_op = 0);
+        public signal void on_evaluate (
+            string input,
+            bool integral_mode,
+            double limit_a,
+            double limit_b,
+            int memory_op = 0
+        );
         public signal string on_memory_recall (bool global);
         public signal void on_memory_clear (bool global);
 

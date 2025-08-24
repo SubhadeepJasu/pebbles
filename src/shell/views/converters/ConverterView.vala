@@ -245,7 +245,7 @@ namespace Pebbles {
         }
 
         public override void focus_main () {
-            
+
         }
     }
 }

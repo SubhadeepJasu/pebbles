@@ -146,7 +146,8 @@ namespace Pebbles {
             bool[] arr, GlobalWordLength wrd_length, NumberSystem number_system);
         public signal void on_programmer_populate_token_array (string exp, NumberSystem number_system);
         public signal string on_programmer_get_last_token ();
-        public signal string on_programmer_convert_token (string exp, NumberSystem ns_a, NumberSystem ns_b, GlobalWordLength wrd_length, bool format_bin = false);
+        public signal string on_programmer_convert_token (
+            string exp, NumberSystem ns_a, NumberSystem ns_b, GlobalWordLength wrd_length, bool format_bin = false);
         public signal string on_programmer_str_to_bool_arr (string s, NumberSystem ns, GlobalWordLength wrd_length);
         public signal string on_programmer_change_exp_num_sys (string s, NumberSystem ns, GlobalWordLength wrd_length);
 

@@ -210,11 +210,11 @@ namespace Pebbles {
         }
         int n = -1;
         for (int i = 0; i < text.length; i++) {
-            if (text.get_char(i) != '0') {
+            if (text.get_char (i) != '0') {
                 n = i;
                 break;
             }
         }
-        return text.substring(n);
+        return text.substring (n);
     }
 }

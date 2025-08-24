@@ -92,7 +92,12 @@ namespace Pebbles {
 
         private Pebbles.Settings settings;
 
-        public signal void on_evaluate (string input, NumberSystem number_system, GlobalWordLength wrd_length, int memory_op = 0);
+        public signal void on_evaluate (
+            string input,
+            NumberSystem number_system,
+            GlobalWordLength wrd_length,
+            int memory_op = 0
+        );
         public signal string on_memory_recall (bool global);
         public signal void on_memory_clear (bool global);
 
