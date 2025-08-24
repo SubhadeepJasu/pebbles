@@ -247,8 +247,12 @@ class ContextualMemory:
         cursor = conn.cursor()
         cursor.execute(ContextualMemory.HISTORY_VIEW_QUERY, (context,))
         history_entries = cursor.fetchall()
-        views = [Pebbles.HistoryModel.new_for_view(id, context, inp, format_func(res))
-                 for id, inp, res in history_entries]
+        if format_func is not None:
+            views = [Pebbles.HistoryModel.new_for_view(id, context, inp, format_func(res))
+                     for id, inp, res in history_entries]
+        else:
+            views = [Pebbles.HistoryModel.new_for_view(id, context, inp, res)
+                     for id, inp, res in history_entries]
         conn.close()
         return views
 

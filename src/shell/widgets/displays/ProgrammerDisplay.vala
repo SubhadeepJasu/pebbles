@@ -147,6 +147,12 @@ namespace Pebbles {
 
             realize.connect (() => {
                 window = (MainWindow) get_ancestor (typeof (MainWindow));
+
+                window.on_all_clear.connect ((ctx) => {
+                    if (ctx == context) {
+                        all_clear ();
+                    }
+                });
             });
 
             entry_formatter = new EntryFormatter (main_entry, ReplacementMode.PROGRAMMER);
@@ -185,6 +191,22 @@ namespace Pebbles {
             main_entry.grab_focus_without_selecting ();
             main_entry.set_text ("0");
             main_entry.set_position (1);
+        }
+
+        public void backspace () {
+            int start, end;
+            main_entry.get_selection_bounds (out start, out end);
+
+            if (start == end) {
+                int pos = main_entry.get_position ();
+                if (pos > 0) {
+                    main_entry.delete_text (pos - 1, pos);
+                    main_entry.set_position (pos - 1);
+                }
+            } else {
+                main_entry.delete_text (start, end);
+                main_entry.set_position (start);
+            }
         }
 
         public void set_last_token_from_bit_grid (bool[] arr) {
@@ -285,7 +307,7 @@ namespace Pebbles {
                 }
             }
 
-            if (input_char.length > 0 && full_expression.chug () != "") {
+            if (full_expression.chug () != "") {
                 window.on_programmer_populate_token_array (full_expression, number_system);
             }
 

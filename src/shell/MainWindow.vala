@@ -127,6 +127,7 @@ namespace Pebbles {
 
         public signal bool on_key_down (string? context, uint keyval);
         public signal void on_key_up (string? context, uint keyval);
+        public signal void on_all_clear (string? context);
         public signal void on_history_view (string context);
         public signal string on_history_copy (int id);
         public signal string on_history_insert (int id);
@@ -537,6 +538,10 @@ namespace Pebbles {
 
                 if (lock_key) {
                     set_shift_on (!lock_on);
+                }
+
+                if (keyval == Gdk.Key.BackSpace && (modifier & Gdk.ModifierType.SHIFT_MASK) != 0) {
+                    on_all_clear (view_stack.visible_child_name);
                 }
 
                 if ((

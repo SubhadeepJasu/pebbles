@@ -39,7 +39,7 @@ namespace Pebbles {
                     _("Close Dialog"), "Escape"
                 },
                 {
-                    _("All Clear"), "Delete"
+                    _("All Clear"), "<Shift>BackSpace"
                 },
                 {
                     _("Copy Result"), "<Ctrl>C"

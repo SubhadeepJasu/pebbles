@@ -130,72 +130,48 @@ namespace Pebbles {
 
         // Updated set_keypad_mode to use hex keypad button references
         private void set_keypad_mode (int mode) {
-            switch (mode) {
-                case 0:
-                    seven_button.set_sensitive (true);
-                    eight_button.set_sensitive (true);
-                    nine_button.set_sensitive (true);
-                    hex_a_button.set_sensitive (true);
-                    hex_d_button.set_sensitive (true);
-                    four_button.set_sensitive (true);
-                    five_button.set_sensitive (true);
-                    six_button.set_sensitive (true);
-                    hex_b_button.set_sensitive (true);
-                    hex_e_button.set_sensitive (true);
-                    two_button.set_sensitive (true);
-                    three_button.set_sensitive (true);
-                    hex_c_button.set_sensitive (true);
-                    hex_f_button.set_sensitive (true);
-                    break;
-                case 1:
-                    seven_button.set_sensitive (true);
-                    eight_button.set_sensitive (true);
-                    nine_button.set_sensitive (true);
-                    hex_a_button.set_sensitive (false);
-                    hex_d_button.set_sensitive (false);
-                    four_button.set_sensitive (true);
-                    five_button.set_sensitive (true);
-                    six_button.set_sensitive (true);
-                    hex_b_button.set_sensitive (false);
-                    hex_e_button.set_sensitive (false);
-                    two_button.set_sensitive (true);
-                    three_button.set_sensitive (true);
-                    hex_c_button.set_sensitive (false);
-                    hex_f_button.set_sensitive (false);
-                    break;
-                case 2:
-                    seven_button.set_sensitive (true);
-                    eight_button.set_sensitive (false);
-                    nine_button.set_sensitive (false);
-                    hex_a_button.set_sensitive (false);
-                    hex_d_button.set_sensitive (false);
-                    four_button.set_sensitive (true);
-                    five_button.set_sensitive (true);
-                    six_button.set_sensitive (true);
-                    hex_b_button.set_sensitive (false);
-                    hex_e_button.set_sensitive (false);
-                    two_button.set_sensitive (true);
-                    three_button.set_sensitive (true);
-                    hex_c_button.set_sensitive (false);
-                    hex_f_button.set_sensitive (false);
-                    break;
-                case 3:
-                    seven_button.set_sensitive (false);
-                    eight_button.set_sensitive (false);
-                    nine_button.set_sensitive (false);
-                    hex_a_button.set_sensitive (false);
-                    hex_d_button.set_sensitive (false);
-                    four_button.set_sensitive (false);
-                    five_button.set_sensitive (false);
-                    six_button.set_sensitive (false);
-                    hex_b_button.set_sensitive (false);
-                    hex_e_button.set_sensitive (false);
-                    two_button.set_sensitive (false);
-                    three_button.set_sensitive (false);
-                    hex_c_button.set_sensitive (false);
-                    hex_f_button.set_sensitive (false);
-                    break;
-            }
+            seven_button.set_sensitive (true);
+            eight_button.set_sensitive (true);
+            nine_button.set_sensitive (true);
+            hex_a_button.set_sensitive (true);
+            hex_d_button.set_sensitive (true);
+            four_button.set_sensitive (true);
+            five_button.set_sensitive (true);
+            six_button.set_sensitive (true);
+            hex_b_button.set_sensitive (true);
+            hex_e_button.set_sensitive (true);
+            two_button.set_sensitive (true);
+            three_button.set_sensitive (true);
+            hex_c_button.set_sensitive (true);
+            hex_f_button.set_sensitive (true);
+
+            if (mode == 0)
+                return;
+
+            hex_a_button.set_sensitive (false);
+            hex_d_button.set_sensitive (false);
+            hex_b_button.set_sensitive (false);
+            hex_e_button.set_sensitive (false);
+            hex_c_button.set_sensitive (false);
+            hex_f_button.set_sensitive (false);
+
+            if (mode == 1)
+                return;
+
+            eight_button.set_sensitive (false);
+            nine_button.set_sensitive (false);
+
+            if (mode == 2)
+                return;
+
+            seven_button.set_sensitive (false);
+            eight_button.set_sensitive (false);
+            nine_button.set_sensitive (false);
+            four_button.set_sensitive (false);
+            five_button.set_sensitive (false);
+            six_button.set_sensitive (false);
+            two_button.set_sensitive (false);
+            three_button.set_sensitive (false);
         }
 
         [GtkCallback]
@@ -290,6 +266,11 @@ namespace Pebbles {
         [GtkCallback]
         protected void on_all_clear () {
             display.all_clear ();
+        }
+
+        [GtkCallback]
+        public void on_backspace () {
+            display.backspace ();
         }
 
         [GtkCallback]

@@ -169,8 +169,10 @@ class ScientificCalculator():
             operand_stack.append(self.substitutions['M'])
         else:
             operand_stack.append(float(token))
+
+
     @staticmethod
-    def format(result: any):
+    def format(result: any) -> str:
         """
         Format scientific result.
         """

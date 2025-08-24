@@ -197,7 +197,7 @@ class ProgrammersCalculator():
                 required_bit_length = 64
 
         if len(binary_value) > required_bit_length:
-            new_binary = binary_value[- (required_bit_length + 1) :]
+            new_binary = binary_value[-required_bit_length:]
         else:
             pre_zeros = "0" * (required_bit_length - len(binary_value))
             new_binary = pre_zeros + binary_value
@@ -597,12 +597,15 @@ class ProgrammersCalculator():
             formatted_answer = self.bool_array_to_string(answer, wrd_length, number_system)
 
             if gen_hist:
+                token_list = [token.token for token in self.stored_tokens]
+                expression = " ".join(token_list)
                 self.memory.push_history(
                     self.MODE,
-                    self.input_dict['input'],
-                    str(answer.token),
-                    {'metadata_1': number_system,
-                     'metadata_2': wrd_length
+                    expression,
+                    formatted_answer,
+                    {
+                        'metadata_1': number_system,
+                        'metadata_2': wrd_length
                     }
                 )
             result_json = json.dumps({'mode': self.MODE, 'result': formatted_answer})
@@ -666,7 +669,6 @@ class ProgrammersCalculator():
             operand_stack.append(tmp)
 
         return operand_pop()
-
 
 
 class _ProgToken:

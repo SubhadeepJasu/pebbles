@@ -65,6 +65,12 @@ namespace Pebbles {
                         focused_entry.grab_focus_without_selecting ();
                     }
                 });
+
+                window.on_all_clear.connect ((ctx) => {
+                    if (ctx == context) {
+                        all_clear ();
+                    }
+                });
             });
 
             set_angle_unit (settings.global_angle_unit);

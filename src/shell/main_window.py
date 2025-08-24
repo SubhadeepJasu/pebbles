@@ -105,7 +105,12 @@ class PythonWindow(Pebbles.MainWindow):
             ), Pebbles.Context.CALCULUS)
         elif data_dict['context'] == Pebbles.Context.PROGRAMMER:
             result_data, result = self.programmer_calc.evaluate(
-                data_dict['numberSystem'], data_dict['wordLength'], False)
+                data_dict['numberSystem'], data_dict['wordLength'], True)
+            self._commit_to_memory(result, Pebbles.Context.PROGRAMMER, data_dict['memoryOp'])
+            self.show_history(self._memory.get_views(
+                format_func=None,
+                context=Pebbles.Context.PROGRAMMER
+            ), Pebbles.Context.PROGRAMMER)
         else:
             return
 

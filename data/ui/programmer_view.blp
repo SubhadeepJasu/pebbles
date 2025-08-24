@@ -57,9 +57,9 @@ template $PebblesProgrammerView: $PebblesView {
           $PebblesButton all_clear_button {
             label_text: _("AC");
             tooltip_desc: _("All Clear");
-            accel_markup: "Delete";
+            accel_markup: "<Shift>BackSpace";
             focus-on-click: false;
-            key: "delete";
+            key: "<Shift>BackSpace";
 
             styles [
               "destructive-action",
@@ -85,7 +85,7 @@ template $PebblesProgrammerView: $PebblesView {
               column: 1;
             }
 
-            // clicked => $on_backspace();
+            clicked => $on_backspace();
           }
 
           $PebblesButton lsh_rsh_button {
