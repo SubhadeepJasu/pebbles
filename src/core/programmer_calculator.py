@@ -197,7 +197,7 @@ class ProgrammersCalculator():
                 required_bit_length = 64
 
         if len(binary_value) > required_bit_length:
-            new_binary = binary_value[- (required_bit_length + 1) : -1]
+            new_binary = binary_value[- (required_bit_length + 1) :]
         else:
             pre_zeros = "0" * (required_bit_length - len(binary_value))
             new_binary = pre_zeros + binary_value
@@ -208,8 +208,11 @@ class ProgrammersCalculator():
                 formatted_binary += new_binary[i]
                 if (i + 1) % 8 == 0:
                     formatted_binary += " "
+
             return formatted_binary
+
         return new_binary
+
 
     def convert_binary_to_decimal(self, number:str, wrd_length=Pebbles.GlobalWordLength.WRD):
         """
@@ -540,6 +543,7 @@ class ProgrammersCalculator():
             b = b_val
 
         result = self._apply_op_bit_wise(op, a, b)
+        print("result", result)
         return self.string_to_bool_array(str(result), Pebbles.NumberSystem.DECIMAL, wrd_size)
 
 
@@ -566,6 +570,10 @@ class ProgrammersCalculator():
                 result = a | b
             case '!':
                 result = ~a
+            case '<':
+                result = a << b
+            case '>':
+                result = a >> b
             case '_':
                 result = ~(a & b)
             case 'o':
