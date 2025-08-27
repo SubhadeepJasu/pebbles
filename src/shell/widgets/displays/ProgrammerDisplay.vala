@@ -38,7 +38,7 @@ namespace Pebbles {
         private unowned Gtk.Label shift_label;
 
         [GtkChild]
-        private unowned Gtk.Entry main_entry;
+        public unowned Gtk.Entry main_entry;
 
         [GtkChild]
         private unowned Gtk.Label main_label;

@@ -104,20 +104,11 @@ namespace Pebbles {
         construct {
             settings = Pebbles.Settings.get_default ();
 
-            switch (settings.number_system) {
-                case HEXADECIMAL:
-                    hex_toggle.active = true;
-                    break;
-                case DECIMAL:
-                    dec_toggle.active = true;
-                    break;
-                case OCTAL:
-                    oct_toggle.active = true;
-                    break;
-                case BINARY:
-                    bin_toggle.active = true;
-                    break;
-            }
+            set_number_system (settings.number_system);
+
+            settings.changed["number-system"].connect ((key) => {
+                set_number_system (settings.number_system);
+            });
 
             display.on_input.connect ((text) => {
                 on_evaluate (
@@ -135,6 +126,27 @@ namespace Pebbles {
 
         public void show_history (HistoryModel[] history) {
             display.show_history (history);
+        }
+
+        private void set_number_system (NumberSystem number_system) {
+            switch (number_system) {
+                case HEXADECIMAL:
+                    hex_toggle.active = true;
+                    set_keypad_mode (0);
+                    break;
+                case DECIMAL:
+                    dec_toggle.active = true;
+                    set_keypad_mode (1);
+                    break;
+                case OCTAL:
+                    oct_toggle.active = true;
+                    set_keypad_mode (2);
+                    break;
+                case BINARY:
+                    bin_toggle.active = true;
+                    set_keypad_mode (3);
+                    break;
+            }
         }
 
         // Updated set_keypad_mode to use hex keypad button references
@@ -228,19 +240,15 @@ namespace Pebbles {
                 switch (button.name) {
                     case "hex-toggle":
                         settings.number_system = HEXADECIMAL;
-                        set_keypad_mode (0);
                         break;
                     case "dec-toggle":
                         settings.number_system = DECIMAL;
-                        set_keypad_mode (1);
                         break;
                     case "oct-toggle":
                         settings.number_system = OCTAL;
-                        set_keypad_mode (2);
                         break;
                     case "bin-toggle":
                         settings.number_system = BINARY;
-                        set_keypad_mode (3);
                         break;
                 }
             }
@@ -295,6 +303,57 @@ namespace Pebbles {
         [GtkCallback]
         protected void last_bits_changed (Gtk.Widget _, bool[] arr) {
             bit_grid.set_bits (arr);
+        }
+
+        [GtkCallback]
+        protected void on_click_add_button () {
+            display.write ("+");
+        }
+
+        [GtkCallback]
+        protected void on_click_sub_button () {
+            display.write ("-");
+        }
+
+        [GtkCallback]
+        protected void on_click_mul_button () {
+            display.write ("*");
+        }
+
+        [GtkCallback]
+        protected void on_click_div_button () {
+            display.write ("/");
+        }
+
+        [GtkCallback]
+        public void on_click_memory_add () {
+            on_evaluate (
+                display.main_entry.text,
+                settings.number_system,
+                settings.global_word_length,
+                shift_button.active ? MemAppendOp.ADD_GLOBAL : MemAppendOp.ADD
+            );
+        }
+
+        [GtkCallback]
+        public void on_click_memory_subtract () {
+            on_evaluate (
+                display.main_entry.text,
+                settings.number_system,
+                settings.global_word_length,
+                shift_button.active ? MemAppendOp.SUBTRACT_GLOBAL : MemAppendOp.SUBTRACT
+            );
+        }
+
+        [GtkCallback]
+        public void on_click_memory_recall () {
+            var text = on_memory_recall (shift_button.active);
+            display.write (text);
+        }
+
+        [GtkCallback]
+        public void on_click_memory_clear () {
+            on_memory_clear (shift_button.active);
         }
 
         public void send_shift_modifier (bool shifted) {

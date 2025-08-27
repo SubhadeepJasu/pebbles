@@ -79,7 +79,9 @@ namespace Pebbles {
             "<": {"default": " rsh ", "len_gain": 4},
             ">": {"default": " rsh ", "len_gain": 4},
             "l": {"default": " lsh ", "len_gain": 4},
-            "L": {"default": " rsh ", "len_gain": 4}
+            "L": {"default": " rsh ", "len_gain": 4},
+            "(": {"default": "(", "len_gain": 0},
+            ")": {"default": ")", "len_gain": 0}
         }
         """;
 

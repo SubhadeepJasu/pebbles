@@ -31,7 +31,9 @@ namespace Pebbles {
         [GtkChild]
         private unowned Gtk.Box navigation_pane;
         [GtkChild]
-        private unowned Gtk.ListBox nav_list;
+        private unowned Gtk.ListBox nav_list_calc;
+        [GtkChild]
+        private unowned Gtk.ListBox nav_list_conv;
         [GtkChild]
         private unowned Gtk.Box main_view;
         [GtkChild]
@@ -303,7 +305,7 @@ namespace Pebbles {
         }
 
         private void setup_actions () {
-            nav_list.select_row (nav_list.get_row_at_index (0));
+            nav_list_calc.select_row (nav_list_calc.get_row_at_index (0));
             var open_controls_action = new SimpleAction ("controls", null);
             open_controls_action.activate.connect (() => {
                 shortcuts_dialog = new ShortcutsDialog ();
@@ -622,6 +624,16 @@ namespace Pebbles {
             graphing_view.on_memory_recall.connect (() => {
                 return on_memory_recall ("global");
             });
+
+            programmer_view.on_memory_recall.connect ((global) => {
+                var mam_val = on_memory_recall (global ? "global" : Context.PROGRAMMER);
+                mam_val = mam_val.split (".")[0];
+                return mam_val;
+            });
+
+            programmer_view.on_memory_clear.connect ((global) => {
+                on_memory_clear (global ? "global" : Context.PROGRAMMER);
+            });
         }
 
         private void load_settings () {
@@ -643,6 +655,14 @@ namespace Pebbles {
                     break;
             }
 
+            set_button_word_length ();
+
+            settings.changed["global-word-length"].connect ((key) => {
+                set_button_word_length ();
+            });
+        }
+
+        private void set_button_word_length () {
             switch (settings.global_word_length) {
                 case QWD:
                     wrd_length.label_text = "QWD";
@@ -911,6 +931,19 @@ namespace Pebbles {
                 programmer_view.open_bit_grid ();
             } else {
                 programmer_view.on_hide_bit_grid ();
+            }
+        }
+
+        [GtkCallback]
+        protected void on_list_select (Gtk.ListBox list_box, Gtk.ListBoxRow? row) {
+            if (list_box == nav_list_conv) {
+                nav_list_calc.unselect_all ();
+            } else {
+                nav_list_conv.unselect_all ();
+            }
+
+            if (row != null && !row.is_selected ()) {
+                row.activate ();
             }
         }
 

@@ -255,6 +255,9 @@ Attempting to make a table with the previous series.")
         elif context == Pebbles.Context.STATISTICS:
             answer = self._memory.recall(context)
             formatted_answer = f'{Utils.format_float(answer)}'
+        elif context == Pebbles.Context.PROGRAMMER:
+            answer = self._memory.recall(context)
+            formatted_answer = f'{answer}'
         else:
             answer = float(self._memory.recall(context))
             formatted_answer = f'{Utils.format_float(answer)}'

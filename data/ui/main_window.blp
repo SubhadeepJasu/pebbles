@@ -112,10 +112,13 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                     "nav-item"
                                 ]
 
-                                ListBox nav_list {
+                                ListBox nav_list_calc {
+                                    name: "calculator-list";
                                     styles [
                                         "sidebar-box"
                                     ]
+
+                                    row-selected => $on_list_select();
 
                                     ListBoxRow {
                                         Box {
@@ -235,10 +238,13 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                     "nav-item"
                                 ]
 
-                                ListBox {
+                                ListBox nav_list_conv {
+                                    name: "converter-list";
                                     styles [
                                         "sidebar-box"
                                     ]
+
+                                    row-selected => $on_list_select();
 
                                     ListBoxRow {
                                         Box {

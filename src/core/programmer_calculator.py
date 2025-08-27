@@ -341,8 +341,15 @@ class ProgrammersCalculator():
 
 
     def convert_decimal_to_hexadecimal(self, number: str) -> str:
-        n = int(number)
-        hexa = ""
+        neg = ''
+        if (number.startswith('-')):
+            n = int(number[1:])
+            neg = '-'
+
+        else:
+            n = int(number)
+
+        hexa = ''
 
         while n != 0:
             temp = n % 16
@@ -357,7 +364,7 @@ class ProgrammersCalculator():
         if hex_value.strip() == "":
             return "0"
 
-        return hex_value
+        return neg + hex_value
 
 
     def convert_hexadecimal_to_binary(self,
@@ -365,6 +372,11 @@ class ProgrammersCalculator():
                                       wrd_length=Pebbles.GlobalWordLength.WRD,
                                       format_output=False
                                      ) -> str:
+        neg = False
+        if hex_value.startswith('-'):
+            hex_value = hex_value[1:]
+            neg = True
+
         hex_to_bin_map = {
             '0': "0000", '1': "0001", '2': "0010", '3': "0011",
             '4': "0100", '5': "0101", '6': "0110", '7': "0111",
@@ -377,12 +389,20 @@ class ProgrammersCalculator():
         for char in hex_value:
             binary_value += hex_to_bin_map.get(char, "")
 
-        formatted_binary = self.represent_binary_by_word_length(
-            binary_value,
-            wrd_length,
-            format_output
-        )
-        return formatted_binary
+        # Get a fixed-width binary string without formatting
+        new_binary = self.represent_binary_by_word_length(binary_value, wrd_length, False)
+
+        if neg:
+            width = len(new_binary)
+            # Compute two's complement: 2^width - value
+            tc_val = (1 << width) - int(new_binary, 2)
+            new_binary = format(tc_val, '0' + str(width) + 'b')
+
+        # Apply formatting if needed
+        if format_output:
+            new_binary = self.represent_binary_by_word_length(new_binary, wrd_length, True)
+
+        return new_binary
 
 
     @staticmethod
@@ -519,39 +539,39 @@ class ProgrammersCalculator():
 
     def _apply_op(self,
                   op:chr,
-                  a_input:list[bool],
-                  b_input:list[bool],
+                  a_input:int,
+                  b_input:int,
                   wrd_size:Pebbles.GlobalWordLength
                  ):
-        bits = 8
-        if wrd_size == Pebbles.GlobalWordLength.WRD:
-            bits = 16
-        elif wrd_size == Pebbles.GlobalWordLength.DWD:
-            bits = 32
-        elif wrd_size == Pebbles.GlobalWordLength.QWD:
-            bits = 64
-        str_a = ''.join(['1' if a_input[i] else '0' for i in range(64 - bits, 64)])
-        str_b = ''.join(['1' if b_input[i] else '0' for i in range(64 - bits, 64)])
+        # bits = 8
+        # if wrd_size == Pebbles.GlobalWordLength.WRD:
+        #     bits = 16
+        # elif wrd_size == Pebbles.GlobalWordLength.DWD:
+        #     bits = 32
+        # elif wrd_size == Pebbles.GlobalWordLength.QWD:
+        #     bits = 64
+        # str_a = ''.join(['1' if a_input[i] else '0' for i in range(64 - bits, 64)])
+        # str_b = ''.join(['1' if b_input[i] else '0' for i in range(64 - bits, 64)])
 
-        a_val = int(str_a, 2)
-        if a_val >= (1 << (bits - 1)):
-            a = a_val - (1 << bits)
-        else:
-            a = a_val
+        # a_val = int(str_a, 2)
 
-        b_val = int(str_b, 2)
-        if b_val >= (1 << (bits - 1)):
-            b = b_val - (1 << bits)
-        else:
-            b = b_val
+        # if a_val >= (1 << (bits - 1)):
+        #     a = a_val - (1 << bits)
+        # else:
+        #     a = a_val
 
-        result = self._apply_op_bit_wise(op, a, b)
-        print("result", result)
-        return self.string_to_bool_array(str(result), Pebbles.NumberSystem.DECIMAL, wrd_size)
+        # b_val = int(str_b, 2)
+        # if b_val >= (1 << (bits - 1)):
+        #     b = b_val - (1 << bits)
+        # else:
+        #     b = b_val
+
+        result = self._apply_op_bit_wise(op, a_input, b_input)
+        return result
 
 
 
-    def _apply_op_bit_wise(self, op:chr, a, b):
+    def _apply_op_bit_wise(self, op:chr, a:int, b:int) -> int:
         result = 0
 
         print (a, op, b)
@@ -560,13 +580,13 @@ class ProgrammersCalculator():
             case '+':
                 result = a + b
             case '-':
-                result = b - a
+                result = a - b
             case 'u':
                 result = -1 * b
             case '*':
                 result = a * b
             case '/':
-                result = b / a
+                result = a / b
             case '&':
                 result = a & b
             case '|':
@@ -586,7 +606,7 @@ class ProgrammersCalculator():
             case 'n':
                 result = (a & b) | (~a & ~b)
             case 'm':
-                result = b % a
+                result = a % b
 
         return result
 
@@ -597,7 +617,7 @@ class ProgrammersCalculator():
         """
         try:
             answer = self.process(number_system, wrd_length)
-            formatted_answer = self.bool_array_to_string(answer, wrd_length, number_system)
+            formatted_answer = self.convert_number_system(str(answer), Pebbles.NumberSystem.DECIMAL, number_system, wrd_length)
 
             if gen_hist:
                 token_list = [token.token for token in self.stored_tokens]
@@ -627,12 +647,12 @@ class ProgrammersCalculator():
             try:
                 return operand_stack.pop()
             except IndexError:
-                return [False] * 64
+                return 0
 
         operator_stack = []
         for token in self.stored_tokens:
             if token.token_type == ProgrammersCalculator.TOKEN_TYPE_OPERAND:
-                operand_stack.append(self.string_to_bool_array(token.token, token.number_system, wrd_length))
+                operand_stack.append(int(self.convert_number_system(token.token, token.number_system, Pebbles.NumberSystem.DECIMAL, wrd_length)))
             elif token.token_type == ProgrammersCalculator.TOKEN_TYPE_PARENTHESIS:
                 if token.token == '(':
                     operator_stack.append('(')
