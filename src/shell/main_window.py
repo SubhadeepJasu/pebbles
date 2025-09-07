@@ -105,7 +105,7 @@ class PythonWindow(Pebbles.MainWindow):
             ), Pebbles.Context.CALCULUS)
         elif data_dict['context'] == Pebbles.Context.PROGRAMMER:
             result_data, result = self.programmer_calc.evaluate(
-                data_dict['numberSystem'], data_dict['wordLength'], True)
+                data_dict['numberSystem'], True)
             self._commit_to_memory(result, Pebbles.Context.PROGRAMMER, data_dict['memoryOp'])
             self.show_history(self._memory.get_views(
                 format_func=None,
@@ -300,14 +300,18 @@ Attempting to make a table with the previous series.")
     def _on_prog_populate_token_array(self, _, exp, number_system):
         self.programmer_calc.populate_token_array(exp, number_system)
 
-
+    # pylint: disable=too-many-arguments
     def _on_prog_convert_ns(self, _, exp, ns_a, ns_b, wrd_length, format_bin=False):
-        return self.programmer_calc.convert_number_system(exp, ns_a, ns_b, wrd_length, format_bin)
+        self.programmer_calc.wrd_length = wrd_length
+        return self.programmer_calc.convert_number_system(exp, ns_a, ns_b, format_bin)
+    # pylink: enable=too-many-arguments
 
 
     def _on_prog_str_to_bool_arr(self, _, s, ns, wrd_length):
-        arr = self.programmer_calc.string_to_bool_array(s, ns, wrd_length)
+        self.programmer_calc.wrd_length = wrd_length
+        arr = self.programmer_calc.string_to_bool_array(s, ns)
         return "".join(['1' if x else '0' for x in arr])
 
     def _on_prog_change_exp_num_sys(self, _, s, ns, wrd_length):
-        return self.programmer_calc.set_number_system(s, ns, wrd_length)
+        self.programmer_calc.wrd_length = wrd_length
+        return self.programmer_calc.set_number_system(s, ns)

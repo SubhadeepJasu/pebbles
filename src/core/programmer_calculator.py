@@ -41,6 +41,7 @@ class ProgrammersCalculator():
             _ProgToken("0", ProgrammersCalculator.TOKEN_TYPE_OPERAND, Pebbles.NumberSystem.DECIMAL)
         ]
         self.input_exp = ''
+        self.wrd_length = Pebbles.GlobalWordLength.QWD
 
 
     def get_last_token(self):
@@ -57,21 +58,21 @@ class ProgrammersCalculator():
         return self.stored_tokens
 
 
-    def set_last_token(self, arr:list[bool], wrd_length:Pebbles.GlobalWordLength,
-                       number_system:Pebbles.NumberSystem):
+    def set_last_token(self, arr:list[bool],
+        wrd_length: Pebbles.GlobalWordLength, number_system:Pebbles.NumberSystem):
         """
         Set the last token in the stored token array.
         """
+        self.wrd_length = wrd_length
         if self.stored_tokens[-1].token_type != ProgrammersCalculator.TOKEN_TYPE_OPERAND:
             self.stored_tokens.append(_ProgToken(
-                self.bool_array_to_string (arr, wrd_length, number_system),
+                self.bool_array_to_string (arr, number_system),
                 ProgrammersCalculator.TOKEN_TYPE_OPERAND,
                 number_system
             ))
         else:
             self.stored_tokens[-1].token = self.bool_array_to_string (
                 arr,
-                wrd_length,
                 number_system
             )
 
@@ -94,7 +95,6 @@ class ProgrammersCalculator():
     def set_number_system(self,
                           exp: str,
                           number_system: Pebbles.NumberSystem,
-                          wrd_length=Pebbles.GlobalWordLength.BYT,
                           force_decimal=False
                          ) -> str:
         """
@@ -117,7 +117,6 @@ class ProgrammersCalculator():
                         self.stored_tokens[i].number_system,
                         Pebbles.NumberSystem.DECIMAL if force_decimal \
                             else token_structure[i]['numberSystem'],
-                        wrd_length
                     )
 
         token_list = []
@@ -143,7 +142,6 @@ class ProgrammersCalculator():
                            exp: str,
                            number_system_a: Pebbles.NumberSystem,
                            number_system_b: Pebbles.NumberSystem,
-                           wrd_length = Pebbles.GlobalWordLength.WRD,
                            format_binary = False
                           ) -> str:
         """
@@ -153,37 +151,37 @@ class ProgrammersCalculator():
 
         if number_system_a == Pebbles.NumberSystem.DECIMAL:
             if number_system_b == Pebbles.NumberSystem.BINARY:
-                converted = self.convert_decimal_to_binary(exp, wrd_length, format_binary)
+                converted = self.convert_decimal_to_binary(exp, format_binary)
             elif number_system_b == Pebbles.NumberSystem.HEXADECIMAL:
                 converted = self.convert_decimal_to_hexadecimal(exp)
             elif number_system_b == Pebbles.NumberSystem.OCTAL:
-                converted = self.convert_decimal_to_octal(exp, wrd_length)
+                converted = self.convert_decimal_to_octal(exp)
 
         elif number_system_a == Pebbles.NumberSystem.BINARY:
             if number_system_b == Pebbles.NumberSystem.DECIMAL:
-                converted = self.convert_binary_to_decimal(exp, wrd_length)
+                converted = self.convert_binary_to_decimal(exp)
             elif number_system_b == Pebbles.NumberSystem.HEXADECIMAL:
-                converted = self.convert_binary_to_hexadecimal(exp, wrd_length)
+                converted = self.convert_binary_to_hexadecimal(exp)
             elif number_system_b == Pebbles.NumberSystem.OCTAL:
-                converted = self.convert_binary_to_octal(exp, wrd_length)
+                converted = self.convert_binary_to_octal(exp)
             elif format_binary:
-                converted = self.represent_binary_by_word_length(exp, wrd_length, format_binary)
+                converted = self.represent_binary_by_word_length(exp, format_binary)
 
         elif number_system_a == Pebbles.NumberSystem.HEXADECIMAL:
             if number_system_b == Pebbles.NumberSystem.DECIMAL:
-                converted = self.convert_hexadecimal_to_decimal(exp, wrd_length)
+                converted = self.convert_hexadecimal_to_decimal(exp)
             elif number_system_b == Pebbles.NumberSystem.BINARY:
-                converted = self.convert_hexadecimal_to_binary(exp, wrd_length, format_binary)
+                converted = self.convert_hexadecimal_to_binary(exp, format_binary)
             elif number_system_b == Pebbles.NumberSystem.OCTAL:
-                converted = self.convert_hexadecimal_to_octal(exp, wrd_length)
+                converted = self.convert_hexadecimal_to_octal(exp)
 
         elif number_system_a == Pebbles.NumberSystem.OCTAL:
             if number_system_b == Pebbles.NumberSystem.DECIMAL:
-                converted = self.convert_octal_to_decimal(exp, wrd_length)
+                converted = self.convert_octal_to_decimal(exp)
             elif number_system_b == Pebbles.NumberSystem.BINARY:
-                converted = self.convert_octal_to_binary(exp, wrd_length, format_binary)
+                converted = self.convert_octal_to_binary(exp, format_binary)
             elif number_system_b == Pebbles.NumberSystem.HEXADECIMAL:
-                converted = self.convert_octal_to_hexadecimal(exp, wrd_length)
+                converted = self.convert_octal_to_hexadecimal(exp)
 
         return converted
 
@@ -206,7 +204,6 @@ class ProgrammersCalculator():
 
     def represent_binary_by_word_length (self,
                                          binary_value:str,
-                                         wrd_length=Pebbles.GlobalWordLength.BYT,
                                          format_output=False
                                         ):
         """
@@ -215,7 +212,7 @@ class ProgrammersCalculator():
 
         new_binary = ""
         required_bit_length = 8
-        match wrd_length:
+        match self.wrd_length:
             case Pebbles.GlobalWordLength.WRD:
                 required_bit_length = 16
             case Pebbles.GlobalWordLength.DWD:
@@ -241,22 +238,22 @@ class ProgrammersCalculator():
         return new_binary
 
 
-    def convert_binary_to_decimal(self, number:str, wrd_length=Pebbles.GlobalWordLength.WRD):
+    def convert_binary_to_decimal(self, number:str):
         """
         Convert binary string to decimal string.
         """
 
-        formatted_binary = self.represent_binary_by_word_length(number, wrd_length)
+        formatted_binary = self.represent_binary_by_word_length(number)
         decimal = ProgrammersCalculator.convert_signed_binary_to_decimal(formatted_binary)
         return str(decimal)
 
 
-    def convert_binary_to_octal(self, bin_value:str, wrd_length=Pebbles.GlobalWordLength.BYT):
+    def convert_binary_to_octal(self, bin_value:str):
         """
         Convert binary string to octal string.
         """
 
-        binary_string = self.represent_binary_by_word_length(bin_value, wrd_length)
+        binary_string = self.represent_binary_by_word_length(bin_value)
         octal_num = 0
         decimal_num = 0
         count = 1
@@ -284,12 +281,12 @@ class ProgrammersCalculator():
         return f"-{octal_num}" if negative else str(octal_num)
 
 
-    def convert_binary_to_hexadecimal(self, bin_value, wrd_length=Pebbles.GlobalWordLength.BYT):
+    def convert_binary_to_hexadecimal(self, bin_value):
         """
         Convert binary string to hexadecimal string.
         """
 
-        bin_str = self.represent_binary_by_word_length(bin_value, wrd_length, False)
+        bin_str = self.represent_binary_by_word_length(bin_value, False)
         converted_binary = bin_str
         negative = (len(bin_str) > 0 and bin_str[0] == '1')
 
@@ -338,24 +335,26 @@ class ProgrammersCalculator():
 
     def convert_decimal_to_binary(self,
                                   number: str,
-                                  wrd_length=Pebbles.GlobalWordLength.WRD,
                                   format_output=False
                                  ) -> str:
+        """
+        Convert decimal string to binary string.
+        """
         is_negative = number.startswith('-')
         decimal = int(number)
 
         if is_negative:
-            if wrd_length == Pebbles.GlobalWordLength.BYT:
+            if self.wrd_length == Pebbles.GlobalWordLength.BYT:
                 decimal += 128
-            elif wrd_length == Pebbles.GlobalWordLength.WRD:
+            elif self.wrd_length == Pebbles.GlobalWordLength.WRD:
                 decimal += 32768
-            elif wrd_length == Pebbles.GlobalWordLength.DWD:
+            elif self.wrd_length == Pebbles.GlobalWordLength.DWD:
                 decimal += 2147483648
-            elif wrd_length == Pebbles.GlobalWordLength.QWD:
+            elif self.wrd_length == Pebbles.GlobalWordLength.QWD:
                 decimal += 9223372036854775808
 
         binary = self._decimal_to_binary_int_unsigned(decimal)
-        binary = self.represent_binary_by_word_length(binary, wrd_length, format_output)
+        binary = self.represent_binary_by_word_length(binary, format_output)
 
         if is_negative:
             binary = binary[1:]  # remove MSB
@@ -365,6 +364,9 @@ class ProgrammersCalculator():
 
 
     def convert_decimal_to_hexadecimal(self, number: str) -> str:
+        """
+        Convert decimal string to hexadecimal string.
+        """
         neg = ''
         if number.startswith('-'):
             n = int(number[1:])
@@ -392,9 +394,11 @@ class ProgrammersCalculator():
 
     def convert_hexadecimal_to_binary(self,
                                       hex_value: str,
-                                      wrd_length=Pebbles.GlobalWordLength.WRD,
                                       format_output=False
                                      ) -> str:
+        """
+        Convert hexadecimal string to binary string.
+        """
         neg = False
         if hex_value.startswith('-'):
             hex_value = hex_value[1:]
@@ -413,7 +417,7 @@ class ProgrammersCalculator():
             binary_value += hex_to_bin_map.get(char, "")
 
         # Get a fixed-width binary string without formatting
-        new_binary = self.represent_binary_by_word_length(binary_value, wrd_length, False)
+        new_binary = self.represent_binary_by_word_length(binary_value, False)
 
         if neg:
             width = len(new_binary)
@@ -423,37 +427,30 @@ class ProgrammersCalculator():
 
         # Apply formatting if needed
         if format_output:
-            new_binary = self.represent_binary_by_word_length(new_binary, wrd_length, True)
+            new_binary = self.represent_binary_by_word_length(new_binary, True)
 
         return new_binary
 
 
-    @staticmethod
-    def map_bin_to_hex(bin_str: str) -> str:
-        bin_to_hex_map = {
-            "0000": "0", "0001": "1", "0010": "2", "0011": "3",
-            "0100": "4", "0101": "5", "0110": "6", "0111": "7",
-            "1000": "8", "1001": "9", "1010": "a", "1011": "b",
-            "1100": "c", "1101": "d", "1110": "e", "1111": "f"
-        }
-        return bin_to_hex_map.get(bin_str, "")
+    def convert_decimal_to_octal(self, dec_value:str):
+        """Convert decimal string to octal string."""
+        bin_value = self.convert_decimal_to_binary (dec_value)
+        return self.convert_binary_to_octal (bin_value)
 
 
-    def convert_decimal_to_octal(self, dec_value:str, wrd_length=Pebbles.GlobalWordLength.BYT):
-        bin_value = self.convert_decimal_to_binary (dec_value, wrd_length)
-        return self.convert_binary_to_octal (bin_value, wrd_length)
-
-
-    def convert_hexadecimal_to_octal(self, hex_value:str, wrd_length=Pebbles.GlobalWordLength.BYT):
-        bin_value = self.convert_hexadecimal_to_binary (hex_value, wrd_length)
-        return self.convert_binary_to_octal (bin_value, wrd_length)
+    def convert_hexadecimal_to_octal(self, hex_value:str):
+        """Convert hexadecimal string to octal string."""
+        bin_value = self.convert_hexadecimal_to_binary (hex_value)
+        return self.convert_binary_to_octal (bin_value)
 
 
     def convert_octal_to_binary(self,
                                 oct_value: str,
-                                wrd_length=Pebbles.GlobalWordLength.BYT,
                                 format_output=False
                                ):
+        """
+        Convert octal string to binary string.
+        """
         octal_num = int(oct_value)
         decimal_num = 0
         count = 0
@@ -463,30 +460,36 @@ class ProgrammersCalculator():
             count += 1
             octal_num //= 10
 
-        bin_value = self.convert_decimal_to_binary(str(decimal_num), wrd_length)
-        bin_value = self.represent_binary_by_word_length(bin_value, wrd_length, format_output)
+        bin_value = self.convert_decimal_to_binary(str(decimal_num))
+        bin_value = self.represent_binary_by_word_length(bin_value, format_output)
         return bin_value
 
 
-    def convert_octal_to_decimal(self, oct_value:str, wrd_length=Pebbles.GlobalWordLength.BYT):
-        bin_value = self.convert_octal_to_binary (oct_value, wrd_length)
-        return self.convert_binary_to_decimal (bin_value, wrd_length)
+    def convert_octal_to_decimal(self, oct_value:str):
+        """
+        Convert octal string to decimal string.
+        """
+        bin_value = self.convert_octal_to_binary (oct_value)
+        return self.convert_binary_to_decimal (bin_value)
 
 
-    def convert_octal_to_hexadecimal(self, oct_value:str, wrd_length=Pebbles.GlobalWordLength.BYT):
-        bin_value = self.convert_octal_to_binary(oct_value, wrd_length)
-        return self.convert_binary_to_hexadecimal(bin_value, wrd_length)
+    def convert_octal_to_hexadecimal(self, oct_value:str):
+        """Convert octal string to hexadecimal string."""
+        bin_value = self.convert_octal_to_binary(oct_value)
+        return self.convert_binary_to_hexadecimal(bin_value)
 
 
-    def convert_hexadecimal_to_decimal(self, number: str, wrd_length=Pebbles.GlobalWordLength.WRD):
-        binary_value = self.convert_hexadecimal_to_binary(number, wrd_length)
-        decimal = self.convert_binary_to_decimal(binary_value, wrd_length)
+    def convert_hexadecimal_to_decimal(self, number: str) -> str:
+        """
+        Convert hexadecimal string to decimal string.
+        """
+        binary_value = self.convert_hexadecimal_to_binary(number)
+        decimal = self.convert_binary_to_decimal(binary_value)
         return str(decimal)
 
 
     def bool_array_to_string(self,
                              arr:list[bool],
-                             wrd_length:Pebbles.GlobalWordLength,
                              number_system:Pebbles.NumberSystem
                             ):
         """
@@ -500,36 +503,37 @@ class ProgrammersCalculator():
 
         match number_system:
             case Pebbles.NumberSystem.OCTAL:
-                final_form = self.convert_binary_to_octal (final_form, wrd_length)
+                final_form = self.convert_binary_to_octal (final_form)
             case Pebbles.NumberSystem.DECIMAL:
-                final_form = self.convert_binary_to_decimal (final_form, wrd_length)
+                final_form = self.convert_binary_to_decimal (final_form)
             case Pebbles.NumberSystem.HEXADECIMAL:
-                final_form = self.convert_binary_to_hexadecimal (final_form, wrd_length)
+                final_form = self.convert_binary_to_hexadecimal (final_form)
             case _:
-                final_form = self.represent_binary_by_word_length (final_form, wrd_length)
+                final_form = self.represent_binary_by_word_length (final_form)
         return final_form
 
 
     def string_to_bool_array(self,
         string_val: str,
         number_system: Pebbles.NumberSystem,
-        wrd_length
     ) -> list[bool]:
+        """
+        Convert a string representation of a number in a given base to a boolean array.
+        """
         bool_array = [False] * 64
 
         if number_system == Pebbles.NumberSystem.OCTAL:
-            converted_str = self.convert_octal_to_binary(string_val, wrd_length,
+            converted_str = self.convert_octal_to_binary(string_val,
                                                          format_output=True).replace(" ", "")
         elif number_system == Pebbles.NumberSystem.DECIMAL:
-            converted_str = self.convert_decimal_to_binary(string_val, wrd_length,
+            converted_str = self.convert_decimal_to_binary(string_val,
                                                            format_output=True).replace(" ", "")
         elif number_system == Pebbles.NumberSystem.HEXADECIMAL:
-            converted_str = self.convert_hexadecimal_to_binary(string_val, wrd_length,
+            converted_str = self.convert_hexadecimal_to_binary(string_val,
                                                                format_output=True).replace(" ", "")
         else:
             converted_str = self.represent_binary_by_word_length(
                 string_val,
-                wrd_length,
                 format_output=True
             ).replace(" ", "")
 
@@ -571,41 +575,7 @@ class ProgrammersCalculator():
         return bin_str[-bit_width:]
 
 
-    def _apply_op(self,
-                  op:chr,
-                  a_input:int,
-                  b_input:int,
-                  wrd_size:Pebbles.GlobalWordLength
-                 ):
-        # bits = 8
-        # if wrd_size == Pebbles.GlobalWordLength.WRD:
-        #     bits = 16
-        # elif wrd_size == Pebbles.GlobalWordLength.DWD:
-        #     bits = 32
-        # elif wrd_size == Pebbles.GlobalWordLength.QWD:
-        #     bits = 64
-        # str_a = ''.join(['1' if a_input[i] else '0' for i in range(64 - bits, 64)])
-        # str_b = ''.join(['1' if b_input[i] else '0' for i in range(64 - bits, 64)])
-
-        # a_val = int(str_a, 2)
-
-        # if a_val >= (1 << (bits - 1)):
-        #     a = a_val - (1 << bits)
-        # else:
-        #     a = a_val
-
-        # b_val = int(str_b, 2)
-        # if b_val >= (1 << (bits - 1)):
-        #     b = b_val - (1 << bits)
-        # else:
-        #     b = b_val
-
-        result = self._apply_op_bit_wise(op, a_input, b_input)
-        return result
-
-
-
-    def _apply_op_bit_wise(self, op:chr, a:int, b:int) -> int:
+    def _apply_op(self, op:chr, a:int, b:int) -> int:
         result = 0
 
         print (a, op, b)
@@ -647,26 +617,24 @@ class ProgrammersCalculator():
 
     def evaluate(self,
         number_system: Pebbles.NumberSystem,
-        wrd_length: Pebbles.GlobalWordLength,
         gen_hist: bool
     ):
         """
         Evaluate a programming mode expression.
         """
         try:
-            answer = self.process(number_system, wrd_length)
+            answer = self.process()
             formatted_answer = self.convert_number_system(str(answer),
-                                        Pebbles.NumberSystem.DECIMAL, number_system, wrd_length)
+                                        Pebbles.NumberSystem.DECIMAL, number_system)
 
             if gen_hist:
-                token_list = [token.token for token in self.stored_tokens]
                 self.memory.push_history(
                     self.MODE,
                     self.input_exp,
                     Utils.remove_leading_zeroes(formatted_answer),
                     {
                         'metadata_1': number_system,
-                        'metadata_2': wrd_length
+                        'metadata_2': self.wrd_length
                     }
                 )
             result_json = json.dumps({'mode': self.MODE, 'result': formatted_answer})
@@ -676,7 +644,7 @@ class ProgrammersCalculator():
             return json.dumps({'mode': self.MODE, 'result': 'E'}), None
 
 
-    def process(self, number_system: Pebbles.NumberSystem, wrd_length: Pebbles.GlobalWordLength):
+    def process(self):
         """
         Process the data to find out a result.
         """
@@ -692,7 +660,7 @@ class ProgrammersCalculator():
         for token in self.stored_tokens:
             if token.token_type == ProgrammersCalculator.TOKEN_TYPE_OPERAND:
                 operand_stack.append(int(self.convert_number_system(token.token,
-                    token.number_system, Pebbles.NumberSystem.DECIMAL, wrd_length)))
+                    token.number_system, Pebbles.NumberSystem.DECIMAL, self.wrd_length)))
             elif token.token_type == ProgrammersCalculator.TOKEN_TYPE_PARENTHESIS:
                 if token.token == '(':
                     operator_stack.append('(')
@@ -703,8 +671,7 @@ class ProgrammersCalculator():
                         tmp = self._apply_op(
                             operator_stack.pop(),
                             a,
-                            b,
-                            wrd_length
+                            b
                         )
                         operand_stack.append(tmp)
 
@@ -717,8 +684,7 @@ class ProgrammersCalculator():
                     tmp = self._apply_op(
                         operator_stack.pop(),
                         a,
-                        b,
-                        wrd_length
+                        b
                     )
                     operand_stack.append(tmp)
 
@@ -727,7 +693,7 @@ class ProgrammersCalculator():
         while len(operator_stack) > 0:
             b = operand_pop()
             a = operand_pop()
-            tmp = self._apply_op(operator_stack.pop(), a, b, wrd_length)
+            tmp = self._apply_op(operator_stack.pop(), a, b)
             operand_stack.append(tmp)
 
         return operand_pop()
@@ -765,26 +731,3 @@ class _ProgToken:
             obj['numberSystemS'] = 'octal'
 
         return json.dumps(obj)
-
-
-class _BoolArrayStack:
-    def __init__(self):
-        self.stack = []
-        self.tp = -1  # top pointer
-
-    def push(self, elem):
-        if self.tp < len(self.stack) - 1:
-            self.tp += 1
-            # Ensure elem is exactly 64 bits
-            elem = elem[:64] + [False] * (64 - len(elem))  # pad or truncate
-            self.stack.append(elem)
-            return True
-        return False
-
-    def pop(self):
-        if self.tp >= 0:
-            temp = self.stack.pop()
-            self.tp -= 1
-            return temp
-
-        return [False] * 64  # return default blank 64-bit array
