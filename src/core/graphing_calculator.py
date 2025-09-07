@@ -112,18 +112,11 @@ class GraphingCalculator:
                         return
 
                     fig, ax = self._setup_plot(width, height, dpi, step_size)
-
-                    if self.plot_params['xScaling'] == 1:
-                        x_values = np.logspace(
-                            self.plot_params['xMin'],
-                            self.plot_params['xMax'], width // (step_size ** 2)
-                        )
-                        x_values = np.log10(x_values[x_values > 0])
-                    else:
-                        x_values = np.linspace(
-                            self.plot_params['xMin'],
-                            self.plot_params['xMax'], width // (step_size ** 2)
-                        )
+                    x_values = self._generate_plot_x_values(
+                        self.plot_params['xScaling'],
+                        width,
+                        step_size
+                    )
 
                     if self.plot_params['yScaling'] == 1:
                         x_values = x_values[x_values != 0]
@@ -158,7 +151,8 @@ class GraphingCalculator:
                         self._configure_labels(ax)
 
                     if path != '':
-                        Utils.plot_to_image(plt, fig, (width, height), dpi, step_size, path)
+                        Utils.fig_save_path = path
+                        Utils.plot_to_image(plt, fig, (width, height), dpi, step_size)
                     else:
                         pixbuf = Utils.plot_to_pixbuf(plt, fig, (width, height), dpi, step_size)
 
@@ -169,7 +163,25 @@ class GraphingCalculator:
             pass
 
 
+    def _generate_plot_x_values(self, x_scaling, width, step_size):
+        if x_scaling == 1:
+            x_values = np.logspace(
+                self.plot_params['xMin'],
+                self.plot_params['xMax'], width // (step_size ** 2)
+            )
+            x_values = np.log10(x_values[x_values > 0])
+        else:
+            x_values = np.linspace(
+                self.plot_params['xMin'],
+                self.plot_params['xMax'], width // (step_size ** 2)
+            )
+
+        return x_values
+
     def export(self, path:str):
+        """
+        Export the current plot to a PNG file.
+        """
         if not path.lower().endswith('png'):
             path += ".png"
         self._plot(path)

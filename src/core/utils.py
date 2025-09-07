@@ -12,6 +12,7 @@ class Utils():
     """Utilities"""
 
     float_accuracy: int = 2
+    fig_save_path = ''
 
     @staticmethod
     def format_float(x: float, scientific_threshold=1e7) -> str:
@@ -29,6 +30,7 @@ class Utils():
         # Remove trailing zeros and the decimal point if not needed
         return rounded_value.rstrip('0').rstrip(Pebbles.get_local_radix_symbol()) \
             if Pebbles.get_local_radix_symbol() in rounded_value else rounded_value
+
 
     @staticmethod
     def plot_to_pixbuf(plt, fig, size, dpi, step_size):
@@ -48,16 +50,23 @@ class Utils():
         loader.close()
         return loader.get_pixbuf()
 
+
     @staticmethod
-    def plot_to_image(plt, fig, size, dpi, step_size, path):
+    def plot_to_image(plt, fig, size, dpi, step_size):
+        """
+        Save figure to a file in PNG format
+        """
         fig.set_size_inches((size[0] / dpi), (size[1] / dpi), forward=True)
         fig.patch.set_alpha(0)
-        fig.savefig(path, format="png", bbox_inches='tight', dpi=dpi / step_size)
+        fig.savefig(Utils.fig_save_path, format="png", bbox_inches='tight', dpi=dpi / step_size)
         plt.close(fig)
 
 
     @staticmethod
     def get_natural_expression(expr: str) -> str:
+        """
+        Convert an expression to a more natural format.
+        """
         ret_val = expr
         ret_val = ret_val.replace("<", "lsh")
         ret_val = ret_val.replace(">", "rsh")

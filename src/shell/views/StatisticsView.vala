@@ -299,18 +299,18 @@ namespace Pebbles {
 
         [GtkCallback]
         protected void on_shift () {
-            memory_plus_button.label_text = shift_button.active ? "GM+" : "M+";
+            memory_plus_button.label_text = shift_button.active ? "SM+" : "M+";
             memory_plus_button.tooltip_desc = shift_button.active
-            ? _("Add it to the value in Global Memory") : _("Add it to the value in Memory");
-            memory_minus_button.label_text = shift_button.active ? "GM−" : "M−";
+            ? _("Add it to the value in Shared Memory") : _("Add it to the value in Memory");
+            memory_minus_button.label_text = shift_button.active ? "SM−" : "M−";
             memory_minus_button.tooltip_desc = shift_button.active
-            ? _("Subtract it from the value in Global Memory")
+            ? _("Subtract it from the value in Shared Memory")
             : _("Subtract it from the value in Memory");
-            memory_recall_button.label_text = shift_button.active ? "GMR" : "MR";
+            memory_recall_button.label_text = shift_button.active ? "SMR" : "MR";
             memory_recall_button.tooltip_desc = shift_button.active
-            ? _("Recall value from Global Memory") : _("Recall value from Memory");
-            memory_clear_button.label_text = shift_button.active ? "GMC" : "MC";
-            memory_clear_button.tooltip_desc = shift_button.active ? _("Global Memory Clear") : _("Memory Clear");
+            ? _("Recall value from Shared Memory") : _("Recall value from Memory");
+            memory_clear_button.label_text = shift_button.active ? "SMC" : "MC";
+            memory_clear_button.tooltip_desc = shift_button.active ? _("Shared Memory Clear") : _("Memory Clear");
             last_answer_button.label_text = shift_button.active ? "GAns" : "Ans";
             last_answer_button.tooltip_desc = shift_button.active
             ? _("Insert global last answer") : _("Insert last answer");

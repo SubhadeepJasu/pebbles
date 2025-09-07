@@ -44,14 +44,24 @@ class ProgrammersCalculator():
 
 
     def get_last_token(self):
+        """
+        Get the last token in the stored token array.
+        """
         return self.stored_tokens[-1]
 
 
     def get_token_array(self):
+        """
+        Get the stored token array.
+        """
         return self.stored_tokens
 
 
-    def set_last_token(self, arr:list[bool], wrd_length:Pebbles.GlobalWordLength, number_system:Pebbles.NumberSystem):
+    def set_last_token(self, arr:list[bool], wrd_length:Pebbles.GlobalWordLength,
+                       number_system:Pebbles.NumberSystem):
+        """
+        Set the last token in the stored token array.
+        """
         if self.stored_tokens[-1].token_type != ProgrammersCalculator.TOKEN_TYPE_OPERAND:
             self.stored_tokens.append(_ProgToken(
                 self.bool_array_to_string (arr, wrd_length, number_system),
@@ -59,7 +69,11 @@ class ProgrammersCalculator():
                 number_system
             ))
         else:
-            self.stored_tokens[-1].token = self.bool_array_to_string (arr, wrd_length, number_system)
+            self.stored_tokens[-1].token = self.bool_array_to_string (
+                arr,
+                wrd_length,
+                number_system
+            )
 
         token_list = [token.token for token in self.stored_tokens]
         expression = " ".join(token_list)
@@ -67,9 +81,14 @@ class ProgrammersCalculator():
 
 
     def populate_token_array(self, exp: str, number_system:Pebbles.NumberSystem):
+        """
+        Populate the stored token array from an expression.
+        """
         _stored_tokens = Tokenizer.get_token_array (exp, number_system)
         self.input_exp = exp
-        self.stored_tokens = [_ProgToken(x['token'], x['type'], x['numberSystem']) for x in _stored_tokens]
+        self.stored_tokens = [
+            _ProgToken(x['token'], x['type'], x['numberSystem']) for x in _stored_tokens
+        ]
 
 
     def set_number_system(self,
@@ -78,6 +97,10 @@ class ProgrammersCalculator():
                           wrd_length=Pebbles.GlobalWordLength.BYT,
                           force_decimal=False
                          ) -> str:
+        """
+        Change the number system of the current expression.
+        If force_decimal is True, convert all operands to decimal.
+        """
         # Tokenize the current expression regardless of the stored tokens.
         token_structure = Tokenizer.get_token_array(exp, number_system)
         self.input_exp = exp
@@ -92,7 +115,8 @@ class ProgrammersCalculator():
                     self.stored_tokens[i].token = self.convert_number_system(
                         self.stored_tokens[i].token,
                         self.stored_tokens[i].number_system,
-                        Pebbles.NumberSystem.DECIMAL if force_decimal else token_structure[i]['numberSystem'],
+                        Pebbles.NumberSystem.DECIMAL if force_decimal \
+                            else token_structure[i]['numberSystem'],
                         wrd_length
                     )
 
@@ -342,10 +366,9 @@ class ProgrammersCalculator():
 
     def convert_decimal_to_hexadecimal(self, number: str) -> str:
         neg = ''
-        if (number.startswith('-')):
+        if number.startswith('-'):
             n = int(number[1:])
             neg = '-'
-
         else:
             n = int(number)
 
@@ -487,17 +510,28 @@ class ProgrammersCalculator():
         return final_form
 
 
-    def string_to_bool_array(self, string_val: str, number_system: Pebbles.NumberSystem, wrd_length) -> list[bool]:
+    def string_to_bool_array(self,
+        string_val: str,
+        number_system: Pebbles.NumberSystem,
+        wrd_length
+    ) -> list[bool]:
         bool_array = [False] * 64
 
         if number_system == Pebbles.NumberSystem.OCTAL:
-            converted_str = self.convert_octal_to_binary(string_val, wrd_length, format_output=True).replace(" ", "")
+            converted_str = self.convert_octal_to_binary(string_val, wrd_length,
+                                                         format_output=True).replace(" ", "")
         elif number_system == Pebbles.NumberSystem.DECIMAL:
-            converted_str = self.convert_decimal_to_binary(string_val, wrd_length, format_output=True).replace(" ", "")
+            converted_str = self.convert_decimal_to_binary(string_val, wrd_length,
+                                                           format_output=True).replace(" ", "")
         elif number_system == Pebbles.NumberSystem.HEXADECIMAL:
-            converted_str = self.convert_hexadecimal_to_binary(string_val, wrd_length, format_output=True).replace(" ", "")
+            converted_str = self.convert_hexadecimal_to_binary(string_val, wrd_length,
+                                                               format_output=True).replace(" ", "")
         else:
-            converted_str = self.represent_binary_by_word_length(string_val, wrd_length, format_output=True).replace(" ", "")
+            converted_str = self.represent_binary_by_word_length(
+                string_val,
+                wrd_length,
+                format_output=True
+            ).replace(" ", "")
 
         # Fill bool_array from the right
         start_index = 64 - len(converted_str)
@@ -611,13 +645,18 @@ class ProgrammersCalculator():
         return result
 
 
-    def evaluate(self, number_system: Pebbles.NumberSystem, wrd_length: Pebbles.GlobalWordLength, gen_hist: bool):
+    def evaluate(self,
+        number_system: Pebbles.NumberSystem,
+        wrd_length: Pebbles.GlobalWordLength,
+        gen_hist: bool
+    ):
         """
         Evaluate a programming mode expression.
         """
         try:
             answer = self.process(number_system, wrd_length)
-            formatted_answer = self.convert_number_system(str(answer), Pebbles.NumberSystem.DECIMAL, number_system, wrd_length)
+            formatted_answer = self.convert_number_system(str(answer),
+                                        Pebbles.NumberSystem.DECIMAL, number_system, wrd_length)
 
             if gen_hist:
                 token_list = [token.token for token in self.stored_tokens]
@@ -652,7 +691,8 @@ class ProgrammersCalculator():
         operator_stack = []
         for token in self.stored_tokens:
             if token.token_type == ProgrammersCalculator.TOKEN_TYPE_OPERAND:
-                operand_stack.append(int(self.convert_number_system(token.token, token.number_system, Pebbles.NumberSystem.DECIMAL, wrd_length)))
+                operand_stack.append(int(self.convert_number_system(token.token,
+                    token.number_system, Pebbles.NumberSystem.DECIMAL, wrd_length)))
             elif token.token_type == ProgrammersCalculator.TOKEN_TYPE_PARENTHESIS:
                 if token.token == '(':
                     operator_stack.append('(')

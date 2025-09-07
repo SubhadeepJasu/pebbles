@@ -755,10 +755,14 @@ namespace Pebbles {
                 case Context.STATISTICS:
                     statistics_view.set_memory_present (present);
                     break;
+                case Context.PROGRAMMER:
+                    programmer_view.set_memory_present (present);
+                    break;
                 default:
                     scientific_view.set_global_memory_present (present);
                     statistics_view.set_global_memory_present (present);
                     graphing_view.set_global_memory_present (present);
+                    programmer_view.set_global_memory_present (present);
                     break;
             }
         }

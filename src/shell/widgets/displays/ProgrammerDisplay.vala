@@ -39,9 +39,13 @@ namespace Pebbles {
 
         [GtkChild]
         public unowned Gtk.Entry main_entry;
-
         [GtkChild]
         private unowned Gtk.Label main_label;
+
+        [GtkChild]
+        private unowned Gtk.Label memory_label;
+        [GtkChild]
+        private unowned Gtk.Label global_memory_label;
 
         [GtkChild]
         public unowned HistoryDisplay history_display;
@@ -344,6 +348,14 @@ namespace Pebbles {
 
         private bool not_octal (string input) {
             return !"01234567".contains (input.down ());
+        }
+
+        public void set_memory_present (bool present) {
+            memory_label.opacity = present ? 1 : 0.2;
+        }
+
+        public void set_global_memory_present (bool present) {
+            global_memory_label.opacity = present ? 1 : 0.2;
         }
 
         [GtkCallback]

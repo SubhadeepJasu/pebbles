@@ -90,6 +90,15 @@ namespace Pebbles {
         [GtkChild]
         private unowned Gtk.Button hex_f_button;
 
+        [GtkChild]
+        private unowned Button memory_plus_button;
+        [GtkChild]
+        private unowned Button memory_minus_button;
+        [GtkChild]
+        private unowned Button memory_recall_button;
+        [GtkChild]
+        private unowned Button memory_clear_button;
+
         private Pebbles.Settings settings;
 
         public signal void on_evaluate (
@@ -224,6 +233,14 @@ namespace Pebbles {
             programmer_stack.set_visible_child (bit_grid);
         }
 
+        public void set_memory_present (bool present) {
+            display.set_memory_present (present);
+        }
+
+        public void set_global_memory_present (bool present) {
+            display.set_global_memory_present (present);
+        }
+
         [GtkCallback]
         public void on_hide_bit_grid () {
             programmer_stack.set_visible_child (prog_nav_split_view);
@@ -283,6 +300,18 @@ namespace Pebbles {
 
             lsh_rsh_button.label_text = shift_button.active ? "Rsh" : "Lsh";
             lsh_rsh_button.tooltip_desc = shift_button.active ? _("Right Shift") : _("Left Shift");
+            memory_plus_button.label_text = shift_button.active ? "SM+" : "M+";
+            memory_plus_button.tooltip_desc = shift_button.active
+            ? _("Add it to the value in Shared Memory") : _("Add it to the value in Memory");
+            memory_minus_button.label_text = shift_button.active ? "SM−" : "M−";
+            memory_minus_button.tooltip_desc = shift_button.active
+            ? _("Subtract it from the value in Shared Memory")
+            : _("Subtract it from the value in Memory");
+            memory_recall_button.label_text = shift_button.active ? "SMR" : "MR";
+            memory_recall_button.tooltip_desc = shift_button.active
+            ? _("Recall value from Shared Memory") : _("Recall value from Memory");
+            memory_clear_button.label_text = shift_button.active ? "SMC" : "MC";
+            memory_clear_button.tooltip_desc = shift_button.active ? _("Shared Memory Clear") : _("Memory Clear");
         }
 
         [GtkCallback]
@@ -348,7 +377,14 @@ namespace Pebbles {
         [GtkCallback]
         public void on_click_memory_recall () {
             var text = on_memory_recall (shift_button.active);
-            display.write (text);
+            var window = (MainWindow) get_ancestor (typeof (MainWindow));
+            text = window.on_programmer_convert_token (
+                text,
+                Pebbles.NumberSystem.DECIMAL,
+                settings.number_system,
+                settings.global_word_length
+            );
+            display.write (remove_leading_zeroes (text));
         }
 
         [GtkCallback]

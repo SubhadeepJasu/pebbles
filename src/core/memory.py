@@ -160,11 +160,9 @@ class ContextualMemory:
         value = self._memory[context]
         if context not in [Pebbles.Context.SCIENTIFIC, Pebbles.Context.CALCULUS]:
             if isinstance(value, complex):
-                value = float(value.imag)
+                value = float(value.real)
             elif context == Pebbles.Context.PROGRAMMER:
                 value = int(value)
-
-        print (value)
 
         return value
 

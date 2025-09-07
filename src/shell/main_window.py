@@ -162,9 +162,14 @@ class PythonWindow(Pebbles.MainWindow):
         item = self._memory.get_history_by_id(item_id)
         context = item.get_context()
         result = item.get_result()
-        if context in [Pebbles.Context.SCIENTIFIC, Pebbles.Context.STATISTICS, Pebbles.Context.CALCULUS]:
+        if context in [
+            Pebbles.Context.SCIENTIFIC,
+            Pebbles.Context.STATISTICS,
+            Pebbles.Context.CALCULUS
+        ]:
             return ScientificCalculator.format(result)
-        elif context == Pebbles.Context.PROGRAMMER:
+
+        if context == Pebbles.Context.PROGRAMMER:
             return result
         return ''
 
