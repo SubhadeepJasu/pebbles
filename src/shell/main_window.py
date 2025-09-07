@@ -300,11 +300,11 @@ Attempting to make a table with the previous series.")
     def _on_prog_populate_token_array(self, _, exp, number_system):
         self.programmer_calc.populate_token_array(exp, number_system)
 
-    # pylint: disable=too-many-arguments
+    # pylint: disable=too-many-arguments, too-many-positional-arguments
     def _on_prog_convert_ns(self, _, exp, ns_a, ns_b, wrd_length, format_bin=False):
         self.programmer_calc.wrd_length = wrd_length
         return self.programmer_calc.convert_number_system(exp, ns_a, ns_b, format_bin)
-    # pylink: enable=too-many-arguments
+    # pylint: enable=too-many-arguments, too-many-positional-arguments
 
 
     def _on_prog_str_to_bool_arr(self, _, s, ns, wrd_length):
