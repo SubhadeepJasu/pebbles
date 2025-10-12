@@ -51,7 +51,7 @@ class GraphingCalculator:
                         }),
                         self.memory,
                         Tokenizer.GRAPHING_TOKEN_MAP,
-                        gen_hist=False
+                        override_context=Pebbles.Context.GRAPHING
                     )
                 })
 
@@ -246,9 +246,12 @@ class GraphingCalculator:
         _y_r_values = []
         for t in v_params[0]:
             pro['calc'].set_substitute_value('X', t, zero_limit=True)
-            r = pro['calc'].process()
-            _x_r_values.append(r * np.cos(t))
-            _y_r_values.append(r * np.sin(t))
+            try:
+                r = pro['calc'].process()
+                _x_r_values.append(r * np.cos(t))
+                _y_r_values.append(r * np.sin(t))
+            except ArithmeticError:
+                pass
 
         ax.plot(
             _x_r_values,
@@ -264,7 +267,10 @@ class GraphingCalculator:
         y_values = []
         for x in v_params[0]:
             pro['calc'].set_substitute_value('X', x, zero_limit=True)
-            y_values.append(pro['calc'].process())
+            try:
+                y_values.append(pro['calc'].process())
+            except ArithmeticError:
+                pass
 
         if v_params[3] == 1:
             y_values = np.log10(y_values)

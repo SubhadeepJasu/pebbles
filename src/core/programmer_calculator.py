@@ -25,8 +25,9 @@ class ProgrammersCalculator():
 
     # Ordered and grouped according to the PEMDAS rule: <http://mathworld.wolfram.com/PEMDAS.html>
     OPERATORS = [
-        ['u'],
-        ['!', 'm'],
+        ['@', '#'],  # Ans, Sans
+        ['u'],       # Unary minus
+        ['!', 'm'],  # NOT, Modulus
         ['/', '*'],
         ['+', '-'],
         ['<', '>'],
@@ -341,7 +342,10 @@ class ProgrammersCalculator():
         Convert decimal string to binary string.
         """
         is_negative = number.startswith('-')
-        decimal = int(number)
+        try:
+            decimal = int(number)
+        except ValueError:
+            decimal = 0
 
         if is_negative:
             if self.wrd_length == Pebbles.GlobalWordLength.BYT:
@@ -372,7 +376,10 @@ class ProgrammersCalculator():
             n = int(number[1:])
             neg = '-'
         else:
-            n = int(number)
+            try:
+                n = int(number)
+            except ValueError:
+                n = 0
 
         hexa = ''
 
@@ -615,6 +622,24 @@ class ProgrammersCalculator():
         return result
 
 
+    @staticmethod
+    def parse(value: str) -> int | None:
+        """
+        Parse a string value to int.
+        """
+        try:
+            return int(value)
+        except ValueError:
+            c = complex(value)
+            return int(c.real)
+
+
+    def _get_last_answer (self, global_scope=False):
+        context = Pebbles.Context.GLOBAL if global_scope else Pebbles.Context.PROGRAMMER
+        last_ans = ProgrammersCalculator.parse(self.memory.get_last_result(context))
+        return last_ans if last_ans is not None else 0
+
+
     def evaluate(self,
         number_system: Pebbles.NumberSystem,
         gen_hist: bool
@@ -627,10 +652,16 @@ class ProgrammersCalculator():
             formatted_answer = self.convert_number_system(str(answer),
                                         Pebbles.NumberSystem.DECIMAL, number_system)
 
+            input_expr = self.input_exp.lower()
             if gen_hist:
+                if 'sans' in input_expr:
+                    input_expr = input_expr.replace('sans', self._get_last_answer(global_scope=True))
+                elif 'ans' in input_expr:
+                    input_expr = input_expr.replace('ans', self._get_last_answer())
+
                 self.memory.push_history(
                     self.MODE,
-                    self.input_exp,
+                    input_expr,
                     Utils.remove_leading_zeroes(formatted_answer),
                     {
                         'metadata_1': number_system,
@@ -658,10 +689,7 @@ class ProgrammersCalculator():
 
         operator_stack = []
         for token in self.stored_tokens:
-            if token.token_type == ProgrammersCalculator.TOKEN_TYPE_OPERAND:
-                operand_stack.append(int(self.convert_number_system(token.token,
-                    token.number_system, Pebbles.NumberSystem.DECIMAL, self.wrd_length)))
-            elif token.token_type == ProgrammersCalculator.TOKEN_TYPE_PARENTHESIS:
+            if token.token_type == ProgrammersCalculator.TOKEN_TYPE_PARENTHESIS:
                 if token.token == '(':
                     operator_stack.append('(')
                 else:

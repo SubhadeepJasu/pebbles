@@ -156,7 +156,7 @@ namespace Pebbles {
 
         [GtkCallback]
         public void on_click_last_ans () {
-            display.write (shift_button.active ? "Gans" : "ans");
+            display.write (shift_button.active ? "Sans" : "ans");
         }
 
         [GtkCallback]
@@ -236,12 +236,12 @@ namespace Pebbles {
             ? _("Recall value from Shared Memory") : _("Recall value from Memory");
             memory_clear_button.label_text = shift_button.active ? "SMC" : "MC";
             memory_clear_button.tooltip_desc = shift_button.active ? _("Shared Memory Clear") : _("Memory Clear");
-            last_answer_button.label_text = shift_button.active ? "GAns" : "Ans";
+            last_answer_button.label_text = shift_button.active ? "SAns" : "Ans";
             last_answer_button.tooltip_desc = shift_button.active
-            ? _("Insert global last answer") : _("Insert last answer");
-            last_answer_button_p.label_text = shift_button.active ? "GAns" : "Ans";
+            ? _("Insert shared last answer") : _("Insert last answer");
+            last_answer_button_p.label_text = shift_button.active ? "SAns" : "Ans";
             last_answer_button_p.tooltip_desc = shift_button.active
-            ? _("Insert global last answer") : _("Insert last answer");
+            ? _("Insert shared last answer") : _("Insert last answer");
 
             load_constant_button ();
         }

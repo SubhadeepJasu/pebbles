@@ -311,9 +311,9 @@ namespace Pebbles {
             ? _("Recall value from Shared Memory") : _("Recall value from Memory");
             memory_clear_button.label_text = shift_button.active ? "SMC" : "MC";
             memory_clear_button.tooltip_desc = shift_button.active ? _("Shared Memory Clear") : _("Memory Clear");
-            last_answer_button.label_text = shift_button.active ? "GAns" : "Ans";
+            last_answer_button.label_text = shift_button.active ? "SAns" : "Ans";
             last_answer_button.tooltip_desc = shift_button.active
-            ? _("Insert global last answer") : _("Insert last answer");
+            ? _("Insert shared last answer") : _("Insert last answer");
 
             go_left.icon_name = shift_button.active ? "go-first-symbolic" : "go-previous-symbolic";
             go_left.key = shift_button.active ? "Home" : "<Shift>Tab";

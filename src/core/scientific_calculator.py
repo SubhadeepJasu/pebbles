@@ -36,11 +36,19 @@ class ScientificCalculator():
     ]
 
 
-    def __init__(self, data: str, memory: ContextualMemory, token_map:list, gen_hist=True):
+    def __init__(self, data: str, memory: ContextualMemory,
+                 token_map:list, override_context=Pebbles.Context.SCIENTIFIC):
         self.input_dict = json.loads(data)
         self.memory = memory
-        self.angle_mode = self.input_dict['angleMode']
-        self.gen_hist = gen_hist
+        self.override_context = override_context
+        self.input_dict['input'] = self.input_dict['input'].lower()
+        if 'sans' in self.input_dict['input']:
+            self.input_dict['input'] = self.input_dict['input'].replace('sans',
+                                              self._get_last_answer())
+        elif 'ans' in self.input_dict['input']:
+            self.input_dict['input'] = self.input_dict['input'].replace('ans',
+                                                        self._get_last_answer(override_context))
+
         if token_map is not None:
             self.tokens = Tokenizer.st_tokenize(self.input_dict['input'], token_map)
             # print ('Tokens: ', self.tokens)
@@ -71,12 +79,12 @@ class ScientificCalculator():
             answer = self.process()
             formatted_answer = ScientificCalculator.format(answer)
 
-            if self.gen_hist:
+            if self.override_context == Pebbles.Context.SCIENTIFIC:
                 self.memory.push_history(
                     ScientificCalculator.MODE,
                     self.input_dict['input'],
                     str(answer),
-                    {'metadata_1': self.angle_mode}
+                    {'metadata_1': self.input_dict['angleMode']}
                 )
             result_json = json.dumps({'mode': self.MODE, 'result': formatted_answer})
             return result_json, answer
@@ -149,15 +157,7 @@ class ScientificCalculator():
 
 
     def _handle_special_variables (self, token, operand_stack):
-        if token == '@':
-            last_ans = ScientificCalculator._parse(
-                self.memory.get_last_result(Pebbles.Context.SCIENTIFIC)
-            )
-            operand_stack.append(last_ans if last_ans is not None else 0)
-        elif token == '#':
-            last_ans = ScientificCalculator._parse(self.memory.get_last_result())
-            operand_stack.append(last_ans if last_ans is not None else 0)
-        elif token == 'x':
+        if token == 'x':
             operand_stack.append(self.substitutions['X'])
         elif token == '\x11':
             operand_stack.append(self.substitutions['A'])
@@ -171,6 +171,11 @@ class ScientificCalculator():
             operand_stack.append(float(token))
 
 
+    def _get_last_answer (self, context=Pebbles.Context.GLOBAL):
+        last_ans = ScientificCalculator.parse(self.memory.get_last_result(context))
+        return last_ans if last_ans is not None else 0
+
+
     @staticmethod
     def format(result: any) -> str:
         """
@@ -178,7 +183,7 @@ class ScientificCalculator():
         """
         val: any
         if isinstance(result, str):
-            val = ScientificCalculator._parse(result)
+            val = ScientificCalculator.parse(result)
         else:
             val = result
 
@@ -200,7 +205,7 @@ class ScientificCalculator():
 
 
     @staticmethod
-    def _parse(result: str):
+    def parse(result: str):
         try:
             return float(result)
         except ValueError:
@@ -378,14 +383,14 @@ class ScientificCalculator():
     def _get_angle_factor(self, inv=False):
         angle_factor = 1
         if inv:
-            if self.angle_mode == 0:
+            if self.input_dict['angleMode'] == 0:
                 angle_factor = self.INV_DEG_VAL
-            elif self.angle_mode == 2:
+            elif self.input_dict['angleMode'] == 2:
                 angle_factor = self.INV_GRAD_VAL
         else:
-            if self.angle_mode == 0:
+            if self.input_dict['angleMode'] == 0:
                 angle_factor = self.DEG_VAL
-            elif self.angle_mode == 2:
+            elif self.input_dict['angleMode'] == 2:
                 angle_factor = self.GRAD_VAL
 
         return angle_factor

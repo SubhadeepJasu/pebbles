@@ -52,43 +52,43 @@ namespace Pebbles {
 
         // Numerical keypad buttons
         [GtkChild]
-        private unowned Gtk.Button one_button;
+        private unowned Button one_button;
         [GtkChild]
-        private unowned Gtk.Button two_button;
+        private unowned Button two_button;
         [GtkChild]
-        private unowned Gtk.Button three_button;
+        private unowned Button three_button;
         [GtkChild]
-        private unowned Gtk.Button four_button;
+        private unowned Button four_button;
         [GtkChild]
-        private unowned Gtk.Button five_button;
+        private unowned Button five_button;
         [GtkChild]
-        private unowned Gtk.Button six_button;
+        private unowned Button six_button;
         [GtkChild]
-        private unowned Gtk.Button seven_button;
+        private unowned Button seven_button;
         [GtkChild]
-        private unowned Gtk.Button eight_button;
+        private unowned Button eight_button;
         [GtkChild]
-        private unowned Gtk.Button nine_button;
+        private unowned Button nine_button;
         [GtkChild]
-        private unowned Gtk.Button zero_button;
+        private unowned Button zero_button;
         [GtkChild]
-        private unowned Gtk.Button paren_start_button;
+        private unowned Button paren_start_button;
         [GtkChild]
-        private unowned Gtk.Button paren_end_button;
+        private unowned Button paren_end_button;
 
         // Hexadecimal keypad buttons
         [GtkChild]
-        private unowned Gtk.Button hex_a_button;
+        private unowned Button hex_a_button;
         [GtkChild]
-        private unowned Gtk.Button hex_b_button;
+        private unowned Button hex_b_button;
         [GtkChild]
-        private unowned Gtk.Button hex_c_button;
+        private unowned Button hex_c_button;
         [GtkChild]
-        private unowned Gtk.Button hex_d_button;
+        private unowned Button hex_d_button;
         [GtkChild]
-        private unowned Gtk.Button hex_e_button;
+        private unowned Button hex_e_button;
         [GtkChild]
-        private unowned Gtk.Button hex_f_button;
+        private unowned Button hex_f_button;
 
         [GtkChild]
         private unowned Button memory_plus_button;
@@ -98,6 +98,8 @@ namespace Pebbles {
         private unowned Button memory_recall_button;
         [GtkChild]
         private unowned Button memory_clear_button;
+        [GtkChild]
+        private unowned Button last_answer_button;
 
         private Pebbles.Settings settings;
 
@@ -312,6 +314,9 @@ namespace Pebbles {
             ? _("Recall value from Shared Memory") : _("Recall value from Memory");
             memory_clear_button.label_text = shift_button.active ? "SMC" : "MC";
             memory_clear_button.tooltip_desc = shift_button.active ? _("Shared Memory Clear") : _("Memory Clear");
+            last_answer_button.label_text = shift_button.active ? "SAns" : "Ans";
+            last_answer_button.tooltip_desc = shift_button.active
+            ? _("Insert shared last answer") : _("Insert last answer");
         }
 
         [GtkCallback]
@@ -390,6 +395,11 @@ namespace Pebbles {
         [GtkCallback]
         public void on_click_memory_clear () {
             on_memory_clear (shift_button.active);
+        }
+
+        [GtkCallback]
+        public void on_click_last_ans () {
+            display.write (shift_button.active ? "Sans" : "ans");
         }
 
         public void send_shift_modifier (bool shifted) {

@@ -32,13 +32,13 @@ class ContextualMemory:
     """
 
     HISTORY_LAST_RESULT_QUERY = """
-        SELECT result, context FROM history
+        SELECT result, context, metadata_1, metadata_2, metadata_3, metadata_4 FROM history
          ORDER BY id DESC
          LIMIT 1
     """
 
     HISTORY_CONTEXTUAL_LAST_RESULT_QUERY = """
-        SELECT result, context FROM history
+        SELECT result, context, metadata_1, metadata_2, metadata_3, metadata_4 FROM history
          WHERE context = ?
          ORDER BY id DESC
          LIMIT 1
@@ -227,7 +227,11 @@ class ContextualMemory:
 
         last_entry = cursor.fetchone()
         conn.close()
-        return last_entry[0] if last_entry else None
+        if last_entry:
+            return last_entry[0], last_entry[1], last_entry[2], \
+                last_entry[3], last_entry[4], last_entry[5]
+
+        return '', '', 0, 0, '', ''
 
 
     def peek(self):
