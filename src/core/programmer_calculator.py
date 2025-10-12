@@ -25,7 +25,6 @@ class ProgrammersCalculator():
 
     # Ordered and grouped according to the PEMDAS rule: <http://mathworld.wolfram.com/PEMDAS.html>
     OPERATORS = [
-        ['@', '#'],  # Ans, Sans
         ['u'],       # Unary minus
         ['!', 'm'],  # NOT, Modulus
         ['/', '*'],
@@ -86,8 +85,14 @@ class ProgrammersCalculator():
         """
         Populate the stored token array from an expression.
         """
-        _stored_tokens = Tokenizer.get_token_array (exp, number_system)
-        self.input_exp = exp
+        self.input_exp = exp.lower()
+        if 'sans' in self.input_exp:
+            self.input_exp = self.input_exp.replace('sans',
+                                                    self._get_last_answer(global_scope=True))
+        elif 'ans' in self.input_exp:
+            self.input_exp = self.input_exp.replace('ans', self._get_last_answer())
+
+        _stored_tokens = Tokenizer.get_token_array(self.input_exp, number_system)
         self.stored_tokens = [
             _ProgToken(x['token'], x['type'], x['numberSystem']) for x in _stored_tokens
         ]
