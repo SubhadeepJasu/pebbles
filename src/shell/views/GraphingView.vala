@@ -315,7 +315,7 @@ namespace Pebbles {
         }
 
         [GtkCallback]
-        protected void on_click_last_ans () {
+        public void on_click_last_ans () {
             display.write ("Sans");
         }
 

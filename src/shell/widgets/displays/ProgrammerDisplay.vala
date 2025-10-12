@@ -255,8 +255,10 @@ namespace Pebbles {
         }
 
         public void focus_entry () {
-            main_entry.grab_focus_without_selecting ();
-            main_entry.set_position (-1);
+            Idle.add_once (() => {
+                main_entry.grab_focus_without_selecting ();
+                main_entry.set_position (-1);
+            });
         }
 
         public void write (string str) {
@@ -307,7 +309,6 @@ namespace Pebbles {
         }
 
         protected bool input_handler (string full_expression, int input_length, string input_char) {
-            print ("Hi>>> %s %d %s\n", full_expression, input_length, input_char);
             display_all_number_systems ();
 
             if (input_char != "" && !entry_formatter.is_rule_present (input_char)) {

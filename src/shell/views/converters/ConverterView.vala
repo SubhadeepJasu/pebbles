@@ -50,6 +50,7 @@ namespace Pebbles {
             from_entry_focus_controller.leave.connect (() => {
                 from_entry.add_css_class ("conversion-text-box-focused");
             });
+            focused_entry = from_entry;
 
             to_entry_focus_controller = new Gtk.EventControllerFocus ();
             to_entry.add_controller (to_entry_focus_controller);
@@ -245,7 +246,10 @@ namespace Pebbles {
         }
 
         public override void focus_main () {
-
+            Idle.add_once (() => {
+                focused_entry.grab_focus_without_selecting ();
+                focused_entry.set_position ((int) focused_entry.text_length);
+            });
         }
     }
 }

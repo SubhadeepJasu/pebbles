@@ -592,7 +592,11 @@ namespace Pebbles {
                 if (keyval == Gdk.Key.F8) {
                     on_change_mode ();
                     return;
+                } else if (keyval == Gdk.Key.F7) {
+                    on_last_ans ();
+                    return;
                 }
+
 
                 on_key_up (view_stack.visible_child_name, keyval);
 
@@ -838,6 +842,23 @@ namespace Pebbles {
             graphing_view.send_shift_modifier (on);
             calculus_view.send_shift_modifier (on);
             programmer_view.send_shift_modifier (on);
+        }
+
+        protected void on_last_ans () {
+            switch (view_stack.visible_child_name) {
+                case Context.SCIENTIFIC:
+                    scientific_view.on_click_last_ans ();
+                    break;
+                case Context.CALCULUS:
+                    calculus_view.on_click_last_ans ();
+                    break;
+                case Context.PROGRAMMER:
+                    programmer_view.on_click_last_ans ();
+                    break;
+                case Context.GRAPHING:
+                    graphing_view.on_click_last_ans ();
+                    break;
+            }
         }
 
         [GtkCallback]
