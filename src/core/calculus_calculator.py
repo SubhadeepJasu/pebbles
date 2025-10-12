@@ -9,6 +9,7 @@ from gi.repository import Pebbles
 from pebbles.core.scientific_calculator import ScientificCalculator
 from pebbles.core.tokenizer import Tokenizer
 from pebbles.core.memory import ContextualMemory
+from pebbles.core.utils import Utils
 
 
 class CalculusCalculator:
@@ -112,6 +113,7 @@ class CalculusCalculator:
 
 
     def _get_last_answer (self, global_scope=False):
-        context = Pebbles.Context.GLOBAL if global_scope else Pebbles.Context.CALCULUS
-        last_ans = ScientificCalculator.parse(self.memory.get_last_result(context))
-        return last_ans if last_ans is not None else 0
+        context = Pebbles.Context.GLOBAL if global_scope else CalculusCalculator.MODE
+        last_ans, _, _, _, _, _ = self.memory.get_last_result(context)
+        last_ans = ScientificCalculator.parse(last_ans)
+        return Utils.format_float(last_ans) if last_ans is not None else '0'

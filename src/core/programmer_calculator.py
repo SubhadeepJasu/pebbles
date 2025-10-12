@@ -109,7 +109,7 @@ class ProgrammersCalculator():
         """
         # Tokenize the current expression regardless of the stored tokens.
         token_structure = Tokenizer.get_token_array(exp, number_system)
-        self.input_exp = exp
+        self.input_exp = exp.lower()
 
         # For every token in stored_tokens, if it is an operand and its current number system
         # is different from the required number system, perform conversion.
@@ -641,8 +641,9 @@ class ProgrammersCalculator():
 
     def _get_last_answer (self, global_scope=False):
         context = Pebbles.Context.GLOBAL if global_scope else Pebbles.Context.PROGRAMMER
-        last_ans = ProgrammersCalculator.parse(self.memory.get_last_result(context))
-        return last_ans if last_ans is not None else 0
+        x, _, _, _, _, _ = self.memory.get_last_result(context)
+        last_ans = ProgrammersCalculator.parse(x)
+        return str(last_ans) if last_ans is not None else "0"
 
 
     def evaluate(self,

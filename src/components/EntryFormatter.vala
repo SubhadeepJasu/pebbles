@@ -57,6 +57,8 @@ namespace Pebbles {
         // Replacement rules for programmer mode
         private const string REPLACEMENT_RULES_PROGRAMMER = """
         {
+            "@": {"default": "ans", "len_gain": 2},
+            "#": {"default": "sans", "len_gain": 3},
             "o": {"default": " or ", "len_gain": 3},
             "O": {"default": " nor ", "len_gain": 4},
             "n": {"default": " and ", "len_gain": 4},

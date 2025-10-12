@@ -399,7 +399,7 @@ namespace Pebbles {
 
         [GtkCallback]
         public void on_click_last_ans () {
-            display.write (shift_button.active ? "Sans" : "ans");
+            display.write (shift_button.active ? "#" : "@");
         }
 
         public void send_shift_modifier (bool shifted) {

@@ -79,7 +79,7 @@ class ScientificCalculator():
             answer = self.process()
             formatted_answer = ScientificCalculator.format(answer)
 
-            if self.override_context == Pebbles.Context.SCIENTIFIC:
+            if self.override_context == ScientificCalculator.MODE:
                 self.memory.push_history(
                     ScientificCalculator.MODE,
                     self.input_dict['input'],
@@ -172,8 +172,9 @@ class ScientificCalculator():
 
 
     def _get_last_answer (self, context=Pebbles.Context.GLOBAL):
-        last_ans = ScientificCalculator.parse(self.memory.get_last_result(context))
-        return last_ans if last_ans is not None else 0
+        last_ans, _, _, _, _, _ = self.memory.get_last_result(context)
+        last_ans = ScientificCalculator.parse(last_ans)
+        return Utils.format_float(last_ans) if last_ans is not None else '0'
 
 
     @staticmethod
