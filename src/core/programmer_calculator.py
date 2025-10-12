@@ -689,7 +689,10 @@ class ProgrammersCalculator():
 
         operator_stack = []
         for token in self.stored_tokens:
-            if token.token_type == ProgrammersCalculator.TOKEN_TYPE_PARENTHESIS:
+            if token.token_type == ProgrammersCalculator.TOKEN_TYPE_OPERAND:
+                operand_stack.append(int(self.convert_number_system(token.token,
+                    token.number_system, Pebbles.NumberSystem.DECIMAL, self.wrd_length)))
+            elif token.token_type == ProgrammersCalculator.TOKEN_TYPE_PARENTHESIS:
                 if token.token == '(':
                     operator_stack.append('(')
                 else:
