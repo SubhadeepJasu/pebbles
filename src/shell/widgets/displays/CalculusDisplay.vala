@@ -108,7 +108,7 @@ namespace Pebbles {
 
         public void write (string str) {
             int position = focused_entry.get_position ();
-            focused_entry.do_insert_text (str, str.length, ref position);
+            focused_entry.do_insert_text (str, -1, ref position);
             focused_entry.set_position (position);
         }
 

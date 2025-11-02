@@ -122,7 +122,7 @@ namespace Pebbles {
                 if (disable_auto_insert) {
                     focused_entry_box.entry_formatter.disabled = true;
                 }
-                focused_entry.do_insert_text (str, str.length, ref position);
+                focused_entry.do_insert_text (str, -1, ref position);
                 if (focused_entry_box.entry_formatter.disabled == true) {
                     focused_entry_box.entry_formatter.disabled = false;
                 }

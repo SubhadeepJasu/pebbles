@@ -263,7 +263,7 @@ namespace Pebbles {
 
         public void write (string str) {
             int position = main_entry.get_position ();
-            main_entry.do_insert_text (str, str.length, ref position);
+            main_entry.do_insert_text (str, -1, ref position);
             main_entry.set_position (position);
         }
 
