@@ -610,5 +610,11 @@ namespace Pebbles {
             refresh_all_cells (msl);
             main_label.set_text (data.result);
         }
+
+        public void focus_default () {
+            if (selected_cell != null) {
+                focus_cell (selected_cell, true);
+            }
+        }
     }
 }

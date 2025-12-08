@@ -310,6 +310,10 @@ namespace Pebbles {
             open_controls_action.activate.connect (() => {
                 shortcuts_dialog = new ShortcutsDialog ();
                 shortcuts_dialog.present (this);
+
+                shortcuts_dialog.closed.connect ((pspec) => {
+                    ((View) view_stack.visible_child).focus_main ();
+                });
             });
             add_action (open_controls_action);
 
@@ -317,6 +321,10 @@ namespace Pebbles {
             open_preferences_action.activate.connect (() => {
                 preferences_dialog = new PreferencesDialog ();
                 preferences_dialog.present (this);
+
+                preferences_dialog.closed.connect ((pspec) => {
+                    ((View) view_stack.visible_child).focus_main ();
+                });
             });
             add_action (open_preferences_action);
 
@@ -571,6 +579,10 @@ namespace Pebbles {
                     }
                 }
 
+                if (keyval >= Gdk.Key.F3 && keyval <= Gdk.Key.F7) {
+                    return Gdk.EVENT_STOP;
+                }
+
                 return Gdk.EVENT_PROPAGATE;
             });
             key_event_controller.key_released.connect ((keyval, _, modifier) => {
@@ -589,12 +601,18 @@ namespace Pebbles {
                     return;
                 }
 
-                if (keyval == Gdk.Key.F8) {
+                if (keyval == Gdk.Key.F3) {
+                    send_memory_add ();
+                } else if (keyval == Gdk.Key.F4) {
+                    send_memory_subtract ();
+                } else if (keyval == Gdk.Key.F5) {
+                    send_memory_recall ();
+                } else if (keyval == Gdk.Key.F6) {
+                    send_memory_clear ();
+                } else if (keyval == Gdk.Key.F8) {
                     on_change_mode ();
-                    return;
                 } else if (keyval == Gdk.Key.F7) {
                     on_last_ans ();
-                    return;
                 }
 
 
@@ -740,6 +758,77 @@ namespace Pebbles {
 
                 return false;
             });
+        }
+
+        private void send_memory_add () {
+            switch (view_stack.visible_child_name) {
+                case Context.SCIENTIFIC:
+                    scientific_view.on_click_memory_add ();
+                    break;
+                case Context.CALCULUS:
+                    calculus_view.on_click_memory_add ();
+                    break;
+                case Context.STATISTICS:
+                    statistics_view.on_click_memory_add ();
+                    break;
+                case Context.PROGRAMMER:
+                    programmer_view.on_click_memory_add ();
+                    break;
+            }
+        }
+
+        private void send_memory_subtract () {
+            switch (view_stack.visible_child_name) {
+                case Context.SCIENTIFIC:
+                    scientific_view.on_click_memory_subtract ();
+                    break;
+                case Context.CALCULUS:
+                    calculus_view.on_click_memory_subtract ();
+                    break;
+                case Context.STATISTICS:
+                    statistics_view.on_click_memory_subtract ();
+                    break;
+                case Context.PROGRAMMER:
+                    programmer_view.on_click_memory_subtract ();
+                    break;
+            }
+        }
+
+        private void send_memory_recall () {
+            switch (view_stack.visible_child_name) {
+                case Context.SCIENTIFIC:
+                    scientific_view.on_click_memory_recall ();
+                    break;
+                case Context.CALCULUS:
+                    calculus_view.on_click_memory_recall ();
+                    break;
+                case Context.STATISTICS:
+                    statistics_view.on_click_memory_recall ();
+                    break;
+                case Context.PROGRAMMER:
+                    programmer_view.on_click_memory_recall ();
+                    break;
+                case Context.GRAPHING:
+                    graphing_view.on_click_memory_recall ();
+                    break;
+            }
+        }
+
+        private void send_memory_clear () {
+            switch (view_stack.visible_child_name) {
+                case Context.SCIENTIFIC:
+                    scientific_view.on_click_memory_clear ();
+                    break;
+                case Context.CALCULUS:
+                    calculus_view.on_click_memory_clear ();
+                    break;
+                case Context.STATISTICS:
+                    statistics_view.on_click_memory_clear ();
+                    break;
+                case Context.PROGRAMMER:
+                    programmer_view.on_click_memory_clear ();
+                    break;
+            }
         }
 
         protected void on_plot_ready (Gdk.Pixbuf? figure, bool valid) {
