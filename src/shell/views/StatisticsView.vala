@@ -34,6 +34,15 @@ namespace Pebbles {
 
         construct {
             display.activate_op.connect (activate_keyboard_shortcut);
+
+            realize.connect_after (() => {
+                var window = (MainWindow) get_ancestor (typeof (MainWindow));
+                window.on_all_clear.connect ((ctx) => {
+                    if (ctx == context) {
+                        on_all_clear ();
+                    }
+                });
+            });
         }
 
         public void show_result (string res) {

@@ -258,7 +258,11 @@ namespace Pebbles {
         }
 
         public override void focus_main () {
-
+            if (selected_view == "date_diff_view") {
+                datepicker_diff_from.grab_focus ();
+            } else {
+                datepicker_starting_from.grab_focus ();
+            }
         }
     }
 

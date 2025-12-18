@@ -106,8 +106,15 @@ namespace Pebbles {
                 return false;
             });
 
-            realize.connect (() => {
+            realize.connect_after (() => {
                 load_state (settings);
+
+                var window = (MainWindow) get_ancestor (typeof (MainWindow));
+                window.on_all_clear.connect ((ctx) => {
+                    if (ctx == context) {
+                        on_all_clear ();
+                    }
+                });
             });
         }
 
