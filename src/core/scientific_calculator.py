@@ -12,6 +12,8 @@ from pebbles.core.tokenizer import Tokenizer
 from pebbles.core.memory import ContextualMemory
 from pebbles.core.utils import Utils
 
+# pylint: disable=too-many-public-methods, too-many-branches
+
 class ScientificCalculator():
     """The scientific calculator."""
 
@@ -207,6 +209,12 @@ class ScientificCalculator():
 
     @staticmethod
     def parse(result: str):
+        """
+        Parse a result string into float or complex.
+
+        :param result: Description
+        :type result: str
+        """
         try:
             return float(result)
         except ValueError:

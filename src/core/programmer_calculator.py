@@ -661,7 +661,8 @@ class ProgrammersCalculator():
             input_expr = self.input_exp.lower()
             if gen_hist:
                 if 'sans' in input_expr:
-                    input_expr = input_expr.replace('sans', self._get_last_answer(global_scope=True))
+                    input_expr = input_expr.replace('sans', \
+                                                    self._get_last_answer(global_scope=True))
                 elif 'ans' in input_expr:
                     input_expr = input_expr.replace('ans', self._get_last_answer())
 
