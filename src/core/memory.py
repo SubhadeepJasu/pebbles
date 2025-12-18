@@ -32,13 +32,13 @@ class ContextualMemory:
     """
 
     HISTORY_LAST_RESULT_QUERY = """
-        SELECT result, context FROM history
+        SELECT result, context, metadata_1, metadata_2, metadata_3, metadata_4 FROM history
          ORDER BY id DESC
          LIMIT 1
     """
 
     HISTORY_CONTEXTUAL_LAST_RESULT_QUERY = """
-        SELECT result, context FROM history
+        SELECT result, context, metadata_1, metadata_2, metadata_3, metadata_4 FROM history
          WHERE context = ?
          ORDER BY id DESC
          LIMIT 1
@@ -160,11 +160,9 @@ class ContextualMemory:
         value = self._memory[context]
         if context not in [Pebbles.Context.SCIENTIFIC, Pebbles.Context.CALCULUS]:
             if isinstance(value, complex):
-                value = float(value.imag)
+                value = float(value.real)
             elif context == Pebbles.Context.PROGRAMMER:
                 value = int(value)
-
-        print (value)
 
         return value
 
@@ -229,7 +227,11 @@ class ContextualMemory:
 
         last_entry = cursor.fetchone()
         conn.close()
-        return last_entry[0] if last_entry else None
+        if last_entry:
+            return last_entry[0], last_entry[1], last_entry[2], \
+                last_entry[3], last_entry[4], last_entry[5]
+
+        return '', '', 0, 0, '', ''
 
 
     def peek(self):
@@ -247,8 +249,12 @@ class ContextualMemory:
         cursor = conn.cursor()
         cursor.execute(ContextualMemory.HISTORY_VIEW_QUERY, (context,))
         history_entries = cursor.fetchall()
-        views = [Pebbles.HistoryModel.new_for_view(id, context, inp, format_func(res))
-                 for id, inp, res in history_entries]
+        if format_func is not None:
+            views = [Pebbles.HistoryModel.new_for_view(id, context, inp, format_func(res))
+                     for id, inp, res in history_entries]
+        else:
+            views = [Pebbles.HistoryModel.new_for_view(id, context, inp, res)
+                     for id, inp, res in history_entries]
         conn.close()
         return views
 

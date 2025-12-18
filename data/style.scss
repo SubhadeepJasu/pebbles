@@ -31,6 +31,10 @@ $BANANA_500: #f9c440;
 $BANANA_900: #ad5f00;
 $LCD_FG_COLOR: #272863bb;
 
+.rounded {
+    border-radius: 32px;
+}
+
 .headerbar {
     &-left {
 	    border-radius: 6px 0 0 0;
@@ -59,6 +63,10 @@ $LCD_FG_COLOR: #272863bb;
             opacity: 1;
         }
     }
+}
+
+.monospace {
+    font-family: monospace;
 }
 
 .lcd {
@@ -104,9 +112,26 @@ $LCD_FG_COLOR: #272863bb;
         font-size: x-large;
         text-shadow: 0 2px 1px #0002;
         caret-color: $LCD_FG_COLOR;
+        padding-top: 3px;
 
         text {
             color: $LCD_FG_COLOR;
+        }
+    }
+
+    &-indicator {
+        font-size: 10px;
+        opacity: 0.8;
+        font-weight: bold;
+        box-shadow: 0 2px 2px #0001, inset 0 2px 2px #0001;
+        color:#272863;
+        border: 1px solid #272863;
+        padding: 2px 6px;
+        border-radius: 2.25px;
+
+        &.selected {
+            color:#C6D0C6;
+	        background-color: #272863;
         }
     }
 
@@ -377,6 +402,7 @@ button.pressed {
     padding: 4px;
 }
 
+
 .conversion-text-box-focused {
     background: none;
     border: 1px solid #0000;
@@ -390,4 +416,25 @@ button.pressed {
 	border-radius: 3px;
 	background-color: #{'alpha(@accent_color, 0.2)'};
     padding: 4px;
+}
+
+.bit-toggle-grid {
+    padding: 2px;
+    border-radius: 3px;
+}
+
+.bit-toggle-button {
+    padding-left: 0;
+    padding-right: 0;
+    font-weight: 700;
+
+    &:checked {
+        background: #{'shade(@accent_color, 0.8)'};
+        color: #fff;
+    }
+}
+
+.sidebar-pane {
+    background: none;
+    border: none;
 }

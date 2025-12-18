@@ -34,6 +34,15 @@ namespace Pebbles {
 
         construct {
             display.activate_op.connect (activate_keyboard_shortcut);
+
+            realize.connect_after (() => {
+                var window = (MainWindow) get_ancestor (typeof (MainWindow));
+                window.on_all_clear.connect ((ctx) => {
+                    if (ctx == context) {
+                        on_all_clear ();
+                    }
+                });
+            });
         }
 
         public void show_result (string res) {
@@ -97,7 +106,7 @@ namespace Pebbles {
                 default_filter = csv_files_filter,
                 filters = filter_model,
                 modal = true,
-                title = _("Import CSV files")
+                title = _("Export CSV files")
             };
 
             file_dialog.save.begin (main_window, null, (obj, result) => {
@@ -299,21 +308,21 @@ namespace Pebbles {
 
         [GtkCallback]
         protected void on_shift () {
-            memory_plus_button.label_text = shift_button.active ? "GM+" : "M+";
+            memory_plus_button.label_text = shift_button.active ? "SM+" : "M+";
             memory_plus_button.tooltip_desc = shift_button.active
-            ? _("Add it to the value in Global Memory") : _("Add it to the value in Memory");
-            memory_minus_button.label_text = shift_button.active ? "GM−" : "M−";
+            ? _("Add it to the value in Shared Memory") : _("Add it to the value in Memory");
+            memory_minus_button.label_text = shift_button.active ? "SM−" : "M−";
             memory_minus_button.tooltip_desc = shift_button.active
-            ? _("Subtract it from the value in Global Memory")
+            ? _("Subtract it from the value in Shared Memory")
             : _("Subtract it from the value in Memory");
-            memory_recall_button.label_text = shift_button.active ? "GMR" : "MR";
+            memory_recall_button.label_text = shift_button.active ? "SMR" : "MR";
             memory_recall_button.tooltip_desc = shift_button.active
-            ? _("Recall value from Global Memory") : _("Recall value from Memory");
-            memory_clear_button.label_text = shift_button.active ? "GMC" : "MC";
-            memory_clear_button.tooltip_desc = shift_button.active ? _("Global Memory Clear") : _("Memory Clear");
-            last_answer_button.label_text = shift_button.active ? "GAns" : "Ans";
+            ? _("Recall value from Shared Memory") : _("Recall value from Memory");
+            memory_clear_button.label_text = shift_button.active ? "SMC" : "MC";
+            memory_clear_button.tooltip_desc = shift_button.active ? _("Shared Memory Clear") : _("Memory Clear");
+            last_answer_button.label_text = shift_button.active ? "SAns" : "Ans";
             last_answer_button.tooltip_desc = shift_button.active
-            ? _("Insert global last answer") : _("Insert last answer");
+            ? _("Insert shared last answer") : _("Insert last answer");
 
             go_left.icon_name = shift_button.active ? "go-first-symbolic" : "go-previous-symbolic";
             go_left.key = shift_button.active ? "Home" : "<Shift>Tab";
@@ -376,6 +385,10 @@ namespace Pebbles {
             var window = (MainWindow) get_ancestor (typeof (MainWindow));
             var result = window.on_get_last_result (shift_button.active ? Context.GLOBAL : Context.STATISTICS);
             display.write (result);
+        }
+
+        public override void focus_main () {
+            display.focus_default ();
         }
     }
 }

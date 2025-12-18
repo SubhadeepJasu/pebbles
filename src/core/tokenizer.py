@@ -4,6 +4,8 @@
 
 """Tokenizer"""
 
+from pebbles.core.utils import Utils
+
 class Tokenizer():
     """Tokenizer used to convert input expression into meaningful tokens."""
 
@@ -22,8 +24,6 @@ class Tokenizer():
     ]
 
     SCIENTIFIC_TOKEN_MAP = [
-        ('gans', '#'),
-        ('ans', '@'),
         ('isinh', ' [0] '),
         ('icosh', ' [1] '),
         ('itanh', ' [2] '),
@@ -83,8 +83,6 @@ class Tokenizer():
 
     GRAPHING_TOKEN_MAP = [
         ('θ', 'x'),
-        ('gans', '#'),
-        ('ans', '@'),
         ('isinh', ' [0] '),
         ('icosh', ' [1] '),
         ('itanh', ' [2] '),
@@ -145,6 +143,34 @@ class Tokenizer():
         ('rt', ' q '),
         ('!', ' ! 1 '),
         ('∞', 'inf')
+    ]
+
+    PROGRAMMING_TOKEN_MAP = [
+        ("lsh", " < "),
+        ("rsh", " > "),
+        ("lr", " lr "),
+        ("rr", " rr "),
+        ("not", " ! "),
+        ("nand", " [5] "),
+        ("xnor", " [6] "),
+        ("xor", " [7] "),
+        ("nor", " [8] "),
+        ("and", " & "),
+        ("or", " | "),
+        ("mod", " m "),
+        ("[5]", " _ "),
+        ("[6]", " n "),
+        ("[7]", " x "),
+        ("[8]", " o "),
+        ("(", " ( "),
+        (")", " ) "),
+        ("+", " + "),
+        ("-", " - "),
+        ("−", " - "),
+        ("×", " * "),
+        ("÷", " / "),
+        ("*", " * "),
+        ("/", " / ")
     ]
 
     @staticmethod
@@ -220,14 +246,14 @@ class Tokenizer():
         for i in range(n):
             if tokens[i] == '-':
                 if i == 0:
-                    if i < n:
+                    if i < n - 1:
                         tokens [i] = '( 0 u'
                         tokens [i + 1] = tokens [i + 1] + " )"
                 elif tokens [i - 1] == ')' or tokens [i - 1] == 'x' or \
                     Tokenizer._is_number (tokens [i - 1].strip()):
                     tokens [i] = '-'
                 else:
-                    if i < n:
+                    if i < n - 1:
                         tokens [i] = '( 0 u'
                         tokens [i + 1] = tokens [i + 1] + ' )'
 
@@ -352,12 +378,45 @@ class Tokenizer():
 
             # Intelligently convert expressions based on common rules
             exp = Tokenizer._algebraic_parenthesis_product_convert(exp)
-            print(exp)
             exp = Tokenizer._relative_percentage_convert(exp)
-            print(exp)
             exp = Tokenizer._unary_minus_convert(exp)
-            print(exp)
             exp = Tokenizer._space_removal(exp.strip())
 
             return exp.split(' ')
         return []
+
+
+    @staticmethod
+    def get_token_array(input_exp, number_system):
+        """
+        Tokenize the given string.
+        """
+        exp = input_exp
+        for original, replacement in Tokenizer.PROGRAMMING_TOKEN_MAP:
+            exp = exp.replace(original, replacement)
+
+        exp = exp.strip()
+        exp = Tokenizer._space_removal (exp)
+        exp = Tokenizer._unary_minus_convert(exp)
+        exp = Tokenizer._space_removal(exp)
+
+        str_with_uniform_spaces = Tokenizer._space_removal(exp)
+        str_tokens = str_with_uniform_spaces.split(" ")
+        tokens = []
+
+        for token_str in str_tokens:
+            token = {}
+            if token_str in ["u", "<", ">", "lr", "rr", "!", "_", "n", "x",
+                             "o", "&", "|", "m", "+", "-", "/", "*"]:
+                token["type"] = 0
+            elif token_str in ["(", ")"]:
+                token["type"] = 2
+            else:
+                token["type"] = 1
+
+            token["token"] = Utils.remove_leading_zeroes(token_str)
+            token["numberSystem"] = number_system
+
+            tokens.append(token)
+
+        return tokens

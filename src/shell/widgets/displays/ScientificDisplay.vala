@@ -70,6 +70,12 @@ namespace Pebbles {
                         main_entry.grab_focus_without_selecting ();
                     }
                 });
+
+                window.on_all_clear.connect ((ctx) => {
+                    if (ctx == context) {
+                        all_clear ();
+                    }
+                });
             });
 
             set_angle_unit (settings.global_angle_unit);
@@ -152,7 +158,7 @@ namespace Pebbles {
 
         public void write (string str) {
             int position = main_entry.get_position ();
-            main_entry.do_insert_text (str, str.length, ref position);
+            main_entry.do_insert_text (str, -1, ref position);
             main_entry.set_position (position);
         }
 
@@ -166,8 +172,7 @@ namespace Pebbles {
 
         [GtkCallback]
         protected void insert_from_history (string? text) {
-            main_entry.set_text (main_entry.get_text () + text);
-            main_entry.set_position ((int) main_entry.text_length);
+            write (text);
         }
 
         [GtkCallback]

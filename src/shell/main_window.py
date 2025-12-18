@@ -13,6 +13,7 @@ from pebbles.core.statistics_calculator import StatisticsCalculator
 from pebbles.core.graphing_calculator import GraphingCalculator
 from pebbles.core.calculus_calculator import CalculusCalculator
 from pebbles.core.date_calculator import DateCalculator
+from pebbles.core.programmer_calculator import ProgrammersCalculator
 from pebbles.core.converter import Converter
 from pebbles.core.tokenizer import Tokenizer
 from pebbles.core.utils import Utils
@@ -32,6 +33,8 @@ class PythonWindow(Pebbles.MainWindow):
         self.graph_calc = GraphingCalculator(self._memory)
         self.graph_calc.set_plot_ready_callback(self._graph_ready_cb)
 
+        self.programmer_calc = ProgrammersCalculator(self._memory)
+
         self.connect("on_evaluate", self._evaluate)
         self.connect("on_memory_recall", self._memory_recall)
         self.connect("on_memory_clear", self._memory_clear)
@@ -45,8 +48,15 @@ class PythonWindow(Pebbles.MainWindow):
         self.connect("on_stat_export", self._on_stat_export_cb)
         self.connect("on_get_last_result", self._on_query_last_result_cb)
         self.connect("on_render_graph", self._on_render_graph)
+        self.connect("on_graph_export", self._on_graph_export)
         self.connect("on_convert_value", self._on_convert_value_cb)
         self.connect("on_process_date_difference", self._on_date_diff_cb)
+        self.connect("on_programmer_set_last_token", self._on_prog_set_last_token_cb)
+        self.connect("on_programmer_get_last_token", self._on_prog_get_last_token_cb)
+        self.connect("on_programmer_populate_token_array", self._on_prog_populate_token_array)
+        self.connect("on_programmer_convert_token", self._on_prog_convert_ns)
+        self.connect("on_programmer_str_to_bool_arr", self._on_prog_str_to_bool_arr)
+        self.connect("on_programmer_change_exp_num_sys", self._on_prog_change_exp_num_sys)
 
 
     def _evaluate(self, _, data:str):
@@ -87,12 +97,20 @@ class PythonWindow(Pebbles.MainWindow):
                 ), Pebbles.Context.STATISTICS)
         elif data_dict['context'] == Pebbles.Context.CALCULUS:
             cal_calc = CalculusCalculator(data, self._memory)
-            result_data,result = cal_calc.evaluate()
+            result_data, result = cal_calc.evaluate()
             self._commit_to_memory(result, Pebbles.Context.CALCULUS, data_dict['memoryOp'])
             self.show_history(self._memory.get_views(
                 format_func=ScientificCalculator.format,
                 context=Pebbles.Context.CALCULUS
             ), Pebbles.Context.CALCULUS)
+        elif data_dict['context'] == Pebbles.Context.PROGRAMMER:
+            result_data, result = self.programmer_calc.evaluate(
+                data_dict['numberSystem'], True)
+            self._commit_to_memory(result, Pebbles.Context.PROGRAMMER, data_dict['memoryOp'])
+            self.show_history(self._memory.get_views(
+                format_func=None,
+                context=Pebbles.Context.PROGRAMMER
+            ), Pebbles.Context.PROGRAMMER)
         else:
             return
 
@@ -133,14 +151,26 @@ class PythonWindow(Pebbles.MainWindow):
                     format_func=ScientificCalculator.format,
                     context=context
                 ), context)
+        elif context == Pebbles.Context.PROGRAMMER:
+            self.show_history(self._memory.get_views(
+                    format_func=None,
+                    context=context
+                ), context)
 
 
     def _history_insert_cb(self, _, item_id:int):
         item = self._memory.get_history_by_id(item_id)
         context = item.get_context()
         result = item.get_result()
-        if context in [Pebbles.Context.SCIENTIFIC, Pebbles.Context.STATISTICS]:
+        if context in [
+            Pebbles.Context.SCIENTIFIC,
+            Pebbles.Context.STATISTICS,
+            Pebbles.Context.CALCULUS
+        ]:
             return ScientificCalculator.format(result)
+
+        if context == Pebbles.Context.PROGRAMMER:
+            return result
         return ''
 
 
@@ -202,6 +232,10 @@ Attempting to make a table with the previous series.")
         self.graph_calc.set_plot_params_and_plot (payload)
 
 
+    def _on_graph_export(self, _, path):
+        self.graph_calc.export(path)
+
+
     def _graph_ready_cb(self, pixbuf, valid):
         self.on_render_ready(pixbuf, valid)
 
@@ -226,6 +260,9 @@ Attempting to make a table with the previous series.")
         elif context == Pebbles.Context.STATISTICS:
             answer = self._memory.recall(context)
             formatted_answer = f'{Utils.format_float(answer)}'
+        elif context == Pebbles.Context.PROGRAMMER:
+            answer = self._memory.recall(context)
+            formatted_answer = f'{answer}'
         else:
             answer = float(self._memory.recall(context))
             formatted_answer = f'{Utils.format_float(answer)}'
@@ -249,3 +286,32 @@ Attempting to make a table with the previous series.")
     def _on_date_diff_cb(self, _, from_date, to_date):
         date_calculator = DateCalculator()
         return date_calculator.evaluate_difference(from_date, to_date)
+
+
+    # Programmer Mode
+    def _on_prog_set_last_token_cb(self, _, arr, arr_len, wrd_length, number_system):
+        return self.programmer_calc.set_last_token(arr, wrd_length, number_system)
+
+
+    def _on_prog_get_last_token_cb(self, _):
+        return self.programmer_calc.get_last_token().to_string()
+
+
+    def _on_prog_populate_token_array(self, _, exp, number_system):
+        self.programmer_calc.populate_token_array(exp, number_system)
+
+    # pylint: disable=too-many-arguments, too-many-positional-arguments
+    def _on_prog_convert_ns(self, _, exp, ns_a, ns_b, wrd_length, format_bin=False):
+        self.programmer_calc.wrd_length = wrd_length
+        return self.programmer_calc.convert_number_system(exp, ns_a, ns_b, format_bin)
+    # pylint: enable=too-many-arguments, too-many-positional-arguments
+
+
+    def _on_prog_str_to_bool_arr(self, _, s, ns, wrd_length):
+        self.programmer_calc.wrd_length = wrd_length
+        arr = self.programmer_calc.string_to_bool_array(s, ns)
+        return "".join(['1' if x else '0' for x in arr])
+
+    def _on_prog_change_exp_num_sys(self, _, s, ns, wrd_length):
+        self.programmer_calc.wrd_length = wrd_length
+        return self.programmer_calc.set_number_system(s, ns)

@@ -9,6 +9,7 @@ from gi.repository import Pebbles
 from pebbles.core.scientific_calculator import ScientificCalculator
 from pebbles.core.tokenizer import Tokenizer
 from pebbles.core.memory import ContextualMemory
+from pebbles.core.utils import Utils
 
 
 class CalculusCalculator:
@@ -25,7 +26,7 @@ class CalculusCalculator:
             data,
             self.memory,
             Tokenizer.SCIENTIFIC_TOKEN_MAP,
-            gen_hist=False
+            override_context=Pebbles.Context.CALCULUS
         )
 
 
@@ -37,9 +38,16 @@ class CalculusCalculator:
             answer = self.process()
             formatted_answer = ScientificCalculator.format(answer)
 
+            input_expr = self.input_dict['input'].lower()
+            if 'sans' in input_expr:
+                input_expr = input_expr.replace('sans', self._get_last_answer(global_scope=True))
+            elif 'ans' in input_expr:
+                input_expr = input_expr.replace('ans', self._get_last_answer())
+
+
             self.memory.push_history(
                 CalculusCalculator.MODE,
-                self.input_dict['input'],
+                input_expr,
                 str(answer),
                 {'metadata_1': self.angle_mode,
                  'metadata_2': 1 if self.integral_mode else 0,
@@ -102,3 +110,10 @@ class CalculusCalculator:
             result = (0 - f_plus2h + 8*f_plus1h - 8*f_minus1h + f_minus2h) / (12 * h)
 
         return result
+
+
+    def _get_last_answer (self, global_scope=False):
+        context = Pebbles.Context.GLOBAL if global_scope else CalculusCalculator.MODE
+        last_ans, _, _, _, _, _ = self.memory.get_last_result(context)
+        last_ans = ScientificCalculator.parse(last_ans)
+        return Utils.format_float(last_ans) if last_ans is not None else '0'

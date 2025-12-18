@@ -94,6 +94,7 @@ namespace Pebbles {
 
                     end_api_call ("");
                     settings.forex_api_last_updated = (int) root_object.get_int_member ("timestamp");
+                    last_updated = new DateTime.from_unix_utc (settings.forex_api_last_updated);
                     additional_label.label = last_updated.to_local ().format (_("Last updated: %B %d, %Y %I:%M %p"));
                     from_entry.text = "1";
                     from_entry.grab_focus_without_selecting ();
@@ -125,6 +126,7 @@ namespace Pebbles {
         }
 
         private void load_from_cache () {
+            print ("Loaded currency data from cache.\n");
             var cache = Pebbles.Settings.get_default ().forex_rates_cache;
             for (int i = 0; i < cache.length; i++) {
                 conversion_factors[i] = double.parse (cache[i]);

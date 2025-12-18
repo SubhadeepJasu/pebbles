@@ -51,7 +51,7 @@ class GraphingCalculator:
                         }),
                         self.memory,
                         Tokenizer.GRAPHING_TOKEN_MAP,
-                        gen_hist=False
+                        override_context=Pebbles.Context.GRAPHING
                     )
                 })
 
@@ -97,7 +97,7 @@ class GraphingCalculator:
         self.plot_thread.start()
 
 
-    def _plot(self):
+    def _plot(self, path=''):
         try:
             with self.plot_lock:
                 steps = [6, 5, 4, 3, 1]
@@ -112,18 +112,11 @@ class GraphingCalculator:
                         return
 
                     fig, ax = self._setup_plot(width, height, dpi, step_size)
-
-                    if self.plot_params['xScaling'] == 1:
-                        x_values = np.logspace(
-                            self.plot_params['xMin'],
-                            self.plot_params['xMax'], width // (step_size ** 2)
-                        )
-                        x_values = np.log10(x_values[x_values > 0])
-                    else:
-                        x_values = np.linspace(
-                            self.plot_params['xMin'],
-                            self.plot_params['xMax'], width // (step_size ** 2)
-                        )
+                    x_values = self._generate_plot_x_values(
+                        self.plot_params['xScaling'],
+                        width,
+                        step_size
+                    )
 
                     if self.plot_params['yScaling'] == 1:
                         x_values = x_values[x_values != 0]
@@ -157,13 +150,41 @@ class GraphingCalculator:
                         self._draw_legend(ax)
                         self._configure_labels(ax)
 
-                    pixbuf = Utils.plot_to_pixbuf(plt, fig, (width, height), dpi, step_size)
+                    if path != '':
+                        Utils.fig_save_path = path
+                        Utils.plot_to_image(plt, fig, (width, height), dpi, step_size)
+                    else:
+                        pixbuf = Utils.plot_to_pixbuf(plt, fig, (width, height), dpi, step_size)
 
-                    if self.on_plot_ready:
-                        self.on_plot_ready(pixbuf, True)
+                        if self.on_plot_ready:
+                            self.on_plot_ready(pixbuf, True)
 
         except RuntimeError:
             pass
+
+
+    def _generate_plot_x_values(self, x_scaling, width, step_size):
+        if x_scaling == 1:
+            x_values = np.logspace(
+                self.plot_params['xMin'],
+                self.plot_params['xMax'], width // (step_size ** 2)
+            )
+            x_values = np.log10(x_values[x_values > 0])
+        else:
+            x_values = np.linspace(
+                self.plot_params['xMin'],
+                self.plot_params['xMax'], width // (step_size ** 2)
+            )
+
+        return x_values
+
+    def export(self, path:str):
+        """
+        Export the current plot to a PNG file.
+        """
+        if not path.lower().endswith('png'):
+            path += ".png"
+        self._plot(path)
 
 
     def _setup_plot(self, width, height, dpi, step_size):
@@ -225,9 +246,12 @@ class GraphingCalculator:
         _y_r_values = []
         for t in v_params[0]:
             pro['calc'].set_substitute_value('X', t, zero_limit=True)
-            r = pro['calc'].process()
-            _x_r_values.append(r * np.cos(t))
-            _y_r_values.append(r * np.sin(t))
+            try:
+                r = pro['calc'].process()
+                _x_r_values.append(r * np.cos(t))
+                _y_r_values.append(r * np.sin(t))
+            except ArithmeticError:
+                pass
 
         ax.plot(
             _x_r_values,
@@ -243,7 +267,10 @@ class GraphingCalculator:
         y_values = []
         for x in v_params[0]:
             pro['calc'].set_substitute_value('X', x, zero_limit=True)
-            y_values.append(pro['calc'].process())
+            try:
+                y_values.append(pro['calc'].process())
+            except ArithmeticError:
+                pass
 
         if v_params[3] == 1:
             y_values = np.log10(y_values)

@@ -48,6 +48,7 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
         setters {
             scientific_view.collapsed: true;
             statistics_view.collapsed: true;
+            programmer_view.collapsed: true;
             graphing_view.collapsed: true;
             calculus_view.collapsed: true;
             conv_length_view.collapsed: true;
@@ -111,10 +112,13 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                     "nav-item"
                                 ]
 
-                                ListBox nav_list {
+                                ListBox nav_list_calc {
+                                    name: "calculator-list";
                                     styles [
                                         "sidebar-box"
                                     ]
+
+                                    row-selected => $on_list_select();
 
                                     ListBoxRow {
                                         Box {
@@ -166,6 +170,8 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                                 halign: start;
                                             }
                                         }
+
+                                        action-name: "win.open_programmer_mode";
                                     }
 
                                     ListBoxRow {
@@ -232,10 +238,13 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                     "nav-item"
                                 ]
 
-                                ListBox {
+                                ListBox nav_list_conv {
+                                    name: "converter-list";
                                     styles [
                                         "sidebar-box"
                                     ]
+
+                                    row-selected => $on_list_select();
 
                                     ListBoxRow {
                                         Box {
@@ -522,9 +531,35 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                 spacing: 8;
                             }
 
-                            Box statistics_header_box {
-                                spacing: 4;
+                            Box programmer_header_box {
                                 orientation: horizontal;
+                                styles ["linked"]
+
+                                $PebblesButton wrd_length {
+                                    label_text: "QWD";
+                                    tooltip_desc: _("Switch word length");
+                                    accel_markup: "F8";
+                                    width-request: 64;
+                                    focusable: false;
+                                    focus-on-click: false;
+                                    can-focus: false;
+
+                                    clicked => $on_change_mode();
+                                }
+
+                                ToggleButton bit_grid_toggle {
+                                    icon-name: "binary-grid-symbolic";
+                                    tooltip-text: _("Bit toggle grid");
+                                    focus-on-click: false;
+                                    can-focus: false;
+
+                                    toggled => $show_bit_grid();
+                                }
+                            }
+
+                            Box statistics_header_box {
+                                orientation: horizontal;
+                                styles ["linked"]
 
                                 $PebblesButton import_button {
                                     icon: "document-import-symbolic";
@@ -666,8 +701,15 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
 
                         Adw.ViewStackPage {
                             name: bind template.context_calculus;
-                            child: $PebblesCalculusView  calculus_view {
+                            child: $PebblesCalculusView calculus_view {
                                 context: bind template.context_calculus;
+                            };
+                        }
+
+                        Adw.ViewStackPage {
+                            name: bind template.context_programmer;
+                            child: $PebblesProgrammerView programmer_view {
+                                context: bind template.context_programmer;
                             };
                         }
 
@@ -680,105 +722,105 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
 
                         Adw.ViewStackPage {
                             name: bind template.context_graphing;
-                            child: $PebblesGraphingView  graphing_view {
+                            child: $PebblesGraphingView graphing_view {
                                 context: bind template.context_graphing;
                             };
                         }
 
                         Adw.ViewStackPage {
                             name: bind template.context_date;
-                            child: $PebblesDateView  date_view {
+                            child: $PebblesDateView date_view {
                                 context: bind template.context_date;
                             };
                         }
 
                         Adw.ViewStackPage {
                             name: bind template.context_conv_length;
-                            child: $PebblesConvLengthView  conv_length_view {
+                            child: $PebblesConvLengthView conv_length_view {
                                 context: bind template.context_conv_length;
                             };
                         }
 
                         Adw.ViewStackPage {
                             name: bind template.context_conv_area;
-                            child: $PebblesConvAreaView  conv_area_view {
+                            child: $PebblesConvAreaView conv_area_view {
                                 context: bind template.context_conv_area;
                             };
                         }
 
                         Adw.ViewStackPage {
                             name: bind template.context_conv_volume;
-                            child: $PebblesConvVolumeView  conv_volume_view {
+                            child: $PebblesConvVolumeView conv_volume_view {
                                 context: bind template.context_conv_volume;
                             };
                         }
 
                         Adw.ViewStackPage {
                             name: bind template.context_conv_time;
-                            child: $PebblesConvTimeView  conv_time_view {
+                            child: $PebblesConvTimeView conv_time_view {
                                 context: bind template.context_conv_time;
                             };
                         }
 
                         Adw.ViewStackPage {
                             name: bind template.context_conv_angle;
-                            child: $PebblesConvAngleView  conv_angle_view {
+                            child: $PebblesConvAngleView conv_angle_view {
                                 context: bind template.context_conv_angle;
                             };
                         }
 
                         Adw.ViewStackPage {
                             name: bind template.context_conv_speed;
-                            child: $PebblesConvSpeedView  conv_speed_view {
+                            child: $PebblesConvSpeedView conv_speed_view {
                                 context: bind template.context_conv_speed;
                             };
                         }
 
                         Adw.ViewStackPage {
                             name: bind template.context_conv_mass;
-                            child: $PebblesConvMassView  conv_mass_view {
+                            child: $PebblesConvMassView conv_mass_view {
                                 context: bind template.context_conv_mass;
                             };
                         }
 
                         Adw.ViewStackPage {
                             name: bind template.context_conv_pressure;
-                            child: $PebblesConvPressureView  conv_pressure_view {
+                            child: $PebblesConvPressureView conv_pressure_view {
                                 context: bind template.context_conv_pressure;
                             };
                         }
 
                         Adw.ViewStackPage {
                             name: bind template.context_conv_energy;
-                            child: $PebblesConvEnergyView  conv_energy_view {
+                            child: $PebblesConvEnergyView conv_energy_view {
                                 context: bind template.context_conv_energy;
                             };
                         }
 
                         Adw.ViewStackPage {
                             name: bind template.context_conv_power;
-                            child: $PebblesConvPowerView  conv_power_view {
+                            child: $PebblesConvPowerView conv_power_view {
                                 context: bind template.context_conv_power;
                             };
                         }
 
                         Adw.ViewStackPage {
                             name: bind template.context_conv_temp;
-                            child: $PebblesConvTempView  conv_temp_view {
+                            child: $PebblesConvTempView conv_temp_view {
                                 context: bind template.context_conv_temp;
                             };
                         }
 
                         Adw.ViewStackPage {
                             name: bind template.context_conv_data;
-                            child: $PebblesConvDataView  conv_data_view {
+                            child: $PebblesConvDataView conv_data_view {
                                 context: bind template.context_conv_data;
                             };
                         }
 
                         Adw.ViewStackPage {
                             name: bind template.context_conv_currency;
-                            child: $PebblesConvCurrencyView  conv_currency_view {
+                            child: $PebblesConvCurrencyView conv_currency_view {
                                 context: bind template.context_conv_currency;
 
                                 start_api_call => $on_start_api_call();

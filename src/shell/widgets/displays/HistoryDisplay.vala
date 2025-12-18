@@ -14,7 +14,7 @@ namespace Pebbles {
             realize.connect (() => {
                 Timeout.add_once (100, () => {
                     var win = (MainWindow) get_ancestor (typeof (MainWindow));
-                    print ("Refreshing history of %s\n", context);
+                    print ("DEBUG: Refreshing history of %s\n", context);
                     win.on_history_view (context);
                 });
             });
@@ -37,6 +37,9 @@ namespace Pebbles {
                     if (viewport != null) {
                         var v_adjustment = viewport.get_vadjustment ();
                         v_adjustment.value = v_adjustment.upper - v_adjustment.page_size;
+
+                        var h_adjustment = viewport.get_hadjustment ();
+                        h_adjustment.value = h_adjustment.upper - h_adjustment.page_size;
                     }
 
                     return Source.REMOVE;

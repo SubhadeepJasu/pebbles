@@ -256,6 +256,14 @@ namespace Pebbles {
             date_formatted.day = (start_date.days_between (end_date)) % 7;
             return date_formatted;
         }
+
+        public override void focus_main () {
+            if (selected_view == "date_diff_view") {
+                datepicker_diff_from.grab_focus ();
+            } else {
+                datepicker_starting_from.grab_focus ();
+            }
+        }
     }
 
     private class DateFormatted {

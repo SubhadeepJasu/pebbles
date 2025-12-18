@@ -72,9 +72,6 @@ class Converter:
     def _c_2_f(self, cel):
         return (cel * 9 / 5) + 32
 
-    def _c_2_f(self, cel):
-        return (cel * 9 / 5) + 32
-
     def _c_2_k(self, cel):
         return cel + 273.15
 

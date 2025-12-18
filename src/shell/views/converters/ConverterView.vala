@@ -50,6 +50,7 @@ namespace Pebbles {
             from_entry_focus_controller.leave.connect (() => {
                 from_entry.add_css_class ("conversion-text-box-focused");
             });
+            focused_entry = from_entry;
 
             to_entry_focus_controller = new Gtk.EventControllerFocus ();
             to_entry.add_controller (to_entry_focus_controller);
@@ -105,8 +106,15 @@ namespace Pebbles {
                 return false;
             });
 
-            realize.connect (() => {
+            realize.connect_after (() => {
                 load_state (settings);
+
+                var window = (MainWindow) get_ancestor (typeof (MainWindow));
+                window.on_all_clear.connect ((ctx) => {
+                    if (ctx == context) {
+                        on_all_clear ();
+                    }
+                });
             });
         }
 
@@ -232,6 +240,7 @@ namespace Pebbles {
             focused_entry.set_position ((int) focused_entry.text_length);
             init= true;
         }
+
         protected void save_state (Pebbles.Settings settings) {
             if (!init) {
                 return;
@@ -241,6 +250,13 @@ namespace Pebbles {
             settings.set_string (key_prefix + "-from", from_entry.text);
             settings.set_uint (key_prefix + "-from-unit", from_unit.selected);
             settings.set_uint (key_prefix + "-to-unit", to_unit.selected);
+        }
+
+        public override void focus_main () {
+            Idle.add_once (() => {
+                focused_entry.grab_focus_without_selecting ();
+                focused_entry.set_position ((int) focused_entry.text_length);
+            });
         }
     }
 }

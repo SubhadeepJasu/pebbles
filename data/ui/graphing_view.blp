@@ -716,8 +716,8 @@ template $PebblesGraphingView: $PebblesView {
                         }
 
                         $PebblesButton memory_recall_button {
-                            label_text: _("GMR");
-                            tooltip_desc: _("Recall value from Global Memory");
+                            label_text: _("SMR");
+                            tooltip_desc: _("Recall value from Shared Memory");
                             accel_markup: "F5";
                             focus-on-click: false;
                             key: "F5";
@@ -867,8 +867,8 @@ template $PebblesGraphingView: $PebblesView {
                         }
 
                         $PebblesButton last_answer_button {
-                            label_text: "GAns";
-                            tooltip_desc: _("Insert global last answer");
+                            label_text: "SAns";
+                            tooltip_desc: _("Insert shared last answer");
                             accel_markup: "F7";
                             focus-on-click: false;
                             key: "F7";
@@ -999,6 +999,8 @@ template $PebblesGraphingView: $PebblesView {
                         icon: "document-export-symbolic";
                         tooltip_desc: _("Export figure as image");
                         focus-on-click: false;
+
+                        clicked => $export_image();
                     }
                 }
             }

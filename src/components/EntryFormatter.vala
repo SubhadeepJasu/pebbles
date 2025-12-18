@@ -1,12 +1,108 @@
 namespace Pebbles {
+    /**
+     * Replacement modes for mathematical symbols in the input.
+     */
+    public enum ReplacementMode {
+        /** Scientific mode for mathematical expressions */
+        SCIENTIFIC,
+        /** Programmer mode for logical expressions */
+        PROGRAMMER
+    }
+
+    /**
+     * The EntryFormatter class is responsible for formatting user input in a Gtk.Entry widget.
+     * It applies modular replacement rules to convert simple symbol inputs into their corresponding
+     * mathematical or logical representations based on a specified ReplacementMode
+     * (`SCIENTIFIC` or `PROGRAMMER`).
+     */
     public class EntryFormatter {
+        // Replacement rules for scientific mode
+        private const string REPLACEMENT_RULES_SCIENTIFIC = """
+        {
+            "x": {"radial": "θ", "default": "x", "len_gain": 0},
+            "+": {"default": " + ", "len_gain": 2},
+            "−": {"default": " − ", "len_gain": 2},
+            "-": {"default": " − ", "len_gain": 2},
+            "÷": {"default": " ÷ ", "len_gain": 2},
+            "/": {"default": " ÷ ", "len_gain": 2},
+            "×": {"default": " × ", "len_gain": 2, "double": " ^ "},
+            "*": {"default": " × ", "len_gain": 2, "double": " ^ "},
+            "s": {"default": "sin ", "len_gain": 3},
+            "S": {"default": "isin ", "len_gain": 4},
+            "h": {"default": "sinh ", "len_gain": 4},
+            "H": {"default": "isinh ", "len_gain": 5},
+            "c": {"default": "cos ", "len_gain": 3},
+            "C": {"default": "icos ", "len_gain": 4},
+            "o": {"default": "cosh ", "len_gain": 4},
+            "O": {"default": "icosh ", "len_gain": 5},
+            "t": {"default": "tan ", "len_gain": 3},
+            "T": {"default": "itan ", "len_gain": 4},
+            "a": {"default": "tanh ", "len_gain": 4},
+            "A": {"default": "itanh ", "len_gain": 5},
+            "q": {"default": " ^ ", "len_gain": 2},
+            "Q": {"default": "√", "len_gain": 0},
+            "z": {"default": "10 ^ ", "len_gain": 5},
+            "Z": {"default": "e ^ ", "len_gain": 3},
+            "F": {"default": "!", "len_gain": 0},
+            "f": {"default": "!", "len_gain": 0},
+            "m": {"default": " mod ", "len_gain": 4},
+            "M": {"default": " log ", "len_gain": 4},
+            "l": {"default": "10 log ", "len_gain": 5},
+            "L": {"default": "ln ", "len_gain": 5},
+            "p": {"default": "P", "len_gain": 0},
+            "P": {"default": "C", "len_gain": 0}
+        }
+        """;
+
+        // Replacement rules for programmer mode
+        private const string REPLACEMENT_RULES_PROGRAMMER = """
+        {
+            "@": {"default": "ans", "len_gain": 2},
+            "#": {"default": "sans", "len_gain": 3},
+            "o": {"default": " or ", "len_gain": 3},
+            "O": {"default": " nor ", "len_gain": 4},
+            "n": {"default": " and ", "len_gain": 4},
+            "N": {"default": " nand ", "len_gain": 5},
+            "x": {"default": " xor ", "len_gain": 4},
+            "X": {"default": " xnor ", "len_gain": 5},
+            "t": {"default": " not ", "len_gain": 4},
+            "T": {"default": " mod ", "len_gain": 4},
+            "m": {"default": " mod ", "len_gain": 4},
+            "M": {"default": " mod ", "len_gain": 4},
+            "+": {"default": " + ", "len_gain": 2},
+            "-": {"default": " − ", "len_gain": 2},
+            "−": {"default": " − ", "len_gain": 2},
+            "×": {"default": " × ", "len_gain": 2},
+            "*": {"default": " × ", "len_gain": 2},
+            "÷": {"default": " ÷ ", "len_gain": 2},
+            "/": {"default": " ÷ ", "len_gain": 2},
+            ",": {"default": " lsh ", "len_gain": 4},
+            ".": {"default": " rsh ", "len_gain": 4},
+            "<": {"default": " rsh ", "len_gain": 4},
+            ">": {"default": " rsh ", "len_gain": 4},
+            "l": {"default": " lsh ", "len_gain": 4},
+            "L": {"default": " rsh ", "len_gain": 4},
+            "(": {"default": "(", "len_gain": 0},
+            ")": {"default": ")", "len_gain": 0}
+        }
+        """;
+
         public unowned Gtk.Entry main_entry;
         public bool polar_mode;
         private bool auto_entry;
         public bool disabled { get; set; }
+        public ReplacementMode replacement_mode { get; set; }
 
-        public EntryFormatter (Gtk.Entry entry) {
+        public signal bool on_input (string full_expression, int input_length, string input_char);
+
+        /**
+         * Constructor for EntryFormatter.
+         * @param entry The Gtk.Entry widget to format
+         * @param mode The ReplacementMode to use (default is SCIENTIFIC)
+         */
+        public EntryFormatter (Gtk.Entry entry, ReplacementMode mode = ReplacementMode.SCIENTIFIC) {
             this.main_entry = entry;
+            this.replacement_mode = mode;
 
             // TODO: Do token check before inserting any character
             main_entry.get_delegate ().insert_text.connect_after ((ch, length) => {
@@ -32,6 +128,7 @@ namespace Pebbles {
                                 main_entry.text,
                                 main_entry.text_length,
                                 main_entry.get_position (),
+                                ch,
                                 polar_mode
                             );
                         return Source.REMOVE;
@@ -51,15 +148,21 @@ namespace Pebbles {
                         main_entry.set_position ((int) main_entry.text_length);
                     }
 
+                    on_input (main_entry.text, (int) main_entry.text_length, "");
+
                     return Source.REMOVE;
                 });
             });
         }
 
         public void replace_inserted_character (
-            string text, uint text_length, int caret_pos, bool radial_mode = false) {
+            string text,
+            uint text_length,
+            int caret_pos,
+            string current_symbol,
+            bool radial_mode = false
+        ) {
             var symbols = split_utf8 (text, text_length);
-            var current_symbol = symbols[caret_pos];
             if (current_symbol == null) {
                 return;
             }
@@ -72,8 +175,6 @@ namespace Pebbles {
                     break;
                 }
             }
-
-            //  print ("%s, %s\n", previous_symbol, current_symbol);
 
             bool double_replaced;
             int len_gain;
@@ -92,11 +193,20 @@ namespace Pebbles {
             }
 
             auto_entry = true;
-            main_entry.text = string.joinv ("", symbols);
-            if (double_replaced) {
-                main_entry.set_position (caret_pos - 1);
+            var main_entry_text = string.joinv ("", symbols);
+
+            if (!on_input (main_entry_text, (int) main_entry.text_length, current_symbol)) {
+                main_entry.text = main_entry_text;
+
+                if (double_replaced) {
+                    main_entry.set_position (caret_pos - 1);
+                } else {
+                    main_entry.set_position (caret_pos + len_gain);
+                }
             } else {
-                main_entry.set_position (caret_pos + len_gain);
+                symbols[caret_pos] = "";
+                main_entry.text = string.joinv ("", symbols);
+                main_entry.set_position (caret_pos - 1);
             }
             auto_entry = false;
         }
@@ -107,7 +217,7 @@ namespace Pebbles {
 
             var sb = new StringBuilder ();
             for (int i = 0; i <= text.length; i++) {
-                if ((text[i] & 0xC0) != 0x80) { // Prevent commiting if its a continuation bit
+                if ((text[i] & 0xC0) != 0x80) { // Prevent commiting if it's a continuation bit
                     result[j++] = sb.str + "";
                     sb.erase (0, sb.len);
                 }
@@ -125,104 +235,52 @@ namespace Pebbles {
             string previous_symbol,
             bool radial_mode,
             out bool double_replaced,
-            out int len_gain
-        ) {
+            out int len_gain) {
             double_replaced = false;
-            switch (current_symbol) {
-                case "x":
-                    len_gain = 0;
-                    if (radial_mode) {
-                        return "θ";
-                    } else {
-                        return "x";
-                    }
-                case "+":
-                    len_gain = 2;
-                    return " + ";
-                case "−":
-                case "-":
-                    len_gain = 2;
-                    return " − ";
-                case "÷":
-                case "/":
-                    len_gain = 2;
-                    return " ÷ ";
-                case "×":
-                case "*":
-                    len_gain = 2;
-                    if (previous_symbol == "×") {
-                        double_replaced = true;
-                        return " ^ ";
-                    }
+            var rules = new Json.Parser ();
+            try {
+                // Select rules based on replacement_mode
+                string rule_json = (replacement_mode == ReplacementMode.PROGRAMMER)
+                    ? REPLACEMENT_RULES_PROGRAMMER
+                    : REPLACEMENT_RULES_SCIENTIFIC;
 
-                    return " × ";
-                case "s":
-                    len_gain = 3;
-                    return "sin ";
-                case "S":
-                    len_gain = 4;
-                    return "isin ";
-                case "h":
-                    len_gain = 4;
-                    return "sinh ";
-                case "H":
-                    len_gain = 5;
-                    return "isinh ";
-                case "c":
-                    len_gain = 3;
-                    return "cos ";
-                case "C":
-                    len_gain = 4;
-                    return "icos ";
-                case "o":
-                    len_gain = 4;
-                    return "cosh ";
-                case "O":
-                    len_gain = 5;
-                    return "icosh ";
-                case "t":
-                    len_gain = 3;
-                    return "tan ";
-                case "T":
-                    len_gain = 4;
-                    return "itan ";
-                case "a":
-                    len_gain = 4;
-                    return "tanh ";
-                case "A":
-                    len_gain = 5;
-                    return "itanh ";
-                case "q":
-                    len_gain = 2;
-                    return " ^ ";
-                case "Q":
-                    len_gain = 0;
-                    return "√";
-                case "z":
-                    len_gain = 5;
-                    return "10 ^ ";
-                case "Z":
-                    len_gain = 3;
-                    return "e ^ ";
-                case "F":
-                case "f":
-                    len_gain = 0;
-                    return "!";
-                case "m":
-                    len_gain = 4;
-                    return " mod ";
-                case "M":
-                    len_gain = 4;
-                    return " log ";
-                case "l":
-                    len_gain = 5;
-                    return "10 log ";
-                case "L":
-                    len_gain = 5;
-                    return "ln ";
-                default:
+                rules.load_from_data (rule_json.strip (), -1);
+                var obj = rules.get_root ().get_object ();
+                if (!obj.has_member (current_symbol)) {
                     len_gain = 0;
                     return current_symbol;
+                }
+                var rule = obj.get_object_member (current_symbol);
+
+                var to_be_replaced_with = rule.get_string_member ("default");
+                if (rule.has_member ("double") && previous_symbol.strip () == to_be_replaced_with.strip ()) {
+                    len_gain = (int) rule.get_int_member ("len_gain");
+                    double_replaced = true;
+                    return rule.get_string_member ("double");
+                }
+                if (current_symbol == "x" && radial_mode && rule.has_member ("radial")) {
+                    len_gain = (int) rule.get_int_member ("len_gain");
+                    return rule.get_string_member ("radial");
+                }
+                len_gain = (int) rule.get_int_member ("len_gain");
+                return to_be_replaced_with;
+            } catch (Error e) {
+                len_gain = 0;
+                return current_symbol;
+            }
+        }
+
+        public bool is_rule_present (string input_symbol) {
+            var rules = new Json.Parser ();
+            try {
+                string rule_json = (replacement_mode == ReplacementMode.PROGRAMMER)
+                    ? REPLACEMENT_RULES_PROGRAMMER
+                    : REPLACEMENT_RULES_SCIENTIFIC;
+                rules.load_from_data (rule_json.strip (), -1);
+                var obj = rules.get_root ().get_object ();
+                return obj.has_member (input_symbol);
+            } catch (Error e) {
+                return false;
             }
         }
     }

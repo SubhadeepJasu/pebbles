@@ -568,7 +568,7 @@ namespace Pebbles {
         public void write (string str) {
             if (selected_cell != null) {
                 int position = selected_cell.get_position ();
-                selected_cell.do_insert_text (str, str.length, ref position);
+                selected_cell.do_insert_text (str, -1, ref position);
                 selected_cell.set_position (position);
             }
         }
@@ -593,10 +593,7 @@ namespace Pebbles {
 
         [GtkCallback]
         protected void insert_from_history (string? text) {
-            if (selected_cell != null) {
-                selected_cell.set_text (selected_cell.get_text () + text);
-                selected_cell.set_position ((int) selected_cell.text_length);
-            }
+            write (text);
         }
 
         [GtkCallback]
@@ -612,6 +609,12 @@ namespace Pebbles {
 
             refresh_all_cells (msl);
             main_label.set_text (data.result);
+        }
+
+        public void focus_default () {
+            if (selected_cell != null) {
+                focus_cell (selected_cell, true);
+            }
         }
     }
 }

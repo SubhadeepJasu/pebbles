@@ -65,6 +65,12 @@ namespace Pebbles {
                         focused_entry.grab_focus_without_selecting ();
                     }
                 });
+
+                window.on_all_clear.connect ((ctx) => {
+                    if (ctx == context) {
+                        all_clear ();
+                    }
+                });
             });
 
             set_angle_unit (settings.global_angle_unit);
@@ -102,7 +108,7 @@ namespace Pebbles {
 
         public void write (string str) {
             int position = focused_entry.get_position ();
-            focused_entry.do_insert_text (str, str.length, ref position);
+            focused_entry.do_insert_text (str, -1, ref position);
             focused_entry.set_position (position);
         }
 
@@ -128,8 +134,7 @@ namespace Pebbles {
 
         [GtkCallback]
         protected void insert_from_history (string? text) {
-            focused_entry.set_text (focused_entry.get_text () + text);
-            focused_entry.set_position ((int) focused_entry.text_length);
+            write (text);
         }
 
         [GtkCallback]

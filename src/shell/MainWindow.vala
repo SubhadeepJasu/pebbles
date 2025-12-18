@@ -31,7 +31,9 @@ namespace Pebbles {
         [GtkChild]
         private unowned Gtk.Box navigation_pane;
         [GtkChild]
-        private unowned Gtk.ListBox nav_list;
+        private unowned Gtk.ListBox nav_list_calc;
+        [GtkChild]
+        private unowned Gtk.ListBox nav_list_conv;
         [GtkChild]
         private unowned Gtk.Box main_view;
         [GtkChild]
@@ -44,6 +46,8 @@ namespace Pebbles {
         private unowned StatisticsView statistics_view;
         [GtkChild]
         private unowned GraphingView graphing_view;
+        [GtkChild]
+        private unowned ProgrammerView programmer_view;
         [GtkChild]
         private unowned CalculusView calculus_view;
         [GtkChild]
@@ -58,6 +62,12 @@ namespace Pebbles {
         private unowned Gtk.Box scientific_header_box;
         [GtkChild]
         private unowned Gtk.Box calculus_header_box;
+        [GtkChild]
+        private unowned Gtk.Box programmer_header_box;
+        [GtkChild]
+        private unowned Pebbles.Button wrd_length;
+        [GtkChild]
+        public unowned Gtk.ToggleButton bit_grid_toggle;
         [GtkChild]
         private unowned Gtk.Box statistics_header_box;
         [GtkChild]
@@ -77,6 +87,7 @@ namespace Pebbles {
         // Constant Bindings
         public string? context_scientific { get; default = Context.SCIENTIFIC; }
         public string? context_calculus { get; default = Context.CALCULUS; }
+        public string? context_programmer { get; default = Context.PROGRAMMER; }
         public string? context_statistics { get; default = Context.STATISTICS; }
         public string? context_graphing { get; default = Context.GRAPHING; }
         public string? context_date { get; default = Context.DATE; }
@@ -118,6 +129,7 @@ namespace Pebbles {
 
         public signal bool on_key_down (string? context, uint keyval);
         public signal void on_key_up (string? context, uint keyval);
+        public signal void on_all_clear (string? context);
         public signal void on_history_view (string context);
         public signal string on_history_copy (int id);
         public signal string on_history_insert (int id);
@@ -128,9 +140,18 @@ namespace Pebbles {
         public signal string on_stat_cell_query (int index, int series_index);
         public signal void on_stat_export (string? path);
         public signal void on_render_graph (GraphPayloadModel payload);
+        public signal void on_graph_export (string path);
         public signal string on_process_date_difference (DateTime from, DateTime to);
         public signal Date on_add_sub_date (DateTime start_date, int days, int month, int year, bool add);
         public signal string on_convert_value (string data);
+        public signal string on_programmer_set_last_token (
+            bool[] arr, GlobalWordLength wrd_length, NumberSystem number_system);
+        public signal void on_programmer_populate_token_array (string exp, NumberSystem number_system);
+        public signal string on_programmer_get_last_token ();
+        public signal string on_programmer_convert_token (
+            string exp, NumberSystem ns_a, NumberSystem ns_b, GlobalWordLength wrd_length, bool format_bin = false);
+        public signal string on_programmer_str_to_bool_arr (string s, NumberSystem ns, GlobalWordLength wrd_length);
+        public signal string on_programmer_change_exp_num_sys (string s, NumberSystem ns, GlobalWordLength wrd_length);
 
         construct {
             navigation_pane.add_css_class (Granite.STYLE_CLASS_SIDEBAR);
@@ -279,14 +300,20 @@ namespace Pebbles {
                 date_header_box_stack.add_named (date_add_box, "date-add-view");
                 date_header_box.append (date_header_box_stack);
             }
+
+            bit_grid_toggle.remove_css_class ("image-button");
         }
 
         private void setup_actions () {
-            nav_list.select_row (nav_list.get_row_at_index (0));
+            nav_list_calc.select_row (nav_list_calc.get_row_at_index (0));
             var open_controls_action = new SimpleAction ("controls", null);
             open_controls_action.activate.connect (() => {
                 shortcuts_dialog = new ShortcutsDialog ();
                 shortcuts_dialog.present (this);
+
+                shortcuts_dialog.closed.connect ((pspec) => {
+                    ((View) view_stack.visible_child).focus_main ();
+                });
             });
             add_action (open_controls_action);
 
@@ -294,6 +321,10 @@ namespace Pebbles {
             open_preferences_action.activate.connect (() => {
                 preferences_dialog = new PreferencesDialog ();
                 preferences_dialog.present (this);
+
+                preferences_dialog.closed.connect ((pspec) => {
+                    ((View) view_stack.visible_child).focus_main ();
+                });
             });
             add_action (open_preferences_action);
 
@@ -308,6 +339,12 @@ namespace Pebbles {
                 show_view (Context.CALCULUS, calculus_header_box);
             });
             add_action (enable_calculus_mode_action);
+
+            var enable_programmer_mode_action = new SimpleAction ("open_programmer_mode", null);
+            enable_programmer_mode_action.activate.connect (() => {
+                show_view (Context.PROGRAMMER, programmer_header_box);
+            });
+            add_action (enable_programmer_mode_action);
 
             var enable_statistics_mode_action = new SimpleAction ("open_statistics_mode", null);
             enable_statistics_mode_action.activate.connect (() => {
@@ -412,6 +449,9 @@ namespace Pebbles {
                 view_stack.set_visible_child_name (view_name);
                 ((View) view_stack.visible_child).fade_in ();
                 header_stack.set_visible_child (header_box);
+                Idle.add_once (() => {
+                    ((View) view_stack.visible_child).focus_main ();
+                });
             }
 
             split_view.show_content = true;
@@ -477,14 +517,42 @@ namespace Pebbles {
                 string json = gen.to_data (out length);
                 on_evaluate (json);
             });
+            programmer_view.on_evaluate.connect ((input, number_system, word_length, memory_op) => {
+                 var gen = new Json.Generator ();
+                var root = new Json.Node (Json.NodeType.OBJECT);
+                var object = new Json.Object ();
+                root.set_object (object);
+                gen.set_root (root);
+
+                object.set_string_member ("context", Context.PROGRAMMER);
+                object.set_string_member ("input", input);
+                object.set_int_member ("numberSystem", (int) number_system);
+                object.set_int_member ("wordLength", (int) word_length);
+                object.set_int_member ("memoryOp", memory_op);
+
+                size_t length;
+                background_tasks_append ();
+                string json = gen.to_data (out length);
+                on_evaluate (json);
+            });
         }
 
         private void setup_key_events () {
             key_event_controller = new Gtk.EventControllerKey ();
             key_event_controller.key_pressed.connect ((keyval, _, modifier) => {
                 var shift_key = keyval == Gdk.Key.Shift_L || keyval == Gdk.Key.Shift_R;
+                var lock_on = (modifier & Gdk.ModifierType.LOCK_MASK) != 0;
+                var lock_key = keyval == Gdk.Key.Caps_Lock;
                 if (shift_key) {
-                    set_shift_on (true);
+                    set_shift_on (!lock_on);
+                }
+
+                if (lock_key) {
+                    set_shift_on (!lock_on);
+                }
+
+                if (keyval == Gdk.Key.BackSpace && (modifier & Gdk.ModifierType.SHIFT_MASK) != 0) {
+                    on_all_clear (view_stack.visible_child_name);
                 }
 
                 if ((
@@ -511,12 +579,17 @@ namespace Pebbles {
                     }
                 }
 
+                if (keyval >= Gdk.Key.F3 && keyval <= Gdk.Key.F7) {
+                    return Gdk.EVENT_STOP;
+                }
+
                 return Gdk.EVENT_PROPAGATE;
             });
             key_event_controller.key_released.connect ((keyval, _, modifier) => {
                 var shift_key = keyval == Gdk.Key.Shift_L || keyval == Gdk.Key.Shift_R;
+                var lock_on = (modifier & Gdk.ModifierType.LOCK_MASK) != 0;
                 if (shift_key) {
-                    set_shift_on (false);
+                    set_shift_on (lock_on);
                 }
 
                 if ((
@@ -528,10 +601,20 @@ namespace Pebbles {
                     return;
                 }
 
-                if (keyval == Gdk.Key.F8) {
+                if (keyval == Gdk.Key.F3) {
+                    send_memory_add ();
+                } else if (keyval == Gdk.Key.F4) {
+                    send_memory_subtract ();
+                } else if (keyval == Gdk.Key.F5) {
+                    send_memory_recall ();
+                } else if (keyval == Gdk.Key.F6) {
+                    send_memory_clear ();
+                } else if (keyval == Gdk.Key.F8) {
                     on_change_mode ();
-                    return;
+                } else if (keyval == Gdk.Key.F7) {
+                    on_last_ans ();
                 }
+
 
                 on_key_up (view_stack.visible_child_name, keyval);
 
@@ -563,6 +646,16 @@ namespace Pebbles {
             graphing_view.on_memory_recall.connect (() => {
                 return on_memory_recall ("global");
             });
+
+            programmer_view.on_memory_recall.connect ((global) => {
+                var mam_val = on_memory_recall (global ? "global" : Context.PROGRAMMER);
+                mam_val = mam_val.split (".")[0];
+                return mam_val;
+            });
+
+            programmer_view.on_memory_clear.connect ((global) => {
+                on_memory_clear (global ? "global" : Context.PROGRAMMER);
+            });
         }
 
         private void load_settings () {
@@ -581,6 +674,29 @@ namespace Pebbles {
                     angle_mode.label_text = "GRA";
                     graph_angle_mode.label_text = "GRA";
                     calculus_angle_mode.label_text= "GRA";
+                    break;
+            }
+
+            set_button_word_length ();
+
+            settings.changed["global-word-length"].connect ((key) => {
+                set_button_word_length ();
+            });
+        }
+
+        private void set_button_word_length () {
+            switch (settings.global_word_length) {
+                case QWD:
+                    wrd_length.label_text = "QWD";
+                    break;
+                case DWD:
+                    wrd_length.label_text = "DWD";
+                    break;
+                case WRD:
+                    wrd_length.label_text = "WRD";
+                    break;
+                case BYT:
+                    wrd_length.label_text = "BYT";
                     break;
             }
         }
@@ -629,6 +745,10 @@ namespace Pebbles {
                                 statistics_view.show_result (result);
                             }
                             break;
+                        case Pebbles.Context.PROGRAMMER:
+                            var result = root_object.get_string_member ("result");
+                            programmer_view.show_result (result);
+                            break;
                         default:
                         break;
                     }
@@ -638,6 +758,77 @@ namespace Pebbles {
 
                 return false;
             });
+        }
+
+        private void send_memory_add () {
+            switch (view_stack.visible_child_name) {
+                case Context.SCIENTIFIC:
+                    scientific_view.on_click_memory_add ();
+                    break;
+                case Context.CALCULUS:
+                    calculus_view.on_click_memory_add ();
+                    break;
+                case Context.STATISTICS:
+                    statistics_view.on_click_memory_add ();
+                    break;
+                case Context.PROGRAMMER:
+                    programmer_view.on_click_memory_add ();
+                    break;
+            }
+        }
+
+        private void send_memory_subtract () {
+            switch (view_stack.visible_child_name) {
+                case Context.SCIENTIFIC:
+                    scientific_view.on_click_memory_subtract ();
+                    break;
+                case Context.CALCULUS:
+                    calculus_view.on_click_memory_subtract ();
+                    break;
+                case Context.STATISTICS:
+                    statistics_view.on_click_memory_subtract ();
+                    break;
+                case Context.PROGRAMMER:
+                    programmer_view.on_click_memory_subtract ();
+                    break;
+            }
+        }
+
+        private void send_memory_recall () {
+            switch (view_stack.visible_child_name) {
+                case Context.SCIENTIFIC:
+                    scientific_view.on_click_memory_recall ();
+                    break;
+                case Context.CALCULUS:
+                    calculus_view.on_click_memory_recall ();
+                    break;
+                case Context.STATISTICS:
+                    statistics_view.on_click_memory_recall ();
+                    break;
+                case Context.PROGRAMMER:
+                    programmer_view.on_click_memory_recall ();
+                    break;
+                case Context.GRAPHING:
+                    graphing_view.on_click_memory_recall ();
+                    break;
+            }
+        }
+
+        private void send_memory_clear () {
+            switch (view_stack.visible_child_name) {
+                case Context.SCIENTIFIC:
+                    scientific_view.on_click_memory_clear ();
+                    break;
+                case Context.CALCULUS:
+                    calculus_view.on_click_memory_clear ();
+                    break;
+                case Context.STATISTICS:
+                    statistics_view.on_click_memory_clear ();
+                    break;
+                case Context.PROGRAMMER:
+                    programmer_view.on_click_memory_clear ();
+                    break;
+            }
         }
 
         protected void on_plot_ready (Gdk.Pixbuf? figure, bool valid) {
@@ -657,10 +848,14 @@ namespace Pebbles {
                 case Context.STATISTICS:
                     statistics_view.set_memory_present (present);
                     break;
+                case Context.PROGRAMMER:
+                    programmer_view.set_memory_present (present);
+                    break;
                 default:
                     scientific_view.set_global_memory_present (present);
                     statistics_view.set_global_memory_present (present);
                     graphing_view.set_global_memory_present (present);
+                    programmer_view.set_global_memory_present (present);
                     break;
             }
         }
@@ -675,6 +870,9 @@ namespace Pebbles {
                     break;
                 case Context.CALCULUS:
                     calculus_view.show_history (_history);
+                    break;
+                case Context.PROGRAMMER:
+                    programmer_view.show_history (_history);
                     break;
             }
         }
@@ -703,6 +901,23 @@ namespace Pebbles {
                             break;
                     }
                     break;
+                case Context.PROGRAMMER:
+                    settings.global_word_length = (GlobalWordLength) _history.metadata.metadata_1;
+                    switch (settings.global_word_length) {
+                        case QWD:
+                            wrd_length.label_text = "QWD";
+                            break;
+                        case DWD:
+                            wrd_length.label_text = "DWD";
+                            break;
+                        case WRD:
+                            wrd_length.label_text = "WRD";
+                            break;
+                        case BYT:
+                            wrd_length.label_text = "BYT";
+                            break;
+                    }
+                    break;
             }
         }
 
@@ -715,6 +930,24 @@ namespace Pebbles {
             statistics_view.send_shift_modifier (on);
             graphing_view.send_shift_modifier (on);
             calculus_view.send_shift_modifier (on);
+            programmer_view.send_shift_modifier (on);
+        }
+
+        protected void on_last_ans () {
+            switch (view_stack.visible_child_name) {
+                case Context.SCIENTIFIC:
+                    scientific_view.on_click_last_ans ();
+                    break;
+                case Context.CALCULUS:
+                    calculus_view.on_click_last_ans ();
+                    break;
+                case Context.PROGRAMMER:
+                    programmer_view.on_click_last_ans ();
+                    break;
+                case Context.GRAPHING:
+                    graphing_view.on_click_last_ans ();
+                    break;
+            }
         }
 
         [GtkCallback]
@@ -752,6 +985,26 @@ namespace Pebbles {
                             break;
                     }
                     break;
+                case Context.PROGRAMMER:
+                    switch (settings.global_word_length) {
+                        case QWD:
+                            settings.global_word_length = DWD;
+                            wrd_length.label_text = "DWD";
+                            break;
+                        case DWD:
+                            settings.global_word_length = WRD;
+                            wrd_length.label_text = "WRD";
+                            break;
+                        case WRD:
+                            settings.global_word_length = BYT;
+                            wrd_length.label_text = "BYT";
+                            break;
+                        case BYT:
+                            settings.global_word_length = QWD;
+                            wrd_length.label_text = "QWD";
+                            break;
+                    }
+                    break;
             }
         }
 
@@ -784,6 +1037,28 @@ namespace Pebbles {
         [GtkCallback]
         protected void force_refresh_forex_data () {
             conv_currency_view.update_forex_data.begin (true);
+        }
+
+        [GtkCallback]
+        protected void show_bit_grid (Gtk.ToggleButton button) {
+            if (button.active) {
+                programmer_view.open_bit_grid ();
+            } else {
+                programmer_view.on_hide_bit_grid ();
+            }
+        }
+
+        [GtkCallback]
+        protected void on_list_select (Gtk.ListBox list_box, Gtk.ListBoxRow? row) {
+            if (list_box == nav_list_conv) {
+                nav_list_calc.unselect_all ();
+            } else {
+                nav_list_conv.unselect_all ();
+            }
+
+            if (row != null && !row.is_selected ()) {
+                row.activate ();
+            }
         }
 
         public void send_toast (string message) {
