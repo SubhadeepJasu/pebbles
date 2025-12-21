@@ -13,6 +13,8 @@ namespace Pebbles {
         construct {
             this.version = Config.VERSION;
             main_windows = new List<MainWindow> ();
+            set_accels_for_action (Actions.PREFIX + Actions.CONTROLS, {"F1"});
+            set_accels_for_action (Actions.PREFIX + Actions.PREFERENCES, {"F2"});
         }
 
         /**
