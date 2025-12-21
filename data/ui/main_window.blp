@@ -135,7 +135,7 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                             }
                                         }
 
-                                        action-name: "win.open_scientific_mode";
+                                        action-name: bind template.action_scientific;
                                     }
 
                                     ListBoxRow {
@@ -153,7 +153,7 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                             }
                                         }
 
-                                        action-name: "win.open_calculus_mode";
+                                        action-name: bind template.action_calculus;
                                     }
 
                                     ListBoxRow {
@@ -171,7 +171,7 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                             }
                                         }
 
-                                        action-name: "win.open_programmer_mode";
+                                        action-name: bind template.action_programmer;
                                     }
 
                                     ListBoxRow {
@@ -189,7 +189,7 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                             }
                                         }
 
-                                        action-name: "win.open_statistics_mode";
+                                        action-name: bind template.action_statistics;
                                     }
 
                                     ListBoxRow {
@@ -207,7 +207,7 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                             }
                                         }
 
-                                        action-name: "win.open_graphing_mode";
+                                        action-name: bind template.action_graphing;
                                     }
 
                                     ListBoxRow {
@@ -225,7 +225,7 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                             }
                                         }
 
-                                        action-name: "win.open_date_mode";
+                                        action-name: bind template.action_date;
                                     }
                                 }
                             }
@@ -261,7 +261,7 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                             }
                                         }
 
-                                        action-name: "win.open_conv_length_mode";
+                                        action-name: bind template.action_conv_length;
                                     }
 
                                     ListBoxRow {
@@ -279,7 +279,7 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                             }
                                         }
 
-                                        action-name: "win.open_conv_area_mode";
+                                        action-name: bind template.action_conv_area;
                                     }
 
                                     ListBoxRow {
@@ -297,7 +297,7 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                             }
                                         }
 
-                                        action-name: "win.open_conv_volume_mode";
+                                        action-name: bind template.action_conv_volume;
                                     }
 
                                     ListBoxRow {
@@ -315,7 +315,7 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                             }
                                         }
 
-                                        action-name: "win.open_conv_time_mode";
+                                        action-name: bind template.action_conv_time;
                                     }
 
                                     ListBoxRow {
@@ -333,7 +333,7 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                             }
                                         }
 
-                                        action-name: "win.open_conv_angle_mode";
+                                        action-name: bind template.action_conv_angle;
                                     }
 
                                     ListBoxRow {
@@ -351,7 +351,7 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                             }
                                         }
 
-                                        action-name: "win.open_conv_speed_mode";
+                                        action-name: bind template.action_conv_speed;
                                     }
 
                                     ListBoxRow {
@@ -369,7 +369,7 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                             }
                                         }
 
-                                        action-name: "win.open_conv_mass_mode";
+                                        action-name: bind template.action_conv_mass;
                                     }
 
                                     ListBoxRow {
@@ -387,7 +387,7 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                             }
                                         }
 
-                                        action-name: "win.open_conv_pressure_mode";
+                                        action-name: bind template.action_conv_pressure;
                                     }
 
                                     ListBoxRow {
@@ -405,7 +405,7 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                             }
                                         }
 
-                                        action-name: "win.open_conv_energy_mode";
+                                        action-name: bind template.action_conv_energy;
                                     }
 
                                     ListBoxRow {
@@ -423,7 +423,7 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                             }
                                         }
 
-                                        action-name: "win.open_conv_power_mode";
+                                        action-name: bind template.action_conv_power;
                                     }
 
                                     ListBoxRow {
@@ -441,7 +441,7 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                             }
                                         }
 
-                                        action-name: "win.open_conv_temp_mode";
+                                        action-name: bind template.action_conv_temp;
                                     }
 
                                     ListBoxRow {
@@ -459,7 +459,7 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                             }
                                         }
 
-                                        action-name: "win.open_conv_data_mode";
+                                        action-name: bind template.action_conv_data;
                                     }
 
                                     ListBoxRow {
@@ -477,7 +477,7 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                             }
                                         }
 
-                                        action-name: "win.open_conv_currency_mode";
+                                        action-name: bind template.action_conv_currency;
                                     }
                                 }
                             }
@@ -663,13 +663,13 @@ template $PebblesMainWindow: Adw.ApplicationWindow {
                                     $PebblesPopoverMenuItem controls_item {
                                         text: _("Controls");
                                         accel: "F1";
-                                        action_name: "win.controls";
+                                        action_name: bind template.action_controls;
                                     }
 
                                     $PebblesPopoverMenuItem preferences_item {
                                         text: _("Preferences");
                                         accel: "F2";
-                                        action_name: "win.preferences";
+                                        action_name: bind template.action_preferences;
                                     }
 
                                     Separator {

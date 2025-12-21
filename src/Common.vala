@@ -1,7 +1,33 @@
 namespace Pebbles {
+    public class Actions {
+        public const string PREFIX = "win.";
+        public const string CONTROLS = "controls";
+        public const string PREFERENCES = "preferences";
+        public const string SCIENTIFIC = "scientific";
+        public const string CALCULUS = "calculus";
+        public const string PROGRAMMER = "programmer";
+        public const string STATISTICS = "statistics";
+        public const string GRAPHING = "graphing";
+        public const string DATE = "date";
+        public const string CONV_LENGTH = "conv_length";
+        public const string CONV_AREA = "conv_area";
+        public const string CONV_VOLUME = "conv_volume";
+        public const string CONV_TIME = "conv_time";
+        public const string CONV_ANGLE = "conv_angle";
+        public const string CONV_SPEED = "conv_speed";
+        public const string CONV_MASS = "conv_mass";
+        public const string CONV_PRESSURE = "conv_pressure";
+        public const string CONV_ENERGY = "conv_energy";
+        public const string CONV_POWER = "conv_power";
+        public const string CONV_TEMP = "conv_temp";
+        public const string CONV_DATA = "conv_data";
+        public const string CONV_CURRENCY = "conv_currency";
+    }
+
     public errordomain EnumError {
         UNKNOWN_VALUE
     }
+
     /**
      * The context or mode a calculation is performed in.
      */

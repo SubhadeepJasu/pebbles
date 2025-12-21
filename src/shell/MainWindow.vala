@@ -4,8 +4,6 @@
 namespace Pebbles {
     [GtkTemplate (ui = "/com/github/subhadeepjasu/pebbles/ui/main_window.ui")]
     public class MainWindow : Adw.ApplicationWindow {
-        private ShortcutsDialog shortcuts_dialog;
-        private PreferencesDialog preferences_dialog;
         [GtkChild]
         private unowned Adw.ToastOverlay toast_overlay;
         [GtkChild]
@@ -38,6 +36,10 @@ namespace Pebbles {
         private unowned Gtk.Box main_view;
         [GtkChild]
         private unowned Adw.ViewStack view_stack;
+
+        // Windows
+        private PreferencesDialog preferences_dialog = null;
+        private ShortcutsDialog shortcuts_dialog = null;
 
         // Views
         [GtkChild]
@@ -104,6 +106,34 @@ namespace Pebbles {
         public string? context_conv_time { get; default = Context.CONV_TIME; }
         public string? context_conv_volume { get; default = Context.CONV_VOL; }
         public string? context_conv_currency { get; default = Context.CONV_CURR; }
+
+        public string? action_controls { get; default = Actions.PREFIX + Actions.CONTROLS; }
+        public string? action_preferences { get; default = Actions.PREFIX + Actions.PREFERENCES; }
+        public string? action_scientific { get; default = Actions.PREFIX + Actions.SCIENTIFIC; }
+        public string? action_calculus { get; default = Actions.PREFIX + Actions.CALCULUS; }
+        public string? action_programmer { get; default = Actions.PREFIX + Actions.PROGRAMMER; }
+        public string? action_statistics { get; default = Actions.PREFIX + Actions.STATISTICS; }
+        public string? action_graphing { get; default = Actions.PREFIX + Actions.GRAPHING; }
+        public string? action_date { get; default = Actions.PREFIX + Actions.DATE; }
+        public string? action_conv_length { get; default = Actions.PREFIX + Actions.CONV_LENGTH; }
+        public string? action_conv_area { get; default = Actions.PREFIX + Actions.CONV_AREA; }
+        public string? action_conv_volume { get; default = Actions.PREFIX + Actions.CONV_VOLUME; }
+        public string? action_conv_time { get; default = Actions.PREFIX + Actions.CONV_TIME; }
+        public string? action_conv_angle { get; default = Actions.PREFIX + Actions.CONV_ANGLE; }
+        public string? action_conv_speed { get; default = Actions.PREFIX + Actions.CONV_SPEED; }
+        public string? action_conv_mass { get; default = Actions.PREFIX + Actions.CONV_MASS; }
+        public string? action_conv_pressure { get; default = Actions.PREFIX + Actions.CONV_PRESSURE; }
+        public string? action_conv_energy { get; default = Actions.PREFIX + Actions.CONV_ENERGY; }
+        public string? action_conv_power { get; default = Actions.PREFIX + Actions.CONV_POWER; }
+        public string? action_conv_temp { get; default = Actions.PREFIX + Actions.CONV_TEMP; }
+        public string? action_conv_data {
+            get;
+            default = Actions.PREFIX + Actions.CONV_DATA;
+        }
+        public string? action_conv_currency {
+            get;
+            default = Actions.PREFIX + Actions.CONV_CURRENCY;
+        }
 
         // Instance variables
         private Gtk.EventControllerKey key_event_controller;
@@ -306,137 +336,147 @@ namespace Pebbles {
 
         private void setup_actions () {
             nav_list_calc.select_row (nav_list_calc.get_row_at_index (0));
-            var open_controls_action = new SimpleAction ("controls", null);
+            var open_controls_action = new SimpleAction (Actions.CONTROLS, null);
             open_controls_action.activate.connect (() => {
-                shortcuts_dialog = new ShortcutsDialog ();
-                shortcuts_dialog.present (this);
+                if (shortcuts_dialog == null || !shortcuts_dialog.visible) {
+                    shortcuts_dialog = new ShortcutsDialog ();
+                    shortcuts_dialog.present (this);
 
-                shortcuts_dialog.closed.connect ((pspec) => {
-                    ((View) view_stack.visible_child).focus_main ();
-                });
+                    shortcuts_dialog.closed.connect ((pspec) => {
+                        ((View) view_stack.visible_child).focus_main ();
+                        Idle.add_once (() => {
+                            shortcuts_dialog = null;
+                        });
+                    });
+                }
             });
             add_action (open_controls_action);
 
-            var open_preferences_action = new SimpleAction ("preferences", null);
+            var open_preferences_action = new SimpleAction (Actions.PREFERENCES, null);
             open_preferences_action.activate.connect (() => {
-                preferences_dialog = new PreferencesDialog ();
-                preferences_dialog.present (this);
+                if (preferences_dialog == null || !preferences_dialog.visible) {
+                    preferences_dialog = new PreferencesDialog ();
+                    preferences_dialog.present (this);
 
-                preferences_dialog.closed.connect ((pspec) => {
-                    ((View) view_stack.visible_child).focus_main ();
-                });
+                    preferences_dialog.closed.connect ((pspec) => {
+                        ((View) view_stack.visible_child).focus_main ();
+                        Idle.add_once (() => {
+                            preferences_dialog = null;
+                        });
+                    });
+                }
             });
             add_action (open_preferences_action);
 
-            var enable_scientific_mode_action = new SimpleAction ("open_scientific_mode", null);
+            var enable_scientific_mode_action = new SimpleAction (Actions.SCIENTIFIC, null);
             enable_scientific_mode_action.activate.connect (() => {
                 show_view (Context.SCIENTIFIC, scientific_header_box);
             });
             add_action (enable_scientific_mode_action);
 
-            var enable_calculus_mode_action = new SimpleAction ("open_calculus_mode", null);
+            var enable_calculus_mode_action = new SimpleAction (Actions.CALCULUS, null);
             enable_calculus_mode_action.activate.connect (() => {
                 show_view (Context.CALCULUS, calculus_header_box);
             });
             add_action (enable_calculus_mode_action);
 
-            var enable_programmer_mode_action = new SimpleAction ("open_programmer_mode", null);
+            var enable_programmer_mode_action = new SimpleAction (Actions.PROGRAMMER, null);
             enable_programmer_mode_action.activate.connect (() => {
                 show_view (Context.PROGRAMMER, programmer_header_box);
             });
             add_action (enable_programmer_mode_action);
 
-            var enable_statistics_mode_action = new SimpleAction ("open_statistics_mode", null);
+            var enable_statistics_mode_action = new SimpleAction (Actions.STATISTICS, null);
             enable_statistics_mode_action.activate.connect (() => {
                 show_view (Context.STATISTICS, statistics_header_box);
             });
             add_action (enable_statistics_mode_action);
 
-            var enable_graphing_mode_action = new SimpleAction ("open_graphing_mode", null);
+            var enable_graphing_mode_action = new SimpleAction (Actions.GRAPHING, null);
             enable_graphing_mode_action.activate.connect (() => {
                 show_view (Context.GRAPHING, graph_header_box);
             });
             add_action (enable_graphing_mode_action);
 
-            var enable_date_mode_action = new SimpleAction ("open_date_mode", null);
+            var enable_date_mode_action = new SimpleAction (Actions.DATE, null);
             enable_date_mode_action.activate.connect (() => {
                 show_view (Context.DATE, date_header_box);
             });
             add_action (enable_date_mode_action);
 
-            var enable_conv_length_mode_action = new SimpleAction ("open_conv_length_mode", null);
+            var enable_conv_length_mode_action = new SimpleAction (Actions.CONV_LENGTH, null);
             enable_conv_length_mode_action.activate.connect (() => {
                 show_view (Context.CONV_LEN, null_header_box);
             });
             add_action (enable_conv_length_mode_action);
 
-            var enable_conv_area_mode_action = new SimpleAction ("open_conv_area_mode", null);
+            var enable_conv_area_mode_action = new SimpleAction (Actions.CONV_AREA, null);
             enable_conv_area_mode_action.activate.connect (() => {
                 show_view (Context.CONV_AREA, null_header_box);
             });
             add_action (enable_conv_area_mode_action);
 
-            var enable_conv_angle_mode_action = new SimpleAction ("open_conv_angle_mode", null);
+            var enable_conv_angle_mode_action = new SimpleAction (Actions.CONV_ANGLE, null);
             enable_conv_angle_mode_action.activate.connect (() => {
                 show_view (Context.CONV_ANGLE, null_header_box);
             });
             add_action (enable_conv_angle_mode_action);
 
-            var enable_conv_data_mode_action = new SimpleAction ("open_conv_data_mode", null);
+            var enable_conv_data_mode_action = new SimpleAction (Actions.CONV_DATA, null);
             enable_conv_data_mode_action.activate.connect (() => {
                 show_view (Context.CONV_DATA, null_header_box);
             });
             add_action (enable_conv_data_mode_action);
 
-            var enable_conv_energy_mode_action = new SimpleAction ("open_conv_energy_mode", null);
+            var enable_conv_energy_mode_action = new SimpleAction (Actions.CONV_ENERGY, null);
             enable_conv_energy_mode_action.activate.connect (() => {
                 show_view (Context.CONV_ENERGY, null_header_box);
             });
             add_action (enable_conv_energy_mode_action);
 
-            var enable_conv_mass_mode_action = new SimpleAction ("open_conv_mass_mode", null);
+            var enable_conv_mass_mode_action = new SimpleAction (Actions.CONV_MASS, null);
             enable_conv_mass_mode_action.activate.connect (() => {
                 show_view (Context.CONV_MASS, null_header_box);
             });
             add_action (enable_conv_mass_mode_action);
 
-            var enable_conv_power_mode_action = new SimpleAction ("open_conv_power_mode", null);
+            var enable_conv_power_mode_action = new SimpleAction (Actions.CONV_POWER, null);
             enable_conv_power_mode_action.activate.connect (() => {
                 show_view (Context.CONV_POWER, null_header_box);
             });
             add_action (enable_conv_power_mode_action);
 
-            var enable_conv_pressure_mode_action = new SimpleAction ("open_conv_pressure_mode", null);
+            var enable_conv_pressure_mode_action = new SimpleAction (Actions.CONV_PRESSURE, null);
             enable_conv_pressure_mode_action.activate.connect (() => {
                 show_view (Context.CONV_PRES, null_header_box);
             });
             add_action (enable_conv_pressure_mode_action);
 
-            var enable_conv_speed_mode_action = new SimpleAction ("open_conv_speed_mode", null);
+            var enable_conv_speed_mode_action = new SimpleAction (Actions.CONV_SPEED, null);
             enable_conv_speed_mode_action.activate.connect (() => {
                 show_view (Context.CONV_SPEED, null_header_box);
             });
             add_action (enable_conv_speed_mode_action);
 
-            var enable_conv_temp_mode_action = new SimpleAction ("open_conv_temp_mode", null);
+            var enable_conv_temp_mode_action = new SimpleAction (Actions.CONV_TEMP, null);
             enable_conv_temp_mode_action.activate.connect (() => {
                 show_view (Context.CONV_TEMP, null_header_box);
             });
             add_action (enable_conv_temp_mode_action);
 
-            var enable_conv_time_mode_action = new SimpleAction ("open_conv_time_mode", null);
+            var enable_conv_time_mode_action = new SimpleAction (Actions.CONV_TIME, null);
             enable_conv_time_mode_action.activate.connect (() => {
                 show_view (Context.CONV_TIME, null_header_box);
             });
             add_action (enable_conv_time_mode_action);
 
-            var enable_conv_volume_mode_action = new SimpleAction ("open_conv_volume_mode", null);
+            var enable_conv_volume_mode_action = new SimpleAction (Actions.CONV_VOLUME, null);
             enable_conv_volume_mode_action.activate.connect (() => {
                 show_view (Context.CONV_VOL, null_header_box);
             });
             add_action (enable_conv_volume_mode_action);
 
-            var enable_conv_currency_mode_action = new SimpleAction ("open_conv_currency_mode", null);
+            var enable_conv_currency_mode_action = new SimpleAction (Actions.CONV_CURRENCY, null);
             enable_conv_currency_mode_action.activate.connect (() => {
                 show_view (Context.CONV_CURR, currency_header_box);
                 conv_currency_view.update_forex_data.begin ();
