@@ -211,5 +211,9 @@ namespace Pebbles {
         public void show_history (HistoryModel[] history) {
             history_display.update_list (history);
         }
+
+        public override void copy () {
+            get_clipboard ().set_text (main_label.label);
+        }
     }
 }

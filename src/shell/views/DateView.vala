@@ -264,6 +264,9 @@ namespace Pebbles {
                 datepicker_starting_from.grab_focus ();
             }
         }
+
+        public override void copy () {
+        }
     }
 
     private class DateFormatted {

@@ -390,5 +390,9 @@ namespace Pebbles {
         public override void focus_main () {
             display.focus_default ();
         }
+
+        public override void copy () {
+            display.copy ();
+        }
     }
 }

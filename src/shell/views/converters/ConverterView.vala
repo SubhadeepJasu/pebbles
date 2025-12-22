@@ -258,5 +258,8 @@ namespace Pebbles {
                 focused_entry.set_position ((int) focused_entry.text_length);
             });
         }
+
+        public override void copy () {
+        }
     }
 }

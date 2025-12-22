@@ -167,5 +167,11 @@ namespace Pebbles {
         public void set_global_memory_present (bool present) {
             global_memory_label.opacity = present ? 1 : 0.2;
         }
+
+        public override void copy () {
+            if (focused_entry != null) {
+                get_clipboard ().set_text (focused_entry.text);
+            }
+        }
     }
 }

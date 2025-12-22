@@ -181,5 +181,9 @@ namespace Pebbles {
             main_entry.set_position ((int) main_entry.text_length);
             main_label.set_text (data.result);
         }
+
+        public override void copy () {
+            get_clipboard ().set_text (main_label.label);
+        }
     }
 }

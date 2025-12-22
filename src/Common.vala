@@ -1,6 +1,8 @@
 namespace Pebbles {
     public class Actions {
         public const string PREFIX = "win.";
+        public const string COPY = "copy";
+        public const string PASTE = "paste";
         public const string CONTROLS = "controls";
         public const string PREFERENCES = "preferences";
         public const string SCIENTIFIC = "scientific";

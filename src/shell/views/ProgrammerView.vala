@@ -410,5 +410,9 @@ namespace Pebbles {
         public override void focus_main () {
             display.focus_entry ();
         }
+
+        public override void copy () {
+            display.copy ();
+        }
     }
 }

@@ -616,5 +616,9 @@ namespace Pebbles {
                 focus_cell (selected_cell, true);
             }
         }
+
+        public override void copy () {
+            get_clipboard ().set_text (main_label.label);
+        }
     }
 }

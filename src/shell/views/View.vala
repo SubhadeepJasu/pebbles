@@ -12,5 +12,8 @@ namespace Pebbles {
 
         /** Focus on the main widget of the view. */
         public abstract void focus_main ();
+
+        /** Copy result to clipboard. */
+        public abstract void copy ();
     }
 }

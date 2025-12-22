@@ -332,10 +332,16 @@ namespace Pebbles {
             }
 
             bit_grid_toggle.remove_css_class ("image-button");
+            nav_list_calc.select_row (nav_list_calc.get_row_at_index (0));
         }
 
         private void setup_actions () {
-            nav_list_calc.select_row (nav_list_calc.get_row_at_index (0));
+            var copy_action = new SimpleAction (Actions.COPY, null);
+            copy_action.activate.connect (() => {
+                ((View) view_stack.visible_child).copy ();
+            });
+            add_action (copy_action);
+
             var open_controls_action = new SimpleAction (Actions.CONTROLS, null);
             open_controls_action.activate.connect (() => {
                 if (shortcuts_dialog == null || !shortcuts_dialog.visible) {

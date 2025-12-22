@@ -29,5 +29,7 @@ namespace Pebbles {
         construct {
             visible = true;
         }
+
+        public abstract void copy ();
     }
 }

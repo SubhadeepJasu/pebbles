@@ -305,5 +305,9 @@ namespace Pebbles {
         public override void focus_main () {
             display.main_entry.grab_focus_without_selecting ();
         }
+
+        public override void copy () {
+            display.copy ();
+        }
     }
 }
