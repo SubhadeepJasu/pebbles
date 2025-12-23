@@ -173,9 +173,6 @@ namespace Pebbles {
             converter = {
                 {
                     _("Interchange unit"), "Return"
-                },
-                {
-                    _("Update Forex Data (Currency converter)"), "R"
                 }
             };
         }
