@@ -197,6 +197,7 @@ namespace Pebbles {
         }
 
         private void build_ui () {
+            set_size_request (368, 524);
             var gtk_settings = Gtk.Settings.get_default ();
             var granite_settings = Granite.Settings.get_default ();
             var pebbles_settings = Pebbles.Settings.get_default ();

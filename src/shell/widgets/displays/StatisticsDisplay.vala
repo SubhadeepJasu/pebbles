@@ -457,17 +457,16 @@ namespace Pebbles {
                 cr.stroke ();
 
                 cr.set_font_size (10);
+
+                cr.move_to (8, height - 8);
                 switch (plot_type) {
                     case PIE:
-                        cr.move_to (8, height - 8);
                         cr.show_text (_("Pie plot not available"));
                         break;
                     case BAR:
-                        cr.move_to (8, height - 8);
                         cr.show_text (_("Bar plot not available"));
                         break;
                     default:
-                        cr.move_to (8, height - 8);
                         cr.show_text (_("Plot not available"));
                         break;
                 }

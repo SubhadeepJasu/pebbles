@@ -83,23 +83,23 @@ template $PebblesCalculusView: $PebblesView {
           clicked => $on_backspace();
         }
 
-        $PebblesButton percent_button {
-          name: "%";
-          label_text: "%";
-          tooltip_desc: _("Percentage");
-          focus-on-click: false;
-          key: "percent";
+        $PebblesButton variable_button {
+            name: "x";
+            label_text: "<i>X</i>";
+            tooltip_desc: "Variable x";
+            focus-on-click: false;
+            key: "x";
 
-          layout {
-            row: 0;
-            column: 2;
-          }
+            layout {
+                row: 0;
+                column: 2;
+            }
 
-          styles [
-            "adaptive-btn-font"
-          ]
+            styles [
+                "adaptive-btn-font"
+            ]
 
-          clicked => $on_click_function();
+            clicked => $on_click_function();
         }
 
         $PebblesButton divide_button {

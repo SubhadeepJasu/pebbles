@@ -114,10 +114,7 @@ namespace Pebbles {
             };
             statistics = {
                 {
-                    _("Add Cell"), "Page_Up"
-                },
-                {
-                    _("Insert Cell"), "Page_Down"
+                    _("Add Cell"), "A"
                 },
                 {
                     _("Next Cell or Add Right"), "Tab"
@@ -130,12 +127,6 @@ namespace Pebbles {
                 },
                 {
                     _("Navigate Right"), "Right"
-                },
-                {
-                    _("Remove Cell"), "Home"
-                },
-                {
-                    _("Remove All Cells (Reset)"), "End"
                 },
                 {
                     _("Cardinality"), "N"
@@ -177,12 +168,6 @@ namespace Pebbles {
             calculus = {
                 {
                     _("Variable x"), "X"
-                },
-                {
-                    _("Definite Integral"), "I"
-                },
-                {
-                    _("Derivative at a point"), "D"
                 }
             };
             converter = {
