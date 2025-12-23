@@ -45,7 +45,7 @@ namespace Pebbles {
                     _("Copy Result"), "<Ctrl>C"
                 },
                 {
-                    _("Paste Input Expression"), "<Ctrl>V"
+                    _("Paste"), "<Ctrl>V"
                 }
             };
             scientific = {

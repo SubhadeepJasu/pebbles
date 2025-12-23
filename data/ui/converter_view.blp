@@ -58,15 +58,19 @@ template $PebblesConverterView: $PebblesView {
             Entry from_entry {
                 max-width-chars: 35;
                 changed => $from_entry_change_handler();
+                activate => $interchange_entries();
             }
 
-            Button interchange_button {
+            $PebblesButton interchange_button {
                 width-request: 64;
                 margin-top: 12;
                 margin-bottom: 12;
                 halign: center;
                 focus-on-click: false;
                 can-focus: false;
+                tooltip_desc: _("Interchange Units");
+                accel_markup: "Return";
+                key: "Return";
 
                 Box {
                     orientation: horizontal;
@@ -92,6 +96,7 @@ template $PebblesConverterView: $PebblesView {
                 max-width-chars: 35;
                 styles ["conversion-text-box-focused"]
                 changed => $to_entry_change_handler();
+                activate => $interchange_entries();
             }
         }
 

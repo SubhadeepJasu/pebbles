@@ -188,7 +188,10 @@ namespace Pebbles {
 
         [GtkCallback]
         protected void on_all_clear () {
-            focused_entry.text = "0";
+            Idle.add_once (() => {
+                focused_entry.text = "0";
+                focused_entry.set_position (1);
+            });
         }
 
         [GtkCallback]
@@ -260,6 +263,22 @@ namespace Pebbles {
         }
 
         public override void copy () {
+            if (focused_entry != null) {
+                int start_pos, end_pos;
+                if (to_entry == focused_entry) {
+                    if (!to_entry.get_selection_bounds (out start_pos, out end_pos)) {
+                        get_clipboard ().set_text (from_entry.text);
+                    } else {
+                        get_clipboard ().set_text (to_entry.text.substring (start_pos, end_pos - start_pos));
+                    }
+                } else {
+                    if (!from_entry.get_selection_bounds (out start_pos, out end_pos)) {
+                        get_clipboard ().set_text (to_entry.text);
+                    } else {
+                        get_clipboard ().set_text (from_entry.text.substring (start_pos, end_pos - start_pos));
+                    }
+                }
+            }
         }
     }
 }
