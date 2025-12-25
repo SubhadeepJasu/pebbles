@@ -148,7 +148,7 @@ namespace Pebbles {
             if (result != "E") {
                 add_css_class ("fade");
                 Timeout.add (100, () => {
-                    main_label.set_text (result);
+                    main_label.set_text (insert_separator_symbol (result));
                     remove_css_class ("fade");
                     return false;
                 });
@@ -221,7 +221,7 @@ namespace Pebbles {
         }
 
         public override void copy () {
-            get_clipboard ().set_text (main_label.label);
+            get_clipboard ().set_text (main_label.label.replace (get_local_separator_symbol (), ""));
         }
     }
 }

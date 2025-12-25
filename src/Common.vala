@@ -286,4 +286,27 @@ namespace Pebbles {
         }
         return text.substring (n);
     }
+
+    /**
+     * Insert separator symbol in large numbers
+     */
+    public static string insert_separator_symbol (string text) {
+        StringBuilder output_builder = new StringBuilder (text);
+        var decimal_pos = text.last_index_of (get_local_radix_symbol ());
+        if (decimal_pos == -1) {
+            decimal_pos = text.length;
+        }
+        int end_position = 0;
+
+        // Take care of minus sign at the beginning of string, if any
+        if (text.has_prefix ("-")) {
+            end_position = 1;
+        }
+
+        for (int i = decimal_pos - 3; i > end_position; i -= 3) {
+            output_builder.insert (i, get_local_separator_symbol ());
+        }
+
+        return output_builder.str;
+    }
 }
