@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
-// SPDX-FileCopyrightText: 2024 Subhadeep Jasu <subhadeep107@proton.me>, 2020 Saunak Biswas <saunakbis97@gmail.com>
+// SPDX-FileCopyrightText: 2025 Subhadeep Jasu <subhadeep107@proton.me>, 2020 Saunak Biswas <saunakbis97@gmail.com>
 
 namespace Pebbles {
     [GtkTemplate (ui = "/com/github/subhadeepjasu/pebbles/ui/main_window.ui")]
@@ -10,15 +10,11 @@ namespace Pebbles {
         private unowned Adw.NavigationSplitView split_view;
 
         [GtkChild]
-        private unowned Adw.HeaderBar main_headerbar;
-        [GtkChild]
         private unowned Gtk.Spinner spinner;
         [GtkChild]
         private unowned Button angle_mode;
         private Button graph_angle_mode;
         private Button calculus_angle_mode;
-        [GtkChild]
-        private unowned Gtk.Box menu_box;
         [GtkChild]
         private unowned Gtk.CheckButton color_button_light;
         [GtkChild]
@@ -32,8 +28,6 @@ namespace Pebbles {
         private unowned Gtk.ListBox nav_list_calc;
         [GtkChild]
         private unowned Gtk.ListBox nav_list_conv;
-        [GtkChild]
-        private unowned Gtk.Box main_view;
         [GtkChild]
         private unowned Adw.ViewStack view_stack;
 
@@ -891,6 +885,9 @@ namespace Pebbles {
             switch (context) {
                 case Context.SCIENTIFIC:
                     scientific_view.set_memory_present (present);
+                    break;
+                case Context.CALCULUS:
+                    calculus_view.set_memory_present (present);
                     break;
                 case Context.STATISTICS:
                     statistics_view.set_memory_present (present);

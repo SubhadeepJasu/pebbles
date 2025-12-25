@@ -561,6 +561,8 @@ namespace Pebbles {
                 case TREND:
                     result_type_label_trend.opacity = 1;
                     break;
+                default:
+                    break;
             }
         }
 

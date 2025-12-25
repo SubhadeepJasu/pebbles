@@ -90,7 +90,7 @@ class ScientificCalculator():
                 )
             result_json = json.dumps({'mode': self.MODE, 'result': formatted_answer})
             return result_json, answer
-        except (ZeroDivisionError, ArithmeticError, TypeError, IndexError) as e:
+        except (ZeroDivisionError, ArithmeticError, TypeError, IndexError, ValueError) as e:
             print("Error: ", e)
             return json.dumps({'mode': self.MODE, 'result': 'E'}), None
 

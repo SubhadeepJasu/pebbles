@@ -71,10 +71,6 @@ namespace Pebbles {
                 focused_entry.grab_focus_without_selecting ();
 
                 switch (keyval) {
-                    case Gdk.Key.C:
-                    case Gdk.Key.c:
-                        write_answer_to_clipboard ();
-                        return true;
                     case Gdk.Key.Tab:
                     case 65056:
                         if (from_entry.has_focus) {
@@ -116,17 +112,6 @@ namespace Pebbles {
                     }
                 });
             });
-        }
-
-        public void write_answer_to_clipboard () {
-            var clipboard = get_clipboard ();
-            if (focused_entry == from_entry) {
-                string last_answer = to_entry.get_text ().replace (get_local_separator_symbol (), "");
-                clipboard.set_text (last_answer);
-            } else {
-                string last_answer = from_entry.get_text ().replace (get_local_separator_symbol (), "");
-                clipboard.set_text (last_answer);
-            }
         }
 
         [GtkCallback]
@@ -267,15 +252,17 @@ namespace Pebbles {
                 int start_pos, end_pos;
                 if (to_entry == focused_entry) {
                     if (!to_entry.get_selection_bounds (out start_pos, out end_pos)) {
-                        get_clipboard ().set_text (from_entry.text);
+                        get_clipboard ().set_text (from_entry.text.replace (get_local_separator_symbol (), ""));
                     } else {
-                        get_clipboard ().set_text (to_entry.text.substring (start_pos, end_pos - start_pos));
+                        get_clipboard ().set_text (to_entry.text.substring (
+                            start_pos, end_pos - start_pos).replace (get_local_separator_symbol (), ""));
                     }
                 } else {
                     if (!from_entry.get_selection_bounds (out start_pos, out end_pos)) {
-                        get_clipboard ().set_text (to_entry.text);
+                        get_clipboard ().set_text (to_entry.text.replace (get_local_separator_symbol (), ""));
                     } else {
-                        get_clipboard ().set_text (from_entry.text.substring (start_pos, end_pos - start_pos));
+                        get_clipboard ().set_text (from_entry.text.substring (
+                            start_pos, end_pos - start_pos).replace (get_local_separator_symbol (), ""));
                     }
                 }
             }

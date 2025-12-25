@@ -1,4 +1,12 @@
+/*
+ * SPDX-FileCopyrightText: Copyright 2019-2025 Subhadeep Jasu <subhadeep107@proton.me>
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ */
+
 namespace Pebbles {
+    /**
+     * Actions that can be performed in the application.
+     */
     public class Actions {
         public const string PREFIX = "win.";
         public const string COPY = "copy";
@@ -90,7 +98,12 @@ namespace Pebbles {
         }
     }
 
-
+    /**
+     * Convert statistical operation to human-readable expression.
+     *
+     * @param op The statistical operation.
+     * @return The human-readable expression.
+     */
     public static string stat_op_to_exp (StatOp op) {
         var exp = "";
         switch (op) {
@@ -141,6 +154,9 @@ namespace Pebbles {
         return exp;
     }
 
+    /**
+     * Memory append operation.
+     */
     public enum MemAppendOp {
         SUBTRACT_GLOBAL = -2,
         SUBTRACT = -1,
@@ -205,33 +221,58 @@ namespace Pebbles {
         SCATTER = 3
     }
 
+    /**
+     * Color palette for graph plotting.
+     */
     public const string[] PALETTE = {
         "#272863", "#3689e6", "#c6262e", "#3a9104", "#d48e15", "#f37329",
         "#bc245d", "#7239b3", "#b6802e", "#57392d", "#485a6c", "#333333"
     };
 
+    /**
+     * Dark color palette for graph plotting.
+     */
     public const string[] PALETTE_DARK = {
         "#FFFFFF", "#3689e6", "#c6262e", "#3a9104", "#d48e15", "#f37329",
         "#bc245d", "#7239b3", "#b6802e", "#57392d", "#485a6c", "#333333"
     };
 
+    /**
+     * Get color palette for graph plotting.
+     * @param dark Whether to return dark palette or not
+     */
     public static string[] get_palette (bool dark = false) {
         return dark ? PALETTE_DARK : PALETTE;
     }
 
+    /**
+     * Graph Axis Scaling.
+     */
     public enum GraphAxisScaling {
         LINEAR,
         LOGARITHMIC
     }
 
-    public static string get_local_radix_symbol () {
+    /**
+     * Get the local radix symbol or decimal point symbol.
+     */
+    public static unowned string get_local_radix_symbol () {
         return Posix.nl_langinfo (Posix.NLItem.RADIXCHAR);
     }
 
-    public static string get_local_separator_symbol () {
+    /**
+     * Get the local large number separator symbol.
+     */
+    public static unowned string get_local_separator_symbol () {
         return Posix.nl_langinfo (Posix.NLItem.THOUSEP);
     }
 
+    /**
+     * Remove leading zeroes from a string representing a number.
+     *
+     * @param text The input string.
+     * @return The string without leading zeroes.
+     */
     public static string remove_leading_zeroes (string text) {
         if (text == "0") {
             return "0";

@@ -299,7 +299,7 @@ namespace Pebbles {
 
         [GtkCallback]
         protected void on_click_fraction_point () {
-            display.write (_("."));
+            display.write (get_local_radix_symbol ());
         }
         [GtkCallback]
         protected void on_click_negative () {

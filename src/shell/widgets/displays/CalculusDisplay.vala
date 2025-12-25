@@ -129,7 +129,7 @@ namespace Pebbles {
 
         [GtkCallback]
         public void input () {
-            on_input (main_entry.text);
+            on_input (main_entry.text.replace (get_local_separator_symbol (), ""));
         }
 
         [GtkCallback]
@@ -206,6 +206,14 @@ namespace Pebbles {
                 focused_entry.delete_text (start, end);
                 focused_entry.set_position (start);
             }
+        }
+
+        public void set_memory_present (bool present) {
+            memory_label.opacity = present ? 1 : 0.2;
+        }
+
+        public void set_global_memory_present (bool present) {
+            global_memory_label.opacity = present ? 1 : 0.2;
         }
 
         public void show_history (HistoryModel[] history) {

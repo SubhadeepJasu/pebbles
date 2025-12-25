@@ -2,6 +2,11 @@ namespace Pebbles {
     [GtkTemplate (ui = "/com/github/subhadeepjasu/pebbles/ui/view.ui")]
     public abstract class View : Gtk.Grid {
         public string context { get; protected set; }
+        public string radix_symbol {
+            get {
+                return get_local_radix_symbol ();
+            }
+        }
 
         public void fade_in () {
             add_css_class ("animate");

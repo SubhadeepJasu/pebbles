@@ -52,8 +52,6 @@ namespace Pebbles {
 
         // Numerical keypad buttons
         [GtkChild]
-        private unowned Button one_button;
-        [GtkChild]
         private unowned Button two_button;
         [GtkChild]
         private unowned Button three_button;
@@ -69,12 +67,6 @@ namespace Pebbles {
         private unowned Button eight_button;
         [GtkChild]
         private unowned Button nine_button;
-        [GtkChild]
-        private unowned Button zero_button;
-        [GtkChild]
-        private unowned Button paren_start_button;
-        [GtkChild]
-        private unowned Button paren_end_button;
 
         // Hexadecimal keypad buttons
         [GtkChild]

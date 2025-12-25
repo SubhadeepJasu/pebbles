@@ -109,7 +109,7 @@ namespace Pebbles {
 
         [GtkCallback]
         public void input () {
-            on_input (main_entry.text);
+            on_input (main_entry.text.replace (get_local_separator_symbol (), ""));
         }
 
         public void show_result (string result) {

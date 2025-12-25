@@ -30,10 +30,6 @@ namespace Pebbles {
         [GtkChild]
         private unowned Button perm_comb_button;
         [GtkChild]
-        private unowned Button fact_button;
-        [GtkChild]
-        private unowned Button constant_button;
-        [GtkChild]
         private unowned Button last_answer_button_p;
         [GtkChild]
         private unowned Button last_answer_button;
@@ -45,8 +41,6 @@ namespace Pebbles {
         private unowned Button memory_recall_button;
         [GtkChild]
         private unowned Button memory_clear_button;
-        [GtkChild]
-        private unowned Button result_button;
 
         private bool _collapsed;
         public bool collapsed {
@@ -257,7 +251,7 @@ namespace Pebbles {
 
         [GtkCallback]
         protected void on_click_fraction_point () {
-            display.write (_("."));
+            display.write (get_local_radix_symbol ());
         }
 
         [GtkCallback]

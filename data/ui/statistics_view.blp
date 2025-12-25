@@ -428,7 +428,7 @@ template $PebblesStatisticsView: $PebblesView {
 
         $PebblesButton point_button {
           name: "fraction-point-button";
-          label_text: _(".");
+          label_text: bind template.radix_symbol;
           focus-on-click: false;
           key: ".";
 

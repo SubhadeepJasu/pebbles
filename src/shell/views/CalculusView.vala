@@ -30,10 +30,6 @@ namespace Pebbles {
         [GtkChild]
         private unowned Button perm_comb_button;
         [GtkChild]
-        private unowned Button fact_button;
-        [GtkChild]
-        private unowned Button constant_button;
-        [GtkChild]
         private unowned Button last_answer_button_p;
         [GtkChild]
         private unowned Button last_answer_button;
@@ -45,8 +41,6 @@ namespace Pebbles {
         private unowned Button memory_recall_button;
         [GtkChild]
         private unowned Button memory_clear_button;
-        [GtkChild]
-        private unowned Button result_button;
 
         private bool _collapsed;
         public bool collapsed {
@@ -297,6 +291,14 @@ namespace Pebbles {
         public void send_shift_modifier (bool shifted) {
             shift_button.active = shifted;
             on_shift ();
+        }
+
+        public void set_memory_present (bool present) {
+            display.set_memory_present (present);
+        }
+
+        public void set_global_memory_present (bool present) {
+            display.set_global_memory_present (present);
         }
 
         public void show_history (HistoryModel[] history) {
