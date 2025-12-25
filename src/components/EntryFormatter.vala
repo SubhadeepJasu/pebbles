@@ -3,6 +3,8 @@ namespace Pebbles {
      * Replacement modes for mathematical symbols in the input.
      */
     public enum ReplacementMode {
+        /** No replacement */
+        NONE,
         /** Scientific mode for mathematical expressions */
         SCIENTIFIC,
         /** Programmer mode for logical expressions */
@@ -119,6 +121,10 @@ namespace Pebbles {
                     }
 
                     if (length > 1) {
+                        return Source.REMOVE;
+                    }
+
+                    if (mode == ReplacementMode.NONE) {
                         return Source.REMOVE;
                     }
 

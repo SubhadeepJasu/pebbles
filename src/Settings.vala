@@ -72,21 +72,6 @@ namespace Pebbles {
             set { set_string ("theme", value); }
         }
 
-        public GlobalAngleUnit global_angle_unit {
-            get { return get_enum ("global-angle-unit"); }
-            set { set_enum ("global-angle-unit", value); }
-        }
-
-        public GlobalWordLength global_word_length {
-            get { return get_enum ("global-word-length"); }
-            set { set_enum ("global-word-length", value); }
-        }
-
-        public NumberSystem number_system {
-            get { return get_enum ("number-system"); }
-            set { set_enum ("number-system", value); }
-        }
-
         public ConstantKeyIndex constant_key_value1 {
             get { return get_enum ("constant-key-value1"); }
             set { set_enum ("constant-key-value1", value); }
@@ -130,6 +115,37 @@ namespace Pebbles {
         public string[] forex_rates_cache {
             owned get { return get_strv ("forex-rates-cache"); }
             set { set_strv ("forex-rates-cache", value); }
+        }
+
+        // State Saving
+        public GlobalAngleUnit global_angle_unit {
+            get { return get_enum ("global-angle-unit"); }
+            set { set_enum ("global-angle-unit", value); }
+        }
+
+        public GlobalWordLength global_word_length {
+            get { return get_enum ("global-word-length"); }
+            set { set_enum ("global-word-length", value); }
+        }
+
+        public NumberSystem number_system {
+            get { return get_enum ("number-system"); }
+            set { set_enum ("number-system", value); }
+        }
+
+        public string last_input_scientific {
+            owned get { return get_string ("last-input-scientific"); }
+            set { set_string ("last-input-scientific", value); }
+        }
+
+        public string last_input_programmer {
+            owned get { return get_string ("last-input-programmer"); }
+            set { set_string ("last-input-programmer", value); }
+        }
+
+        public string last_input_calculus {
+            owned get { return get_string ("last-input-calculus"); }
+            set { set_string ("last-input-calculus", value); }
         }
     }
 }

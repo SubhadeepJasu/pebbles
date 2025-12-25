@@ -44,9 +44,9 @@ namespace Pebbles {
                     }
 
                     main_label.label = "0";
-                    main_entry.text = "0";
+                    main_entry.text = settings.last_input_scientific;
                     main_entry.grab_focus_without_selecting ();
-                    main_entry.set_position (1);
+                    main_entry.set_position (-1);
                     history_display.visible = true;
                     history_display.add_css_class ("animate-in");
 
@@ -110,6 +110,7 @@ namespace Pebbles {
         [GtkCallback]
         public void input () {
             on_input (main_entry.text.replace (get_local_separator_symbol (), ""));
+            settings.last_input_scientific = main_entry.text;
         }
 
         public void show_result (string result) {

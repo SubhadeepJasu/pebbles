@@ -74,6 +74,7 @@ namespace Pebbles {
             });
 
             set_angle_unit (settings.global_angle_unit);
+            main_entry.text = settings.last_input_calculus;
 
             right_click_gesture = new Gtk.GestureClick ();
             right_click_gesture.set_button (Gdk.BUTTON_SECONDARY);
@@ -130,6 +131,7 @@ namespace Pebbles {
         [GtkCallback]
         public void input () {
             on_input (main_entry.text.replace (get_local_separator_symbol (), ""));
+            settings.last_input_calculus = main_entry.text;
         }
 
         [GtkCallback]

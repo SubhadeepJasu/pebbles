@@ -156,6 +156,7 @@ namespace Pebbles {
             });
 
             word_length = settings.global_word_length;
+            main_entry.text = settings.last_input_programmer;
 
             realize.connect (() => {
                 window = (MainWindow) get_ancestor (typeof (MainWindow));
@@ -234,6 +235,7 @@ namespace Pebbles {
         [GtkCallback]
         public void input () {
             on_input (main_entry.text);
+            settings.last_input_programmer = main_entry.text;
         }
 
         public void show_result (string result) {

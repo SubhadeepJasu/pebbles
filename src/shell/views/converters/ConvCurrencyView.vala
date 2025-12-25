@@ -80,17 +80,17 @@ namespace Pebbles {
 
                 if (data != null) {
                     conversion_factors[0] = 1.0;
-                    conversion_factors[1] = 1 / data.get_double_member ("EUR");
-                    conversion_factors[2] = 1 / data.get_double_member ("GBP");
-                    conversion_factors[3] = 1 / data.get_double_member ("AUD");
-                    conversion_factors[4] = 1 / data.get_double_member ("BRL");
-                    conversion_factors[5] = 1 / data.get_double_member ("CAD");
-                    conversion_factors[6] = 1 / data.get_double_member ("CNY");
-                    conversion_factors[7] = 1 / data.get_double_member ("INR");
-                    conversion_factors[8] = 1 / data.get_double_member ("JPY");
-                    conversion_factors[9] = 1 / data.get_double_member ("RUB");
-                    conversion_factors[10] = 1 / data.get_double_member ("ZAR");
-                    conversion_factors[11] = 1 / data.get_double_member ("ARS");
+                    conversion_factors[1] = data.get_double_member ("EUR");
+                    conversion_factors[2] = data.get_double_member ("GBP");
+                    conversion_factors[3] = data.get_double_member ("AUD");
+                    conversion_factors[4] = data.get_double_member ("BRL");
+                    conversion_factors[5] = data.get_double_member ("CAD");
+                    conversion_factors[6] = data.get_double_member ("CNY");
+                    conversion_factors[7] = data.get_double_member ("INR");
+                    conversion_factors[8] = data.get_double_member ("JPY");
+                    conversion_factors[9] = data.get_double_member ("RUB");
+                    conversion_factors[10] = data.get_double_member ("ZAR");
+                    conversion_factors[11] = data.get_double_member ("ARS");
 
                     end_api_call ("");
                     settings.forex_api_last_updated = (int) root_object.get_int_member ("timestamp");

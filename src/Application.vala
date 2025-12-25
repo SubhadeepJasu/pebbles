@@ -33,6 +33,12 @@ namespace Pebbles {
             create_main_window ();
         }
 
+        public override int command_line (ApplicationCommandLine cmd) {
+            //  command_line_interpreter (cmd);
+            activate ();
+            return 0;
+        }
+
         public MainWindow create_main_window () {
             MainWindow window = create_window_request ();
             main_windows.append (window);

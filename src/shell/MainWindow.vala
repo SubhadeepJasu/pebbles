@@ -700,25 +700,34 @@ namespace Pebbles {
         }
 
         private void load_settings () {
-            switch (settings.global_angle_unit) {
-                case DEG:
-                    angle_mode.label_text = "DEG";
-                    graph_angle_mode.label_text = "DEG";
-                    calculus_angle_mode.label_text = "DEG";
-                    break;
-                case RAD:
-                    angle_mode.label_text = "RAD";
-                    graph_angle_mode.label_text = "RAD";
-                    calculus_angle_mode.label_text = "RAD";
-                    break;
-                case GRAD:
-                    angle_mode.label_text = "GRA";
-                    graph_angle_mode.label_text = "GRA";
-                    calculus_angle_mode.label_text= "GRA";
-                    break;
+            // Check if the version is new
+            if (settings.version != Config.VERSION) {
+                settings.version = Config.VERSION;
+
+                // Show some kind of What's New dialog?
             }
 
-            set_button_word_length ();
+            if (settings.load_last_session) {
+                switch (settings.global_angle_unit) {
+                    case DEG:
+                        angle_mode.label_text = "DEG";
+                        graph_angle_mode.label_text = "DEG";
+                        calculus_angle_mode.label_text = "DEG";
+                        break;
+                    case RAD:
+                        angle_mode.label_text = "RAD";
+                        graph_angle_mode.label_text = "RAD";
+                        calculus_angle_mode.label_text = "RAD";
+                        break;
+                    case GRAD:
+                        angle_mode.label_text = "GRA";
+                        graph_angle_mode.label_text = "GRA";
+                        calculus_angle_mode.label_text= "GRA";
+                        break;
+                }
+
+                set_button_word_length ();
+            }
 
             settings.changed["global-word-length"].connect ((key) => {
                 set_button_word_length ();

@@ -16,7 +16,7 @@ class PythonApplication(Pebbles.Application):
     def __init__(self, application_id, **kwargs):
         super().__init__(
             application_id=application_id,
-            flags=Gio.ApplicationFlags.HANDLES_OPEN,
+            flags=Gio.ApplicationFlags.HANDLES_COMMAND_LINE,
             **kwargs,
         )
         self.connect("create_window_request", self._on_create_window_request)

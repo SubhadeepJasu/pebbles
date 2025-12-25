@@ -39,6 +39,9 @@ namespace Pebbles {
         private Gtk.EventControllerFocus to_entry_focus_controller;
         private Gtk.EventControllerKey key_controller;
 
+        private EntryFormatter entry_formatter_from;
+        private EntryFormatter entry_formatter_to;
+
         construct {
             settings = Pebbles.Settings.get_default ();
             from_entry_focus_controller = new Gtk.EventControllerFocus ();
@@ -112,6 +115,9 @@ namespace Pebbles {
                     }
                 });
             });
+
+            entry_formatter_from = new EntryFormatter (from_entry, NONE);
+            entry_formatter_to = new EntryFormatter (to_entry, NONE);
         }
 
         [GtkCallback]
@@ -144,8 +150,8 @@ namespace Pebbles {
                     context,
                     conversion_factors,
                     input_text,
-                    (int) from_unit.selected,
-                    (int) to_unit.selected
+                    (int) to_unit.selected,
+                    (int) from_unit.selected
                 );
                 to_entry.text = result;
             }
@@ -162,8 +168,8 @@ namespace Pebbles {
                     context,
                     conversion_factors,
                     input_text,
-                    (int) to_unit.selected,
-                    (int) from_unit.selected
+                    (int) from_unit.selected,
+                    (int) to_unit.selected
                 );
                 from_entry.text = result;
             }
@@ -217,6 +223,9 @@ namespace Pebbles {
             var key_prefix = context.replace (".", "-");
 
             from_entry.text = settings.get_string (key_prefix + "-from");
+            if (from_entry.text == "") {
+                from_entry.text = "0";
+            }
             from_unit.selected = settings.get_uint (key_prefix + "-from-unit");
             to_unit.selected = settings.get_uint (key_prefix + "-to-unit");
             var window = ((MainWindow) get_ancestor (typeof (MainWindow)));

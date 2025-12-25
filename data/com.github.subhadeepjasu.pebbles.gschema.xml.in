@@ -51,27 +51,6 @@
 			<summary>Result Flow</summary>
 			<description>Whether result action would replace input with result</description>
 		</key>
-        <key name="view-index" type="i">
-			<default>0</default>
-			<summary>The saved view index of main stack</summary>
-			<description>The saved view index of main stack</description>
-		</key>
-
-        <key name="global-angle-unit" enum="@SCHEMA_ID@.global-angle-unit">
-			<default>"deg"</default>
-			<summary>Choose the Global Angle Unit</summary>
-			<description>Select the angle unit to use in all modes of this app.</description>
-		</key>
-		<key name="global-word-length" enum="@SCHEMA_ID@.global-word-length">
-			<default>"qwd"</default>
-			<summary>Choose the Word Length</summary>
-			<description>Select the word length.</description>
-		</key>
-		<key name="number-system" enum="@SCHEMA_ID@.number-system">
-			<default>"decimal"</default>
-			<summary>Choose the number system</summary>
-			<description>Select the number system.</description>
-		</key>
 		<key name="constant-key-value1" enum="@SCHEMA_ID@.constant-key-index">
 			<default>"euler"</default>
 			<summary>Choose Constant 1</summary>
@@ -101,11 +80,46 @@
 			<description>Value of h in 5 point stencil for first derivative</description>
 		</key>
 
+		<!-- State Saving-->
+		<key name="view-index" type="i">
+			<default>0</default>
+			<summary>The saved view index of main stack</summary>
+			<description>The saved view index of main stack</description>
+		</key>
+
+        <key name="global-angle-unit" enum="@SCHEMA_ID@.global-angle-unit">
+			<default>"deg"</default>
+			<summary>Choose the Global Angle Unit</summary>
+			<description>Select the angle unit to use in all modes of this app.</description>
+		</key>
+		<key name="global-word-length" enum="@SCHEMA_ID@.global-word-length">
+			<default>"qwd"</default>
+			<summary>Choose the Word Length</summary>
+			<description>Select the word length.</description>
+		</key>
+		<key name="number-system" enum="@SCHEMA_ID@.number-system">
+			<default>"decimal"</default>
+			<summary>Choose the number system</summary>
+			<description>Select the number system.</description>
+		</key>
+		<key name="last-input-scientific" type="s">
+			<default>"0"</default>
+			<summary>Last input in Scientific View</summary>
+		</key>
+		<key name="last-input-programmer" type="s">
+			<default>"0"</default>
+			<summary>Last input in Programmer View</summary>
+		</key>
+		<key name="last-input-calculus" type="s">
+			<default>"0"</default>
+			<summary>Last input in Calculator View</summary>
+		</key>
+
 		<!-- Converters -->
 		<key name="forex-api-key" type="s">
 			<default>""</default>
 			<summary>Currency Converter API key</summary>
-			<description>Get your own API key from https://openexchangerates.org</description>
+			<description>Get API key from https://openexchangerates.org</description>
 		</key>
 
 		<key name="forex-timestamp" type="u">
