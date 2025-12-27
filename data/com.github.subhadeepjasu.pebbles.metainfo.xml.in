@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2017-2026 Subhadeep Jasu <subhadeep107@proton.me> -->
+<component type="desktop-application">
+  <id>com.github.subhadeepjasu.pebbles</id>
+
+  <name>Pebbles</name>
+  <summary>Perform advanced calculations with ease</summary>
+
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+
+  <keywords>
+    <keyword>Calculator</keyword>
+    <keyword>Scientific</keyword>
+    <keyword>Programmer</keyword>
+    <keyword>Calculus</keyword>
+    <keyword>Statistics</keyword>
+    <keyword>Graphing</keyword>
+    <keyword>Plotting</keyword>
+    <keyword>Date</keyword>
+    <keyword>Unit Converter</keyword>
+    <keyword>Unit Conversion</keyword>
+    <keyword>Currency Converter</keyword>
+    <keyword>Currency Conversion</keyword>
+    <keyword>Accessories</keyword>
+    <keyword>Pantheon</keyword>
+    <keyword>elementary OS</keyword>
+  </keywords>
+
+  <supports>
+    <control>pointing</control>
+    <control>keyboard</control>
+    <control>touch</control>
+  </supports>
+
+  <description>
+    <p>An advanced calculator that helps you with complicated calculations in your homework</p>
+    <p>Features:</p>
+    <ul>
+      <li>Scientific mode</li>
+      <li>Programmer mode</li>
+      <li>Calculus mode</li>
+      <li>Statistics mode</li>
+      <li>Graphing mode</li>
+      <li>Date Calculation mode</li>
+      <li>Some common unit converters</li>
+    </ul>
+  </description>
+  <categories>
+    <category>Calculator</category>
+  </categories>
+  <developer id="com.github.SubhadeepJasu">
+    <name>Subhadeep Jasu</name>
+  </developer>
+  <url type="homepage">https://subhadeepjasu.github.io/#/project/pebbles</url>
+  <url type="bugtracker">https://github.com/SubhadeepJasu/pebbles/issues</url>
+  <url type="help">https://github.com/SubhadeepJasu/pebbles/issues</url>
+  <update_contact>subhadeep107@proton.me</update_contact>
+  <custom>
+    <value key="x-appcenter-suggested-price">0</value>
+  </custom>
+  <branding>
+      <color type="primary" scheme_preference="light">#84AEAA</color>
+      <color type="primary" scheme_preference="dark">rgb(39,40,99)</color>
+    </branding>
+  <translation type="gettext" source_locale="en_US">com.github.subhadeepjasu.pebbles</translation>
+  <launchable type="desktop-id">com.github.subhadeepjasu.pebbles.desktop</launchable>
+  <screenshots>
+    <screenshot type="default" environment="pantheon">
+      <caption>Scientific Mode</caption>
+      <image>https://raw.githubusercontent.com/SubhadeepJasu/pebbles/master/screenshots/ScreenshotScientific.png</image>
+    </screenshot>
+    <screenshot environment="pantheon:dark">
+      <caption>Scientific Mode</caption>
+      <image>https://raw.githubusercontent.com/SubhadeepJasu/pebbles/master/screenshots/ScreenshotScientificDark.png</image>
+    </screenshot>
+  </screenshots>
+  <content_rating type="oars-1.1">
+    <content_attribute id="violence-cartoon">none</content_attribute>
+    <content_attribute id="violence-fantasy">none</content_attribute>
+    <content_attribute id="violence-realistic">none</content_attribute>
+    <content_attribute id="violence-bloodshed">none</content_attribute>
+    <content_attribute id="violence-sexual">none</content_attribute>
+    <content_attribute id="violence-desecration">none</content_attribute>
+    <content_attribute id="violence-slavery">none</content_attribute>
+    <content_attribute id="violence-worship">none</content_attribute>
+    <content_attribute id="drugs-alcohol">none</content_attribute>
+    <content_attribute id="drugs-narcotics">none</content_attribute>
+    <content_attribute id="drugs-tobacco">none</content_attribute>
+    <content_attribute id="sex-nudity">none</content_attribute>
+    <content_attribute id="sex-themes">none</content_attribute>
+    <content_attribute id="sex-homosexuality">none</content_attribute>
+    <content_attribute id="sex-prostitution">none</content_attribute>
+    <content_attribute id="sex-adultery">none</content_attribute>
+    <content_attribute id="sex-appearance">none</content_attribute>
+    <content_attribute id="language-profanity">none</content_attribute>
+    <content_attribute id="language-humor">none</content_attribute>
+    <content_attribute id="language-discrimination">none</content_attribute>
+    <content_attribute id="social-chat">none</content_attribute>
+    <content_attribute id="social-info">mild</content_attribute>
+    <content_attribute id="social-audio">none</content_attribute>
+    <content_attribute id="social-location">none</content_attribute>
+    <content_attribute id="social-contacts">none</content_attribute>
+    <content_attribute id="money-purchasing">none</content_attribute>
+    <content_attribute id="money-gambling">none</content_attribute>
+  </content_rating>
+  <releases>
+    <release date="2026-01-01" version="3.0.0">
+      <description>
+        <p>New:</p>
+        <ul>
+          <li>[UI] Add toggle for loading saved state</li>
+          <li>[Scientific] Complex number support</li>
+          <li>[Scientific] Add result flow toggle in preferences</li>
+          <li>[Graphing] Add graphing mode with interactive plotting</li>
+          <li>[Statistics] Add ability to compute statistics for each column</li>
+          <li>[Statistics] Add ability to plot more kinds of graphs</li>
+          <li>[Statistics] Add trend analysis and visualization of trend on certain graphs</li>
+        </ul>
+        <p>Improved:</p>
+        <ul>
+          <li>[Core] Convert all core logic to Python 3</li>
+          <li>[Scientific] Computation performance improvements</li>
+          <li>[UI] General UI improvements</li>
+          <li>[UI] Integrate history view inside the respective displays</li>
+          <li>[Calculus] Make limits input more legible</li>
+          <li>[Converters] Change API to open exchange rates</li>
+        </ul>
+        <p>Translations:</p>
+        <ul>
+          <li>Russian (by 1280px)</li>
+        </ul>
+      </description>
+      <issues>
+        <issue url="https://github.com/SubhadeepJasu/pebbles/issues/103">Need help to understand input logic and lack of [ = ] functionality ...</issue>
+        <issue url="https://github.com/SubhadeepJasu/pebbles/issues/94">Migrate to GTK4</issue>
+        <issue url="https://github.com/SubhadeepJasu/pebbles/issues/27">Incorrect percentage behavior</issue>
+        <issue url="https://github.com/SubhadeepJasu/pebbles/issues/52">💡: Support for complex number</issue>
+        <issue url="https://github.com/SubhadeepJasu/pebbles/issues/81">Upper and lower limit slots not clear leading to undesirable results</issue>
+        <issue url="https://github.com/SubhadeepJasu/pebbles/issues/104">Ability to have the app show zero on startup instead of last used values?</issue>
+      </issues>
+    </release>
+    <release date="2022-03-06" version="2.0.5">
+      <description>
+        <p>Improved:</p>
+        <ul>
+          <li>[Converter] Upgrade to v7 of free currency converter API</li>
+          <li>[Converter] Added Argentina Peso currency</li>
+        </ul>
+      </description>
+    </release>
+    <release date="2021-12-23" version="2.0.4">
+      <description>
+        <p>Translations:</p>
+        <ul>
+          <li>Brazilian Portuguese (by Gustavo Costa)</li>
+        </ul>
+      </description>
+    </release>
+    <release date="2021-11-03" version="2.0.3">
+      <description>
+        <p>Improved:</p>
+        <ul>
+          <li>[Programmer] Transition to integer-integer logic for all operations</li>
+        </ul>
+        <p>Translations:</p>
+        <ul>
+          <li>Simplified Chinese (by Tommy He)</li>
+        </ul>
+      </description>
+    </release>
+    <release date="2021-09-19" version="2.0.2">
+      <description>
+        <p>Fixed:</p>
+        <ul>
+          <li>[Converter] Fix multiple errors in the converters</li>
+        </ul>
+        <p>Improved:</p>
+        <ul>
+          <li>[UI] Scale button font with app width (a11y)</li>
+        </ul>
+      </description>
+    </release>
+    <release date="2021-09-08" version="2.0.1">
+      <description>
+        <p>Improved:</p>
+        <ul>
+          <li>[Core] Intelligently convert expression when there is a percentage sign</li>
+          <li>[Core] Clean up useless debug prints, clean up console output</li>
+          <li>[UI] Follow elementary theme even when run on another distro</li>
+        </ul>
+      </description>
+    </release>
+    <release date="2021-08-03" version="2.0.0">
+      <description>
+        <p>New:</p>
+        <ul>
+          <li>[UI] Make UI resizable and responsive with touch support</li>
+          <li>[UI] Follow system-wide dark style preference</li>
+          <li>[UI] Updated CSS to be in tune with style of elementary OS 6 Odin</li>
+        </ul>
+        <p>Improved:</p>
+        <ul>
+          <li>[Calculus] Prevent divide by zero errors, use "tends to zero" logic</li>
+          <li>[Calculus] Add ability to input negative and fractional limits</li>
+          <li>[Calculus] Add ability to modify integration accuracy</li>
+        </ul>
+        <p>Fixed:</p>
+        <ul>
+          <li>[Programmer] Remove leading '0's correctly</li>
+        </ul>
+      </description>
+    </release>
+    <release date="2021-05-13" version="1.1.1">
+      <description>
+        <p>New:</p>
+        <ul>
+          <li>[Core] Insert result in history from any mode to any mode</li>
+        </ul>
+        <p>Improved:</p>
+        <ul>
+          <li>[Core] Persist History across invocations</li>
+        </ul>
+        <p>Fixed:</p>
+        <ul>
+          <li>[Programmer] Better binary formatting</li>
+        </ul>
+      </description>
+    </release>
+    <release date="2021-04-09" version="1.1.0">
+      <description>
+        <p>New:</p>
+        <ul>
+          <li>[Programmer] Implement Programmer mode</li>
+        </ul>
+        <p>Fixed:</p>
+        <ul>
+          <li>[UI] Fix minimode having wrong button label</li>
+          <li>[UI] Allow changing currency converter API key</li>
+          <li>[Core] Handle large factorials</li>
+          <li>[Core] Replace imaginary number with universal parabolic constant</li>
+          <li>[Core] Fix operator precedance</li>
+        </ul>
+      </description>
+    </release>
+    <release date="2020-07-05" version="1.0.5">
+      <description>
+        <p>Fixed:</p>
+        <ul>
+          <li>[UI] Allow navigation left and right buttons to pass through selectively</li>
+          <li>[Core] Better negative number handling</li>
+          <li>[Core] Implicit multiplication on parenthesis and around variable (x)</li>
+        </ul>
+      </description>
+    </release>
+    <release date="2020-06-20" version="1.0.4">
+      <description>
+        <p>Fixed:</p>
+        <ul>
+          <li>[UI] Comma and Radix symbols now obey Language &amp; Region settings</li>
+          <li>[UI] Backspace button should now check if input entry has text on start up</li>
+          <li>[Core] Fix precedance with proper PEMDAS rule</li>
+        </ul>
+        <p>Improved:</p>
+        <ul>
+          <li>[UI] Better clipboard system for Scientific, Calculus, Statistics and converters</li>
+        </ul>
+      </description>
+    </release>
+    <release date="2020-03-20" version="1.0.3">
+      <description>
+        <p>New:</p>
+        <ul>
+          <li>[UI] Save and restore calculator state across invocations</li>
+          <li>[Converter] Save currency converter forex data after update</li>
+          <li>[Calculus] Fix derivative accuracy bug which caused it to output zero everytime</li>
+        </ul>
+        <p>Translations:</p>
+        <ul>
+          <li>French (by Nathan Bonnemains)</li>
+        </ul>
+        <p>Fixed:</p>
+        <ul>
+          <li>Code structure fixed and improved by Nathan Bonnemains</li>
+          <li>[Calculus] Make Calculus button labels consistent with Scientific view</li>
+        </ul>
+        <p>Improved:</p>
+        <ul>
+          <li>[Controls] Use Escape Key to close dialogues</li>
+        </ul>
+      </description>
+    </release>
+    <release date="2020-03-01" version="1.0.2">
+      <description>
+        <p>Fixed:</p>
+        <ul>
+          <li>[Converter] Override conversion precision based on unit for Currency and Data converter</li>
+        </ul>
+      </description>
+    </release>
+    <release date="2020-02-29" version="1.0.1">
+      <description>
+        <p>Fixed:</p>
+        <ul>
+          <li>[Controls]  Use F7 for last answer and F8 for changing angle mode</li>
+          <li>[HeaderBar] Change 'GRD' to 'GRA'</li>
+          <li>[Date View] Enable counting date backwards</li>
+        </ul>
+        <p>Improved:</p>
+        <ul>
+          <li>[Translations]  Add more translatable strings</li>
+        </ul>
+      </description>
+    </release>
+    <release date="2020-02-28" version="1.0.0">
+      <description>
+        <p>Initial Release</p>
+      </description>
+    </release>
+  </releases>
+</component>

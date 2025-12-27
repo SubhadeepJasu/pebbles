@@ -221,16 +221,15 @@ namespace Pebbles {
         protected void load_state (Pebbles.Settings settings) {
             allow_change = false;
             var key_prefix = context.replace (".", "-");
-
+            from_unit.selected = settings.get_uint (key_prefix + Settings.KEY_CONV_FROM_UNIT_SUFFIX);
+            to_unit.selected = settings.get_uint (key_prefix + Settings.KEY_CONV_TO_UNIT_SUFFIX);
+            var window = ((MainWindow) get_ancestor (typeof (MainWindow)));
             from_entry.text = settings.get_string (key_prefix + Settings.KEY_CONV_FROM_SUFFIX);
             if (from_entry.text == "") {
                 from_entry.text = "0";
             }
-            from_unit.selected = settings.get_uint (key_prefix + Settings.KEY_CONV_FROM_UNIT_SUFFIX);
-            to_unit.selected = settings.get_uint (key_prefix + Settings.KEY_CONV_TO_UNIT_SUFFIX);
-            var window = ((MainWindow) get_ancestor (typeof (MainWindow)));
             to_entry.text = window.unit_converter_evaluate (context, conversion_factors,
-                from_entry.text, (int) from_unit.selected, (int) to_unit.selected);
+                from_entry.text, (int) to_unit.selected, (int) from_unit.selected);
             allow_change = true;
             focused_entry = from_entry;
             focused_entry.grab_focus_without_selecting ();

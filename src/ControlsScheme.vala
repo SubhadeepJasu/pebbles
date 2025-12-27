@@ -129,7 +129,13 @@ namespace Pebbles {
                     _("Navigate Right"), "Right"
                 },
                 {
-                    _("Cardinality"), "N"
+                    _("Navigate Up"), "Up"
+                },
+                {
+                    _("Navigate Down"), "Down"
+                },
+                {
+                    _("Date Size"), "N"
                 },
                 {
                     _("Mode"), "O"
