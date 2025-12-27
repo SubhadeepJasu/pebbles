@@ -113,6 +113,25 @@ install_data(
   install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', 'symbolic', 'apps')
 )
 
+ascli_exe = find_program('appstreamcli', required: false)
+if ascli_exe.found()
+  test('validate metainfo file',
+        ascli_exe,
+        args: ['validate',
+               '--no-net',
+               '--pedantic',
+               meson.project_name() + '.metainfo.xml.in']
+  )
+endif
+
+i18n.merge_file(
+    input: meson.project_name() + '.metainfo.xml.in',
+    output: meson.project_name() + '.metainfo.xml',
+    po_dir: meson.project_source_root() / 'po' / 'extra',
+    install: true,
+    install_dir: get_option('datadir') / 'metainfo'
+)
+
 # Translate and install our .desktop file so the Applications Menu will see it
 i18n.merge_file (
     input: meson.project_name () + '.desktop.in',

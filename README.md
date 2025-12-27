@@ -17,7 +17,7 @@ Pebbles is an easy to use advanced calculator.
 
 ## Install from source using meson
 You can install Pebbles by compiling it from source, here's a list of required dependencies:
- - `elementary-sdk 8`
+ - `elementary-sdk 8.1`
  - `gtk 4`
  - `granite 7`
  - `glib-2.0`
