@@ -1,6 +1,6 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * SPDX-FileCopyrightText: 2018-2024 Subhadeep Jasu <subhajasu@gmail.com>, 2018-2019 Saunak Biswas  <saunakbis97@gmail.com>
+ * SPDX-FileCopyrightText: 2018-2026 Subhadeep Jasu <subhadeep107@proton.me>, 2018-2019 Saunak Biswas  <saunakbis97@gmail.com>
  */
 /*-
  *   _____     _   _   _            _____ _____ _____
@@ -143,7 +143,7 @@ $LCD_FG_COLOR: #272863bb;
                     min-width: 30px;
                     min-height: 3px;
                     border: none;
-                    background-color: #272863aa;
+                    background-color: $LCD_FG_COLOR;
                 }
 
                 trough {
@@ -161,7 +161,7 @@ $LCD_FG_COLOR: #272863bb;
                     min-width: 3px;
                     min-height: 30px;
                     border: none;
-                    background-color: #272863aa;
+                    background-color: $LCD_FG_COLOR;
                 }
 
                 trough {

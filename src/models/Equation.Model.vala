@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: 2026 Subhadeep Jasu <subhadeep107@proton.me>
+
 namespace Pebbles {
     public class EquationModel : Object {
         public string expression { get; construct; }

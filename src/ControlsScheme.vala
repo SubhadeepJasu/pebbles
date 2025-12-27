@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2025 Subhadeep Jasu <subhadeep107@proton.me>
+ * Copyright 2019-2026 Subhadeep Jasu <subhadeep107@proton.me>
  * SPDX-License-Identifier: GPL-3.0-or-later
  */
 

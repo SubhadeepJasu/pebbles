@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
-# SPDX-FileCopyrightText: 2024 Subhadeep Jasu <subhadeep107@proton.me>
+# SPDX-FileCopyrightText: 2026 Subhadeep Jasu <subhadeep107@proton.me>
 # SPDX-FileCopyrightText: 2020 Saunak Biswas <saunakbis97@gmail.com>
 
 """Main window."""
