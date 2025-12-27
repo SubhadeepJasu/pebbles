@@ -120,6 +120,10 @@ namespace Pebbles {
                     main_label.label = insert_separator_symbol (result);
                     remove_css_class ("fade");
                     settings.last_output_scientific = main_label.label;
+                    if (settings.result_flow) {
+                        main_entry.text = main_label.label;
+                        main_entry.set_position (-1);
+                    }
                     return false;
                 });
             } else {

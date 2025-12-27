@@ -66,4 +66,4 @@ Feel free to send pull requests to this repository with your code.
 <br>
 <sup><b>License</b>: GNU GPLv3</sup>
 <br>
-<sup>© Copyright 2017-2024 Subhadeep Jasu</sup>
+<sup>© Copyright 2017-2026 Subhadeep Jasu</sup>

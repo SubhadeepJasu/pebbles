@@ -124,8 +124,10 @@ namespace Pebbles {
         private Gtk.EventControllerScroll main_scroll_gesture;
         private Gtk.EventControllerScroll x_scroll_gesture;
         private Gtk.EventControllerScroll y_scroll_gesture;
+        private Gtk.Settings gtk_settings;
 
         construct {
+            gtk_settings = Gtk.Settings.get_default ();
             renderer.set_draw_func (draw_figure);
 
             renderer.realize.connect (() => {
@@ -265,7 +267,7 @@ namespace Pebbles {
                 width = renderer.get_width (),
                 height = renderer.get_height (),
                 dpi = dpi,
-                dark_mode = Gtk.Settings.get_default ().gtk_application_prefer_dark_theme
+                dark_mode = gtk_settings.gtk_application_prefer_dark_theme
             };
 
             window.on_render_graph (payload);
@@ -332,7 +334,11 @@ namespace Pebbles {
             double base_spacing = 10.0;
             double spacing = (zoom_x / 100.0) * base_spacing;
 
-            cr.set_source_rgb (0.2, 0.2, 0.2);
+            if (gtk_settings.gtk_application_prefer_dark_theme) {
+                cr.set_source_rgb (0.8, 0.8, 0.8);
+            } else {
+                cr.set_source_rgb (0.2, 0.2, 0.2);
+            }
             cr.set_line_width (1.0);
 
             cr.move_to (0, height - 1);
@@ -386,7 +392,11 @@ namespace Pebbles {
             double base_spacing = 10.0;
             double spacing = (zoom_y / 100.0) * base_spacing;
 
-            cr.set_source_rgb (0.2, 0.2, 0.2);
+            if (gtk_settings.gtk_application_prefer_dark_theme) {
+                cr.set_source_rgb (0.8, 0.8, 0.8);
+            } else {
+                cr.set_source_rgb (0.2, 0.2, 0.2);
+            }
             cr.set_line_width (1.0);
 
             cr.move_to (width - 1, 0);
