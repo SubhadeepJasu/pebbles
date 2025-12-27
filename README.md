@@ -3,7 +3,7 @@
     <h3 align="center">An easy to use yet powerful calculator app</h3>
 </div>
 
-![screenshot](screenshots/Screenshot.png)
+![screenshot](screenshots/ScientificMode.png)
 
 <br>
 Pebbles is an easy to use advanced calculator.
