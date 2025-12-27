@@ -66,6 +66,31 @@ namespace Pebbles {
             });
 
             set_angle_unit (settings.global_angle_unit);
+
+            Idle.add_once (() => {
+                var last_inputs = settings.last_input_graphing;
+                if (last_inputs.length > 0) {
+                    foreach (var expr in last_inputs) {
+                        var entry = new EquationEntry (index);
+                        eq_box.append (entry);
+                        var parts = expr.split (";");
+                        if (parts.length == 2) {
+                            var expression = parts[0].substring (expr.index_of_char ('=') + 2);
+                            var radial_coord_mode = bool.parse (parts[1]);
+                            entry.equation = new EquationModel (index, expression, radial_coord_mode);
+                            entry.change_mode.connect (change_mode_handler);
+                            entry.focused.connect (focus_handler);
+                            index += 1;
+                        } else {
+                            warning ("Saved graph euqation seems corrupted");
+                            settings.reset ("last-input-graphing");
+                            break;
+                        }
+                    }
+                } else {
+                    add_equation ();
+                }
+            });
         }
 
         public void add_equation () {

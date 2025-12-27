@@ -147,5 +147,70 @@ namespace Pebbles {
             owned get { return get_string ("last-input-calculus"); }
             set { set_string ("last-input-calculus", value); }
         }
+
+        public string[] last_input_graphing {
+            owned get { return get_strv ("last-input-graphing"); }
+            set { set_strv ("last-input-graphing", value); }
+        }
+
+        public string date_diff_from {
+            owned get { return get_string ("date-diff-from"); }
+            set { set_string ("date-diff-from", value); }
+        }
+
+        public string date_diff_to {
+            owned get { return get_string ("date-diff-to"); }
+            set { set_string ("date-diff-to", value); }
+        }
+
+        public string date_starting_from {
+            owned get { return get_string ("date-starting-from"); }
+            set { set_string ("date-starting-from", value); }
+        }
+
+        public int date_add_days {
+            get { return get_int ("date-add-days"); }
+            set { set_int ("date-add-days", value); }
+        }
+
+        public int date_add_months {
+            get { return get_int ("date-add-months"); }
+            set { set_int ("date-add-months", value); }
+        }
+
+        public int date_add_years {
+            get { return get_int ("date-add-years"); }
+            set { set_int ("date-add-years", value); }
+        }
+
+        public bool diff_mode_dur {
+            get { return get_boolean ("diff-mode-dur"); }
+            set { set_boolean ("diff-mode-dur", value); }
+        }
+
+        public bool date_find_mode {
+            get { return get_boolean ("date-find-mode"); }
+            set { set_boolean ("date-find-mode", value); }
+        }
+
+        public string last_output_scientific {
+            owned get { return get_string ("last-output-scientific"); }
+            set { set_string ("last-output-scientific", value); }
+        }
+
+        public string last_output_programmer {
+            owned get { return get_string ("last-output-programmer"); }
+            set { set_string ("last-output-programmer", value); }
+        }
+
+        public string last_output_calculus {
+            owned get { return get_string ("last-output-calculus"); }
+            set { set_string ("last-output-calculus", value); }
+        }
+
+        public string last_output_statistics {
+            owned get { return get_string ("last-output-statistics"); }
+            set { set_string ("last-output-statistics", value); }
+        }
     }
 }

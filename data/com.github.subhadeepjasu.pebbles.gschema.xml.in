@@ -114,6 +114,61 @@
 			<default>"0"</default>
 			<summary>Last input in Calculator View</summary>
 		</key>
+		<key name="last-input-graphing" type="as">
+			<default>[]</default>
+			<summary>Last input equations in Graphing View</summary>
+		</key>
+		<key name="date-diff-from" type="s">
+			<default>""</default>
+			<summary>Last input date from in Date View</summary>
+		</key>
+		<key name="date-diff-to" type="s">
+			<default>""</default>
+			<summary>Last input date to in Date View</summary>
+		</key>
+		<key name="diff-mode-dur" type="b">
+			<default>false</default>
+			<summary>Date Difference Mode: Duration</summary>
+			<description>True if Duration mode, False if Age mode</description>
+		</key>
+		<key name="date-find-mode" type="b">
+			<default>false</default>
+			<summary>Date View: Add/Subtract Mode</summary>
+			<description>True if Subtract mode, False if Add mode</description>
+		</key>
+
+		<key name="last-output-scientific" type="s">
+			<default>"0"</default>
+			<summary>Last output in Scientific View</summary>
+		</key>
+		<key name="last-output-programmer" type="s">
+			<default>"0"</default>
+			<summary>Last output in Programmer View</summary>
+		</key>
+		<key name="last-output-calculus" type="s">
+			<default>"0"</default>
+			<summary>Last output in Calculator View</summary>
+		</key>
+		<key name="last-output-statistics" type="s">
+			<default>"0"</default>
+			<summary>Last output in Statistics View</summary>
+		</key>
+		<key name="date-starting-from" type="s">
+			<default>""</default>
+			<summary>Last input starting from date in Date View</summary>
+		</key>
+		<key name="date-add-days" type="i">
+			<default>0</default>
+			<summary>Days to add/subtract in Date View</summary>
+		</key>
+		<key name="date-add-months" type="i">
+			<default>0</default>
+			<summary>Months to add/subtract in Date View</summary>
+		</key>
+		<key name="date-add-years" type="i">
+			<default>0</default>
+			<summary>Years to add/subtract in Date View</summary>
+		</key>
 
 		<!-- Converters -->
 		<key name="forex-api-key" type="s">

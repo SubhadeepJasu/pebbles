@@ -75,6 +75,7 @@ namespace Pebbles {
 
             set_angle_unit (settings.global_angle_unit);
             main_entry.text = settings.last_input_calculus;
+            main_label.label = settings.last_output_calculus;
 
             right_click_gesture = new Gtk.GestureClick ();
             right_click_gesture.set_button (Gdk.BUTTON_SECONDARY);
@@ -150,8 +151,9 @@ namespace Pebbles {
             if (result != "E") {
                 add_css_class ("fade");
                 Timeout.add (100, () => {
-                    main_label.set_text (insert_separator_symbol (result));
+                    main_label.label = insert_separator_symbol (result);
                     remove_css_class ("fade");
+                    settings.last_output_calculus = main_label.label;
                     return false;
                 });
             } else {

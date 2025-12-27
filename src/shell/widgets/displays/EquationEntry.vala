@@ -20,6 +20,15 @@ namespace Pebbles {
                 _equation = new EquationModel (index, main_entry.text, radial_mode);
                 return _equation;
             }
+
+            set {
+                _equation = value;
+                main_entry.text = _equation.expression;
+                radial_mode = _equation.radial_coord_mode;
+                entry_formatter.polar_mode = radial_mode;
+                main_entry.primary_icon_name = radial_mode ? "radial-eq-symbolic" : "linear-eq-symbolic";
+                main_entry.primary_icon_tooltip_markup = radial_mode ? RADIAL_MODE_TOOLTIP : CARTESIAN_MODE_TOOLTIP;
+            }
         }
 
         private const string CARTESIAN_MODE_TOOLTIP =

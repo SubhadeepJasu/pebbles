@@ -140,6 +140,7 @@ template $PebblesStatisticsDisplay: $PebblesDisplay {
                 $PebblesHistoryDisplay history_display {
                     context: bind template.context;
                     viewport: scrolled_window;
+                    auto_recall: true;
 
                     inserted => $insert_from_history();
                     recalled => $recall_history();

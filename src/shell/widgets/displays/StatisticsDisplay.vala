@@ -113,6 +113,7 @@ namespace Pebbles {
         construct {
             plot_area.set_draw_func (draw_figure);
             settings = Pebbles.Settings.get_default ();
+            main_label.label = settings.last_output_statistics;
 
             add_tick_callback (() => {
                 if (plot_width != plot_area.get_width () || plot_height != plot_area.get_height ()) {
@@ -398,8 +399,9 @@ namespace Pebbles {
             if (result != "E") {
                 add_css_class ("fade");
                 Timeout.add (100, () => {
-                    main_label.set_text (result);
+                    main_label.label = result;
                     remove_css_class ("fade");
+                    settings.last_output_statistics = result;
                     return false;
                 });
             } else {

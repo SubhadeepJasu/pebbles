@@ -296,9 +296,12 @@ namespace Pebbles {
                 var date_diff_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
                     valign = Gtk.Align.CENTER
                 };
+                diff_mode_switch.active = settings.diff_mode_dur;
+                date_view.diff_mode_dur = settings.diff_mode_dur;
                 diff_mode_switch.notify.connect ((pspec) => {
                     if (pspec.get_name () == "active") {
                         date_view.diff_mode_dur = diff_mode_switch.active;
+                        settings.diff_mode_dur = diff_mode_switch.active;
                     }
                 });
                 date_diff_box.append (date_age_label);
@@ -308,9 +311,12 @@ namespace Pebbles {
                 var date_add_label = new Gtk.Label (_("ADD"));
                 var date_sub_label = new Gtk.Label (_("SUB"));
                 add_mode_switch = new Gtk.Switch ();
+                add_mode_switch.active = settings.date_find_mode;
+                date_view.date_find_mode = settings.date_find_mode;
                 add_mode_switch.notify.connect ((pspec) => {
                     if (pspec.get_name () == "active") {
                         date_view.date_find_mode = add_mode_switch.active;
+                        settings.date_find_mode = add_mode_switch.active;
                     }
                 });
                 add_mode_switch.add_css_class ("mode-switch");

@@ -67,11 +67,13 @@ namespace Pebbles {
         private Pebbles.Settings settings;
 
         construct {
+            settings = Settings.get_default ();
             datepicker_diff_from = new Granite.DatePicker ();
             datepicker_diff_from.date = new DateTime.now_local ();
             date_dur_grid.attach (datepicker_diff_from, 0, 1);
             datepicker_diff_from.changed.connect (() => {
                 find_difference ();
+                settings.date_diff_from = datepicker_diff_from.date.format_iso8601 ();
             });
 
             datepicker_diff_to = new Granite.DatePicker ();
@@ -79,15 +81,35 @@ namespace Pebbles {
             date_dur_grid.attach (datepicker_diff_to, 0, 3);
             datepicker_diff_to.changed.connect (() => {
                 find_difference ();
+                settings.date_diff_to = datepicker_diff_to.date.format_iso8601 ();
             });
 
             datepicker_starting_from = new Granite.DatePicker ();
             datepicker_starting_from.date = new DateTime.now_local ();
+            datepicker_starting_from.changed.connect (() => {
+                find_date ();
+            });
             date_add_grid.attach (datepicker_starting_from, 0, 1);
 
-            day_adjustment = new Gtk.Adjustment (0, 0, 10000, 1, 30, 0);
-            month_adjustment = new Gtk.Adjustment (0, 0, 10000, 1, 12, 0);
-            year_adjustment = new Gtk.Adjustment (0, 0, 1000, 1, 4, 0);
+            day_adjustment = new Gtk.Adjustment (settings.date_add_days, 0, 10000, 1, 30, 0);
+            month_adjustment = new Gtk.Adjustment (settings.date_add_months, 0, 10000, 1, 12, 0);
+            year_adjustment = new Gtk.Adjustment (settings.date_add_years, 0, 1000, 1, 4, 0);
+
+            Idle.add_once (load_settings);
+        }
+
+        private void load_settings () {
+            if (settings.date_diff_from != "") {
+                datepicker_diff_from.date = new DateTime.from_iso8601 (settings.date_diff_from, null);
+            }
+
+            if (settings.date_diff_to != "") {
+                datepicker_diff_to.date = new DateTime.from_iso8601 (settings.date_diff_to, null);
+            }
+
+            if (settings.date_starting_from != "") {
+                datepicker_starting_from.date = new DateTime.from_iso8601 (settings.date_starting_from, null);
+            }
         }
 
         private void find_difference () {
@@ -223,6 +245,11 @@ namespace Pebbles {
             main_calendar.month = given_date.get_month () - 1;
             main_calendar.day = given_date.get_day_of_month ();
             date_dmy_label.set_text (formatted_date);
+
+            settings.date_add_days = (int) day_adjustment.value;
+            settings.date_add_months = (int) month_adjustment.value;
+            settings.date_add_years = (int) year_adjustment.value;
+            settings.date_starting_from = datepicker_starting_from.date.format_iso8601 ();
         }
 
         private DateFormatted format (DateTime start_date_time, DateTime end_date_time) {

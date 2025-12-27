@@ -117,6 +117,7 @@ namespace Pebbles {
                 Idle.add (() => {
                     if (!graphing_stack.transition_running) {
                         viewport.render (display.equations);
+                        save_equations ();
                         return false;
                     }
 
@@ -136,6 +137,7 @@ namespace Pebbles {
         [GtkCallback]
         protected void add_equation () {
             display.add_equation ();
+            save_equations ();
         }
 
         [GtkCallback]
@@ -200,6 +202,17 @@ namespace Pebbles {
             var_m_button.tooltip_desc = shift_button.active ? _("Variable c") : _("Variable m");
 
             load_constant_button ();
+        }
+
+        private void save_equations () {
+            var equations = display.equations;
+            var eq_strings = new string[equations.length];
+            for (var i = 0; i < equations.length; i++) {
+                eq_strings[i] = equations[i].to_string () + ";" + equations[i].radial_coord_mode.to_string ();
+            }
+
+            var settings = Settings.get_default ();
+            settings.last_input_graphing = eq_strings;
         }
 
         private void load_constant_button () {
@@ -372,7 +385,6 @@ namespace Pebbles {
         }
 
         public override void focus_main () {
-
         }
 
         public override void copy () {

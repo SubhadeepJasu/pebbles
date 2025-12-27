@@ -43,7 +43,7 @@ namespace Pebbles {
                         return true;
                     }
 
-                    main_label.label = "0";
+                    main_label.label = settings.last_output_scientific;
                     main_entry.text = settings.last_input_scientific;
                     main_entry.grab_focus_without_selecting ();
                     main_entry.set_position (-1);
@@ -117,8 +117,9 @@ namespace Pebbles {
             if (result != "E") {
                 add_css_class ("fade");
                 Timeout.add (100, () => {
-                    main_label.set_text (insert_separator_symbol (result));
+                    main_label.label = insert_separator_symbol (result);
                     remove_css_class ("fade");
+                    settings.last_output_scientific = main_label.label;
                     return false;
                 });
             } else {

@@ -96,7 +96,7 @@ namespace Pebbles {
                         answer_text = remove_leading_zeroes (answer_text);
                     }
 
-                    main_label.set_text (answer_text);
+                    main_label.label = answer_text;
                 }
 
                 _number_system = value;
@@ -157,6 +157,7 @@ namespace Pebbles {
 
             word_length = settings.global_word_length;
             main_entry.text = settings.last_input_programmer;
+            main_label.label = settings.last_output_programmer;
 
             realize.connect (() => {
                 window = (MainWindow) get_ancestor (typeof (MainWindow));
@@ -242,8 +243,9 @@ namespace Pebbles {
             if (result != "E") {
                 add_css_class ("fade");
                 Timeout.add (100, () => {
-                    main_label.set_text (remove_leading_zeroes (result));
+                    main_label.label = remove_leading_zeroes (result);
                     remove_css_class ("fade");
+                    settings.last_output_programmer = main_label.label;
                     return false;
                 });
             } else {

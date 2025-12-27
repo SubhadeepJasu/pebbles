@@ -3,9 +3,12 @@ namespace Pebbles {
     public class HistoryDisplay : Gtk.Box {
         public string context { get; set; }
         public unowned Gtk.ScrolledWindow viewport { get; construct; }
+        public bool auto_recall { get; set construct; default = false; }
 
         [GtkChild]
         private unowned Gtk.ListBox list;
+
+        private bool first_time = true;
 
         public signal void inserted (string text);
         public signal void recalled (HistoryModel history);
@@ -31,6 +34,19 @@ namespace Pebbles {
             foreach (var item in history) {
                 list.append (new HistoryDisplayItem (this, item));
             }
+
+            Idle.add_once (() => {
+                if (first_time && auto_recall) {
+                    first_time = false;
+                    var row = list.get_last_child ();
+                    if (row != null) {
+                        var item = row as HistoryDisplayItem;
+                        if (item != null) {
+                            recall (item.model.id);
+                        }
+                    }
+                }
+            });
 
             Timeout.add (50, () => {
                 Idle.add (() => {
