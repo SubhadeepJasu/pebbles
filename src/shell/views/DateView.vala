@@ -91,9 +91,15 @@ namespace Pebbles {
             });
             date_add_grid.attach (datepicker_starting_from, 0, 1);
 
-            day_adjustment = new Gtk.Adjustment (settings.date_add_days, 0, 10000, 1, 30, 0);
-            month_adjustment = new Gtk.Adjustment (settings.date_add_months, 0, 10000, 1, 12, 0);
-            year_adjustment = new Gtk.Adjustment (settings.date_add_years, 0, 1000, 1, 4, 0);
+            if (settings.load_last_session) {
+                day_adjustment = new Gtk.Adjustment (settings.date_add_days, 0, 10000, 1, 30, 0);
+                month_adjustment = new Gtk.Adjustment (settings.date_add_months, 0, 10000, 1, 12, 0);
+                year_adjustment = new Gtk.Adjustment (settings.date_add_years, 0, 1000, 1, 4, 0);
+            } else {
+                day_adjustment = new Gtk.Adjustment (0, 0, 10000, 1, 30, 0);
+                month_adjustment = new Gtk.Adjustment (0, 0, 10000, 1, 12, 0);
+                year_adjustment = new Gtk.Adjustment (0, 0, 1000, 1, 4, 0);
+            }
 
             Idle.add_once (load_settings);
         }
@@ -246,10 +252,17 @@ namespace Pebbles {
             main_calendar.day = given_date.get_day_of_month ();
             date_dmy_label.set_text (formatted_date);
 
-            settings.date_add_days = (int) day_adjustment.value;
-            settings.date_add_months = (int) month_adjustment.value;
-            settings.date_add_years = (int) year_adjustment.value;
-            settings.date_starting_from = datepicker_starting_from.date.format_iso8601 ();
+            if (settings.load_last_session) {
+                settings.date_add_days = (int) day_adjustment.value;
+                settings.date_add_months = (int) month_adjustment.value;
+                settings.date_add_years = (int) year_adjustment.value;
+                settings.date_starting_from = datepicker_starting_from.date.format_iso8601 ();
+            } else {
+                settings.date_add_days = 0;
+                settings.date_add_months = 0;
+                settings.date_add_years = 0;
+                settings.date_starting_from = "";
+            }
         }
 
         private DateFormatted format (DateTime start_date_time, DateTime end_date_time) {

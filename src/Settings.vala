@@ -94,13 +94,13 @@ namespace Pebbles {
             };
 
             foreach (var item in CONVERTER_PREFIXES) {
-                keys.append (item + KEY_CONV_FROM_SUFFIX);
-                keys.append (item + KEY_CONV_FROM_UNIT_SUFFIX);
-                keys.append (item + KEY_CONV_TO_UNIT_SUFFIX);
+                var conv_key = item.replace (".", "-");
+                keys.append (conv_key + KEY_CONV_FROM_SUFFIX);
+                keys.append (conv_key + KEY_CONV_FROM_UNIT_SUFFIX);
+                keys.append (conv_key + KEY_CONV_TO_UNIT_SUFFIX);
             }
 
             foreach (var item in keys) {
-                print ("Resetting %s\n", item);
                 reset (item);
             }
         }

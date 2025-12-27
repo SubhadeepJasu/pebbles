@@ -105,26 +105,32 @@
 		<key name="last-input-scientific" type="s">
 			<default>"0"</default>
 			<summary>Last input in Scientific View</summary>
+			<description>Last input in Scientific View</description>
 		</key>
 		<key name="last-input-programmer" type="s">
 			<default>"0"</default>
 			<summary>Last input in Programmer View</summary>
+			<description>Last input in Programmer View</description>
 		</key>
 		<key name="last-input-calculus" type="s">
 			<default>"0"</default>
 			<summary>Last input in Calculator View</summary>
+			<description>Last input in Calculator View</description>
 		</key>
 		<key name="last-input-graphing" type="as">
 			<default>[]</default>
 			<summary>Last input equations in Graphing View</summary>
+			<description>Last input equations in Graphing View</description>
 		</key>
 		<key name="date-diff-from" type="s">
 			<default>""</default>
 			<summary>Last input date from in Date View</summary>
+			<description>Last input date from in Date View</description>
 		</key>
 		<key name="date-diff-to" type="s">
 			<default>""</default>
 			<summary>Last input date to in Date View</summary>
+			<description>Last input date to in Date View</description>
 		</key>
 		<key name="diff-mode-dur" type="b">
 			<default>false</default>
@@ -140,34 +146,42 @@
 		<key name="last-output-scientific" type="s">
 			<default>"0"</default>
 			<summary>Last output in Scientific View</summary>
+			<description>Last output in Scientific View</description>
 		</key>
 		<key name="last-output-programmer" type="s">
 			<default>"0"</default>
 			<summary>Last output in Programmer View</summary>
+			<description>Last output in Programmer View</description>
 		</key>
 		<key name="last-output-calculus" type="s">
 			<default>"0"</default>
 			<summary>Last output in Calculator View</summary>
+			<description>Last output in Calculator View</description>
 		</key>
 		<key name="last-output-statistics" type="s">
 			<default>"0"</default>
 			<summary>Last output in Statistics View</summary>
+			<description>Last output in Statistics View</description>
 		</key>
 		<key name="date-starting-from" type="s">
 			<default>""</default>
 			<summary>Last input starting from date in Date View</summary>
+			<description>Last input starting from date in Date View</description>
 		</key>
 		<key name="date-add-days" type="i">
 			<default>0</default>
 			<summary>Days to add/subtract in Date View</summary>
+			<description>Days to add/subtract in Date View</description>
 		</key>
 		<key name="date-add-months" type="i">
 			<default>0</default>
 			<summary>Months to add/subtract in Date View</summary>
+			<description>Months to add/subtract in Date View</description>
 		</key>
 		<key name="date-add-years" type="i">
 			<default>0</default>
 			<summary>Years to add/subtract in Date View</summary>
+			<description>Years to add/subtract in Date View</description>
 		</key>
 
 		<!-- Converters -->
@@ -180,32 +194,40 @@
 		<key name="forex-timestamp" type="u">
 			<default>0</default>
 			<summary>When was forex data last updated</summary>
+			<description>When was forex data last updated</description>
 		</key>
 
 		<key name="forex-rates-cache" type="as">
 			<default>[]</default>
+			<summary>Cached forex rates</summary>
+			<description>Cached forex rates</description>
 		</key>
 
 		<key name="conv-length-from" type="s">
 			<default>"1"</default>
 			<summary>Length converter from entry</summary>
+			<description>Length converter from entry</description>
 		</key>
 		<key name="conv-length-from-unit" type="u">
 			<default>4</default>
 			<summary>Length converter from unit index</summary>
+			<description>Length converter from unit index</description>
 		</key>
 		<key name="conv-length-to-unit" type="u">
 			<default>3</default>
 			<summary>Length converter to unit index</summary>
+			<description>Length converter to unit index</description>
 		</key>
 
 		<key name="conv-area-from" type="s">
 			<default>"1"</default>
 			<summary>Area converter from entry</summary>
+			<description>Area converter from entry</description>
 		</key>
 		<key name="conv-area-from-unit" type="u">
 			<default>2</default>
 			<summary>Area converter from unit index</summary>
+			<description>Area converter from unit index</description>
 		</key>
 		<key name="conv-area-to-unit" type="u">
 			<default>1</default>
@@ -215,45 +237,55 @@
 		<key name="conv-angle-from" type="s">
 			<default>"180"</default>
 			<summary>Angle converter from entry</summary>
+			<description>Angle converter from entry</description>
 		</key>
 		<key name="conv-angle-from-unit" type="u">
 			<default>0</default>
 			<summary>Angle converter from unit index</summary>
+			<description>Angle converter from unit index</description>
 		</key>
 		<key name="conv-angle-to-unit" type="u">
 			<default>1</default>
 			<summary>Angle converter to unit index</summary>
+			<description>Angle converter to unit index</description>
 		</key>
 
 		<key name="conv-data-from" type="s">
 			<default>"1"</default>
 			<summary>Data converter from entry</summary>
+			<description>Data converter from entry</description>
 		</key>
 		<key name="conv-data-from-unit" type="u">
 			<default>12</default>
 			<summary>Data converter from unit index</summary>
+			<description>Data converter from unit index</description>
 		</key>
 		<key name="conv-data-to-unit" type="u">
 			<default>11</default>
 			<summary>Data converter to unit index</summary>
+			<description>Data converter to unit index</description>
 		</key>
 
 		<key name="conv-energy-from" type="s">
 			<default>"1"</default>
 			<summary>Energy converter from entry</summary>
+			<description>Energy converter from entry</description>
 		</key>
 		<key name="conv-energy-from-unit" type="u">
 			<default>1</default>
 			<summary>Energy converter from unit index</summary>
+			<description>Energy converter from unit index</description>
 		</key>
 		<key name="conv-energy-to-unit" type="u">
 			<default>0</default>
 			<summary>Energy converter to unit index</summary>
+			<description>Energy converter to unit index</description>
 		</key>
 
 		<key name="conv-power-from" type="s">
 			<default>"1"</default>
 			<summary>Power converter from entry</summary>
+			<description>Power converter from entry</description>
 		</key>
 		<key name="conv-power-from-unit" type="u">
 			<default>1</default>
@@ -262,97 +294,119 @@
 		<key name="conv-power-to-unit" type="u">
 			<default>0</default>
 			<summary>Power converter to unit index</summary>
+			<description>Power converter to unit index</description>
 		</key>
 
 		<key name="conv-mass-from" type="s">
 			<default>"1"</default>
 			<summary>Mass converter from entry</summary>
+			<description>Mass converter from entry</description>
 		</key>
 		<key name="conv-mass-from-unit" type="u">
 			<default>1</default>
 			<summary>Mass converter from unit index</summary>
+			<description>Mass converter from unit index</description>
 		</key>
 		<key name="conv-mass-to-unit" type="u">
 			<default>0</default>
 			<summary>Mass converter to unit index</summary>
+			<description>Mass converter to unit index</description>
 		</key>
 
 		<key name="conv-pressure-from" type="s">
 			<default>"1"</default>
 			<summary>Pressure converter from entry</summary>
+			<description>Pressure converter from entry</description>
 		</key>
 		<key name="conv-pressure-from-unit" type="u">
 			<default>1</default>
 			<summary>Pressure converter from unit index</summary>
+			<description>Pressure converter from unit index</description>
 		</key>
 		<key name="conv-pressure-to-unit" type="u">
 			<default>0</default>
 			<summary>Pressure converter to unit index</summary>
+			<description>Pressure converter to unit index</description>
 		</key>
 
 		<key name="conv-speed-from" type="s">
 			<default>"1"</default>
 			<summary>Speed converter from entry</summary>
+			<description>Speed converter from entry</description>
 		</key>
 		<key name="conv-speed-from-unit" type="u">
 			<default>1</default>
 			<summary>Speed converter from unit index</summary>
+			<description>Speed converter from unit index</description>
 		</key>
 		<key name="conv-speed-to-unit" type="u">
 			<default>0</default>
 			<summary>Speed converter to unit index</summary>
+			<description>Speed converter to unit index</description>
 		</key>
 
 		<key name="conv-temperature-from" type="s">
 			<default>"23"</default>
 			<summary>Temp converter from entry</summary>
+			<description>Temperature converter from entry</description>
 		</key>
 		<key name="conv-temperature-from-unit" type="u">
 			<default>0</default>
 			<summary>Temp converter from unit index</summary>
+			<description>Temperature converter from unit index</description>
 		</key>
 		<key name="conv-temperature-to-unit" type="u">
 			<default>1</default>
 			<summary>Temp converter to unit index</summary>
+			<description>Temperature converter to unit index</description>
 		</key>
 
 		<key name="conv-time-from" type="s">
 			<default>"1"</default>
 			<summary>Time converter from entry</summary>
+			<description>Time converter from entry</description>
 		</key>
 		<key name="conv-time-from-unit" type="u">
 			<default>1</default>
 			<summary>Time converter from unit index</summary>
+			<description>Time converter from unit index</description>
 		</key>
 		<key name="conv-time-to-unit" type="u">
 			<default>0</default>
 			<summary>Time converter to unit index</summary>
+			<description>Time converter to unit index</description>
 		</key>
 
 		<key name="conv-volume-from" type="s">
 			<default>"1"</default>
 			<summary>Volume converter from entry</summary>
+			<description>Volume converter from entry</description>
 		</key>
 		<key name="conv-volume-from-unit" type="u">
 			<default>1</default>
 			<summary>Volume converter from unit index</summary>
+			<description>Volume converter from unit index</description>
 		</key>
 		<key name="conv-volume-to-unit" type="u">
 			<default>0</default>
 			<summary>Volume converter to unit index</summary>
+			<description>Volume converter to unit index</description>
 		</key>
 
 		<key name="conv-currency-from" type="s">
 			<default>"1"</default>
 			<summary>Currency converter from entry</summary>
+			<description>Currency converter from entry</description>
 		</key>
 		<key name="conv-currency-from-unit" type="u">
 			<default>0</default>
 			<summary>Currency converter from unit index</summary>
+			<description>Currency converter from unit index</description>
 		</key>
 		<key name="conv-currency-to-unit" type="u">
 			<default>1</default>
 			<summary>Currency converter to unit index</summary>
+			<description>Currency converter to unit index</description>
 		</key>
      </schema>
 </schemalist>
