@@ -222,12 +222,12 @@ namespace Pebbles {
             allow_change = false;
             var key_prefix = context.replace (".", "-");
 
-            from_entry.text = settings.get_string (key_prefix + "-from");
+            from_entry.text = settings.get_string (key_prefix + Settings.KEY_CONV_FROM_SUFFIX);
             if (from_entry.text == "") {
                 from_entry.text = "0";
             }
-            from_unit.selected = settings.get_uint (key_prefix + "-from-unit");
-            to_unit.selected = settings.get_uint (key_prefix + "-to-unit");
+            from_unit.selected = settings.get_uint (key_prefix + Settings.KEY_CONV_FROM_UNIT_SUFFIX);
+            to_unit.selected = settings.get_uint (key_prefix + Settings.KEY_CONV_TO_UNIT_SUFFIX);
             var window = ((MainWindow) get_ancestor (typeof (MainWindow)));
             to_entry.text = window.unit_converter_evaluate (context, conversion_factors,
                 from_entry.text, (int) from_unit.selected, (int) to_unit.selected);
@@ -244,9 +244,9 @@ namespace Pebbles {
             }
 
             var key_prefix = context.replace (".", "-");
-            settings.set_string (key_prefix + "-from", from_entry.text);
-            settings.set_uint (key_prefix + "-from-unit", from_unit.selected);
-            settings.set_uint (key_prefix + "-to-unit", to_unit.selected);
+            settings.set_string (key_prefix + Settings.KEY_CONV_FROM_SUFFIX, from_entry.text);
+            settings.set_uint (key_prefix + Settings.KEY_CONV_FROM_UNIT_SUFFIX, from_unit.selected);
+            settings.set_uint (key_prefix + Settings.KEY_CONV_TO_UNIT_SUFFIX, to_unit.selected);
         }
 
         public override void focus_main () {

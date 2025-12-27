@@ -182,6 +182,10 @@ namespace Pebbles {
 
             settings = Pebbles.Settings.get_default ();
 
+            if (!settings.load_last_session) {
+                settings.reset_all ();
+            }
+
             build_ui ();
             setup_actions ();
             setup_evaluators ();
@@ -195,10 +199,6 @@ namespace Pebbles {
             var gtk_settings = Gtk.Settings.get_default ();
             var granite_settings = Granite.Settings.get_default ();
             var pebbles_settings = Pebbles.Settings.get_default ();
-
-            if (!pebbles_settings.load_last_session) {
-                pebbles_settings.reset_all ();
-            }
 
             switch (pebbles_settings.theme) {
                 case "dark":
