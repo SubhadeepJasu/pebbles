@@ -1,0 +1,435 @@
+# Russian translations for extra package.
+# Copyright (C) 2025 THE extra'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the extra package.
+# Automatically generated, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: extra\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-12-28 00:08+0530\n"
+"PO-Revision-Date: 2025-12-28 00:08+0530\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ASCII\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: data/com.github.subhadeepjasu.pebbles.desktop.in:3
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:6
+msgid "Pebbles"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.desktop.in:4
+msgid "Pebbles Calculator App"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.desktop.in:5
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:7
+msgid "Perform advanced calculations with ease"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.desktop.in:11
+msgid ""
+"calculator;scientific;programmer;statistics;converter;convert;calculate;"
+"boolean;"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:13
+msgid "Calculator"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:14
+msgid "Scientific"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:15
+msgid "Programmer"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:16
+msgid "Calculus"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:17
+msgid "Statistics"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:18
+msgid "Graphing"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:19
+msgid "Plotting"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:20
+msgid "Date"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:21
+msgid "Unit Converter"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:22
+msgid "Unit Conversion"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:23
+msgid "Currency Converter"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:24
+msgid "Currency Conversion"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:25
+msgid "Utility"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:26
+msgid "Pantheon"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:27
+msgid "elementary OS"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:37
+msgid ""
+"An advanced calculator that helps you with complicated calculations in your "
+"homework"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:38
+msgid "Features:"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:40
+msgid "Scientific mode"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:41
+msgid "Programmer mode"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:42
+msgid "Calculus mode"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:43
+msgid "Statistics mode"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:44
+msgid "Graphing mode"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:45
+msgid "Date Calculation mode"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:46
+msgid "Some common unit converters"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:53
+msgid "Subhadeep Jasu"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:70
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:74
+msgid "Scientific Mode"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:110
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:196
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:216
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:232
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:272
+msgid "New:"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:112
+msgid "[UI] Add toggle for loading saved state"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:113
+msgid "[Scientific] Complex number support"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:114
+msgid "[Scientific] Add result flow toggle in preferences"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:115
+msgid "[Graphing] Add graphing mode with interactive plotting"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:116
+msgid "[Statistics] Add ability to compute statistics for each column"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:117
+msgid "[Statistics] Add ability to plot more kinds of graphs"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:118
+msgid ""
+"[Statistics] Add trend analysis and visualization of trend on certain graphs"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:120
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:145
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:162
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:178
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:186
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:202
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:220
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:264
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:287
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:309
+msgid "Improved:"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:122
+msgid "[Core] Convert all core logic to Python 3"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:123
+msgid "[Scientific] Computation performance improvements"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:124
+msgid "[UI] General UI improvements"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:125
+msgid "[UI] Integrate history view inside the respective displays"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:126
+msgid "[Calculus] Make limits input more legible"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:127
+msgid "[Converters] Change API to open exchange rates"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:129
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:154
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:166
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:278
+msgid "Translations:"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:131
+msgid "Russian (by 1280px)"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:147
+msgid "[Converter] Upgrade to v7 of free currency converter API"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:148
+msgid "[Converter] Added Argentina Peso currency"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:156
+msgid "Brazilian Portuguese (by Gustavo Costa)"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:164
+msgid "[Programmer] Transition to integer-integer logic for all operations"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:168
+msgid "Simplified Chinese (by Tommy He)"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:174
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:208
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:224
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:236
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:248
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:258
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:282
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:295
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:303
+msgid "Fixed:"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:176
+msgid "[Converter] Fix multiple errors in the converters"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:180
+msgid "[UI] Scale button font with app width (a11y)"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:188
+msgid "[Core] Intelligently convert expression when there is a percentage sign"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:189
+msgid "[Core] Clean up useless debug prints, clean up console output"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:190
+msgid "[UI] Follow elementary theme even when run on another distro"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:198
+msgid "[UI] Make UI resizable and responsive with touch support"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:199
+msgid "[UI] Follow system-wide dark style preference"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:200
+msgid "[UI] Updated CSS to be in tune with style of elementary OS 6 Odin"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:204
+msgid "[Calculus] Prevent divide by zero errors, use \"tends to zero\" logic"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:205
+msgid "[Calculus] Add ability to input negative and fractional limits"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:206
+msgid "[Calculus] Add ability to modify integration accuracy"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:210
+msgid "[Programmer] Remove leading '0's correctly"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:218
+msgid "[Core] Insert result in history from any mode to any mode"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:222
+msgid "[Core] Persist History across invocations"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:226
+msgid "[Programmer] Better binary formatting"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:234
+msgid "[Programmer] Implement Programmer mode"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:238
+msgid "[UI] Fix minimode having wrong button label"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:239
+msgid "[UI] Allow changing currency converter API key"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:240
+msgid "[Core] Handle large factorials"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:241
+msgid "[Core] Replace imaginary number with universal parabolic constant"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:242
+msgid "[Core] Fix operator precedance"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:250
+msgid ""
+"[UI] Allow navigation left and right buttons to pass through selectively"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:251
+msgid "[Core] Better negative number handling"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:252
+msgid "[Core] Implicit multiplication on parenthesis and around variable (x)"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:260
+msgid "[UI] Comma and Radix symbols now obey Language &amp; Region settings"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:261
+msgid ""
+"[UI] Backspace button should now check if input entry has text on start up"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:262
+msgid "[Core] Fix precedance with proper PEMDAS rule"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:266
+msgid ""
+"[UI] Better clipboard system for Scientific, Calculus, Statistics and "
+"converters"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:274
+msgid "[UI] Save and restore calculator state across invocations"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:275
+msgid "[Converter] Save currency converter forex data after update"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:276
+msgid ""
+"[Calculus] Fix derivative accuracy bug which caused it to output zero "
+"everytime"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:280
+msgid "French (by Nathan Bonnemains)"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:284
+msgid "Code structure fixed and improved by Nathan Bonnemains"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:285
+msgid "[Calculus] Make Calculus button labels consistent with Scientific view"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:289
+msgid "[Controls] Use Escape Key to close dialogues"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:297
+msgid ""
+"[Converter] Override conversion precision based on unit for Currency and "
+"Data converter"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:305
+msgid "[Controls] Use F7 for last answer and F8 for changing angle mode"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:306
+msgid "[HeaderBar] Change 'GRD' to 'GRA'"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:307
+msgid "[Date View] Enable counting date backwards"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:311
+msgid "[Translations] Add more translatable strings"
+msgstr ""
+
+#: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:317
+msgid "Initial Release"
+msgstr ""

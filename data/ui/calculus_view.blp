@@ -33,7 +33,7 @@ template $PebblesCalculusView: $PebblesView {
     collapsed: bind template.collapsed;
 
     sidebar: Adw.NavigationPage button_container_left {
-      title: "Numerical Input";
+      title: _("Numerical Input");
       hexpand: true;
       overflow: visible;
 
@@ -86,7 +86,7 @@ template $PebblesCalculusView: $PebblesView {
         $PebblesButton variable_button {
             name: "x";
             label_text: "<i>X</i>";
-            tooltip_desc: "Variable x";
+            tooltip_desc: _("Variable x");
             focus-on-click: false;
             key: "x";
 
