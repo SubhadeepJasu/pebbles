@@ -1,7 +1,7 @@
-# Russian translations for com.github.subhadeepjasu.pebbles package.
+# French translations for com.github.subhadeepjasu.pebbles package.
 # Copyright (C) 2025 THE com.github.subhadeepjasu.pebbles'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the com.github.subhadeepjasu.pebbles package.
-# Automatically generated, 2025.
+# twelve eighty pix. (@1280px), 2025.
 #
 msgid ""
 msgstr ""
@@ -20,16 +20,16 @@ msgstr ""
 
 #: src/Common.vala:111
 msgid "Dataset Shape"
-msgstr ""
+msgstr "Форма данных"
 
 #: src/Common.vala:114 src/ControlsScheme.vala:144
 #: data/ui/statistics_view.blp:392 data/ui/statistics_view.blp:647
 msgid "Median"
-msgstr ""
+msgstr "Медианное значение"
 
 #: src/Common.vala:117 src/ControlsScheme.vala:141
 msgid "Mode"
-msgstr ""
+msgstr "Мода"
 
 #: src/Common.vala:120
 msgid "Sum"
@@ -42,7 +42,7 @@ msgstr ""
 #: src/Common.vala:126 src/ControlsScheme.vala:156
 #: data/ui/statistics_view.blp:297 data/ui/statistics_view.blp:770
 msgid "Mean"
-msgstr ""
+msgstr "Среднее значение"
 
 #: src/Common.vala:129
 msgid "Mean of Squared Values"
@@ -51,17 +51,17 @@ msgstr ""
 #: src/Common.vala:132 src/ControlsScheme.vala:162
 #: data/ui/statistics_view.blp:853
 msgid "Geometric Mean"
-msgstr ""
+msgstr "Среднее геометрическое"
 
 #: src/Common.vala:135 src/ControlsScheme.vala:153
 #: data/ui/statistics_view.blp:729
 msgid "Sample Variance"
-msgstr ""
+msgstr "Выборочная дисперсия"
 
 #: src/Common.vala:138 src/ControlsScheme.vala:168
 #: data/ui/statistics_view.blp:874
 msgid "Population Variance"
-msgstr ""
+msgstr "Дисперсия населения"
 
 #: src/Common.vala:141 data/ui/statistics_view.blp:488
 #: data/ui/statistics_view.blp:812
@@ -71,7 +71,7 @@ msgstr ""
 #: src/Common.vala:144 src/ControlsScheme.vala:171
 #: data/ui/statistics_view.blp:895
 msgid "Population Standard Deviation"
-msgstr ""
+msgstr "Стандартное отклонение населения"
 
 #: src/Common.vala:147
 msgid "Estimate Trend"
@@ -83,47 +83,47 @@ msgstr ""
 
 #: src/ControlsScheme.vala:18
 msgid "Show this controls window"
-msgstr ""
+msgstr "Показать это окно параметров"
 
 #: src/ControlsScheme.vala:21
 msgid "Show Preferences"
-msgstr ""
+msgstr "Показать параметры"
 
 #: src/ControlsScheme.vala:24
 msgid "Add to Memory"
-msgstr ""
+msgstr "Прибавить к памяти"
 
 #: src/ControlsScheme.vala:27
 msgid "Subtract from Memory"
-msgstr ""
+msgstr "Вычесть из памяти"
 
 #: src/ControlsScheme.vala:30
 msgid "Recall from Memory"
-msgstr ""
+msgstr "Вызов из памяти"
 
 #: src/ControlsScheme.vala:33
 msgid "Clear Memory"
-msgstr ""
+msgstr "Очистка памяти"
 
 #: src/ControlsScheme.vala:36
 msgid "Last Answer"
-msgstr ""
+msgstr "Последний результат"
 
 #: src/ControlsScheme.vala:39
 msgid "Close Dialog"
-msgstr ""
+msgstr "Закрыть диалоговое окно"
 
 #: src/ControlsScheme.vala:42 data/ui/calculus_view.blp:54
 #: data/ui/converter_view.blp:111 data/ui/graphing_view.blp:51
 #: data/ui/programmer_view.blp:59 data/ui/scientific_view.blp:54
 #: data/ui/statistics_view.blp:54
 msgid "All Clear"
-msgstr ""
+msgstr "Очистить всё"
 
 #: src/ControlsScheme.vala:45
 #: src/shell/widgets/displays/HistoryDisplay.vala:159
 msgid "Copy Result"
-msgstr ""
+msgstr "Скопировать результат"
 
 #: src/ControlsScheme.vala:48
 msgid "Paste"
@@ -131,104 +131,104 @@ msgstr ""
 
 #: src/ControlsScheme.vala:53
 msgid "Square (root) a Number"
-msgstr ""
+msgstr "Квадрат(ный корень) числа"
 
 #: src/ControlsScheme.vala:56
 msgid "Raise to the power (or nth root over)"
-msgstr ""
+msgstr "Возвести в степень (или корень n-й степени)"
 
 #: src/ControlsScheme.vala:59
 msgid "10 (or e) raised to the power"
-msgstr ""
+msgstr "10 (или e), возведённая в степень"
 
 #: src/ControlsScheme.vala:62
 msgid "Log base 10 (or e)"
-msgstr ""
+msgstr "Логарифм по основанию 10 (или e)"
 
 #: src/ControlsScheme.vala:65
 msgid "(Inverse) Sine"
-msgstr ""
+msgstr "(Обратный) синус"
 
 #: src/ControlsScheme.vala:68
 msgid "(Inverse) Cosine"
-msgstr ""
+msgstr "(Обратный) косинус"
 
 #: src/ControlsScheme.vala:71
 msgid "(Inverse) Tangent"
-msgstr ""
+msgstr "(Обратный) тангенс"
 
 #: src/ControlsScheme.vala:74
 msgid "(Inverse) Hyperbolic Sine"
-msgstr ""
+msgstr "(Обратный) гиперболический синус"
 
 #: src/ControlsScheme.vala:77
 msgid "(Inverse) Hyperbolic Cosine"
-msgstr ""
+msgstr "(Обратный) гиперболический косинус"
 
 #: src/ControlsScheme.vala:80
 msgid "(Inverse) Hyperbolic Tangent"
-msgstr ""
+msgstr "(Обратный) гиперболический тангенс"
 
 #: src/ControlsScheme.vala:83
 msgid "Modulus or Log base x"
-msgstr ""
+msgstr "Модуль (или логарифм по основанию x)"
 
 #: src/ControlsScheme.vala:86
 msgid "Permutation or Combination"
-msgstr ""
+msgstr "Перестановки (или сочетания)"
 
 #: src/ControlsScheme.vala:89 data/ui/calculus_view.blp:846
 #: data/ui/scientific_view.blp:846
 msgid "Factorial"
-msgstr ""
+msgstr "Факториал"
 
 #: src/ControlsScheme.vala:92
 msgid "Constants"
-msgstr ""
+msgstr "Вызов 1-й (2-й) константы"
 
 #: src/ControlsScheme.vala:95 src/ControlsScheme.vala:112
 #: data/ui/calculus_view.blp:476 data/ui/calculus_view.blp:906
 #: data/ui/programmer_view.blp:487 data/ui/programmer_view.blp:862
 #: data/ui/scientific_view.blp:476 data/ui/scientific_view.blp:906
 msgid "Result"
-msgstr ""
+msgstr "Результат"
 
 #: src/ControlsScheme.vala:100
 msgid "Logical OR or NOR"
-msgstr ""
+msgstr "Логическое ИЛИ (или ИЛИ-НЕ)"
 
 #: src/ControlsScheme.vala:103
 msgid "Logical AND or NAND"
-msgstr ""
+msgstr "Логическое И (или И-НЕ)"
 
 #: src/ControlsScheme.vala:106
 msgid "Logical XOR or XNOR"
-msgstr ""
+msgstr "Логическое XOR (или XOR-НЕ)"
 
 #: src/ControlsScheme.vala:109
 msgid "Logical NOT or Mod"
-msgstr ""
+msgstr "Логическое НЕ (или модуль)"
 
 #: src/ControlsScheme.vala:117 data/ui/statistics_view.blp:203
 #: data/ui/statistics_view.blp:915
 msgid "Add Cell"
-msgstr ""
+msgstr "Добавить ячейку"
 
 #: src/ControlsScheme.vala:120
 msgid "Next Cell or Add Right"
-msgstr ""
+msgstr "Следующая ячейка (или добавить справа)"
 
 #: src/ControlsScheme.vala:123
 msgid "Previous Cell or Add Left"
-msgstr ""
+msgstr "Предыдущая ячейка (или добавить слева)"
 
 #: src/ControlsScheme.vala:126 src/shell/views/StatisticsView.vala:333
 msgid "Navigate Left"
-msgstr ""
+msgstr "Предыдущая ячейка"
 
 #: src/ControlsScheme.vala:129 src/shell/views/StatisticsView.vala:337
 msgid "Navigate Right"
-msgstr ""
+msgstr "Следующая ячейка"
 
 #: src/ControlsScheme.vala:132 data/ui/graphing_view.blp:214
 #: data/ui/graphing_view.blp:740
@@ -246,23 +246,23 @@ msgstr ""
 
 #: src/ControlsScheme.vala:147
 msgid "Summation"
-msgstr ""
+msgstr "Статистическая сумма"
 
 #: src/ControlsScheme.vala:150
 msgid "Summation Squared"
-msgstr ""
+msgstr "Квадрат статистической суммы"
 
 #: src/ControlsScheme.vala:159
 msgid "Mean Squared"
-msgstr ""
+msgstr "Квадрат среднего значения"
 
 #: src/ControlsScheme.vala:165
 msgid "Sample Standard Deviation"
-msgstr ""
+msgstr "Среднеквадратическое отклонение"
 
 #: src/ControlsScheme.vala:176 data/ui/calculus_view.blp:89
 msgid "Variable x"
-msgstr ""
+msgstr "Переменная x"
 
 #: src/ControlsScheme.vala:181 data/ui/converter_view.blp:71
 msgid "Interchange Units"
@@ -271,30 +271,30 @@ msgstr ""
 #. TRANSLATORS: The left quotation mark symbol
 #: src/shell/dialogs/PreferencesDialog.vala:26
 msgid "“"
-msgstr ""
+msgstr "–  «"
 
 #. TRANSLATORS: The right quotation mark symbol
 #: src/shell/dialogs/PreferencesDialog.vala:28
 msgid "”"
-msgstr ""
+msgstr "»"
 
 #: src/shell/dialogs/PreferencesDialog.vala:31
 #: src/shell/views/CalculusView.vala:289 src/shell/views/GraphingView.vala:264
 #: src/shell/views/ScientificView.vala:210
 msgid "Euler's constant (exponential)"
-msgstr ""
+msgstr "Постоянная Эйлера (экспонента)"
 
 #: src/shell/dialogs/PreferencesDialog.vala:32
 #: src/shell/views/CalculusView.vala:253 src/shell/views/GraphingView.vala:228
 #: src/shell/views/ScientificView.vala:174
 msgid "Archimedes' constant (pi)"
-msgstr ""
+msgstr "Постоянная Архимеда (пи)"
 
 #: src/shell/dialogs/PreferencesDialog.vala:33
 #: src/shell/views/CalculusView.vala:261 src/shell/views/GraphingView.vala:236
 #: src/shell/views/ScientificView.vala:182
 msgid "Golden ratio (phi)"
-msgstr ""
+msgstr "Золотое сечение (фи)"
 
 #: src/shell/dialogs/PreferencesDialog.vala:34
 msgid "Imaginary number"
@@ -304,37 +304,37 @@ msgstr ""
 #: src/shell/views/CalculusView.vala:265 src/shell/views/GraphingView.vala:240
 #: src/shell/views/ScientificView.vala:186
 msgid "Euler–Mascheroni constant (gamma)"
-msgstr ""
+msgstr "Постоянная Эйлера–Маскерони (гамма)"
 
 #: src/shell/dialogs/PreferencesDialog.vala:36
 #: src/shell/views/CalculusView.vala:269 src/shell/views/GraphingView.vala:244
 #: src/shell/views/ScientificView.vala:190
 msgid "Conway's constant (lambda)"
-msgstr ""
+msgstr "Постоянная Конвея (лямбда)"
 
 #: src/shell/dialogs/PreferencesDialog.vala:37
 #: src/shell/views/CalculusView.vala:273 src/shell/views/GraphingView.vala:248
 #: src/shell/views/ScientificView.vala:194
 msgid "Khinchin's constant"
-msgstr ""
+msgstr "Постоянная Хинчина"
 
 #: src/shell/dialogs/PreferencesDialog.vala:38
 #: src/shell/views/CalculusView.vala:277 src/shell/views/GraphingView.vala:252
 #: src/shell/views/ScientificView.vala:198
 msgid "The Feigenbaum constant alpha"
-msgstr ""
+msgstr "Вторая константа Фейгенбаума (альфа)"
 
 #: src/shell/dialogs/PreferencesDialog.vala:39
 #: src/shell/views/CalculusView.vala:281 src/shell/views/GraphingView.vala:256
 #: src/shell/views/ScientificView.vala:202
 msgid "The Feigenbaum constant delta"
-msgstr ""
+msgstr "Первая константа Фейгенбаума (дельта)"
 
 #: src/shell/dialogs/PreferencesDialog.vala:40
 #: src/shell/views/CalculusView.vala:285 src/shell/views/GraphingView.vala:260
 #: src/shell/views/ScientificView.vala:206
 msgid "Apery's constant"
-msgstr ""
+msgstr "Постоянная Апери"
 
 #: src/shell/MainWindow.vala:231 src/shell/MainWindow.vala:265
 #: data/ui/main_window.blp:520
@@ -343,19 +343,19 @@ msgstr ""
 
 #: src/shell/MainWindow.vala:292
 msgid "AGE"
-msgstr ""
+msgstr "Время"
 
 #: src/shell/MainWindow.vala:293
 msgid "DUR"
-msgstr ""
+msgstr "Длит."
 
 #: src/shell/MainWindow.vala:311
 msgid "ADD"
-msgstr ""
+msgstr "Вперёд"
 
 #: src/shell/MainWindow.vala:312
 msgid "SUB"
-msgstr ""
+msgstr "Назад"
 
 #: src/shell/MainWindow.vala:789
 #, c-format
@@ -373,88 +373,88 @@ msgstr ""
 #: src/shell/views/CalculusView.vala:201 src/shell/views/GraphingView.vala:182
 #: src/shell/views/ScientificView.vala:93
 msgid "Square root over number"
-msgstr ""
+msgstr "Квадратный корень числа"
 
 #: src/shell/views/CalculusView.vala:201 src/shell/views/GraphingView.vala:182
 #: src/shell/views/ScientificView.vala:93 data/ui/calculus_view.blp:216
 #: data/ui/calculus_view.blp:535 data/ui/graphing_view.blp:553
 #: data/ui/scientific_view.blp:216 data/ui/scientific_view.blp:535
 msgid "x raised to the power y"
-msgstr ""
+msgstr "x в степени y"
 
 #: src/shell/views/CalculusView.vala:204 src/shell/views/GraphingView.vala:185
 #: src/shell/views/ScientificView.vala:96
 msgid "e raised to the power x"
-msgstr ""
+msgstr "e, возведённая в степень x"
 
 #: src/shell/views/CalculusView.vala:204 src/shell/views/GraphingView.vala:185
 #: src/shell/views/ScientificView.vala:96 data/ui/calculus_view.blp:556
 #: data/ui/graphing_view.blp:574 data/ui/scientific_view.blp:556
 msgid "10 raised to the power x"
-msgstr ""
+msgstr "10 в степени x"
 
 #: src/shell/views/CalculusView.vala:206 src/shell/views/GraphingView.vala:187
 #: src/shell/views/ScientificView.vala:98
 msgid "Inverse Sine"
-msgstr ""
+msgstr "Обратный синус"
 
 #: src/shell/views/CalculusView.vala:206 src/shell/views/GraphingView.vala:187
 #: src/shell/views/ScientificView.vala:98 data/ui/calculus_view.blp:597
 #: data/ui/graphing_view.blp:595 data/ui/scientific_view.blp:597
 msgid "Sine"
-msgstr ""
+msgstr "Синус"
 
 #: src/shell/views/CalculusView.vala:208 src/shell/views/GraphingView.vala:189
 #: src/shell/views/ScientificView.vala:100
 msgid "Inverse Cosine"
-msgstr ""
+msgstr "Обратный косинус"
 
 #: src/shell/views/CalculusView.vala:208 src/shell/views/GraphingView.vala:189
 #: src/shell/views/ScientificView.vala:100 data/ui/calculus_view.blp:680
 #: data/ui/graphing_view.blp:658 data/ui/scientific_view.blp:680
 msgid "Cosine"
-msgstr ""
+msgstr "Косинус"
 
 #: src/shell/views/CalculusView.vala:210 src/shell/views/GraphingView.vala:191
 #: src/shell/views/ScientificView.vala:102
 msgid "Inverse Tangent"
-msgstr ""
+msgstr "Обратный тангенс"
 
 #: src/shell/views/CalculusView.vala:210 src/shell/views/GraphingView.vala:191
 #: src/shell/views/ScientificView.vala:102 data/ui/calculus_view.blp:763
 #: data/ui/graphing_view.blp:813 data/ui/scientific_view.blp:763
 msgid "Tangent"
-msgstr ""
+msgstr "Тангенс"
 
 #: src/shell/views/CalculusView.vala:212 src/shell/views/GraphingView.vala:193
 #: src/shell/views/ScientificView.vala:104
 msgid "Inverse Hyperbolic Sine"
-msgstr ""
+msgstr "Обратный гиперболический синус"
 
 #: src/shell/views/CalculusView.vala:212 src/shell/views/GraphingView.vala:193
 #: src/shell/views/ScientificView.vala:104
 msgid "Hyperbolic Sine"
-msgstr ""
+msgstr "Гиперболический синус"
 
 #: src/shell/views/CalculusView.vala:214 src/shell/views/GraphingView.vala:195
 #: src/shell/views/ScientificView.vala:106
 msgid "Inverse Hyperbolic Cosine"
-msgstr ""
+msgstr "Обратный гиперболический косинус"
 
 #: src/shell/views/CalculusView.vala:214 src/shell/views/GraphingView.vala:195
 #: src/shell/views/ScientificView.vala:106
 msgid "Hyperbolic Cosine"
-msgstr ""
+msgstr "Гиперболический косинус"
 
 #: src/shell/views/CalculusView.vala:216 src/shell/views/GraphingView.vala:197
 #: src/shell/views/ScientificView.vala:108
 msgid "Inverse Hyperbolic Tangent"
-msgstr ""
+msgstr "Обратный гиперболический тангенс"
 
 #: src/shell/views/CalculusView.vala:216 src/shell/views/GraphingView.vala:197
 #: src/shell/views/ScientificView.vala:108
 msgid "Hyperbolic Tangent"
-msgstr ""
+msgstr "Гиперболический тангенс"
 
 #: src/shell/views/CalculusView.vala:218 src/shell/views/GraphingView.vala:199
 #: src/shell/views/ScientificView.vala:110
@@ -466,12 +466,12 @@ msgstr ""
 #: src/shell/views/ScientificView.vala:110 data/ui/calculus_view.blp:722
 #: data/ui/graphing_view.blp:700 data/ui/scientific_view.blp:722
 msgid "Modulus"
-msgstr ""
+msgstr "Модуль"
 
 #: src/shell/views/CalculusView.vala:220 src/shell/views/GraphingView.vala:201
 #: src/shell/views/ScientificView.vala:112
 msgid "Natural Logarithm"
-msgstr ""
+msgstr "Натуральный логарифм"
 
 #: src/shell/views/CalculusView.vala:220 src/shell/views/GraphingView.vala:201
 #: src/shell/views/ScientificView.vala:112
@@ -481,13 +481,13 @@ msgstr ""
 #: src/shell/views/CalculusView.vala:223
 #: src/shell/views/ScientificView.vala:115
 msgid "Combinations"
-msgstr ""
+msgstr "Сочетания"
 
 #: src/shell/views/CalculusView.vala:223
 #: src/shell/views/ScientificView.vala:115 data/ui/calculus_view.blp:805
 #: data/ui/scientific_view.blp:805
 msgid "Permutations"
-msgstr ""
+msgstr "Перестановки"
 
 #: src/shell/views/CalculusView.vala:226
 #: src/shell/views/ProgrammerView.vala:302
@@ -503,7 +503,7 @@ msgstr ""
 #: data/ui/programmer_view.blp:574 data/ui/scientific_view.blp:576
 #: data/ui/statistics_view.blp:583
 msgid "Add it to the value in Memory"
-msgstr ""
+msgstr "Прибавить к значению в памяти"
 
 #: src/shell/views/CalculusView.vala:229
 #: src/shell/views/ProgrammerView.vala:305
@@ -519,7 +519,7 @@ msgstr ""
 #: data/ui/programmer_view.blp:651 data/ui/scientific_view.blp:659
 #: data/ui/statistics_view.blp:666
 msgid "Subtract it from the value in Memory"
-msgstr ""
+msgstr "Вычесть из значения в памяти"
 
 #: src/shell/views/CalculusView.vala:233
 #: src/shell/views/ProgrammerView.vala:309
@@ -535,7 +535,7 @@ msgstr ""
 #: data/ui/programmer_view.blp:728 data/ui/scientific_view.blp:742
 #: data/ui/statistics_view.blp:749
 msgid "Recall value from Memory"
-msgstr ""
+msgstr "Вызвать значение из памяти"
 
 #: src/shell/views/CalculusView.vala:235
 #: src/shell/views/ProgrammerView.vala:311
@@ -551,7 +551,7 @@ msgstr ""
 #: data/ui/programmer_view.blp:805 data/ui/scientific_view.blp:825
 #: data/ui/statistics_view.blp:832
 msgid "Memory Clear"
-msgstr ""
+msgstr "Очистить память"
 
 #: src/shell/views/CalculusView.vala:238 src/shell/views/CalculusView.vala:241
 #: src/shell/views/ProgrammerView.vala:314
@@ -579,105 +579,105 @@ msgstr ""
 
 #: src/shell/views/DateView.vala:41
 msgid "The Date was"
-msgstr ""
+msgstr "Этой датой был(-а)"
 
 #: src/shell/views/DateView.vala:41 data/ui/date_view.blp:215
 msgid "The Date will be"
-msgstr ""
+msgstr "Этой датой будет"
 
 #: src/shell/views/DateView.vala:145 src/shell/views/DateView.vala:190
 msgid "day"
-msgstr ""
+msgstr "день"
 
 #: src/shell/views/DateView.vala:145 src/shell/views/DateView.vala:190
 msgid "days"
-msgstr ""
+msgstr "дня/-ей"
 
 #: src/shell/views/DateView.vala:146
 #, c-format
 msgid "A total of %s"
-msgstr ""
+msgstr ", то есть %s"
 
 #: src/shell/views/DateView.vala:158 data/ui/date_view.blp:103
 msgid "Hey, it's the same date"
-msgstr ""
+msgstr "(это одна и та же дата!)"
 
 #: src/shell/views/DateView.vala:162
 msgid "year"
-msgstr ""
+msgstr "год"
 
 #: src/shell/views/DateView.vala:162
 msgid "years"
-msgstr ""
+msgstr "года/лет"
 
 #: src/shell/views/DateView.vala:167 src/shell/views/DateView.vala:175
 #: src/shell/views/DateView.vala:187
 msgid "and"
-msgstr ""
+msgstr "и"
 
 #: src/shell/views/DateView.vala:170
 msgid "month"
-msgstr ""
+msgstr "месяц"
 
 #: src/shell/views/DateView.vala:170
 msgid "months"
-msgstr ""
+msgstr "месяца/-ев"
 
 #: src/shell/views/DateView.vala:178
 msgid "week"
-msgstr ""
+msgstr "неделя"
 
 #: src/shell/views/DateView.vala:178
 msgid "weeks"
-msgstr ""
+msgstr "недели"
 
 #: src/shell/views/DateView.vala:194
 msgid "counting backwards"
-msgstr ""
+msgstr "считая в обратном порядке"
 
 #: src/shell/views/DateView.vala:215
 msgid "Monday"
-msgstr ""
+msgstr "Понедельник"
 
 #: src/shell/views/DateView.vala:216
 msgid "Tuesday"
-msgstr ""
+msgstr "Вторник"
 
 #: src/shell/views/DateView.vala:217
 msgid "Wednesday"
-msgstr ""
+msgstr "Среда"
 
 #: src/shell/views/DateView.vala:218
 msgid "Thursday"
-msgstr ""
+msgstr "Четверг"
 
 #: src/shell/views/DateView.vala:219
 msgid "Friday"
-msgstr ""
+msgstr "Пятница"
 
 #: src/shell/views/DateView.vala:220
 msgid "Saturday"
-msgstr ""
+msgstr "Суббота"
 
 #: src/shell/views/DateView.vala:221
 msgid "Sunday"
-msgstr ""
+msgstr "Воскресенье"
 
 #: src/shell/views/GraphingView.vala:203
 msgid "Variable b"
-msgstr ""
+msgstr "Переменная b"
 
 #: src/shell/views/GraphingView.vala:203 data/ui/graphing_view.blp:776
 msgid "Variable a"
-msgstr ""
+msgstr "Переменная a"
 
 #: src/shell/views/GraphingView.vala:205
 msgid "Variable c"
-msgstr ""
+msgstr "Переменная c"
 
 #: src/shell/views/GraphingView.vala:205 data/ui/graphing_view.blp:794
 msgid "Variable m"
-msgstr ""
+msgstr "Переменная m"
 
 #: src/shell/views/GraphingView.vala:359
 msgid "PNG Files"
@@ -686,16 +686,16 @@ msgstr ""
 #: src/shell/views/GraphingView.vala:367
 #: src/shell/views/StatisticsView.vala:108
 msgid "Export"
-msgstr ""
+msgstr "Экспорт"
 
 #: src/shell/views/GraphingView.vala:371
 msgid "Export as PNG"
-msgstr ""
+msgstr "Экспортировать как PNG"
 
 #. Call Python to save PNG
 #: src/shell/views/GraphingView.vala:381
 msgid "Exported graph as image!"
-msgstr ""
+msgstr "График экспортирован в виде изображения!"
 
 #: src/shell/views/ProgrammerView.vala:276
 msgid "Bitwise Inverter (TRUE for input being FALSE and vice versa)"
@@ -721,19 +721,19 @@ msgstr ""
 
 #: src/shell/views/ProgrammerView.vala:293
 msgid "Logical NOT-of-XOR (TRUE only for all inputs being same)"
-msgstr ""
+msgstr "Логическое XOR-НЕ (истинно, когда оба входных бита одинаковы)"
 
 #: src/shell/views/ProgrammerView.vala:294
 msgid "Logical Exclusive-OR (TRUE for exactly one input being TRUE)"
-msgstr ""
+msgstr "Логическое XOR (истинно, когда только один из входных битов истинен)"
 
 #: src/shell/views/ProgrammerView.vala:299
 msgid "Right Shift"
-msgstr ""
+msgstr "Сдвиг вправо"
 
 #: src/shell/views/ProgrammerView.vala:299 data/ui/programmer_view.blp:94
 msgid "Left Shift"
-msgstr ""
+msgstr "Сдвиг влево"
 
 #: src/shell/views/StatisticsView.vala:61
 #: src/shell/views/StatisticsView.vala:94
@@ -747,20 +747,20 @@ msgstr ""
 
 #: src/shell/views/StatisticsView.vala:75
 msgid "Import"
-msgstr ""
+msgstr "Импорт"
 
 #: src/shell/views/StatisticsView.vala:79
 msgid "Import CSV files"
-msgstr ""
+msgstr "Импорт CSV-файлов"
 
 #: src/shell/views/StatisticsView.vala:112
 msgid "Export CSV files"
-msgstr ""
+msgstr "Navigate to the beginning"
 
 #. Call Python to save CSV
 #: src/shell/views/StatisticsView.vala:122
 msgid "Exported CSV file!"
-msgstr ""
+msgstr "Файл CSV успешно экспортирован!"
 
 #: src/shell/views/StatisticsView.vala:333
 msgid "Navigate to the beginning"
@@ -772,111 +772,111 @@ msgstr ""
 
 #: src/shell/views/converters/ConvAngleView.vala:19
 msgid "Degree"
-msgstr ""
+msgstr "Градусы"
 
 #: src/shell/views/converters/ConvAngleView.vala:20
 msgid "Radian"
-msgstr ""
+msgstr "Радины"
 
 #: src/shell/views/converters/ConvAngleView.vala:21
 msgid "Gradian"
-msgstr ""
+msgstr "Грады"
 
 #: src/shell/views/converters/ConvAngleView.vala:22
 msgid "Milliradian"
-msgstr ""
+msgstr "Миллирадианы"
 
 #: src/shell/views/converters/ConvAngleView.vala:23
 msgid "Second of arc"
-msgstr ""
+msgstr "Секунды дуги (арксекунды)"
 
 #: src/shell/views/converters/ConvAngleView.vala:24
 msgid "Minute of arc"
-msgstr ""
+msgstr "Минуты дуги (аркминуты)"
 
 #: src/shell/views/converters/ConvAreaView.vala:23
 msgid "Square millimetre"
-msgstr ""
+msgstr "Квадратные миллиметры"
 
 #: src/shell/views/converters/ConvAreaView.vala:24
 msgid "Square centimetre"
-msgstr ""
+msgstr "Квадратные сантиметры"
 
 #: src/shell/views/converters/ConvAreaView.vala:25
 msgid "Square metre"
-msgstr ""
+msgstr "Квадратные метры"
 
 #: src/shell/views/converters/ConvAreaView.vala:26
 msgid "Square kilometre"
-msgstr ""
+msgstr "Квадратные километры"
 
 #: src/shell/views/converters/ConvAreaView.vala:27
 msgid "Square inch"
-msgstr ""
+msgstr "Квадратные дюймы"
 
 #: src/shell/views/converters/ConvAreaView.vala:28
 msgid "Square foot"
-msgstr ""
+msgstr "Квадратные футы"
 
 #: src/shell/views/converters/ConvAreaView.vala:29
 msgid "Square yard"
-msgstr ""
+msgstr "Квадратные ярды"
 
 #: src/shell/views/converters/ConvAreaView.vala:30
 msgid "Hectare"
-msgstr ""
+msgstr "Гектары"
 
 #: src/shell/views/converters/ConvAreaView.vala:31
 msgid "Acre"
-msgstr ""
+msgstr "Акры"
 
 #: src/shell/views/converters/ConvAreaView.vala:32
 msgid "Square mile"
-msgstr ""
+msgstr "Квадратные мили"
 
 #: src/shell/views/converters/ConvCurrencyView.vala:14
 msgid "US Dollar"
-msgstr ""
+msgstr "Доллары США"
 
 #: src/shell/views/converters/ConvCurrencyView.vala:15
 msgid "Euro"
-msgstr ""
+msgstr "Евро"
 
 #: src/shell/views/converters/ConvCurrencyView.vala:16
 msgid "British Pounds"
-msgstr ""
+msgstr "Британские фунты"
 
 #: src/shell/views/converters/ConvCurrencyView.vala:17
 msgid "Australian Dollar"
-msgstr ""
+msgstr "Австралийские доллары"
 
 #: src/shell/views/converters/ConvCurrencyView.vala:18
 msgid "Brazilian Real"
-msgstr ""
+msgstr "Бразильские реалы"
 
 #: src/shell/views/converters/ConvCurrencyView.vala:19
 msgid "Canadian Dollar"
-msgstr ""
+msgstr "Канадские доллары"
 
 #: src/shell/views/converters/ConvCurrencyView.vala:20
 msgid "Chinese Yuan"
-msgstr ""
+msgstr "Китайские юани"
 
 #: src/shell/views/converters/ConvCurrencyView.vala:21
 msgid "Indian Rupee"
-msgstr ""
+msgstr "Индийские рупии"
 
 #: src/shell/views/converters/ConvCurrencyView.vala:22
 msgid "Japanese Yen"
-msgstr ""
+msgstr "Японские иены"
 
 #: src/shell/views/converters/ConvCurrencyView.vala:23
 msgid "Russian Ruble"
-msgstr ""
+msgstr "Российские рубли"
 
 #: src/shell/views/converters/ConvCurrencyView.vala:24
 msgid "South African Rand"
-msgstr ""
+msgstr "Южноафриканские рэнды"
 
 #: src/shell/views/converters/ConvCurrencyView.vala:25
 msgid "Argentine Peso"
@@ -895,428 +895,428 @@ msgstr ""
 
 #: src/shell/views/converters/ConvDataView.vala:35
 msgid "Bit"
-msgstr ""
+msgstr "Бит"
 
 #: src/shell/views/converters/ConvDataView.vala:36
 msgid "Kilobit"
-msgstr ""
+msgstr "Килобит"
 
 #: src/shell/views/converters/ConvDataView.vala:37
 msgid "Kibibit"
-msgstr ""
+msgstr "Кибибит"
 
 #: src/shell/views/converters/ConvDataView.vala:38
 msgid "Megabit"
-msgstr ""
+msgstr "Мегабит"
 
 #: src/shell/views/converters/ConvDataView.vala:39
 msgid "Mebibit"
-msgstr ""
+msgstr "Мебибит"
 
 #: src/shell/views/converters/ConvDataView.vala:40
 msgid "Gigabit"
-msgstr ""
+msgstr "Гигабит"
 
 #: src/shell/views/converters/ConvDataView.vala:41
 msgid "Gibibit"
-msgstr ""
+msgstr "Гибибит"
 
 #: src/shell/views/converters/ConvDataView.vala:42
 msgid "Terabit"
-msgstr ""
+msgstr "Терабит"
 
 #: src/shell/views/converters/ConvDataView.vala:43
 msgid "Tebibit"
-msgstr ""
+msgstr "Тебибит"
 
 #: src/shell/views/converters/ConvDataView.vala:44
 msgid "Petabit"
-msgstr ""
+msgstr "Петабит"
 
 #: src/shell/views/converters/ConvDataView.vala:45
 msgid "Pebibit"
-msgstr ""
+msgstr "Пебибит"
 
 #: src/shell/views/converters/ConvDataView.vala:46
 msgid "Byte"
-msgstr ""
+msgstr "Байт"
 
 #: src/shell/views/converters/ConvDataView.vala:47
 msgid "Kilobyte"
-msgstr ""
+msgstr "Килобайт"
 
 #: src/shell/views/converters/ConvDataView.vala:48
 msgid "Kibibyte"
-msgstr ""
+msgstr "Кибибайт"
 
 #: src/shell/views/converters/ConvDataView.vala:49
 msgid "Megabyte"
-msgstr ""
+msgstr "Мегабайт"
 
 #: src/shell/views/converters/ConvDataView.vala:50
 msgid "Mebibyte"
-msgstr ""
+msgstr "Мебибайт"
 
 #: src/shell/views/converters/ConvDataView.vala:51
 msgid "Gigabyte"
-msgstr ""
+msgstr "Гигабайт"
 
 #: src/shell/views/converters/ConvDataView.vala:52
 msgid "Gibibyte"
-msgstr ""
+msgstr "Гибибайт"
 
 #: src/shell/views/converters/ConvDataView.vala:53
 msgid "Terabyte"
-msgstr ""
+msgstr "Терабайт"
 
 #: src/shell/views/converters/ConvDataView.vala:54
 msgid "Tebibyte"
-msgstr ""
+msgstr "Тебибайт"
 
 #: src/shell/views/converters/ConvDataView.vala:55
 msgid "Petabyte"
-msgstr ""
+msgstr "Петабайт"
 
 #: src/shell/views/converters/ConvDataView.vala:56
 msgid "Pebibyte"
-msgstr ""
+msgstr "Пебибайт"
 
 #: src/shell/views/converters/ConvEnergyView.vala:23
 msgid "Joule"
-msgstr ""
+msgstr "Джоули"
 
 #: src/shell/views/converters/ConvEnergyView.vala:24
 msgid "Kilojoule"
-msgstr ""
+msgstr "Килоджоули"
 
 #: src/shell/views/converters/ConvEnergyView.vala:25
 msgid "Gram calorie"
-msgstr ""
+msgstr "Грамм-калории"
 
 #: src/shell/views/converters/ConvEnergyView.vala:26
 msgid "Kilocalorie"
-msgstr ""
+msgstr "Килокалории"
 
 #: src/shell/views/converters/ConvEnergyView.vala:27
 msgid "Watt hour"
-msgstr ""
+msgstr "Ватт-часы"
 
 #: src/shell/views/converters/ConvEnergyView.vala:28
 msgid "Kilowatt hour"
-msgstr ""
+msgstr "Киловатт-часы"
 
 #. "Electronvolt",       Future Support
 #: src/shell/views/converters/ConvEnergyView.vala:30
 msgid "British thermal unit"
-msgstr ""
+msgstr "Британские тепловые единицы"
 
 #: src/shell/views/converters/ConvEnergyView.vala:31
 msgid "US therm"
-msgstr ""
+msgstr "Американские термы"
 
 #: src/shell/views/converters/ConvEnergyView.vala:32
 msgid "Foot-pound"
-msgstr ""
+msgstr "Фут-фунты"
 
 #: src/shell/views/converters/ConvLengthView.vala:24
 msgid "Nanometre"
-msgstr ""
+msgstr "Нанометры"
 
 #: src/shell/views/converters/ConvLengthView.vala:25
 msgid "Micron"
-msgstr ""
+msgstr "Микроны"
 
 #: src/shell/views/converters/ConvLengthView.vala:26
 msgid "Millimetre"
-msgstr ""
+msgstr "Миллиметры"
 
 #: src/shell/views/converters/ConvLengthView.vala:27
 msgid "Centimetre"
-msgstr ""
+msgstr "Сантиметры"
 
 #: src/shell/views/converters/ConvLengthView.vala:28
 msgid "Metre"
-msgstr ""
+msgstr "Метры"
 
 #: src/shell/views/converters/ConvLengthView.vala:29
 msgid "Kilometre"
-msgstr ""
+msgstr "Километры"
 
 #: src/shell/views/converters/ConvLengthView.vala:30
 msgid "Inch"
-msgstr ""
+msgstr "Дюймы"
 
 #: src/shell/views/converters/ConvLengthView.vala:31
 msgid "Foot"
-msgstr ""
+msgstr "Футы"
 
 #: src/shell/views/converters/ConvLengthView.vala:32
 msgid "Yard"
-msgstr ""
+msgstr "Ярды"
 
 #: src/shell/views/converters/ConvLengthView.vala:33
 msgid "Mile"
-msgstr ""
+msgstr "Мили"
 
 #: src/shell/views/converters/ConvLengthView.vala:34
 msgid "Nautical Mile"
-msgstr ""
+msgstr "Морские мили"
 
 #: src/shell/views/converters/ConvMassView.vala:23
 msgid "Microgram"
-msgstr ""
+msgstr "Микрограммы"
 
 #: src/shell/views/converters/ConvMassView.vala:24
 msgid "Milligram"
-msgstr ""
+msgstr "Миллиграммы"
 
 #: src/shell/views/converters/ConvMassView.vala:25
 msgid "Gram"
-msgstr ""
+msgstr "Граммы"
 
 #: src/shell/views/converters/ConvMassView.vala:26
 msgid "Kilogram"
-msgstr ""
+msgstr "Килограммы"
 
 #: src/shell/views/converters/ConvMassView.vala:27
 msgid "Tonne"
-msgstr ""
+msgstr "Тонны"
 
 #: src/shell/views/converters/ConvMassView.vala:28
 msgid "US ton"
-msgstr ""
+msgstr "Тонны (США)"
 
 #: src/shell/views/converters/ConvMassView.vala:29
 msgid "Imperial Ton"
-msgstr ""
+msgstr "Тонны (Великобритания)"
 
 #: src/shell/views/converters/ConvMassView.vala:30
 msgid "Ounce"
-msgstr ""
+msgstr "Унции"
 
 #: src/shell/views/converters/ConvMassView.vala:31
 msgid "Pound"
-msgstr ""
+msgstr "Фунты"
 
 #: src/shell/views/converters/ConvMassView.vala:32
 msgid "Stone"
-msgstr ""
+msgstr "Стоуны"
 
 #: src/shell/views/converters/ConvPowerView.vala:19
 msgid "Watt"
-msgstr ""
+msgstr "Ватты"
 
 #: src/shell/views/converters/ConvPowerView.vala:20
 msgid "Kilowatt"
-msgstr ""
+msgstr "Киловатты"
 
 #: src/shell/views/converters/ConvPowerView.vala:21
 msgid "Metric horsepower"
-msgstr ""
+msgstr "Лошадиные силы (метрические)"
 
 #: src/shell/views/converters/ConvPowerView.vala:22
 msgid "Mechanical horsepower"
-msgstr ""
+msgstr "Лошадиные силы (механические)"
 
 #: src/shell/views/converters/ConvPowerView.vala:23
 msgid "Foot-pound / minute"
-msgstr ""
+msgstr "Фут-фунты в минуту"
 
 #: src/shell/views/converters/ConvPowerView.vala:24
 msgid "BTU / hour"
-msgstr ""
+msgstr "Британские тепловые единицы в час"
 
 #: src/shell/views/converters/ConvPressureView.vala:19
 msgid "Atmosphere"
-msgstr ""
+msgstr "Атмосферы"
 
 #: src/shell/views/converters/ConvPressureView.vala:20
 msgid "Bar"
-msgstr ""
+msgstr "Бары"
 
 #: src/shell/views/converters/ConvPressureView.vala:21
 msgid "Millimetre of mercury"
-msgstr ""
+msgstr "Миллиметры ртутного столба"
 
 #: src/shell/views/converters/ConvPressureView.vala:22
 msgid "Pascal"
-msgstr ""
+msgstr "Паскали"
 
 #: src/shell/views/converters/ConvPressureView.vala:23
 msgid "Pound-force / sq-inch"
-msgstr ""
+msgstr "Фунт-сила на квадратный дюйм"
 
 #: src/shell/views/converters/ConvPressureView.vala:24
 msgid "Torr"
-msgstr ""
+msgstr "Торры"
 
 #: src/shell/views/converters/ConvSpeedView.vala:20
 msgid "Centimetre per second"
-msgstr ""
+msgstr "Сантиметры в секунду"
 
 #: src/shell/views/converters/ConvSpeedView.vala:21
 msgid "Metre per second"
-msgstr ""
+msgstr "Метры в секунду"
 
 #: src/shell/views/converters/ConvSpeedView.vala:22
 msgid "Kilometre per hour"
-msgstr ""
+msgstr "Километры в час"
 
 #: src/shell/views/converters/ConvSpeedView.vala:23
 msgid "Foot per second"
-msgstr ""
+msgstr "Футы в секунды"
 
 #: src/shell/views/converters/ConvSpeedView.vala:24
 msgid "Miles per hour"
-msgstr ""
+msgstr "Мили в час"
 
 #: src/shell/views/converters/ConvSpeedView.vala:25
 msgid "Knot"
-msgstr ""
+msgstr "Узлы"
 
 #: src/shell/views/converters/ConvSpeedView.vala:26
 msgid "Mach"
-msgstr ""
+msgstr "Махи (скорость звука)"
 
 #: src/shell/views/converters/ConvTempView.vala:16
 msgid "Celsius"
-msgstr ""
+msgstr "Градусы Цельсия"
 
 #: src/shell/views/converters/ConvTempView.vala:17
 msgid "Fahrenheit"
-msgstr ""
+msgstr "Градусы Фаренгейта"
 
 #: src/shell/views/converters/ConvTempView.vala:18
 msgid "Kelvin"
-msgstr ""
+msgstr "Кельвины"
 
 #: src/shell/views/converters/ConvTimeView.vala:24
 msgid "Microsecond"
-msgstr ""
+msgstr "Микросекунды"
 
 #: src/shell/views/converters/ConvTimeView.vala:25
 msgid "Millisecond"
-msgstr ""
+msgstr "Миллисекунды"
 
 #: src/shell/views/converters/ConvTimeView.vala:26
 msgid "Second"
-msgstr ""
+msgstr "Секунды"
 
 #: src/shell/views/converters/ConvTimeView.vala:27
 msgid "Minute"
-msgstr ""
+msgstr "Минуты"
 
 #: src/shell/views/converters/ConvTimeView.vala:28
 msgid "Hour"
-msgstr ""
+msgstr "Часы"
 
 #: src/shell/views/converters/ConvTimeView.vala:29
 msgid "Day"
-msgstr ""
+msgstr "Дни"
 
 #: src/shell/views/converters/ConvTimeView.vala:30
 msgid "Week"
-msgstr ""
+msgstr "Недели"
 
 #: src/shell/views/converters/ConvTimeView.vala:31
 msgid "Month"
-msgstr ""
+msgstr "Месяцы"
 
 #: src/shell/views/converters/ConvTimeView.vala:32
 msgid "Year"
-msgstr ""
+msgstr "Годы"
 
 #: src/shell/views/converters/ConvTimeView.vala:33
 msgid "Decade"
-msgstr ""
+msgstr "Декады"
 
 #: src/shell/views/converters/ConvTimeView.vala:34
 msgid "Century"
-msgstr ""
+msgstr "Столетия"
 
 #: src/shell/views/converters/ConvVolumeView.vala:34
 msgid "Millilitre"
-msgstr ""
+msgstr "Миллилитры"
 
 #: src/shell/views/converters/ConvVolumeView.vala:35
 msgid "Cubic centimetre"
-msgstr ""
+msgstr "Кубические сантиметры"
 
 #: src/shell/views/converters/ConvVolumeView.vala:36
 msgid "Litre"
-msgstr ""
+msgstr "Литры"
 
 #: src/shell/views/converters/ConvVolumeView.vala:37
 msgid "Cubic metre"
-msgstr ""
+msgstr "Кубические метры"
 
 #: src/shell/views/converters/ConvVolumeView.vala:38
 msgid "US teaspoon"
-msgstr ""
+msgstr "Чайные ложки (США)"
 
 #: src/shell/views/converters/ConvVolumeView.vala:39
 msgid "US tablespoon"
-msgstr ""
+msgstr "Столовые ложки (США)"
 
 #: src/shell/views/converters/ConvVolumeView.vala:40
 msgid "US fluid ounce"
-msgstr ""
+msgstr "Жидкие унции (США)"
 
 #: src/shell/views/converters/ConvVolumeView.vala:41
 msgid "US legal cup"
-msgstr ""
+msgstr "Стаканы (США)"
 
 #: src/shell/views/converters/ConvVolumeView.vala:42
 msgid "US pint"
-msgstr ""
+msgstr "Пинты (США)"
 
 #: src/shell/views/converters/ConvVolumeView.vala:43
 msgid "US quart"
-msgstr ""
+msgstr "Кварты (США)"
 
 #: src/shell/views/converters/ConvVolumeView.vala:44
 msgid "US gallon"
-msgstr ""
+msgstr "Галлоны (США)"
 
 #: src/shell/views/converters/ConvVolumeView.vala:45
 msgid "Imperial teaspoon"
-msgstr ""
+msgstr "Чайные ложки (Великобритания)"
 
 #: src/shell/views/converters/ConvVolumeView.vala:46
 msgid "Imperial tablespoon"
-msgstr ""
+msgstr "Столовые ложки (Великобритания)"
 
 #: src/shell/views/converters/ConvVolumeView.vala:47
 msgid "Imperial fluid ounce"
-msgstr ""
+msgstr "Жидкие унции (Великобритания)"
 
 #: src/shell/views/converters/ConvVolumeView.vala:48
 msgid "Imperial cup"
-msgstr ""
+msgstr "Чашки (Великобритания)"
 
 #: src/shell/views/converters/ConvVolumeView.vala:49
 msgid "Imperial pint"
-msgstr ""
+msgstr "Пинты (Великобритания)"
 
 #: src/shell/views/converters/ConvVolumeView.vala:50
 msgid "Imperial quart"
-msgstr ""
+msgstr "Кварты (Великобритания)"
 
 #: src/shell/views/converters/ConvVolumeView.vala:51
 msgid "Imperial gallon"
-msgstr ""
+msgstr "Галлоны (Великобритания)"
 
 #: src/shell/views/converters/ConvVolumeView.vala:52
 msgid "Cubic inch"
-msgstr ""
+msgstr "Кубические дюймы"
 
 #: src/shell/views/converters/ConvVolumeView.vala:53
 msgid "Cubic foot"
-msgstr ""
+msgstr "Кубические футы"
 
 #: src/shell/views/converters/ConvVolumeView.vala:54
 msgid "Cubic yard"
-msgstr ""
+msgstr "Кубические ярды"
 
 #: src/shell/widgets/displays/CalculusDisplay.vala:163
 #: src/shell/widgets/displays/ProgrammerDisplay.vala:255
@@ -1369,7 +1369,7 @@ msgstr ""
 #: data/ui/programmer_display.blp:61 data/ui/scientific_display.blp:55
 #: data/ui/statistics_display.blp:107
 msgid "SHIFT"
-msgstr ""
+msgstr "SHIFT"
 
 #: data/ui/calculus_display.blp:135
 msgid "Integral lower limit"
@@ -1410,33 +1410,33 @@ msgstr ""
 #: data/ui/graphing_view.blp:71 data/ui/programmer_view.blp:79
 #: data/ui/scientific_view.blp:74 data/ui/statistics_view.blp:87
 msgid "Backspace"
-msgstr ""
+msgstr "Стереть"
 
 #: data/ui/calculus_view.blp:107 data/ui/graphing_view.blp:104
 #: data/ui/programmer_view.blp:113 data/ui/scientific_view.blp:107
 msgid "Divide"
-msgstr ""
+msgstr "Разделить"
 
 #: data/ui/calculus_view.blp:196 data/ui/graphing_view.blp:195
 #: data/ui/programmer_view.blp:202 data/ui/scientific_view.blp:196
 msgid "Multiply"
-msgstr ""
+msgstr "Умножить"
 
 #: data/ui/calculus_view.blp:285 data/ui/graphing_view.blp:287
 #: data/ui/programmer_view.blp:291 data/ui/scientific_view.blp:285
 msgid "Subtract"
-msgstr ""
+msgstr "Вычесть"
 
 #: data/ui/calculus_view.blp:305 data/ui/calculus_view.blp:639
 #: data/ui/graphing_view.blp:637 data/ui/scientific_view.blp:305
 #: data/ui/scientific_view.blp:639
 msgid "Log base 10"
-msgstr ""
+msgstr "Логарифм по основанию 10"
 
 #: data/ui/calculus_view.blp:372 data/ui/graphing_view.blp:379
 #: data/ui/programmer_view.blp:380 data/ui/scientific_view.blp:372
 msgid "Add"
-msgstr ""
+msgstr "Прибавить"
 
 #: data/ui/calculus_view.blp:475 data/ui/calculus_view.blp:905
 #: data/ui/programmer_view.blp:486 data/ui/programmer_view.blp:861
@@ -1448,7 +1448,7 @@ msgstr ""
 #: data/ui/programmer_view.blp:824 data/ui/scientific_view.blp:516
 #: data/ui/statistics_view.blp:527
 msgid "Shift"
-msgstr ""
+msgstr "Сдвиг"
 
 #: data/ui/calculus_view.blp:618 data/ui/graphing_view.blp:616
 #: data/ui/scientific_view.blp:618
@@ -1487,75 +1487,75 @@ msgstr ""
 
 #: data/ui/conv_angle_view.blp:6 data/ui/main_window.blp:331
 msgid "Angle"
-msgstr ""
+msgstr "Угол"
 
 #: data/ui/conv_area_view.blp:6 data/ui/main_window.blp:277
 msgid "Area"
-msgstr ""
+msgstr "Площадь"
 
 #: data/ui/conv_currency_view.blp:6 data/ui/main_window.blp:475
 msgid "Currency"
-msgstr ""
+msgstr "Валюта"
 
 #: data/ui/conv_data_view.blp:6 data/ui/main_window.blp:457
 msgid "Data"
-msgstr ""
+msgstr "Данные"
 
 #: data/ui/conv_energy_view.blp:6 data/ui/main_window.blp:403
 msgid "Energy"
-msgstr ""
+msgstr "Энергия"
 
 #: data/ui/conv_length_view.blp:6 data/ui/main_window.blp:259
 msgid "Length"
-msgstr ""
+msgstr "Длина"
 
 #: data/ui/conv_mass_view.blp:6 data/ui/main_window.blp:367
 msgid "Mass"
-msgstr ""
+msgstr "Масса"
 
 #: data/ui/conv_power_view.blp:6 data/ui/main_window.blp:421
 msgid "Power"
-msgstr ""
+msgstr "Мощность"
 
 #: data/ui/conv_pressure_view.blp:6 data/ui/main_window.blp:385
 msgid "Pressure"
-msgstr ""
+msgstr "Давление"
 
 #: data/ui/conv_speed_view.blp:6 data/ui/main_window.blp:349
 msgid "Speed"
-msgstr ""
+msgstr "Скорость"
 
 #: data/ui/conv_temp_view.blp:6 data/ui/main_window.blp:439
 msgid "Temperature"
-msgstr ""
+msgstr "Температура"
 
 #: data/ui/conv_time_view.blp:6 data/ui/main_window.blp:313
 msgid "Time"
-msgstr ""
+msgstr "Время"
 
 #: data/ui/conv_volume_view.blp:6 data/ui/main_window.blp:295
 msgid "Volume"
-msgstr ""
+msgstr "Объём"
 
 #: data/ui/date_view.blp:37
 msgid "Find Difference"
-msgstr ""
+msgstr "Разница между датами"
 
 #: data/ui/date_view.blp:48
 msgid "From"
-msgstr ""
+msgstr "Между"
 
 #: data/ui/date_view.blp:60
 msgid "To"
-msgstr ""
+msgstr "И"
 
 #: data/ui/date_view.blp:91
 msgid "Difference"
-msgstr ""
+msgstr "Разница"
 
 #: data/ui/date_view.blp:134
 msgid "Infer Date"
-msgstr ""
+msgstr "Вычислить дату"
 
 #: data/ui/date_view.blp:145
 msgid "Starting From"
@@ -1575,11 +1575,11 @@ msgstr ""
 
 #: data/ui/date_view.blp:229
 msgid "Set a duration"
-msgstr ""
+msgstr "Установить продолжительность"
 
 #: data/ui/date_view.blp:241
 msgid "Days, months or year"
-msgstr ""
+msgstr "Дней, месяцев или лет"
 
 #: data/ui/graph_viewport.blp:32
 msgid "Click to switch scaling mode. Scroll to scale y-axis."
@@ -1595,7 +1595,7 @@ msgstr ""
 
 #: data/ui/graphing_view.blp:398 data/ui/graphing_view.blp:891
 msgid "Add Equation"
-msgstr ""
+msgstr "Добавить уравнение"
 
 #: data/ui/graphing_view.blp:494 data/ui/graphing_view.blp:910
 msgid "Render Graph"
@@ -1615,11 +1615,11 @@ msgstr ""
 
 #: data/ui/graphing_view.blp:986
 msgid "Variables"
-msgstr ""
+msgstr "Переменные"
 
 #: data/ui/graphing_view.blp:1000
 msgid "Export figure as image"
-msgstr ""
+msgstr "Показатель экспорта"
 
 #: data/ui/main_window.blp:80
 msgid "Navigation Pane"
@@ -1627,25 +1627,25 @@ msgstr ""
 
 #: data/ui/main_window.blp:108
 msgid "Calculators"
-msgstr ""
+msgstr "Калькуляторы"
 
 #: data/ui/main_window.blp:133 data/ui/preferences_dialog.blp:72
 #: data/ui/shortcuts_dialog.blp:63
 msgid "Scientific"
-msgstr ""
+msgstr "Инженерный"
 
 #: data/ui/main_window.blp:151 data/ui/preferences_dialog.blp:86
 #: data/ui/shortcuts_dialog.blp:94
 msgid "Calculus"
-msgstr ""
+msgstr "Математический"
 
 #: data/ui/main_window.blp:169 data/ui/shortcuts_dialog.blp:107
 msgid "Programmer"
-msgstr ""
+msgstr "Программист"
 
 #: data/ui/main_window.blp:187 data/ui/shortcuts_dialog.blp:81
 msgid "Statistics"
-msgstr ""
+msgstr "Статистический"
 
 #: data/ui/main_window.blp:205
 msgid "Graphing"
@@ -1653,11 +1653,11 @@ msgstr ""
 
 #: data/ui/main_window.blp:223
 msgid "Date"
-msgstr ""
+msgstr "Вычисление даты"
 
 #: data/ui/main_window.blp:234 data/ui/preferences_dialog.blp:127
 msgid "Converters"
-msgstr ""
+msgstr "Преобразователи"
 
 #: data/ui/main_window.blp:540
 msgid "Switch word length"
@@ -1665,7 +1665,7 @@ msgstr ""
 
 #: data/ui/main_window.blp:552
 msgid "Bit toggle grid"
-msgstr ""
+msgstr "Сетка переключения битов"
 
 #: data/ui/main_window.blp:566
 msgid "Import table from csv file"
@@ -1677,7 +1677,7 @@ msgstr ""
 
 #: data/ui/main_window.blp:596
 msgid "Update Forex Data"
-msgstr ""
+msgstr "Обновить данные Forex"
 
 #: data/ui/main_window.blp:633
 msgid "Light Mode"
@@ -1693,19 +1693,19 @@ msgstr ""
 
 #: data/ui/main_window.blp:665
 msgid "Controls"
-msgstr ""
+msgstr "Элементы управления"
 
 #: data/ui/main_window.blp:671
 msgid "Preferences"
-msgstr ""
+msgstr "Параметры"
 
 #: data/ui/main_window.blp:681
 msgid "Quit"
-msgstr ""
+msgstr "Покидать"
 
 #: data/ui/preferences_dialog.blp:9
 msgid "General"
-msgstr ""
+msgstr "Общий"
 
 #: data/ui/preferences_dialog.blp:13
 msgid "Save State"
@@ -1766,11 +1766,11 @@ msgstr ""
 
 #: data/ui/preferences_dialog.blp:131
 msgid "Currency Converter API Key"
-msgstr ""
+msgstr "API-ключ конвертера валют"
 
 #: data/ui/preferences_dialog.blp:138
 msgid "Get API Key"
-msgstr ""
+msgstr "Получить ключ API"
 
 #: data/ui/programmer_view.blp:400 data/ui/programmer_view.blp:785
 msgid "Bitwise XOR (TRUE only when inputs are different)"
@@ -1782,23 +1782,23 @@ msgstr ""
 
 #: data/ui/scientific_view.blp:89
 msgid "Percentage"
-msgstr ""
+msgstr "Процент"
 
 #: data/ui/shortcuts_dialog.blp:7
 msgid "Shortcuts"
-msgstr ""
+msgstr "Ярлыки"
 
 #: data/ui/shortcuts_dialog.blp:50
 msgid "Common"
-msgstr ""
+msgstr "Общие"
 
 #: data/ui/shortcuts_dialog.blp:120
 msgid "Unit Converters"
-msgstr ""
+msgstr "Конвертеры величин"
 
 #: data/ui/statistics_view.blp:74
 msgid "Series Clear"
-msgstr ""
+msgstr "Серия Clear"
 
 #: data/ui/statistics_view.blp:101
 msgid "A Cell to Right"
@@ -1818,7 +1818,7 @@ msgstr ""
 
 #: data/ui/statistics_view.blp:469
 msgid "Negative"
-msgstr ""
+msgstr "Обратное число"
 
 #: data/ui/statistics_view.blp:545
 msgid "Go Up"
@@ -1834,12 +1834,12 @@ msgstr ""
 
 #: data/ui/statistics_view.blp:687
 msgid "Summation over series"
-msgstr ""
+msgstr "Суммирование по ряду"
 
 #: data/ui/statistics_view.blp:708
 msgid "Summation over squared values in series"
-msgstr ""
+msgstr "Суммирование квадратов значений в ряду"
 
 #: data/ui/statistics_view.blp:791
 msgid "Mean of squared data values"
-msgstr ""
+msgstr "Квадрат среднего всех значений данных"
