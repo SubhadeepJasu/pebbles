@@ -38,6 +38,7 @@ namespace Pebbles {
 
             set {
                 _date_find_mode = value;
+                add_header.label = value ? _("The Date was") : _("The Date will be");
                 find_date ();
             }
         }
@@ -57,6 +58,8 @@ namespace Pebbles {
         private unowned Gtk.Label date_dmy_label;
         [GtkChild]
         private unowned Gtk.Calendar main_calendar;
+        [GtkChild]
+        private unowned Gtk.Label add_header;
 
 
         private Granite.DatePicker datepicker_diff_from;

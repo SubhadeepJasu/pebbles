@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.subhadeepjasu.pebbles\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-28 00:07+0530\n"
+"POT-Creation-Date: 2025-12-28 13:22+0530\n"
 "PO-Revision-Date: 2025-12-28 00:07+0530\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -47,6 +47,7 @@ msgid "Mean of Squared Values"
 msgstr ""
 
 #: src/Common.vala:132 src/ControlsScheme.vala:162
+#: data/ui/statistics_view.blp:853
 msgid "Geometric Mean"
 msgstr ""
 
@@ -237,8 +238,8 @@ msgstr ""
 msgid "Navigate Down"
 msgstr ""
 
-#: src/ControlsScheme.vala:138
-msgid "Date Size"
+#: src/ControlsScheme.vala:138 data/ui/statistics_view.blp:605
+msgid "Data Size"
 msgstr ""
 
 #: src/ControlsScheme.vala:147
@@ -261,8 +262,8 @@ msgstr ""
 msgid "Variable x"
 msgstr ""
 
-#: src/ControlsScheme.vala:181
-msgid "Interchange unit"
+#: src/ControlsScheme.vala:181 data/ui/converter_view.blp:71
+msgid "Interchange Units"
 msgstr ""
 
 #. TRANSLATORS: The left quotation mark symbol
@@ -365,10 +366,6 @@ msgstr ""
 
 #: src/shell/MainWindow.vala:984
 msgid "Dataset not loaded. Creating one!"
-msgstr ""
-
-#: src/shell/views/CalculusView.vala:146
-msgid "."
 msgstr ""
 
 #: src/shell/views/CalculusView.vala:201 src/shell/views/GraphingView.vala:182
@@ -578,81 +575,89 @@ msgstr ""
 msgid "Imaginary Number (√-1)"
 msgstr ""
 
-#: src/shell/views/DateView.vala:142 src/shell/views/DateView.vala:187
+#: src/shell/views/DateView.vala:41
+msgid "The Date was"
+msgstr ""
+
+#: src/shell/views/DateView.vala:41 data/ui/date_view.blp:215
+msgid "The Date will be"
+msgstr ""
+
+#: src/shell/views/DateView.vala:145 src/shell/views/DateView.vala:190
 msgid "day"
 msgstr ""
 
-#: src/shell/views/DateView.vala:142 src/shell/views/DateView.vala:187
+#: src/shell/views/DateView.vala:145 src/shell/views/DateView.vala:190
 msgid "days"
 msgstr ""
 
-#: src/shell/views/DateView.vala:143
+#: src/shell/views/DateView.vala:146
 #, c-format
 msgid "A total of %s"
 msgstr ""
 
-#: src/shell/views/DateView.vala:155 data/ui/date_view.blp:103
+#: src/shell/views/DateView.vala:158 data/ui/date_view.blp:103
 msgid "Hey, it's the same date"
 msgstr ""
 
-#: src/shell/views/DateView.vala:159
+#: src/shell/views/DateView.vala:162
 msgid "year"
 msgstr ""
 
-#: src/shell/views/DateView.vala:159
+#: src/shell/views/DateView.vala:162
 msgid "years"
 msgstr ""
 
-#: src/shell/views/DateView.vala:164 src/shell/views/DateView.vala:172
-#: src/shell/views/DateView.vala:184
+#: src/shell/views/DateView.vala:167 src/shell/views/DateView.vala:175
+#: src/shell/views/DateView.vala:187
 msgid "and"
 msgstr ""
 
-#: src/shell/views/DateView.vala:167
+#: src/shell/views/DateView.vala:170
 msgid "month"
 msgstr ""
 
-#: src/shell/views/DateView.vala:167
+#: src/shell/views/DateView.vala:170
 msgid "months"
 msgstr ""
 
-#: src/shell/views/DateView.vala:175
+#: src/shell/views/DateView.vala:178
 msgid "week"
 msgstr ""
 
-#: src/shell/views/DateView.vala:175
+#: src/shell/views/DateView.vala:178
 msgid "weeks"
 msgstr ""
 
-#: src/shell/views/DateView.vala:191
+#: src/shell/views/DateView.vala:194
 msgid "counting backwards"
 msgstr ""
 
-#: src/shell/views/DateView.vala:212
+#: src/shell/views/DateView.vala:215
 msgid "Monday"
 msgstr ""
 
-#: src/shell/views/DateView.vala:213
+#: src/shell/views/DateView.vala:216
 msgid "Tuesday"
 msgstr ""
 
-#: src/shell/views/DateView.vala:214
+#: src/shell/views/DateView.vala:217
 msgid "Wednesday"
 msgstr ""
 
-#: src/shell/views/DateView.vala:215
+#: src/shell/views/DateView.vala:218
 msgid "Thursday"
 msgstr ""
 
-#: src/shell/views/DateView.vala:216
+#: src/shell/views/DateView.vala:219
 msgid "Friday"
 msgstr ""
 
-#: src/shell/views/DateView.vala:217
+#: src/shell/views/DateView.vala:220
 msgid "Saturday"
 msgstr ""
 
-#: src/shell/views/DateView.vala:218
+#: src/shell/views/DateView.vala:221
 msgid "Sunday"
 msgstr ""
 
@@ -1530,10 +1535,6 @@ msgstr ""
 msgid "Volume"
 msgstr ""
 
-#: data/ui/converter_view.blp:71
-msgid "Interchange Units"
-msgstr ""
-
 #: data/ui/date_view.blp:37
 msgid "Find Difference"
 msgstr ""
@@ -1559,7 +1560,7 @@ msgid "Starting From"
 msgstr ""
 
 #: data/ui/date_view.blp:167
-msgid "Add Days"
+msgid "Days"
 msgstr ""
 
 #: data/ui/date_view.blp:174
@@ -1568,10 +1569,6 @@ msgstr ""
 
 #: data/ui/date_view.blp:181
 msgid "Years"
-msgstr ""
-
-#: data/ui/date_view.blp:215
-msgid "The Date will be"
 msgstr ""
 
 #: data/ui/date_view.blp:229
@@ -1620,10 +1617,6 @@ msgstr ""
 
 #: data/ui/graphing_view.blp:1000
 msgid "Export figure as image"
-msgstr ""
-
-#: data/ui/main_window.blp:11 data/ui/main_window.blp:490
-msgid "Pebbles"
 msgstr ""
 
 #: data/ui/main_window.blp:80
@@ -1766,7 +1759,7 @@ msgid "Derivative Accuracy"
 msgstr ""
 
 #: data/ui/preferences_dialog.blp:109
-msgid "Precision for determining the derivative at the limit."
+msgid "Precision for determining the derivative at the limit"
 msgstr ""
 
 #: data/ui/preferences_dialog.blp:131
@@ -1783,22 +1776,6 @@ msgstr ""
 
 #: data/ui/programmer_view.blp:467
 msgid "Bitwise NOT (TRUE for input being FALSE and Vice Versa)"
-msgstr ""
-
-#: data/ui/programmer_view.blp:538
-msgid "HEXA"
-msgstr ""
-
-#: data/ui/programmer_view.blp:546
-msgid "DECI"
-msgstr ""
-
-#: data/ui/programmer_view.blp:555
-msgid "OCTL"
-msgstr ""
-
-#: data/ui/programmer_view.blp:564
-msgid "BNRY"
 msgstr ""
 
 #: data/ui/scientific_view.blp:89
@@ -1849,10 +1826,6 @@ msgstr ""
 msgid "Go Down"
 msgstr ""
 
-#: data/ui/statistics_view.blp:605
-msgid "Data Size"
-msgstr ""
-
 #: data/ui/statistics_view.blp:626
 msgid "Mode of series"
 msgstr ""
@@ -1862,13 +1835,9 @@ msgid "Summation over series"
 msgstr ""
 
 #: data/ui/statistics_view.blp:708
-msgid "Summation over suqared values in series"
+msgid "Summation over squared values in series"
 msgstr ""
 
 #: data/ui/statistics_view.blp:791
 msgid "Mean of squared data values"
-msgstr ""
-
-#: data/ui/statistics_view.blp:853
-msgid "Geomteric Mean"
 msgstr ""

@@ -135,7 +135,7 @@ namespace Pebbles {
                     _("Navigate Down"), "Down"
                 },
                 {
-                    _("Date Size"), "N"
+                    _("Data Size"), "N"
                 },
                 {
                     _("Mode"), "O"
@@ -178,7 +178,7 @@ namespace Pebbles {
             };
             converter = {
                 {
-                    _("Interchange unit"), "Return"
+                    _("Interchange Units"), "Return"
                 }
             };
         }

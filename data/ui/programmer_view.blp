@@ -535,7 +535,7 @@ template $PebblesProgrammerView: $PebblesView {
 
             ToggleButton hex_toggle {
               name: "hex-toggle";
-              label: _("HEXA");
+              label: "HEXA";
               can-focus: false;
 
               toggled => $on_number_system_toggle();
@@ -543,7 +543,7 @@ template $PebblesProgrammerView: $PebblesView {
 
             ToggleButton dec_toggle {
               name: "dec-toggle";
-              label: _("DECI");
+              label: "DECI";
               group: hex_toggle;
               can-focus: false;
 
@@ -552,7 +552,7 @@ template $PebblesProgrammerView: $PebblesView {
 
             ToggleButton oct_toggle {
               name: "oct-toggle";
-              label: _("OCTL");
+              label: "OCTL";
               group: hex_toggle;
               can-focus: false;
 
@@ -561,7 +561,7 @@ template $PebblesProgrammerView: $PebblesView {
 
             ToggleButton bin_toggle {
               name: "bin-toggle";
-              label: _("BNRY");
+              label: "BNRY";
               group: hex_toggle;
               can-focus: false;
 
