@@ -40,24 +40,24 @@ class Converter:
         return Utils.format_float(result)
 
     def _convert_temp(self, unit1, unit2, val):
-        if unit1 == 0:
-            if unit2 == 0:
+        if unit2 == 0:
+            if unit1 == 0:
                 result = val
-            elif unit2 == 1:
+            elif unit1 == 1:
                 result = self._c_2_f(val)
             else:
                 result = self._c_2_k(val)
-        elif unit1 == 1:
-            if unit2 == 0:
+        elif unit2 == 1:
+            if unit1 == 0:
                 result = self._f_2_c(val)
-            elif unit2 == 1:
+            elif unit1 == 1:
                 result = val
             else:
                 result = self._f_2_k(val)
         else:
-            if unit2 == 0:
+            if unit1 == 0:
                 result = self._k_2_c(val)
-            elif unit2 == 1:
+            elif unit1 == 1:
                 result = self._k_2_f(val)
             else:
                 result = val
