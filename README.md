@@ -40,19 +40,11 @@ meson setup build --prefix=/usr
 ninja -C build install
 com.github.subhadeepjasu.pebbles
 ```
-To run pebbles in testing mode
-```
-com.github.subhadeepjasu.pebbles --test
-```
 
 ## Install from source using flatpak
 ```
 flatpak-builder build  com.github.subhadeepjasu.pebbles.yml --user --install --force-clean
 flatpak run com.github.subhadeepjasu.pebbles
-```
-To run pebbles in testing mode
-```
-flatpak run com.github.subhadeepjasu.pebbles --test
 ```
 
 
