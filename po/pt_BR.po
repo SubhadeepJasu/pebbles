@@ -1,13 +1,13 @@
-# Portuguese translations for com.github.subhadeepjasu.pebbles package.
-# Copyright (C) 2025 THE com.github.subhadeepjasu.pebbles'S COPYRIGHT HOLDER
+# French translations for com.github.subhadeepjasu.pebbles package.
+# Copyright (C) 2021 THE com.github.subhadeepjasu.pebbles'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the com.github.subhadeepjasu.pebbles package.
-# Automatically generated, 2025.
+# Gustavo Costa (@xfgusta), 2021.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.subhadeepjasu.pebbles\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-28 13:22+0530\n"
+"POT-Creation-Date: 2025-12-28 15:29+0530\n"
 "PO-Revision-Date: 2025-12-28 00:07+0530\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -270,12 +270,12 @@ msgstr "Unidades de Intercâmbio"
 #. TRANSLATORS: The left quotation mark symbol
 #: src/shell/dialogs/PreferencesDialog.vala:26
 msgid "“"
-msgstr "\"
+msgstr "\""
 
 #. TRANSLATORS: The right quotation mark symbol
 #: src/shell/dialogs/PreferencesDialog.vala:28
 msgid "”"
-msgstr "\"
+msgstr "\""
 
 #: src/shell/dialogs/PreferencesDialog.vala:31
 #: src/shell/views/CalculusView.vala:289 src/shell/views/GraphingView.vala:264
@@ -702,7 +702,9 @@ msgstr "NOT Bit a Bit (VERDADEIRO para entrada sendo FALSO e vice-versa)"
 
 #: src/shell/views/ProgrammerView.vala:279
 msgid "Bitwise NOT-of-AND (FALSE only for all inputs being TRUE)"
-msgstr "Bit a Bit NOT-of-AND (resultado FALSO somente quando todas as entradas forem VERDADEIRAS)"
+msgstr ""
+"Bit a Bit NOT-of-AND (resultado FALSO somente quando todas as entradas forem "
+"VERDADEIRAS)"
 
 #: src/shell/views/ProgrammerView.vala:280 data/ui/programmer_view.blp:311
 #: data/ui/programmer_view.blp:708
@@ -711,7 +713,9 @@ msgstr "AND Bit a Bit (VERDADEIRO se todas as entradas forem VERDADEIRAS)"
 
 #: src/shell/views/ProgrammerView.vala:286
 msgid "Bitwise NOT-of-OR (TRUE only for all inputs being FALSE)"
-msgstr "Bit a Bit NOT-of-OR (VERDADEIRO somente quando todas as entradas forem FALSAS)"
+msgstr ""
+"Bit a Bit NOT-of-OR (VERDADEIRO somente quando todas as entradas forem "
+"FALSAS)"
 
 #: src/shell/views/ProgrammerView.vala:287 data/ui/programmer_view.blp:222
 #: data/ui/programmer_view.blp:631
@@ -720,11 +724,14 @@ msgstr "OR Bit a Bit (VERDADEIRO se qualquer uma das entradas for VERDADEIRA)"
 
 #: src/shell/views/ProgrammerView.vala:293
 msgid "Logical NOT-of-XOR (TRUE only for all inputs being same)"
-msgstr "NÃO de OU Exclusivo Bit a Bit (VERDADEIRO apenas para todas as entradas iguais)"
+msgstr ""
+"NÃO de OU Exclusivo Bit a Bit (VERDADEIRO apenas para todas as entradas "
+"iguais)"
 
 #: src/shell/views/ProgrammerView.vala:294
 msgid "Logical Exclusive-OR (TRUE for exactly one input being TRUE)"
-msgstr "OU Exclusivo Bit a Bit (VERDADEIRO se exatamente uma entrada for VERDADEIRA)"
+msgstr ""
+"OU Exclusivo Bit a Bit (VERDADEIRO se exatamente uma entrada for VERDADEIRA)"
 
 #: src/shell/views/ProgrammerView.vala:299
 msgid "Right Shift"
@@ -890,7 +897,8 @@ msgstr "Última atualização: %B %d, %Y %I:%M %p"
 
 #: src/shell/views/converters/ConvCurrencyView.vala:50
 msgid "Please provide an API key in preferences dialog."
-msgstr "Por favor, forneça uma chave de API na caixa de diálogo de preferências."
+msgstr ""
+"Por favor, forneça uma chave de API na caixa de diálogo de preferências."
 
 #: src/shell/views/converters/ConvDataView.vala:35
 msgid "Bit"
@@ -1729,7 +1737,9 @@ msgstr "Botão de Constantes Científicas"
 #: data/ui/preferences_dialog.blp:44
 msgid ""
 "The scientific constants to insert when the 'Constants' button is clicked"
-msgstr "As constantes científicas a serem inseridas quando o botão 'Constantes' for clicado"
+msgstr ""
+"As constantes científicas a serem inseridas quando o botão 'Constantes' for "
+"clicado"
 
 #: data/ui/preferences_dialog.blp:50
 msgid "Constants Button Default"
