@@ -117,7 +117,7 @@ msgstr "Fermer"
 #: data/ui/programmer_view.blp:59 data/ui/scientific_view.blp:54
 #: data/ui/statistics_view.blp:54
 msgid "All Clear"
-msgstr "Tout effacer"
+msgstr "Tout Effacer"
 
 #: src/ControlsScheme.vala:45
 #: src/shell/widgets/displays/HistoryDisplay.vala:159
