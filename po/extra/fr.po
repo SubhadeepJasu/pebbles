@@ -1,35 +1,35 @@
 # French translations for extra package.
-# Copyright (C) 2025 THE extra'S COPYRIGHT HOLDER
+# Copyright (C) 2021 THE extra'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the extra package.
-# Automatically generated, 2025.
+# Nathan Bonnemains (@NathanBnm), 2021.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: extra\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-28 00:08+0530\n"
+"POT-Creation-Date: 2025-12-28 16:16+0530\n"
 "PO-Revision-Date: 2025-12-28 00:08+0530\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ASCII\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: data/com.github.subhadeepjasu.pebbles.desktop.in:3
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:6
 msgid "Pebbles"
-msgstr ""
+msgstr "Pebbles"
 
 #: data/com.github.subhadeepjasu.pebbles.desktop.in:4
 msgid "Pebbles Calculator App"
-msgstr ""
+msgstr "Calculatrice Pebbles"
 
 #: data/com.github.subhadeepjasu.pebbles.desktop.in:5
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:7
 msgid "Perform advanced calculations with ease"
-msgstr ""
+msgstr "Effectuez des calculs avancés facilement"
 
 #: data/com.github.subhadeepjasu.pebbles.desktop.in:11
 msgid ""
@@ -102,47 +102,49 @@ msgid ""
 "An advanced calculator that helps you with complicated calculations in your "
 "homework"
 msgstr ""
+"Une calculatrice avancée pour vous aider avec les calculs compliqués dans "
+"vos devoirs"
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:38
 msgid "Features:"
-msgstr ""
+msgstr "Fonctionnalités :"
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:40
 msgid "Scientific mode"
-msgstr ""
+msgstr "Mode scientifique"
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:41
 msgid "Programmer mode"
-msgstr ""
+msgstr "Mode programmeur"
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:42
 msgid "Calculus mode"
-msgstr ""
+msgstr "Mode calcul"
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:43
 msgid "Statistics mode"
-msgstr ""
+msgstr "Mode statistiques"
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:44
 msgid "Graphing mode"
-msgstr ""
+msgstr "Mode graphique"
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:45
 msgid "Date Calculation mode"
-msgstr ""
+msgstr "Mode calcul de dates"
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:46
 msgid "Some common unit converters"
-msgstr ""
+msgstr "Convertisseurs d'unités usuelles"
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:53
 msgid "Subhadeep Jasu"
-msgstr ""
+msgstr "Subhadeep Jasu"
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:70
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:74
 msgid "Scientific Mode"
-msgstr ""
+msgstr "Mode scientifique"
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:110
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:196
@@ -150,7 +152,7 @@ msgstr ""
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:232
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:272
 msgid "New:"
-msgstr ""
+msgstr "Nouveau :"
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:112
 msgid "[UI] Add toggle for loading saved state"
@@ -192,7 +194,7 @@ msgstr ""
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:287
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:309
 msgid "Improved:"
-msgstr ""
+msgstr "Amélioré :"
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:122
 msgid "[Core] Convert all core logic to Python 3"
@@ -223,7 +225,7 @@ msgstr ""
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:166
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:278
 msgid "Translations:"
-msgstr ""
+msgstr "Traductions :"
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:131
 msgid "Russian (by 1280px)"
@@ -247,7 +249,7 @@ msgstr ""
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:168
 msgid "Simplified Chinese (by Tommy He)"
-msgstr ""
+msgstr "Chinois simplifié (par Tommy He)"
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:174
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:208
@@ -259,11 +261,11 @@ msgstr ""
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:295
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:303
 msgid "Fixed:"
-msgstr ""
+msgstr "Corrigé :"
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:176
 msgid "[Converter] Fix multiple errors in the converters"
-msgstr ""
+msgstr "[Convertisseur] Correction de diverses erreurs de conversion"
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:180
 msgid "[UI] Scale button font with app width (a11y)"
@@ -287,7 +289,7 @@ msgstr ""
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:199
 msgid "[UI] Follow system-wide dark style preference"
-msgstr ""
+msgstr "[Interface] Respect du paramètre du thème sombre"
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:200
 msgid "[UI] Updated CSS to be in tune with style of elementary OS 6 Odin"
@@ -307,7 +309,7 @@ msgstr ""
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:210
 msgid "[Programmer] Remove leading '0's correctly"
-msgstr ""
+msgstr "[Programmeur] Suppression correcte des 0 restants"
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:218
 msgid "[Core] Insert result in history from any mode to any mode"
@@ -315,19 +317,19 @@ msgstr ""
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:222
 msgid "[Core] Persist History across invocations"
-msgstr ""
+msgstr "[Noyau] L'historique est désormais persisté entre ses appels"
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:226
 msgid "[Programmer] Better binary formatting"
-msgstr ""
+msgstr "[Programmation] Meilleur formattage des nombres binaires"
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:234
 msgid "[Programmer] Implement Programmer mode"
-msgstr ""
+msgstr "[Programmeur] Implémentation du mode Programmeur"
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:238
 msgid "[UI] Fix minimode having wrong button label"
-msgstr ""
+msgstr "[Interface] Correction d'un mauvais nom de bouton en mode réduit"
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:239
 msgid "[UI] Allow changing currency converter API key"
@@ -335,7 +337,7 @@ msgstr ""
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:240
 msgid "[Core] Handle large factorials"
-msgstr ""
+msgstr "[Noyau] Prise en charge des grandes factorielles"
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:241
 msgid "[Core] Replace imaginary number with universal parabolic constant"
@@ -343,7 +345,7 @@ msgstr ""
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:242
 msgid "[Core] Fix operator precedance"
-msgstr ""
+msgstr "[Noyau] Correction de la primauté des opérateurs"
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:250
 msgid ""
@@ -352,7 +354,7 @@ msgstr ""
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:251
 msgid "[Core] Better negative number handling"
-msgstr ""
+msgstr "[Noyau] Meilleure gestion des nombres négatifs"
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:252
 msgid "[Core] Implicit multiplication on parenthesis and around variable (x)"
@@ -369,7 +371,7 @@ msgstr ""
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:262
 msgid "[Core] Fix precedance with proper PEMDAS rule"
-msgstr ""
+msgstr "[Noyau] Correction de la primauté avec la règle PEMDAS"
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:266
 msgid ""
@@ -383,7 +385,7 @@ msgstr ""
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:275
 msgid "[Converter] Save currency converter forex data after update"
-msgstr ""
+msgstr "[Convertisseur] Sauvegarde des données Forex après mise à jour"
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:276
 msgid ""
@@ -393,11 +395,11 @@ msgstr ""
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:280
 msgid "French (by Nathan Bonnemains)"
-msgstr ""
+msgstr "Français (par Nathan Bonnemains)"
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:284
 msgid "Code structure fixed and improved by Nathan Bonnemains"
-msgstr ""
+msgstr "Structure du code corrigée et améliorée par Nathan Bonnemains"
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:285
 msgid "[Calculus] Make Calculus button labels consistent with Scientific view"
@@ -419,11 +421,11 @@ msgstr ""
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:306
 msgid "[HeaderBar] Change 'GRD' to 'GRA'"
-msgstr ""
+msgstr "[Barre de titre] Modification de « GRD » en « GRA »"
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:307
 msgid "[Date View] Enable counting date backwards"
-msgstr ""
+msgstr "[Vue date] Possibilité de calculer la date à rebours"
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:311
 msgid "[Translations] Add more translatable strings"
@@ -431,4 +433,4 @@ msgstr ""
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:317
 msgid "Initial Release"
-msgstr ""
+msgstr "Version initiale"

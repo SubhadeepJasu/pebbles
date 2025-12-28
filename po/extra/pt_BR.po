@@ -7,29 +7,29 @@ msgid ""
 msgstr ""
 "Project-Id-Version: extra\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-28 00:08+0530\n"
+"POT-Creation-Date: 2025-12-28 16:16+0530\n"
 "PO-Revision-Date: 2025-12-28 00:08+0530\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ASCII\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: data/com.github.subhadeepjasu.pebbles.desktop.in:3
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:6
 msgid "Pebbles"
-msgstr ""
+msgstr "Pebbles"
 
 #: data/com.github.subhadeepjasu.pebbles.desktop.in:4
 msgid "Pebbles Calculator App"
-msgstr ""
+msgstr "Calculadora Pebbles"
 
 #: data/com.github.subhadeepjasu.pebbles.desktop.in:5
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:7
 msgid "Perform advanced calculations with ease"
-msgstr ""
+msgstr "Faça cálculos avançados com facilidade"
 
 #: data/com.github.subhadeepjasu.pebbles.desktop.in:11
 msgid ""
@@ -102,47 +102,49 @@ msgid ""
 "An advanced calculator that helps you with complicated calculations in your "
 "homework"
 msgstr ""
+"Uma calculadora avançada que ajuda você com cálculos complicados em sua "
+"tarefa de casa"
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:38
 msgid "Features:"
-msgstr ""
+msgstr "Características:"
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:40
 msgid "Scientific mode"
-msgstr ""
+msgstr "Modo científico"
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:41
 msgid "Programmer mode"
-msgstr ""
+msgstr "Modo programador"
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:42
 msgid "Calculus mode"
-msgstr ""
+msgstr "Modo cálculo"
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:43
 msgid "Statistics mode"
-msgstr ""
+msgstr "Modo estatístico"
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:44
 msgid "Graphing mode"
-msgstr ""
+msgstr "Modo de gráficos"
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:45
 msgid "Date Calculation mode"
-msgstr ""
+msgstr "Modo de cálculo de data"
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:46
 msgid "Some common unit converters"
-msgstr ""
+msgstr "Alguns conversores de unidade comuns"
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:53
 msgid "Subhadeep Jasu"
-msgstr ""
+msgstr "Subhadeep Jasu"
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:70
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:74
 msgid "Scientific Mode"
-msgstr ""
+msgstr "Modo científico"
 
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:110
 #: data/com.github.subhadeepjasu.pebbles.metainfo.xml.in:196

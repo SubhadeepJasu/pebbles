@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.subhadeepjasu.pebbles\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-28 15:29+0530\n"
+"POT-Creation-Date: 2025-12-28 16:05+0530\n"
 "PO-Revision-Date: 2025-12-28 00:07+0530\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -127,7 +127,7 @@ msgstr "Скопировать результат"
 
 #: src/ControlsScheme.vala:48
 msgid "Paste"
-msgstr ""
+msgstr "Вставить"
 
 #: src/ControlsScheme.vala:53
 msgid "Square (root) a Number"

@@ -1,6 +1,8 @@
-# SPDX-License-Identifier: GPL-3.0-or-later
+# Install metadata translations
 i18n.gettext ('extra',
-    args: '--directory=' + meson.project_source_root (),
-    preset: 'glib',
-    install: false
+  args: [
+    '--directory=' + meson.project_source_root (),
+    '--from-code=UTF-8'
+  ],
+  install: false
 )
