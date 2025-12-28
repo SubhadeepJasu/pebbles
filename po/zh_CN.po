@@ -1,1558 +1,1843 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# French translations for com.github.subhadeepjasu.pebbles package.
+# Copyright (C) 2021 THE com.github.subhadeepjasu.pebbles'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the com.github.subhadeepjasu.pebbles package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Tommy He (@Tommy He), 2021.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.subhadeepjasu.pebbles\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-09 22:00+0530\n"
-"PO-Revision-Date: 2021-10-26 18:11+0800\n"
-"Language-Team: \n"
+"POT-Creation-Date: 2025-12-28 16:05+0530\n"
+"PO-Revision-Date: 2025-12-28 00:07+0530\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.0\n"
-"Last-Translator: \n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"Language: zh_CN\n"
 
-#: src/Application.vala:78
-msgid "Open In Mini Mode"
-msgstr "以迷你模式打开"
-
-#: src/Application.vala:79
-msgid "Open A New Window"
-msgstr "在新窗口打开"
-
-#: src/Application.vala:80
-msgid "Enable test mode"
-msgstr "启用测试模式"
-
-#: src/MainWindow.vala:173
-msgid "All Categories"
-msgstr "所有类别"
-
-#: src/MainWindow.vala:184 src/MainWindow.vala:928 src/MainWindow.vala:929
-#: src/MainWindow.vala:930 src/MainWindow.vala:942 src/MainWindow.vala:943
-#: src/MainWindow.vala:944 src/Views/CalculusView.vala:415
-#: src/Views/ScientificView.vala:315
-msgid "Degrees"
-msgstr "角度"
-
-#: src/MainWindow.vala:184 src/MainWindow.vala:928 src/MainWindow.vala:929
-#: src/MainWindow.vala:930 src/MainWindow.vala:935 src/MainWindow.vala:936
-#: src/MainWindow.vala:937 src/Views/CalculusView.vala:415
-#: src/Views/ScientificView.vala:315
-msgid "Radians"
-msgstr "弧度"
-
-#: src/MainWindow.vala:194 src/MainWindow.vala:249
-#: src/Views/CalculusView.vala:410 src/Views/ScientificView.vala:278
-#: src/Views/ProgrammerView.vala:237
-msgid "Shift"
-msgstr "上档"
-
-#: src/MainWindow.vala:240 src/MainWindow.vala:956 src/MainWindow.vala:957
-#: src/MainWindow.vala:974 src/Views/ProgrammerView.vala:315
-msgid "Qword"
-msgstr "四字"
-
-#: src/MainWindow.vala:240 src/MainWindow.vala:956 src/MainWindow.vala:957
-#: src/MainWindow.vala:962 src/MainWindow.vala:963 src/MainWindow.vala:969
-#: src/MainWindow.vala:975 src/Views/ProgrammerView.vala:315
-msgid "Dword"
-msgstr "双字"
-
-#: src/MainWindow.vala:273 src/MainWindow.vala:291
-msgid "Update Forex Data"
-msgstr "更新外汇数据"
-
-#: src/MainWindow.vala:273
-msgid "Updates automatically every 10 minutes"
-msgstr "每 10 分钟自动更新"
-
-#: src/MainWindow.vala:273
-msgid ""
-"\n"
-"Last updated on "
+#: src/Common.vala:111
+msgid "Dataset Shape"
 msgstr ""
-"\n"
-"最后更新于 "
 
-#: src/MainWindow.vala:285
-msgid "Show Controls"
-msgstr "显示控制栏"
-
-#: src/MainWindow.vala:287 src/PreferencesOverlay.vala:120
-msgid "Preferences"
-msgstr "首选项"
-
-#: src/MainWindow.vala:289 src/Views/HistoryView.vala:67
-msgid "History"
-msgstr "历史"
-
-#: src/MainWindow.vala:322
-msgid "Show Calculation History"
-msgstr "显示计算历史"
-
-#: src/MainWindow.vala:354 src/Views/ControlsOverlay.vala:45
-#: src/Views/HistoryView.vala:147
-msgid "Scientific"
-msgstr "科学"
-
-#: src/MainWindow.vala:355 src/Views/ControlsOverlay.vala:72
-#: src/Views/HistoryView.vala:171
-msgid "Calculus"
-msgstr "微积分"
-
-#: src/MainWindow.vala:356 src/Views/ControlsOverlay.vala:85
-#: src/Views/HistoryView.vala:176
-msgid "Programmer"
-msgstr "编程"
-
-#: src/MainWindow.vala:357
-msgid "Date"
-msgstr "日期计算"
-
-#: src/MainWindow.vala:358 src/Views/ControlsOverlay.vala:58
-msgid "Statistics"
-msgstr "统计"
-
-#: src/MainWindow.vala:359
-msgid "Financial"
-msgstr "金融"
-
-#: src/MainWindow.vala:360 src/Views/ConvLengthView.vala:71
-msgid "Length"
-msgstr "长度"
-
-#: src/MainWindow.vala:361 src/Views/ConvAreaView.vala:70
-msgid "Area"
-msgstr "面积"
-
-#: src/MainWindow.vala:362 src/Views/ConvVolumeView.vala:92
-msgid "Volume"
-msgstr "容量"
-
-#: src/MainWindow.vala:363 src/Views/ConvTimeView.vala:72
-msgid "Time"
-msgstr "时间"
-
-#: src/MainWindow.vala:364 src/Views/ConvAngleView.vala:62
-msgid "Angle"
-msgstr "角度"
-
-#: src/MainWindow.vala:365 src/Views/ConvSpeedView.vala:64
-msgid "Speed"
-msgstr "速度"
-
-#: src/MainWindow.vala:366 src/Views/ConvMassView.vala:70
-msgid "Mass"
-msgstr "重量"
-
-#: src/MainWindow.vala:367 src/Views/ConvPressView.vala:62
-msgid "Pressure"
-msgstr "压力"
-
-#: src/MainWindow.vala:368 src/Views/ConvEnergyView.vala:70
-msgid "Energy"
-msgstr "能量"
-
-#: src/MainWindow.vala:369 src/Views/ConvPowerView.vala:62
-msgid "Power"
-msgstr "功率"
-
-#: src/MainWindow.vala:370 src/Views/ConvTempView.vala:48
-msgid "Temperature"
-msgstr "温度"
-
-#: src/MainWindow.vala:371 src/Views/ConvDataView.vala:119
-msgid "Data"
-msgstr "日期"
-
-#: src/MainWindow.vala:372 src/Views/ConvCurrView.vala:103
-msgid "Currency"
-msgstr "货币"
-
-#: src/MainWindow.vala:375
-msgid "Calculator"
-msgstr "计算器"
-
-#: src/MainWindow.vala:384
-msgid "Converter"
-msgstr "转换器"
-
-#: src/MainWindow.vala:935 src/MainWindow.vala:936 src/MainWindow.vala:937
-#: src/MainWindow.vala:942 src/MainWindow.vala:943 src/MainWindow.vala:944
-msgid "Gradians"
-msgstr "百分度"
-
-#: src/MainWindow.vala:962 src/MainWindow.vala:963 src/MainWindow.vala:968
-#: src/MainWindow.vala:969 src/MainWindow.vala:975
-msgid "Word"
-msgstr "字"
-
-#: src/MainWindow.vala:968 src/MainWindow.vala:974
-#: src/Views/ConvDataView.vala:74
-msgid "Byte"
-msgstr "字节"
-
-#: src/ControlsScheme.vala:33
-msgid "Show this controls window"
-msgstr "显示该控制窗口"
-
-#: src/ControlsScheme.vala:36
-msgid "Show Preferences"
-msgstr "显示首选项"
-
-#: src/ControlsScheme.vala:39 src/Views/StatisticsView.vala:190
-msgid "Add to Memory"
-msgstr "添加到记忆项"
-
-#: src/ControlsScheme.vala:42 src/Views/StatisticsView.vala:198
-msgid "Subtract from Memory"
-msgstr "从记忆项中减去"
-
-#: src/ControlsScheme.vala:45
-msgid "Recall from Memory"
-msgstr "记忆读出"
-
-#: src/ControlsScheme.vala:48
-msgid "Clear Memory"
-msgstr "记忆清除"
-
-#: src/ControlsScheme.vala:51
-msgid "Last Answer"
-msgstr "上个答案"
-
-#: src/ControlsScheme.vala:54
-msgid "Close Dialog"
-msgstr "关闭对话框"
-
-#: src/ControlsScheme.vala:57 src/Views/MiniCalculator.vala:75
-#: src/Views/CalculusView.vala:177 src/Views/ScientificView.vala:171
-#: src/Views/StatisticsView.vala:136 src/Views/CommonNumericKeypad.vala:54
-msgid "All Clear"
-msgstr "全部清除"
-
-#: src/ControlsScheme.vala:60
-msgid "Copy Result"
-msgstr "复制结果"
-
-#: src/ControlsScheme.vala:63
-msgid "Paste Input Expression"
-msgstr "粘贴输入表达式"
-
-#: src/ControlsScheme.vala:68
-msgid "Square (root) a Number"
-msgstr "平方 (求平方根) 一个数"
-
-#: src/ControlsScheme.vala:71
-msgid "Raise to the power (or nth root over)"
-msgstr "多次方 (或多次方根)"
-
-#: src/ControlsScheme.vala:74
-msgid "10 (or e) raised to the power"
-msgstr "10 (或 e) 的次方"
-
-#: src/ControlsScheme.vala:77
-msgid "Log base 10 (or e)"
-msgstr "以 10 (或 e)为底的对数"
-
-#: src/ControlsScheme.vala:80
-msgid "(Inverse) Sine"
-msgstr "(反) 正弦"
-
-#: src/ControlsScheme.vala:83
-msgid "(Inverse) Cosine"
-msgstr "(反) 余弦"
-
-#: src/ControlsScheme.vala:86
-msgid "(Inverse) Tangent"
-msgstr "(反) 正切"
-
-#: src/ControlsScheme.vala:89
-msgid "(Inverse) Hyperbolic Sine"
-msgstr "(反) 双曲正弦"
-
-#: src/ControlsScheme.vala:92
-msgid "(Inverse) Hyperbolic Cosine"
-msgstr "(反) 双曲余弦"
-
-#: src/ControlsScheme.vala:95
-msgid "(Inverse) Hyperbolic Tangent"
-msgstr "(反) 双曲正切"
-
-#: src/ControlsScheme.vala:98
-msgid "Modulus or Log base x"
-msgstr "模数 或以 X 为底的对数"
-
-#: src/ControlsScheme.vala:101
-msgid "Permutation or Combination"
-msgstr "排列 或 组合"
-
-#: src/ControlsScheme.vala:104 src/Views/CalculusView.vala:267
-#: src/Views/ScientificView.vala:268
-msgid "Factorial"
-msgstr "阶乘"
-
-#: src/ControlsScheme.vala:107
-msgid "Constants"
-msgstr "常数"
-
-#: src/ControlsScheme.vala:110 src/ControlsScheme.vala:127
-#: src/Views/MiniCalculator.vala:96 src/Views/ScientificView.vala:275
-#: src/Views/ScientificView.vala:320 src/Views/ProgrammerView.vala:234
-#: src/Views/ProgrammerView.vala:320 src/Views/HistoryView.vala:91
-msgid "Result"
-msgstr "结果"
-
-#: src/ControlsScheme.vala:115
-msgid "Logical OR or NOR"
-msgstr "逻辑 或 或 或非"
-
-#: src/ControlsScheme.vala:118
-msgid "Logical AND or NAND"
-msgstr "逻辑 与 或 与非"
-
-#: src/ControlsScheme.vala:121
-msgid "Logical XOR or XNOR"
-msgstr "逻辑 异或 或 同或"
-
-#: src/ControlsScheme.vala:124
-msgid "Logical NOT or Mod"
-msgstr "或几 非 或 求余"
-
-#: src/ControlsScheme.vala:132
-msgid "Add Cell"
-msgstr "添加单元格"
-
-#: src/ControlsScheme.vala:135
-msgid "Insert Cell"
-msgstr "插入单元格"
-
-#: src/ControlsScheme.vala:138
-msgid "Next Cell or Add Right"
-msgstr "下一单元格 或 向右加"
-
-#: src/ControlsScheme.vala:141
-msgid "Previous Cell or Add Left"
-msgstr "上一单元格 或 向左加"
-
-#: src/ControlsScheme.vala:144
-msgid "Navigate Left"
-msgstr "向左移动"
-
-#: src/ControlsScheme.vala:147
-msgid "Navigate Right"
-msgstr "向右移动"
-
-#: src/ControlsScheme.vala:150
-msgid "Remove Cell"
-msgstr "移除单元格"
-
-#: src/ControlsScheme.vala:153
-msgid "Remove All Cells (Reset)"
-msgstr "移除全部单元格(重置)"
-
-#: src/ControlsScheme.vala:156
-msgid "Cardinality"
-msgstr "基数"
-
-#: src/ControlsScheme.vala:159 src/Views/HistoryView.vala:90
-msgid "Mode"
-msgstr "众数"
-
-#: src/ControlsScheme.vala:162 src/Views/StatisticsView.vala:188
+#: src/Common.vala:114 src/ControlsScheme.vala:144
+#: data/ui/statistics_view.blp:392 data/ui/statistics_view.blp:647
 msgid "Median"
 msgstr "中位数"
 
-#: src/ControlsScheme.vala:165
-msgid "Summation"
-msgstr "总和"
+#: src/Common.vala:117 src/ControlsScheme.vala:141
+msgid "Mode"
+msgstr "众数"
 
-#: src/ControlsScheme.vala:168
-msgid "Summation Squared"
-msgstr "平方和"
+#: src/Common.vala:120
+msgid "Sum"
+msgstr ""
 
-#: src/ControlsScheme.vala:171
-msgid "Sample Variance"
-msgstr "采样方差"
+#: src/Common.vala:123
+msgid "Sum of Squared Values"
+msgstr ""
 
-#: src/ControlsScheme.vala:174 src/Views/StatisticsView.vala:200
+#: src/Common.vala:126 src/ControlsScheme.vala:156
+#: data/ui/statistics_view.blp:297 data/ui/statistics_view.blp:770
 msgid "Mean"
 msgstr "平均数"
 
-#: src/ControlsScheme.vala:177
-msgid "Mean Squared"
-msgstr "均方"
+#: src/Common.vala:129
+msgid "Mean of Squared Values"
+msgstr ""
 
-#: src/ControlsScheme.vala:180
+#: src/Common.vala:132 src/ControlsScheme.vala:162
+#: data/ui/statistics_view.blp:853
 msgid "Geometric Mean"
 msgstr "几何平均数"
 
-#: src/ControlsScheme.vala:183
-msgid "Sample Standard Deviation"
-msgstr "样本标准差"
+#: src/Common.vala:135 src/ControlsScheme.vala:153
+#: data/ui/statistics_view.blp:729
+msgid "Sample Variance"
+msgstr "采样方差"
 
-#: src/ControlsScheme.vala:186 src/Views/StatisticsView.vala:210
+#: src/Common.vala:138 src/ControlsScheme.vala:168
+#: data/ui/statistics_view.blp:874
 msgid "Population Variance"
 msgstr "总体方差"
 
-#: src/ControlsScheme.vala:189
+#: src/Common.vala:141 data/ui/statistics_view.blp:488
+#: data/ui/statistics_view.blp:812
+msgid "Standard Deviation"
+msgstr ""
+
+#: src/Common.vala:144 src/ControlsScheme.vala:171
+#: data/ui/statistics_view.blp:895
 msgid "Population Standard Deviation"
 msgstr "总体标准差"
 
-#: src/ControlsScheme.vala:194
+#: src/Common.vala:147
+msgid "Estimate Trend"
+msgstr ""
+
+#: src/Common.vala:150
+msgid "Unknown"
+msgstr ""
+
+#: src/ControlsScheme.vala:18
+msgid "Show this controls window"
+msgstr "显示该控制窗口"
+
+#: src/ControlsScheme.vala:21
+msgid "Show Preferences"
+msgstr "显示首选项"
+
+#: src/ControlsScheme.vala:24
+msgid "Add to Memory"
+msgstr "添加到记忆项"
+
+#: src/ControlsScheme.vala:27
+msgid "Subtract from Memory"
+msgstr "从记忆项中减去"
+
+#: src/ControlsScheme.vala:30
+msgid "Recall from Memory"
+msgstr "记忆读出"
+
+#: src/ControlsScheme.vala:33
+msgid "Clear Memory"
+msgstr "记忆清除"
+
+#: src/ControlsScheme.vala:36
+msgid "Last Answer"
+msgstr "上个答案"
+
+#: src/ControlsScheme.vala:39
+msgid "Close Dialog"
+msgstr "关闭对话框"
+
+#: src/ControlsScheme.vala:42 data/ui/calculus_view.blp:54
+#: data/ui/converter_view.blp:111 data/ui/graphing_view.blp:51
+#: data/ui/programmer_view.blp:59 data/ui/scientific_view.blp:54
+#: data/ui/statistics_view.blp:54
+msgid "All Clear"
+msgstr "全部清除"
+
+#: src/ControlsScheme.vala:45
+#: src/shell/widgets/displays/HistoryDisplay.vala:159
+msgid "Copy Result"
+msgstr "复制结果"
+
+#: src/ControlsScheme.vala:48
+msgid "Paste"
+msgstr ""
+
+#: src/ControlsScheme.vala:53
+msgid "Square (root) a Number"
+msgstr "平方 (求平方根) 一个数"
+
+#: src/ControlsScheme.vala:56
+msgid "Raise to the power (or nth root over)"
+msgstr "多次方 (或多次方根)"
+
+#: src/ControlsScheme.vala:59
+msgid "10 (or e) raised to the power"
+msgstr "10 (或 e) 的次方"
+
+#: src/ControlsScheme.vala:62
+msgid "Log base 10 (or e)"
+msgstr "以 10 (或 e)为底的对数"
+
+#: src/ControlsScheme.vala:65
+msgid "(Inverse) Sine"
+msgstr "(反) 正弦"
+
+#: src/ControlsScheme.vala:68
+msgid "(Inverse) Cosine"
+msgstr "(反) 余弦"
+
+#: src/ControlsScheme.vala:71
+msgid "(Inverse) Tangent"
+msgstr "(反) 正切"
+
+#: src/ControlsScheme.vala:74
+msgid "(Inverse) Hyperbolic Sine"
+msgstr "(反) 双曲正弦"
+
+#: src/ControlsScheme.vala:77
+msgid "(Inverse) Hyperbolic Cosine"
+msgstr "(反) 双曲余弦"
+
+#: src/ControlsScheme.vala:80
+msgid "(Inverse) Hyperbolic Tangent"
+msgstr "(反) 双曲正切"
+
+#: src/ControlsScheme.vala:83
+msgid "Modulus or Log base x"
+msgstr "模数 或以 X 为底的对数"
+
+#: src/ControlsScheme.vala:86
+msgid "Permutation or Combination"
+msgstr "排列 或 组合"
+
+#: src/ControlsScheme.vala:89 data/ui/calculus_view.blp:846
+#: data/ui/scientific_view.blp:846
+msgid "Factorial"
+msgstr "阶乘"
+
+#: src/ControlsScheme.vala:92
+msgid "Constants"
+msgstr "常数"
+
+#: src/ControlsScheme.vala:95 src/ControlsScheme.vala:112
+#: data/ui/calculus_view.blp:476 data/ui/calculus_view.blp:906
+#: data/ui/programmer_view.blp:487 data/ui/programmer_view.blp:862
+#: data/ui/scientific_view.blp:476 data/ui/scientific_view.blp:906
+msgid "Result"
+msgstr "结果"
+
+#: src/ControlsScheme.vala:100
+msgid "Logical OR or NOR"
+msgstr "逻辑 或 或 或非"
+
+#: src/ControlsScheme.vala:103
+msgid "Logical AND or NAND"
+msgstr "逻辑 与 或 与非"
+
+#: src/ControlsScheme.vala:106
+msgid "Logical XOR or XNOR"
+msgstr "逻辑 异或 或 同或"
+
+#: src/ControlsScheme.vala:109
+msgid "Logical NOT or Mod"
+msgstr "或几 非 或 求余"
+
+#: src/ControlsScheme.vala:117 data/ui/statistics_view.blp:203
+#: data/ui/statistics_view.blp:915
+msgid "Add Cell"
+msgstr "添加单元格"
+
+#: src/ControlsScheme.vala:120
+msgid "Next Cell or Add Right"
+msgstr "下一单元格 或 向右加"
+
+#: src/ControlsScheme.vala:123
+msgid "Previous Cell or Add Left"
+msgstr "上一单元格 或 向左加"
+
+#: src/ControlsScheme.vala:126 src/shell/views/StatisticsView.vala:333
+msgid "Navigate Left"
+msgstr "向左移动"
+
+#: src/ControlsScheme.vala:129 src/shell/views/StatisticsView.vala:337
+msgid "Navigate Right"
+msgstr "向右移动"
+
+#: src/ControlsScheme.vala:132 data/ui/graphing_view.blp:214
+#: data/ui/graphing_view.blp:740
+msgid "Navigate Up"
+msgstr ""
+
+#: src/ControlsScheme.vala:135 data/ui/graphing_view.blp:306
+#: data/ui/graphing_view.blp:758
+msgid "Navigate Down"
+msgstr ""
+
+#: src/ControlsScheme.vala:138 data/ui/statistics_view.blp:605
+msgid "Data Size"
+msgstr ""
+
+#: src/ControlsScheme.vala:147
+msgid "Summation"
+msgstr "总和"
+
+#: src/ControlsScheme.vala:150
+msgid "Summation Squared"
+msgstr "平方和"
+
+#: src/ControlsScheme.vala:159
+msgid "Mean Squared"
+msgstr "均方"
+
+#: src/ControlsScheme.vala:165
+msgid "Sample Standard Deviation"
+msgstr "样本标准差"
+
+#: src/ControlsScheme.vala:176 data/ui/calculus_view.blp:89
 msgid "Variable x"
 msgstr "变量 X"
 
-#: src/ControlsScheme.vala:197
-msgid "Definite Integral"
-msgstr "定积分"
+#: src/ControlsScheme.vala:181 data/ui/converter_view.blp:71
+msgid "Interchange Units"
+msgstr ""
 
-#: src/ControlsScheme.vala:200
-msgid "Derivative at a point"
-msgstr "点导数"
+#. TRANSLATORS: The left quotation mark symbol
+#: src/shell/dialogs/PreferencesDialog.vala:26
+msgid "“"
+msgstr ""
 
-#: src/ControlsScheme.vala:205
-msgid "Interchange unit"
-msgstr "交换单位"
+#. TRANSLATORS: The right quotation mark symbol
+#: src/shell/dialogs/PreferencesDialog.vala:28
+msgid "”"
+msgstr ""
 
-#: src/ControlsScheme.vala:208
-msgid "Update Forex Data (Currency converter)"
-msgstr "更新外汇数据(汇率转换器)"
-
-#: src/PreferencesOverlay.vala:42
-msgid "Number of decimal places:"
-msgstr "设置小数位数:"
-
-#: src/PreferencesOverlay.vala:48
-msgid "Integral Calculus Accuracy"
-msgstr "积分精度"
-
-#: src/PreferencesOverlay.vala:53
-msgid "Fast"
-msgstr "快速"
-
-#: src/PreferencesOverlay.vala:54
-msgid "Accurate"
-msgstr "精确"
-
-#: src/PreferencesOverlay.vala:56
-msgid "Scientific constants button:"
-msgstr "科学常数按钮:"
-
-#: src/PreferencesOverlay.vala:59
-msgid "Constant 1"
-msgstr "常数1"
-
-#: src/PreferencesOverlay.vala:62 src/PreferencesOverlay.vala:76
-#: src/Views/CalculusView.vala:522 src/Views/CalculusView.vala:564
-#: src/Views/ScientificView.vala:446 src/Views/ScientificView.vala:488
+#: src/shell/dialogs/PreferencesDialog.vala:31
+#: src/shell/views/CalculusView.vala:289 src/shell/views/GraphingView.vala:264
+#: src/shell/views/ScientificView.vala:210
 msgid "Euler's constant (exponential)"
 msgstr "欧拉常数(指数)"
 
-#: src/PreferencesOverlay.vala:63 src/PreferencesOverlay.vala:77
-#: src/Views/CalculusView.vala:486 src/Views/CalculusView.vala:528
-#: src/Views/ScientificView.vala:410 src/Views/ScientificView.vala:452
+#: src/shell/dialogs/PreferencesDialog.vala:32
+#: src/shell/views/CalculusView.vala:253 src/shell/views/GraphingView.vala:228
+#: src/shell/views/ScientificView.vala:174
 msgid "Archimedes' constant (pi)"
 msgstr "阿基米德常数(pi)"
 
-#: src/PreferencesOverlay.vala:64 src/PreferencesOverlay.vala:78
-msgid "Parabolic constant"
-msgstr "抛物线常数"
-
-#: src/PreferencesOverlay.vala:65 src/PreferencesOverlay.vala:79
-#: src/Views/CalculusView.vala:494 src/Views/CalculusView.vala:536
-#: src/Views/ScientificView.vala:418 src/Views/ScientificView.vala:460
+#: src/shell/dialogs/PreferencesDialog.vala:33
+#: src/shell/views/CalculusView.vala:261 src/shell/views/GraphingView.vala:236
+#: src/shell/views/ScientificView.vala:182
 msgid "Golden ratio (phi)"
 msgstr "黄金比例(phi)"
 
-#: src/PreferencesOverlay.vala:66 src/PreferencesOverlay.vala:80
-#: src/Views/CalculusView.vala:498 src/Views/CalculusView.vala:540
-#: src/Views/ScientificView.vala:422 src/Views/ScientificView.vala:464
+#: src/shell/dialogs/PreferencesDialog.vala:34
+msgid "Imaginary number"
+msgstr ""
+
+#: src/shell/dialogs/PreferencesDialog.vala:35
+#: src/shell/views/CalculusView.vala:265 src/shell/views/GraphingView.vala:240
+#: src/shell/views/ScientificView.vala:186
 msgid "Euler–Mascheroni constant (gamma)"
 msgstr "欧拉-马歇罗尼常数(gamma)"
 
-#: src/PreferencesOverlay.vala:67 src/PreferencesOverlay.vala:81
-#: src/Views/CalculusView.vala:502 src/Views/CalculusView.vala:544
-#: src/Views/ScientificView.vala:426 src/Views/ScientificView.vala:468
+#: src/shell/dialogs/PreferencesDialog.vala:36
+#: src/shell/views/CalculusView.vala:269 src/shell/views/GraphingView.vala:244
+#: src/shell/views/ScientificView.vala:190
 msgid "Conway's constant (lambda)"
 msgstr "康威常数(lambda)"
 
-#: src/PreferencesOverlay.vala:68 src/PreferencesOverlay.vala:82
-#: src/Views/CalculusView.vala:506 src/Views/CalculusView.vala:548
-#: src/Views/ScientificView.vala:430 src/Views/ScientificView.vala:472
+#: src/shell/dialogs/PreferencesDialog.vala:37
+#: src/shell/views/CalculusView.vala:273 src/shell/views/GraphingView.vala:248
+#: src/shell/views/ScientificView.vala:194
 msgid "Khinchin's constant"
 msgstr "辛钦常数"
 
-#: src/PreferencesOverlay.vala:69 src/PreferencesOverlay.vala:83
-#: src/Views/CalculusView.vala:510 src/Views/CalculusView.vala:552
-#: src/Views/ScientificView.vala:434 src/Views/ScientificView.vala:476
+#: src/shell/dialogs/PreferencesDialog.vala:38
+#: src/shell/views/CalculusView.vala:277 src/shell/views/GraphingView.vala:252
+#: src/shell/views/ScientificView.vala:198
 msgid "The Feigenbaum constant alpha"
 msgstr "费根鲍姆常数 Alpha"
 
-#: src/PreferencesOverlay.vala:70 src/PreferencesOverlay.vala:84
-#: src/Views/CalculusView.vala:514 src/Views/CalculusView.vala:556
-#: src/Views/ScientificView.vala:438 src/Views/ScientificView.vala:480
+#: src/shell/dialogs/PreferencesDialog.vala:39
+#: src/shell/views/CalculusView.vala:281 src/shell/views/GraphingView.vala:256
+#: src/shell/views/ScientificView.vala:202
 msgid "The Feigenbaum constant delta"
 msgstr "费根鲍姆常数 Delta"
 
-#: src/PreferencesOverlay.vala:71 src/PreferencesOverlay.vala:85
-#: src/Views/CalculusView.vala:518 src/Views/CalculusView.vala:560
-#: src/Views/ScientificView.vala:442 src/Views/ScientificView.vala:484
+#: src/shell/dialogs/PreferencesDialog.vala:40
+#: src/shell/views/CalculusView.vala:285 src/shell/views/GraphingView.vala:260
+#: src/shell/views/ScientificView.vala:206
 msgid "Apery's constant"
 msgstr "阿培里常数"
 
-#: src/PreferencesOverlay.vala:73
-msgid "Constant 2 (Hold Shift)"
-msgstr "常数2(按住上档键)"
+#: src/shell/MainWindow.vala:231 src/shell/MainWindow.vala:265
+#: data/ui/main_window.blp:520
+msgid "Switch angle mode"
+msgstr ""
 
-#: src/PreferencesOverlay.vala:102
-msgid "Currency Converter API Key"
-msgstr "汇率转换器 API 密钥"
-
-#: src/PreferencesOverlay.vala:105
-msgid "Get your own API key"
-msgstr "获得您自己的 API 密钥"
-
-#: src/Views/MiniCalculator.vala:88 src/Views/CalculusView.vala:209
-#: src/Views/ScientificView.vala:204 src/Views/DateView.vala:94
-#: src/Views/DateView.vala:105 src/Views/DateView.vala:192
-msgid "Add"
-msgstr "加"
-
-#: src/Views/MiniCalculator.vala:90 src/Views/CalculusView.vala:204
-#: src/Views/ScientificView.vala:199 src/Views/DateView.vala:87
-#: src/Views/DateView.vala:111
-msgid "Subtract"
-msgstr "减"
-
-#: src/Views/MiniCalculator.vala:92 src/Views/CalculusView.vala:194
-#: src/Views/ScientificView.vala:189
-msgid "Divide"
-msgstr "除"
-
-#: src/Views/MiniCalculator.vala:94 src/Views/CalculusView.vala:199
-#: src/Views/ScientificView.vala:194
-msgid "Multiply"
-msgstr "乘"
-
-#: src/Views/MiniCalculator.vala:99
-msgid "Last Result"
-msgstr "上个结果"
-
-#: src/Views/MiniCalculator.vala:133
-msgid "Pebbles Mini Mode"
-msgstr "Pebbles 迷你模式"
-
-#: src/Views/CalculusView.vala:180 src/Views/ScientificView.vala:174
-#: src/Views/ProgrammerView.vala:140 src/Views/StatisticsView.vala:139
-#: src/Views/CommonNumericKeypad.vala:53
-#: src/Views/CommonKeyPadConverter.vala:48
-msgid "Backspace"
-msgstr "退格"
-
-#: src/Views/CalculusView.vala:193
-msgid "Variable for linear expressions"
-msgstr "线性表达式的变量"
-
-#: src/Views/CalculusView.vala:241 src/Views/CalculusView.vala:460
-#: src/Views/ScientificView.vala:238 src/Views/ScientificView.vala:390
-msgid "x raised to the power y"
-msgstr "X 的 Y 次方"
-
-#: src/Views/CalculusView.vala:243 src/Views/ScientificView.vala:242
-#: src/Views/ProgrammerView.vala:217
-msgid "Add it to the value in Memory"
-msgstr "添加到记忆项"
-
-#: src/Views/CalculusView.vala:245 src/Views/CalculusView.vala:461
-#: src/Views/ScientificView.vala:244 src/Views/ScientificView.vala:392
-msgid "Sine"
-msgstr "正弦"
-
-#: src/Views/CalculusView.vala:247 src/Views/CalculusView.vala:462
-#: src/Views/ScientificView.vala:246 src/Views/ScientificView.vala:395
-msgid "Hyperbolic Sine"
-msgstr "双曲正弦"
-
-#: src/Views/CalculusView.vala:249 src/Views/ScientificView.vala:250
-#: src/Views/ProgrammerView.vala:221
-msgid "Subtract it from the value in Memory"
-msgstr "从记忆项中减去"
-
-#: src/Views/CalculusView.vala:251 src/Views/CalculusView.vala:463
-#: src/Views/ScientificView.vala:252 src/Views/ScientificView.vala:393
-msgid "Cosine"
-msgstr "余弦"
-
-#: src/Views/CalculusView.vala:253 src/Views/CalculusView.vala:464
-#: src/Views/ScientificView.vala:254 src/Views/ScientificView.vala:396
-msgid "Hyperbolic Cosine"
-msgstr "双曲余弦"
-
-#: src/Views/CalculusView.vala:255 src/Views/CalculusView.vala:465
-#: src/Views/ScientificView.vala:256 src/Views/ScientificView.vala:398
-#: src/Views/ProgrammerView.vala:366
-msgid "Modulus"
-msgstr "模数"
-
-#: src/Views/CalculusView.vala:257 src/Views/ScientificView.vala:258
-#: src/Views/ProgrammerView.vala:225
-msgid "Recall value from Memory"
-msgstr "记忆读出"
-
-#: src/Views/CalculusView.vala:259 src/Views/CalculusView.vala:466
-#: src/Views/ScientificView.vala:260 src/Views/ScientificView.vala:394
-msgid "Tangent"
-msgstr "正切"
-
-#: src/Views/CalculusView.vala:261 src/Views/CalculusView.vala:467
-#: src/Views/ScientificView.vala:262 src/Views/ScientificView.vala:397
-msgid "Hyperbolic Tangent"
-msgstr "双曲正切"
-
-#: src/Views/CalculusView.vala:263 src/Views/CalculusView.vala:468
-#: src/Views/ScientificView.vala:264 src/Views/ScientificView.vala:400
-msgid "Permutations"
-msgstr "排列"
-
-#: src/Views/CalculusView.vala:265 src/Views/ScientificView.vala:266
-#: src/Views/ProgrammerView.vala:229 src/Views/StatisticsView.vala:214
-msgid "Memory Clear"
-msgstr "记忆清除"
-
-#: src/Views/CalculusView.vala:271 src/Views/ScientificView.vala:272
-#: src/Views/ProgrammerView.vala:231
-msgid "Last answer"
-msgstr "上个答案"
-
-#: src/Views/CalculusView.vala:280
-msgid "Definite Integral (Upper limit 'u' and Lower limit 'l')"
-msgstr "定积分(上限 'u' 和下限 'l')"
-
-#: src/Views/CalculusView.vala:341
-msgid "Derivative (at a point x)"
-msgstr "点导数(在点 X)"
-
-#: src/Views/CalculusView.vala:405
-msgid "Other functions, integration and differentiation"
-msgstr "其他功能、积分和微分"
-
-#: src/Views/CalculusView.vala:410 src/Views/ScientificView.vala:278
-#: src/Views/ProgrammerView.vala:237
-msgid "Access alternative functions"
-msgstr "访问备选功能"
-
-#: src/Views/CalculusView.vala:448 src/Views/ScientificView.vala:376
-msgid "nth root over number"
-msgstr "N 次方根"
-
-#: src/Views/CalculusView.vala:449 src/Views/ScientificView.vala:378
-msgid "Inverse Sine"
-msgstr "反正弦"
-
-#: src/Views/CalculusView.vala:450 src/Views/ScientificView.vala:381
-msgid "Inverse Hyperbolic Sine"
-msgstr "反双曲正弦"
-
-#: src/Views/CalculusView.vala:451 src/Views/ScientificView.vala:379
-msgid "Inverse Cosine"
-msgstr "反余弦"
-
-#: src/Views/CalculusView.vala:452 src/Views/ScientificView.vala:382
-msgid "Inverse Hyperbolic Cosine"
-msgstr "反双曲余弦"
-
-#: src/Views/CalculusView.vala:453 src/Views/ScientificView.vala:384
-msgid "Log base x"
-msgstr "X 为底的对数"
-
-#: src/Views/CalculusView.vala:454 src/Views/ScientificView.vala:380
-msgid "Inverse Tangent"
-msgstr "反正切"
-
-#: src/Views/CalculusView.vala:455 src/Views/ScientificView.vala:383
-msgid "Inverse Hyperbolic Tangent"
-msgstr "反双曲正切"
-
-#: src/Views/CalculusView.vala:456 src/Views/ScientificView.vala:386
-msgid "Combinations"
-msgstr "组合"
-
-#: src/Views/CalculusView.vala:490 src/Views/CalculusView.vala:532
-#: src/Views/ScientificView.vala:414 src/Views/ScientificView.vala:456
-msgid "Parabolic constant (𝑃)"
-msgstr "抛物线常数 (𝑃)"
-
-#: src/Views/ScientificView.vala:187
-msgid "Percentage"
-msgstr "百分比"
-
-#: src/Views/ScientificView.vala:236 src/Views/ScientificView.vala:389
-msgid "Square a number"
-msgstr "平方一个数"
-
-#: src/Views/ScientificView.vala:240 src/Views/ScientificView.vala:391
-msgid "10 raised to the power x"
-msgstr "10 的 X 次方"
-
-#: src/Views/ScientificView.vala:248 src/Views/ScientificView.vala:399
-msgid "Log base 10"
-msgstr "以 10 为底的对数"
-
-#: src/Views/ScientificView.vala:309 src/Views/ProgrammerView.vala:309
-msgid "Opens functions panel"
-msgstr "打开功能面板"
-
-#: src/Views/ScientificView.vala:375
-msgid "Square root over number"
-msgstr "求一个数的平方根"
-
-#: src/Views/ScientificView.vala:377
-msgid "e raised to the power x"
-msgstr "e 的 X 次方"
-
-#: src/Views/ScientificView.vala:385
-msgid "Natural Logarithm"
-msgstr "自然对数"
-
-#: src/Views/ProgrammerView.vala:184
-msgid "Bit toggle grid"
-msgstr "位切换网格"
-
-#: src/Views/ProgrammerView.vala:186 src/Views/ProgrammerView.vala:374
-msgid "Left Shift"
-msgstr "左上档"
-
-#: src/Views/ProgrammerView.vala:215 src/Views/ProgrammerView.vala:370
-msgid "Logical OR (TRUE for any input being TRUE)"
-msgstr "逻辑 或(任意输入为真时输出为真)"
-
-#: src/Views/ProgrammerView.vala:219 src/Views/ProgrammerView.vala:371
-msgid "Logical AND (TRUE for all inputs being TRUE)"
-msgstr "逻辑 与(全部输入为真时输出为真)"
-
-#: src/Views/ProgrammerView.vala:223 src/Views/ProgrammerView.vala:372
-msgid "Logical Exclusive-OR (TRUE for exactly one input being TRUE)"
-msgstr "逻辑 异或(有且仅当一个输入为真时输出为真)"
-
-#: src/Views/ProgrammerView.vala:227 src/Views/ProgrammerView.vala:373
-msgid "Logical Inverter (TRUE for input being FALSE and vice versa)"
-msgstr "逻辑 非(输入为假时输出为真，反之亦然)"
-
-#: src/Views/ProgrammerView.vala:363
-msgid "Logical NOT-of-OR (TRUE only for all inputs being FALSE)"
-msgstr "逻辑 或非(仅当所有输入为假时输出为真)"
-
-#: src/Views/ProgrammerView.vala:364
-msgid "Logical NOT-of-AND (FALSE only for all inputs being TRUE)"
-msgstr "逻辑 与非(仅当所有输入为真时输出为假)"
-
-#: src/Views/ProgrammerView.vala:365
-msgid "Logical NOT-of-XOR (TRUE only for all inputs being same)"
-msgstr "逻辑 同或(仅当所有输入相同时输出为真)"
-
-#: src/Views/ProgrammerView.vala:367
-msgid "Right Shift"
-msgstr "右上档"
-
-#: src/Views/DateView.vala:90 src/Views/DateView.vala:114
-msgid "The Date was"
-msgstr "日期曾是"
-
-#: src/Views/DateView.vala:97 src/Views/DateView.vala:108
-#: src/Views/DateView.vala:266
-msgid "The Date will be"
-msgstr "日期将是"
-
-#: src/Views/DateView.vala:124
-msgid "Find Difference"
-msgstr "找出差异"
-
-#: src/Views/DateView.vala:125
-msgid "Infer Date"
-msgstr "推断日期"
-
-#: src/Views/DateView.vala:132
+#: src/shell/MainWindow.vala:292
 msgid "AGE"
 msgstr "年龄"
 
-#: src/Views/DateView.vala:133
+#: src/shell/MainWindow.vala:293
 msgid "DUR"
 msgstr "期间"
 
-#: src/Views/DateView.vala:135
-msgid "From"
-msgstr "从"
-
-#: src/Views/DateView.vala:139
-msgid "To"
-msgstr "到"
-
-#: src/Views/DateView.vala:150
-msgid "Difference"
-msgstr "差异"
-
-#: src/Views/DateView.vala:154 src/Views/DateView.vala:366
-msgid "Hey, it's the same date"
-msgstr "嗨，这是同一天"
-
-#: src/Views/DateView.vala:186
+#: src/shell/MainWindow.vala:311
 msgid "ADD"
 msgstr "增加"
 
-#: src/Views/DateView.vala:187
+#: src/shell/MainWindow.vala:312
 msgid "SUB"
 msgstr "减去"
 
-#: src/Views/DateView.vala:189
-msgid "Starting from"
-msgstr "开始自"
+#: src/shell/MainWindow.vala:789
+#, c-format
+msgid "Loaded dataset of size [%d, %d] from file"
+msgstr ""
 
-#: src/Views/DateView.vala:199 src/Views/ConvTimeView.vala:57
-msgid "Day"
-msgstr "日"
+#: src/shell/MainWindow.vala:795
+msgid "Dataset cleared"
+msgstr ""
 
-#: src/Views/DateView.vala:215 src/Views/ConvTimeView.vala:59
-msgid "Month"
-msgstr "月"
+#: src/shell/MainWindow.vala:984
+msgid "Dataset not loaded. Creating one!"
+msgstr ""
 
-#: src/Views/DateView.vala:231 src/Views/ConvTimeView.vala:60
-msgid "Year"
-msgstr "年"
+#: src/shell/views/CalculusView.vala:201 src/shell/views/GraphingView.vala:182
+#: src/shell/views/ScientificView.vala:93
+msgid "Square root over number"
+msgstr "求一个数的平方根"
 
-#: src/Views/DateView.vala:272
-msgid "Set a duration"
-msgstr "设定一个时间"
+#: src/shell/views/CalculusView.vala:201 src/shell/views/GraphingView.vala:182
+#: src/shell/views/ScientificView.vala:93 data/ui/calculus_view.blp:216
+#: data/ui/calculus_view.blp:535 data/ui/graphing_view.blp:553
+#: data/ui/scientific_view.blp:216 data/ui/scientific_view.blp:535
+msgid "x raised to the power y"
+msgstr "X 的 Y 次方"
 
-#: src/Views/DateView.vala:277
-msgid "Days, months or year"
-msgstr "日、月或年"
+#: src/shell/views/CalculusView.vala:204 src/shell/views/GraphingView.vala:185
+#: src/shell/views/ScientificView.vala:96
+msgid "e raised to the power x"
+msgstr "e 的 X 次方"
 
-#: src/Views/DateView.vala:298
-msgid "Difference Between Dates"
-msgstr "日期之间的差异"
+#: src/shell/views/CalculusView.vala:204 src/shell/views/GraphingView.vala:185
+#: src/shell/views/ScientificView.vala:96 data/ui/calculus_view.blp:556
+#: data/ui/graphing_view.blp:574 data/ui/scientific_view.blp:556
+msgid "10 raised to the power x"
+msgstr "10 的 X 次方"
 
-#: src/Views/DateView.vala:299
-msgid "Add or Subtract Dates"
-msgstr "增加或减去日期"
+#: src/shell/views/CalculusView.vala:206 src/shell/views/GraphingView.vala:187
+#: src/shell/views/ScientificView.vala:98
+msgid "Inverse Sine"
+msgstr "反正弦"
 
-#: src/Views/DateView.vala:353 src/Views/DateView.vala:398
+#: src/shell/views/CalculusView.vala:206 src/shell/views/GraphingView.vala:187
+#: src/shell/views/ScientificView.vala:98 data/ui/calculus_view.blp:597
+#: data/ui/graphing_view.blp:595 data/ui/scientific_view.blp:597
+msgid "Sine"
+msgstr "正弦"
+
+#: src/shell/views/CalculusView.vala:208 src/shell/views/GraphingView.vala:189
+#: src/shell/views/ScientificView.vala:100
+msgid "Inverse Cosine"
+msgstr "反余弦"
+
+#: src/shell/views/CalculusView.vala:208 src/shell/views/GraphingView.vala:189
+#: src/shell/views/ScientificView.vala:100 data/ui/calculus_view.blp:680
+#: data/ui/graphing_view.blp:658 data/ui/scientific_view.blp:680
+msgid "Cosine"
+msgstr "余弦"
+
+#: src/shell/views/CalculusView.vala:210 src/shell/views/GraphingView.vala:191
+#: src/shell/views/ScientificView.vala:102
+msgid "Inverse Tangent"
+msgstr "反正切"
+
+#: src/shell/views/CalculusView.vala:210 src/shell/views/GraphingView.vala:191
+#: src/shell/views/ScientificView.vala:102 data/ui/calculus_view.blp:763
+#: data/ui/graphing_view.blp:813 data/ui/scientific_view.blp:763
+msgid "Tangent"
+msgstr "正切"
+
+#: src/shell/views/CalculusView.vala:212 src/shell/views/GraphingView.vala:193
+#: src/shell/views/ScientificView.vala:104
+msgid "Inverse Hyperbolic Sine"
+msgstr "反双曲正弦"
+
+#: src/shell/views/CalculusView.vala:212 src/shell/views/GraphingView.vala:193
+#: src/shell/views/ScientificView.vala:104
+msgid "Hyperbolic Sine"
+msgstr "双曲正弦"
+
+#: src/shell/views/CalculusView.vala:214 src/shell/views/GraphingView.vala:195
+#: src/shell/views/ScientificView.vala:106
+msgid "Inverse Hyperbolic Cosine"
+msgstr "反双曲余弦"
+
+#: src/shell/views/CalculusView.vala:214 src/shell/views/GraphingView.vala:195
+#: src/shell/views/ScientificView.vala:106
+msgid "Hyperbolic Cosine"
+msgstr "双曲余弦"
+
+#: src/shell/views/CalculusView.vala:216 src/shell/views/GraphingView.vala:197
+#: src/shell/views/ScientificView.vala:108
+msgid "Inverse Hyperbolic Tangent"
+msgstr "反双曲正切"
+
+#: src/shell/views/CalculusView.vala:216 src/shell/views/GraphingView.vala:197
+#: src/shell/views/ScientificView.vala:108
+msgid "Hyperbolic Tangent"
+msgstr "双曲正切"
+
+#: src/shell/views/CalculusView.vala:218 src/shell/views/GraphingView.vala:199
+#: src/shell/views/ScientificView.vala:110
+msgid "Log Base x"
+msgstr ""
+
+#: src/shell/views/CalculusView.vala:218 src/shell/views/GraphingView.vala:199
+#: src/shell/views/ProgrammerView.vala:275
+#: src/shell/views/ScientificView.vala:110 data/ui/calculus_view.blp:722
+#: data/ui/graphing_view.blp:700 data/ui/scientific_view.blp:722
+msgid "Modulus"
+msgstr "模数"
+
+#: src/shell/views/CalculusView.vala:220 src/shell/views/GraphingView.vala:201
+#: src/shell/views/ScientificView.vala:112
+msgid "Natural Logarithm"
+msgstr "自然对数"
+
+#: src/shell/views/CalculusView.vala:220 src/shell/views/GraphingView.vala:201
+#: src/shell/views/ScientificView.vala:112
+msgid "Log Base 10"
+msgstr ""
+
+#: src/shell/views/CalculusView.vala:223
+#: src/shell/views/ScientificView.vala:115
+msgid "Combinations"
+msgstr "组合"
+
+#: src/shell/views/CalculusView.vala:223
+#: src/shell/views/ScientificView.vala:115 data/ui/calculus_view.blp:805
+#: data/ui/scientific_view.blp:805
+msgid "Permutations"
+msgstr "排列"
+
+#: src/shell/views/CalculusView.vala:226
+#: src/shell/views/ProgrammerView.vala:302
+#: src/shell/views/ScientificView.vala:118
+#: src/shell/views/StatisticsView.vala:316
+msgid "Add it to the value in Shared Memory"
+msgstr ""
+
+#: src/shell/views/CalculusView.vala:226
+#: src/shell/views/ProgrammerView.vala:302
+#: src/shell/views/ScientificView.vala:118
+#: src/shell/views/StatisticsView.vala:316 data/ui/calculus_view.blp:576
+#: data/ui/programmer_view.blp:574 data/ui/scientific_view.blp:576
+#: data/ui/statistics_view.blp:583
+msgid "Add it to the value in Memory"
+msgstr "添加到记忆项"
+
+#: src/shell/views/CalculusView.vala:229
+#: src/shell/views/ProgrammerView.vala:305
+#: src/shell/views/ScientificView.vala:121
+#: src/shell/views/StatisticsView.vala:319
+msgid "Subtract it from the value in Shared Memory"
+msgstr ""
+
+#: src/shell/views/CalculusView.vala:230
+#: src/shell/views/ProgrammerView.vala:306
+#: src/shell/views/ScientificView.vala:122
+#: src/shell/views/StatisticsView.vala:320 data/ui/calculus_view.blp:659
+#: data/ui/programmer_view.blp:651 data/ui/scientific_view.blp:659
+#: data/ui/statistics_view.blp:666
+msgid "Subtract it from the value in Memory"
+msgstr "从记忆项中减去"
+
+#: src/shell/views/CalculusView.vala:233
+#: src/shell/views/ProgrammerView.vala:309
+#: src/shell/views/ScientificView.vala:125
+#: src/shell/views/StatisticsView.vala:323 data/ui/graphing_view.blp:720
+msgid "Recall value from Shared Memory"
+msgstr ""
+
+#: src/shell/views/CalculusView.vala:233
+#: src/shell/views/ProgrammerView.vala:309
+#: src/shell/views/ScientificView.vala:125
+#: src/shell/views/StatisticsView.vala:323 data/ui/calculus_view.blp:742
+#: data/ui/programmer_view.blp:728 data/ui/scientific_view.blp:742
+#: data/ui/statistics_view.blp:749
+msgid "Recall value from Memory"
+msgstr "记忆读出"
+
+#: src/shell/views/CalculusView.vala:235
+#: src/shell/views/ProgrammerView.vala:311
+#: src/shell/views/ScientificView.vala:127
+#: src/shell/views/StatisticsView.vala:325
+msgid "Shared Memory Clear"
+msgstr ""
+
+#: src/shell/views/CalculusView.vala:235
+#: src/shell/views/ProgrammerView.vala:311
+#: src/shell/views/ScientificView.vala:127
+#: src/shell/views/StatisticsView.vala:325 data/ui/calculus_view.blp:825
+#: data/ui/programmer_view.blp:805 data/ui/scientific_view.blp:825
+#: data/ui/statistics_view.blp:832
+msgid "Memory Clear"
+msgstr "记忆清除"
+
+#: src/shell/views/CalculusView.vala:238 src/shell/views/CalculusView.vala:241
+#: src/shell/views/ProgrammerView.vala:314
+#: src/shell/views/ScientificView.vala:130
+#: src/shell/views/ScientificView.vala:133
+#: src/shell/views/StatisticsView.vala:328 data/ui/graphing_view.blp:871
+msgid "Insert shared last answer"
+msgstr ""
+
+#: src/shell/views/CalculusView.vala:238 src/shell/views/CalculusView.vala:241
+#: src/shell/views/ProgrammerView.vala:314
+#: src/shell/views/ScientificView.vala:130
+#: src/shell/views/ScientificView.vala:133
+#: src/shell/views/StatisticsView.vala:328 data/ui/calculus_view.blp:391
+#: data/ui/calculus_view.blp:886 data/ui/programmer_view.blp:842
+#: data/ui/scientific_view.blp:391 data/ui/scientific_view.blp:886
+#: data/ui/statistics_view.blp:450
+msgid "Insert last answer"
+msgstr ""
+
+#: src/shell/views/CalculusView.vala:257 src/shell/views/GraphingView.vala:232
+#: src/shell/views/ScientificView.vala:178
+msgid "Imaginary Number (√-1)"
+msgstr ""
+
+#: src/shell/views/DateView.vala:41
+msgid "The Date was"
+msgstr "日期曾是"
+
+#: src/shell/views/DateView.vala:41 data/ui/date_view.blp:215
+msgid "The Date will be"
+msgstr "日期将是"
+
+#: src/shell/views/DateView.vala:145 src/shell/views/DateView.vala:190
 msgid "day"
 msgstr "日"
 
-#: src/Views/DateView.vala:353 src/Views/DateView.vala:398
+#: src/shell/views/DateView.vala:145 src/shell/views/DateView.vala:190
 msgid "days"
 msgstr "日"
 
-#: src/Views/DateView.vala:354
+#: src/shell/views/DateView.vala:146
 #, c-format
 msgid "A total of %s"
 msgstr "总共 %s"
 
-#: src/Views/DateView.vala:370
+#: src/shell/views/DateView.vala:158 data/ui/date_view.blp:103
+msgid "Hey, it's the same date"
+msgstr "嗨，这是同一天"
+
+#: src/shell/views/DateView.vala:162
 msgid "year"
 msgstr "年"
 
-#: src/Views/DateView.vala:370
+#: src/shell/views/DateView.vala:162
 msgid "years"
 msgstr "年"
 
-#: src/Views/DateView.vala:375 src/Views/DateView.vala:383
-#: src/Views/DateView.vala:395
+#: src/shell/views/DateView.vala:167 src/shell/views/DateView.vala:175
+#: src/shell/views/DateView.vala:187
 msgid "and"
 msgstr "和"
 
-#: src/Views/DateView.vala:378
+#: src/shell/views/DateView.vala:170
 msgid "month"
 msgstr "月"
 
-#: src/Views/DateView.vala:378
+#: src/shell/views/DateView.vala:170
 msgid "months"
 msgstr "月"
 
-#: src/Views/DateView.vala:386
+#: src/shell/views/DateView.vala:178
 msgid "week"
 msgstr "周"
 
-#: src/Views/DateView.vala:386
+#: src/shell/views/DateView.vala:178
 msgid "weeks"
 msgstr "周"
 
-#: src/Views/DateView.vala:402
+#: src/shell/views/DateView.vala:194
 msgid "counting backwards"
 msgstr "向后计算"
 
-#: src/Views/DateView.vala:420
+#: src/shell/views/DateView.vala:215
 msgid "Monday"
 msgstr "星期一"
 
-#: src/Views/DateView.vala:421
+#: src/shell/views/DateView.vala:216
 msgid "Tuesday"
 msgstr "星期二"
 
-#: src/Views/DateView.vala:422
+#: src/shell/views/DateView.vala:217
 msgid "Wednesday"
 msgstr "星期三"
 
-#: src/Views/DateView.vala:423
+#: src/shell/views/DateView.vala:218
 msgid "Thursday"
 msgstr "星期四"
 
-#: src/Views/DateView.vala:424
+#: src/shell/views/DateView.vala:219
 msgid "Friday"
 msgstr "星期五"
 
-#: src/Views/DateView.vala:425
+#: src/shell/views/DateView.vala:220
 msgid "Saturday"
 msgstr "星期六"
 
-#: src/Views/DateView.vala:426
+#: src/shell/views/DateView.vala:221
 msgid "Sunday"
 msgstr "星期日"
 
-#: src/Views/StatisticsView.vala:142 src/Views/BottomPopper.vala:40
-msgid "Reset"
-msgstr "重置"
-
-#: src/Views/StatisticsView.vala:142
-msgid "Clear sample"
-msgstr "清除样本"
-
-#: src/Views/StatisticsView.vala:154
-msgid "Negative"
-msgstr "负的"
-
-#: src/Views/StatisticsView.vala:177
-msgid "Navigate to the cell on the left"
-msgstr "移动到左边的单元格"
-
-#: src/Views/StatisticsView.vala:178
-msgid "Navigate to the cell on the right"
-msgstr "移动到右边的单元格"
-
-#: src/Views/StatisticsView.vala:179
-msgid "Left click: Add cell, Right click: Insert cell"
-msgstr "左击: 添加单元格，右击: 插入单元格"
-
-#: src/Views/StatisticsView.vala:182
-msgid "Remove current cell"
-msgstr "删除当前单元格"
-
-#: src/Views/StatisticsView.vala:184
-msgid "Sample size"
-msgstr "样本量"
-
-#: src/Views/StatisticsView.vala:186
-msgid "Mode of the sample data"
-msgstr "样本数据的模式"
-
-#: src/Views/StatisticsView.vala:192
-msgid "Summation of all data values"
-msgstr "所有数据值的总和"
-
-#: src/Views/StatisticsView.vala:194
-msgid "Summation of all data values squared"
-msgstr "所有数据值的总和平方"
-
-#: src/Views/StatisticsView.vala:196
-msgid "Sample variance"
-msgstr "样本方差"
-
-#: src/Views/StatisticsView.vala:202
-msgid "Mean of squared data values"
-msgstr "数据值平方的均值"
-
-#: src/Views/StatisticsView.vala:204
-msgid "Standard deviation"
-msgstr "标准差"
-
-#: src/Views/StatisticsView.vala:206
-msgid "Memory Recall"
-msgstr "记忆读出"
-
-#: src/Views/StatisticsView.vala:208
-msgid "Geometric mean"
-msgstr "几何平均数"
-
-#: src/Views/StatisticsView.vala:212
-msgid "Population standard deviation"
-msgstr "总体标准差"
-
-#: src/Views/StatisticsView.vala:256
-msgid "Query Result"
-msgstr "查询结果"
-
-#: src/Views/CommonKeyPadConverter.vala:50
-msgid "Clear Entry"
-msgstr "清除输入"
-
-#: src/Views/ConvLengthView.vala:51
-msgid "Nanometre"
-msgstr "纳米"
-
-#: src/Views/ConvLengthView.vala:52
-msgid "Micron"
-msgstr "微米"
-
-#: src/Views/ConvLengthView.vala:53
-msgid "Millimetre"
-msgstr "毫米"
-
-#: src/Views/ConvLengthView.vala:54
-msgid "Centimetre"
-msgstr "厘米"
-
-#: src/Views/ConvLengthView.vala:55
-msgid "Metre"
-msgstr "米"
-
-#: src/Views/ConvLengthView.vala:56
-msgid "Kilometre"
-msgstr "千米"
-
-#: src/Views/ConvLengthView.vala:57
-msgid "Inch"
-msgstr "英寸"
-
-#: src/Views/ConvLengthView.vala:58
-msgid "Foot"
-msgstr "英尺"
-
-#: src/Views/ConvLengthView.vala:59
-msgid "Yard"
-msgstr "码"
-
-#: src/Views/ConvLengthView.vala:60
-msgid "Mile"
-msgstr "英里"
-
-#: src/Views/ConvLengthView.vala:61
-msgid "Nautical Mile"
-msgstr "海里"
-
-#: src/Views/ConvAreaView.vala:51
-msgid "Square millimetre"
-msgstr "平方毫米"
-
-#: src/Views/ConvAreaView.vala:52
-msgid "Square centimetre"
-msgstr "平方厘米"
-
-#: src/Views/ConvAreaView.vala:53
-msgid "Square metre"
-msgstr "平方米"
-
-#: src/Views/ConvAreaView.vala:54
-msgid "Square kilometre"
-msgstr "平方公里"
-
-#: src/Views/ConvAreaView.vala:55
-msgid "Square inch"
-msgstr "平方英寸"
-
-#: src/Views/ConvAreaView.vala:56
-msgid "Square foot"
-msgstr "平方英尺"
-
-#: src/Views/ConvAreaView.vala:57
-msgid "Square yard"
-msgstr "平方码"
-
-#: src/Views/ConvAreaView.vala:58
-msgid "Hectare"
-msgstr "公顷"
-
-#: src/Views/ConvAreaView.vala:59
-msgid "Acre"
-msgstr "英亩"
-
-#: src/Views/ConvAreaView.vala:60
-msgid "Square mile"
-msgstr "平方英里"
-
-#: src/Views/ConvVolumeView.vala:38
-msgid "Millilitre"
-msgstr "毫升"
-
-#: src/Views/ConvVolumeView.vala:39
-msgid "Cubic centimetre"
-msgstr "立方厘米"
-
-#: src/Views/ConvVolumeView.vala:40
-msgid "Litre"
-msgstr "升"
-
-#: src/Views/ConvVolumeView.vala:41
-msgid "Cubic metre"
-msgstr "立方米"
-
-#: src/Views/ConvVolumeView.vala:42
-msgid "US teaspoon"
-msgstr "美制茶匙"
-
-#: src/Views/ConvVolumeView.vala:43
-msgid "US tablespoon"
-msgstr "美制汤匙"
-
-#: src/Views/ConvVolumeView.vala:44
-msgid "US fluid ounce"
-msgstr "美制盎司"
-
-#: src/Views/ConvVolumeView.vala:45
-msgid "US legal cup"
-msgstr "美制量杯"
-
-#: src/Views/ConvVolumeView.vala:46
-msgid "US pint"
-msgstr "美制品脱"
-
-#: src/Views/ConvVolumeView.vala:47
-msgid "US quart"
-msgstr "美制夸脱"
-
-#: src/Views/ConvVolumeView.vala:48
-msgid "US gallon"
-msgstr "美制加仑"
-
-#: src/Views/ConvVolumeView.vala:49
-msgid "Imperial teaspoon"
-msgstr "英制茶匙"
-
-#: src/Views/ConvVolumeView.vala:50
-msgid "Imperial tablespoon"
-msgstr "英制汤匙"
-
-#: src/Views/ConvVolumeView.vala:51
-msgid "Imperial fluid ounce"
-msgstr "英制盎司"
-
-#: src/Views/ConvVolumeView.vala:52
-msgid "Imperial cup"
-msgstr "英制量杯"
-
-#: src/Views/ConvVolumeView.vala:53
-msgid "Imperial pint"
-msgstr "英制品脱"
-
-#: src/Views/ConvVolumeView.vala:54
-msgid "Imperial quart"
-msgstr "英制夸脱"
-
-#: src/Views/ConvVolumeView.vala:55
-msgid "Imperial gallon"
-msgstr "英制加仑"
-
-#: src/Views/ConvVolumeView.vala:56
-msgid "Cubic inch"
-msgstr "立方英寸"
-
-#: src/Views/ConvVolumeView.vala:57
-msgid "Cubic foot"
-msgstr "立方英尺"
-
-#: src/Views/ConvVolumeView.vala:58
-msgid "Cubic yard"
-msgstr "立方码"
-
-#: src/Views/ConvTimeView.vala:52
-msgid "Microsecond"
-msgstr "微秒"
-
-#: src/Views/ConvTimeView.vala:53
-msgid "Millisecond"
-msgstr "毫秒"
-
-#: src/Views/ConvTimeView.vala:54
-msgid "Second"
-msgstr "秒"
-
-#: src/Views/ConvTimeView.vala:55
-msgid "Minute"
-msgstr "分钟"
-
-#: src/Views/ConvTimeView.vala:56
-msgid "Hour"
-msgstr "小时"
-
-#: src/Views/ConvTimeView.vala:58
-msgid "Week"
-msgstr "星期"
-
-#: src/Views/ConvTimeView.vala:61
-msgid "Decade"
-msgstr "十年"
-
-#: src/Views/ConvTimeView.vala:62
-msgid "Century"
-msgstr "世纪"
-
-#: src/Views/ConvAngleView.vala:47 src/Views/HistoryView.vala:101
+#: src/shell/views/GraphingView.vala:203
+msgid "Variable b"
+msgstr ""
+
+#: src/shell/views/GraphingView.vala:203 data/ui/graphing_view.blp:776
+msgid "Variable a"
+msgstr ""
+
+#: src/shell/views/GraphingView.vala:205
+msgid "Variable c"
+msgstr ""
+
+#: src/shell/views/GraphingView.vala:205 data/ui/graphing_view.blp:794
+msgid "Variable m"
+msgstr ""
+
+#: src/shell/views/GraphingView.vala:359
+msgid "PNG Files"
+msgstr ""
+
+#: src/shell/views/GraphingView.vala:367
+#: src/shell/views/StatisticsView.vala:108
+msgid "Export"
+msgstr ""
+
+#: src/shell/views/GraphingView.vala:371
+msgid "Export as PNG"
+msgstr ""
+
+#. Call Python to save PNG
+#: src/shell/views/GraphingView.vala:381
+msgid "Exported graph as image!"
+msgstr ""
+
+#: src/shell/views/ProgrammerView.vala:276
+msgid "Bitwise Inverter (TRUE for input being FALSE and vice versa)"
+msgstr ""
+
+#: src/shell/views/ProgrammerView.vala:279
+msgid "Bitwise NOT-of-AND (FALSE only for all inputs being TRUE)"
+msgstr ""
+
+#: src/shell/views/ProgrammerView.vala:280 data/ui/programmer_view.blp:311
+#: data/ui/programmer_view.blp:708
+msgid "Bitwise AND (TRUE for all inputs being TRUE)"
+msgstr ""
+
+#: src/shell/views/ProgrammerView.vala:286
+msgid "Bitwise NOT-of-OR (TRUE only for all inputs being FALSE)"
+msgstr ""
+
+#: src/shell/views/ProgrammerView.vala:287 data/ui/programmer_view.blp:222
+#: data/ui/programmer_view.blp:631
+msgid "Bitwise OR (TRUE for any input being TRUE)"
+msgstr ""
+
+#: src/shell/views/ProgrammerView.vala:293
+msgid "Logical NOT-of-XOR (TRUE only for all inputs being same)"
+msgstr "逻辑 同或(仅当所有输入相同时输出为真)"
+
+#: src/shell/views/ProgrammerView.vala:294
+msgid "Logical Exclusive-OR (TRUE for exactly one input being TRUE)"
+msgstr "逻辑 异或(有且仅当一个输入为真时输出为真)"
+
+#: src/shell/views/ProgrammerView.vala:299
+msgid "Right Shift"
+msgstr "右上档"
+
+#: src/shell/views/ProgrammerView.vala:299 data/ui/programmer_view.blp:94
+msgid "Left Shift"
+msgstr "左上档"
+
+#: src/shell/views/StatisticsView.vala:61
+#: src/shell/views/StatisticsView.vala:94
+msgid "All files"
+msgstr ""
+
+#: src/shell/views/StatisticsView.vala:66
+#: src/shell/views/StatisticsView.vala:99
+msgid "Comma Separated Value files"
+msgstr ""
+
+#: src/shell/views/StatisticsView.vala:75
+msgid "Import"
+msgstr ""
+
+#: src/shell/views/StatisticsView.vala:79
+msgid "Import CSV files"
+msgstr ""
+
+#: src/shell/views/StatisticsView.vala:112
+msgid "Export CSV files"
+msgstr ""
+
+#. Call Python to save CSV
+#: src/shell/views/StatisticsView.vala:122
+msgid "Exported CSV file!"
+msgstr ""
+
+#: src/shell/views/StatisticsView.vala:333
+msgid "Navigate to the beginning"
+msgstr ""
+
+#: src/shell/views/StatisticsView.vala:337
+msgid "Navigate to the end"
+msgstr ""
+
+#: src/shell/views/converters/ConvAngleView.vala:19
 msgid "Degree"
 msgstr "角度"
 
-#: src/Views/ConvAngleView.vala:48 src/Views/HistoryView.vala:104
+#: src/shell/views/converters/ConvAngleView.vala:20
 msgid "Radian"
 msgstr "弧度"
 
-#: src/Views/ConvAngleView.vala:49 src/Views/HistoryView.vala:107
+#: src/shell/views/converters/ConvAngleView.vala:21
 msgid "Gradian"
 msgstr "百分度"
 
-#: src/Views/ConvAngleView.vala:50
+#: src/shell/views/converters/ConvAngleView.vala:22
 msgid "Milliradian"
 msgstr "毫弧度"
 
-#: src/Views/ConvAngleView.vala:51
+#: src/shell/views/converters/ConvAngleView.vala:23
 msgid "Second of arc"
 msgstr "弧秒"
 
-#: src/Views/ConvAngleView.vala:52
+#: src/shell/views/converters/ConvAngleView.vala:24
 msgid "Minute of arc"
 msgstr "弧分"
 
-#: src/Views/ConvSpeedView.vala:48
-msgid "Centimetre per second"
-msgstr "厘米每秒"
+#: src/shell/views/converters/ConvAreaView.vala:23
+msgid "Square millimetre"
+msgstr "平方毫米"
 
-#: src/Views/ConvSpeedView.vala:49
-msgid "Metre per second"
-msgstr "米每秒"
+#: src/shell/views/converters/ConvAreaView.vala:24
+msgid "Square centimetre"
+msgstr "平方厘米"
 
-#: src/Views/ConvSpeedView.vala:50
-msgid "Kilometre per hour"
-msgstr "千米每小时"
+#: src/shell/views/converters/ConvAreaView.vala:25
+msgid "Square metre"
+msgstr "平方米"
 
-#: src/Views/ConvSpeedView.vala:51
-msgid "Foot per second"
-msgstr "英尺每秒"
+#: src/shell/views/converters/ConvAreaView.vala:26
+msgid "Square kilometre"
+msgstr "平方公里"
 
-#: src/Views/ConvSpeedView.vala:52
-msgid "Miles per hour"
-msgstr "英里每小时"
+#: src/shell/views/converters/ConvAreaView.vala:27
+msgid "Square inch"
+msgstr "平方英寸"
 
-#: src/Views/ConvSpeedView.vala:53
-msgid "Knot"
-msgstr "节"
+#: src/shell/views/converters/ConvAreaView.vala:28
+msgid "Square foot"
+msgstr "平方英尺"
 
-#: src/Views/ConvSpeedView.vala:54
-msgid "Mach"
-msgstr "马赫"
+#: src/shell/views/converters/ConvAreaView.vala:29
+msgid "Square yard"
+msgstr "平方码"
 
-#: src/Views/ConvPressView.vala:47
-msgid "Atmosphere"
-msgstr "标准大气压"
+#: src/shell/views/converters/ConvAreaView.vala:30
+msgid "Hectare"
+msgstr "公顷"
 
-#: src/Views/ConvPressView.vala:48
-msgid "Bar"
-msgstr "巴"
+#: src/shell/views/converters/ConvAreaView.vala:31
+msgid "Acre"
+msgstr "英亩"
 
-#: src/Views/ConvPressView.vala:49
-msgid "Millimetre of mercury"
-msgstr "毫米汞柱"
+#: src/shell/views/converters/ConvAreaView.vala:32
+msgid "Square mile"
+msgstr "平方英里"
 
-#: src/Views/ConvPressView.vala:50
-msgid "Pascal"
-msgstr "帕斯卡"
-
-#: src/Views/ConvPressView.vala:51
-msgid "Pound-force / sq-inch"
-msgstr "磅力/平方英寸"
-
-#: src/Views/ConvPressView.vala:52
-msgid "Torr"
-msgstr "托"
-
-#: src/Views/ConvMassView.vala:51
-msgid "Microgram"
-msgstr "微克"
-
-#: src/Views/ConvMassView.vala:52
-msgid "Milligram"
-msgstr "毫克"
-
-#: src/Views/ConvMassView.vala:53
-msgid "Gram"
-msgstr "克"
-
-#: src/Views/ConvMassView.vala:54
-msgid "Kilogram"
-msgstr "千克"
-
-#: src/Views/ConvMassView.vala:55
-msgid "Tonne"
-msgstr "公吨"
-
-#: src/Views/ConvMassView.vala:56
-msgid "US ton"
-msgstr "美吨"
-
-#: src/Views/ConvMassView.vala:57
-msgid "Imperial Ton"
-msgstr "英制吨"
-
-#: src/Views/ConvMassView.vala:58
-msgid "Ounce"
-msgstr "盎司"
-
-#: src/Views/ConvMassView.vala:59
-msgid "Pound"
-msgstr "磅"
-
-#: src/Views/ConvMassView.vala:60
-msgid "Stone"
-msgstr "英石"
-
-#: src/Views/ConvEnergyView.vala:51
-msgid "Joule"
-msgstr "焦耳"
-
-#: src/Views/ConvEnergyView.vala:52
-msgid "Kilojoule"
-msgstr "千焦耳"
-
-#: src/Views/ConvEnergyView.vala:53
-msgid "Gram calorie"
-msgstr "克卡"
-
-#: src/Views/ConvEnergyView.vala:54
-msgid "Kilocalorie"
-msgstr "千卡"
-
-#: src/Views/ConvEnergyView.vala:55
-msgid "Watt hour"
-msgstr "瓦时"
-
-#: src/Views/ConvEnergyView.vala:56
-msgid "Kilowatt hour"
-msgstr "千瓦时"
-
-#: src/Views/ConvEnergyView.vala:58
-msgid "British thermal unit"
-msgstr "英国热量单位"
-
-#: src/Views/ConvEnergyView.vala:59
-msgid "US therm"
-msgstr "美制热量"
-
-#: src/Views/ConvEnergyView.vala:60
-msgid "Foot-pound"
-msgstr "英尺磅"
-
-#: src/Views/ConvPowerView.vala:47
-msgid "Watt"
-msgstr "瓦"
-
-#: src/Views/ConvPowerView.vala:48
-msgid "Kilowatt"
-msgstr "千瓦"
-
-#: src/Views/ConvPowerView.vala:49
-msgid "Metric horsepower"
-msgstr "公制马力"
-
-#: src/Views/ConvPowerView.vala:50
-msgid "Mechanical horsepower"
-msgstr "机械马力"
-
-#: src/Views/ConvPowerView.vala:51
-msgid "Foot-pound / minute"
-msgstr "英尺磅 / 分钟"
-
-#: src/Views/ConvPowerView.vala:52
-msgid "BTU / hour"
-msgstr "英国热量单位 / 小时"
-
-#: src/Views/ConvTempView.vala:37
-msgid "Celsius"
-msgstr "摄氏度"
-
-#: src/Views/ConvTempView.vala:38
-msgid "Fahrenheit"
-msgstr "华氏度"
-
-#: src/Views/ConvTempView.vala:39
-msgid "Kelvin"
-msgstr "开尔文"
-
-#: src/Views/ConvDataView.vala:63
-msgid "Bit"
-msgstr "比特"
-
-#: src/Views/ConvDataView.vala:64
-msgid "Kilobit"
-msgstr "千位"
-
-#: src/Views/ConvDataView.vala:65
-msgid "Kibibit"
-msgstr "千比特"
-
-#: src/Views/ConvDataView.vala:66
-msgid "Megabit"
-msgstr "兆位"
-
-#: src/Views/ConvDataView.vala:67
-msgid "Mebibit"
-msgstr "兆比特"
-
-#: src/Views/ConvDataView.vala:68
-msgid "Gigabit"
-msgstr "吉位"
-
-#: src/Views/ConvDataView.vala:69
-msgid "Gibibit"
-msgstr "吉比特"
-
-#: src/Views/ConvDataView.vala:70
-msgid "Terabit"
-msgstr "兆兆位"
-
-#: src/Views/ConvDataView.vala:71
-msgid "Tebibit"
-msgstr "兆兆比特"
-
-#: src/Views/ConvDataView.vala:72
-msgid "Petabit"
-msgstr "贝脱位"
-
-#: src/Views/ConvDataView.vala:73
-msgid "Pebibit"
-msgstr "贝脱比特"
-
-#: src/Views/ConvDataView.vala:75
-msgid "Kilobyte"
-msgstr "千字节"
-
-#: src/Views/ConvDataView.vala:76
-msgid "Kibibyte"
-msgstr "千位字节"
-
-#: src/Views/ConvDataView.vala:77
-msgid "Megabyte"
-msgstr "兆字节"
-
-#: src/Views/ConvDataView.vala:78
-msgid "Mebibyte"
-msgstr "兆位字节"
-
-#: src/Views/ConvDataView.vala:79
-msgid "Gigabyte"
-msgstr "吉字节"
-
-#: src/Views/ConvDataView.vala:80
-msgid "Gibibyte"
-msgstr "吉位字节"
-
-#: src/Views/ConvDataView.vala:81
-msgid "Terabyte"
-msgstr "兆兆字节"
-
-#: src/Views/ConvDataView.vala:82
-msgid "Tebibyte"
-msgstr "兆兆位字节"
-
-#: src/Views/ConvDataView.vala:83
-msgid "Petabyte"
-msgstr "贝脱字节"
-
-#: src/Views/ConvDataView.vala:84
-msgid "Pebibyte"
-msgstr "贝脱位字节"
-
-#: src/Views/ConvCurrView.vala:60
+#: src/shell/views/converters/ConvCurrencyView.vala:14
 msgid "US Dollar"
 msgstr "美元"
 
-#: src/Views/ConvCurrView.vala:61
+#: src/shell/views/converters/ConvCurrencyView.vala:15
 msgid "Euro"
 msgstr "欧元"
 
-#: src/Views/ConvCurrView.vala:62
+#: src/shell/views/converters/ConvCurrencyView.vala:16
 msgid "British Pounds"
 msgstr "英镑"
 
-#: src/Views/ConvCurrView.vala:63
+#: src/shell/views/converters/ConvCurrencyView.vala:17
 msgid "Australian Dollar"
 msgstr "澳元"
 
-#: src/Views/ConvCurrView.vala:64
+#: src/shell/views/converters/ConvCurrencyView.vala:18
 msgid "Brazilian Real"
 msgstr "巴西雷亚尔"
 
-#: src/Views/ConvCurrView.vala:65
+#: src/shell/views/converters/ConvCurrencyView.vala:19
 msgid "Canadian Dollar"
 msgstr "加拿大元"
 
-#: src/Views/ConvCurrView.vala:66
+#: src/shell/views/converters/ConvCurrencyView.vala:20
 msgid "Chinese Yuan"
 msgstr "人民币"
 
-#: src/Views/ConvCurrView.vala:67
+#: src/shell/views/converters/ConvCurrencyView.vala:21
 msgid "Indian Rupee"
 msgstr "印度卢比"
 
-#: src/Views/ConvCurrView.vala:68
+#: src/shell/views/converters/ConvCurrencyView.vala:22
 msgid "Japanese Yen"
 msgstr "日元"
 
-#: src/Views/ConvCurrView.vala:69
+#: src/shell/views/converters/ConvCurrencyView.vala:23
 msgid "Russian Ruble"
 msgstr "俄罗斯卢布"
 
-#: src/Views/ConvCurrView.vala:70
+#: src/shell/views/converters/ConvCurrencyView.vala:24
 msgid "South African Rand"
 msgstr "南非兰特"
 
-#: src/Views/ControlsOverlay.vala:33
+#: src/shell/views/converters/ConvCurrencyView.vala:25
+msgid "Argentine Peso"
+msgstr ""
+
+#: src/shell/views/converters/ConvCurrencyView.vala:40
+#: src/shell/views/converters/ConvCurrencyView.vala:101
+#: src/shell/views/converters/ConvCurrencyView.vala:120
+#: src/shell/views/converters/ConvCurrencyView.vala:126
+msgid "Last updated: %B %d, %Y %I:%M %p"
+msgstr ""
+
+#: src/shell/views/converters/ConvCurrencyView.vala:50
+msgid "Please provide an API key in preferences dialog."
+msgstr ""
+
+#: src/shell/views/converters/ConvDataView.vala:35
+msgid "Bit"
+msgstr "比特"
+
+#: src/shell/views/converters/ConvDataView.vala:36
+msgid "Kilobit"
+msgstr "千位"
+
+#: src/shell/views/converters/ConvDataView.vala:37
+msgid "Kibibit"
+msgstr "千比特"
+
+#: src/shell/views/converters/ConvDataView.vala:38
+msgid "Megabit"
+msgstr "兆位"
+
+#: src/shell/views/converters/ConvDataView.vala:39
+msgid "Mebibit"
+msgstr "兆比特"
+
+#: src/shell/views/converters/ConvDataView.vala:40
+msgid "Gigabit"
+msgstr "吉位"
+
+#: src/shell/views/converters/ConvDataView.vala:41
+msgid "Gibibit"
+msgstr "吉比特"
+
+#: src/shell/views/converters/ConvDataView.vala:42
+msgid "Terabit"
+msgstr "兆兆位"
+
+#: src/shell/views/converters/ConvDataView.vala:43
+msgid "Tebibit"
+msgstr "兆兆比特"
+
+#: src/shell/views/converters/ConvDataView.vala:44
+msgid "Petabit"
+msgstr "贝脱位"
+
+#: src/shell/views/converters/ConvDataView.vala:45
+msgid "Pebibit"
+msgstr "贝脱比特"
+
+#: src/shell/views/converters/ConvDataView.vala:46
+msgid "Byte"
+msgstr "字节"
+
+#: src/shell/views/converters/ConvDataView.vala:47
+msgid "Kilobyte"
+msgstr "千字节"
+
+#: src/shell/views/converters/ConvDataView.vala:48
+msgid "Kibibyte"
+msgstr "千位字节"
+
+#: src/shell/views/converters/ConvDataView.vala:49
+msgid "Megabyte"
+msgstr "兆字节"
+
+#: src/shell/views/converters/ConvDataView.vala:50
+msgid "Mebibyte"
+msgstr "兆位字节"
+
+#: src/shell/views/converters/ConvDataView.vala:51
+msgid "Gigabyte"
+msgstr "吉字节"
+
+#: src/shell/views/converters/ConvDataView.vala:52
+msgid "Gibibyte"
+msgstr "吉位字节"
+
+#: src/shell/views/converters/ConvDataView.vala:53
+msgid "Terabyte"
+msgstr "兆兆字节"
+
+#: src/shell/views/converters/ConvDataView.vala:54
+msgid "Tebibyte"
+msgstr "兆兆位字节"
+
+#: src/shell/views/converters/ConvDataView.vala:55
+msgid "Petabyte"
+msgstr "贝脱字节"
+
+#: src/shell/views/converters/ConvDataView.vala:56
+msgid "Pebibyte"
+msgstr "贝脱位字节"
+
+#: src/shell/views/converters/ConvEnergyView.vala:23
+msgid "Joule"
+msgstr "焦耳"
+
+#: src/shell/views/converters/ConvEnergyView.vala:24
+msgid "Kilojoule"
+msgstr "千焦耳"
+
+#: src/shell/views/converters/ConvEnergyView.vala:25
+msgid "Gram calorie"
+msgstr "克卡"
+
+#: src/shell/views/converters/ConvEnergyView.vala:26
+msgid "Kilocalorie"
+msgstr "千卡"
+
+#: src/shell/views/converters/ConvEnergyView.vala:27
+msgid "Watt hour"
+msgstr "瓦时"
+
+#: src/shell/views/converters/ConvEnergyView.vala:28
+msgid "Kilowatt hour"
+msgstr "千瓦时"
+
+#. "Electronvolt",       Future Support
+#: src/shell/views/converters/ConvEnergyView.vala:30
+msgid "British thermal unit"
+msgstr "英国热量单位"
+
+#: src/shell/views/converters/ConvEnergyView.vala:31
+msgid "US therm"
+msgstr "美制热量"
+
+#: src/shell/views/converters/ConvEnergyView.vala:32
+msgid "Foot-pound"
+msgstr "英尺磅"
+
+#: src/shell/views/converters/ConvLengthView.vala:24
+msgid "Nanometre"
+msgstr "纳米"
+
+#: src/shell/views/converters/ConvLengthView.vala:25
+msgid "Micron"
+msgstr "微米"
+
+#: src/shell/views/converters/ConvLengthView.vala:26
+msgid "Millimetre"
+msgstr "毫米"
+
+#: src/shell/views/converters/ConvLengthView.vala:27
+msgid "Centimetre"
+msgstr "厘米"
+
+#: src/shell/views/converters/ConvLengthView.vala:28
+msgid "Metre"
+msgstr "米"
+
+#: src/shell/views/converters/ConvLengthView.vala:29
+msgid "Kilometre"
+msgstr "千米"
+
+#: src/shell/views/converters/ConvLengthView.vala:30
+msgid "Inch"
+msgstr "英寸"
+
+#: src/shell/views/converters/ConvLengthView.vala:31
+msgid "Foot"
+msgstr "英尺"
+
+#: src/shell/views/converters/ConvLengthView.vala:32
+msgid "Yard"
+msgstr "码"
+
+#: src/shell/views/converters/ConvLengthView.vala:33
+msgid "Mile"
+msgstr "英里"
+
+#: src/shell/views/converters/ConvLengthView.vala:34
+msgid "Nautical Mile"
+msgstr "海里"
+
+#: src/shell/views/converters/ConvMassView.vala:23
+msgid "Microgram"
+msgstr "微克"
+
+#: src/shell/views/converters/ConvMassView.vala:24
+msgid "Milligram"
+msgstr "毫克"
+
+#: src/shell/views/converters/ConvMassView.vala:25
+msgid "Gram"
+msgstr "克"
+
+#: src/shell/views/converters/ConvMassView.vala:26
+msgid "Kilogram"
+msgstr "千克"
+
+#: src/shell/views/converters/ConvMassView.vala:27
+msgid "Tonne"
+msgstr "公吨"
+
+#: src/shell/views/converters/ConvMassView.vala:28
+msgid "US ton"
+msgstr "美吨"
+
+#: src/shell/views/converters/ConvMassView.vala:29
+msgid "Imperial Ton"
+msgstr "英制吨"
+
+#: src/shell/views/converters/ConvMassView.vala:30
+msgid "Ounce"
+msgstr "盎司"
+
+#: src/shell/views/converters/ConvMassView.vala:31
+msgid "Pound"
+msgstr "磅"
+
+#: src/shell/views/converters/ConvMassView.vala:32
+msgid "Stone"
+msgstr "英石"
+
+#: src/shell/views/converters/ConvPowerView.vala:19
+msgid "Watt"
+msgstr "瓦"
+
+#: src/shell/views/converters/ConvPowerView.vala:20
+msgid "Kilowatt"
+msgstr "千瓦"
+
+#: src/shell/views/converters/ConvPowerView.vala:21
+msgid "Metric horsepower"
+msgstr "公制马力"
+
+#: src/shell/views/converters/ConvPowerView.vala:22
+msgid "Mechanical horsepower"
+msgstr "机械马力"
+
+#: src/shell/views/converters/ConvPowerView.vala:23
+msgid "Foot-pound / minute"
+msgstr "英尺磅 / 分钟"
+
+#: src/shell/views/converters/ConvPowerView.vala:24
+msgid "BTU / hour"
+msgstr "英国热量单位 / 小时"
+
+#: src/shell/views/converters/ConvPressureView.vala:19
+msgid "Atmosphere"
+msgstr "标准大气压"
+
+#: src/shell/views/converters/ConvPressureView.vala:20
+msgid "Bar"
+msgstr "巴"
+
+#: src/shell/views/converters/ConvPressureView.vala:21
+msgid "Millimetre of mercury"
+msgstr "毫米汞柱"
+
+#: src/shell/views/converters/ConvPressureView.vala:22
+msgid "Pascal"
+msgstr "帕斯卡"
+
+#: src/shell/views/converters/ConvPressureView.vala:23
+msgid "Pound-force / sq-inch"
+msgstr "磅力/平方英寸"
+
+#: src/shell/views/converters/ConvPressureView.vala:24
+msgid "Torr"
+msgstr "托"
+
+#: src/shell/views/converters/ConvSpeedView.vala:20
+msgid "Centimetre per second"
+msgstr "厘米每秒"
+
+#: src/shell/views/converters/ConvSpeedView.vala:21
+msgid "Metre per second"
+msgstr "米每秒"
+
+#: src/shell/views/converters/ConvSpeedView.vala:22
+msgid "Kilometre per hour"
+msgstr "千米每小时"
+
+#: src/shell/views/converters/ConvSpeedView.vala:23
+msgid "Foot per second"
+msgstr "英尺每秒"
+
+#: src/shell/views/converters/ConvSpeedView.vala:24
+msgid "Miles per hour"
+msgstr "英里每小时"
+
+#: src/shell/views/converters/ConvSpeedView.vala:25
+msgid "Knot"
+msgstr "节"
+
+#: src/shell/views/converters/ConvSpeedView.vala:26
+msgid "Mach"
+msgstr "马赫"
+
+#: src/shell/views/converters/ConvTempView.vala:16
+msgid "Celsius"
+msgstr "摄氏度"
+
+#: src/shell/views/converters/ConvTempView.vala:17
+msgid "Fahrenheit"
+msgstr "华氏度"
+
+#: src/shell/views/converters/ConvTempView.vala:18
+msgid "Kelvin"
+msgstr "开尔文"
+
+#: src/shell/views/converters/ConvTimeView.vala:24
+msgid "Microsecond"
+msgstr "微秒"
+
+#: src/shell/views/converters/ConvTimeView.vala:25
+msgid "Millisecond"
+msgstr "毫秒"
+
+#: src/shell/views/converters/ConvTimeView.vala:26
+msgid "Second"
+msgstr "秒"
+
+#: src/shell/views/converters/ConvTimeView.vala:27
+msgid "Minute"
+msgstr "分钟"
+
+#: src/shell/views/converters/ConvTimeView.vala:28
+msgid "Hour"
+msgstr "小时"
+
+#: src/shell/views/converters/ConvTimeView.vala:29
+msgid "Day"
+msgstr "日"
+
+#: src/shell/views/converters/ConvTimeView.vala:30
+msgid "Week"
+msgstr "星期"
+
+#: src/shell/views/converters/ConvTimeView.vala:31
+msgid "Month"
+msgstr "月"
+
+#: src/shell/views/converters/ConvTimeView.vala:32
+msgid "Year"
+msgstr "年"
+
+#: src/shell/views/converters/ConvTimeView.vala:33
+msgid "Decade"
+msgstr "十年"
+
+#: src/shell/views/converters/ConvTimeView.vala:34
+msgid "Century"
+msgstr "世纪"
+
+#: src/shell/views/converters/ConvVolumeView.vala:34
+msgid "Millilitre"
+msgstr "毫升"
+
+#: src/shell/views/converters/ConvVolumeView.vala:35
+msgid "Cubic centimetre"
+msgstr "立方厘米"
+
+#: src/shell/views/converters/ConvVolumeView.vala:36
+msgid "Litre"
+msgstr "升"
+
+#: src/shell/views/converters/ConvVolumeView.vala:37
+msgid "Cubic metre"
+msgstr "立方米"
+
+#: src/shell/views/converters/ConvVolumeView.vala:38
+msgid "US teaspoon"
+msgstr "美制茶匙"
+
+#: src/shell/views/converters/ConvVolumeView.vala:39
+msgid "US tablespoon"
+msgstr "美制汤匙"
+
+#: src/shell/views/converters/ConvVolumeView.vala:40
+msgid "US fluid ounce"
+msgstr "美制盎司"
+
+#: src/shell/views/converters/ConvVolumeView.vala:41
+msgid "US legal cup"
+msgstr "美制量杯"
+
+#: src/shell/views/converters/ConvVolumeView.vala:42
+msgid "US pint"
+msgstr "美制品脱"
+
+#: src/shell/views/converters/ConvVolumeView.vala:43
+msgid "US quart"
+msgstr "美制夸脱"
+
+#: src/shell/views/converters/ConvVolumeView.vala:44
+msgid "US gallon"
+msgstr "美制加仑"
+
+#: src/shell/views/converters/ConvVolumeView.vala:45
+msgid "Imperial teaspoon"
+msgstr "英制茶匙"
+
+#: src/shell/views/converters/ConvVolumeView.vala:46
+msgid "Imperial tablespoon"
+msgstr "英制汤匙"
+
+#: src/shell/views/converters/ConvVolumeView.vala:47
+msgid "Imperial fluid ounce"
+msgstr "英制盎司"
+
+#: src/shell/views/converters/ConvVolumeView.vala:48
+msgid "Imperial cup"
+msgstr "英制量杯"
+
+#: src/shell/views/converters/ConvVolumeView.vala:49
+msgid "Imperial pint"
+msgstr "英制品脱"
+
+#: src/shell/views/converters/ConvVolumeView.vala:50
+msgid "Imperial quart"
+msgstr "英制夸脱"
+
+#: src/shell/views/converters/ConvVolumeView.vala:51
+msgid "Imperial gallon"
+msgstr "英制加仑"
+
+#: src/shell/views/converters/ConvVolumeView.vala:52
+msgid "Cubic inch"
+msgstr "立方英寸"
+
+#: src/shell/views/converters/ConvVolumeView.vala:53
+msgid "Cubic foot"
+msgstr "立方英尺"
+
+#: src/shell/views/converters/ConvVolumeView.vala:54
+msgid "Cubic yard"
+msgstr "立方码"
+
+#: src/shell/widgets/displays/CalculusDisplay.vala:163
+#: src/shell/widgets/displays/ProgrammerDisplay.vala:255
+#: src/shell/widgets/displays/ScientificDisplay.vala:133
+#: src/shell/widgets/displays/StatisticsDisplay.vala:411
+msgid "Error"
+msgstr ""
+
+#: src/shell/widgets/displays/EquationEntry.vala:38
+msgid ""
+"<b>Cartesian Mode: <i>y = f(x)</i></b>\n"
+"Click to switch to Radial Mode"
+msgstr ""
+
+#: src/shell/widgets/displays/EquationEntry.vala:40
+msgid ""
+"<b>Radial Mode: <i>r = f(θ)</i></b>\n"
+"Click to switch to Cartesian Mode"
+msgstr ""
+
+#: src/shell/widgets/displays/EquationEntry.vala:80
+msgid "Delete equation"
+msgstr ""
+
+#: src/shell/widgets/displays/HistoryDisplay.vala:77
+msgid "Answer copied to clipboard"
+msgstr ""
+
+#: src/shell/widgets/displays/HistoryDisplay.vala:165
+msgid "Insert Result"
+msgstr ""
+
+#: src/shell/widgets/displays/HistoryDisplay.vala:171
+msgid "Recall"
+msgstr ""
+
+#: src/shell/widgets/displays/StatisticsDisplay.vala:469
+msgid "Pie plot not available"
+msgstr ""
+
+#: src/shell/widgets/displays/StatisticsDisplay.vala:472
+msgid "Bar plot not available"
+msgstr ""
+
+#: src/shell/widgets/displays/StatisticsDisplay.vala:475
+msgid "Plot not available"
+msgstr ""
+
+#: data/ui/calculus_display.blp:55 data/ui/equation_display.blp:49
+#: data/ui/programmer_display.blp:61 data/ui/scientific_display.blp:55
+#: data/ui/statistics_display.blp:107
+msgid "SHIFT"
+msgstr ""
+
+#: data/ui/calculus_display.blp:135
+msgid "Integral lower limit"
+msgstr ""
+
+#: data/ui/calculus_display.blp:137
+msgid "Lower limit"
+msgstr ""
+
+#: data/ui/calculus_display.blp:146
+msgid "Integral upper limit"
+msgstr ""
+
+#: data/ui/calculus_display.blp:148
+msgid "Upper limit"
+msgstr ""
+
+#: data/ui/calculus_display.blp:158
+msgid "x tends to"
+msgstr ""
+
+#: data/ui/calculus_display.blp:160
+msgid "when value of x is"
+msgstr ""
+
+#: data/ui/calculus_view.blp:36 data/ui/graphing_view.blp:33
+#: data/ui/scientific_view.blp:36
+msgid "Numerical Input"
+msgstr ""
+
+#: data/ui/calculus_view.blp:53 data/ui/converter_view.blp:110
+#: data/ui/graphing_view.blp:50 data/ui/programmer_view.blp:58
+#: data/ui/scientific_view.blp:53 data/ui/statistics_view.blp:53
+msgid "AC"
+msgstr ""
+
+#: data/ui/calculus_view.blp:74 data/ui/converter_view.blp:131
+#: data/ui/graphing_view.blp:71 data/ui/programmer_view.blp:79
+#: data/ui/scientific_view.blp:74 data/ui/statistics_view.blp:87
+msgid "Backspace"
+msgstr "退格"
+
+#: data/ui/calculus_view.blp:107 data/ui/graphing_view.blp:104
+#: data/ui/programmer_view.blp:113 data/ui/scientific_view.blp:107
+msgid "Divide"
+msgstr "除"
+
+#: data/ui/calculus_view.blp:196 data/ui/graphing_view.blp:195
+#: data/ui/programmer_view.blp:202 data/ui/scientific_view.blp:196
+msgid "Multiply"
+msgstr "乘"
+
+#: data/ui/calculus_view.blp:285 data/ui/graphing_view.blp:287
+#: data/ui/programmer_view.blp:291 data/ui/scientific_view.blp:285
+msgid "Subtract"
+msgstr "减"
+
+#: data/ui/calculus_view.blp:305 data/ui/calculus_view.blp:639
+#: data/ui/graphing_view.blp:637 data/ui/scientific_view.blp:305
+#: data/ui/scientific_view.blp:639
+msgid "Log base 10"
+msgstr "以 10 为底的对数"
+
+#: data/ui/calculus_view.blp:372 data/ui/graphing_view.blp:379
+#: data/ui/programmer_view.blp:380 data/ui/scientific_view.blp:372
+msgid "Add"
+msgstr "加"
+
+#: data/ui/calculus_view.blp:475 data/ui/calculus_view.blp:905
+#: data/ui/programmer_view.blp:486 data/ui/programmer_view.blp:861
+#: data/ui/scientific_view.blp:475 data/ui/scientific_view.blp:905
+msgid "="
+msgstr ""
+
+#: data/ui/calculus_view.blp:516 data/ui/graphing_view.blp:534
+#: data/ui/programmer_view.blp:824 data/ui/scientific_view.blp:516
+#: data/ui/statistics_view.blp:527
+msgid "Shift"
+msgstr "上档"
+
+#: data/ui/calculus_view.blp:618 data/ui/graphing_view.blp:616
+#: data/ui/scientific_view.blp:618
+msgid "Hyberbolic Sine"
+msgstr ""
+
+#: data/ui/calculus_view.blp:658 data/ui/programmer_view.blp:650
+#: data/ui/scientific_view.blp:658 data/ui/statistics_view.blp:665
+msgid "M−"
+msgstr ""
+
+#: data/ui/calculus_view.blp:701 data/ui/graphing_view.blp:679
+#: data/ui/scientific_view.blp:701
+msgid "Hyberbolic Cosine"
+msgstr ""
+
+#: data/ui/calculus_view.blp:741 data/ui/programmer_view.blp:727
+#: data/ui/scientific_view.blp:741 data/ui/statistics_view.blp:748
+msgid "MR"
+msgstr ""
+
+#: data/ui/calculus_view.blp:784 data/ui/graphing_view.blp:834
+#: data/ui/scientific_view.blp:784
+msgid "Hyberbolic Tangent"
+msgstr ""
+
+#: data/ui/calculus_view.blp:824 data/ui/programmer_view.blp:804
+#: data/ui/scientific_view.blp:824 data/ui/statistics_view.blp:831
+msgid "MC"
+msgstr ""
+
+#: data/ui/calculus_view.blp:927 data/ui/programmer_view.blp:883
+#: data/ui/scientific_view.blp:927 data/ui/statistics_view.blp:936
+msgid "->"
+msgstr ""
+
+#: data/ui/conv_angle_view.blp:6 data/ui/main_window.blp:331
+msgid "Angle"
+msgstr "角度"
+
+#: data/ui/conv_area_view.blp:6 data/ui/main_window.blp:277
+msgid "Area"
+msgstr "面积"
+
+#: data/ui/conv_currency_view.blp:6 data/ui/main_window.blp:475
+msgid "Currency"
+msgstr "货币"
+
+#: data/ui/conv_data_view.blp:6 data/ui/main_window.blp:457
+msgid "Data"
+msgstr "日期"
+
+#: data/ui/conv_energy_view.blp:6 data/ui/main_window.blp:403
+msgid "Energy"
+msgstr "能量"
+
+#: data/ui/conv_length_view.blp:6 data/ui/main_window.blp:259
+msgid "Length"
+msgstr "长度"
+
+#: data/ui/conv_mass_view.blp:6 data/ui/main_window.blp:367
+msgid "Mass"
+msgstr "重量"
+
+#: data/ui/conv_power_view.blp:6 data/ui/main_window.blp:421
+msgid "Power"
+msgstr "功率"
+
+#: data/ui/conv_pressure_view.blp:6 data/ui/main_window.blp:385
+msgid "Pressure"
+msgstr "压力"
+
+#: data/ui/conv_speed_view.blp:6 data/ui/main_window.blp:349
+msgid "Speed"
+msgstr "速度"
+
+#: data/ui/conv_temp_view.blp:6 data/ui/main_window.blp:439
+msgid "Temperature"
+msgstr "温度"
+
+#: data/ui/conv_time_view.blp:6 data/ui/main_window.blp:313
+msgid "Time"
+msgstr "时间"
+
+#: data/ui/conv_volume_view.blp:6 data/ui/main_window.blp:295
+msgid "Volume"
+msgstr "容量"
+
+#: data/ui/date_view.blp:37
+msgid "Find Difference"
+msgstr "找出差异"
+
+#: data/ui/date_view.blp:48
+msgid "From"
+msgstr "从"
+
+#: data/ui/date_view.blp:60
+msgid "To"
+msgstr "到"
+
+#: data/ui/date_view.blp:91
+msgid "Difference"
+msgstr "差异"
+
+#: data/ui/date_view.blp:134
+msgid "Infer Date"
+msgstr "推断日期"
+
+#: data/ui/date_view.blp:145
+msgid "Starting From"
+msgstr ""
+
+#: data/ui/date_view.blp:167
+msgid "Days"
+msgstr ""
+
+#: data/ui/date_view.blp:174
+msgid "Months"
+msgstr ""
+
+#: data/ui/date_view.blp:181
+msgid "Years"
+msgstr ""
+
+#: data/ui/date_view.blp:229
+msgid "Set a duration"
+msgstr "设定一个时间"
+
+#: data/ui/date_view.blp:241
+msgid "Days, months or year"
+msgstr "日、月或年"
+
+#: data/ui/graph_viewport.blp:32
+msgid "Click to switch scaling mode. Scroll to scale y-axis."
+msgstr ""
+
+#: data/ui/graph_viewport.blp:52
+msgid "Click to switch scaling mode. Scroll to scale x-axis."
+msgstr ""
+
+#: data/ui/graph_viewport.blp:71
+msgid "Reset view"
+msgstr ""
+
+#: data/ui/graphing_view.blp:398 data/ui/graphing_view.blp:891
+msgid "Add Equation"
+msgstr ""
+
+#: data/ui/graphing_view.blp:494 data/ui/graphing_view.blp:910
+msgid "Render Graph"
+msgstr ""
+
+#: data/ui/graphing_view.blp:517 data/ui/scientific_view.blp:499
+msgid "Functional Input"
+msgstr ""
+
+#: data/ui/graphing_view.blp:719
+msgid "SMR"
+msgstr ""
+
+#: data/ui/graphing_view.blp:973
+msgid "Go back to equation view"
+msgstr ""
+
+#: data/ui/graphing_view.blp:986
+msgid "Variables"
+msgstr ""
+
+#: data/ui/graphing_view.blp:1000
+msgid "Export figure as image"
+msgstr ""
+
+#: data/ui/main_window.blp:80
+msgid "Navigation Pane"
+msgstr ""
+
+#: data/ui/main_window.blp:108
+msgid "Calculators"
+msgstr "计算器"
+
+#: data/ui/main_window.blp:133 data/ui/preferences_dialog.blp:72
+#: data/ui/shortcuts_dialog.blp:63
+msgid "Scientific"
+msgstr "科学"
+
+#: data/ui/main_window.blp:151 data/ui/preferences_dialog.blp:86
+#: data/ui/shortcuts_dialog.blp:94
+msgid "Calculus"
+msgstr "微积分"
+
+#: data/ui/main_window.blp:169 data/ui/shortcuts_dialog.blp:107
+msgid "Programmer"
+msgstr "编程"
+
+#: data/ui/main_window.blp:187 data/ui/shortcuts_dialog.blp:81
+msgid "Statistics"
+msgstr "统计"
+
+#: data/ui/main_window.blp:205
+msgid "Graphing"
+msgstr ""
+
+#: data/ui/main_window.blp:223
+msgid "Date"
+msgstr "日期计算"
+
+#: data/ui/main_window.blp:234 data/ui/preferences_dialog.blp:127
+msgid "Converters"
+msgstr "转换器"
+
+#: data/ui/main_window.blp:540
+msgid "Switch word length"
+msgstr ""
+
+#: data/ui/main_window.blp:552
+msgid "Bit toggle grid"
+msgstr "位切换网格"
+
+#: data/ui/main_window.blp:566
+msgid "Import table from csv file"
+msgstr "从 CSV 文件导入表格"
+
+#: data/ui/main_window.blp:576
+msgid "Export table to csv file"
+msgstr "将表格导出到 CSV 文件"
+
+#: data/ui/main_window.blp:596
+msgid "Update Forex Data"
+msgstr "更新外汇数据"
+
+#: data/ui/main_window.blp:633
+msgid "Light Mode"
+msgstr "浅色模式"
+
+#: data/ui/main_window.blp:643
+msgid "Dark Mode"
+msgstr "深色模式"
+
+#: data/ui/main_window.blp:653
+msgid "Follow System Theme"
+msgstr "跟随系统主题"
+
+#: data/ui/main_window.blp:665
+msgid "Controls"
+msgstr "控制"
+
+#: data/ui/main_window.blp:671
+msgid "Preferences"
+msgstr "首选项"
+
+#: data/ui/main_window.blp:681
+msgid "Quit"
+msgstr "辞职"
+
+#: data/ui/preferences_dialog.blp:9
+msgid "General"
+msgstr "一般的"
+
+#: data/ui/preferences_dialog.blp:13
+msgid "Save State"
+msgstr ""
+
+#: data/ui/preferences_dialog.blp:14
+msgid "Load last session on startup"
+msgstr ""
+
+#: data/ui/preferences_dialog.blp:22
+msgid "Decimal Places"
+msgstr ""
+
+#: data/ui/preferences_dialog.blp:23
+msgid "Number of decimal places after radix symbol"
+msgstr ""
+
+#: data/ui/preferences_dialog.blp:43
+msgid "Scientific Constants Button"
+msgstr ""
+
+#: data/ui/preferences_dialog.blp:44
+msgid ""
+"The scientific constants to insert when the 'Constants' button is clicked"
+msgstr "单击“常量”按钮时需要插入的科学常数"
+
+#: data/ui/preferences_dialog.blp:50
+msgid "Constants Button Default"
+msgstr "常量按钮默认值"
+
+#: data/ui/preferences_dialog.blp:60
+msgid "Constants Button Shifted"
+msgstr "Constants Button Shifted"
+
+#: data/ui/preferences_dialog.blp:76
+msgid "Result Flow"
+msgstr "结果流程"
+
+#: data/ui/preferences_dialog.blp:77
+msgid "Whether result button should replace input with result"
+msgstr "结果按钮是否应该用结果替换输入内容"
+
+#: data/ui/preferences_dialog.blp:90
+msgid "Integration Resolution"
+msgstr ""
+
+#: data/ui/preferences_dialog.blp:91
+msgid "Higher resolution means more time to process"
+msgstr ""
+
+#: data/ui/preferences_dialog.blp:108
+msgid "Derivative Accuracy"
+msgstr ""
+
+#: data/ui/preferences_dialog.blp:109
+msgid "Precision for determining the derivative at the limit"
+msgstr ""
+
+#: data/ui/preferences_dialog.blp:131
+msgid "Currency Converter API Key"
+msgstr "汇率转换器 API 密钥"
+
+#: data/ui/preferences_dialog.blp:138
+msgid "Get API Key"
+msgstr "获取 API 密钥"
+
+#: data/ui/programmer_view.blp:400 data/ui/programmer_view.blp:785
+msgid "Bitwise XOR (TRUE only when inputs are different)"
+msgstr ""
+
+#: data/ui/programmer_view.blp:467
+msgid "Bitwise NOT (TRUE for input being FALSE and Vice Versa)"
+msgstr ""
+
+#: data/ui/scientific_view.blp:89
+msgid "Percentage"
+msgstr "百分比"
+
+#: data/ui/shortcuts_dialog.blp:7
+msgid "Shortcuts"
+msgstr "快捷方式"
+
+#: data/ui/shortcuts_dialog.blp:50
 msgid "Common"
 msgstr "通用"
 
-#: src/Views/ControlsOverlay.vala:98
+#: data/ui/shortcuts_dialog.blp:120
 msgid "Unit Converters"
 msgstr "单位转换"
 
-#: src/Views/ControlsOverlay.vala:121
-msgid "Pebbles Controls"
-msgstr "Pebbles 控制栏"
+#: data/ui/statistics_view.blp:74
+msgid "Series Clear"
+msgstr ""
 
-#: src/Views/HistoryView.vala:55
-msgid "Double click to recall, Right click to insert"
-msgstr "双击读出记忆，右击插入"
+#: data/ui/statistics_view.blp:101
+msgid "A Cell to Right"
+msgstr ""
 
-#: src/Views/HistoryView.vala:88
-msgid "Input Expression"
-msgstr "输入表达式"
+#: data/ui/statistics_view.blp:188
+msgid "A Cell to Left"
+msgstr ""
 
-#: src/Views/HistoryView.vala:89
-msgid "Type"
-msgstr "类型"
+#: data/ui/statistics_view.blp:279
+msgid "Switch Visualization"
+msgstr ""
 
-#: src/Views/HistoryView.vala:117
-msgid "Integral"
-msgstr "积分"
+#: data/ui/statistics_view.blp:373
+msgid "Trend"
+msgstr "趋势"
 
-#: src/Views/HistoryView.vala:120
-msgid "Derivative"
-msgstr "导数"
+#: data/ui/statistics_view.blp:469
+msgid "Negative"
+msgstr "负的"
 
-#: src/Views/Displays/StatisticsDisplay.vala:152
-msgid "Enter data by adding new cell"
-msgstr "通过添加新单元格来输入数据"
+#: data/ui/statistics_view.blp:545
+msgid "Go Up"
+msgstr ""
 
-#: src/Core/CurrencyConverter.vala:56
-msgid "Thread support missing. Please wait for web API access…"
-msgstr "缺失线程支持。请等待 Web API 访问…"
+#: data/ui/statistics_view.blp:564
+msgid "Go Down"
+msgstr ""
 
-#: src/Core/CurrencyConverter.vala:82
-msgid "Failed to connect to currency exchange service"
-msgstr "连接汇率转换服务失败"
+#: data/ui/statistics_view.blp:626
+msgid "Mode of series"
+msgstr "系列模式"
 
-#: src/Core/CurrencyConverter.vala:112
-#, c-format
-msgid "Failed to connect to service: %s"
-msgstr "连接服务失败: %s"
+#: data/ui/statistics_view.blp:687
+msgid "Summation over series"
+msgstr "对数列求和"
+
+#: data/ui/statistics_view.blp:708
+msgid "Summation over squared values in series"
+msgstr "对数列中各值的平方进行求和"
+
+#: data/ui/statistics_view.blp:791
+msgid "Mean of squared data values"
+msgstr "数据值平方的均值"

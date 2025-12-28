@@ -1,0 +1,213 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: 2024 Subhadeep Jasu <subhadeep107@proton.me>
+using Gtk 4.0;
+
+template $PebblesStatisticsDisplay: $PebblesDisplay {
+    CenterBox lcd_status_bar {
+        layout {
+            row: 0;
+            column: 0;
+        }
+
+        hexpand: true;
+        margin-end: 8;
+
+        styles [
+            "status-bar"
+        ]
+
+        start-widget: Box {
+            orientation: horizontal;
+            spacing: 0;
+            margin-end: 12;
+
+            Label result_type_label_g {
+                label: "g";
+                opacity: 0.2;
+            }
+
+            Label result_type_label_m {
+                label: "m";
+                opacity: 0.2;
+            }
+
+            Label result_type_label_edia {
+                label: "edia";
+                opacity: 0.2;
+            }
+
+            Label result_type_label_n {
+                label: "n";
+                opacity: 0.2;
+            }
+
+            Label result_type_label_mode {
+                label: "mode";
+                opacity: 0.2;
+            }
+
+            Label result_type_label_summation {
+                label: "Σ";
+                opacity: 0.2;
+            }
+
+            Label result_type_label_x_bar {
+                label: "x̄";
+                opacity: 0.2;
+            }
+
+            Label result_type_label_x_sqr {
+                label: "<sup>2</sup>";
+                opacity: 0.2;
+                use-markup: true;
+            }
+
+            Label result_type_label_sigma {
+                label: "σ";
+                opacity: 0.2;
+            }
+
+            Label result_type_label_sig_sqr {
+                label: "<sup>2</sup>";
+                opacity: 0.2;
+                use-markup: true;
+            }
+
+            Label result_type_label_sv {
+                label: "SV";
+                opacity: 0.2;
+            }
+
+            Label result_type_label_sd {
+                label: "SD";
+                opacity: 0.2;
+            }
+
+            Label result_type_label_trend {
+                label: "δ/δx";
+                opacity: 0.2;
+            }
+        };
+
+        center-widget: Box {
+            orientation: horizontal;
+            spacing: 8;
+
+            Label memory_label {
+                label: "M";
+                opacity: 0.2;
+            }
+
+            Label global_memory_label {
+                label: "GM";
+                opacity: 0.2;
+            }
+
+            Label shift_label {
+                label: _("SHIFT");
+                opacity: 0.2;
+            }
+        };
+
+        end-widget: Label set_label {
+            label: bind template.series_label;
+        };
+    }
+
+    Box {
+        orientation: horizontal;
+        spacing: 2;
+
+        layout {
+          column: 0;
+          row: 1;
+        }
+
+        ScrolledWindow scrolled_window {
+            propagate-natural-height: false;
+            has-frame: false;
+            hexpand: true;
+            vexpand: true;
+            min-content-height: 100;
+            width-request: 140;
+
+            Box {
+                orientation: vertical;
+                spacing: 4;
+                valign: end;
+                margin-end: 8;
+
+                $PebblesHistoryDisplay history_display {
+                    context: bind template.context;
+                    viewport: scrolled_window;
+                    auto_recall: true;
+
+                    inserted => $insert_from_history();
+                    recalled => $recall_history();
+                }
+
+                Label main_label {
+                    styles [
+                        "lcd-label"
+                    ]
+
+                    valign: end;
+                    halign: end;
+                    vexpand: true;
+                    hexpand: true;
+                    label: "0";
+                }
+            }
+        }
+
+        Separator {
+            orientation: vertical;
+            styles ["lcd-seperator"]
+        }
+
+        DrawingArea plot_area {
+            width-request: 60;
+            hexpand: true;
+        }
+    }
+
+    Separator {
+        orientation: horizontal;
+        margin-end: 8;
+
+        styles ["lcd-seperator"]
+
+        layout {
+          column: 0;
+          row: 2;
+        }
+    }
+
+    ScrolledWindow viewport {
+        vscrollbar-policy: never;
+        hscrollbar-policy: automatic;
+        margin-end: 8;
+
+        Box {
+            orientation: horizontal;
+            margin-bottom: 8;
+
+            Box placeholder_l {}
+
+            Box cell_box {
+                styles ["data-table"]
+                orientation: horizontal;
+                homogeneous: false;
+                halign: start;
+                hexpand: false;
+            }
+
+            Box placeholder_r {}
+        }
+
+        layout {
+          column: 0;
+          row: 3;
+        }
+    }
+}

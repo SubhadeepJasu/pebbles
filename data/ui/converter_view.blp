@@ -1,0 +1,356 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: 2024 Subhadeep Jasu <subhadeep107@proton.me>
+using Gtk 4.0;
+
+template $PebblesConverterView: $PebblesView {
+    halign: center;
+    valign: center;
+
+    Box {
+        orientation: horizontal;
+        spacing: 8;
+        halign: start;
+        margin-start: 12;
+        margin-bottom: 12;
+
+        layout {
+            row: 0;
+            column: 0;
+        }
+
+        Image {
+            icon-name: bind template.icon-name;
+            icon-size: large;
+        }
+
+        Label {
+            label: bind template.title;
+
+            styles ["title-2"]
+        }
+    }
+
+    Box {
+        orientation: bind template.orientation;
+        homogeneous: true;
+        spacing: 24;
+        hexpand: true;
+        vexpand: true;
+        margin-start: 12;
+        margin-bottom: 12;
+        margin-end: 12;
+        halign: center;
+        valign: center;
+
+        layout {
+            row: 1;
+            column: 0;
+        }
+
+        Box {
+            orientation: vertical;
+            spacing: 8;
+
+            DropDown from_unit {
+                model: bind template.unit_options;
+            }
+
+            Entry from_entry {
+                max-width-chars: 35;
+                changed => $from_entry_change_handler();
+                activate => $interchange_entries();
+            }
+
+            $PebblesButton interchange_button {
+                width-request: 64;
+                margin-top: 12;
+                margin-bottom: 12;
+                halign: center;
+                focus-on-click: false;
+                can-focus: false;
+                tooltip_desc: _("Interchange Units");
+                accel_markup: "Return";
+                key: "Return";
+
+                Box {
+                    orientation: horizontal;
+                    halign: center;
+
+                    Image {
+                        icon-name: "go-up-symbolic";
+                    }
+
+                    Image {
+                        icon-name: "go-down-symbolic";
+                    }
+                }
+
+                clicked => $interchange_entries();
+            }
+
+            DropDown to_unit {
+                model: bind template.unit_options;
+            }
+
+            Entry to_entry {
+                max-width-chars: 35;
+                styles ["conversion-text-box-focused"]
+                changed => $to_entry_change_handler();
+                activate => $interchange_entries();
+            }
+        }
+
+        Grid keypad {
+            row-homogeneous: true;
+            column-homogeneous: true;
+            row-spacing: 8;
+            column-spacing: 8;
+
+            $PebblesButton all_clear_button {
+                label_text: _("AC");
+                tooltip_desc: _("All Clear");
+                accel_markup: "<Shift>BackSpace";
+                focus-on-click: false;
+                key: "<Shift>BackSpace";
+
+                styles [
+                    "destructive-action",
+                    "adaptive-btn-font"
+                ]
+
+                layout {
+                    row: 0;
+                    column: 0;
+                }
+
+                clicked => $on_all_clear();
+            }
+
+            $PebblesButton del_button {
+                icon: "edit-clear-symbolic";
+                tooltip_desc: _("Backspace");
+                focus-on-click: false;
+                key: "BackSpace";
+
+                layout {
+                    row: 0;
+                    column: 1;
+                }
+
+                clicked => $on_backspace();
+            }
+
+            $PebblesButton seven_button {
+                name: "7";
+                label_text: "7";
+                focus-on-click: false;
+                key: "7";
+
+                styles [
+                    "adaptive-btn-font"
+                ]
+
+                layout {
+                    row: 1;
+                    column: 0;
+                }
+
+                clicked => $on_click_button();
+            }
+
+            $PebblesButton eight_button {
+                name: "8";
+                label_text: "8";
+                focus-on-click: false;
+                key: "8";
+
+                styles [
+                    "adaptive-btn-font"
+                ]
+
+                layout {
+                    row: 1;
+                    column: 1;
+                }
+
+                clicked => $on_click_button();
+            }
+
+            $PebblesButton nine_button {
+                name: "9";
+                label_text: "9";
+                focus-on-click: false;
+                key: "9";
+
+                styles [
+                    "adaptive-btn-font"
+                ]
+
+                layout {
+                    row: 1;
+                    column: 2;
+                }
+
+                clicked => $on_click_button();
+            }
+
+            $PebblesButton four_button {
+                name: "4";
+                label_text: "4";
+                focus-on-click: false;
+                key: "4";
+
+                styles [
+                    "adaptive-btn-font"
+                ]
+
+                layout {
+                    row: 2;
+                    column: 0;
+                }
+
+                clicked => $on_click_button();
+            }
+
+            $PebblesButton five_button {
+                name: "5";
+                label_text: "5";
+                focus-on-click: false;
+                key: "5";
+
+                styles [
+                    "adaptive-btn-font"
+                ]
+
+                layout {
+                    row: 2;
+                    column: 1;
+                }
+
+                clicked => $on_click_button();
+            }
+
+            $PebblesButton six_button {
+                name: "6";
+                label_text: "6";
+                focus-on-click: false;
+                key: "6";
+
+                styles [
+                    "adaptive-btn-font"
+                ]
+
+                layout {
+                    row: 2;
+                    column: 2;
+                }
+
+                clicked => $on_click_button();
+            }
+
+            $PebblesButton one_button {
+                name: "1";
+                label_text: "1";
+                focus-on-click: false;
+                key: "1";
+
+                styles [
+                    "adaptive-btn-font"
+                ]
+
+                layout {
+                    row: 3;
+                    column: 0;
+                }
+
+                clicked => $on_click_button();
+            }
+
+            $PebblesButton two_button {
+                name: "2";
+                label_text: "2";
+                focus-on-click: false;
+                key: "2";
+
+                styles [
+                    "adaptive-btn-font"
+                ]
+
+                layout {
+                    row: 3;
+                    column: 1;
+                }
+
+                clicked => $on_click_button();
+            }
+
+            $PebblesButton three_button {
+                name: "3";
+                label_text: "3";
+                focus-on-click: false;
+                key: "3";
+
+                styles [
+                    "adaptive-btn-font"
+                ]
+
+                layout {
+                    row: 3;
+                    column: 2;
+                }
+
+                clicked => $on_click_button();
+            }
+
+            $PebblesButton zero_button {
+                name: "0";
+                label_text: "0";
+                focus-on-click: false;
+                key: "0";
+
+                styles [
+                    "adaptive-btn-font"
+                ]
+
+                layout {
+                    row: 4;
+                    column: 0;
+                }
+
+                clicked => $on_click_button();
+            }
+
+            $PebblesButton point_button {
+                name: bind template.radix_symbol;
+                label_text: bind template.radix_symbol;
+                focus-on-click: false;
+                key: ".";
+
+                styles [
+                    "adaptive-btn-font"
+                ]
+
+                layout {
+                    row: 4;
+                    column: 1;
+                }
+
+                clicked => $on_click_radix();
+            }
+        }
+    }
+
+    Label additional_label {
+        label: "";
+        halign: start;
+        height-request: 24;
+        opacity: 0.75;
+        styles ["converter-additional-label"]
+        margin-start: 16;
+
+        layout {
+            row: 2;
+            column: 0;
+        }
+    }
+}

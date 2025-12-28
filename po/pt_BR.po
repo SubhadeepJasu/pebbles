@@ -1,1588 +1,1854 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# French translations for com.github.subhadeepjasu.pebbles package.
+# Copyright (C) 2021 THE com.github.subhadeepjasu.pebbles'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the com.github.subhadeepjasu.pebbles package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Gustavo Costa (@xfgusta), 2021.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.subhadeepjasu.pebbles\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-05 18:58+0100\n"
-"PO-Revision-Date: 2021-12-17 18:18-0300\n"
-"Language-Team: \n"
+"POT-Creation-Date: 2025-12-28 16:05+0530\n"
+"PO-Revision-Date: 2025-12-28 00:07+0530\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.0\n"
-"Last-Translator: Gustavo Costa <xfgusta@gmail.com>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"Language: pt_BR\n"
 
-#: src/Application.vala:91
-msgid "Open In Mini Mode"
-msgstr "Abrir no modo mini"
-
-#: src/Application.vala:92
-msgid "Open A New Window"
-msgstr "Abrir uma nova janela"
-
-#: src/Application.vala:93
-msgid "Enable test mode"
-msgstr "Habilitar modo de teste"
-
-#: src/MainWindow.vala:176
-msgid "All Categories"
-msgstr "Todas as categorias"
-
-#: src/MainWindow.vala:179 src/MainWindow.vala:284
-msgid "Pebbles Menu"
-msgstr "Menu do Pebbles"
-
-#: src/MainWindow.vala:187 src/MainWindow.vala:932 src/MainWindow.vala:933
-#: src/MainWindow.vala:934 src/MainWindow.vala:946 src/MainWindow.vala:947
-#: src/MainWindow.vala:948 src/Views/CalculusView.vala:449
-#: src/Views/ScientificView.vala:350
-msgid "Degrees"
-msgstr "Graus"
-
-#: src/MainWindow.vala:187 src/MainWindow.vala:932 src/MainWindow.vala:933
-#: src/MainWindow.vala:934 src/MainWindow.vala:939 src/MainWindow.vala:940
-#: src/MainWindow.vala:941 src/Views/CalculusView.vala:449
-#: src/Views/ScientificView.vala:350
-msgid "Radians"
-msgstr "Radianos"
-
-#: src/MainWindow.vala:197 src/MainWindow.vala:252
-#: src/Views/CalculusView.vala:444 src/Views/ScientificView.vala:312
-#: src/Views/ProgrammerView.vala:268
-msgid "Shift"
+#: src/Common.vala:111
+msgid "Dataset Shape"
 msgstr ""
 
-#: src/MainWindow.vala:216 src/Views/DateView.vala:132
-msgid "AGE"
-msgstr "ANO"
-
-#: src/MainWindow.vala:217 src/Views/DateView.vala:133
-msgid "DUR"
-msgstr ""
-
-#: src/MainWindow.vala:227 src/Views/DateView.vala:186
-msgid "ADD"
-msgstr ""
-
-#: src/MainWindow.vala:228 src/Views/DateView.vala:187
-msgid "SUB"
-msgstr ""
-
-#: src/MainWindow.vala:243 src/MainWindow.vala:960 src/MainWindow.vala:961
-#: src/MainWindow.vala:978 src/Views/ProgrammerView.vala:347
-msgid "Qword"
-msgstr ""
-
-#: src/MainWindow.vala:243 src/MainWindow.vala:960 src/MainWindow.vala:961
-#: src/MainWindow.vala:966 src/MainWindow.vala:967 src/MainWindow.vala:973
-#: src/MainWindow.vala:979 src/Views/ProgrammerView.vala:347
-msgid "Dword"
-msgstr ""
-
-#: src/MainWindow.vala:276 src/MainWindow.vala:294
-msgid "Update Forex Data"
-msgstr "Atualizar dados Forex"
-
-#: src/MainWindow.vala:276
-msgid "Updates automatically every 10 minutes"
-msgstr "Atualiza automaticamente a cada 10 minutos"
-
-#: src/MainWindow.vala:276
-msgid "Last updated on "
-msgstr "Última atualização em "
-
-#: src/MainWindow.vala:288
-msgid "Show Controls"
-msgstr "Exibir os controles"
-
-#: src/MainWindow.vala:290 src/PreferencesOverlay.vala:127
-msgid "Preferences"
-msgstr "Preferências"
-
-#: src/MainWindow.vala:292 src/Views/HistoryView.vala:68
-msgid "History"
-msgstr "Histórico"
-
-#: src/MainWindow.vala:325
-msgid "Show Calculation History"
-msgstr "Mostra o histórico de cálculos"
-
-#: src/MainWindow.vala:357 src/Views/ControlsOverlay.vala:45
-#: src/Views/HistoryView.vala:148
-msgid "Scientific"
-msgstr "Científica"
-
-#: src/MainWindow.vala:358 src/Views/ControlsOverlay.vala:72
-#: src/Views/HistoryView.vala:172
-msgid "Calculus"
-msgstr "Cálculo"
-
-#: src/MainWindow.vala:359 src/Views/ControlsOverlay.vala:85
-#: src/Views/HistoryView.vala:177
-msgid "Programmer"
-msgstr "Programador"
-
-#: src/MainWindow.vala:360
-msgid "Date"
-msgstr "Data"
-
-#: src/MainWindow.vala:361 src/Views/ControlsOverlay.vala:58
-msgid "Statistics"
-msgstr "Estatística"
-
-#: src/MainWindow.vala:362
-msgid "Financial"
-msgstr "Financeira"
-
-#: src/MainWindow.vala:363 src/Views/ConvLengthView.vala:71
-msgid "Length"
-msgstr "Comprimento"
-
-#: src/MainWindow.vala:364 src/Views/ConvAreaView.vala:70
-msgid "Area"
-msgstr "Área"
-
-#: src/MainWindow.vala:365 src/Views/ConvVolumeView.vala:92
-msgid "Volume"
-msgstr "Volume"
-
-#: src/MainWindow.vala:366 src/Views/ConvTimeView.vala:72
-msgid "Time"
-msgstr "Tempo"
-
-#: src/MainWindow.vala:367 src/Views/ConvAngleView.vala:62
-msgid "Angle"
-msgstr "Ângulo"
-
-#: src/MainWindow.vala:368 src/Views/ConvSpeedView.vala:64
-msgid "Speed"
-msgstr "Velocidade"
-
-#: src/MainWindow.vala:369 src/Views/ConvMassView.vala:70
-msgid "Mass"
-msgstr "Massa"
-
-#: src/MainWindow.vala:370 src/Views/ConvPressView.vala:62
-msgid "Pressure"
-msgstr "Pressão"
-
-#: src/MainWindow.vala:371 src/Views/ConvEnergyView.vala:70
-msgid "Energy"
-msgstr "Energia"
-
-#: src/MainWindow.vala:372 src/Views/ConvPowerView.vala:62
-msgid "Power"
-msgstr "Força"
-
-#: src/MainWindow.vala:373 src/Views/ConvTempView.vala:48
-msgid "Temperature"
-msgstr "Temperatura"
-
-#: src/MainWindow.vala:374 src/Views/ConvDataView.vala:119
-msgid "Data"
-msgstr "Dado"
-
-#: src/MainWindow.vala:375 src/Views/ConvCurrView.vala:103
-msgid "Currency"
-msgstr "Moeda"
-
-#: src/MainWindow.vala:378
-msgid "Calculator"
-msgstr "Calculadora"
-
-#: src/MainWindow.vala:387
-msgid "Converter"
-msgstr "Conversor"
-
-#: src/MainWindow.vala:939 src/MainWindow.vala:940 src/MainWindow.vala:941
-#: src/MainWindow.vala:946 src/MainWindow.vala:947 src/MainWindow.vala:948
-msgid "Gradians"
-msgstr "Grado"
-
-#: src/MainWindow.vala:966 src/MainWindow.vala:967 src/MainWindow.vala:972
-#: src/MainWindow.vala:973 src/MainWindow.vala:979
-msgid "Word"
-msgstr "Palavra"
-
-#: src/MainWindow.vala:972 src/MainWindow.vala:978
-#: src/Views/ConvDataView.vala:74
-msgid "Byte"
-msgstr "Byte"
-
-#: src/ControlsScheme.vala:33
-msgid "Show this controls window"
-msgstr "Mostra esta janela de controles"
-
-#: src/ControlsScheme.vala:36
-msgid "Show Preferences"
-msgstr "Mostrar preferências"
-
-#: src/ControlsScheme.vala:39 src/Views/StatisticsView.vala:210
-msgid "Add to Memory"
-msgstr "Adicionar à memória"
-
-#: src/ControlsScheme.vala:42 src/Views/StatisticsView.vala:222
-msgid "Subtract from Memory"
-msgstr "Subtrair da memória"
-
-#: src/ControlsScheme.vala:45
-msgid "Recall from Memory"
-msgstr "Recuperar da memória"
-
-#: src/ControlsScheme.vala:48
-msgid "Clear Memory"
-msgstr "Limpar memória"
-
-#: src/ControlsScheme.vala:51
-msgid "Last Answer"
-msgstr "Resposta anterior"
-
-#: src/ControlsScheme.vala:54
-msgid "Close Dialog"
-msgstr "Fechar caixa de diálogo"
-
-#: src/ControlsScheme.vala:57 src/Views/MiniCalculator.vala:75
-#: src/Views/CalculusView.vala:177 src/Views/ScientificView.vala:171
-#: src/Views/ProgrammerView.vala:137 src/Views/StatisticsView.vala:136
-#: src/Views/CommonNumericKeypad.vala:55
-msgid "All Clear"
-msgstr "Limpar tudo"
-
-#: src/ControlsScheme.vala:60
-msgid "Copy Result"
-msgstr "Copiar resultado"
-
-#: src/ControlsScheme.vala:63
-msgid "Paste Input Expression"
-msgstr "Colar expressão de entrada"
-
-#: src/ControlsScheme.vala:68
-msgid "Square (root) a Number"
-msgstr "Elevar um número ao quadrado"
-
-#: src/ControlsScheme.vala:71
-msgid "Raise to the power (or nth root over)"
-msgstr "Elevar a potência (ou raiz enésima)"
-
-#: src/ControlsScheme.vala:74
-msgid "10 (or e) raised to the power"
-msgstr "10 (ou e) elevado à potência"
-
-#: src/ControlsScheme.vala:77
-msgid "Log base 10 (or e)"
-msgstr "Log de base 10 (ou e)"
-
-#: src/ControlsScheme.vala:80
-msgid "(Inverse) Sine"
-msgstr "Seno (inverso)"
-
-#: src/ControlsScheme.vala:83
-msgid "(Inverse) Cosine"
-msgstr "Cosseno (inverso)"
-
-#: src/ControlsScheme.vala:86
-msgid "(Inverse) Tangent"
-msgstr "Tangente (inversa)"
-
-#: src/ControlsScheme.vala:89
-msgid "(Inverse) Hyperbolic Sine"
-msgstr "Seno hiperbólico (inverso)"
-
-#: src/ControlsScheme.vala:92
-msgid "(Inverse) Hyperbolic Cosine"
-msgstr "Cosseno hiperbólico (inverso)"
-
-#: src/ControlsScheme.vala:95
-msgid "(Inverse) Hyperbolic Tangent"
-msgstr "Tangente hiperbólica (inversa)"
-
-#: src/ControlsScheme.vala:98
-msgid "Modulus or Log base x"
-msgstr "Módulo ou log de base x"
-
-#: src/ControlsScheme.vala:101
-msgid "Permutation or Combination"
-msgstr "Permutação ou combinação"
-
-#: src/ControlsScheme.vala:104 src/Views/CalculusView.vala:296
-#: src/Views/ScientificView.vala:299
-msgid "Factorial"
-msgstr "Fatorial"
-
-#: src/ControlsScheme.vala:107
-msgid "Constants"
-msgstr "Constantes"
-
-#: src/ControlsScheme.vala:110 src/ControlsScheme.vala:127
-#: src/Views/MiniCalculator.vala:96 src/Views/ScientificView.vala:309
-#: src/Views/ScientificView.vala:355 src/Views/ProgrammerView.vala:265
-#: src/Views/ProgrammerView.vala:352 src/Views/HistoryView.vala:92
-msgid "Result"
-msgstr "Resultado"
-
-#: src/ControlsScheme.vala:115
-msgid "Logical OR or NOR"
-msgstr "OR ou NOR lógico"
-
-#: src/ControlsScheme.vala:118
-msgid "Logical AND or NAND"
-msgstr "AND ou NAND lógico"
-
-#: src/ControlsScheme.vala:121
-msgid "Logical XOR or XNOR"
-msgstr "XOR ou XNOR lógico"
-
-#: src/ControlsScheme.vala:124
-msgid "Logical NOT or Mod"
-msgstr "NOT ou Mod lógico"
-
-#: src/ControlsScheme.vala:132
-msgid "Add Cell"
-msgstr "Adicionar célula"
-
-#: src/ControlsScheme.vala:135
-msgid "Insert Cell"
-msgstr "Inserir célula"
-
-#: src/ControlsScheme.vala:138
-msgid "Next Cell or Add Right"
-msgstr "Próxima célula ou adicionar à direita"
-
-#: src/ControlsScheme.vala:141
-msgid "Previous Cell or Add Left"
-msgstr "Célula anterior ou adicionar à esquerda"
-
-#: src/ControlsScheme.vala:144
-msgid "Navigate Left"
-msgstr "Navegar para a esquerda"
-
-#: src/ControlsScheme.vala:147
-msgid "Navigate Right"
-msgstr "Navegar para a direita"
-
-#: src/ControlsScheme.vala:150
-msgid "Remove Cell"
-msgstr "Remover célula"
-
-#: src/ControlsScheme.vala:153
-msgid "Remove All Cells (Reset)"
-msgstr "Remover todas as células (redefinir)"
-
-#: src/ControlsScheme.vala:156
-msgid "Cardinality"
-msgstr "Cardinalidade"
-
-#: src/ControlsScheme.vala:159 src/Views/HistoryView.vala:91
-msgid "Mode"
-msgstr "Modo"
-
-#: src/ControlsScheme.vala:162 src/Views/StatisticsView.vala:207
+#: src/Common.vala:114 src/ControlsScheme.vala:144
+#: data/ui/statistics_view.blp:392 data/ui/statistics_view.blp:647
 msgid "Median"
 msgstr "Mediana"
 
-#: src/ControlsScheme.vala:165
-msgid "Summation"
+#: src/Common.vala:117 src/ControlsScheme.vala:141
+msgid "Mode"
+msgstr "Modo"
+
+#: src/Common.vala:120
+msgid "Sum"
 msgstr "Somatório"
 
-#: src/ControlsScheme.vala:168
-msgid "Summation Squared"
-msgstr "Somatório ao quadrado"
+#: src/Common.vala:123
+msgid "Sum of Squared Values"
+msgstr "Somatório ao Quadrado"
 
-#: src/ControlsScheme.vala:171
-msgid "Sample Variance"
-msgstr "Variância da amostra"
-
-#: src/ControlsScheme.vala:174 src/Views/StatisticsView.vala:225
+#: src/Common.vala:126 src/ControlsScheme.vala:156
+#: data/ui/statistics_view.blp:297 data/ui/statistics_view.blp:770
 msgid "Mean"
 msgstr "Média"
 
-#: src/ControlsScheme.vala:177
+#: src/Common.vala:129
+msgid "Mean of Squared Values"
+msgstr "Média ao Quadrado"
+
+#: src/Common.vala:132 src/ControlsScheme.vala:162
+#: data/ui/statistics_view.blp:853
+msgid "Geometric Mean"
+msgstr "Média Geométrica"
+
+#: src/Common.vala:135 src/ControlsScheme.vala:153
+#: data/ui/statistics_view.blp:729
+msgid "Sample Variance"
+msgstr "Variância da Amostra"
+
+#: src/Common.vala:138 src/ControlsScheme.vala:168
+#: data/ui/statistics_view.blp:874
+msgid "Population Variance"
+msgstr "Variância da População"
+
+#: src/Common.vala:141 data/ui/statistics_view.blp:488
+#: data/ui/statistics_view.blp:812
+msgid "Standard Deviation"
+msgstr ""
+
+#: src/Common.vala:144 src/ControlsScheme.vala:171
+#: data/ui/statistics_view.blp:895
+msgid "Population Standard Deviation"
+msgstr "Desvio padrão da População"
+
+#: src/Common.vala:147
+msgid "Estimate Trend"
+msgstr ""
+
+#: src/Common.vala:150
+msgid "Unknown"
+msgstr "Desconhecido"
+
+#: src/ControlsScheme.vala:18
+msgid "Show this controls window"
+msgstr "Mostra esta janela de controles"
+
+#: src/ControlsScheme.vala:21
+msgid "Show Preferences"
+msgstr "Mostrar preferências"
+
+#: src/ControlsScheme.vala:24
+msgid "Add to Memory"
+msgstr "Adicionar à memória"
+
+#: src/ControlsScheme.vala:27
+msgid "Subtract from Memory"
+msgstr "Subtrair da memória"
+
+#: src/ControlsScheme.vala:30
+msgid "Recall from Memory"
+msgstr "Recuperar da memória"
+
+#: src/ControlsScheme.vala:33
+msgid "Clear Memory"
+msgstr "Limpar memória"
+
+#: src/ControlsScheme.vala:36
+msgid "Last Answer"
+msgstr "Resposta anterior"
+
+#: src/ControlsScheme.vala:39
+msgid "Close Dialog"
+msgstr "Fechar caixa de diálogo"
+
+#: src/ControlsScheme.vala:42 data/ui/calculus_view.blp:54
+#: data/ui/converter_view.blp:111 data/ui/graphing_view.blp:51
+#: data/ui/programmer_view.blp:59 data/ui/scientific_view.blp:54
+#: data/ui/statistics_view.blp:54
+msgid "All Clear"
+msgstr "Limpar Tudo"
+
+#: src/ControlsScheme.vala:45
+#: src/shell/widgets/displays/HistoryDisplay.vala:159
+msgid "Copy Result"
+msgstr "Copiar Resultado"
+
+#: src/ControlsScheme.vala:48
+msgid "Paste"
+msgstr "Colar"
+
+#: src/ControlsScheme.vala:53
+msgid "Square (root) a Number"
+msgstr "Elevar um número ao quadrado"
+
+#: src/ControlsScheme.vala:56
+msgid "Raise to the power (or nth root over)"
+msgstr "Elevar a potência (ou raiz enésima)"
+
+#: src/ControlsScheme.vala:59
+msgid "10 (or e) raised to the power"
+msgstr "10 (ou e) elevado à potência"
+
+#: src/ControlsScheme.vala:62
+msgid "Log base 10 (or e)"
+msgstr "Log de base 10 (ou e)"
+
+#: src/ControlsScheme.vala:65
+msgid "(Inverse) Sine"
+msgstr "Seno (inverso)"
+
+#: src/ControlsScheme.vala:68
+msgid "(Inverse) Cosine"
+msgstr "Cosseno (inverso)"
+
+#: src/ControlsScheme.vala:71
+msgid "(Inverse) Tangent"
+msgstr "Tangente (inversa)"
+
+#: src/ControlsScheme.vala:74
+msgid "(Inverse) Hyperbolic Sine"
+msgstr "Seno hiperbólico (inverso)"
+
+#: src/ControlsScheme.vala:77
+msgid "(Inverse) Hyperbolic Cosine"
+msgstr "Cosseno hiperbólico (inverso)"
+
+#: src/ControlsScheme.vala:80
+msgid "(Inverse) Hyperbolic Tangent"
+msgstr "Tangente hiperbólica (inversa)"
+
+#: src/ControlsScheme.vala:83
+msgid "Modulus or Log base x"
+msgstr "Módulo ou log de base x"
+
+#: src/ControlsScheme.vala:86
+msgid "Permutation or Combination"
+msgstr "Permutação ou combinação"
+
+#: src/ControlsScheme.vala:89 data/ui/calculus_view.blp:846
+#: data/ui/scientific_view.blp:846
+msgid "Factorial"
+msgstr "Fatorial"
+
+#: src/ControlsScheme.vala:92
+msgid "Constants"
+msgstr "Constantes"
+
+#: src/ControlsScheme.vala:95 src/ControlsScheme.vala:112
+#: data/ui/calculus_view.blp:476 data/ui/calculus_view.blp:906
+#: data/ui/programmer_view.blp:487 data/ui/programmer_view.blp:862
+#: data/ui/scientific_view.blp:476 data/ui/scientific_view.blp:906
+msgid "Result"
+msgstr "Resultado"
+
+#: src/ControlsScheme.vala:100
+msgid "Logical OR or NOR"
+msgstr "OR ou NOR lógico"
+
+#: src/ControlsScheme.vala:103
+msgid "Logical AND or NAND"
+msgstr "AND ou NAND lógico"
+
+#: src/ControlsScheme.vala:106
+msgid "Logical XOR or XNOR"
+msgstr "XOR ou XNOR lógico"
+
+#: src/ControlsScheme.vala:109
+msgid "Logical NOT or Mod"
+msgstr "NOT ou Mod lógico"
+
+#: src/ControlsScheme.vala:117 data/ui/statistics_view.blp:203
+#: data/ui/statistics_view.blp:915
+msgid "Add Cell"
+msgstr "Adicionar célula"
+
+#: src/ControlsScheme.vala:120
+msgid "Next Cell or Add Right"
+msgstr "Próxima célula ou adicionar à direita"
+
+#: src/ControlsScheme.vala:123
+msgid "Previous Cell or Add Left"
+msgstr "Célula anterior ou adicionar à esquerda"
+
+#: src/ControlsScheme.vala:126 src/shell/views/StatisticsView.vala:333
+msgid "Navigate Left"
+msgstr "Navegar para a esquerda"
+
+#: src/ControlsScheme.vala:129 src/shell/views/StatisticsView.vala:337
+msgid "Navigate Right"
+msgstr "Navegar para a direita"
+
+#: src/ControlsScheme.vala:132 data/ui/graphing_view.blp:214
+#: data/ui/graphing_view.blp:740
+msgid "Navigate Up"
+msgstr "Navegar para cima"
+
+#: src/ControlsScheme.vala:135 data/ui/graphing_view.blp:306
+#: data/ui/graphing_view.blp:758
+msgid "Navigate Down"
+msgstr "Navegar para baixo"
+
+#: src/ControlsScheme.vala:138 data/ui/statistics_view.blp:605
+msgid "Data Size"
+msgstr "Tamanho dos Dados"
+
+#: src/ControlsScheme.vala:147
+msgid "Summation"
+msgstr "Somatório"
+
+#: src/ControlsScheme.vala:150
+msgid "Summation Squared"
+msgstr "Somatório ao quadrado"
+
+#: src/ControlsScheme.vala:159
 msgid "Mean Squared"
 msgstr "Média quadrática"
 
-#: src/ControlsScheme.vala:180
-msgid "Geometric Mean"
-msgstr "Média geométrica"
-
-#: src/ControlsScheme.vala:183
+#: src/ControlsScheme.vala:165
 msgid "Sample Standard Deviation"
 msgstr "Desvio padrão de amostra"
 
-#: src/ControlsScheme.vala:186 src/Views/StatisticsView.vala:240
-msgid "Population Variance"
-msgstr "Variância da população"
-
-#: src/ControlsScheme.vala:189
-msgid "Population Standard Deviation"
-msgstr "Desvio padrão da população"
-
-#: src/ControlsScheme.vala:194
+#: src/ControlsScheme.vala:176 data/ui/calculus_view.blp:89
 msgid "Variable x"
 msgstr "Variável x"
 
-#: src/ControlsScheme.vala:197
-msgid "Definite Integral"
-msgstr "Integral definida"
-
-#: src/ControlsScheme.vala:200
-msgid "Derivative at a point"
-msgstr "Derivada em um ponto"
-
-#: src/ControlsScheme.vala:205
-msgid "Interchange unit"
-msgstr "Unidade de intercâmbio"
-
-#: src/ControlsScheme.vala:208
-msgid "Update Forex Data (Currency converter)"
-msgstr "Atualizar dados de Forex (conversor de moeda)"
-
-#: src/PreferencesOverlay.vala:42
-msgid "Number of decimal places:"
-msgstr "Número de casas decimais:"
-
-#: src/PreferencesOverlay.vala:48
-msgid "Integral Calculus Accuracy"
-msgstr "Precisão do cálculo integral"
-
-#: src/PreferencesOverlay.vala:53
-msgid "Fast"
-msgstr "Rápido"
-
-#: src/PreferencesOverlay.vala:54
-msgid "Accurate"
-msgstr "Preciso"
-
-#: src/PreferencesOverlay.vala:56
-msgid "Scientific constants button:"
-msgstr "Botão de constantes científicas:"
+#: src/ControlsScheme.vala:181 data/ui/converter_view.blp:71
+msgid "Interchange Units"
+msgstr "Unidades de Intercâmbio"
 
 #. TRANSLATORS: The left quotation mark symbol
-#: src/PreferencesOverlay.vala:61
+#: src/shell/dialogs/PreferencesDialog.vala:26
 msgid "“"
 msgstr "\""
 
 #. TRANSLATORS: The right quotation mark symbol
-#: src/PreferencesOverlay.vala:63
+#: src/shell/dialogs/PreferencesDialog.vala:28
 msgid "”"
 msgstr "\""
 
-#: src/PreferencesOverlay.vala:65
-msgid "Constant 1"
-msgstr "Constante 1"
-
-#: src/PreferencesOverlay.vala:68 src/PreferencesOverlay.vala:82
-#: src/Views/CalculusView.vala:556 src/Views/CalculusView.vala:598
-#: src/Views/ScientificView.vala:481 src/Views/ScientificView.vala:523
+#: src/shell/dialogs/PreferencesDialog.vala:31
+#: src/shell/views/CalculusView.vala:289 src/shell/views/GraphingView.vala:264
+#: src/shell/views/ScientificView.vala:210
 msgid "Euler's constant (exponential)"
 msgstr "Constante de Euler (exponencial)"
 
-#: src/PreferencesOverlay.vala:69 src/PreferencesOverlay.vala:83
-#: src/Views/CalculusView.vala:520 src/Views/CalculusView.vala:562
-#: src/Views/ScientificView.vala:445 src/Views/ScientificView.vala:487
+#: src/shell/dialogs/PreferencesDialog.vala:32
+#: src/shell/views/CalculusView.vala:253 src/shell/views/GraphingView.vala:228
+#: src/shell/views/ScientificView.vala:174
 msgid "Archimedes' constant (pi)"
 msgstr "Constante de Arquimedes (pi)"
 
-#: src/PreferencesOverlay.vala:70 src/PreferencesOverlay.vala:84
-msgid "Parabolic constant"
-msgstr "Constante parabólica"
-
-#: src/PreferencesOverlay.vala:71 src/PreferencesOverlay.vala:85
-#: src/Views/CalculusView.vala:528 src/Views/CalculusView.vala:570
-#: src/Views/ScientificView.vala:453 src/Views/ScientificView.vala:495
+#: src/shell/dialogs/PreferencesDialog.vala:33
+#: src/shell/views/CalculusView.vala:261 src/shell/views/GraphingView.vala:236
+#: src/shell/views/ScientificView.vala:182
 msgid "Golden ratio (phi)"
 msgstr "Proporção áurea (phi)"
 
-#: src/PreferencesOverlay.vala:72 src/PreferencesOverlay.vala:86
-#: src/Views/CalculusView.vala:532 src/Views/CalculusView.vala:574
-#: src/Views/ScientificView.vala:457 src/Views/ScientificView.vala:499
+#: src/shell/dialogs/PreferencesDialog.vala:34
+msgid "Imaginary number"
+msgstr "Número imaginário"
+
+#: src/shell/dialogs/PreferencesDialog.vala:35
+#: src/shell/views/CalculusView.vala:265 src/shell/views/GraphingView.vala:240
+#: src/shell/views/ScientificView.vala:186
 msgid "Euler–Mascheroni constant (gamma)"
 msgstr "Constante de Euler-Mascheroni (gama)"
 
-#: src/PreferencesOverlay.vala:73 src/PreferencesOverlay.vala:87
-#: src/Views/CalculusView.vala:536 src/Views/CalculusView.vala:578
-#: src/Views/ScientificView.vala:461 src/Views/ScientificView.vala:503
+#: src/shell/dialogs/PreferencesDialog.vala:36
+#: src/shell/views/CalculusView.vala:269 src/shell/views/GraphingView.vala:244
+#: src/shell/views/ScientificView.vala:190
 msgid "Conway's constant (lambda)"
 msgstr "Constante de Conway (lambda)"
 
-#: src/PreferencesOverlay.vala:74 src/PreferencesOverlay.vala:88
-#: src/Views/CalculusView.vala:540 src/Views/CalculusView.vala:582
-#: src/Views/ScientificView.vala:465 src/Views/ScientificView.vala:507
+#: src/shell/dialogs/PreferencesDialog.vala:37
+#: src/shell/views/CalculusView.vala:273 src/shell/views/GraphingView.vala:248
+#: src/shell/views/ScientificView.vala:194
 msgid "Khinchin's constant"
 msgstr "Constante de Khinchin"
 
-#: src/PreferencesOverlay.vala:75 src/PreferencesOverlay.vala:89
-#: src/Views/CalculusView.vala:544 src/Views/CalculusView.vala:586
-#: src/Views/ScientificView.vala:469 src/Views/ScientificView.vala:511
+#: src/shell/dialogs/PreferencesDialog.vala:38
+#: src/shell/views/CalculusView.vala:277 src/shell/views/GraphingView.vala:252
+#: src/shell/views/ScientificView.vala:198
 msgid "The Feigenbaum constant alpha"
 msgstr "Constante alfa de Feigenbaum"
 
-#: src/PreferencesOverlay.vala:76 src/PreferencesOverlay.vala:90
-#: src/Views/CalculusView.vala:548 src/Views/CalculusView.vala:590
-#: src/Views/ScientificView.vala:473 src/Views/ScientificView.vala:515
+#: src/shell/dialogs/PreferencesDialog.vala:39
+#: src/shell/views/CalculusView.vala:281 src/shell/views/GraphingView.vala:256
+#: src/shell/views/ScientificView.vala:202
 msgid "The Feigenbaum constant delta"
 msgstr "Constante delta de Feigenbaum"
 
-#: src/PreferencesOverlay.vala:77 src/PreferencesOverlay.vala:91
-#: src/Views/CalculusView.vala:552 src/Views/CalculusView.vala:594
-#: src/Views/ScientificView.vala:477 src/Views/ScientificView.vala:519
+#: src/shell/dialogs/PreferencesDialog.vala:40
+#: src/shell/views/CalculusView.vala:285 src/shell/views/GraphingView.vala:260
+#: src/shell/views/ScientificView.vala:206
 msgid "Apery's constant"
 msgstr "Constante de Apéry"
 
-#: src/PreferencesOverlay.vala:79
-msgid "Constant 2 (Hold Shift)"
-msgstr "Constante 2 (segure Shift)"
+#: src/shell/MainWindow.vala:231 src/shell/MainWindow.vala:265
+#: data/ui/main_window.blp:520
+msgid "Switch angle mode"
+msgstr "Alternar modo de ângulo"
 
-#: src/PreferencesOverlay.vala:108
-msgid "Currency Converter API Key"
-msgstr "Chave da API do conversor de moeda"
+#: src/shell/MainWindow.vala:292
+msgid "AGE"
+msgstr "ANO"
 
-#: src/PreferencesOverlay.vala:111
-msgid "Get your own API key"
-msgstr "Obtenha sua própria chave da API"
-
-#: src/PreferencesOverlay.vala:114 src/Views/StatisticsView.vala:144
-#: src/Views/BottomPopper.vala:40
-msgid "Reset"
-msgstr "Redefinir"
-
-#: src/Views/Displays/CalculusDisplay.vala:67
-#: src/Views/Displays/ProgrammerDisplay.vala:106
-#: src/Views/Displays/ScientificDisplay.vala:65
-msgid "SHIFT"
+#: src/shell/MainWindow.vala:293
+msgid "DUR"
 msgstr ""
 
-#: src/Views/MiniCalculator.vala:88 src/Views/CalculusView.vala:221
-#: src/Views/ScientificView.vala:215 src/Views/DateView.vala:94
-#: src/Views/DateView.vala:105 src/Views/DateView.vala:192
-msgid "Add"
-msgstr "Adicionar"
+#: src/shell/MainWindow.vala:311
+msgid "ADD"
+msgstr ""
 
-#: src/Views/MiniCalculator.vala:90 src/Views/CalculusView.vala:213
-#: src/Views/ScientificView.vala:207 src/Views/DateView.vala:87
-#: src/Views/DateView.vala:111
-msgid "Subtract"
-msgstr "Subtrair"
+#: src/shell/MainWindow.vala:312
+msgid "SUB"
+msgstr ""
 
-#: src/Views/MiniCalculator.vala:92 src/Views/CalculusView.vala:197
-#: src/Views/ScientificView.vala:191
-msgid "Divide"
-msgstr "Dividir"
+#: src/shell/MainWindow.vala:789
+#, c-format
+msgid "Loaded dataset of size [%d, %d] from file"
+msgstr "Conjunto de dados carregado com tamanho [%d, %d] a partir do arquivo"
 
-#: src/Views/MiniCalculator.vala:94 src/Views/CalculusView.vala:205
-#: src/Views/ScientificView.vala:199
-msgid "Multiply"
-msgstr "Multiplicar"
+#: src/shell/MainWindow.vala:795
+msgid "Dataset cleared"
+msgstr "Conjunto de dados limpo"
 
-#: src/Views/MiniCalculator.vala:99
-msgid "Last Result"
-msgstr "Resultado mais recente"
+#: src/shell/MainWindow.vala:984
+msgid "Dataset not loaded. Creating one!"
+msgstr "Conjunto de dados não carregado. Criando um novo!"
 
-#: src/Views/MiniCalculator.vala:133
-msgid "Pebbles Mini Mode"
-msgstr "Pebbles modo mini"
-
-#: src/Views/CalculusView.vala:181 src/Views/ScientificView.vala:175
-#: src/Views/ProgrammerView.vala:141 src/Views/StatisticsView.vala:140
-#: src/Views/CommonNumericKeypad.vala:54
-#: src/Views/CommonKeyPadConverter.vala:48
-msgid "Backspace"
-msgstr "Apagar"
-
-#: src/Views/CalculusView.vala:195
-msgid "Variable for linear expressions"
-msgstr "Variável para expressões lineares"
-
-#: src/Views/CalculusView.vala:257 src/Views/CalculusView.vala:494
-#: src/Views/ScientificView.vala:254 src/Views/ScientificView.vala:425
-msgid "x raised to the power y"
-msgstr "x elevado à y"
-
-#: src/Views/CalculusView.vala:260 src/Views/ScientificView.vala:260
-#: src/Views/ProgrammerView.vala:240
-msgid "Add it to the value in Memory"
-msgstr "Adicione ao valor na memória"
-
-#: src/Views/CalculusView.vala:263 src/Views/CalculusView.vala:495
-#: src/Views/ScientificView.vala:263 src/Views/ScientificView.vala:427
-msgid "Sine"
-msgstr "Seno"
-
-#: src/Views/CalculusView.vala:266 src/Views/CalculusView.vala:496
-#: src/Views/ScientificView.vala:266 src/Views/ScientificView.vala:430
-msgid "Hyperbolic Sine"
-msgstr "Seno hiperbólico"
-
-#: src/Views/CalculusView.vala:269 src/Views/ScientificView.vala:272
-#: src/Views/ProgrammerView.vala:246
-msgid "Subtract it from the value in Memory"
-msgstr "Subtraia do valor na memória"
-
-#: src/Views/CalculusView.vala:272 src/Views/CalculusView.vala:497
-#: src/Views/ScientificView.vala:275 src/Views/ScientificView.vala:428
-msgid "Cosine"
-msgstr "Cosseno"
-
-#: src/Views/CalculusView.vala:275 src/Views/CalculusView.vala:498
-#: src/Views/ScientificView.vala:278 src/Views/ScientificView.vala:431
-msgid "Hyperbolic Cosine"
-msgstr "Cosseno hiperbólico"
-
-#: src/Views/CalculusView.vala:278 src/Views/CalculusView.vala:499
-#: src/Views/ScientificView.vala:281 src/Views/ScientificView.vala:433
-#: src/Views/ProgrammerView.vala:398
-msgid "Modulus"
-msgstr "Módulo"
-
-#: src/Views/CalculusView.vala:281 src/Views/ScientificView.vala:284
-#: src/Views/ProgrammerView.vala:252
-msgid "Recall value from Memory"
-msgstr "Recuperar valor da memória"
-
-#: src/Views/CalculusView.vala:284 src/Views/CalculusView.vala:500
-#: src/Views/ScientificView.vala:287 src/Views/ScientificView.vala:429
-msgid "Tangent"
-msgstr "Tangente"
-
-#: src/Views/CalculusView.vala:287 src/Views/CalculusView.vala:501
-#: src/Views/ScientificView.vala:290 src/Views/ScientificView.vala:432
-msgid "Hyperbolic Tangent"
-msgstr "Tangente hiperbólica"
-
-#: src/Views/CalculusView.vala:290 src/Views/CalculusView.vala:502
-#: src/Views/ScientificView.vala:293 src/Views/ScientificView.vala:435
-msgid "Permutations"
-msgstr "Permutações"
-
-#: src/Views/CalculusView.vala:293 src/Views/ScientificView.vala:296
-#: src/Views/ProgrammerView.vala:258 src/Views/StatisticsView.vala:246
-msgid "Memory Clear"
-msgstr "Limpar memória"
-
-#: src/Views/CalculusView.vala:302 src/Views/ScientificView.vala:305
-#: src/Views/ProgrammerView.vala:261
-msgid "Last answer"
-msgstr "Resposta mais recente"
-
-#: src/Views/CalculusView.vala:312
-msgid "Definite Integral (Upper limit 'u' and Lower limit 'l')"
-msgstr "Integral definida (limite superior 'u' e limite inferior 'l')"
-
-#: src/Views/CalculusView.vala:374
-msgid "Derivative (at a point x)"
-msgstr "Derivada (em um ponto x)"
-
-#: src/Views/CalculusView.vala:439
-msgid "Other functions, integration and differentiation"
-msgstr "Outras funções, integração e diferenciação"
-
-#: src/Views/CalculusView.vala:444 src/Views/ScientificView.vala:312
-#: src/Views/ProgrammerView.vala:268
-msgid "Access alternative functions"
-msgstr "Acessar funções alternativas"
-
-#: src/Views/CalculusView.vala:482 src/Views/ScientificView.vala:411
-msgid "nth root over number"
-msgstr "raiz enésima sobre o número"
-
-#: src/Views/CalculusView.vala:483 src/Views/ScientificView.vala:413
-msgid "Inverse Sine"
-msgstr "Seno inverso"
-
-#: src/Views/CalculusView.vala:484 src/Views/ScientificView.vala:416
-msgid "Inverse Hyperbolic Sine"
-msgstr "Seno hiperbólico inverso"
-
-#: src/Views/CalculusView.vala:485 src/Views/ScientificView.vala:414
-msgid "Inverse Cosine"
-msgstr "Cosseno inverso"
-
-#: src/Views/CalculusView.vala:486 src/Views/ScientificView.vala:417
-msgid "Inverse Hyperbolic Cosine"
-msgstr "Cosseno hiperbólico inverso"
-
-#: src/Views/CalculusView.vala:487 src/Views/ScientificView.vala:419
-msgid "Log base x"
-msgstr "Log de base x"
-
-#: src/Views/CalculusView.vala:488 src/Views/ScientificView.vala:415
-msgid "Inverse Tangent"
-msgstr "Tangente inversa"
-
-#: src/Views/CalculusView.vala:489 src/Views/ScientificView.vala:418
-msgid "Inverse Hyperbolic Tangent"
-msgstr "Tangente hiperbólica inversa"
-
-#: src/Views/CalculusView.vala:490 src/Views/ScientificView.vala:421
-msgid "Combinations"
-msgstr "Combinações"
-
-#: src/Views/CalculusView.vala:524 src/Views/CalculusView.vala:566
-#: src/Views/ScientificView.vala:449 src/Views/ScientificView.vala:491
-msgid "Parabolic constant (𝑃)"
-msgstr "Constante parabólica (𝑃)"
-
-#: src/Views/ScientificView.vala:189
-msgid "Percentage"
-msgstr "Porcentagem"
-
-#: src/Views/ScientificView.vala:251 src/Views/ScientificView.vala:424
-msgid "Square a number"
-msgstr "Elevar a dois um número"
-
-#: src/Views/ScientificView.vala:257 src/Views/ScientificView.vala:426
-msgid "10 raised to the power x"
-msgstr "10 elevado à x"
-
-#: src/Views/ScientificView.vala:269 src/Views/ScientificView.vala:434
-msgid "Log base 10"
-msgstr "Log de base 10"
-
-#: src/Views/ScientificView.vala:344 src/Views/ProgrammerView.vala:341
-msgid "Opens functions panel"
-msgstr "Abre o painel de funções"
-
-#: src/Views/ScientificView.vala:410
+#: src/shell/views/CalculusView.vala:201 src/shell/views/GraphingView.vala:182
+#: src/shell/views/ScientificView.vala:93
 msgid "Square root over number"
 msgstr "Raiz quadrada de um número"
 
-#: src/Views/ScientificView.vala:412
+#: src/shell/views/CalculusView.vala:201 src/shell/views/GraphingView.vala:182
+#: src/shell/views/ScientificView.vala:93 data/ui/calculus_view.blp:216
+#: data/ui/calculus_view.blp:535 data/ui/graphing_view.blp:553
+#: data/ui/scientific_view.blp:216 data/ui/scientific_view.blp:535
+msgid "x raised to the power y"
+msgstr "x elevado à y"
+
+#: src/shell/views/CalculusView.vala:204 src/shell/views/GraphingView.vala:185
+#: src/shell/views/ScientificView.vala:96
 msgid "e raised to the power x"
 msgstr "e elevado à x"
 
-#: src/Views/ScientificView.vala:420
+#: src/shell/views/CalculusView.vala:204 src/shell/views/GraphingView.vala:185
+#: src/shell/views/ScientificView.vala:96 data/ui/calculus_view.blp:556
+#: data/ui/graphing_view.blp:574 data/ui/scientific_view.blp:556
+msgid "10 raised to the power x"
+msgstr "10 elevado à x"
+
+#: src/shell/views/CalculusView.vala:206 src/shell/views/GraphingView.vala:187
+#: src/shell/views/ScientificView.vala:98
+msgid "Inverse Sine"
+msgstr "Seno inverso"
+
+#: src/shell/views/CalculusView.vala:206 src/shell/views/GraphingView.vala:187
+#: src/shell/views/ScientificView.vala:98 data/ui/calculus_view.blp:597
+#: data/ui/graphing_view.blp:595 data/ui/scientific_view.blp:597
+msgid "Sine"
+msgstr "Seno"
+
+#: src/shell/views/CalculusView.vala:208 src/shell/views/GraphingView.vala:189
+#: src/shell/views/ScientificView.vala:100
+msgid "Inverse Cosine"
+msgstr "Cosseno inverso"
+
+#: src/shell/views/CalculusView.vala:208 src/shell/views/GraphingView.vala:189
+#: src/shell/views/ScientificView.vala:100 data/ui/calculus_view.blp:680
+#: data/ui/graphing_view.blp:658 data/ui/scientific_view.blp:680
+msgid "Cosine"
+msgstr "Cosseno"
+
+#: src/shell/views/CalculusView.vala:210 src/shell/views/GraphingView.vala:191
+#: src/shell/views/ScientificView.vala:102
+msgid "Inverse Tangent"
+msgstr "Tangente inversa"
+
+#: src/shell/views/CalculusView.vala:210 src/shell/views/GraphingView.vala:191
+#: src/shell/views/ScientificView.vala:102 data/ui/calculus_view.blp:763
+#: data/ui/graphing_view.blp:813 data/ui/scientific_view.blp:763
+msgid "Tangent"
+msgstr "Tangente"
+
+#: src/shell/views/CalculusView.vala:212 src/shell/views/GraphingView.vala:193
+#: src/shell/views/ScientificView.vala:104
+msgid "Inverse Hyperbolic Sine"
+msgstr "Seno hiperbólico inverso"
+
+#: src/shell/views/CalculusView.vala:212 src/shell/views/GraphingView.vala:193
+#: src/shell/views/ScientificView.vala:104
+msgid "Hyperbolic Sine"
+msgstr "Seno hiperbólico"
+
+#: src/shell/views/CalculusView.vala:214 src/shell/views/GraphingView.vala:195
+#: src/shell/views/ScientificView.vala:106
+msgid "Inverse Hyperbolic Cosine"
+msgstr "Cosseno hiperbólico inverso"
+
+#: src/shell/views/CalculusView.vala:214 src/shell/views/GraphingView.vala:195
+#: src/shell/views/ScientificView.vala:106
+msgid "Hyperbolic Cosine"
+msgstr "Cosseno hiperbólico"
+
+#: src/shell/views/CalculusView.vala:216 src/shell/views/GraphingView.vala:197
+#: src/shell/views/ScientificView.vala:108
+msgid "Inverse Hyperbolic Tangent"
+msgstr "Tangente hiperbólica inversa"
+
+#: src/shell/views/CalculusView.vala:216 src/shell/views/GraphingView.vala:197
+#: src/shell/views/ScientificView.vala:108
+msgid "Hyperbolic Tangent"
+msgstr "Tangente hiperbólica"
+
+#: src/shell/views/CalculusView.vala:218 src/shell/views/GraphingView.vala:199
+#: src/shell/views/ScientificView.vala:110
+msgid "Log Base x"
+msgstr ""
+
+#: src/shell/views/CalculusView.vala:218 src/shell/views/GraphingView.vala:199
+#: src/shell/views/ProgrammerView.vala:275
+#: src/shell/views/ScientificView.vala:110 data/ui/calculus_view.blp:722
+#: data/ui/graphing_view.blp:700 data/ui/scientific_view.blp:722
+msgid "Modulus"
+msgstr "Módulo"
+
+#: src/shell/views/CalculusView.vala:220 src/shell/views/GraphingView.vala:201
+#: src/shell/views/ScientificView.vala:112
 msgid "Natural Logarithm"
 msgstr "Logaritmo natural"
 
-#: src/Views/ProgrammerView.vala:204
-msgid "Bit toggle grid"
-msgstr "Grade alternador de bit"
+#: src/shell/views/CalculusView.vala:220 src/shell/views/GraphingView.vala:201
+#: src/shell/views/ScientificView.vala:112
+msgid "Log Base 10"
+msgstr ""
 
-#: src/Views/ProgrammerView.vala:206 src/Views/ProgrammerView.vala:406
-msgid "Left Shift"
-msgstr "Deslocar para a esquerda"
+#: src/shell/views/CalculusView.vala:223
+#: src/shell/views/ScientificView.vala:115
+msgid "Combinations"
+msgstr "Combinações"
 
-#: src/Views/ProgrammerView.vala:237 src/Views/ProgrammerView.vala:402
-msgid "Logical OR (TRUE for any input being TRUE)"
-msgstr "OU lógico (VERDADEIRO se qualquer entrada for VERDADEIRA)"
+#: src/shell/views/CalculusView.vala:223
+#: src/shell/views/ScientificView.vala:115 data/ui/calculus_view.blp:805
+#: data/ui/scientific_view.blp:805
+msgid "Permutations"
+msgstr "Permutações"
 
-#: src/Views/ProgrammerView.vala:243 src/Views/ProgrammerView.vala:403
-msgid "Logical AND (TRUE for all inputs being TRUE)"
-msgstr "E lógico (VERDADEIRO se todas as entradas forem VERDADEIRAS)"
+#: src/shell/views/CalculusView.vala:226
+#: src/shell/views/ProgrammerView.vala:302
+#: src/shell/views/ScientificView.vala:118
+#: src/shell/views/StatisticsView.vala:316
+msgid "Add it to the value in Shared Memory"
+msgstr "Adicione ao valor na memória compartilhada"
 
-#: src/Views/ProgrammerView.vala:249 src/Views/ProgrammerView.vala:404
-msgid "Logical Exclusive-OR (TRUE for exactly one input being TRUE)"
-msgstr "OU Exclusivo lógico (VERDADEIRO se exatamente uma entrada for VERDADEIRA)"
+#: src/shell/views/CalculusView.vala:226
+#: src/shell/views/ProgrammerView.vala:302
+#: src/shell/views/ScientificView.vala:118
+#: src/shell/views/StatisticsView.vala:316 data/ui/calculus_view.blp:576
+#: data/ui/programmer_view.blp:574 data/ui/scientific_view.blp:576
+#: data/ui/statistics_view.blp:583
+msgid "Add it to the value in Memory"
+msgstr "Adicione ao valor na memória"
 
-#: src/Views/ProgrammerView.vala:255 src/Views/ProgrammerView.vala:405
-msgid "Logical Inverter (TRUE for input being FALSE and vice versa)"
-msgstr "Inversor lógico (VERDADEIRO para entrada FALSA e vice-versa)"
+#: src/shell/views/CalculusView.vala:229
+#: src/shell/views/ProgrammerView.vala:305
+#: src/shell/views/ScientificView.vala:121
+#: src/shell/views/StatisticsView.vala:319
+msgid "Subtract it from the value in Shared Memory"
+msgstr "Subtraia do valor na memória compartilhada"
 
-#: src/Views/ProgrammerView.vala:395
-msgid "Logical NOT-of-OR (TRUE only for all inputs being FALSE)"
-msgstr "NÃO de OU lógico (VERDADEIRO apenas para todas as entradas FALSAS)"
+#: src/shell/views/CalculusView.vala:230
+#: src/shell/views/ProgrammerView.vala:306
+#: src/shell/views/ScientificView.vala:122
+#: src/shell/views/StatisticsView.vala:320 data/ui/calculus_view.blp:659
+#: data/ui/programmer_view.blp:651 data/ui/scientific_view.blp:659
+#: data/ui/statistics_view.blp:666
+msgid "Subtract it from the value in Memory"
+msgstr "Subtraia do valor na memória"
 
-#: src/Views/ProgrammerView.vala:396
-msgid "Logical NOT-of-AND (FALSE only for all inputs being TRUE)"
-msgstr "NÃO de E lógico (FALSO apenas para todas as entradas VERDADEIRAS)"
+#: src/shell/views/CalculusView.vala:233
+#: src/shell/views/ProgrammerView.vala:309
+#: src/shell/views/ScientificView.vala:125
+#: src/shell/views/StatisticsView.vala:323 data/ui/graphing_view.blp:720
+msgid "Recall value from Shared Memory"
+msgstr "Recuperar valor da memória compartilhada"
 
-#: src/Views/ProgrammerView.vala:397
-msgid "Logical NOT-of-XOR (TRUE only for all inputs being same)"
-msgstr "NÃO de OU Exclusivo lógico (VERDADEIRO apenas para todas as entradas iguais)"
+#: src/shell/views/CalculusView.vala:233
+#: src/shell/views/ProgrammerView.vala:309
+#: src/shell/views/ScientificView.vala:125
+#: src/shell/views/StatisticsView.vala:323 data/ui/calculus_view.blp:742
+#: data/ui/programmer_view.blp:728 data/ui/scientific_view.blp:742
+#: data/ui/statistics_view.blp:749
+msgid "Recall value from Memory"
+msgstr "Recuperar valor da memória"
 
-#: src/Views/ProgrammerView.vala:399
-msgid "Right Shift"
-msgstr "Deslocar para a direita"
+#: src/shell/views/CalculusView.vala:235
+#: src/shell/views/ProgrammerView.vala:311
+#: src/shell/views/ScientificView.vala:127
+#: src/shell/views/StatisticsView.vala:325
+msgid "Shared Memory Clear"
+msgstr "Limpar memória compartilhada"
 
-#: src/Views/DateView.vala:90 src/Views/DateView.vala:114
+#: src/shell/views/CalculusView.vala:235
+#: src/shell/views/ProgrammerView.vala:311
+#: src/shell/views/ScientificView.vala:127
+#: src/shell/views/StatisticsView.vala:325 data/ui/calculus_view.blp:825
+#: data/ui/programmer_view.blp:805 data/ui/scientific_view.blp:825
+#: data/ui/statistics_view.blp:832
+msgid "Memory Clear"
+msgstr "Limpar memória"
+
+#: src/shell/views/CalculusView.vala:238 src/shell/views/CalculusView.vala:241
+#: src/shell/views/ProgrammerView.vala:314
+#: src/shell/views/ScientificView.vala:130
+#: src/shell/views/ScientificView.vala:133
+#: src/shell/views/StatisticsView.vala:328 data/ui/graphing_view.blp:871
+msgid "Insert shared last answer"
+msgstr "Inserir a última resposta compartilhada"
+
+#: src/shell/views/CalculusView.vala:238 src/shell/views/CalculusView.vala:241
+#: src/shell/views/ProgrammerView.vala:314
+#: src/shell/views/ScientificView.vala:130
+#: src/shell/views/ScientificView.vala:133
+#: src/shell/views/StatisticsView.vala:328 data/ui/calculus_view.blp:391
+#: data/ui/calculus_view.blp:886 data/ui/programmer_view.blp:842
+#: data/ui/scientific_view.blp:391 data/ui/scientific_view.blp:886
+#: data/ui/statistics_view.blp:450
+msgid "Insert last answer"
+msgstr "Insira a última resposta"
+
+#: src/shell/views/CalculusView.vala:257 src/shell/views/GraphingView.vala:232
+#: src/shell/views/ScientificView.vala:178
+msgid "Imaginary Number (√-1)"
+msgstr "Número Imaginário (√-1)"
+
+#: src/shell/views/DateView.vala:41
 msgid "The Date was"
 msgstr "A data foi"
 
-#: src/Views/DateView.vala:97 src/Views/DateView.vala:108
-#: src/Views/DateView.vala:266
+#: src/shell/views/DateView.vala:41 data/ui/date_view.blp:215
 msgid "The Date will be"
 msgstr "A data será"
 
-#: src/Views/DateView.vala:124
-msgid "Find Difference"
-msgstr "Encontrar diferença"
-
-#: src/Views/DateView.vala:125
-msgid "Infer Date"
-msgstr "Inferir data"
-
-#: src/Views/DateView.vala:135
-msgid "From"
-msgstr "De"
-
-#: src/Views/DateView.vala:139
-msgid "To"
-msgstr "Até"
-
-#: src/Views/DateView.vala:150
-msgid "Difference"
-msgstr "Diferença"
-
-#: src/Views/DateView.vala:154 src/Views/DateView.vala:366
-msgid "Hey, it's the same date"
-msgstr "Ei, é a mesma data"
-
-#: src/Views/DateView.vala:189
-msgid "Starting from"
-msgstr "Começando de"
-
-#: src/Views/DateView.vala:199 src/Views/ConvTimeView.vala:57
-msgid "Day"
-msgstr "Dia"
-
-#: src/Views/DateView.vala:215 src/Views/ConvTimeView.vala:59
-msgid "Month"
-msgstr "Mês"
-
-#: src/Views/DateView.vala:231 src/Views/ConvTimeView.vala:60
-msgid "Year"
-msgstr "Ano"
-
-#: src/Views/DateView.vala:272
-msgid "Set a duration"
-msgstr "Definir uma duração"
-
-#: src/Views/DateView.vala:277
-msgid "Days, months or year"
-msgstr "Dias, meses ou ano"
-
-#: src/Views/DateView.vala:298
-msgid "Difference Between Dates"
-msgstr "Diferença entre datas"
-
-#: src/Views/DateView.vala:299
-msgid "Add or Subtract Dates"
-msgstr "Adicionar ou subtrair datas"
-
-#: src/Views/DateView.vala:353 src/Views/DateView.vala:398
+#: src/shell/views/DateView.vala:145 src/shell/views/DateView.vala:190
 msgid "day"
 msgstr "dia"
 
-#: src/Views/DateView.vala:353 src/Views/DateView.vala:398
+#: src/shell/views/DateView.vala:145 src/shell/views/DateView.vala:190
 msgid "days"
 msgstr "dias"
 
-#: src/Views/DateView.vala:354
+#: src/shell/views/DateView.vala:146
 #, c-format
 msgid "A total of %s"
 msgstr "Um total de %s"
 
-#: src/Views/DateView.vala:370
+#: src/shell/views/DateView.vala:158 data/ui/date_view.blp:103
+msgid "Hey, it's the same date"
+msgstr "Ei, é a mesma data"
+
+#: src/shell/views/DateView.vala:162
 msgid "year"
 msgstr "ano"
 
-#: src/Views/DateView.vala:370
+#: src/shell/views/DateView.vala:162
 msgid "years"
 msgstr "anos"
 
-#: src/Views/DateView.vala:375 src/Views/DateView.vala:383
-#: src/Views/DateView.vala:395
+#: src/shell/views/DateView.vala:167 src/shell/views/DateView.vala:175
+#: src/shell/views/DateView.vala:187
 msgid "and"
 msgstr "e"
 
-#: src/Views/DateView.vala:378
+#: src/shell/views/DateView.vala:170
 msgid "month"
 msgstr "mês"
 
-#: src/Views/DateView.vala:378
+#: src/shell/views/DateView.vala:170
 msgid "months"
 msgstr "meses"
 
-#: src/Views/DateView.vala:386
+#: src/shell/views/DateView.vala:178
 msgid "week"
 msgstr "semana"
 
-#: src/Views/DateView.vala:386
+#: src/shell/views/DateView.vala:178
 msgid "weeks"
 msgstr "semanas"
 
-#: src/Views/DateView.vala:402
+#: src/shell/views/DateView.vala:194
 msgid "counting backwards"
 msgstr "contando para trás"
 
-#: src/Views/DateView.vala:420
+#: src/shell/views/DateView.vala:215
 msgid "Monday"
 msgstr "Segunda-feira"
 
-#: src/Views/DateView.vala:421
+#: src/shell/views/DateView.vala:216
 msgid "Tuesday"
 msgstr "Terça-feira"
 
-#: src/Views/DateView.vala:422
+#: src/shell/views/DateView.vala:217
 msgid "Wednesday"
 msgstr "Quarta-feira"
 
-#: src/Views/DateView.vala:423
+#: src/shell/views/DateView.vala:218
 msgid "Thursday"
 msgstr "Quinta-feira"
 
-#: src/Views/DateView.vala:424
+#: src/shell/views/DateView.vala:219
 msgid "Friday"
 msgstr "Sexta-feira"
 
-#: src/Views/DateView.vala:425
+#: src/shell/views/DateView.vala:220
 msgid "Saturday"
 msgstr "Sábado"
 
-#: src/Views/DateView.vala:426
+#: src/shell/views/DateView.vala:221
 msgid "Sunday"
 msgstr "Domingo"
 
-#: src/Views/StatisticsView.vala:144
-msgid "Clear sample"
-msgstr "Limpar amostra"
-
-#: src/Views/StatisticsView.vala:168
-msgid "Negative"
-msgstr "Negativar"
-
-#: src/Views/StatisticsView.vala:192
-msgid "Navigate to the cell on the left"
-msgstr "Navegar até a célula à esquerda"
-
-#: src/Views/StatisticsView.vala:194
-msgid "Navigate to the cell on the right"
-msgstr "Navegar até a célula à direita"
-
-#: src/Views/StatisticsView.vala:196
-msgid "Left click: Add cell, Right click: Insert cell"
-msgstr "Clique com o botão esquerdo: adicionar célula, clique com o botão direito: inserir célula"
-
-#: src/Views/StatisticsView.vala:199
-msgid "Remove current cell"
-msgstr "Remover célula atual"
-
-#: src/Views/StatisticsView.vala:201
-msgid "Sample size"
-msgstr "Tamanho da amostra"
-
-#: src/Views/StatisticsView.vala:204
-msgid "Mode of the sample data"
-msgstr "Moda dos dados da amostra"
-
-#: src/Views/StatisticsView.vala:213
-msgid "Summation of all data values"
-msgstr "Somatório de todos os valores"
-
-#: src/Views/StatisticsView.vala:216
-msgid "Summation of all data values squared"
-msgstr "Somatório ao quadrado de todos os valores"
-
-#: src/Views/StatisticsView.vala:219
-msgid "Sample variance"
-msgstr "Variância da amostra"
-
-#: src/Views/StatisticsView.vala:228
-msgid "Mean of squared data values"
-msgstr "Média quadrada dos valores"
-
-#: src/Views/StatisticsView.vala:231
-msgid "Standard deviation"
-msgstr "Desvio padrão"
-
-#: src/Views/StatisticsView.vala:234
-msgid "Memory Recall"
-msgstr "Recuperar da memória"
-
-#: src/Views/StatisticsView.vala:237
-msgid "Geometric mean"
-msgstr "Média geométrica"
-
-#: src/Views/StatisticsView.vala:243
-msgid "Population standard deviation"
-msgstr "Desvio padrão da população"
-
-#: src/Views/StatisticsView.vala:289
-msgid "Query Result"
-msgstr "Consultar resultado"
-
-#: src/Views/CommonKeyPadConverter.vala:51
-msgid "Clear Entry"
-msgstr "Limpar entrada"
-
-#: src/Views/ConvLengthView.vala:51
-msgid "Nanometre"
-msgstr "Nanômetro"
-
-#: src/Views/ConvLengthView.vala:52
-msgid "Micron"
-msgstr "Mícron"
-
-#: src/Views/ConvLengthView.vala:53
-msgid "Millimetre"
-msgstr "Milímetro"
-
-#: src/Views/ConvLengthView.vala:54
-msgid "Centimetre"
-msgstr "Centímetro"
-
-#: src/Views/ConvLengthView.vala:55
-msgid "Metre"
-msgstr "Metro"
-
-#: src/Views/ConvLengthView.vala:56
-msgid "Kilometre"
-msgstr "Quilômetro"
-
-#: src/Views/ConvLengthView.vala:57
-msgid "Inch"
-msgstr "Polegada"
-
-#: src/Views/ConvLengthView.vala:58
-msgid "Foot"
-msgstr "Pé"
-
-#: src/Views/ConvLengthView.vala:59
-msgid "Yard"
-msgstr "Jarda"
-
-#: src/Views/ConvLengthView.vala:60
-msgid "Mile"
-msgstr "Milha"
-
-#: src/Views/ConvLengthView.vala:61
-msgid "Nautical Mile"
-msgstr "Milha náutica"
-
-#: src/Views/ConvAreaView.vala:51
-msgid "Square millimetre"
-msgstr "Milímetro quadrado"
-
-#: src/Views/ConvAreaView.vala:52
-msgid "Square centimetre"
-msgstr "Centímetro quadrado"
-
-#: src/Views/ConvAreaView.vala:53
-msgid "Square metre"
-msgstr "Metro quadrado"
-
-#: src/Views/ConvAreaView.vala:54
-msgid "Square kilometre"
-msgstr "Quilômetro quadrado"
-
-#: src/Views/ConvAreaView.vala:55
-msgid "Square inch"
-msgstr "Polegada quadrada"
-
-#: src/Views/ConvAreaView.vala:56
-msgid "Square foot"
-msgstr "Pé quadrado"
-
-#: src/Views/ConvAreaView.vala:57
-msgid "Square yard"
-msgstr "Jarda quadrada"
-
-#: src/Views/ConvAreaView.vala:58
-msgid "Hectare"
-msgstr "Hectare"
-
-#: src/Views/ConvAreaView.vala:59
-msgid "Acre"
-msgstr "Acre"
-
-#: src/Views/ConvAreaView.vala:60
-msgid "Square mile"
-msgstr "Milha quadrada"
-
-#: src/Views/ConvVolumeView.vala:38
-msgid "Millilitre"
-msgstr "Mililitro"
-
-#: src/Views/ConvVolumeView.vala:39
-msgid "Cubic centimetre"
-msgstr "Centímetro cúbico"
-
-#: src/Views/ConvVolumeView.vala:40
-msgid "Litre"
-msgstr "Litro"
-
-#: src/Views/ConvVolumeView.vala:41
-msgid "Cubic metre"
-msgstr "Metro cúbico"
-
-#: src/Views/ConvVolumeView.vala:42
-msgid "US teaspoon"
-msgstr "Colher de chá americana"
-
-#: src/Views/ConvVolumeView.vala:43
-msgid "US tablespoon"
-msgstr "Colher de sopa americana"
-
-#: src/Views/ConvVolumeView.vala:44
-msgid "US fluid ounce"
-msgstr "Onça fluída americana"
-
-#: src/Views/ConvVolumeView.vala:45
-msgid "US legal cup"
-msgstr "Copo americano"
-
-#: src/Views/ConvVolumeView.vala:46
-msgid "US pint"
-msgstr "Pinto americano"
-
-#: src/Views/ConvVolumeView.vala:47
-msgid "US quart"
-msgstr "Quarto americano"
-
-#: src/Views/ConvVolumeView.vala:48
-msgid "US gallon"
-msgstr "Galão americano"
-
-#: src/Views/ConvVolumeView.vala:49
-msgid "Imperial teaspoon"
-msgstr "Colher de chá imperial"
-
-#: src/Views/ConvVolumeView.vala:50
-msgid "Imperial tablespoon"
-msgstr "Colher de sopa imperial"
-
-#: src/Views/ConvVolumeView.vala:51
-msgid "Imperial fluid ounce"
-msgstr "Onça fluída imperial"
-
-#: src/Views/ConvVolumeView.vala:52
-msgid "Imperial cup"
-msgstr "Copo imperial"
-
-#: src/Views/ConvVolumeView.vala:53
-msgid "Imperial pint"
-msgstr "Pinto imperial"
-
-#: src/Views/ConvVolumeView.vala:54
-msgid "Imperial quart"
-msgstr "Quarto imperial"
-
-#: src/Views/ConvVolumeView.vala:55
-msgid "Imperial gallon"
-msgstr "Galão imperial"
-
-#: src/Views/ConvVolumeView.vala:56
-msgid "Cubic inch"
-msgstr "Polegada cúbica"
-
-#: src/Views/ConvVolumeView.vala:57
-msgid "Cubic foot"
-msgstr "Pé cúbico"
-
-#: src/Views/ConvVolumeView.vala:58
-msgid "Cubic yard"
-msgstr "Jarda cúbica"
-
-#: src/Views/ConvTimeView.vala:52
-msgid "Microsecond"
-msgstr "Microssegundo"
-
-#: src/Views/ConvTimeView.vala:53
-msgid "Millisecond"
-msgstr "Milissegundo"
-
-#: src/Views/ConvTimeView.vala:54
-msgid "Second"
-msgstr "Segundo"
-
-#: src/Views/ConvTimeView.vala:55
-msgid "Minute"
-msgstr "Minuto"
-
-#: src/Views/ConvTimeView.vala:56
-msgid "Hour"
-msgstr "Hora"
-
-#: src/Views/ConvTimeView.vala:58
-msgid "Week"
-msgstr "Semana"
-
-#: src/Views/ConvTimeView.vala:61
-msgid "Decade"
-msgstr "Década"
-
-#: src/Views/ConvTimeView.vala:62
-msgid "Century"
-msgstr "Século"
-
-#: src/Views/ConvAngleView.vala:47 src/Views/HistoryView.vala:102
+#: src/shell/views/GraphingView.vala:203
+msgid "Variable b"
+msgstr ""
+
+#: src/shell/views/GraphingView.vala:203 data/ui/graphing_view.blp:776
+msgid "Variable a"
+msgstr ""
+
+#: src/shell/views/GraphingView.vala:205
+msgid "Variable c"
+msgstr ""
+
+#: src/shell/views/GraphingView.vala:205 data/ui/graphing_view.blp:794
+msgid "Variable m"
+msgstr ""
+
+#: src/shell/views/GraphingView.vala:359
+msgid "PNG Files"
+msgstr ""
+
+#: src/shell/views/GraphingView.vala:367
+#: src/shell/views/StatisticsView.vala:108
+msgid "Export"
+msgstr ""
+
+#: src/shell/views/GraphingView.vala:371
+msgid "Export as PNG"
+msgstr ""
+
+#. Call Python to save PNG
+#: src/shell/views/GraphingView.vala:381
+msgid "Exported graph as image!"
+msgstr ""
+
+#: src/shell/views/ProgrammerView.vala:276
+msgid "Bitwise Inverter (TRUE for input being FALSE and vice versa)"
+msgstr "NOT Bit a Bit (VERDADEIRO para entrada sendo FALSO e vice-versa)"
+
+#: src/shell/views/ProgrammerView.vala:279
+msgid "Bitwise NOT-of-AND (FALSE only for all inputs being TRUE)"
+msgstr ""
+"Bit a Bit NOT-of-AND (resultado FALSO somente quando todas as entradas forem "
+"VERDADEIRAS)"
+
+#: src/shell/views/ProgrammerView.vala:280 data/ui/programmer_view.blp:311
+#: data/ui/programmer_view.blp:708
+msgid "Bitwise AND (TRUE for all inputs being TRUE)"
+msgstr "AND Bit a Bit (VERDADEIRO se todas as entradas forem VERDADEIRAS)"
+
+#: src/shell/views/ProgrammerView.vala:286
+msgid "Bitwise NOT-of-OR (TRUE only for all inputs being FALSE)"
+msgstr ""
+"Bit a Bit NOT-of-OR (VERDADEIRO somente quando todas as entradas forem "
+"FALSAS)"
+
+#: src/shell/views/ProgrammerView.vala:287 data/ui/programmer_view.blp:222
+#: data/ui/programmer_view.blp:631
+msgid "Bitwise OR (TRUE for any input being TRUE)"
+msgstr "OR Bit a Bit (VERDADEIRO se qualquer uma das entradas for VERDADEIRA)"
+
+#: src/shell/views/ProgrammerView.vala:293
+msgid "Logical NOT-of-XOR (TRUE only for all inputs being same)"
+msgstr ""
+"NÃO de OU Exclusivo Bit a Bit (VERDADEIRO apenas para todas as entradas "
+"iguais)"
+
+#: src/shell/views/ProgrammerView.vala:294
+msgid "Logical Exclusive-OR (TRUE for exactly one input being TRUE)"
+msgstr ""
+"OU Exclusivo Bit a Bit (VERDADEIRO se exatamente uma entrada for VERDADEIRA)"
+
+#: src/shell/views/ProgrammerView.vala:299
+msgid "Right Shift"
+msgstr "Deslocar para a direita"
+
+#: src/shell/views/ProgrammerView.vala:299 data/ui/programmer_view.blp:94
+msgid "Left Shift"
+msgstr "Deslocar para a esquerda"
+
+#: src/shell/views/StatisticsView.vala:61
+#: src/shell/views/StatisticsView.vala:94
+msgid "All files"
+msgstr "Todos os arquivos"
+
+#: src/shell/views/StatisticsView.vala:66
+#: src/shell/views/StatisticsView.vala:99
+msgid "Comma Separated Value files"
+msgstr "Arquivos Comma Separated Value"
+
+#: src/shell/views/StatisticsView.vala:75
+msgid "Import"
+msgstr "Importar"
+
+#: src/shell/views/StatisticsView.vala:79
+msgid "Import CSV files"
+msgstr "Importar arquivos CSV"
+
+#: src/shell/views/StatisticsView.vala:112
+msgid "Export CSV files"
+msgstr "Exportar arquivos CSV"
+
+#. Call Python to save CSV
+#: src/shell/views/StatisticsView.vala:122
+msgid "Exported CSV file!"
+msgstr "Arquivo CSV exportado!"
+
+#: src/shell/views/StatisticsView.vala:333
+msgid "Navigate to the beginning"
+msgstr "Navegue para o início"
+
+#: src/shell/views/StatisticsView.vala:337
+msgid "Navigate to the end"
+msgstr "Navegue até o final"
+
+#: src/shell/views/converters/ConvAngleView.vala:19
 msgid "Degree"
 msgstr "Grau"
 
-#: src/Views/ConvAngleView.vala:48 src/Views/HistoryView.vala:105
+#: src/shell/views/converters/ConvAngleView.vala:20
 msgid "Radian"
 msgstr "Radiano"
 
-#: src/Views/ConvAngleView.vala:49 src/Views/HistoryView.vala:108
+#: src/shell/views/converters/ConvAngleView.vala:21
 msgid "Gradian"
 msgstr "Grado"
 
-#: src/Views/ConvAngleView.vala:50
+#: src/shell/views/converters/ConvAngleView.vala:22
 msgid "Milliradian"
 msgstr "Mil angular"
 
-#: src/Views/ConvAngleView.vala:51
+#: src/shell/views/converters/ConvAngleView.vala:23
 msgid "Second of arc"
 msgstr "Segundo de arco"
 
-#: src/Views/ConvAngleView.vala:52
+#: src/shell/views/converters/ConvAngleView.vala:24
 msgid "Minute of arc"
 msgstr "Minuto de arco"
 
-#: src/Views/ConvSpeedView.vala:48
-msgid "Centimetre per second"
-msgstr "Centímetro por segundo"
+#: src/shell/views/converters/ConvAreaView.vala:23
+msgid "Square millimetre"
+msgstr "Milímetro quadrado"
 
-#: src/Views/ConvSpeedView.vala:49
-msgid "Metre per second"
-msgstr "Metro por segundo"
+#: src/shell/views/converters/ConvAreaView.vala:24
+msgid "Square centimetre"
+msgstr "Centímetro quadrado"
 
-#: src/Views/ConvSpeedView.vala:50
-msgid "Kilometre per hour"
-msgstr "Quilômetro por hora"
+#: src/shell/views/converters/ConvAreaView.vala:25
+msgid "Square metre"
+msgstr "Metro quadrado"
 
-#: src/Views/ConvSpeedView.vala:51
-msgid "Foot per second"
-msgstr "Pé por segundo"
+#: src/shell/views/converters/ConvAreaView.vala:26
+msgid "Square kilometre"
+msgstr "Quilômetro quadrado"
 
-#: src/Views/ConvSpeedView.vala:52
-msgid "Miles per hour"
-msgstr "Milhas por hora"
+#: src/shell/views/converters/ConvAreaView.vala:27
+msgid "Square inch"
+msgstr "Polegada quadrada"
 
-#: src/Views/ConvSpeedView.vala:53
-msgid "Knot"
-msgstr "Nó"
+#: src/shell/views/converters/ConvAreaView.vala:28
+msgid "Square foot"
+msgstr "Pé quadrado"
 
-#: src/Views/ConvSpeedView.vala:54
-msgid "Mach"
-msgstr "Mach"
+#: src/shell/views/converters/ConvAreaView.vala:29
+msgid "Square yard"
+msgstr "Jarda quadrada"
 
-#: src/Views/ConvPressView.vala:47
-msgid "Atmosphere"
-msgstr "Atmosfera"
+#: src/shell/views/converters/ConvAreaView.vala:30
+msgid "Hectare"
+msgstr "Hectare"
 
-#: src/Views/ConvPressView.vala:48
-msgid "Bar"
-msgstr "Bar"
+#: src/shell/views/converters/ConvAreaView.vala:31
+msgid "Acre"
+msgstr "Acre"
 
-#: src/Views/ConvPressView.vala:49
-msgid "Millimetre of mercury"
-msgstr "Milímetro de mercúrio"
+#: src/shell/views/converters/ConvAreaView.vala:32
+msgid "Square mile"
+msgstr "Milha quadrada"
 
-#: src/Views/ConvPressView.vala:50
-msgid "Pascal"
-msgstr "Pascal"
-
-#: src/Views/ConvPressView.vala:51
-msgid "Pound-force / sq-inch"
-msgstr "Libra-força/polegada quadrada"
-
-#: src/Views/ConvPressView.vala:52
-msgid "Torr"
-msgstr "Torr"
-
-#: src/Views/ConvMassView.vala:51
-msgid "Microgram"
-msgstr "Micrograma"
-
-#: src/Views/ConvMassView.vala:52
-msgid "Milligram"
-msgstr "Miligrama"
-
-#: src/Views/ConvMassView.vala:53
-msgid "Gram"
-msgstr "Grama"
-
-#: src/Views/ConvMassView.vala:54
-msgid "Kilogram"
-msgstr "Quilograma"
-
-#: src/Views/ConvMassView.vala:55
-msgid "Tonne"
-msgstr "Tonelada"
-
-#: src/Views/ConvMassView.vala:56
-msgid "US ton"
-msgstr "Tonelada americana"
-
-#: src/Views/ConvMassView.vala:57
-msgid "Imperial Ton"
-msgstr "Tonelada imperial"
-
-#: src/Views/ConvMassView.vala:58
-msgid "Ounce"
-msgstr "Onça"
-
-#: src/Views/ConvMassView.vala:59
-msgid "Pound"
-msgstr "Libra"
-
-#: src/Views/ConvMassView.vala:60
-msgid "Stone"
-msgstr "Stone"
-
-#: src/Views/ConvEnergyView.vala:51
-msgid "Joule"
-msgstr "Joule"
-
-#: src/Views/ConvEnergyView.vala:52
-msgid "Kilojoule"
-msgstr "Quilojoule"
-
-#: src/Views/ConvEnergyView.vala:53
-msgid "Gram calorie"
-msgstr "Caloria"
-
-#: src/Views/ConvEnergyView.vala:54
-msgid "Kilocalorie"
-msgstr "Quilocaloria"
-
-#: src/Views/ConvEnergyView.vala:55
-msgid "Watt hour"
-msgstr "Watt-hora"
-
-#: src/Views/ConvEnergyView.vala:56
-msgid "Kilowatt hour"
-msgstr "Quilowatt-hora"
-
-#: src/Views/ConvEnergyView.vala:58
-msgid "British thermal unit"
-msgstr "Unidade térmica britânica"
-
-#: src/Views/ConvEnergyView.vala:59
-msgid "US therm"
-msgstr "Term americano"
-
-#: src/Views/ConvEnergyView.vala:60
-msgid "Foot-pound"
-msgstr "Libra-pé"
-
-#: src/Views/ConvPowerView.vala:47
-msgid "Watt"
-msgstr "Watt"
-
-#: src/Views/ConvPowerView.vala:48
-msgid "Kilowatt"
-msgstr "Quilowatt"
-
-#: src/Views/ConvPowerView.vala:49
-msgid "Metric horsepower"
-msgstr "Potência métrica"
-
-#: src/Views/ConvPowerView.vala:50
-msgid "Mechanical horsepower"
-msgstr "Potência mecânica"
-
-#: src/Views/ConvPowerView.vala:51
-msgid "Foot-pound / minute"
-msgstr "Libra-pé/minuto"
-
-#: src/Views/ConvPowerView.vala:52
-msgid "BTU / hour"
-msgstr "BTU/hora"
-
-#: src/Views/ConvTempView.vala:37
-msgid "Celsius"
-msgstr "Celsius"
-
-#: src/Views/ConvTempView.vala:38
-msgid "Fahrenheit"
-msgstr "Fahrenheit"
-
-#: src/Views/ConvTempView.vala:39
-msgid "Kelvin"
-msgstr "Kelvin"
-
-#: src/Views/ConvDataView.vala:63
-msgid "Bit"
-msgstr "Bit"
-
-#: src/Views/ConvDataView.vala:64
-msgid "Kilobit"
-msgstr "Kilobit"
-
-#: src/Views/ConvDataView.vala:65
-msgid "Kibibit"
-msgstr "Kibibit"
-
-#: src/Views/ConvDataView.vala:66
-msgid "Megabit"
-msgstr "Megabit"
-
-#: src/Views/ConvDataView.vala:67
-msgid "Mebibit"
-msgstr "Mebibit"
-
-#: src/Views/ConvDataView.vala:68
-msgid "Gigabit"
-msgstr "Gigabit"
-
-#: src/Views/ConvDataView.vala:69
-msgid "Gibibit"
-msgstr "Gibibit"
-
-#: src/Views/ConvDataView.vala:70
-msgid "Terabit"
-msgstr "Terabit"
-
-#: src/Views/ConvDataView.vala:71
-msgid "Tebibit"
-msgstr "Tebibit"
-
-#: src/Views/ConvDataView.vala:72
-msgid "Petabit"
-msgstr "Petabit"
-
-#: src/Views/ConvDataView.vala:73
-msgid "Pebibit"
-msgstr "Pebibit"
-
-#: src/Views/ConvDataView.vala:75
-msgid "Kilobyte"
-msgstr "Kilobyte"
-
-#: src/Views/ConvDataView.vala:76
-msgid "Kibibyte"
-msgstr "Kibibyte"
-
-#: src/Views/ConvDataView.vala:77
-msgid "Megabyte"
-msgstr "Megabyte"
-
-#: src/Views/ConvDataView.vala:78
-msgid "Mebibyte"
-msgstr "Mebibyte"
-
-#: src/Views/ConvDataView.vala:79
-msgid "Gigabyte"
-msgstr "Gigabyte"
-
-#: src/Views/ConvDataView.vala:80
-msgid "Gibibyte"
-msgstr "Gibibyte"
-
-#: src/Views/ConvDataView.vala:81
-msgid "Terabyte"
-msgstr "Terabyte"
-
-#: src/Views/ConvDataView.vala:82
-msgid "Tebibyte"
-msgstr "Tebibyte"
-
-#: src/Views/ConvDataView.vala:83
-msgid "Petabyte"
-msgstr "Petabyte"
-
-#: src/Views/ConvDataView.vala:84
-msgid "Pebibyte"
-msgstr "Pebibyte"
-
-#: src/Views/ConvCurrView.vala:60
+#: src/shell/views/converters/ConvCurrencyView.vala:14
 msgid "US Dollar"
-msgstr "Dólar americano"
+msgstr "Dólar Americano"
 
-#: src/Views/ConvCurrView.vala:61
+#: src/shell/views/converters/ConvCurrencyView.vala:15
 msgid "Euro"
 msgstr "Euro"
 
-#: src/Views/ConvCurrView.vala:62
+#: src/shell/views/converters/ConvCurrencyView.vala:16
 msgid "British Pounds"
-msgstr "Libra britânica"
+msgstr "Libra Britânica"
 
-#: src/Views/ConvCurrView.vala:63
+#: src/shell/views/converters/ConvCurrencyView.vala:17
 msgid "Australian Dollar"
-msgstr "Dólar australiano"
+msgstr "Dólar Australiano"
 
-#: src/Views/ConvCurrView.vala:64
+#: src/shell/views/converters/ConvCurrencyView.vala:18
 msgid "Brazilian Real"
-msgstr "Real brasileiro"
+msgstr "Real Brasileiro"
 
-#: src/Views/ConvCurrView.vala:65
+#: src/shell/views/converters/ConvCurrencyView.vala:19
 msgid "Canadian Dollar"
-msgstr "Dólar canadense"
+msgstr "Dólar Canadense"
 
-#: src/Views/ConvCurrView.vala:66
+#: src/shell/views/converters/ConvCurrencyView.vala:20
 msgid "Chinese Yuan"
-msgstr "Yuan chinês"
+msgstr "Yuan Chinês"
 
-#: src/Views/ConvCurrView.vala:67
+#: src/shell/views/converters/ConvCurrencyView.vala:21
 msgid "Indian Rupee"
-msgstr "Rupia indiana"
+msgstr "Rupia Indiana"
 
-#: src/Views/ConvCurrView.vala:68
+#: src/shell/views/converters/ConvCurrencyView.vala:22
 msgid "Japanese Yen"
-msgstr "Yen japonês"
+msgstr "Yen Japonês"
 
-#: src/Views/ConvCurrView.vala:69
+#: src/shell/views/converters/ConvCurrencyView.vala:23
 msgid "Russian Ruble"
-msgstr "Rublo russo"
+msgstr "Rublo Russo"
 
-#: src/Views/ConvCurrView.vala:70
+#: src/shell/views/converters/ConvCurrencyView.vala:24
 msgid "South African Rand"
-msgstr "Rand sul-africano"
+msgstr "Rand Sul-Africano"
 
-#: src/Views/ConvCurrView.vala:176
-msgid "Failed to update forex data!"
-msgstr "Falha ao atualizar os dados forex!"
+#: src/shell/views/converters/ConvCurrencyView.vala:25
+msgid "Argentine Peso"
+msgstr ""
 
-#: src/Views/ConvCurrView.vala:178
-msgid "Updating foreign exchange data"
-msgstr "Atualizando dados de câmbio estrangeiro"
+#: src/shell/views/converters/ConvCurrencyView.vala:40
+#: src/shell/views/converters/ConvCurrencyView.vala:101
+#: src/shell/views/converters/ConvCurrencyView.vala:120
+#: src/shell/views/converters/ConvCurrencyView.vala:126
+msgid "Last updated: %B %d, %Y %I:%M %p"
+msgstr "Última atualização: %B %d, %Y %I:%M %p"
 
-#: src/Views/ControlsOverlay.vala:33
+#: src/shell/views/converters/ConvCurrencyView.vala:50
+msgid "Please provide an API key in preferences dialog."
+msgstr ""
+"Por favor, forneça uma chave de API na caixa de diálogo de preferências."
+
+#: src/shell/views/converters/ConvDataView.vala:35
+msgid "Bit"
+msgstr "Bit"
+
+#: src/shell/views/converters/ConvDataView.vala:36
+msgid "Kilobit"
+msgstr "Kilobit"
+
+#: src/shell/views/converters/ConvDataView.vala:37
+msgid "Kibibit"
+msgstr "Kibibit"
+
+#: src/shell/views/converters/ConvDataView.vala:38
+msgid "Megabit"
+msgstr "Megabit"
+
+#: src/shell/views/converters/ConvDataView.vala:39
+msgid "Mebibit"
+msgstr "Mebibit"
+
+#: src/shell/views/converters/ConvDataView.vala:40
+msgid "Gigabit"
+msgstr "Gigabit"
+
+#: src/shell/views/converters/ConvDataView.vala:41
+msgid "Gibibit"
+msgstr "Gibibit"
+
+#: src/shell/views/converters/ConvDataView.vala:42
+msgid "Terabit"
+msgstr "Terabit"
+
+#: src/shell/views/converters/ConvDataView.vala:43
+msgid "Tebibit"
+msgstr "Tebibit"
+
+#: src/shell/views/converters/ConvDataView.vala:44
+msgid "Petabit"
+msgstr "Petabit"
+
+#: src/shell/views/converters/ConvDataView.vala:45
+msgid "Pebibit"
+msgstr "Pebibit"
+
+#: src/shell/views/converters/ConvDataView.vala:46
+msgid "Byte"
+msgstr "Byte"
+
+#: src/shell/views/converters/ConvDataView.vala:47
+msgid "Kilobyte"
+msgstr "Kilobyte"
+
+#: src/shell/views/converters/ConvDataView.vala:48
+msgid "Kibibyte"
+msgstr "Kibibyte"
+
+#: src/shell/views/converters/ConvDataView.vala:49
+msgid "Megabyte"
+msgstr "Megabyte"
+
+#: src/shell/views/converters/ConvDataView.vala:50
+msgid "Mebibyte"
+msgstr "Mebibyte"
+
+#: src/shell/views/converters/ConvDataView.vala:51
+msgid "Gigabyte"
+msgstr "Gigabyte"
+
+#: src/shell/views/converters/ConvDataView.vala:52
+msgid "Gibibyte"
+msgstr "Gibibyte"
+
+#: src/shell/views/converters/ConvDataView.vala:53
+msgid "Terabyte"
+msgstr "Terabyte"
+
+#: src/shell/views/converters/ConvDataView.vala:54
+msgid "Tebibyte"
+msgstr "Tebibyte"
+
+#: src/shell/views/converters/ConvDataView.vala:55
+msgid "Petabyte"
+msgstr "Petabyte"
+
+#: src/shell/views/converters/ConvDataView.vala:56
+msgid "Pebibyte"
+msgstr "Pebibyte"
+
+#: src/shell/views/converters/ConvEnergyView.vala:23
+msgid "Joule"
+msgstr "Joule"
+
+#: src/shell/views/converters/ConvEnergyView.vala:24
+msgid "Kilojoule"
+msgstr "Quilojoule"
+
+#: src/shell/views/converters/ConvEnergyView.vala:25
+msgid "Gram calorie"
+msgstr "Caloria"
+
+#: src/shell/views/converters/ConvEnergyView.vala:26
+msgid "Kilocalorie"
+msgstr "Quilocaloria"
+
+#: src/shell/views/converters/ConvEnergyView.vala:27
+msgid "Watt hour"
+msgstr "Watt-hora"
+
+#: src/shell/views/converters/ConvEnergyView.vala:28
+msgid "Kilowatt hour"
+msgstr "Quilowatt-hora"
+
+#. "Electronvolt",       Future Support
+#: src/shell/views/converters/ConvEnergyView.vala:30
+msgid "British thermal unit"
+msgstr "Unidade térmica Britânica"
+
+#: src/shell/views/converters/ConvEnergyView.vala:31
+msgid "US therm"
+msgstr "Term Americano"
+
+#: src/shell/views/converters/ConvEnergyView.vala:32
+msgid "Foot-pound"
+msgstr "Libra-pé"
+
+#: src/shell/views/converters/ConvLengthView.vala:24
+msgid "Nanometre"
+msgstr "Nanômetro"
+
+#: src/shell/views/converters/ConvLengthView.vala:25
+msgid "Micron"
+msgstr "Mícron"
+
+#: src/shell/views/converters/ConvLengthView.vala:26
+msgid "Millimetre"
+msgstr "Milímetro"
+
+#: src/shell/views/converters/ConvLengthView.vala:27
+msgid "Centimetre"
+msgstr "Centímetro"
+
+#: src/shell/views/converters/ConvLengthView.vala:28
+msgid "Metre"
+msgstr "Metro"
+
+#: src/shell/views/converters/ConvLengthView.vala:29
+msgid "Kilometre"
+msgstr "Quilômetro"
+
+#: src/shell/views/converters/ConvLengthView.vala:30
+msgid "Inch"
+msgstr "Polegada"
+
+#: src/shell/views/converters/ConvLengthView.vala:31
+msgid "Foot"
+msgstr "Pé"
+
+#: src/shell/views/converters/ConvLengthView.vala:32
+msgid "Yard"
+msgstr "Jarda"
+
+#: src/shell/views/converters/ConvLengthView.vala:33
+msgid "Mile"
+msgstr "Milha"
+
+#: src/shell/views/converters/ConvLengthView.vala:34
+msgid "Nautical Mile"
+msgstr "Milha náutica"
+
+#: src/shell/views/converters/ConvMassView.vala:23
+msgid "Microgram"
+msgstr "Micrograma"
+
+#: src/shell/views/converters/ConvMassView.vala:24
+msgid "Milligram"
+msgstr "Miligrama"
+
+#: src/shell/views/converters/ConvMassView.vala:25
+msgid "Gram"
+msgstr "Grama"
+
+#: src/shell/views/converters/ConvMassView.vala:26
+msgid "Kilogram"
+msgstr "Quilograma"
+
+#: src/shell/views/converters/ConvMassView.vala:27
+msgid "Tonne"
+msgstr "Tonelada"
+
+#: src/shell/views/converters/ConvMassView.vala:28
+msgid "US ton"
+msgstr "Tonelada americana"
+
+#: src/shell/views/converters/ConvMassView.vala:29
+msgid "Imperial Ton"
+msgstr "Tonelada imperial"
+
+#: src/shell/views/converters/ConvMassView.vala:30
+msgid "Ounce"
+msgstr "Onça"
+
+#: src/shell/views/converters/ConvMassView.vala:31
+msgid "Pound"
+msgstr "Libra"
+
+#: src/shell/views/converters/ConvMassView.vala:32
+msgid "Stone"
+msgstr "Stone"
+
+#: src/shell/views/converters/ConvPowerView.vala:19
+msgid "Watt"
+msgstr "Watt"
+
+#: src/shell/views/converters/ConvPowerView.vala:20
+msgid "Kilowatt"
+msgstr "Quilowatt"
+
+#: src/shell/views/converters/ConvPowerView.vala:21
+msgid "Metric horsepower"
+msgstr "Potência métrica"
+
+#: src/shell/views/converters/ConvPowerView.vala:22
+msgid "Mechanical horsepower"
+msgstr "Potência mecânica"
+
+#: src/shell/views/converters/ConvPowerView.vala:23
+msgid "Foot-pound / minute"
+msgstr "Libra-pé/minuto"
+
+#: src/shell/views/converters/ConvPowerView.vala:24
+msgid "BTU / hour"
+msgstr "BTU/hora"
+
+#: src/shell/views/converters/ConvPressureView.vala:19
+msgid "Atmosphere"
+msgstr "Atmosfera"
+
+#: src/shell/views/converters/ConvPressureView.vala:20
+msgid "Bar"
+msgstr "Bar"
+
+#: src/shell/views/converters/ConvPressureView.vala:21
+msgid "Millimetre of mercury"
+msgstr "Milímetro de mercúrio"
+
+#: src/shell/views/converters/ConvPressureView.vala:22
+msgid "Pascal"
+msgstr "Pascal"
+
+#: src/shell/views/converters/ConvPressureView.vala:23
+msgid "Pound-force / sq-inch"
+msgstr "Libra-força/polegada quadrada"
+
+#: src/shell/views/converters/ConvPressureView.vala:24
+msgid "Torr"
+msgstr "Torr"
+
+#: src/shell/views/converters/ConvSpeedView.vala:20
+msgid "Centimetre per second"
+msgstr "Centímetro por segundo"
+
+#: src/shell/views/converters/ConvSpeedView.vala:21
+msgid "Metre per second"
+msgstr "Metro por segundo"
+
+#: src/shell/views/converters/ConvSpeedView.vala:22
+msgid "Kilometre per hour"
+msgstr "Quilômetro por hora"
+
+#: src/shell/views/converters/ConvSpeedView.vala:23
+msgid "Foot per second"
+msgstr "Pé por segundo"
+
+#: src/shell/views/converters/ConvSpeedView.vala:24
+msgid "Miles per hour"
+msgstr "Milhas por hora"
+
+#: src/shell/views/converters/ConvSpeedView.vala:25
+msgid "Knot"
+msgstr "Nó"
+
+#: src/shell/views/converters/ConvSpeedView.vala:26
+msgid "Mach"
+msgstr "Mach"
+
+#: src/shell/views/converters/ConvTempView.vala:16
+msgid "Celsius"
+msgstr "Celsius"
+
+#: src/shell/views/converters/ConvTempView.vala:17
+msgid "Fahrenheit"
+msgstr "Fahrenheit"
+
+#: src/shell/views/converters/ConvTempView.vala:18
+msgid "Kelvin"
+msgstr "Kelvin"
+
+#: src/shell/views/converters/ConvTimeView.vala:24
+msgid "Microsecond"
+msgstr "Microssegundo"
+
+#: src/shell/views/converters/ConvTimeView.vala:25
+msgid "Millisecond"
+msgstr "Milissegundo"
+
+#: src/shell/views/converters/ConvTimeView.vala:26
+msgid "Second"
+msgstr "Segundo"
+
+#: src/shell/views/converters/ConvTimeView.vala:27
+msgid "Minute"
+msgstr "Minuto"
+
+#: src/shell/views/converters/ConvTimeView.vala:28
+msgid "Hour"
+msgstr "Hora"
+
+#: src/shell/views/converters/ConvTimeView.vala:29
+msgid "Day"
+msgstr "Dia"
+
+#: src/shell/views/converters/ConvTimeView.vala:30
+msgid "Week"
+msgstr "Semana"
+
+#: src/shell/views/converters/ConvTimeView.vala:31
+msgid "Month"
+msgstr "Mês"
+
+#: src/shell/views/converters/ConvTimeView.vala:32
+msgid "Year"
+msgstr "Ano"
+
+#: src/shell/views/converters/ConvTimeView.vala:33
+msgid "Decade"
+msgstr "Década"
+
+#: src/shell/views/converters/ConvTimeView.vala:34
+msgid "Century"
+msgstr "Século"
+
+#: src/shell/views/converters/ConvVolumeView.vala:34
+msgid "Millilitre"
+msgstr "Mililitro"
+
+#: src/shell/views/converters/ConvVolumeView.vala:35
+msgid "Cubic centimetre"
+msgstr "Centímetro cúbico"
+
+#: src/shell/views/converters/ConvVolumeView.vala:36
+msgid "Litre"
+msgstr "Litro"
+
+#: src/shell/views/converters/ConvVolumeView.vala:37
+msgid "Cubic metre"
+msgstr "Metro cúbico"
+
+#: src/shell/views/converters/ConvVolumeView.vala:38
+msgid "US teaspoon"
+msgstr "Colher de chá americana"
+
+#: src/shell/views/converters/ConvVolumeView.vala:39
+msgid "US tablespoon"
+msgstr "Colher de sopa americana"
+
+#: src/shell/views/converters/ConvVolumeView.vala:40
+msgid "US fluid ounce"
+msgstr "Onça fluída americana"
+
+#: src/shell/views/converters/ConvVolumeView.vala:41
+msgid "US legal cup"
+msgstr "Copo Americano"
+
+#: src/shell/views/converters/ConvVolumeView.vala:42
+msgid "US pint"
+msgstr "Pinto Americano"
+
+#: src/shell/views/converters/ConvVolumeView.vala:43
+msgid "US quart"
+msgstr "Quarto Americano"
+
+#: src/shell/views/converters/ConvVolumeView.vala:44
+msgid "US gallon"
+msgstr "Galão Americano"
+
+#: src/shell/views/converters/ConvVolumeView.vala:45
+msgid "Imperial teaspoon"
+msgstr "Colher de chá Imperial"
+
+#: src/shell/views/converters/ConvVolumeView.vala:46
+msgid "Imperial tablespoon"
+msgstr "Colher de sopa Imperial"
+
+#: src/shell/views/converters/ConvVolumeView.vala:47
+msgid "Imperial fluid ounce"
+msgstr "Onça fluída Imperial"
+
+#: src/shell/views/converters/ConvVolumeView.vala:48
+msgid "Imperial cup"
+msgstr "Copo Imperial"
+
+#: src/shell/views/converters/ConvVolumeView.vala:49
+msgid "Imperial pint"
+msgstr "Pinto Imperial"
+
+#: src/shell/views/converters/ConvVolumeView.vala:50
+msgid "Imperial quart"
+msgstr "Quarto Imperial"
+
+#: src/shell/views/converters/ConvVolumeView.vala:51
+msgid "Imperial gallon"
+msgstr "Galão Imperial"
+
+#: src/shell/views/converters/ConvVolumeView.vala:52
+msgid "Cubic inch"
+msgstr "Polegada cúbica"
+
+#: src/shell/views/converters/ConvVolumeView.vala:53
+msgid "Cubic foot"
+msgstr "Pé cúbico"
+
+#: src/shell/views/converters/ConvVolumeView.vala:54
+msgid "Cubic yard"
+msgstr "Jarda cúbica"
+
+#: src/shell/widgets/displays/CalculusDisplay.vala:163
+#: src/shell/widgets/displays/ProgrammerDisplay.vala:255
+#: src/shell/widgets/displays/ScientificDisplay.vala:133
+#: src/shell/widgets/displays/StatisticsDisplay.vala:411
+msgid "Error"
+msgstr ""
+
+#: src/shell/widgets/displays/EquationEntry.vala:38
+msgid ""
+"<b>Cartesian Mode: <i>y = f(x)</i></b>\n"
+"Click to switch to Radial Mode"
+msgstr ""
+
+#: src/shell/widgets/displays/EquationEntry.vala:40
+msgid ""
+"<b>Radial Mode: <i>r = f(θ)</i></b>\n"
+"Click to switch to Cartesian Mode"
+msgstr ""
+
+#: src/shell/widgets/displays/EquationEntry.vala:80
+msgid "Delete equation"
+msgstr ""
+
+#: src/shell/widgets/displays/HistoryDisplay.vala:77
+msgid "Answer copied to clipboard"
+msgstr ""
+
+#: src/shell/widgets/displays/HistoryDisplay.vala:165
+msgid "Insert Result"
+msgstr ""
+
+#: src/shell/widgets/displays/HistoryDisplay.vala:171
+msgid "Recall"
+msgstr ""
+
+#: src/shell/widgets/displays/StatisticsDisplay.vala:469
+msgid "Pie plot not available"
+msgstr ""
+
+#: src/shell/widgets/displays/StatisticsDisplay.vala:472
+msgid "Bar plot not available"
+msgstr ""
+
+#: src/shell/widgets/displays/StatisticsDisplay.vala:475
+msgid "Plot not available"
+msgstr ""
+
+#: data/ui/calculus_display.blp:55 data/ui/equation_display.blp:49
+#: data/ui/programmer_display.blp:61 data/ui/scientific_display.blp:55
+#: data/ui/statistics_display.blp:107
+msgid "SHIFT"
+msgstr ""
+
+#: data/ui/calculus_display.blp:135
+msgid "Integral lower limit"
+msgstr "Limite inferior integral"
+
+#: data/ui/calculus_display.blp:137
+msgid "Lower limit"
+msgstr "Limite inferior"
+
+#: data/ui/calculus_display.blp:146
+msgid "Integral upper limit"
+msgstr "Limite superior integral"
+
+#: data/ui/calculus_display.blp:148
+msgid "Upper limit"
+msgstr "Limite superior"
+
+#: data/ui/calculus_display.blp:158
+msgid "x tends to"
+msgstr "x tende a"
+
+#: data/ui/calculus_display.blp:160
+msgid "when value of x is"
+msgstr "quando o valor de x é"
+
+#: data/ui/calculus_view.blp:36 data/ui/graphing_view.blp:33
+#: data/ui/scientific_view.blp:36
+msgid "Numerical Input"
+msgstr ""
+
+#: data/ui/calculus_view.blp:53 data/ui/converter_view.blp:110
+#: data/ui/graphing_view.blp:50 data/ui/programmer_view.blp:58
+#: data/ui/scientific_view.blp:53 data/ui/statistics_view.blp:53
+msgid "AC"
+msgstr ""
+
+#: data/ui/calculus_view.blp:74 data/ui/converter_view.blp:131
+#: data/ui/graphing_view.blp:71 data/ui/programmer_view.blp:79
+#: data/ui/scientific_view.blp:74 data/ui/statistics_view.blp:87
+msgid "Backspace"
+msgstr "Apagar"
+
+#: data/ui/calculus_view.blp:107 data/ui/graphing_view.blp:104
+#: data/ui/programmer_view.blp:113 data/ui/scientific_view.blp:107
+msgid "Divide"
+msgstr "Dividir"
+
+#: data/ui/calculus_view.blp:196 data/ui/graphing_view.blp:195
+#: data/ui/programmer_view.blp:202 data/ui/scientific_view.blp:196
+msgid "Multiply"
+msgstr "Multiplicar"
+
+#: data/ui/calculus_view.blp:285 data/ui/graphing_view.blp:287
+#: data/ui/programmer_view.blp:291 data/ui/scientific_view.blp:285
+msgid "Subtract"
+msgstr "Subtrair"
+
+#: data/ui/calculus_view.blp:305 data/ui/calculus_view.blp:639
+#: data/ui/graphing_view.blp:637 data/ui/scientific_view.blp:305
+#: data/ui/scientific_view.blp:639
+msgid "Log base 10"
+msgstr "Log de base 10"
+
+#: data/ui/calculus_view.blp:372 data/ui/graphing_view.blp:379
+#: data/ui/programmer_view.blp:380 data/ui/scientific_view.blp:372
+msgid "Add"
+msgstr "Adicionar"
+
+#: data/ui/calculus_view.blp:475 data/ui/calculus_view.blp:905
+#: data/ui/programmer_view.blp:486 data/ui/programmer_view.blp:861
+#: data/ui/scientific_view.blp:475 data/ui/scientific_view.blp:905
+msgid "="
+msgstr ""
+
+#: data/ui/calculus_view.blp:516 data/ui/graphing_view.blp:534
+#: data/ui/programmer_view.blp:824 data/ui/scientific_view.blp:516
+#: data/ui/statistics_view.blp:527
+msgid "Shift"
+msgstr ""
+
+#: data/ui/calculus_view.blp:618 data/ui/graphing_view.blp:616
+#: data/ui/scientific_view.blp:618
+msgid "Hyberbolic Sine"
+msgstr ""
+
+#: data/ui/calculus_view.blp:658 data/ui/programmer_view.blp:650
+#: data/ui/scientific_view.blp:658 data/ui/statistics_view.blp:665
+msgid "M−"
+msgstr ""
+
+#: data/ui/calculus_view.blp:701 data/ui/graphing_view.blp:679
+#: data/ui/scientific_view.blp:701
+msgid "Hyberbolic Cosine"
+msgstr ""
+
+#: data/ui/calculus_view.blp:741 data/ui/programmer_view.blp:727
+#: data/ui/scientific_view.blp:741 data/ui/statistics_view.blp:748
+msgid "MR"
+msgstr ""
+
+#: data/ui/calculus_view.blp:784 data/ui/graphing_view.blp:834
+#: data/ui/scientific_view.blp:784
+msgid "Hyberbolic Tangent"
+msgstr ""
+
+#: data/ui/calculus_view.blp:824 data/ui/programmer_view.blp:804
+#: data/ui/scientific_view.blp:824 data/ui/statistics_view.blp:831
+msgid "MC"
+msgstr ""
+
+#: data/ui/calculus_view.blp:927 data/ui/programmer_view.blp:883
+#: data/ui/scientific_view.blp:927 data/ui/statistics_view.blp:936
+msgid "->"
+msgstr ""
+
+#: data/ui/conv_angle_view.blp:6 data/ui/main_window.blp:331
+msgid "Angle"
+msgstr "Ângulo"
+
+#: data/ui/conv_area_view.blp:6 data/ui/main_window.blp:277
+msgid "Area"
+msgstr "Área"
+
+#: data/ui/conv_currency_view.blp:6 data/ui/main_window.blp:475
+msgid "Currency"
+msgstr "Moeda"
+
+#: data/ui/conv_data_view.blp:6 data/ui/main_window.blp:457
+msgid "Data"
+msgstr "Dado"
+
+#: data/ui/conv_energy_view.blp:6 data/ui/main_window.blp:403
+msgid "Energy"
+msgstr "Energia"
+
+#: data/ui/conv_length_view.blp:6 data/ui/main_window.blp:259
+msgid "Length"
+msgstr "Comprimento"
+
+#: data/ui/conv_mass_view.blp:6 data/ui/main_window.blp:367
+msgid "Mass"
+msgstr "Massa"
+
+#: data/ui/conv_power_view.blp:6 data/ui/main_window.blp:421
+msgid "Power"
+msgstr "Força"
+
+#: data/ui/conv_pressure_view.blp:6 data/ui/main_window.blp:385
+msgid "Pressure"
+msgstr "Pressão"
+
+#: data/ui/conv_speed_view.blp:6 data/ui/main_window.blp:349
+msgid "Speed"
+msgstr "Velocidade"
+
+#: data/ui/conv_temp_view.blp:6 data/ui/main_window.blp:439
+msgid "Temperature"
+msgstr "Temperatura"
+
+#: data/ui/conv_time_view.blp:6 data/ui/main_window.blp:313
+msgid "Time"
+msgstr "Tempo"
+
+#: data/ui/conv_volume_view.blp:6 data/ui/main_window.blp:295
+msgid "Volume"
+msgstr "Volume"
+
+#: data/ui/date_view.blp:37
+msgid "Find Difference"
+msgstr "Encontrar diferença"
+
+#: data/ui/date_view.blp:48
+msgid "From"
+msgstr "De"
+
+#: data/ui/date_view.blp:60
+msgid "To"
+msgstr "Até"
+
+#: data/ui/date_view.blp:91
+msgid "Difference"
+msgstr "Diferença"
+
+#: data/ui/date_view.blp:134
+msgid "Infer Date"
+msgstr "Inferir data"
+
+#: data/ui/date_view.blp:145
+msgid "Starting From"
+msgstr ""
+
+#: data/ui/date_view.blp:167
+msgid "Days"
+msgstr ""
+
+#: data/ui/date_view.blp:174
+msgid "Months"
+msgstr ""
+
+#: data/ui/date_view.blp:181
+msgid "Years"
+msgstr ""
+
+#: data/ui/date_view.blp:229
+msgid "Set a duration"
+msgstr "Definir uma duração"
+
+#: data/ui/date_view.blp:241
+msgid "Days, months or year"
+msgstr "Dias, meses ou ano"
+
+#: data/ui/graph_viewport.blp:32
+msgid "Click to switch scaling mode. Scroll to scale y-axis."
+msgstr ""
+
+#: data/ui/graph_viewport.blp:52
+msgid "Click to switch scaling mode. Scroll to scale x-axis."
+msgstr ""
+
+#: data/ui/graph_viewport.blp:71
+msgid "Reset view"
+msgstr ""
+
+#: data/ui/graphing_view.blp:398 data/ui/graphing_view.blp:891
+msgid "Add Equation"
+msgstr ""
+
+#: data/ui/graphing_view.blp:494 data/ui/graphing_view.blp:910
+msgid "Render Graph"
+msgstr ""
+
+#: data/ui/graphing_view.blp:517 data/ui/scientific_view.blp:499
+msgid "Functional Input"
+msgstr ""
+
+#: data/ui/graphing_view.blp:719
+msgid "SMR"
+msgstr ""
+
+#: data/ui/graphing_view.blp:973
+msgid "Go back to equation view"
+msgstr ""
+
+#: data/ui/graphing_view.blp:986
+msgid "Variables"
+msgstr ""
+
+#: data/ui/graphing_view.blp:1000
+msgid "Export figure as image"
+msgstr ""
+
+#: data/ui/main_window.blp:80
+msgid "Navigation Pane"
+msgstr ""
+
+#: data/ui/main_window.blp:108
+msgid "Calculators"
+msgstr ""
+
+#: data/ui/main_window.blp:133 data/ui/preferences_dialog.blp:72
+#: data/ui/shortcuts_dialog.blp:63
+msgid "Scientific"
+msgstr "Científica"
+
+#: data/ui/main_window.blp:151 data/ui/preferences_dialog.blp:86
+#: data/ui/shortcuts_dialog.blp:94
+msgid "Calculus"
+msgstr "Cálculo"
+
+#: data/ui/main_window.blp:169 data/ui/shortcuts_dialog.blp:107
+msgid "Programmer"
+msgstr "Programador"
+
+#: data/ui/main_window.blp:187 data/ui/shortcuts_dialog.blp:81
+msgid "Statistics"
+msgstr "Estatística"
+
+#: data/ui/main_window.blp:205
+msgid "Graphing"
+msgstr ""
+
+#: data/ui/main_window.blp:223
+msgid "Date"
+msgstr "Data"
+
+#: data/ui/main_window.blp:234 data/ui/preferences_dialog.blp:127
+msgid "Converters"
+msgstr ""
+
+#: data/ui/main_window.blp:540
+msgid "Switch word length"
+msgstr ""
+
+#: data/ui/main_window.blp:552
+msgid "Bit toggle grid"
+msgstr "Grade alternador de bit"
+
+#: data/ui/main_window.blp:566
+msgid "Import table from csv file"
+msgstr ""
+
+#: data/ui/main_window.blp:576
+msgid "Export table to csv file"
+msgstr ""
+
+#: data/ui/main_window.blp:596
+msgid "Update Forex Data"
+msgstr "Atualizar dados Forex"
+
+#: data/ui/main_window.blp:633
+msgid "Light Mode"
+msgstr ""
+
+#: data/ui/main_window.blp:643
+msgid "Dark Mode"
+msgstr ""
+
+#: data/ui/main_window.blp:653
+msgid "Follow System Theme"
+msgstr ""
+
+#: data/ui/main_window.blp:665
+msgid "Controls"
+msgstr ""
+
+#: data/ui/main_window.blp:671
+msgid "Preferences"
+msgstr "Preferências"
+
+#: data/ui/main_window.blp:681
+msgid "Quit"
+msgstr "Desistir"
+
+#: data/ui/preferences_dialog.blp:9
+msgid "General"
+msgstr "Em geral"
+
+#: data/ui/preferences_dialog.blp:13
+msgid "Save State"
+msgstr "Salvar Estado"
+
+#: data/ui/preferences_dialog.blp:14
+msgid "Load last session on startup"
+msgstr "Carregar a última sessão ao iniciar"
+
+#: data/ui/preferences_dialog.blp:22
+msgid "Decimal Places"
+msgstr "Casas Decimais"
+
+#: data/ui/preferences_dialog.blp:23
+msgid "Number of decimal places after radix symbol"
+msgstr "Número de casas decimais após o separador decimal"
+
+#: data/ui/preferences_dialog.blp:43
+msgid "Scientific Constants Button"
+msgstr "Botão de Constantes Científicas"
+
+#: data/ui/preferences_dialog.blp:44
+msgid ""
+"The scientific constants to insert when the 'Constants' button is clicked"
+msgstr ""
+"As constantes científicas a serem inseridas quando o botão 'Constantes' for "
+"clicado"
+
+#: data/ui/preferences_dialog.blp:50
+msgid "Constants Button Default"
+msgstr "Botão de Constantes Padrão"
+
+#: data/ui/preferences_dialog.blp:60
+msgid "Constants Button Shifted"
+msgstr "Botão de Constantes Deslocado"
+
+#: data/ui/preferences_dialog.blp:76
+msgid "Result Flow"
+msgstr "Fluxo de Resultados"
+
+#: data/ui/preferences_dialog.blp:77
+msgid "Whether result button should replace input with result"
+msgstr "Se o botão de resultado deve substituir a entrada pelo resultado"
+
+#: data/ui/preferences_dialog.blp:90
+msgid "Integration Resolution"
+msgstr "Resolução de Integração"
+
+#: data/ui/preferences_dialog.blp:91
+msgid "Higher resolution means more time to process"
+msgstr "Maior resolução significa mais tempo de processamento"
+
+#: data/ui/preferences_dialog.blp:108
+msgid "Derivative Accuracy"
+msgstr "Precisão da Derivada"
+
+#: data/ui/preferences_dialog.blp:109
+msgid "Precision for determining the derivative at the limit"
+msgstr "Precisão para determinar a derivada no limite"
+
+#: data/ui/preferences_dialog.blp:131
+msgid "Currency Converter API Key"
+msgstr "Chave da API do conversor de moeda"
+
+#: data/ui/preferences_dialog.blp:138
+msgid "Get API Key"
+msgstr "Obter chave de API"
+
+#: data/ui/programmer_view.blp:400 data/ui/programmer_view.blp:785
+msgid "Bitwise XOR (TRUE only when inputs are different)"
+msgstr "XOR Bit a Bit (VERDADEIRO somente quando as entradas são diferentes)"
+
+#: data/ui/programmer_view.blp:467
+msgid "Bitwise NOT (TRUE for input being FALSE and Vice Versa)"
+msgstr "Bit a Bit (VERDADEIRO para entrada FALSA e vice-versa)"
+
+#: data/ui/scientific_view.blp:89
+msgid "Percentage"
+msgstr "Porcentagem"
+
+#: data/ui/shortcuts_dialog.blp:7
+msgid "Shortcuts"
+msgstr "Atalhos"
+
+#: data/ui/shortcuts_dialog.blp:50
 msgid "Common"
 msgstr "Comum"
 
-#: src/Views/ControlsOverlay.vala:98
+#: data/ui/shortcuts_dialog.blp:120
 msgid "Unit Converters"
 msgstr "Conversores de unidade"
 
-#: src/Views/ControlsOverlay.vala:121
-msgid "Pebbles Controls"
-msgstr "Controles do Pebbles"
+#: data/ui/statistics_view.blp:74
+msgid "Series Clear"
+msgstr "Série Clara"
 
-#: src/Views/HistoryView.vala:55
-msgid "Double click to recall, Right click to insert"
-msgstr "Clique duas vezes para recuperar, clique com o botão direito para inserir"
+#: data/ui/statistics_view.blp:101
+msgid "A Cell to Right"
+msgstr "Uma célula para a direita"
 
-#: src/Views/HistoryView.vala:62
-msgid "Clear history"
-msgstr "Limpar histórico"
+#: data/ui/statistics_view.blp:188
+msgid "A Cell to Left"
+msgstr "Uma célula à esquerda"
 
-#: src/Views/HistoryView.vala:89
-msgid "Input Expression"
-msgstr "Expressão inserida"
+#: data/ui/statistics_view.blp:279
+msgid "Switch Visualization"
+msgstr "Alterar Visualização"
 
-#: src/Views/HistoryView.vala:90
-msgid "Type"
-msgstr "Tipo"
+#: data/ui/statistics_view.blp:373
+msgid "Trend"
+msgstr "Tendência"
 
-#: src/Views/HistoryView.vala:118
-msgid "Integral"
-msgstr "Integral"
+#: data/ui/statistics_view.blp:469
+msgid "Negative"
+msgstr "Negativar"
 
-#: src/Views/HistoryView.vala:121
-msgid "Derivative"
-msgstr "Derivada"
+#: data/ui/statistics_view.blp:545
+msgid "Go Up"
+msgstr "Subir"
 
-#: src/Views/Displays/StatisticsDisplay.vala:152
-msgid "Enter data by adding new cell"
-msgstr "Insira os dados adicionando uma nova célula"
+#: data/ui/statistics_view.blp:564
+msgid "Go Down"
+msgstr "Desça"
 
-#: src/Core/CurrencyConverter.vala:56
-msgid "Thread support missing. Please wait for web API access…"
-msgstr "Falta de suporte a thread. Aguarde o acesso à API da web…"
+#: data/ui/statistics_view.blp:626
+msgid "Mode of series"
+msgstr "Modo de série"
 
-#: src/Core/CurrencyConverter.vala:82
-msgid "Failed to connect to currency exchange service"
-msgstr "Falha ao conectar ao serviço de câmbio"
+#: data/ui/statistics_view.blp:687
+msgid "Summation over series"
+msgstr "Soma sobre séries"
 
-#: src/Core/CurrencyConverter.vala:112
-#, c-format
-msgid "Failed to connect to service: %s"
-msgstr "Falha ao conectar ao serviço: %s"
+#: data/ui/statistics_view.blp:708
+msgid "Summation over squared values in series"
+msgstr "Soma dos valores ao quadrado em uma série"
+
+#: data/ui/statistics_view.blp:791
+msgid "Mean of squared data values"
+msgstr "Média quadrada dos valores"

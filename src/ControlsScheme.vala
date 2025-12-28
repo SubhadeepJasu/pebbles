@@ -1,24 +1,9 @@
-/*-
- * Copyright (c) 2017-2020 Subhadeep Jasu <subhajasu@gmail.com>
- * Copyright (c) 2017-2020 Saunak Biswas <saunakbis97@gmail.com>
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License 
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
- *
- * Authored by: Subhadeep Jasu <subhajasu@gmail.com>
+/*
+ * Copyright 2019-2026 Subhadeep Jasu <subhadeep107@proton.me>
+ * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-namespace Pebbles { 
+namespace Pebbles {
     public class ControlScheme {
         public string[,] common;
         public string[,] scientific;
@@ -54,13 +39,13 @@ namespace Pebbles {
                     _("Close Dialog"), "Escape"
                 },
                 {
-                    _("All Clear"), "Delete"
+                    _("All Clear"), "<Shift>BackSpace"
                 },
                 {
                     _("Copy Result"), "<Ctrl>C"
                 },
                 {
-                    _("Paste Input Expression"), "<Ctrl>V"
+                    _("Paste"), "<Ctrl>V"
                 }
             };
             scientific = {
@@ -129,10 +114,7 @@ namespace Pebbles {
             };
             statistics = {
                 {
-                    _("Add Cell"), "Page_Up"
-                },
-                {
-                    _("Insert Cell"), "Page_Down"
+                    _("Add Cell"), "A"
                 },
                 {
                     _("Next Cell or Add Right"), "Tab"
@@ -147,13 +129,13 @@ namespace Pebbles {
                     _("Navigate Right"), "Right"
                 },
                 {
-                    _("Remove Cell"), "Home"
+                    _("Navigate Up"), "Up"
                 },
                 {
-                    _("Remove All Cells (Reset)"), "End"
+                    _("Navigate Down"), "Down"
                 },
                 {
-                    _("Cardinality"), "N"
+                    _("Data Size"), "N"
                 },
                 {
                     _("Mode"), "O"
@@ -192,20 +174,11 @@ namespace Pebbles {
             calculus = {
                 {
                     _("Variable x"), "X"
-                },
-                {
-                    _("Definite Integral"), "I"
-                },
-                {
-                    _("Derivative at a point"), "D"
                 }
             };
             converter = {
                 {
-                    _("Interchange unit"), "Return"
-                },
-                {
-                    _("Update Forex Data (Currency converter)"), "R"
+                    _("Interchange Units"), "Return"
                 }
             };
         }

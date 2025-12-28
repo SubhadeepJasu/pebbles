@@ -1,10 +1,7 @@
-# Install main translations
+# SPDX-License-Identifier: GPL-3.0-or-later
 i18n.gettext (meson.project_name (),
-  args: [
-    '--directory=' + meson.source_root (),
-    '--from-code=UTF-8',
-    '-cTRANSLATORS'
-  ]
+  args: '--directory=' + meson.project_source_root (),
+  preset: 'glib',
 )
 
 subdir ('extra')

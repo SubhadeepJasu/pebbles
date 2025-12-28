@@ -1,0 +1,135 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: 2024 Subhadeep Jasu <subhadeep107@proton.me>
+using Gtk 4.0;
+using Adw 1;
+
+template $PebblesShortcutsDialog: Adw.Dialog {
+    title: _("Shortcuts");
+    width-request: 300;
+    height-request: 512;
+
+    Adw.Breakpoint {
+        condition ("max-width: 599")
+
+        setters {
+            main_box.orientation: vertical;
+            scrolled_window.width-request: 300;
+        }
+    }
+
+    Box {
+        vexpand: true;
+        orientation: vertical;
+
+        Adw.HeaderBar {
+            show-title: true;
+
+            styles ["flat"]
+        }
+
+        ScrolledWindow scrolled_window {
+            hscrollbar-policy: automatic;
+            hexpand: true;
+            vexpand: true;
+            height-request: 300;
+            width-request: 600;
+
+            Box main_box {
+                orientation: horizontal;
+                spacing: 12;
+                margin-start: 12;
+                margin-end: 12;
+                margin-top: 12;
+                margin-bottom: 12;
+
+                Box left_column {
+                    orientation: vertical;
+                    spacing: 8;
+
+                    Label {
+                        label: _("Common");
+                        halign: start;
+                        styles ["bold"]
+                    }
+
+                    Box common_box {
+                        orientation: vertical;
+                        spacing: 4;
+                        margin-start: 8;
+                        margin-bottom: 4;
+                    }
+
+                    Label {
+                        label: _("Scientific");
+                        halign: start;
+                        styles ["bold"]
+                    }
+
+                    Box scientific_box {
+                        orientation: vertical;
+                        spacing: 4;
+                        margin-start: 8;
+                        margin-bottom: 4;
+                    }
+                }
+
+                Box right_column {
+                    orientation: vertical;
+                    spacing: 4;
+
+                    Label {
+                        label: _("Statistics");
+                        halign: start;
+                        styles ["bold"]
+                    }
+
+                    Box statistics_box {
+                        orientation: vertical;
+                        spacing: 4;
+                        margin-start: 8;
+                        margin-bottom: 4;
+                    }
+
+                    Label {
+                        label: _("Calculus");
+                        halign: start;
+                        styles ["bold"]
+                    }
+
+                    Box calculus_box {
+                        orientation: vertical;
+                        spacing: 4;
+                        margin-start: 8;
+                        margin-bottom: 4;
+                    }
+
+                    Label {
+                        label: _("Programmer");
+                        halign: start;
+                        styles ["bold"]
+                    }
+
+                    Box programmer_box {
+                        orientation: vertical;
+                        spacing: 4;
+                        margin-start: 8;
+                        margin-bottom: 4;
+                    }
+
+                    Label {
+                        label: _("Unit Converters");
+                        halign: start;
+                        styles ["bold"]
+                    }
+
+                    Box converter_box {
+                        orientation: vertical;
+                        spacing: 4;
+                        margin-start: 8;
+                        margin-bottom: 4;
+                    }
+                }
+            }
+        }
+    }
+}

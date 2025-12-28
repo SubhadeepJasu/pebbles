@@ -1,172 +1,264 @@
-/*-
- * Copyright (c) 2017-2020 Subhadeep Jasu <subhajasu@gmail.com>
- * Copyright (c) 2017-2020 Saunak Biswas <saunakbis97@gmail.com>
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
- *
- * Authored by: Subhadeep Jasu <subhajasu@gmail.com>
+/*
+ * Copyright 2019-2026 Subhadeep Jasu <subhadeep107@proton.me>
+ * SPDX-License-Identifier: GPL-3.0-or-later
  */
 
 namespace Pebbles {
-
-    // Specify angle unit to use (degrees, radians or gradient).
-    // Its used in the upper left corner of the app.
-    public enum GlobalAngleUnit {
-        DEG  = 0,
-        RAD  = 1,
-        GRAD = 2
-    }
-
-    // Specify the word length to use (qword, dword, word or byte)
-    // Its used in the upper left corner of the app.
-    public enum GlobalWordLength {
-        QWD  = 0,
-        DWD  = 1,
-        WRD  = 2,
-        BYT  = 3
-    }
-
-    // Specify the number system to use
-    // Its used in programmer mode
-    public enum NumberSystem {
-        BINARY,
-        OCTAL,
-        DECIMAL,
-        HEXADECIMAL
-    }
-
-    // Will be used to specify the variable constant key
-    // both normal and alternative values.
-    public enum ConstantKeyIndex {
-        EULER          = 0,
-        ARCHIMEDES     = 1,
-        PARABOLIC      = 2,
-        GOLDEN_RATIO   = 3,
-        EULER_MASCH    = 4,
-        CONWAY         = 5,
-        KHINCHIN       = 6,
-        FEIGEN_ALPHA   = 7,
-        FEIGEN_DELTA   = 8,
-        APERY          = 9
-    }
-
-    public class Settings : Granite.Services.Settings {
+    public class Settings : GLib.Settings {
         private static Settings settings;
         public static Settings get_default () {
             if (settings == null) {
-                settings = new Settings ();
+                settings = new Pebbles.Settings (Config.SCHEMA_ID);
             }
             return settings;
         }
-        public int window_x {get; set;}
-        public int window_y {get; set;}
-        public int window_w {get; set;}
-        public int window_h {get; set;}
-        public bool window_maximized {get; set;}
-        public int view_index {get; set;}
-        public bool shift_alternative_function {get; set;}
-        public GlobalAngleUnit global_angle_unit {get; set;}
-        public GlobalWordLength global_word_length {get; set;}
-        public NumberSystem number_system {get; set;}
-        public ConstantKeyIndex constant_key_value1 {get; set;}
-        public ConstantKeyIndex constant_key_value2 {get; set;}
-        public int decimal_places {get; set;}
-        public int integration_accuracy {get; set;}
-        public string sci_input_text {get; set;}
-        public string sci_output_text {get; set;}
-        public string sci_memory_value {get; set;}
-        public string prog_input_text {get; set;}
-        public string prog_output_text {get; set;}
-        public string cal_input_text {get; set;}
-        public string cal_output_text {get; set;}
-        public string cal_integration_upper_limit {get; set;}
-        public string cal_integration_lower_limit {get; set;}
-        public string cal_derivation_limit {get; set;}
-        public string stat_input_array {get; set;}
-        public int stat_mode_previous {get; set;}
-        public string stat_output_text {get; set;}
-        public string currency_multipliers {get; set;}
-        public string currency_update_date {get; set;}
-        public string conv_length_from_entry {get; set;}
-        public string conv_length_to_entry {get; set;}
-        public string conv_area_from_entry {get; set;}
-        public string conv_area_to_entry {get; set;}
-        public string conv_angle_from_entry {get; set;}
-        public string conv_angle_to_entry {get; set;}
-        public string conv_volume_from_entry {get; set;}
-        public string conv_volume_to_entry {get; set;}
-        public string conv_time_from_entry {get; set;}
-        public string conv_time_to_entry {get; set;}
-        public string conv_speed_from_entry {get; set;}
-        public string conv_speed_to_entry {get; set;}
-        public string conv_mass_from_entry {get; set;}
-        public string conv_mass_to_entry {get; set;}
-        public string conv_pressure_from_entry {get; set;}
-        public string conv_pressure_to_entry {get; set;}
-        public string conv_energy_from_entry {get; set;}
-        public string conv_energy_to_entry {get; set;}
-        public string conv_power_from_entry {get; set;}
-        public string conv_power_to_entry {get; set;}
-        public string conv_temp_from_entry {get; set;}
-        public string conv_temp_to_entry {get; set;}
-        public string conv_data_from_entry {get; set;}
-        public string conv_data_to_entry {get; set;}
-        public string conv_curr_from_entry {get; set;}
-        public string conv_curr_to_entry {get; set;}
-        public string date_diff_from {get; set;}
-        public string date_diff_to {get; set;}
-        public string date_add_sub {get; set;}
-        public string date_day_entry {get; set;}
-        public string date_month_entry {get; set;}
-        public string date_year_entry {get; set;}
-        public string forex_api_key {get; set;}
-        public string saved_history {get; set;}
-        public bool load_last_session {get; set;}
 
-        private Settings () {
-            base ("com.github.subhadeepjasu.pebbles");
+        // Keys
+        public const string KEY_VERSION = "version";
+        public const string KEY_LOAD_LAST_SESSION = "load-last-session";
+        public const string KEY_RESULT_FLOW = "result-flow";
+        public const string KEY_THEME = "theme";
+        public const string KEY_CONSTANT_KEY_VALUE1 = "constant-key-value1";
+        public const string KEY_CONSTANT_KEY_VALUE2 = "constant-key-value2";
+        public const string KEY_DECIMAL_PLACES = "decimal-places";
+        public const string KEY_INTEGRATION_RESOLUTION = "integration-resolution";
+        public const string KEY_DERIVATIVE_ACCURACY = "derivative-accuracy";
+        public const string KEY_FOREX_API_KEY = "forex-api-key";
+        public const string KEY_FOREX_API_TIMESTAMP = "forex-timestamp";
+        public const string KEY_FOREX_RATES_CACHE = "forex-rates-cache";
+        public const string KEY_GLOBAL_ANGLE_UNIT = "global-angle-unit";
+        public const string KEY_GLOBAL_WORD_LENGTH = "global-word-length";
+        public const string KEY_NUMBER_SYSTEM = "number-system";
+        public const string KEY_LAST_INPUT_SCIENTIFIC = "last-input-scientific";
+        public const string KEY_LAST_INPUT_PROGRAMMER = "last-input-programmer";
+        public const string KEY_LAST_INPUT_CALCULUS = "last-input-calculus";
+        public const string KEY_LAST_INPUT_GRAPHING = "last-input-graphing";
+        public const string KEY_DATE_DIFF_FROM = "date-diff-from";
+        public const string KEY_DATE_DIFF_TO = "date-diff-to";
+        public const string KEY_DATE_STARTING_FROM = "date-starting-from";
+        public const string KEY_DATE_ADD_DAYS = "date-add-days";
+        public const string KEY_DATE_ADD_MONTHS = "date-add-months";
+        public const string KEY_DATE_ADD_YEARS = "date-add-years";
+        public const string KEY_DIFF_MODE_DUR = "diff-mode-dur";
+        public const string KEY_DATE_FIND_MODE = "date-find-mode";
+        public const string KEY_LAST_OUTPUT_SCIENTIFIC = "last-output-scientific";
+        public const string KEY_LAST_OUTPUT_PROGRAMMER = "last-output-programmer";
+        public const string KEY_LAST_OUTPUT_CALCULUS = "last-output-calculus";
+        public const string KEY_LAST_OUTPUT_STATISTICS = "last-output-statistics";
+        public const string KEY_CONV_FROM_SUFFIX = "-from";
+        public const string KEY_CONV_FROM_UNIT_SUFFIX = "-from-unit";
+        public const string KEY_CONV_TO_UNIT_SUFFIX = "-to-unit";
+
+        public Settings (string schema_id) {
+            Object (
+                schema_id: schema_id
+            );
         }
 
-        public void switch_angle_unit () {
-            switch (settings.global_angle_unit) {
-                case GlobalAngleUnit.RAD:
-                    settings.global_angle_unit = GlobalAngleUnit.GRAD;
-                    break;
-                case GlobalAngleUnit.GRAD:
-                    settings.global_angle_unit = GlobalAngleUnit.DEG;
-                    break;
-                default:
-                    settings.global_angle_unit = GlobalAngleUnit.RAD;
-                    break;
+        public void reset_all () {
+            List<string> keys = new List<string> ();
+            keys.append (KEY_GLOBAL_ANGLE_UNIT);
+            keys.append (KEY_GLOBAL_WORD_LENGTH);
+            keys.append (KEY_NUMBER_SYSTEM);
+            keys.append (KEY_LAST_INPUT_SCIENTIFIC);
+            keys.append (KEY_LAST_INPUT_PROGRAMMER);
+            keys.append (KEY_LAST_INPUT_CALCULUS);
+            keys.append (KEY_LAST_INPUT_GRAPHING);
+            keys.append (KEY_DATE_DIFF_FROM);
+            keys.append (KEY_DATE_DIFF_TO);
+            keys.append (KEY_DATE_STARTING_FROM);
+            keys.append (KEY_DATE_ADD_DAYS);
+            keys.append (KEY_DATE_ADD_MONTHS);
+            keys.append (KEY_DATE_ADD_YEARS);
+            keys.append (KEY_DIFF_MODE_DUR);
+            keys.append (KEY_DATE_FIND_MODE);
+            keys.append (KEY_LAST_OUTPUT_SCIENTIFIC);
+            keys.append (KEY_LAST_OUTPUT_PROGRAMMER);
+            keys.append (KEY_LAST_OUTPUT_CALCULUS);
+            keys.append (KEY_LAST_OUTPUT_STATISTICS);
+
+            const string[] CONVERTER_PREFIXES = {
+                Context.CONV_LEN,
+                Context.CONV_AREA,
+                Context.CONV_VOL,
+                Context.CONV_TIME,
+                Context.CONV_ANGLE,
+                Context.CONV_SPEED,
+                Context.CONV_MASS,
+                Context.CONV_PRES,
+                Context.CONV_ENERGY,
+                Context.CONV_POWER,
+                Context.CONV_TEMP,
+                Context.CONV_DATA,
+                Context.CONV_CURR
+            };
+
+            foreach (var item in CONVERTER_PREFIXES) {
+                var conv_key = item.replace (".", "-");
+                keys.append (conv_key + KEY_CONV_FROM_SUFFIX);
+                keys.append (conv_key + KEY_CONV_FROM_UNIT_SUFFIX);
+                keys.append (conv_key + KEY_CONV_TO_UNIT_SUFFIX);
+            }
+
+            foreach (var item in keys) {
+                reset (item);
             }
         }
 
-        public void switch_word_length () {
-            switch (settings.global_word_length) {
-                case GlobalWordLength.DWD:
-                    settings.global_word_length = GlobalWordLength.WRD;
-                    break;
-                case GlobalWordLength.WRD:
-                    settings.global_word_length = GlobalWordLength.BYT;
-                    break;
-                case GlobalWordLength.BYT:
-                    settings.global_word_length = GlobalWordLength.QWD;
-                    break;
-                default:
-                    settings.global_word_length = GlobalWordLength.DWD;
-                    break;
-            }
+        public string version {
+            owned get { return get_string (KEY_VERSION); }
+            set { set_string (KEY_VERSION, value); }
+        }
+
+        public bool load_last_session {
+            get { return get_boolean (KEY_LOAD_LAST_SESSION); }
+            set { set_boolean (KEY_LOAD_LAST_SESSION, value); }
+        }
+
+        public bool result_flow {
+            get { return get_boolean (KEY_RESULT_FLOW); }
+            set { set_boolean (KEY_RESULT_FLOW, value); }
+        }
+
+        public string theme {
+            owned get { return get_string (KEY_THEME); }
+            set { set_string (KEY_THEME, value); }
+        }
+
+        public ConstantKeyIndex constant_key_value1 {
+            get { return get_enum (KEY_CONSTANT_KEY_VALUE1); }
+            set { set_enum (KEY_CONSTANT_KEY_VALUE1, value); }
+        }
+
+        public ConstantKeyIndex constant_key_value2 {
+            get { return get_enum (KEY_CONSTANT_KEY_VALUE2); }
+            set { set_enum (KEY_CONSTANT_KEY_VALUE2, value); }
+        }
+
+        public uint decimal_places {
+            get { return get_uint (KEY_DECIMAL_PLACES); }
+            set { set_uint (KEY_DECIMAL_PLACES, value); }
+        }
+
+        public uint integration_resolution {
+            get { return get_uint (KEY_INTEGRATION_RESOLUTION); }
+            set { set_uint (KEY_INTEGRATION_RESOLUTION, value); }
+        }
+
+        public uint derivative_accuracy {
+            get { return get_uint (KEY_DERIVATIVE_ACCURACY); }
+            set { set_uint (KEY_DERIVATIVE_ACCURACY, value); }
+        }
+
+        public string forex_api_key {
+            owned get { return get_string (KEY_FOREX_API_KEY); }
+            set { set_string (KEY_FOREX_API_KEY, value); }
+        }
+
+        public uint forex_api_last_updated {
+            get { return get_uint (KEY_FOREX_API_TIMESTAMP); }
+            set { set_uint (KEY_FOREX_API_TIMESTAMP, value); }
+        }
+
+        public string[] forex_rates_cache {
+            owned get { return get_strv (KEY_FOREX_RATES_CACHE); }
+            set { set_strv (KEY_FOREX_RATES_CACHE, value); }
+        }
+
+        // State Saving
+        public GlobalAngleUnit global_angle_unit {
+            get { return get_enum (KEY_GLOBAL_ANGLE_UNIT); }
+            set { set_enum (KEY_GLOBAL_ANGLE_UNIT, value); }
+        }
+
+        public GlobalWordLength global_word_length {
+            get { return get_enum (KEY_GLOBAL_WORD_LENGTH); }
+            set { set_enum (KEY_GLOBAL_WORD_LENGTH, value); }
+        }
+
+        public NumberSystem number_system {
+            get { return get_enum (KEY_NUMBER_SYSTEM); }
+            set { set_enum (KEY_NUMBER_SYSTEM, value); }
+        }
+
+        public string last_input_scientific {
+            owned get { return get_string (KEY_LAST_INPUT_SCIENTIFIC); }
+            set { set_string (KEY_LAST_INPUT_SCIENTIFIC, value); }
+        }
+
+        public string last_input_programmer {
+            owned get { return get_string (KEY_LAST_INPUT_PROGRAMMER); }
+            set { set_string (KEY_LAST_INPUT_PROGRAMMER, value); }
+        }
+
+        public string last_input_calculus {
+            owned get { return get_string (KEY_LAST_INPUT_CALCULUS); }
+            set { set_string (KEY_LAST_INPUT_CALCULUS, value); }
+        }
+
+        public string[] last_input_graphing {
+            owned get { return get_strv (KEY_LAST_INPUT_GRAPHING); }
+            set { set_strv (KEY_LAST_INPUT_GRAPHING, value); }
+        }
+
+        public string date_diff_from {
+            owned get { return get_string (KEY_DATE_DIFF_FROM); }
+            set { set_string (KEY_DATE_DIFF_FROM, value); }
+        }
+
+        public string date_diff_to {
+            owned get { return get_string (KEY_DATE_DIFF_TO); }
+            set { set_string (KEY_DATE_DIFF_TO, value); }
+        }
+
+        public string date_starting_from {
+            owned get { return get_string (KEY_DATE_STARTING_FROM); }
+            set { set_string (KEY_DATE_STARTING_FROM, value); }
+        }
+
+        public int date_add_days {
+            get { return get_int (KEY_DATE_ADD_DAYS); }
+            set { set_int (KEY_DATE_ADD_DAYS, value); }
+        }
+
+        public int date_add_months {
+            get { return get_int (KEY_DATE_ADD_MONTHS); }
+            set { set_int (KEY_DATE_ADD_MONTHS, value); }
+        }
+
+        public int date_add_years {
+            get { return get_int (KEY_DATE_ADD_YEARS); }
+            set { set_int (KEY_DATE_ADD_YEARS, value); }
+        }
+
+        public bool diff_mode_dur {
+            get { return get_boolean (KEY_DIFF_MODE_DUR); }
+            set { set_boolean (KEY_DIFF_MODE_DUR, value); }
+        }
+
+        public bool date_find_mode {
+            get { return get_boolean (KEY_DATE_FIND_MODE); }
+            set { set_boolean (KEY_DATE_FIND_MODE, value); }
+        }
+
+        public string last_output_scientific {
+            owned get { return get_string (KEY_LAST_OUTPUT_SCIENTIFIC); }
+            set { set_string (KEY_LAST_OUTPUT_SCIENTIFIC, value); }
+        }
+
+        public string last_output_programmer {
+            owned get { return get_string (KEY_LAST_OUTPUT_PROGRAMMER); }
+            set { set_string (KEY_LAST_OUTPUT_PROGRAMMER, value); }
+        }
+
+        public string last_output_calculus {
+            owned get { return get_string (KEY_LAST_OUTPUT_CALCULUS); }
+            set { set_string (KEY_LAST_OUTPUT_CALCULUS, value); }
+        }
+
+        public string last_output_statistics {
+            owned get { return get_string (KEY_LAST_OUTPUT_STATISTICS); }
+            set { set_string (KEY_LAST_OUTPUT_STATISTICS, value); }
         }
     }
- }
+}

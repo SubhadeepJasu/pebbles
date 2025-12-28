@@ -1,6 +1,8 @@
 name: CI
 
 on:
+  push:
+    branches: [master]
   pull_request:
     types:
       - opened
@@ -21,7 +23,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build
-        uses: bilelmoussaoui/flatpak-github-actions/flatpak-builder@v3
+        uses: flatpak/flatpak-github-actions/flatpak-builder@v6
         with:
           bundle: Pebbles.flatpak
           manifest-path: com.github.subhadeepjasu.pebbles.yml

@@ -1,0 +1,33 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: 2026 Subhadeep Jasu <subhadeep107@proton.me>
+
+using Gtk 4.0;
+
+template $PebblesBitGrid : Gtk.Grid {
+    margin-end: 14;
+    margin-bottom: 14;
+    margin-start: 14;
+    row-homogeneous: true;
+    column-homogeneous: true;
+    styles ["card", "bit-toggle-grid"]
+
+    Button hide_grid_button {
+        icon-name: "pan-down-symbolic";
+        valign: start;
+        margin-top: 4;
+        margin-bottom: 4;
+        margin-start: 152;
+        margin-end: 152;
+        visible: true;
+
+        styles ["rounded"]
+
+        layout {
+            row: 0;
+            column: 0;
+            column-span: 4;
+        }
+
+        clicked => $hide_this();
+    }
+}

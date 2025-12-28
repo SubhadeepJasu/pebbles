@@ -1,0 +1,956 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: 2024 Subhadeep Jasu <subhadeep107@proton.me>
+using Gtk 4.0;
+using Adw 1;
+
+template $PebblesStatisticsView: $PebblesView {
+  $PebblesStatisticsDisplay display {
+    context: bind template.context;
+
+    layout {
+      column: 0;
+      row: 0;
+    }
+
+    vexpand: true;
+    shift_on: bind shift_button.active;
+  }
+
+  Adw.NavigationSplitView stat_nav_split_view {
+    layout {
+      column: 0;
+      row: 1;
+    }
+
+    vexpand: true;
+    height-request: 250;
+    sidebar-width-fraction: 0.5;
+    max-sidebar-width: 1000000;
+    min-sidebar-width: 256;
+    margin-start: 7;
+    margin-end: 7;
+    margin-bottom: 7;
+    collapsed: bind template.collapsed;
+
+    sidebar: Adw.NavigationPage button_container_left {
+      title: "Numerical Input";
+      hexpand: true;
+      overflow: visible;
+
+      Grid {
+        row-homogeneous: true;
+        column-homogeneous: true;
+        row-spacing: 8;
+        column-spacing: 8;
+        vexpand: true;
+        hexpand: true;
+        margin-start: 6;
+        margin-end: 6;
+        margin-bottom: 6;
+        margin-top: 1;
+
+        $PebblesButton all_clear_button {
+          label_text: _("AC");
+          tooltip_desc: _("All Clear");
+          accel_markup: "<Shift>BackSpace";
+          focus-on-click: false;
+          key: "<Shift>BackSpace";
+
+          styles [
+            "destructive-action",
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 0;
+            column: 0;
+          }
+
+          clicked => $on_all_clear();
+        }
+
+        $PebblesButton clear_row_button {
+          label_text: "SC";
+          tooltip_desc: _("Series Clear");
+          focus-on-click: false;
+
+          layout {
+            row: 0;
+            column: 1;
+          }
+
+          clicked => $on_series_clear();
+        }
+
+        $PebblesButton del_button {
+          icon: "edit-clear-symbolic";
+          tooltip_desc: _("Backspace");
+          focus-on-click: false;
+          key: "BackSpace";
+
+          layout {
+            row: 0;
+            column: 2;
+          }
+
+          clicked => $backspace();
+        }
+
+        $PebblesButton go_right {
+          icon: "go-next-symbolic";
+          tooltip_desc: _("A Cell to Right");
+          focus-on-click: false;
+          key: "Tab";
+          accel_markup: "Tab";
+
+          layout {
+            row: 0;
+            column: 3;
+          }
+
+          clicked => $navigate_right();
+        }
+
+        $PebblesButton results_expand_button {
+          label_text: "← <b>=</b>";
+          visible: bind template.collapsed;
+          focus-on-click: false;
+
+          styles [
+            "special-action",
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 0;
+            column: 4;
+          }
+
+          clicked => $on_expand_fx();
+        }
+
+        $PebblesButton seven_button {
+          name: "7";
+          label_text: "7";
+          focus-on-click: false;
+          key: "7";
+
+          styles [
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 1;
+            column: 0;
+          }
+
+          clicked => $write_char();
+        }
+
+        $PebblesButton eight_button {
+          name: "8";
+          label_text: "8";
+          focus-on-click: false;
+          key: "8";
+
+          styles [
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 1;
+            column: 1;
+          }
+
+          clicked => $write_char();
+        }
+
+        $PebblesButton nine_button {
+          name: "9";
+          label_text: "9";
+          focus-on-click: false;
+          key: "9";
+
+          styles [
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 1;
+            column: 2;
+          }
+
+          clicked => $write_char();
+        }
+
+        $PebblesButton go_left {
+          icon: "go-previous-symbolic";
+          tooltip_desc: _("A Cell to Left");
+          focus-on-click: false;
+          key: "<Shift>Tab";
+          accel_markup: "<Shift>Tab";
+
+          layout {
+            row: 1;
+            column: 3;
+          }
+
+          clicked => $navigate_left();
+        }
+
+        $PebblesButton add_cell_button_p {
+          label_text: "▭⁺";
+          tooltip_desc: _("Add Cell");
+          focus-on-click: false;
+          key: "a";
+          accel_markup: "a";
+          visible: bind template.collapsed;
+
+          styles [
+            "special-action",
+            "adaptive-btn-font",
+            "large-font-btn"
+          ]
+
+          layout {
+            row: 1;
+            column: 4;
+          }
+
+          clicked => $add_cell();
+        }
+
+        $PebblesButton four_button {
+          name: "4";
+          label_text: "4";
+          focus-on-click: false;
+          key: "4";
+
+          styles [
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 2;
+            column: 0;
+          }
+
+          clicked => $write_char();
+        }
+
+        $PebblesButton five_button {
+          name: "5";
+          label_text: "5";
+          focus-on-click: false;
+          key: "5";
+
+          styles [
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 2;
+            column: 1;
+          }
+
+          clicked => $write_char();
+        }
+
+        $PebblesButton six_button {
+          name: "6";
+          label_text: "6";
+          focus-on-click: false;
+          key: "6";
+
+          styles [
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 2;
+            column: 2;
+          }
+
+          clicked => $write_char();
+        }
+
+        $PebblesButton switch_graph_button {
+          icon: "graphing-mode-symbolic";
+          tooltip_desc: _("Switch Visualization");
+          focus-on-click: false;
+
+          styles [
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 2;
+            column: 3;
+          }
+
+          clicked => $switch_plot();
+        }
+
+        $PebblesButton mean_button_p {
+          name: "mean";
+          label_text: "x̄";
+          tooltip_desc: _("Mean");
+          focus-on-click: false;
+          accel_markup: "M";
+          key: "m,M";
+          visible: bind template.collapsed;
+
+          styles [
+            "special-action",
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 2;
+            column: 4;
+          }
+
+          clicked => $perform_op();
+        }
+
+        $PebblesButton one_button {
+          name: "1";
+          label_text: "1";
+          focus-on-click: false;
+          key: "1";
+
+          styles [
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 3;
+            column: 0;
+          }
+
+          clicked => $write_char();
+        }
+
+        $PebblesButton two_button {
+          name: "2";
+          label_text: "2";
+          focus-on-click: false;
+          key: "2";
+
+          styles [
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 3;
+            column: 1;
+          }
+
+          clicked => $write_char();
+        }
+
+        $PebblesButton three_button {
+          name: "3";
+          label_text: "3";
+          focus-on-click: false;
+          key: "3";
+
+          styles [
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 3;
+            column: 2;
+          }
+
+          clicked => $write_char();
+        }
+
+        $PebblesButton trend_button {
+          name: "trend";
+          label_text: "δy/δx";
+          tooltip_desc: _("Trend");
+          focus-on-click: false;
+
+          styles [
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 3;
+            column: 3;
+          }
+
+          clicked => $perform_op();
+        }
+
+        $PebblesButton median_button_p {
+          name: "median";
+          label_text: "M";
+          focus-on-click: false;
+          tooltip_desc: _("Median");
+          accel_markup: "E";
+          key: "e,E";
+          visible: bind template.collapsed;
+
+          styles [
+            "special-action",
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 3;
+            column: 4;
+          }
+
+          clicked => $perform_op();
+        }
+
+        $PebblesButton zero_button {
+          name: "0";
+          label_text: "0";
+
+          styles [
+            "adaptive-btn-font"
+          ]
+
+          focus-on-click: false;
+          key: "0";
+
+          layout {
+            row: 4;
+            column: 0;
+          }
+
+          clicked => $write_char();
+        }
+
+        $PebblesButton point_button {
+          name: "fraction-point-button";
+          label_text: bind template.radix_symbol;
+          focus-on-click: false;
+          key: ".";
+
+          styles [
+            "adaptive-btn-font",
+            "large-font-btn"
+          ]
+
+          layout {
+            row: 4;
+            column: 1;
+          }
+
+          clicked => $on_click_fraction_point();
+        }
+
+        $PebblesButton last_answer_button {
+          label_text: "Ans";
+          tooltip_desc: _("Insert last answer");
+          accel_markup: "F7";
+          focus-on-click: false;
+          key: "F7";
+
+          styles [
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 4;
+            column: 2;
+          }
+
+          clicked => $on_click_last_ans();
+        }
+
+        $PebblesButton negative_button {
+          label_text: "±";
+          tooltip_desc: _("Negative");
+          focus-on-click: false;
+          key: "-";
+
+          styles [
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 4;
+            column: 3;
+          }
+
+          clicked => $on_click_negative();
+        }
+
+        $PebblesButton sample_std_dev_button_p {
+          name: "sample_sd";
+          label_text: "SD";
+          tooltip_desc: _("Standard Deviation");
+          focus-on-click: false;
+          accel_markup: "D";
+          key: "d,D";
+          visible: bind template.collapsed;
+
+          styles [
+            "special-action",
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 4;
+            column: 4;
+          }
+
+          clicked => $perform_op();
+        }
+      }
+    };
+
+    content: Adw.NavigationPage button_container_right {
+      title: "Functional Input";
+      hexpand: true;
+      overflow: visible;
+
+      Grid {
+        row-homogeneous: true;
+        column-homogeneous: true;
+        row-spacing: 8;
+        column-spacing: 8;
+        vexpand: true;
+        hexpand: true;
+        margin-start: 6;
+        margin-end: 6;
+        margin-bottom: 6;
+        margin-top: 2;
+
+        ToggleButton shift_button {
+          label: _("Shift");
+          focus-on-click: false;
+
+          styles [
+            "special-action",
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 0;
+            column: 0;
+          }
+
+          clicked => $on_shift();
+        }
+
+        $PebblesButton go_up {
+          icon: "go-up-symbolic";
+          tooltip_desc: _("Go Up");
+          focus-on-click: false;
+          key: "Page_Up,Up";
+          accel_markup: "Page_Up,Up";
+
+          styles [
+            "special-action"
+          ]
+
+          layout {
+            row: 0;
+            column: 1;
+          }
+
+          clicked => $navigate_up();
+        }
+
+        $PebblesButton go_down {
+          icon: "go-down-symbolic";
+          tooltip_desc: _("Go Down");
+          focus-on-click: false;
+          key: "Page_Down,Return,Down";
+          accel_markup: "Page_Down,Return,Down";
+
+          styles [
+            "special-action"
+          ]
+
+          layout {
+            row: 0;
+            column: 2;
+          }
+
+          clicked => $navigate_down();
+        }
+
+        $PebblesButton memory_plus_button {
+          label_text: "M+";
+          tooltip_desc: _("Add it to the value in Memory");
+          accel_markup: "F3";
+          focus-on-click: false;
+          key: "F3";
+
+          styles [
+            "memory-action",
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 0;
+            column: 3;
+          }
+
+          clicked => $on_click_memory_add();
+        }
+
+        $PebblesButton cardinality_button {
+          name: "shape";
+          label_text: "Shape";
+          focus-on-click: false;
+          tooltip_desc: _("Data Size");
+          accel_markup: "N";
+          key: "n,N";
+
+          styles [
+            "special-action",
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 1;
+            column: 0;
+          }
+
+          clicked => $perform_op();
+        }
+
+        $PebblesButton mode_button {
+          name: "mode";
+          label_text: "Mode";
+          focus-on-click: false;
+          tooltip_desc: _("Mode of series");
+          accel_markup: "O";
+          key: "o,O";
+
+          styles [
+            "special-action",
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 1;
+            column: 1;
+          }
+
+          clicked => $perform_op();
+        }
+
+        $PebblesButton median_button {
+          name: "median";
+          label_text: "M";
+          focus-on-click: false;
+          tooltip_desc: _("Median");
+          accel_markup: "E";
+          key: "e,E";
+
+          styles [
+            "special-action",
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 1;
+            column: 2;
+          }
+
+          clicked => $perform_op();
+        }
+
+        $PebblesButton memory_minus_button {
+          label_text: _("M−");
+          tooltip_desc: _("Subtract it from the value in Memory");
+          accel_markup: "F4";
+          focus-on-click: false;
+          key: "F4";
+
+          styles [
+            "memory-action",
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 1;
+            column: 3;
+          }
+
+          clicked => $on_click_memory_subtract();
+        }
+
+        $PebblesButton sum_button {
+          name: "sum";
+          label_text: "∑x";
+          tooltip_desc: _("Summation over series");
+          focus-on-click: false;
+          accel_markup: "S";
+          key: "s,S";
+
+          styles [
+            "special-action",
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 2;
+            column: 0;
+          }
+
+          clicked => $perform_op();
+        }
+
+        $PebblesButton sum_sqr_button {
+          name: "sum_squared";
+          label_text: "∑x<sup>2</sup>";
+          tooltip_desc: _("Summation over squared values in series");
+          focus-on-click: false;
+          accel_markup: "Q";
+          key: "q,Q";
+
+          styles [
+            "special-action",
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 2;
+            column: 1;
+          }
+
+          clicked => $perform_op();
+        }
+
+        $PebblesButton sample_var_button {
+          name: "sample_var";
+          label_text: "SV";
+          tooltip_desc: _("Sample Variance");
+          focus-on-click: false;
+          accel_markup: "V";
+          key: "v,V";
+
+          styles [
+            "special-action",
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 2;
+            column: 2;
+          }
+
+          clicked => $perform_op();
+        }
+
+        $PebblesButton memory_recall_button {
+          label_text: _("MR");
+          tooltip_desc: _("Recall value from Memory");
+          accel_markup: "F5";
+          focus-on-click: false;
+          key: "F5";
+
+          styles [
+            "memory-action",
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 2;
+            column: 3;
+          }
+
+          clicked => $on_click_memory_recall();
+        }
+
+        $PebblesButton mean_button {
+          name: "mean";
+          label_text: "x̄";
+          tooltip_desc: _("Mean");
+          focus-on-click: false;
+          accel_markup: "M";
+          key: "m,M";
+
+          styles [
+            "special-action",
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 3;
+            column: 0;
+          }
+
+          clicked => $perform_op();
+        }
+
+        $PebblesButton mean_sq_button {
+          name: "mean_squared";
+          label_text: "x̄<sup>2</sup>";
+          tooltip_desc: _("Mean of squared data values");
+          focus-on-click: false;
+          accel_markup: "X";
+          key: "x,X";
+
+          styles [
+            "special-action",
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 3;
+            column: 1;
+          }
+
+          clicked => $perform_op();
+        }
+
+        $PebblesButton sample_std_dev_button {
+          name: "sample_sd";
+          label_text: "SD";
+          tooltip_desc: _("Standard Deviation");
+          focus-on-click: false;
+          accel_markup: "D";
+          key: "d,D";
+
+          styles [
+            "special-action",
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 3;
+            column: 2;
+          }
+
+          clicked => $perform_op();
+        }
+
+        $PebblesButton memory_clear_button {
+          label_text: _("MC");
+          tooltip_desc: _("Memory Clear");
+          accel_markup: "F6";
+          focus-on-click: false;
+          key: "F6";
+
+          styles [
+            "memory-action",
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 3;
+            column: 3;
+          }
+
+          clicked => $on_click_memory_clear();
+        }
+
+        $PebblesButton geometric_mean_button {
+          name: "geometric_mean";
+          label_text: "GM";
+          tooltip_desc: _("Geometric Mean");
+          focus-on-click: false;
+          accel_markup: "G";
+          key: "g,G";
+
+          styles [
+            "special-action",
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 4;
+            column: 0;
+          }
+
+          clicked => $perform_op();
+        }
+
+        $PebblesButton pop_variance_button {
+          name: "population_var";
+          label_text: "σ<sup>2</sup>";
+          tooltip_desc: _("Population Variance");
+          focus-on-click: false;
+          accel_markup: "P";
+          key: "p,P";
+
+          styles [
+            "special-action",
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 4;
+            column: 1;
+          }
+
+          clicked => $perform_op();
+        }
+
+        $PebblesButton pop_std_dev_button {
+          name: "population_sd";
+          label_text: "σ";
+          tooltip_desc: _("Population Standard Deviation");
+          focus-on-click: false;
+          accel_markup: "L";
+          key: "l,L";
+
+          styles [
+            "special-action",
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 4;
+            column: 2;
+          }
+
+          clicked => $perform_op();
+        }
+
+        $PebblesButton add_cell_button {
+          label_text: "▭⁺";
+          tooltip_desc: _("Add Cell");
+          focus-on-click: false;
+          key: "a";
+          accel_markup: "a";
+          visible: bind stat_nav_split_view.collapsed inverted;
+
+          layout {
+            row: 4;
+            column: 3;
+          }
+
+          styles [
+            "suggested-action",
+            "adaptive-btn-font",
+            "large-font-btn"
+          ]
+
+          clicked => $add_cell();
+        }
+
+        $PebblesButton collapse_fx_button {
+          label_text: _("->");
+          visible: bind stat_nav_split_view.collapsed;
+          focus-on-click: false;
+
+          styles [
+            "suggested-action",
+            "large-font-btn",
+            "adaptive-btn-font"
+          ]
+
+          layout {
+            row: 4;
+            column: 3;
+          }
+
+          clicked => $on_collapse_fx();
+        }
+      }
+    };
+  }
+}

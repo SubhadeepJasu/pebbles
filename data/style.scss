@@ -1,0 +1,481 @@
+/*
+ * SPDX-License-Identifier: GPL-3.0
+ * SPDX-FileCopyrightText: 2018-2026 Subhadeep Jasu <subhadeep107@proton.me>, 2018-2019 Saunak Biswas  <saunakbis97@gmail.com>
+ */
+/*-
+ *   _____     _   _   _            _____ _____ _____
+ *  |  _  |___| |_| |_| |___ ___   |     |   __|   __|
+ *  |   __| -_| . | . | | -_|_ -|  |   --|__   |__   |
+ *  |__|  |___|___|___|_|___|___|  |_____|_____|_____|
+ *
+ */
+
+
+$SLATE_500: #485a6c;
+$BANANA_500: #f9c440;
+$BANANA_900: #ad5f00;
+$LCD_FG_COLOR: #272863bb;
+
+.rounded {
+    border-radius: 32px;
+}
+
+.headerbar {
+    &-left {
+	    border-radius: 6px 0 0 0;
+    }
+
+    &-right {
+        border-radius: 0 6px 0 0;
+    }
+}
+
+.view {
+    background: none;
+
+    &.animate {
+        animation: reveal-smooth 0.75s cubic-bezier(0, 0, 0, 1) forwards;
+    }
+
+    @keyframes reveal-smooth {
+        from {
+            transform: scale(0.9);
+            opacity: 0;
+        }
+
+        to {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+}
+
+.monospace {
+    font-family: monospace;
+}
+
+.lcd {
+    background: linear-gradient(#d1ddd1, #bdc7bd);
+    border-radius: 3px;
+    border: none;
+    margin: 2px;
+    box-shadow:
+        0 0 0 1px #0006,
+        inset 0 1px 0 #fff4,
+        inset 0 -1px 0 #fff2,
+        0 12px 24px #545e5473;
+
+    color: $LCD_FG_COLOR;
+    padding-top: 8px;
+    padding-left: 8px;
+
+    &:backdrop {
+        background: #bdc7bd;
+        opacity: 0.5;
+    }
+
+    &-label {
+        font-family: DotGothic16, Inter, sans-serif;
+        font-size: 40px;
+        text-shadow: 0 2px 1px #0002;
+        margin-top: 6px;
+    }
+
+    &-seperator {
+        border-top-color: #0000;
+        border-left-color: #0000;
+        border-bottom-color: #27286322;
+        border-right-color: #27286322;
+        box-shadow: none;
+    }
+
+    &-entry {
+        background: none;
+        box-shadow: none;
+        border: none;
+        outline: 0;
+        font-size: x-large;
+        text-shadow: 0 2px 1px #0002;
+        caret-color: $LCD_FG_COLOR;
+        padding-top: 3px;
+
+        text {
+            color: $LCD_FG_COLOR;
+        }
+    }
+
+    &-indicator {
+        font-size: 10px;
+        opacity: 0.8;
+        font-weight: bold;
+        box-shadow: 0 2px 2px #0001, inset 0 2px 2px #0001;
+        color:#272863;
+        border: 1px solid #272863;
+        padding: 2px 6px;
+        border-radius: 2.25px;
+
+        &.selected {
+            color:#C6D0C6;
+	        background-color: #272863;
+        }
+    }
+
+    scrolledwindow {
+        .top {
+            background: none;
+        }
+
+        .left {
+            background: none;
+        }
+
+        .right {
+            background: none;
+        }
+
+        .bottom {
+            background: none;
+        }
+
+        scrollbar {
+            &.horizontal {
+                slider {
+                    min-width: 30px;
+                    min-height: 3px;
+                    border: none;
+                    background-color: $LCD_FG_COLOR;
+                }
+
+                trough {
+                    background: none;
+                    border: none;
+                }
+            }
+
+            &.horizontal:hover slider {
+                min-height: 5px;
+            }
+
+            &.vertical {
+                slider {
+                    min-width: 3px;
+                    min-height: 30px;
+                    border: none;
+                    background-color: $LCD_FG_COLOR;
+                }
+
+                trough {
+                    background: none;
+                    border: none;
+                }
+            }
+
+            &.vertical:hover slider {
+                min-width: 5px;
+            }
+        }
+    }
+
+    &.fade > * {
+        opacity: 0.2;
+    }
+
+    &.shake {
+        animation: shake 0.4s ease-in-out 1;
+    }
+
+    @keyframes shake {
+        0% { margin-left: -32px; margin-right: 32px; }
+        25% { margin-left: 24px; margin-right: -24px; }
+        50% { margin-left: -16px; margin-right: 16px; }
+        75% { margin-left: 8px; margin-right: -8px; }
+        100% { margin-left: 0; margin-right: 0;}
+    }
+
+    .history {
+        font-family: DotGothic16, Inter, sans-serif;
+
+        list {
+            background: none;
+
+            .activatable {
+                background: none;
+                border-bottom: 1px solid #27286366;
+                border-bottom-style: dashed;
+                opacity: 0;
+                margin-top: 0;
+                margin-bottom: 0;
+                transform: translateX(0);
+                transition: transform 0.2s ease-out;
+                animation: history-fade-in 0.4s ease-out forwards;
+
+                &:hover {
+                    transform: translateX(-6px);
+                }
+
+                @for $i from 1 through 10 {
+                    &:nth-child(#{$i}) {
+                        animation-delay: 100ms * (10 - $i);
+                    }
+                }
+            }
+
+            @keyframes history-pop-up {
+                from {
+                    margin-top: 12px;
+                    margin-bottom: -12px;
+                    opacity: 0;
+                }
+
+                to {
+                    margin-top: 0;
+                    margin-bottom: 0;
+                    opacity: 1;
+                }
+            }
+
+            @keyframes history-fade-in {
+                from {
+                    opacity: 0;
+                }
+
+                to {
+                    opacity: 0.75;
+                }
+            }
+        }
+
+        &-input {
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: -4px;
+        }
+
+        &-output {
+            font-size: 24px;
+        }
+    }
+
+    .h1 {
+        font-size: 18px;
+        font-weight: 400;
+    }
+}
+
+.nav-item {
+    title {
+        font-weight: bold;
+        padding: 4px 12px;
+    }
+
+    row {
+        padding-left: 28px;
+    }
+}
+
+
+button.pressed {
+    background: rgba(black, 0.05);
+    box-shadow: 0 1px 0 0 #{'alpha(@highlight_color, 0.3)'},
+    inset 0 1px 1px rgba(black, 0.05);
+}
+
+.special-action {
+    background-color: rgba($SLATE_500, 0.3);
+    border-color: #1115;
+}
+
+.memory-action {
+    background: $BANANA_500;
+    color: $BANANA_900;
+    font-weight: bold;
+    text-shadow: none;
+}
+
+.large-font-btn {
+    font-size: 20px;
+    font-weight: 300;
+    padding-top: 2px;
+}
+
+.adaptive-btn-font {
+    label,
+    image {
+        transform: scale(1.0);
+    }
+}
+
+.status-bar {
+    label {
+        font-weight: bold;
+    }
+}
+
+.color-button radio {
+    -gtk-icon-shadow: none;
+    padding: 10px;
+}
+
+.color-button {
+    &-light radio {
+        background-color: #fff;
+        color: #333;
+    }
+
+    &-dark radio {
+        background-color: #333;
+        color: #f8f8f8;
+    }
+
+    &-system radio {
+        background-image: linear-gradient(-45deg, #fff 50%, #333 51%);
+
+        &:checked {
+            background-image: linear-gradient(-45deg, #aaa 50%, #222 51%);
+        }
+    }
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.preferences-group {
+    margin: 8px;
+
+    .heading {
+        font-weight: bold;
+        margin-bottom: 8px;
+    }
+
+    .combo {
+        background: #0000000a;
+        border-top: 1px solid #0002;
+    }
+}
+
+.data-table {
+    &-cell {
+        margin-top: 4px;
+        margin-bottom: 4px;
+        background: none;
+        color: #272863;
+        border: 1px solid #27286340;
+        border-top: 1px solid #0000;
+        border-bottom: 1px solid #0000;
+        box-shadow: none;
+        text-shadow: 0 0px #0000;
+        opacity: 0.8;
+        caret-color: #272863a0;
+
+        selection {
+            color: #C6D0C6;
+            background: #272863;
+            text-shadow: 0 0px #0000;
+            opacity: 0.8;
+        }
+
+        &:focus-within {
+            border: 1px solid #272863a0;
+            border-style: dashed;
+        }
+
+        text {
+            color: $LCD_FG_COLOR;
+        }
+
+        placeholder {
+            color: #27286366;
+        }
+    }
+}
+
+
+.graphing-viewport {
+    border-radius: 3px;
+}
+
+
+.equation-entry {
+    entry {
+        background: none;
+        border: 1px solid #0000;
+        border-radius: 0;
+        box-shadow: none;
+        color: #272863;
+        caret-color: $LCD_FG_COLOR;
+
+        &:focus-within {
+            border: 1px solid #272863a0;
+            border-style: dashed;
+        }
+
+        text {
+            color: $LCD_FG_COLOR;
+        }
+    }
+
+    &-indicator {
+        border-radius: 4px;
+    }
+}
+
+
+.variables-panel {
+    border-radius: 0 0 3px 3px;
+    margin-bottom: -164px;
+    margin-top: 164px;
+    transition: all 0.2s ease-out;
+
+    &.show {
+        margin-bottom: 0;
+        margin-top: 0;
+    }
+
+    label {
+        font-style: italic;
+        font-weight: 800;
+    }
+}
+
+
+.scale-button {
+    padding: 4px;
+}
+
+
+.conversion-text-box-focused {
+    background: none;
+    border: 1px solid #0000;
+    box-shadow: none;
+    font-weight: bold;
+}
+
+
+.date-calc-calendar {
+    border: 1px solid #{'alpha(shade(@accent_color, 0.7), 0.5)'};
+	border-radius: 3px;
+	background-color: #{'alpha(@accent_color, 0.2)'};
+    padding: 4px;
+}
+
+.bit-toggle-grid {
+    padding: 2px;
+    border-radius: 3px;
+}
+
+.bit-toggle-button {
+    padding-left: 0;
+    padding-right: 0;
+    font-weight: 700;
+
+    &:checked {
+        background: #{'shade(@accent_color, 0.8)'};
+        color: #fff;
+    }
+}
+
+.sidebar-pane {
+    background: none;
+    border: none;
+}

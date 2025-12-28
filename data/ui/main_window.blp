@@ -1,0 +1,836 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: 2024 Subhadeep Jasu <subhadeep107@proton.me>
+using Gtk 4.0;
+using Adw 1;
+
+template $PebblesMainWindow: Adw.ApplicationWindow {
+    default-width: 820;
+    default-height: 600;
+    width-request: 364;
+    height-request: 420;
+    title: "Pebbles";
+
+    ShortcutController {
+        Shortcut {
+            trigger: "<control>q";
+            action: "action(window.close)";
+        }
+
+        Shortcut {
+            trigger: "<control>c";
+            action: "action(win.clipboard_copy)";
+        }
+
+        Shortcut {
+            trigger: "<control>v";
+            action: "action(win.clipboard_paste)";
+        }
+    }
+
+    styles [
+        "flat"
+    ]
+
+    Adw.Breakpoint {
+        condition ("max-width: 808sp")
+
+        setters {
+            split_view.collapsed: true;
+            split_view.show-content: true;
+            navigation_headerbar.show-back-button: true;
+            main_headerbar.show-start-title-buttons: true;
+        }
+    }
+
+    Adw.Breakpoint {
+        condition ("max-width: 530sp")
+
+        setters {
+            scientific_view.collapsed: true;
+            statistics_view.collapsed: true;
+            programmer_view.collapsed: true;
+            graphing_view.collapsed: true;
+            calculus_view.collapsed: true;
+            conv_length_view.collapsed: true;
+            conv_angle_view.collapsed: true;
+            conv_area_view.collapsed: true;
+            conv_currency_view.collapsed: true;
+            conv_data_view.collapsed: true;
+            conv_energy_view.collapsed: true;
+            conv_mass_view.collapsed: true;
+            conv_power_view.collapsed: true;
+            conv_pressure_view.collapsed: true;
+            conv_speed_view.collapsed: true;
+            conv_temp_view.collapsed: true;
+            conv_time_view.collapsed: true;
+            conv_volume_view.collapsed: true;
+            split_view.collapsed: true;
+            split_view.show-content: true;
+            navigation_headerbar.show-back-button: true;
+            main_headerbar.show-start-title-buttons: true;
+            main_headerbar.show-title: false;
+        }
+    }
+
+    Adw.ToastOverlay toast_overlay {
+        Adw.NavigationSplitView split_view {
+            show-content: true;
+
+            sidebar: Adw.NavigationPage {
+                title: _("Navigation Pane");
+
+                Box navigation_pane {
+                    orientation: vertical;
+
+                    Adw.HeaderBar navigation_headerbar {
+                        styles [
+                            "flat",
+                            "headerbar",
+                            "headerbar-left"
+                        ]
+
+                        show-start-title-buttons: true;
+                        show-end-title-buttons: false;
+                        show-title: false;
+                        height-request: 48;
+                        margin-end: 1;
+                    }
+
+                    Gtk.ScrolledWindow {
+                        width-request: 200;
+                        vexpand: true;
+
+                        Box {
+                            orientation: vertical;
+                            spacing: 4;
+
+                            Expander calculators {
+                                label: _("Calculators");
+                                expanded: true;
+
+                                styles [
+                                    "nav-item"
+                                ]
+
+                                ListBox nav_list_calc {
+                                    name: "calculator-list";
+                                    styles [
+                                        "sidebar-box"
+                                    ]
+
+                                    row-selected => $on_list_select();
+
+                                    ListBoxRow {
+                                        Box {
+                                            orientation: horizontal;
+                                            spacing: 4;
+
+                                            Image {
+                                                icon-name: "scientific-mode-symbolic";
+                                            }
+
+                                            Label {
+                                                label: _("Scientific");
+                                                halign: start;
+                                            }
+                                        }
+
+                                        action-name: bind template.action_scientific;
+                                    }
+
+                                    ListBoxRow {
+                                        Box {
+                                            orientation: horizontal;
+                                            spacing: 4;
+
+                                            Image {
+                                                icon-name: "calculus-mode-symbolic";
+                                            }
+
+                                            Label {
+                                                label: _("Calculus");
+                                                halign: start;
+                                            }
+                                        }
+
+                                        action-name: bind template.action_calculus;
+                                    }
+
+                                    ListBoxRow {
+                                        Box {
+                                            orientation: horizontal;
+                                            spacing: 4;
+
+                                            Image {
+                                                icon-name: "programmer-mode-symbolic";
+                                            }
+
+                                            Label {
+                                                label: _("Programmer");
+                                                halign: start;
+                                            }
+                                        }
+
+                                        action-name: bind template.action_programmer;
+                                    }
+
+                                    ListBoxRow {
+                                        Box {
+                                            orientation: horizontal;
+                                            spacing: 4;
+
+                                            Image {
+                                                icon-name: "statistics-mode-symbolic";
+                                            }
+
+                                            Label {
+                                                label: _("Statistics");
+                                                halign: start;
+                                            }
+                                        }
+
+                                        action-name: bind template.action_statistics;
+                                    }
+
+                                    ListBoxRow {
+                                        Box {
+                                            orientation: horizontal;
+                                            spacing: 4;
+
+                                            Image {
+                                                icon-name: "graphing-mode-symbolic";
+                                            }
+
+                                            Label {
+                                                label: _("Graphing");
+                                                halign: start;
+                                            }
+                                        }
+
+                                        action-name: bind template.action_graphing;
+                                    }
+
+                                    ListBoxRow {
+                                        Box {
+                                            orientation: horizontal;
+                                            spacing: 4;
+
+                                            Image {
+                                                icon-name: "x-office-calendar-symbolic";
+                                            }
+
+                                            Label {
+                                                label: _("Date");
+                                                halign: start;
+                                            }
+                                        }
+
+                                        action-name: bind template.action_date;
+                                    }
+                                }
+                            }
+
+                            Expander converters {
+                                label: _("Converters");
+                                margin-top: 4;
+
+                                styles [
+                                    "nav-item"
+                                ]
+
+                                ListBox nav_list_conv {
+                                    name: "converter-list";
+                                    styles [
+                                        "sidebar-box"
+                                    ]
+
+                                    row-selected => $on_list_select();
+
+                                    ListBoxRow {
+                                        Box {
+                                            orientation: horizontal;
+                                            spacing: 4;
+
+                                            Image {
+                                                icon-name: "length-conv-symbolic";
+                                            }
+
+                                            Label {
+                                                label: _("Length");
+                                                halign: start;
+                                            }
+                                        }
+
+                                        action-name: bind template.action_conv_length;
+                                    }
+
+                                    ListBoxRow {
+                                        Box {
+                                            orientation: horizontal;
+                                            spacing: 4;
+
+                                            Image {
+                                                icon-name: "area-conv-symbolic";
+                                            }
+
+                                            Label {
+                                                label: _("Area");
+                                                halign: start;
+                                            }
+                                        }
+
+                                        action-name: bind template.action_conv_area;
+                                    }
+
+                                    ListBoxRow {
+                                        Box {
+                                            orientation: horizontal;
+                                            spacing: 4;
+
+                                            Image {
+                                                icon-name: "volume-conv-symbolic";
+                                            }
+
+                                            Label {
+                                                label: _("Volume");
+                                                halign: start;
+                                            }
+                                        }
+
+                                        action-name: bind template.action_conv_volume;
+                                    }
+
+                                    ListBoxRow {
+                                        Box {
+                                            orientation: horizontal;
+                                            spacing: 4;
+
+                                            Image {
+                                                icon-name: "preferences-system-time-symbolic";
+                                            }
+
+                                            Label {
+                                                label: _("Time");
+                                                halign: start;
+                                            }
+                                        }
+
+                                        action-name: bind template.action_conv_time;
+                                    }
+
+                                    ListBoxRow {
+                                        Box {
+                                            orientation: horizontal;
+                                            spacing: 4;
+
+                                            Image {
+                                                icon-name: "angle-conv-symbolic";
+                                            }
+
+                                            Label {
+                                                label: _("Angle");
+                                                halign: start;
+                                            }
+                                        }
+
+                                        action-name: bind template.action_conv_angle;
+                                    }
+
+                                    ListBoxRow {
+                                        Box {
+                                            orientation: horizontal;
+                                            spacing: 4;
+
+                                            Image {
+                                                icon-name: "speed-conv-symbolic";
+                                            }
+
+                                            Label {
+                                                label: _("Speed");
+                                                halign: start;
+                                            }
+                                        }
+
+                                        action-name: bind template.action_conv_speed;
+                                    }
+
+                                    ListBoxRow {
+                                        Box {
+                                            orientation: horizontal;
+                                            spacing: 4;
+
+                                            Image {
+                                                icon-name: "mass-conv-symbolic";
+                                            }
+
+                                            Label {
+                                                label: _("Mass");
+                                                halign: start;
+                                            }
+                                        }
+
+                                        action-name: bind template.action_conv_mass;
+                                    }
+
+                                    ListBoxRow {
+                                        Box {
+                                            orientation: horizontal;
+                                            spacing: 4;
+
+                                            Image {
+                                                icon-name: "pressure-conv-symbolic";
+                                            }
+
+                                            Label {
+                                                label: _("Pressure");
+                                                halign: start;
+                                            }
+                                        }
+
+                                        action-name: bind template.action_conv_pressure;
+                                    }
+
+                                    ListBoxRow {
+                                        Box {
+                                            orientation: horizontal;
+                                            spacing: 4;
+
+                                            Image {
+                                                icon-name: "energy-conv-symbolic";
+                                            }
+
+                                            Label {
+                                                label: _("Energy");
+                                                halign: start;
+                                            }
+                                        }
+
+                                        action-name: bind template.action_conv_energy;
+                                    }
+
+                                    ListBoxRow {
+                                        Box {
+                                            orientation: horizontal;
+                                            spacing: 4;
+
+                                            Image {
+                                                icon-name: "power-conv-symbolic";
+                                            }
+
+                                            Label {
+                                                label: _("Power");
+                                                halign: start;
+                                            }
+                                        }
+
+                                        action-name: bind template.action_conv_power;
+                                    }
+
+                                    ListBoxRow {
+                                        Box {
+                                            orientation: horizontal;
+                                            spacing: 4;
+
+                                            Image {
+                                                icon-name: "temp-conv-symbolic";
+                                            }
+
+                                            Label {
+                                                label: _("Temperature");
+                                                halign: start;
+                                            }
+                                        }
+
+                                        action-name: bind template.action_conv_temp;
+                                    }
+
+                                    ListBoxRow {
+                                        Box {
+                                            orientation: horizontal;
+                                            spacing: 4;
+
+                                            Image {
+                                                icon-name: "drive-harddisk-symbolic";
+                                            }
+
+                                            Label {
+                                                label: _("Data");
+                                                halign: start;
+                                            }
+                                        }
+
+                                        action-name: bind template.action_conv_data;
+                                    }
+
+                                    ListBoxRow {
+                                        Box {
+                                            orientation: horizontal;
+                                            spacing: 4;
+
+                                            Image {
+                                                icon-name: "currency-conv-symbolic";
+                                            }
+
+                                            Label {
+                                                label: _("Currency");
+                                                halign: start;
+                                            }
+                                        }
+
+                                        action-name: bind template.action_conv_currency;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+
+            content: Adw.NavigationPage {
+                title: "Pebbles";
+
+                Box main_view {
+                    orientation: vertical;
+
+                    Adw.HeaderBar main_headerbar {
+                        styles [
+                            "flat",
+                            "headerbar",
+                            "headerbar-right"
+                        ]
+
+                        show-start-title-buttons: false;
+                        show-end-title-buttons: true;
+                        height-request: 48;
+                        show-title: true;
+
+                        Stack header_stack {
+                            margin-start: 7;
+                            margin-top: 4;
+                            valign: start;
+                            transition-type: slide_up_down;
+                            transition-duration: 500;
+
+                            Box scientific_header_box {
+                                spacing: 4;
+                                orientation: horizontal;
+
+                                $PebblesButton angle_mode {
+                                    label_text: "DEG";
+                                    tooltip_desc: _("Switch angle mode");
+                                    accel_markup: "F8";
+                                    width-request: 64;
+                                    focusable: false;
+                                    focus-on-click: false;
+
+                                    clicked => $on_change_mode();
+                                }
+                            }
+
+                            Box calculus_header_box {
+                                spacing: 8;
+                            }
+
+                            Box programmer_header_box {
+                                orientation: horizontal;
+                                styles ["linked"]
+
+                                $PebblesButton wrd_length {
+                                    label_text: "QWD";
+                                    tooltip_desc: _("Switch word length");
+                                    accel_markup: "F8";
+                                    width-request: 64;
+                                    focusable: false;
+                                    focus-on-click: false;
+                                    can-focus: false;
+
+                                    clicked => $on_change_mode();
+                                }
+
+                                ToggleButton bit_grid_toggle {
+                                    icon-name: "binary-grid-symbolic";
+                                    tooltip-text: _("Bit toggle grid");
+                                    focus-on-click: false;
+                                    can-focus: false;
+
+                                    toggled => $show_bit_grid();
+                                }
+                            }
+
+                            Box statistics_header_box {
+                                orientation: horizontal;
+                                styles ["linked"]
+
+                                $PebblesButton import_button {
+                                    icon: "document-import-symbolic";
+                                    tooltip_desc: _("Import table from csv file");
+                                    width-request: 32;
+                                    focusable: false;
+                                    focus-on-click: false;
+
+                                    clicked => $on_import_dialog();
+                                }
+
+                                $PebblesButton export_button {
+                                    icon: "document-export-symbolic";
+                                    tooltip_desc: _("Export table to csv file");
+                                    width-request: 32;
+                                    focusable: false;
+                                    focus-on-click: false;
+
+                                    clicked => $on_save_csv();
+                                }
+                            }
+
+                            Box graph_header_box {
+                                spacing: 8;
+                            }
+
+                            Box date_header_box {
+                            }
+
+                            Box currency_header_box {
+                                Button forex_reload_button {
+                                    icon-name: "view-refresh-symbolic";
+                                    halign: start;
+                                    tooltip-text: _("Update Forex Data");
+
+                                    clicked => $force_refresh_forex_data();
+                                }
+                            }
+
+                            Box null_header_box {}
+
+                            visible-child: scientific_header_box;
+                        }
+
+                        [end]
+                        MenuButton menu_button {
+                            icon-name: "preferences-system-symbolic";
+                            height-request: 28;
+                            width-request: 28;
+                            focusable: false;
+                            focus-on-click: false;
+                            valign: center;
+
+                            popover: Popover menu {
+                                Box menu_box {
+                                    orientation: vertical;
+                                    spacing: 0;
+
+                                    Box color_box {
+                                        orientation: horizontal;
+                                        spacing: 8;
+                                        homogeneous: true;
+                                        margin-start: 12;
+                                        margin-end: 12;
+                                        margin-top: 12;
+                                        margin-bottom: 12;
+
+                                        CheckButton color_button_light {
+                                            name: "light";
+                                            halign: center;
+                                            tooltip-text: _("Light Mode");
+                                            styles ["color-button", "color-button-light"]
+
+                                            toggled => $set_theme();
+                                        }
+
+                                        CheckButton color_button_dark {
+                                            name: "dark";
+                                            halign: center;
+                                            group: color_button_light;
+                                            tooltip-text: _("Dark Mode");
+                                            styles ["color-button", "color-button-dark"]
+
+                                            toggled => $set_theme();
+                                        }
+
+                                        CheckButton color_button_system {
+                                            name: "system";
+                                            halign: center;
+                                            group: color_button_light;
+                                            tooltip-text: _("Follow System Theme");
+                                            styles ["color-button", "color-button-system"]
+
+                                            toggled => $set_theme();
+                                        }
+                                    }
+
+                                    Separator {
+                                        orientation: horizontal;
+                                    }
+
+                                    $PebblesPopoverMenuItem controls_item {
+                                        text: _("Controls");
+                                        accel: "F1";
+                                        action_name: bind template.action_controls;
+                                    }
+
+                                    $PebblesPopoverMenuItem preferences_item {
+                                        text: _("Preferences");
+                                        accel: "F2";
+                                        action_name: bind template.action_preferences;
+                                    }
+
+                                    Separator {
+                                        orientation: horizontal;
+                                    }
+
+                                    $PebblesPopoverMenuItem quit_item {
+                                        text: _("Quit");
+                                        accel: "<control>q";
+                                        action_name: "window.close";
+                                    }
+                                }
+                            };
+                        }
+
+                        [end]
+                        Box spinner_box {
+                            Spinner spinner {}
+                        }
+                    }
+
+                    Adw.ViewStack view_stack {
+                        Adw.ViewStackPage {
+                            name: bind template.context_scientific;
+                            child: $PebblesScientificView scientific_view {
+                                context: bind template.context_scientific;
+                            };
+                        }
+
+                        Adw.ViewStackPage {
+                            name: bind template.context_calculus;
+                            child: $PebblesCalculusView calculus_view {
+                                context: bind template.context_calculus;
+                            };
+                        }
+
+                        Adw.ViewStackPage {
+                            name: bind template.context_programmer;
+                            child: $PebblesProgrammerView programmer_view {
+                                context: bind template.context_programmer;
+                            };
+                        }
+
+                        Adw.ViewStackPage {
+                            name: bind template.context_statistics;
+                            child: $PebblesStatisticsView statistics_view {
+                                context: bind template.context_statistics;
+                            };
+                        }
+
+                        Adw.ViewStackPage {
+                            name: bind template.context_graphing;
+                            child: $PebblesGraphingView graphing_view {
+                                context: bind template.context_graphing;
+                            };
+                        }
+
+                        Adw.ViewStackPage {
+                            name: bind template.context_date;
+                            child: $PebblesDateView date_view {
+                                context: bind template.context_date;
+                            };
+                        }
+
+                        Adw.ViewStackPage {
+                            name: bind template.context_conv_length;
+                            child: $PebblesConvLengthView conv_length_view {
+                                context: bind template.context_conv_length;
+                            };
+                        }
+
+                        Adw.ViewStackPage {
+                            name: bind template.context_conv_area;
+                            child: $PebblesConvAreaView conv_area_view {
+                                context: bind template.context_conv_area;
+                            };
+                        }
+
+                        Adw.ViewStackPage {
+                            name: bind template.context_conv_volume;
+                            child: $PebblesConvVolumeView conv_volume_view {
+                                context: bind template.context_conv_volume;
+                            };
+                        }
+
+                        Adw.ViewStackPage {
+                            name: bind template.context_conv_time;
+                            child: $PebblesConvTimeView conv_time_view {
+                                context: bind template.context_conv_time;
+                            };
+                        }
+
+                        Adw.ViewStackPage {
+                            name: bind template.context_conv_angle;
+                            child: $PebblesConvAngleView conv_angle_view {
+                                context: bind template.context_conv_angle;
+                            };
+                        }
+
+                        Adw.ViewStackPage {
+                            name: bind template.context_conv_speed;
+                            child: $PebblesConvSpeedView conv_speed_view {
+                                context: bind template.context_conv_speed;
+                            };
+                        }
+
+                        Adw.ViewStackPage {
+                            name: bind template.context_conv_mass;
+                            child: $PebblesConvMassView conv_mass_view {
+                                context: bind template.context_conv_mass;
+                            };
+                        }
+
+                        Adw.ViewStackPage {
+                            name: bind template.context_conv_pressure;
+                            child: $PebblesConvPressureView conv_pressure_view {
+                                context: bind template.context_conv_pressure;
+                            };
+                        }
+
+                        Adw.ViewStackPage {
+                            name: bind template.context_conv_energy;
+                            child: $PebblesConvEnergyView conv_energy_view {
+                                context: bind template.context_conv_energy;
+                            };
+                        }
+
+                        Adw.ViewStackPage {
+                            name: bind template.context_conv_power;
+                            child: $PebblesConvPowerView conv_power_view {
+                                context: bind template.context_conv_power;
+                            };
+                        }
+
+                        Adw.ViewStackPage {
+                            name: bind template.context_conv_temp;
+                            child: $PebblesConvTempView conv_temp_view {
+                                context: bind template.context_conv_temp;
+                            };
+                        }
+
+                        Adw.ViewStackPage {
+                            name: bind template.context_conv_data;
+                            child: $PebblesConvDataView conv_data_view {
+                                context: bind template.context_conv_data;
+                            };
+                        }
+
+                        Adw.ViewStackPage {
+                            name: bind template.context_conv_currency;
+                            child: $PebblesConvCurrencyView conv_currency_view {
+                                context: bind template.context_conv_currency;
+
+                                start_api_call => $on_start_api_call();
+                                end_api_call => $on_end_api_call();
+                            };
+                        }
+                    }
+                }
+            };
+        }
+    }
+}
