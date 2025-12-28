@@ -19,7 +19,7 @@ msgstr ""
 
 #: src/Common.vala:111
 msgid "Dataset Shape"
-msgstr "Forme des données"
+msgstr "Forme des Données"
 
 #: src/Common.vala:114 src/ControlsScheme.vala:144
 #: data/ui/statistics_view.blp:392 data/ui/statistics_view.blp:647
@@ -36,7 +36,7 @@ msgstr "Somme"
 
 #: src/Common.vala:123
 msgid "Sum of Squared Values"
-msgstr "Somme des carrés"
+msgstr "Somme des Carrés"
 
 #: src/Common.vala:126 src/ControlsScheme.vala:156
 #: data/ui/statistics_view.blp:297 data/ui/statistics_view.blp:770
@@ -45,36 +45,36 @@ msgstr "Moyenne"
 
 #: src/Common.vala:129
 msgid "Mean of Squared Values"
-msgstr "Moyenne des carrés"
+msgstr "Moyenne des Carrés"
 
 #: src/Common.vala:132 src/ControlsScheme.vala:162
 #: data/ui/statistics_view.blp:853
 msgid "Geometric Mean"
-msgstr "Moyenne géometrique"
+msgstr "Moyenne Géometrique"
 
 #: src/Common.vala:135 src/ControlsScheme.vala:153
 #: data/ui/statistics_view.blp:729
 msgid "Sample Variance"
-msgstr "Variance de l'échantillon"
+msgstr "Variance de L'échantillon"
 
 #: src/Common.vala:138 src/ControlsScheme.vala:168
 #: data/ui/statistics_view.blp:874
 msgid "Population Variance"
-msgstr "Variance de la population"
+msgstr "Variance de la Population"
 
 #: src/Common.vala:141 data/ui/statistics_view.blp:488
 #: data/ui/statistics_view.blp:812
 msgid "Standard Deviation"
-msgstr "Écart-type de l'échantillon"
+msgstr "Écart-type de L'échantillon"
 
 #: src/Common.vala:144 src/ControlsScheme.vala:171
 #: data/ui/statistics_view.blp:895
 msgid "Population Standard Deviation"
-msgstr "Écart-type de la population"
+msgstr "Écart-type de la Population"
 
 #: src/Common.vala:147
 msgid "Estimate Trend"
-msgstr "Estimation de la tendance"
+msgstr "Estimation de la Tendance"
 
 #: src/Common.vala:150
 msgid "Unknown"
@@ -90,19 +90,19 @@ msgstr "Afficher les préférences"
 
 #: src/ControlsScheme.vala:24
 msgid "Add to Memory"
-msgstr "Additionner à la valeur en mémoire"
+msgstr "Additionner à la valeur en Mémoire"
 
 #: src/ControlsScheme.vala:27
 msgid "Subtract from Memory"
-msgstr "Soustraire à la valeur en mémoire"
+msgstr "Soustraire à la valeur en Mémoire"
 
 #: src/ControlsScheme.vala:30
 msgid "Recall from Memory"
-msgstr "Récupérer la valeur de la mémoire"
+msgstr "Récupérer la valeur de la Mémoire"
 
 #: src/ControlsScheme.vala:33
 msgid "Clear Memory"
-msgstr "Effacer la mémoire"
+msgstr "Effacer la Mémoire"
 
 #: src/ControlsScheme.vala:36
 msgid "Last Answer"
@@ -122,7 +122,7 @@ msgstr "Tout effacer"
 #: src/ControlsScheme.vala:45
 #: src/shell/widgets/displays/HistoryDisplay.vala:159
 msgid "Copy Result"
-msgstr "Copier le résultat"
+msgstr "Copier le Résultat"
 
 #: src/ControlsScheme.vala:48
 msgid "Paste"
@@ -130,7 +130,7 @@ msgstr "Coller"
 
 #: src/ControlsScheme.vala:53
 msgid "Square (root) a Number"
-msgstr "Mettre un nombre au carré (ou à la racine)"
+msgstr "Mettre un Nombre au Carré (Ou à la Racine)"
 
 #: src/ControlsScheme.vala:56
 msgid "Raise to the power (or nth root over)"
@@ -146,27 +146,27 @@ msgstr "Log base 10 (ou e)"
 
 #: src/ControlsScheme.vala:65
 msgid "(Inverse) Sine"
-msgstr "Sinus (inverse)"
+msgstr "Sinus (Inverse)"
 
 #: src/ControlsScheme.vala:68
 msgid "(Inverse) Cosine"
-msgstr "Cosinus (inverse)"
+msgstr "Cosinus (Inverse)"
 
 #: src/ControlsScheme.vala:71
 msgid "(Inverse) Tangent"
-msgstr "Tangente (inverse)"
+msgstr "Tangente (Inverse)"
 
 #: src/ControlsScheme.vala:74
 msgid "(Inverse) Hyperbolic Sine"
-msgstr "Sinus hyperbolique (inverse)"
+msgstr "Sinus hyperbolique (Inverse)"
 
 #: src/ControlsScheme.vala:77
 msgid "(Inverse) Hyperbolic Cosine"
-msgstr "Cosinus hyperbolique (inverse)"
+msgstr "Cosinus hyperbolique (Inverse)"
 
 #: src/ControlsScheme.vala:80
 msgid "(Inverse) Hyperbolic Tangent"
-msgstr "Tangente hyperbolique (inverse)"
+msgstr "Tangente hyperbolique (Inverse)"
 
 #: src/ControlsScheme.vala:83
 msgid "Modulus or Log base x"
