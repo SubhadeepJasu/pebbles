@@ -86,6 +86,12 @@ namespace Pebbles {
 
             });
 
+            if (settings.load_last_session) {
+                limit_entry_a.text = settings.last_input_calculus_lower_lim;
+                limit_entry_b.text = settings.last_input_calculus_upper_lim;
+                limit_entry_der.text = settings.last_input_calculus_x;
+            }
+
             focus_controller_main = new Gtk.EventControllerFocus ();
             focus_controller_main.enter.connect (() => {
                 focused_entry = main_entry;
@@ -120,16 +126,19 @@ namespace Pebbles {
         [GtkCallback]
         public void set_limit_a (Gtk.Editable entry) {
             limit_a = double.parse (entry.text);
+            settings.last_input_calculus_lower_lim = entry.text;
         }
 
         [GtkCallback]
         public void set_limit_b (Gtk.Editable entry) {
             limit_b = double.parse (entry.text);
+            settings.last_input_calculus_upper_lim = entry.text;
         }
 
         [GtkCallback]
         public void set_limit_x (Gtk.Editable entry) {
             limit_x = double.parse (entry.text);
+            settings.last_input_calculus_x = entry.text;
         }
 
         [GtkCallback]
@@ -148,6 +157,12 @@ namespace Pebbles {
             main_entry.set_text (data.input);
             main_entry.set_position ((int) main_entry.text_length);
             main_label.set_text (data.result);
+            if (data.metadata.metadata_2 == 1) {
+                limit_entry_a.text = data.metadata.metadata_3;
+                limit_entry_b.text = data.metadata.metadata_4;
+            } else {
+                limit_entry_der.text = data.metadata.metadata_3;
+            }
         }
 
         public void show_result (string result) {
