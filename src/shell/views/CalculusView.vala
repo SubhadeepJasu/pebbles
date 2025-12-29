@@ -69,6 +69,8 @@ namespace Pebbles {
         protected string constant_label { get; private set; default = "C"; }
         protected string constant_desc { get; private set; default = ""; }
 
+        private Settings settings;
+
         public signal void on_evaluate (
             string input,
             bool integral_mode,
@@ -80,6 +82,7 @@ namespace Pebbles {
         public signal void on_memory_clear (bool global);
 
         construct {
+            settings = Pebbles.Settings.get_default ();
             display.on_input.connect ((text) => {
                 on_evaluate (
                     text,
@@ -88,6 +91,10 @@ namespace Pebbles {
                     display.limit_b
                 );
             });
+
+            if (settings.load_last_session) {
+                integral_mode = settings.calculus_mode;
+            }
 
             load_constant_button ();
             Settings.get_default ().changed.connect ((key) => {
@@ -99,6 +106,7 @@ namespace Pebbles {
 
         public void show_result (string result) {
             display.show_result (result);
+            settings.calculus_mode = integral_mode;
         }
 
         [GtkCallback]
@@ -244,8 +252,6 @@ namespace Pebbles {
         }
 
         private void load_constant_button () {
-            var settings = Pebbles.Settings.get_default ();
-
             var key = shift_button.active ? settings.constant_key_value2 : settings.constant_key_value1;
             switch (key) {
                 case ARCHIMEDES:
