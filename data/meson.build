@@ -45,8 +45,6 @@ foreach b : blueprint_files
     bfs += meson.current_source_dir () / b
 endforeach
 
-run_command ('blueprint-compiler', 'batch-compile', meson.project_build_root () / 'data/ui', meson.current_source_dir () / 'ui', bfs, check: true)
-
 blueprints = custom_target ('blueprints',
     input: files (blueprint_files),
    output: '.',
