@@ -57,6 +57,8 @@ namespace Pebbles {
 
         protected string constant_label { get; private set; default = "C"; }
         protected string constant_desc { get; private set; default = ""; }
+        protected string all_clear_key { get; private set; default= "<Shift>BackSpace" ; }
+
         protected Gtk.Adjustment var_a_adjustment { get; set; }
         protected Gtk.Adjustment var_b_adjustment { get; set; }
         protected Gtk.Adjustment var_c_adjustment { get; set; }
@@ -69,10 +71,10 @@ namespace Pebbles {
         public signal string on_memory_recall ();
 
         construct {
-            load_constant_button ();
+            load_buttons ();
             Settings.get_default ().changed.connect ((key) => {
                 if (key == "constant-key-value1" || key == "constant-key-value2") {
-                    load_constant_button ();
+                    load_buttons ();
                 }
             });
 
@@ -204,7 +206,7 @@ namespace Pebbles {
             var_m_button.label_text = shift_button.active ? "<i>c</i>" : "<i>m</i>";
             var_m_button.tooltip_desc = shift_button.active ? _("Variable c") : _("Variable m");
 
-            load_constant_button ();
+            load_buttons ();
         }
 
         private void save_equations () {
@@ -218,7 +220,7 @@ namespace Pebbles {
             settings.last_input_graphing = eq_strings;
         }
 
-        private void load_constant_button () {
+        private void load_buttons () {
             var settings = Pebbles.Settings.get_default ();
 
             var key = shift_button.active ? settings.constant_key_value2 : settings.constant_key_value1;

@@ -38,6 +38,8 @@ namespace Pebbles {
         [GtkChild]
         protected unowned Gtk.Label additional_label;
 
+        protected string all_clear_key { get; private set; default = "<Shift>BackSpace" ; }
+
         private Gtk.EventControllerFocus from_entry_focus_controller;
         private Gtk.EventControllerFocus to_entry_focus_controller;
         private Gtk.EventControllerKey key_controller;

@@ -58,6 +58,11 @@ namespace Pebbles {
         }
 
         [GtkCallback]
+        protected void delete_all_clear_notify_active_cb (Object obj, ParamSpec params) {
+            settings.delete_all_clear = (obj as Adw.SwitchRow)?.active;
+        }
+
+        [GtkCallback]
         protected void result_flow_notify_active_cb (Object obj, ParamSpec params) {
             settings.result_flow = (obj as Adw.SwitchRow)?.active;
         }

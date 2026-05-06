@@ -51,6 +51,11 @@
 			<summary>Result Flow</summary>
 			<description>Whether result action would replace input with result</description>
 		</key>
+		<key name="delete-all-clear" type="b">
+			<default>false</default>
+			<summary>All Clear using Delete</summary>
+			<description>Whether to clear all values when delete is pressed</description>
+		</key>
 		<key name="constant-key-value1" enum="@SCHEMA_ID@.constant-key-index">
 			<default>"euler"</default>
 			<summary>Choose Constant 1</summary>

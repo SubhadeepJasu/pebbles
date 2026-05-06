@@ -17,6 +17,7 @@ namespace Pebbles {
         public const string KEY_VERSION = "version";
         public const string KEY_LOAD_LAST_SESSION = "load-last-session";
         public const string KEY_RESULT_FLOW = "result-flow";
+        public const string KEY_DELETE_ALL_CLEAR = "delete-all-clear";
         public const string KEY_THEME = "theme";
         public const string KEY_CONSTANT_KEY_VALUE1 = "constant-key-value1";
         public const string KEY_CONSTANT_KEY_VALUE2 = "constant-key-value2";
@@ -118,6 +119,11 @@ namespace Pebbles {
         public bool result_flow {
             get { return get_boolean (KEY_RESULT_FLOW); }
             set { set_boolean (KEY_RESULT_FLOW, value); }
+        }
+
+        public bool delete_all_clear {
+            get { return get_boolean (KEY_DELETE_ALL_CLEAR); }
+            set { set_boolean (KEY_DELETE_ALL_CLEAR, value); }
         }
 
         public string theme {

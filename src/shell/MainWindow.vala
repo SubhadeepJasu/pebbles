@@ -598,7 +598,9 @@ namespace Pebbles {
                     set_shift_on (!lock_on);
                 }
 
-                if (keyval == Gdk.Key.BackSpace && (modifier & Gdk.ModifierType.SHIFT_MASK) != 0) {
+                if (settings.delete_all_clear && keyval == Gdk.Key.Delete) {
+                    on_all_clear (view_stack.visible_child_name);
+                } else if (keyval == Gdk.Key.BackSpace && (modifier & Gdk.ModifierType.SHIFT_MASK) != 0) {
                     on_all_clear (view_stack.visible_child_name);
                 }
 

@@ -96,6 +96,8 @@ namespace Pebbles {
         [GtkChild]
         private unowned Button last_answer_button;
 
+        protected string all_clear_key { get; private set; default = "<Shift>BackSpace" ; }
+
         private Pebbles.Settings settings;
 
         public signal void on_evaluate (
@@ -115,6 +117,11 @@ namespace Pebbles {
             settings.changed["number-system"].connect ((key) => {
                 set_number_system (settings.number_system);
             });
+
+            settings.changed["delete-all-clear"].connect ((key) => {
+                all_clear_key = settings.delete_all_clear ? "Delete" : "<Shift>BackSpace";
+            });
+            all_clear_key = settings.delete_all_clear ? "Delete" : "<Shift>BackSpace";
 
             display.on_input.connect ((text) => {
                 on_evaluate (

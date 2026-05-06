@@ -58,6 +58,7 @@ namespace Pebbles {
 
         protected string constant_label { get; private set; default = "C"; }
         protected string constant_desc { get; private set; default = ""; }
+        protected string all_clear_key { get; private set; default = "<Shift>BackSpace" ; }
 
         [GtkChild]
         private unowned Adw.NavigationSplitView sci_nav_split_view;
@@ -68,10 +69,10 @@ namespace Pebbles {
 
         construct {
             display.on_input.connect (evaluate);
-            load_constant_button ();
+            load_buttons ();
             Settings.get_default ().changed.connect ((key) => {
-                if (key == "constant-key-value1" || key == "constant-key-value2") {
-                    load_constant_button ();
+                if (key == "constant-key-value1" || key == "constant-key-value2" || key == "delete-all-clear") {
+                    load_buttons ();
                 }
             });
         }
@@ -132,7 +133,7 @@ namespace Pebbles {
             last_answer_button_p.tooltip_desc = shift_button.active
             ? _("Insert shared last answer") : _("Insert last answer");
 
-            load_constant_button ();
+            load_buttons ();
         }
 
         public void evaluate (string text) {
@@ -164,7 +165,7 @@ namespace Pebbles {
             display.show_history (history);
         }
 
-        private void load_constant_button () {
+        private void load_buttons () {
             var settings = Pebbles.Settings.get_default ();
 
             var key = shift_button.active ? settings.constant_key_value2 : settings.constant_key_value1;
@@ -210,6 +211,8 @@ namespace Pebbles {
                     constant_desc = _("Euler's constant (exponential)");
                     break;
             }
+
+            all_clear_key = settings.delete_all_clear ? "Delete" : "<Shift>BackSpace";
         }
 
         [GtkCallback]
