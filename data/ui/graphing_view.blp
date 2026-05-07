@@ -49,9 +49,9 @@ template $PebblesGraphingView: $PebblesView {
                         $PebblesButton all_clear_button {
                             label_text: _("AC");
                             tooltip_desc: _("All Clear");
-                            accel_markup: "Delete";
+                            accel_markup: bind template.all_clear_key;
                             focus-on-click: false;
-                            key: "delete";
+                            key: bind template.all_clear_key;
 
                             styles [
                                 "destructive-action",

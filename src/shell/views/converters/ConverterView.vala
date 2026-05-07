@@ -123,6 +123,14 @@ namespace Pebbles {
 
             entry_formatter_from = new EntryFormatter (from_entry, NONE);
             entry_formatter_to = new EntryFormatter (to_entry, NONE);
+
+            settings.changed.connect ((key) => {
+                if (key == "delete-all-clear") {
+                    all_clear_key = settings.get_boolean ("delete-all-clear") ? "Delete" : "<Shift>BackSpace";
+                }
+            });
+
+            all_clear_key = settings.get_boolean ("delete-all-clear") ? "Delete" : "<Shift>BackSpace";
         }
 
         [GtkCallback]

@@ -131,6 +131,14 @@ namespace Pebbles {
                     0
                 );
             });
+
+            settings.changed.connect ((key) => {
+                if (key == "delete-all-clear") {
+                    all_clear_key = settings.get_boolean ("delete-all-clear") ? "Delete" : "<Shift>BackSpace";
+                }
+            });
+
+            all_clear_key = settings.get_boolean ("delete-all-clear") ? "Delete" : "<Shift>BackSpace";
         }
 
         public void show_result (string result) {

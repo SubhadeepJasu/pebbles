@@ -73,7 +73,7 @@ namespace Pebbles {
         construct {
             load_buttons ();
             Settings.get_default ().changed.connect ((key) => {
-                if (key == "constant-key-value1" || key == "constant-key-value2") {
+                if (key == "constant-key-value1" || key == "constant-key-value2" || key == "delete-all-clear") {
                     load_buttons ();
                 }
             });
@@ -266,6 +266,8 @@ namespace Pebbles {
                     constant_desc = _("Euler's constant (exponential)");
                     break;
             }
+
+            all_clear_key = settings.delete_all_clear ? "Delete" : "<Shift>BackSpace";
         }
 
         public void set_global_memory_present (bool present) {

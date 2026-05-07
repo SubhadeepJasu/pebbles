@@ -92,7 +92,7 @@ namespace Pebbles {
 
             load_buttons ();
             Settings.get_default ().changed.connect ((key) => {
-                if (key == "constant-key-value1" || key == "constant-key-value2") {
+                if (key == "constant-key-value1" || key == "constant-key-value2" || key == "delete-all-clear") {
                     load_buttons ();
                 }
             });
