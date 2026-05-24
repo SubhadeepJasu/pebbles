@@ -101,6 +101,20 @@ namespace Pebbles {
             }
         }
 
+        private bool _dragging = false;
+        private bool dragging {
+            get {
+                return _dragging;
+            }
+
+            set {
+                _dragging = value;
+                queue_render = true;
+            }
+        }
+
+        private bool scrolling = false;
+
         private Gdk.Pixbuf? figure;
         private bool valid_figure = true;
         private GlobalAngleUnit angle_unit;
@@ -164,6 +178,11 @@ namespace Pebbles {
                 propagation_phase = Gtk.PropagationPhase.CAPTURE,
                 name = "drag-rotation-capture"
             };
+
+            pan_gesture.begin.connect (() => {
+                dragging = true;
+            });
+
             pan_gesture.drag_update.connect ((off_x, off_y) => {
                 var vel_x = off_x - previous_x;
                 previous_x = off_x;
@@ -176,6 +195,7 @@ namespace Pebbles {
             pan_gesture.drag_end.connect (() => {
                 previous_x = 0;
                 previous_y = 0;
+                dragging = false;
             });
             add_controller (pan_gesture);
 
@@ -186,10 +206,15 @@ namespace Pebbles {
             zoom_gesture.begin.connect (() => {
                 previous_sx = zoom_x;
                 previous_sy = zoom_y;
+                dragging = true;
             });
             zoom_gesture.scale_changed.connect ((off_s) => {
                 zoom_x = previous_sx * off_s;
                 zoom_y = previous_sy * off_s;
+                dragging = true;
+            });
+            zoom_gesture.end.connect (() => {
+                dragging = false;
             });
             add_controller (zoom_gesture);
 
@@ -197,6 +222,8 @@ namespace Pebbles {
                 propagation_phase = Gtk.PropagationPhase.CAPTURE
             };
             main_scroll_gesture.scroll.connect ((dx, dy) => {
+                dragging = true;
+                scrolling = true;
                 var modifier = main_scroll_gesture.get_current_event_state ();
                 if ((modifier & Gdk.ModifierType.CONTROL_MASK) != 0) {
                     var new_zoom_x = zoom_x - dy;
@@ -211,6 +238,10 @@ namespace Pebbles {
                     pan_y -= dy / dpi;
                 }
             });
+            main_scroll_gesture.scroll_end.connect (() => {
+                dragging = false;
+                scrolling = false;
+            });
             add_controller (main_scroll_gesture);
 
             x_scroll_gesture = new Gtk.EventControllerScroll (Gtk.EventControllerScrollFlags.BOTH_AXES);
@@ -222,8 +253,6 @@ namespace Pebbles {
                 if (new_zoom_x > 0) {
                     zoom_x = new_zoom_x;
                 }
-
-
             });
 
             y_scroll_gesture.scroll.connect ((dx, dy) => {
@@ -270,7 +299,8 @@ namespace Pebbles {
                 width = renderer.get_width (),
                 height = renderer.get_height (),
                 dpi = dpi,
-                dark_mode = gtk_settings.gtk_application_prefer_dark_theme
+                dark_mode = gtk_settings.gtk_application_prefer_dark_theme,
+                fidelity_mode = !dragging
             };
 
             window.on_render_graph (payload);
@@ -330,6 +360,12 @@ namespace Pebbles {
                 cr.move_to (cx - radius * 0.7, cy - radius * 0.7);
                 cr.line_to (cx + radius * 0.7, cy + radius * 0.7);
                 cr.stroke ();
+            }
+
+            if (scrolling) {
+                dragging = false;
+                scrolling = false;
+                renderer.queue_draw ();
             }
         }
 
