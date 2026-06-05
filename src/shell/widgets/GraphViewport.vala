@@ -116,6 +116,13 @@ namespace Pebbles {
         private bool scrolling = false;
 
         private Gdk.Pixbuf? figure;
+        private Gdk.Pixbuf? intermediate_figure;
+        private double last_pixbuf_zoom_x = 100.0;
+        private double last_pixbuf_zoom_y = 100.0;
+        private double last_pixbuf_pan_x = 0.0;
+        private double last_pixbuf_pan_y = 0.0;
+        private int last_pixbuf_width = 0;
+        private int last_pixbuf_height = 0;
         private bool valid_figure = true;
         private GlobalAngleUnit angle_unit;
         private bool queue_render = false;
@@ -192,6 +199,7 @@ namespace Pebbles {
                 previous_y = off_y;
                 pan_y += vel_y / zoom_y;
             });
+
             pan_gesture.drag_end.connect (() => {
                 previous_x = 0;
                 previous_y = 0;
@@ -306,8 +314,17 @@ namespace Pebbles {
             window.on_render_graph (payload);
         }
 
-        public void show_graph (Gdk.Pixbuf? figure, bool valid) {
-            this.figure = figure;
+        public void show_graph (Gdk.Pixbuf? figure_i, Gdk.Pixbuf? figure_f, bool valid) {
+            this.figure = figure_f;
+            if (figure_i != null) {
+                this.intermediate_figure = figure_i;
+                this.last_pixbuf_pan_x = pan_x;
+                this.last_pixbuf_pan_y = pan_y;
+                this.last_pixbuf_zoom_x = zoom_x;
+                this.last_pixbuf_zoom_y = zoom_y;
+                this.last_pixbuf_width = figure_i.get_width ();
+                this.last_pixbuf_height = figure_i.get_height ();
+            }
             valid_figure = valid;
             Idle.add_once (() => {
                 renderer.queue_draw ();
@@ -317,7 +334,103 @@ namespace Pebbles {
         }
 
         private void draw_figure (Gtk.DrawingArea area, Cairo.Context cr, int width, int height) {
-            if (figure != null) {
+            if ((dragging || scrolling) && intermediate_figure != null && figure != null) { // Intermediate Image
+                double degrees = Math.PI / 180.0;
+                double radius = 3.0;
+                cr.new_sub_path ();
+                cr.arc (width - radius, radius, radius, -90 * degrees, 0);
+                cr.arc (width - radius, height - radius, radius, 0, 90 * degrees);
+                cr.arc (radius, height - radius, radius, 90 * degrees, 180 * degrees);
+                cr.arc (radius, radius, radius, 180 * degrees, 270 * degrees);
+                cr.close_path ();
+
+                cr.clip ();
+
+
+                int width_f = figure?.get_width ();
+                int width_i = intermediate_figure?.get_width ();
+                if (width_f > 0) {
+                    double scale_x = (double) width / width_f;
+
+                    cr.save ();
+                    cr.set_operator (Cairo.Operator.SOURCE);
+                    cr.scale (scale_x, scale_x);
+                    Gdk.cairo_set_source_pixbuf (
+                        cr,
+                        figure,
+                        0,
+                        0
+                    );
+                    cr.paint ();
+                    cr.restore ();
+
+                    if (width_i > 0) {
+                        if (last_pixbuf_zoom_x > 0 && last_pixbuf_zoom_y > 0 && last_pixbuf_width > 0 && last_pixbuf_height > 0) {
+                            double s_x = zoom_x / last_pixbuf_zoom_x;
+                            double s_y = zoom_y / last_pixbuf_zoom_y;
+
+                            double img_w = (double) last_pixbuf_width * s_x;
+                            double img_h = (double) last_pixbuf_height * s_y;
+
+                            double tx = (double) width / 2.0 + zoom_x * (last_pixbuf_pan_x - pan_x) - img_w / 2.0;
+                            double ty = (double) height / 2.0 - zoom_y * (last_pixbuf_pan_y - pan_y) - img_h / 2.0;
+
+                            cr.save ();
+                            if (gtk_settings.gtk_application_prefer_dark_theme) {
+                                cr.set_source_rgb (0.227, 0.227, 0.227);
+                            } else {
+                                cr.set_source_rgb (1.0, 1.0, 1.0);
+                            }
+                            cr.rectangle (tx, ty, img_w, img_h);
+                            cr.fill ();
+                            cr.restore ();
+
+                            cr.save ();
+                            cr.rectangle (tx, ty, img_w, img_h);
+                            cr.clip ();
+                            cr.translate (tx, ty);
+                            cr.scale (s_x, s_y);
+                            Gdk.cairo_set_source_pixbuf (
+                                cr,
+                                intermediate_figure,
+                                0,
+                                0
+                            );
+                            cr.paint ();
+                            cr.restore ();
+                        } else {
+                            double scale_xi = (double) width / width_i;
+
+                            double img_w = width;
+                            double img_h = height;
+                            double tx = 0.0;
+                            double ty = 0.0;
+
+                            cr.save ();
+                            if (gtk_settings.gtk_application_prefer_dark_theme) {
+                                cr.set_source_rgb (0.227, 0.227, 0.227);
+                            } else {
+                                cr.set_source_rgb (1.0, 1.0, 1.0);
+                            }
+                            cr.rectangle (tx, ty, img_w, img_h);
+                            cr.fill ();
+                            cr.restore ();
+
+                            cr.save ();
+                            cr.set_operator (Cairo.Operator.OVER);
+                            cr.scale (scale_xi, scale_xi);
+                            Gdk.cairo_set_source_pixbuf (
+                                cr,
+                                intermediate_figure,
+                                0,
+                                0
+                            );
+                            cr.paint ();
+                            cr.restore ();
+                        }
+                    }
+                }
+            } else if (figure != null) {
                 double degrees = Math.PI / 180.0;
                 double radius = 3.0;
                 cr.new_sub_path ();
@@ -334,6 +447,7 @@ namespace Pebbles {
                 if (iwidth > 0) {
                     double scale_x = (double) width / iwidth;
 
+                    cr.save ();
                     cr.set_operator (Cairo.Operator.SOURCE);
                     cr.scale (scale_x, scale_x);
                     Gdk.cairo_set_source_pixbuf (
@@ -343,6 +457,7 @@ namespace Pebbles {
                         0
                     );
                     cr.paint ();
+                    cr.restore ();
                 }
             } else if (!valid_figure) {
                 // Draw a "No Symbol" (🛇)
@@ -480,8 +595,10 @@ namespace Pebbles {
             double y_center = (height - extents.width) / 2 - extents.x_bearing;
             double x_offset = width - extents.height - major_tick - 4;
 
-            cr.move_to (x_offset, y_center);
+            cr.save ();
+            cr.translate (x_offset, y_center);
             cr.rotate (Math.PI_2);
+            cr.move_to (0, 0);
             cr.show_text (label);
             cr.restore ();
         }

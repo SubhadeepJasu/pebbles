@@ -101,7 +101,7 @@ class GraphingCalculator:
         try:
             with self.plot_lock:
                 fidelity_mode = self.plot_params['fidelity']
-                step_size = 1 if fidelity_mode else 6
+                step_size = 1 if fidelity_mode or path != '' else 6
                 palette = Pebbles.get_palette(self.plot_params['darkMode'])
                 dpi = self.plot_params['dpi']
                 width = self.plot_params['width']
@@ -146,18 +146,29 @@ class GraphingCalculator:
                             )
                         )
 
-                if fidelity_mode:
+                if path == '':
+                    if fidelity_mode:
+                        self._draw_legend(ax)
+                        self._configure_labels(ax)
+                        pixbuf_f = Utils.plot_to_pixbuf(plt, fig, (width, height), dpi, step_size)
+                        ax.set_xticklabels([])
+                        ax.set_yticklabels([])
+                        ax.get_legend().remove()
+                        pixbuf_i = Utils.plot_to_pixbuf(plt, fig, (width, height), dpi, step_size)
+                        if self.on_plot_ready:
+                            self.on_plot_ready(pixbuf_i, pixbuf_f, True)
+                    else:
+                        ax.set_xticklabels([])
+                        ax.set_yticklabels([])
+                        pixbuf_f = Utils.plot_to_pixbuf(plt, fig, (width, height), dpi, step_size)
+                        if self.on_plot_ready:
+                            self.on_plot_ready(None, pixbuf_f, True)
+                else:
                     self._draw_legend(ax)
                     self._configure_labels(ax)
-
-                if path != '':
                     Utils.fig_save_path = path
                     Utils.plot_to_image(plt, fig, (width, height), dpi, step_size)
-                else:
-                    pixbuf = Utils.plot_to_pixbuf(plt, fig, (width, height), dpi, step_size)
 
-                    if self.on_plot_ready:
-                        self.on_plot_ready(pixbuf, True)
         except RuntimeError:
             pass
 
