@@ -38,6 +38,8 @@ namespace Pebbles {
         [GtkChild]
         protected unowned Gtk.Label additional_label;
 
+        protected string all_clear_key { get; private set; default = "<Shift>BackSpace" ; }
+
         private Gtk.EventControllerFocus from_entry_focus_controller;
         private Gtk.EventControllerFocus to_entry_focus_controller;
         private Gtk.EventControllerKey key_controller;
@@ -121,6 +123,14 @@ namespace Pebbles {
 
             entry_formatter_from = new EntryFormatter (from_entry, NONE);
             entry_formatter_to = new EntryFormatter (to_entry, NONE);
+
+            settings.changed.connect ((key) => {
+                if (key == "delete-all-clear") {
+                    all_clear_key = settings.get_boolean ("delete-all-clear") ? "Delete" : "<Shift>BackSpace";
+                }
+            });
+
+            all_clear_key = settings.get_boolean ("delete-all-clear") ? "Delete" : "<Shift>BackSpace";
         }
 
         [GtkCallback]

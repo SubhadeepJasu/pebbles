@@ -31,6 +31,8 @@ namespace Pebbles {
 
         protected List<List<string>> table;
 
+        protected string all_clear_key { get; private set; default = "<Shift>BackSpace" ; }
+
         public signal void on_evaluate (StatOp op, Json.Object options);
         public signal string on_memory_recall (bool global);
         public signal void on_memory_clear (bool global);
@@ -46,6 +48,16 @@ namespace Pebbles {
                     }
                 });
             });
+
+            Settings.get_default ().changed.connect ((key) => {
+                if (key == "delete-all-clear") {
+                    all_clear_key = Settings.get_default ().get_boolean ("delete-all-clear")
+                    ? "Delete"
+                    : "<Shift>BackSpace";
+                }
+            });
+
+            all_clear_key = Settings.get_default ().get_boolean ("delete-all-clear") ? "Delete" : "<Shift>BackSpace";
         }
 
         public void show_result (string res) {

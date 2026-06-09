@@ -18,6 +18,15 @@ template $PebblesPreferencesDialog: Adw.PreferencesDialog {
                 notify::active => $load_session_notify_active_cb();
             }
 
+            Adw.SwitchRow {
+                title: _("All Clear On [Delete] Key");
+                subtitle: _("Clear all values when delete is pressed");
+                focus-on-click: false;
+                focusable: false;
+                active: bind template.settings as <$PebblesSettings>.delete_all_clear;
+                notify::active => $delete_all_clear_notify_active_cb();
+            }
+
             Adw.ActionRow decimal_places {
                 title: _("Decimal Places");
                 subtitle: _("Number of decimal places after radix symbol");
