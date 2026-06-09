@@ -348,13 +348,16 @@ namespace Pebbles {
 
 
                 int width_f = figure?.get_width ();
+                int height_f = figure?.get_height ();
                 int width_i = intermediate_figure?.get_width ();
-                if (width_f > 0) {
+                int height_i = intermediate_figure?.get_height ();
+                if (width_f > 0 && height_f > 0) {
                     double scale_x = (double) width / width_f;
+                    double scale_y = (double) height / height_f;
 
                     cr.save ();
                     cr.set_operator (Cairo.Operator.SOURCE);
-                    cr.scale (scale_x, scale_x);
+                    cr.scale (scale_x, scale_y);
                     Gdk.cairo_set_source_pixbuf (
                         cr,
                         figure,
@@ -400,6 +403,7 @@ namespace Pebbles {
                             cr.restore ();
                         } else {
                             double scale_xi = (double) width / width_i;
+                            double scale_yi = (double) height / height_i;
 
                             double img_w = width;
                             double img_h = height;
@@ -418,7 +422,7 @@ namespace Pebbles {
 
                             cr.save ();
                             cr.set_operator (Cairo.Operator.OVER);
-                            cr.scale (scale_xi, scale_xi);
+                            cr.scale (scale_xi, scale_yi);
                             Gdk.cairo_set_source_pixbuf (
                                 cr,
                                 intermediate_figure,
@@ -444,12 +448,14 @@ namespace Pebbles {
 
 
                 int iwidth = figure?.get_width ();
-                if (iwidth > 0) {
+                int iheight = figure?.get_height ();
+                if (iwidth > 0 && iheight > 0) {
                     double scale_x = (double) width / iwidth;
+                    double scale_y = (double) height / iheight;
 
                     cr.save ();
                     cr.set_operator (Cairo.Operator.SOURCE);
-                    cr.scale (scale_x, scale_x);
+                    cr.scale (scale_x, scale_y);
                     Gdk.cairo_set_source_pixbuf (
                         cr,
                         figure,
