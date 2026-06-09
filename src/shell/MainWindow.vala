@@ -708,13 +708,6 @@ namespace Pebbles {
         }
 
         private void load_settings () {
-            // Check if the version is new
-            if (settings.version != Config.VERSION) {
-                settings.version = Config.VERSION;
-
-                // Show some kind of What's New dialog?
-            }
-
             if (settings.load_last_session) {
                 switch (settings.global_angle_unit) {
                     case DEG:
