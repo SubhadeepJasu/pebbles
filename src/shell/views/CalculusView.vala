@@ -70,6 +70,8 @@ namespace Pebbles {
         protected string constant_desc { get; private set; default = ""; }
         protected string all_clear_key { get; private set; default = "<Shift>BackSpace" ; }
 
+        private Settings settings;
+
         public signal void on_evaluate (
             string input,
             bool integral_mode,
@@ -81,6 +83,7 @@ namespace Pebbles {
         public signal void on_memory_clear (bool global);
 
         construct {
+            settings = Pebbles.Settings.get_default ();
             display.on_input.connect ((text) => {
                 on_evaluate (
                     text,
@@ -91,6 +94,10 @@ namespace Pebbles {
             });
 
             load_buttons ();
+            if (settings.load_last_session) {
+                integral_mode = settings.calculus_mode;
+            }
+
             Settings.get_default ().changed.connect ((key) => {
                 if (key == "constant-key-value1" || key == "constant-key-value2" || key == "delete-all-clear") {
                     load_buttons ();
@@ -100,6 +107,7 @@ namespace Pebbles {
 
         public void show_result (string result) {
             display.show_result (result);
+            settings.calculus_mode = integral_mode;
         }
 
         [GtkCallback]
@@ -245,8 +253,6 @@ namespace Pebbles {
         }
 
         private void load_buttons () {
-            var settings = Pebbles.Settings.get_default ();
-
             var key = shift_button.active ? settings.constant_key_value2 : settings.constant_key_value1;
             switch (key) {
                 case ARCHIMEDES:

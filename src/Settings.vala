@@ -24,6 +24,7 @@ namespace Pebbles {
         public const string KEY_DECIMAL_PLACES = "decimal-places";
         public const string KEY_INTEGRATION_RESOLUTION = "integration-resolution";
         public const string KEY_DERIVATIVE_ACCURACY = "derivative-accuracy";
+        public const string KEY_CALCULUS_MODE = "calculus-mode";
         public const string KEY_FOREX_API_KEY = "forex-api-key";
         public const string KEY_FOREX_API_TIMESTAMP = "forex-timestamp";
         public const string KEY_FOREX_RATES_CACHE = "forex-rates-cache";
@@ -33,6 +34,9 @@ namespace Pebbles {
         public const string KEY_LAST_INPUT_SCIENTIFIC = "last-input-scientific";
         public const string KEY_LAST_INPUT_PROGRAMMER = "last-input-programmer";
         public const string KEY_LAST_INPUT_CALCULUS = "last-input-calculus";
+        public const string KEY_LAST_INPUT_CALCULUS_X = "last-input-calculus-x";
+        public const string KEY_LAST_INPUT_CALCULUS_UPPER_LIM = "last-input-calculus-upper-lim";
+        public const string KEY_LAST_INPUT_CALCULUS_LOWER_LIM = "last-input-calculus-lower-lim";
         public const string KEY_LAST_INPUT_GRAPHING = "last-input-graphing";
         public const string KEY_DATE_DIFF_FROM = "date-diff-from";
         public const string KEY_DATE_DIFF_TO = "date-diff-to";
@@ -61,6 +65,7 @@ namespace Pebbles {
             keys.append (KEY_GLOBAL_ANGLE_UNIT);
             keys.append (KEY_GLOBAL_WORD_LENGTH);
             keys.append (KEY_NUMBER_SYSTEM);
+            keys.append (KEY_CALCULUS_MODE);
             keys.append (KEY_LAST_INPUT_SCIENTIFIC);
             keys.append (KEY_LAST_INPUT_PROGRAMMER);
             keys.append (KEY_LAST_INPUT_CALCULUS);
@@ -187,6 +192,11 @@ namespace Pebbles {
             set { set_enum (KEY_NUMBER_SYSTEM, value); }
         }
 
+        public bool calculus_mode {
+            get { return get_boolean (KEY_CALCULUS_MODE); }
+            set { set_boolean (KEY_CALCULUS_MODE, value); }
+        }
+
         public string last_input_scientific {
             owned get { return get_string (KEY_LAST_INPUT_SCIENTIFIC); }
             set { set_string (KEY_LAST_INPUT_SCIENTIFIC, value); }
@@ -200,6 +210,21 @@ namespace Pebbles {
         public string last_input_calculus {
             owned get { return get_string (KEY_LAST_INPUT_CALCULUS); }
             set { set_string (KEY_LAST_INPUT_CALCULUS, value); }
+        }
+
+        public string last_input_calculus_x {
+            owned get { return get_string (KEY_LAST_INPUT_CALCULUS_X); }
+            set { set_string (KEY_LAST_INPUT_CALCULUS_X, value); }
+        }
+
+        public string last_input_calculus_upper_lim {
+            owned get { return get_string (KEY_LAST_INPUT_CALCULUS_UPPER_LIM); }
+            set { set_string (KEY_LAST_INPUT_CALCULUS_UPPER_LIM, value); }
+        }
+
+        public string last_input_calculus_lower_lim {
+            owned get { return get_string (KEY_LAST_INPUT_CALCULUS_LOWER_LIM); }
+            set { set_string (KEY_LAST_INPUT_CALCULUS_LOWER_LIM, value); }
         }
 
         public string[] last_input_graphing {

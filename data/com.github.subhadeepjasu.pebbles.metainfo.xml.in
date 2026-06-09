@@ -49,7 +49,7 @@
   <categories>
     <category>Calculator</category>
   </categories>
-  <developer id="com.github.SubhadeepJasu">
+  <developer id="com.github.subhadeepjasu">
     <name>Subhadeep Jasu</name>
   </developer>
   <url type="homepage">https://subhadeepjasu.github.io/#/project/pebbles</url>
@@ -61,18 +61,18 @@
   </custom>
   <branding>
       <color type="primary" scheme_preference="light">#84AEAA</color>
-      <color type="primary" scheme_preference="dark">rgb(39,40,99)</color>
+      <color type="primary" scheme_preference="dark">#272863</color>
     </branding>
   <translation type="gettext" source_locale="en_US">com.github.subhadeepjasu.pebbles</translation>
   <launchable type="desktop-id">com.github.subhadeepjasu.pebbles.desktop</launchable>
   <screenshots>
     <screenshot type="default" environment="pantheon">
       <caption>Scientific Mode</caption>
-      <image>https://raw.githubusercontent.com/SubhadeepJasu/pebbles/master/screenshots/ScreenshotScientific.png</image>
+      <image>https://raw.githubusercontent.com/SubhadeepJasu/pebbles/master/screenshots/ScientificMode.png</image>
     </screenshot>
     <screenshot environment="pantheon:dark">
       <caption>Scientific Mode</caption>
-      <image>https://raw.githubusercontent.com/SubhadeepJasu/pebbles/master/screenshots/ScreenshotScientificDark.png</image>
+      <image>https://raw.githubusercontent.com/SubhadeepJasu/pebbles/master/screenshots/ScientificModeDark.png</image>
     </screenshot>
   </screenshots>
   <content_rating type="oars-1.1">

@@ -107,6 +107,11 @@
 			<summary>Choose the number system</summary>
 			<description>Select the number system.</description>
 		</key>
+		<key name="calculus-mode" type="b">
+			<default>false</default>
+			<summary>Calculus Mode: Derivative/Definite Integral</summary>
+			<description>True if Definite Integral mode, False if Derivative mode</description>
+		</key>
 		<key name="last-input-scientific" type="s">
 			<default>"0"</default>
 			<summary>Last input in Scientific View</summary>
@@ -121,6 +126,21 @@
 			<default>"0"</default>
 			<summary>Last input in Calculator View</summary>
 			<description>Last input in Calculator View</description>
+		</key>
+		<key name="last-input-calculus-upper-lim" type="s">
+			<default>""</default>
+			<summary>Last input upper limit in Calculus View</summary>
+			<description>Last input upper limit for definite integral in Calculus View</description>
+		</key>
+		<key name="last-input-calculus-lower-lim" type="s">
+			<default>""</default>
+			<summary>Last input lower limit in Calculus View</summary>
+			<description>Last input lower limit for definite integral in Calculus View</description>
+		</key>
+		<key name="last-input-calculus-x" type="s">
+			<default>""</default>
+			<summary>Last input x limit in Calculus View</summary>
+			<description>Last input x limit for derivative in Calculus View</description>
 		</key>
 		<key name="last-input-graphing" type="as">
 			<default>[]</default>

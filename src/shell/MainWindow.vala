@@ -73,6 +73,7 @@ namespace Pebbles {
         public Gtk.Stack date_header_box_stack;
         public Gtk.Switch diff_mode_switch;
         public Gtk.Switch add_mode_switch;
+        public Granite.ModeSwitch calculus_mode_button;
         [GtkChild]
         private unowned Gtk.Box currency_header_box;
         [GtkChild]
@@ -274,12 +275,14 @@ namespace Pebbles {
                     on_change_mode ();
                 });
 
-                var calculus_mode_button = new Granite.ModeSwitch.from_icon_name (
+                calculus_mode_button = new Granite.ModeSwitch.from_icon_name (
                     "derivative-mode-symbolic",
                     "integral-mode-symbolic"
                 );
                 calculus_header_box.append (calculus_mode_button);
-
+                if (settings.load_last_session) {
+                    calculus_mode_button.active = settings.calculus_mode;
+                }
                 calculus_mode_button.notify["active"].connect (() => {
                     calculus_view.integral_mode = calculus_mode_button.active;
                 });
@@ -684,6 +687,14 @@ namespace Pebbles {
                 on_memory_clear (global ? "global" : Context.SCIENTIFIC);
             });
 
+            calculus_view.on_memory_recall.connect ((global) => {
+                return on_memory_recall (global ? "global" : Context.CALCULUS);
+            });
+
+            calculus_view.on_memory_clear.connect ((global) => {
+                on_memory_clear (global ? "global" : Context.CALCULUS);
+            });
+
             statistics_view.on_memory_recall.connect ((global) => {
                 return on_memory_recall (global ? "global" : Context.STATISTICS);
             });
@@ -934,7 +945,6 @@ namespace Pebbles {
         protected void history_recall (HistoryModel _history) {
             switch (_history.context) {
                 case Context.SCIENTIFIC:
-                case Context.CALCULUS:
                 case Context.GRAPHING:
                     settings.global_angle_unit = (GlobalAngleUnit) _history.metadata.metadata_1;
                     switch (settings.global_angle_unit) {
@@ -954,6 +964,28 @@ namespace Pebbles {
                             calculus_angle_mode.label_text = "DEG";
                             break;
                     }
+                    break;
+                case Context.CALCULUS:
+                    settings.global_angle_unit = (GlobalAngleUnit) _history.metadata.metadata_1;
+                    switch (settings.global_angle_unit) {
+                        case RAD:
+                            angle_mode.label_text = "RAD";
+                            graph_angle_mode.label_text = "RAD";
+                            calculus_angle_mode.label_text = "RAD";
+                            break;
+                        case GRAD:
+                            angle_mode.label_text = "GRA";
+                            graph_angle_mode.label_text = "GRA";
+                            calculus_angle_mode.label_text = "GRA";
+                            break;
+                        case DEG:
+                            angle_mode.label_text = "DEG";
+                            graph_angle_mode.label_text = "DEG";
+                            calculus_angle_mode.label_text = "DEG";
+                            break;
+                    }
+                    settings.calculus_mode = _history.metadata.metadata_2 == 1;
+                    calculus_mode_button.active = settings.calculus_mode;
                     break;
                 case Context.PROGRAMMER:
                     settings.global_word_length = (GlobalWordLength) _history.metadata.metadata_1;
