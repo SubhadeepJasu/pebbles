@@ -368,7 +368,8 @@ namespace Pebbles {
                     cr.restore ();
 
                     if (width_i > 0) {
-                        if (last_pixbuf_zoom_x > 0 && last_pixbuf_zoom_y > 0 && last_pixbuf_width > 0 && last_pixbuf_height > 0) {
+                        if (last_pixbuf_zoom_x > 0 && last_pixbuf_zoom_y > 0 &&
+                            last_pixbuf_width > 0 && last_pixbuf_height > 0) {
                             double s_x = zoom_x / last_pixbuf_zoom_x;
                             double s_y = zoom_y / last_pixbuf_zoom_y;
 

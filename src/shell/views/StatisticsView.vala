@@ -51,7 +51,9 @@ namespace Pebbles {
 
             Settings.get_default ().changed.connect ((key) => {
                 if (key == "delete-all-clear") {
-                    all_clear_key = Settings.get_default ().get_boolean ("delete-all-clear") ? "Delete" : "<Shift>BackSpace";
+                    all_clear_key = Settings.get_default ().get_boolean ("delete-all-clear")
+                    ? "Delete"
+                    : "<Shift>BackSpace";
                 }
             });
 
