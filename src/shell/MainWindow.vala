@@ -708,13 +708,6 @@ namespace Pebbles {
         }
 
         private void load_settings () {
-            // Check if the version is new
-            if (settings.version != Config.VERSION) {
-                settings.version = Config.VERSION;
-
-                // Show some kind of What's New dialog?
-            }
-
             if (settings.load_last_session) {
                 switch (settings.global_angle_unit) {
                     case DEG:
@@ -893,8 +886,8 @@ namespace Pebbles {
             statistics_view.plot (figure, valid);
         }
 
-        protected void on_render_ready (Gdk.Pixbuf? figure, bool valid) {
-            graphing_view.render_graph (figure, valid);
+        protected void on_render_ready (Gdk.Pixbuf? figure_i, Gdk.Pixbuf? figure_f, bool valid) {
+            graphing_view.render_graph (figure_i, figure_f, valid);
         }
 
         protected void on_memory_change (string context, bool present) {

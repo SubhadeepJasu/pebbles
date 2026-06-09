@@ -236,8 +236,8 @@ Attempting to make a table with the previous series.")
         self.graph_calc.export(path)
 
 
-    def _graph_ready_cb(self, pixbuf, valid):
-        self.on_render_ready(pixbuf, valid)
+    def _graph_ready_cb(self, pixbuf_i, pixbuf_f, valid):
+        self.on_render_ready(pixbuf_i, pixbuf_f, valid)
 
 
     def _memory_recall(self, _, context: str):

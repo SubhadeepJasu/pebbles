@@ -39,22 +39,33 @@ namespace Pebbles {
 
         construct {
             Idle.add (()=> {
-                Timeout.add (60, ()=> {
-                    if (animation_frame < animation_frames.length) {
-                        main_label.label = animation_frames[animation_frame];
-                        animation_frame++;
-                        return true;
-                    }
+                if (settings.version != Config.VERSION) {
+                    settings.version = Config.VERSION;
 
+                    Timeout.add (60, ()=> {
+                        if (animation_frame < animation_frames.length) {
+                            main_label.label = animation_frames[animation_frame];
+                            animation_frame++;
+                            return true;
+                        }
+
+                        main_label.label = settings.last_output_scientific;
+                        main_entry.text = settings.last_input_scientific;
+                        main_entry.grab_focus_without_selecting ();
+                        main_entry.set_position (-1);
+                        history_display.visible = true;
+                        history_display.add_css_class ("animate-in");
+
+                        return false;
+                    });
+                } else {
                     main_label.label = settings.last_output_scientific;
                     main_entry.text = settings.last_input_scientific;
                     main_entry.grab_focus_without_selecting ();
                     main_entry.set_position (-1);
                     history_display.visible = true;
                     history_display.add_css_class ("animate-in");
-
-                    return false;
-                });
+                }
 
                 return false;
             }, Priority.LOW);

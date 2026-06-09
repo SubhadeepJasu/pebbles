@@ -68,7 +68,8 @@ class GraphingCalculator:
             'yMax': payload.get_y_max(),
             'xScaling': payload.get_x_scaling(),
             'yScaling': payload.get_y_scaling(),
-            'darkMode': payload.get_dark_mode()
+            'darkMode': payload.get_dark_mode(),
+            'fidelity': payload.get_fidelity_mode()
         }
 
         self.start_plotting()
@@ -99,64 +100,74 @@ class GraphingCalculator:
     def _plot(self, path=''):
         try:
             with self.plot_lock:
-                steps = [6, 1]
+                fidelity_mode = self.plot_params['fidelity']
+                step_size = 1 if fidelity_mode or path != '' else 6
                 palette = Pebbles.get_palette(self.plot_params['darkMode'])
                 dpi = self.plot_params['dpi']
                 width = self.plot_params['width']
                 height = self.plot_params['height']
                 plt.tight_layout(pad=4 / dpi)
 
-                for step_size in steps:
-                    if self.cancel_event.is_set():
-                        return
+                if self.cancel_event.is_set():
+                    return
 
-                    fig, ax = self._setup_plot(width, height, dpi, step_size)
-                    x_values = self._generate_plot_x_values(
-                        self.plot_params['xScaling'],
-                        width,
-                        step_size
-                    )
+                fig, ax = self._setup_plot(width, height, dpi, step_size)
+                x_values = self._generate_plot_x_values(
+                    self.plot_params['xScaling'],
+                    width,
+                    step_size
+                )
 
-                    if self.plot_params['yScaling'] == 1:
-                        x_values = x_values[x_values != 0]
+                if self.plot_params['yScaling'] == 1:
+                    x_values = x_values[x_values != 0]
 
-                    t_values = np.linspace(
-                        0, 2*np.pi, width // (step_size ** 2)
-                    )
-                    for pro in self.calculators:
-                        pro['calc'].set_substitute_value('A',
-                                                         self.plot_params['a'], zero_limit=True)
-                        pro['calc'].set_substitute_value('B',
-                                                         self.plot_params['b'], zero_limit=True)
-                        pro['calc'].set_substitute_value('C',
-                                                         self.plot_params['c'], zero_limit=True)
-                        pro['calc'].set_substitute_value('M',
-                                                        self.plot_params['m'], zero_limit=True)
-                        if pro['eq'].get_radial_coord_mode():
-                            self._plot_radial(ax, pro, palette, (t_values, step_size))
-                        else:
-                            self._plot_cartesian(
-                                ax, pro, palette,
-                                (
-                                    x_values,
-                                    step_size,
-                                    self.plot_params['xScaling'],
-                                    self.plot_params['yScaling']
-                                )
+                t_values = np.linspace(
+                    0, 2 * np.pi, width // (step_size ** 2)
+                )
+                for pro in self.calculators:
+                    pro['calc'].set_substitute_value('A',
+                                                     self.plot_params['a'], zero_limit=True)
+                    pro['calc'].set_substitute_value('B',
+                                                     self.plot_params['b'], zero_limit=True)
+                    pro['calc'].set_substitute_value('C',
+                                                     self.plot_params['c'], zero_limit=True)
+                    pro['calc'].set_substitute_value('M',
+                                                    self.plot_params['m'], zero_limit=True)
+                    if pro['eq'].get_radial_coord_mode():
+                        self._plot_radial(ax, pro, palette, (t_values, step_size))
+                    else:
+                        self._plot_cartesian(
+                            ax, pro, palette,
+                            (
+                                x_values,
+                                step_size,
+                                self.plot_params['xScaling'],
+                                self.plot_params['yScaling']
                             )
+                        )
 
-                    if step_size == 1:
+                if path == '':
+                    if fidelity_mode:
                         self._draw_legend(ax)
                         self._configure_labels(ax)
-
-                    if path != '':
-                        Utils.fig_save_path = path
-                        Utils.plot_to_image(plt, fig, (width, height), dpi, step_size)
-                    else:
-                        pixbuf = Utils.plot_to_pixbuf(plt, fig, (width, height), dpi, step_size)
-
+                        pixbuf_f = Utils.plot_to_pixbuf(plt, fig, (width, height), dpi, step_size)
+                        ax.set_xticklabels([])
+                        ax.set_yticklabels([])
+                        ax.get_legend().remove()
+                        pixbuf_i = Utils.plot_to_pixbuf(plt, fig, (width, height), dpi, step_size)
                         if self.on_plot_ready:
-                            self.on_plot_ready(pixbuf, True)
+                            self.on_plot_ready(pixbuf_i, pixbuf_f, True)
+                    else:
+                        ax.set_xticklabels([])
+                        ax.set_yticklabels([])
+                        pixbuf_f = Utils.plot_to_pixbuf(plt, fig, (width, height), dpi, step_size)
+                        if self.on_plot_ready:
+                            self.on_plot_ready(None, pixbuf_f, True)
+                else:
+                    self._draw_legend(ax)
+                    self._configure_labels(ax)
+                    Utils.fig_save_path = path
+                    Utils.plot_to_image(plt, fig, (width, height), dpi, step_size)
 
         except RuntimeError:
             pass

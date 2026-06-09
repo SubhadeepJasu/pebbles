@@ -84,8 +84,8 @@ namespace Pebbles {
             var_m_adjustment = new Gtk.Adjustment (0, -double.MAX, double.MAX, 0.01, 0.1, 0);
         }
 
-        public void render_graph (Gdk.Pixbuf? pixbuf, bool valid) {
-            viewport.show_graph (pixbuf, valid);
+        public void render_graph (Gdk.Pixbuf? pixbuf_i, Gdk.Pixbuf? pixbuf_f, bool valid) {
+            viewport.show_graph (pixbuf_i, pixbuf_f, valid);
         }
 
         public void send_shift_modifier (bool shifted) {
