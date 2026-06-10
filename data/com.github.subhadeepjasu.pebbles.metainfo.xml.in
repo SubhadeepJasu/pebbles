@@ -105,6 +105,25 @@
     <content_attribute id="money-gambling">none</content_attribute>
   </content_rating>
   <releases>
+    <release date="2026-06-13" version="3.1.0">
+      <description>
+        <p>New:</p>
+        <ul>
+          <li>[Graphing] Add independent scaling of the x and y axis of the graph viewport</li>
+        </ul>
+        <p>Improved:</p>
+        <ul>
+          <li>[Graphing] Improve Graph Rendering performance when panning and zooming graph</li>
+          <li>[UI] Bring back delete key to All Clear, but put it as an optional setting over Shift+Backspace</li>
+        </ul>
+        <p>Fixed:</p>
+        <ul>
+          <li>[UI] Fix a bug with the tanh button which never switches back from tan again after pressing shift</li>
+          <li>[UI] Only show startup animation when the app is updated</li>
+          <li>[UI] Fix Display glow</li>
+        </ul>
+      </description>
+    </release>
     <release date="2025-12-29" version="3.0.0">
       <description>
         <p>New:</p>
