@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 project ('com.github.subhadeepjasu.pebbles', 'c', 'vala',
-        version: '3.0.0',
+        version: '3.1.0',
         meson_version: '>= 1.3.2',
         default_options: [ 'warning_level=2', 'werror=false', ],
 )
