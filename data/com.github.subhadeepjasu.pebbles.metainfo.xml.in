@@ -9,24 +9,6 @@
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-3.0-or-later</project_license>
 
-  <keywords>
-    <keyword>Calculator</keyword>
-    <keyword>Scientific</keyword>
-    <keyword>Programmer</keyword>
-    <keyword>Calculus</keyword>
-    <keyword>Statistics</keyword>
-    <keyword>Graphing</keyword>
-    <keyword>Plotting</keyword>
-    <keyword>Date</keyword>
-    <keyword>Unit Converter</keyword>
-    <keyword>Unit Conversion</keyword>
-    <keyword>Currency Converter</keyword>
-    <keyword>Currency Conversion</keyword>
-    <keyword>Utility</keyword>
-    <keyword>Pantheon</keyword>
-    <keyword>elementary OS</keyword>
-  </keywords>
-
   <supports>
     <control>pointing</control>
     <control>keyboard</control>
@@ -46,14 +28,12 @@
       <li>Some common unit converters</li>
     </ul>
   </description>
-  <categories>
-    <category>Calculator</category>
-  </categories>
   <developer id="com.github.subhadeepjasu">
     <name>Subhadeep Jasu</name>
   </developer>
   <url type="homepage">https://subhadeepjasu.github.io/#/project/pebbles</url>
   <url type="bugtracker">https://github.com/SubhadeepJasu/pebbles/issues</url>
+  <url type="vcs-browser">https://github.com/SubhadeepJasu/pebbles</url>
   <url type="help">https://github.com/SubhadeepJasu/pebbles/issues</url>
   <update_contact>subhadeep107@proton.me</update_contact>
   <custom>
@@ -76,33 +56,7 @@
     </screenshot>
   </screenshots>
   <content_rating type="oars-1.1">
-    <content_attribute id="violence-cartoon">none</content_attribute>
-    <content_attribute id="violence-fantasy">none</content_attribute>
-    <content_attribute id="violence-realistic">none</content_attribute>
-    <content_attribute id="violence-bloodshed">none</content_attribute>
-    <content_attribute id="violence-sexual">none</content_attribute>
-    <content_attribute id="violence-desecration">none</content_attribute>
-    <content_attribute id="violence-slavery">none</content_attribute>
-    <content_attribute id="violence-worship">none</content_attribute>
-    <content_attribute id="drugs-alcohol">none</content_attribute>
-    <content_attribute id="drugs-narcotics">none</content_attribute>
-    <content_attribute id="drugs-tobacco">none</content_attribute>
-    <content_attribute id="sex-nudity">none</content_attribute>
-    <content_attribute id="sex-themes">none</content_attribute>
-    <content_attribute id="sex-homosexuality">none</content_attribute>
-    <content_attribute id="sex-prostitution">none</content_attribute>
-    <content_attribute id="sex-adultery">none</content_attribute>
-    <content_attribute id="sex-appearance">none</content_attribute>
-    <content_attribute id="language-profanity">none</content_attribute>
-    <content_attribute id="language-humor">none</content_attribute>
-    <content_attribute id="language-discrimination">none</content_attribute>
-    <content_attribute id="social-chat">none</content_attribute>
     <content_attribute id="social-info">mild</content_attribute>
-    <content_attribute id="social-audio">none</content_attribute>
-    <content_attribute id="social-location">none</content_attribute>
-    <content_attribute id="social-contacts">none</content_attribute>
-    <content_attribute id="money-purchasing">none</content_attribute>
-    <content_attribute id="money-gambling">none</content_attribute>
   </content_rating>
   <releases>
     <release date="2026-06-13" version="3.1.0">
