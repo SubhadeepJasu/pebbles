@@ -5,6 +5,7 @@
 """Tokenizer"""
 
 from pebbles.core.utils import Utils
+from gi.repository import Pebbles
 
 class Tokenizer():
     """Tokenizer used to convert input expression into meaningful tokens."""
@@ -207,7 +208,9 @@ class Tokenizer():
 
 
     @staticmethod
-    def _is_number(exp: str) -> bool:
+    def _is_number(exp: str, support_hex: bool = False) -> bool:
+        if support_hex:
+            return exp.endswith(tuple([str(i) for i in range(0, 10)] + ['.', 'x'] + [ 'a', 'b', 'c', 'd', 'e', 'f' ]))
         return exp.endswith(tuple([str(i) for i in range(0, 10)] + ['.', 'x']))
 
 
@@ -239,7 +242,7 @@ class Tokenizer():
 
 
     @staticmethod
-    def _unary_minus_convert(exp: str):
+    def _unary_minus_convert(exp: str, support_hex: bool = False) -> str:
         uniminus_converted = ''
         tokens = exp.split (' ')
         n = len(tokens)
@@ -250,7 +253,7 @@ class Tokenizer():
                         tokens [i] = '( 0 u'
                         tokens [i + 1] = tokens [i + 1] + " )"
                 elif tokens [i - 1] == ')' or tokens [i - 1] == 'x' or \
-                    Tokenizer._is_number (tokens [i - 1].strip()):
+                    Tokenizer._is_number (tokens [i - 1].strip(), support_hex):
                     tokens [i] = '-'
                 else:
                     if i < n - 1:
@@ -258,6 +261,7 @@ class Tokenizer():
                         tokens [i + 1] = tokens [i + 1] + ' )'
 
         uniminus_converted = ' '.join(tokens)
+        print("Uniminus converted:", uniminus_converted)
         return uniminus_converted
 
     # pylint: disable=fixme,too-many-branches,too-many-statements,too-many-nested-blocks
@@ -387,7 +391,7 @@ class Tokenizer():
 
 
     @staticmethod
-    def get_token_array(input_exp, number_system):
+    def get_token_array(input_exp, number_system: Pebbles.NumberSystem) -> list:
         """
         Tokenize the given string.
         """
@@ -397,7 +401,7 @@ class Tokenizer():
 
         exp = exp.strip()
         exp = Tokenizer._space_removal (exp)
-        exp = Tokenizer._unary_minus_convert(exp)
+        exp = Tokenizer._unary_minus_convert(exp, number_system == Pebbles.NumberSystem.HEXADECIMAL)
         exp = Tokenizer._space_removal(exp)
 
         str_with_uniform_spaces = Tokenizer._space_removal(exp)

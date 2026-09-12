@@ -12,8 +12,8 @@ build-options:
     PATH: /app/bin:/usr/bin:/usr/lib/sdk/gfortran-62/bin
 sources:
   - type: file
-    url: https://files.pythonhosted.org/packages/7f/a7/c1f1d978166eb6b98ad009503e4d93a8c1962d0eb14a885c352ee0276a54/numpy-2.2.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-    sha256: 5062dc1a4e32a10dc2b8b13cedd58988261416e811c1dc4dbdea4f57eea61b0d
+    url:  https://files.pythonhosted.org/packages/a5/9d/3584b9984ca4c047aea75214ce1a4c4c73d849bd71b604264b7f5653f8a8/numpy-2.4.6-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+    sha256: a7830bab239b79cda9c08c2da014761cafb48da6150e1da17ac06283f43b6089
     only-arches:
       - x86_64
     x-checker-data:
@@ -21,8 +21,8 @@ sources:
       name: numpy
 
   - type: file
-    url: https://files.pythonhosted.org/packages/7f/11/4ebd7a3f4a655764dc98481f97bd0a662fb340d1001be6050606be13e162/numpy-2.2.1-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-    sha256: 9b1d07b53b78bf84a96898c1bc139ad7f10fda7423f5fd158fd0f47ec5e01ac7
+    url: https://files.pythonhosted.org/packages/bb/c5/7b863a97a91671a0338f4253bd3b5a3d3852f0692dae91711c9f4a10e787/numpy-2.4.6-cp313-cp313-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl
+    sha256: 72fbe16c6fac95aedf5937fa873445cec2110be35d8a4e9433d7501fd98dae6b
     only-arches:
       - aarch64
     x-checker-data:
@@ -30,8 +30,8 @@ sources:
       name: numpy
 
   - type: file
-    url: https://files.pythonhosted.org/packages/ba/99/6794142b90b853a9155316c8f470d2e4821fe6f086b03e372aca848227dd/contourpy-1.3.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-    sha256: efa874e87e4a647fd2e4f514d5e91c7d493697127beb95e77d2f7561f6905bd9
+    url: https://files.pythonhosted.org/packages/68/77/8f93ecbde1a4d11dfd460cd19a0c159f5487352e751fa87f5d78cc9db08e/contourpy-1.4.0-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+    sha256: f1219a8898523cba821085f2da8a1b962cc696325763f09d7f93538ba43b2d70
     only-arches:
       - x86_64
     x-checker-data:
@@ -39,8 +39,8 @@ sources:
       name: contourpy
 
   - type: file
-    url: https://files.pythonhosted.org/packages/7f/b3/7859efce66eaca5c14ba7619791b084ed02d868d76b928ff56890d2d059d/contourpy-1.3.1-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-    sha256: ade08d343436a94e633db932e7e8407fe7de8083967962b46bdfc1b0ced39454
+    url: https://files.pythonhosted.org/packages/bf/25/97001d1fdf940e6f5adfc592d4f5899fff95daf7dceead3988fe09987d2d/contourpy-1.4.0-cp313-cp313-manylinux_2_26_aarch64.manylinux_2_28_aarch64.whl
+    sha256: 9c0e07c691f3b3321913ed9b8161c50ea5f77fadd006f52f5e755359b0dcbfc5
     only-arches:
       - aarch64
     x-checker-data:
@@ -56,8 +56,8 @@ sources:
       packagetype: bdist_wheel
 
   - type: file
-    url: https://files.pythonhosted.org/packages/99/3b/406d17b1f63e04a82aa621936e6e1c53a8c05458abd66300ac85ea7f9ae9/fonttools-4.55.3-py3-none-any.whl
-    sha256: f412604ccbeee81b091b420272841e5ec5ef68967a9790e80bffd0e30b8e2977
+    url: https://files.pythonhosted.org/packages/2c/47/c99d5268f354002ce80f8d029cd9d7d872969da1de8b93d32de4dc56d6f4/fonttools-4.63.0-py3-none-any.whl
+    sha256: 445af2eab030a16b9171ea8bdda7ebf7d96bda2df88ee182a464252f6e05e20d
     x-checker-data:
       type: pypi
       name: fonttools
@@ -72,8 +72,8 @@ sources:
       packagetype: bdist_wheel
 
   - type: file
-    url: https://files.pythonhosted.org/packages/bc/b3/9458adb9472e61a998c8c4d95cfdfec91c73c53a375b30b1428310f923e4/kiwisolver-1.4.8-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-    sha256: cc978a80a0db3a66d25767b03688f1147a69e6237175c0f4ffffaaedf744055a
+    url: https://files.pythonhosted.org/packages/2b/0a/7b98e1e119878a27ba8618ca1e18b14f992ff1eda40f47bccccf4de44121/kiwisolver-1.5.0-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+    sha256: 332b4f0145c30b5f5ad9374881133e5aa64320428a57c2c2b61e9d891a51c2f3
     only-arches:
       - x86_64
     x-checker-data:
@@ -81,8 +81,8 @@ sources:
       name: kiwisolver
 
   - type: file
-    url: https://files.pythonhosted.org/packages/29/61/39d30b99954e6b46f760e6289c12fede2ab96a254c443639052d1b573fbc/kiwisolver-1.4.8-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-    sha256: 257af1622860e51b1a9d0ce387bf5c2c4f36a90594cb9514f55b074bcc787cfc
+    url: https://files.pythonhosted.org/packages/18/d8/55638d89ffd27799d5cc3d8aa28e12f4ce7a64d67b285114dbedc8ea4136/kiwisolver-1.5.0-cp313-cp313-manylinux_2_24_aarch64.manylinux_2_28_aarch64.whl
+    sha256: 0c50b89ffd3e1a911c69a1dd3de7173c0cd10b130f56222e57898683841e4f96
     only-arches:
       - aarch64
     x-checker-data:
@@ -90,34 +90,23 @@ sources:
       name: kiwisolver
 
   - type: file
-    url: https://files.pythonhosted.org/packages/38/0d/84200ed6a871ce386ddc82904bfadc0c6b28b0c0ec78176871a4679e40b3/pillow-11.1.0-cp312-cp312-manylinux_2_28_x86_64.whl
-    sha256: 9aa9aeddeed452b2f616ff5507459e7bab436916ccb10961c4a382cd3e03f47f
-    only-arches:
-      - x86_64
+    url: https://files.pythonhosted.org/packages/8c/21/c2bcdd5906101a30244eaffc1b6e6ce71a31bd0742a01eb89e660ebfac2d/pillow-12.2.0.tar.gz
+    sha256: a830b1a40919539d07806aa58e1b114df53ddd43213d9c8b75847eee6c0182b5
     x-checker-data:
       type: pypi
       name: Pillow
 
   - type: file
-    url: https://files.pythonhosted.org/packages/08/d9/892e705f90051c7a2574d9f24579c9e100c828700d78a63239676f960b74/pillow-11.1.0-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-    sha256: 9409c080586d1f683df3f184f20e36fb647f2e0bc3988094d4fd8c9f4eb1b3b3
-    only-arches:
-      - aarch64
-    x-checker-data:
-      type: pypi
-      name: Pillow
-
-  - type: file
-    url: https://files.pythonhosted.org/packages/1c/a7/c8a2d361bf89c0d9577c934ebb7421b25dc84bf3a8e3ac0a40aed9acc547/pyparsing-3.2.1-py3-none-any.whl
-    sha256: 506ff4f4386c4cec0590ec19e6302d3aedb992fdc02c761e90416f158dacf8e1
+    url: https://files.pythonhosted.org/packages/10/bd/c038d7cc38edc1aa5bf91ab8068b63d4308c66c4c8bb3cbba7dfbc049f9c/pyparsing-3.3.2-py3-none-any.whl
+    sha256: 850ba148bd908d7e2411587e247a1e4f0327839c40e2e5e6d05a007ecc69911d
     x-checker-data:
       type: pypi
       name: pyparsing
       packagetype: bdist_wheel
 
   - type: file
-    url: https://files.pythonhosted.org/packages/a7/b2/d872fc3d753516870d520595ddd8ce4dd44fa797a240999f125f58521ad7/matplotlib-3.10.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-    sha256: 9b0558bae37f154fffda54d779a592bc97ca8b4701f1c710055b609a3bac44c8
+    url: https://files.pythonhosted.org/packages/a4/c0/1117d53077e3ac3152503a84e9cf7a5c239576805ee71276e80c2aaa7471/matplotlib-3.11.0-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+    sha256: be152b7570324dc8d01574cc9474dd2d803237acf528bcbb5b211fa347461a09
     only-arches:
       - x86_64
     x-checker-data:
@@ -125,8 +114,8 @@ sources:
       name: matplotlib
 
   - type: file
-    url: https://files.pythonhosted.org/packages/90/60/2a60342b27b90a16bada939a85e29589902b41073f59668b904b15ea666c/matplotlib-3.10.0-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-    sha256: a994f29e968ca002b50982b27168addfd65f0105610b6be7fa515ca4b5307c95
+    url: https://files.pythonhosted.org/packages/92/7e/e937138daffad65b71bf831a377809dcbc830fb4f31a31e067dc1faa2575/matplotlib-3.11.0-cp313-cp313-manylinux_2_26_aarch64.manylinux_2_28_aarch64.whl
+    sha256: 126f256df600652d7e4b394cf3164ff75210a00038f287c95a012a6f58d0e83f
     only-arches:
       - aarch64
     x-checker-data:
